@@ -1,0 +1,15 @@
+# Output products list for <pipe_la>
+_xmsgs\pn_parser.xmsgs
+pipe_la.asy
+pipe_la.cdc
+pipe_la.gise
+pipe_la.ngc
+pipe_la.v
+pipe_la.veo
+pipe_la.vhd
+pipe_la.vho
+pipe_la.xco
+pipe_la.xise
+pipe_la_flist.txt
+pipe_la_readme.txt
+pipe_la_xmdf.tcl

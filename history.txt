@@ -1,0 +1,13 @@
+======================================================================
+=                                                                    =
+=  DCFEB: Official firmware for the production boards DCFEB3b        =
+=                                                                    =
+=  AUTHORS: Ben Bylsma - The Ohio State University                   =
+=                                                                    =
+=  Version numbers are tracked in hex                                =
+======================================================================
+
+
+V50: 13 Sept. 2013, BGB
+--------------------------------
+Initial version under GIT control

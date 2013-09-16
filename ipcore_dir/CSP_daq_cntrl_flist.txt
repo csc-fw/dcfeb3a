@@ -1,0 +1,14 @@
+# Output products list for <CSP_daq_cntrl>
+CSP_daq_cntrl.asy
+CSP_daq_cntrl.gise
+CSP_daq_cntrl.ngc
+CSP_daq_cntrl.v
+CSP_daq_cntrl.veo
+CSP_daq_cntrl.vhd
+CSP_daq_cntrl.vho
+CSP_daq_cntrl.xco
+CSP_daq_cntrl.xise
+CSP_daq_cntrl_flist.txt
+CSP_daq_cntrl_readme.txt
+CSP_daq_cntrl_xmdf.tcl
+_xmsgs\pn_parser.xmsgs

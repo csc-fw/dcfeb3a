@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<symbol version="7" name="sem_core">
+    <symboltype>BLOCK</symboltype>
+    <timestamp>2013-8-21T16:30:37</timestamp>
+    <pin polarity="Input" x="0" y="80" name="inject_strobe" />
+    <pin polarity="Input" x="0" y="112" name="inject_address[35:0]" />
+    <pin polarity="Input" x="0" y="144" name="icap_busy" />
+    <pin polarity="Input" x="0" y="176" name="icap_o[31:0]" />
+    <pin polarity="Input" x="0" y="208" name="icap_clk" />
+    <pin polarity="Output" x="0" y="240" name="icap_csb" />
+    <pin polarity="Output" x="0" y="272" name="icap_rdwrb" />
+    <pin polarity="Output" x="0" y="304" name="icap_i[31:0]" />
+    <pin polarity="Input" x="0" y="336" name="icap_grant" />
+    <pin polarity="Output" x="0" y="368" name="icap_request" />
+    <pin polarity="Input" x="0" y="400" name="fecc_crcerr" />
+    <pin polarity="Input" x="0" y="432" name="fecc_eccerr" />
+    <pin polarity="Input" x="0" y="464" name="fecc_eccerrsingle" />
+    <pin polarity="Input" x="0" y="496" name="fecc_syndromevalid" />
+    <pin polarity="Input" x="0" y="528" name="fecc_syndrome[12:0]" />
+    <pin polarity="Input" x="0" y="560" name="fecc_far[23:0]" />
+    <pin polarity="Input" x="0" y="592" name="fecc_synbit[4:0]" />
+    <pin polarity="Input" x="0" y="624" name="fecc_synword[6:0]" />
+    <pin polarity="Output" x="736" y="80" name="status_heartbeat" />
+    <pin polarity="Output" x="736" y="112" name="status_initialization" />
+    <pin polarity="Output" x="736" y="144" name="status_observation" />
+    <pin polarity="Output" x="736" y="176" name="status_correction" />
+    <pin polarity="Output" x="736" y="208" name="status_classification" />
+    <pin polarity="Output" x="736" y="240" name="status_injection" />
+    <pin polarity="Output" x="736" y="272" name="status_critical" />
+    <pin polarity="Output" x="736" y="304" name="status_uncorrectable" />
+    <pin polarity="Output" x="736" y="336" name="monitor_txdata[7:0]" />
+    <pin polarity="Output" x="736" y="368" name="monitor_txwrite" />
+    <pin polarity="Input" x="736" y="400" name="monitor_txfull" />
+    <pin polarity="Input" x="736" y="432" name="monitor_rxdata[7:0]" />
+    <pin polarity="Output" x="736" y="464" name="monitor_rxread" />
+    <pin polarity="Input" x="736" y="496" name="monitor_rxempty" />
+    <graph>
+        <text style="fontsize:40;fontname:Arial" x="32" y="32">sem_core</text>
+        <rect width="672" x="32" y="32" height="704" />
+        <line x2="32" y1="80" y2="80" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="80" type="pin inject_strobe" />
+        <line x2="32" y1="112" y2="112" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="112" type="pin inject_address[35:0]" />
+        <line x2="32" y1="144" y2="144" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="144" type="pin icap_busy" />
+        <line x2="32" y1="176" y2="176" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="176" type="pin icap_o[31:0]" />
+        <line x2="32" y1="208" y2="208" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="208" type="pin icap_clk" />
+        <line x2="32" y1="240" y2="240" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="240" type="pin icap_csb" />
+        <line x2="32" y1="272" y2="272" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="272" type="pin icap_rdwrb" />
+        <line x2="32" y1="304" y2="304" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="304" type="pin icap_i[31:0]" />
+        <line x2="32" y1="336" y2="336" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="336" type="pin icap_grant" />
+        <line x2="32" y1="368" y2="368" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="368" type="pin icap_request" />
+        <line x2="32" y1="400" y2="400" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="400" type="pin fecc_crcerr" />
+        <line x2="32" y1="432" y2="432" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="432" type="pin fecc_eccerr" />
+        <line x2="32" y1="464" y2="464" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="464" type="pin fecc_eccerrsingle" />
+        <line x2="32" y1="496" y2="496" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="496" type="pin fecc_syndromevalid" />
+        <line x2="32" y1="528" y2="528" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="528" type="pin fecc_syndrome[12:0]" />
+        <line x2="32" y1="560" y2="560" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="560" type="pin fecc_far[23:0]" />
+        <line x2="32" y1="592" y2="592" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="592" type="pin fecc_synbit[4:0]" />
+        <line x2="32" y1="624" y2="624" style="linewidth:W" x1="0" />
+        <attrtext style="fontsize:24;fontname:Arial" attrname="PinName" x="36" y="624" type="pin fecc_synword[6:0]" />
+        <line x2="704" y1="80" y2="80" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="80" type="pin status_heartbeat" />
+        <line x2="704" y1="112" y2="112" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="112" type="pin status_initialization" />
+        <line x2="704" y1="144" y2="144" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="144" type="pin status_observation" />
+        <line x2="704" y1="176" y2="176" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="176" type="pin status_correction" />
+        <line x2="704" y1="208" y2="208" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="208" type="pin status_classification" />
+        <line x2="704" y1="240" y2="240" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="240" type="pin status_injection" />
+        <line x2="704" y1="272" y2="272" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="272" type="pin status_critical" />
+        <line x2="704" y1="304" y2="304" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="304" type="pin status_uncorrectable" />
+        <line x2="704" y1="336" y2="336" style="linewidth:W" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="336" type="pin monitor_txdata[7:0]" />
+        <line x2="704" y1="368" y2="368" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="368" type="pin monitor_txwrite" />
+        <line x2="704" y1="400" y2="400" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="400" type="pin monitor_txfull" />
+        <line x2="704" y1="432" y2="432" style="linewidth:W" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="432" type="pin monitor_rxdata[7:0]" />
+        <line x2="704" y1="464" y2="464" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="464" type="pin monitor_rxread" />
+        <line x2="704" y1="496" y2="496" x1="736" />
+        <attrtext style="alignment:RIGHT;fontsize:24;fontname:Arial" attrname="PinName" x="700" y="496" type="pin monitor_rxempty" />
+    </graph>
+</symbol>
