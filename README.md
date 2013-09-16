@@ -1,4 +1,4 @@
- DCFEB firmware for production boards (V3) with ISE 12.4
+ DCFEB V3 firmware with ISE 12.4
 ================================================================
 Official firmware for the Digital Cathode Front-End board (DCFEB)
 production boards for the ME1/1 station of the Endcap MUon (EMU)
