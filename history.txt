@@ -8,6 +8,11 @@
 ======================================================================
 
 
+V50: 17 Sept. 2013, BGB
+--------------------------------
+Reintroduce ipcore files for adc_frame_clk.xco for simulations.
+These files were mistakenly "cleaned".
+
 V50: 13 Sept. 2013, BGB
 --------------------------------
 Initial version under GIT control
