@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 1.0
+// \   \   \/     Version    : 14.6
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : bpi_vio.veo
-// /___/   /\     Timestamp  : Thu Feb 14 17:28:09 Eastern Standard Time 2013
+// /___/   /\     Timestamp  : Wed Sep 18 15:58:07 Eastern Daylight Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

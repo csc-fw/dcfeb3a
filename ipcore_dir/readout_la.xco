@@ -1,26 +1,47 @@
 ##############################################################
+#
+# Xilinx Core Generator version 14.6
+# Date: Wed Sep 18 20:37:59 2013
+#
 ##############################################################
+#
+#  This file contains the customisation parameters for a
+#  Xilinx CORE Generator IP GUI. It is strongly recommended
+#  that you do not manually alter this file as it may cause
+#  unexpected and unsupported behavior.
+#
 ##############################################################
+#
+#  Generated from component: xilinx.com:ip:chipscope_ila:1.05.a
+#
+##############################################################
+#
+# BEGIN Project Options
 SET addpads = false
 SET asysymbol = true
+SET busformat = BusFormatAngleBracketNotRipped
 SET createndf = false
+SET designentry = Verilog
+SET device = xc6vlx130t
+SET devicefamily = virtex6
+SET flowvendor = Other
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
-SET removerpms = false
-SET simulationfiles = Behavioral
-SET workingdirectory = ./tmp/
-SET designentry = Verilog
-SET BusFormat = BusFormatAngleBracketNotRipped
-SET devicefamily = virtex6
-SET device = xc6vlx130t
 SET package = ff1156
+SET removerpms = false
+SET simulationfiles = Structural
 SET speedgrade = -1
-SET FlowVendor = Foundation_ISE
-SET VerilogSim = True
-SET VHDLSim = True
-SELECT ILA_(ChipScope_Pro_-_Integrated_Logic_Analyzer) family Xilinx,_Inc. 1.03.a
+SET verilogsim = true
+SET vhdlsim = false
+# END Project Options
+# BEGIN Select
+SELECT ILA_(ChipScope_Pro_-_Integrated_Logic_Analyzer) family Xilinx,_Inc. 1.05.a
+# END Select
+# BEGIN Parameters
+CSET check_bramcount=false
 CSET component_name=readout_la
+CSET constraint_type=external
 CSET counter_width_1=3
 CSET counter_width_10=Disabled
 CSET counter_width_11=Disabled
@@ -39,8 +60,10 @@ CSET counter_width_8=Disabled
 CSET counter_width_9=Disabled
 CSET data_port_width=128
 CSET data_same_as_trigger=false
+CSET disable_save_keep=false
 CSET enable_storage_qualification=true
 CSET enable_trigger_output_port=false
+CSET example_design=false
 CSET exclude_from_data_storage_1=true
 CSET exclude_from_data_storage_10=true
 CSET exclude_from_data_storage_11=true
@@ -109,4 +132,10 @@ CSET trigger_port_width_6=8
 CSET trigger_port_width_7=8
 CSET trigger_port_width_8=8
 CSET trigger_port_width_9=8
-CSET use_rpms=true
+CSET use_rpms=false
+# END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2013-06-08T17:29:07Z
+# END Extra information
+GENERATE
+# CRC: e5ec7b4b

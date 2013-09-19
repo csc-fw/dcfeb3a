@@ -1,59 +1,51 @@
-The following files were generated for 'adc_mem_vio' in directory 
-C:\Users\bylsma\Projects\DCFEB\firmware\dcfeb_f1.0\ipcore_dir\
+The following files were generated for 'adc_mem_vio' in directory
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
 
-adc_mem_vio.asy:
-   Graphical symbol information file. Used by the ISE tools and some
-   third party tools to create a symbol representing the core.
+XCO file generator:
+   Generate an XCO file for compatibility with legacy flows.
 
-adc_mem_vio.cdc:
-   Please see the core data sheet.
+   * adc_mem_vio.xco
 
-adc_mem_vio.gise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+Creates an implementation netlist:
+   Creates an implementation netlist for the IP.
 
-adc_mem_vio.ngc:
-   Binary Xilinx implementation netlist file containing the information
-   required to implement the module in a Xilinx (R) FPGA.
+   * adc_mem_vio.cdc
+   * adc_mem_vio.constraints/adc_mem_vio.ucf
+   * adc_mem_vio.constraints/adc_mem_vio.xdc
+   * adc_mem_vio.ngc
+   * adc_mem_vio.ucf
+   * adc_mem_vio.v
+   * adc_mem_vio.veo
+   * adc_mem_vio.xdc
+   * adc_mem_vio_xmdf.tcl
 
-adc_mem_vio.v:
-   Verilog wrapper file provided to support functional simulation.
-   This file contains simulation model customization data that is
-   passed to a parameterized simulation model for the core.
+IP Symbol Generator:
+   Generate an IP symbol based on the current project options'.
 
-adc_mem_vio.veo:
-   VEO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a Verilog design.
+   * adc_mem_vio.asy
 
-adc_mem_vio.vhd:
-   VHDL wrapper file provided to support functional simulation. This
-   file contains simulation model customization data that is passed to
-   a parameterized simulation model for the core.
+SYM file generator:
+   Generate a SYM file for compatibility with legacy flows
 
-adc_mem_vio.vho:
-   VHO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a VHDL design.
+   * adc_mem_vio.sym
 
-adc_mem_vio.xco:
-   CORE Generator input file containing the parameters used to
-   regenerate a core.
+Generate ISE subproject:
+   Create an ISE subproject for use when including this core in ISE designs
 
-adc_mem_vio.xise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+   * _xmsgs/pn_parser.xmsgs
+   * adc_mem_vio.gise
+   * adc_mem_vio.xise
 
-adc_mem_vio_readme.txt:
-   Text file indicating the files generated and how they are used.
+Deliver Readme:
+   Readme file for the IP.
 
-adc_mem_vio_xmdf.tcl:
-   ISE Project Navigator interface file. ISE uses this file to determine
-   how the files output by CORE Generator for the core can be integrated
-   into your ISE project.
+   * adc_mem_vio_readme.txt
 
-adc_mem_vio_flist.txt:
-   Text file listing all of the output files produced when a customized
-   core was generated in the CORE Generator.
+Generate FLIST file:
+   Text file listing all of the output files produced when a customized core was
+   generated in the CORE Generator.
 
+   * adc_mem_vio_flist.txt
 
 Please see the Xilinx CORE Generator online help for further details on
 generated files and how to use them.

@@ -75,7 +75,7 @@ cd results
 
 # Build the design from component netlists
 echo 'Running ngdbuild'
-ngdbuild -sd ../../.. -sd ../../example_design -uc ../../example_design/sem_example.ucf sem_example.ngc
+ngdbuild -sd ../../.. -sd ../../example_design -uc ../../example_design/sem_core_sem_example.ucf sem_example.ngc
 
 # Map the design into the target device
 echo 'Running map'
@@ -83,7 +83,7 @@ map sem_example.ngd -detail -o mapped.ncd mapped.pcf
 
 # Place and route the design
 echo 'Running par'
-par -ol std mapped.ncd routed mapped.pcf
+par mapped.ncd routed mapped.pcf
 
 # Perform static timing analysis
 echo 'Running trce'

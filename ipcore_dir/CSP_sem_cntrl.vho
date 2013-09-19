@@ -5,14 +5,15 @@
 --   ____  ____
 --  /   /\/   /
 -- /___/  \  /    Vendor     : Xilinx
--- \   \   \/     Version    : 1.0
+-- \   \   \/     Version    : 14.6
 --  \   \         Application: Xilinx CORE Generator
 --  /   /         Filename   : CSP_sem_cntrl.vho
--- /___/   /\     Timestamp  : Wed Aug 21 14:19:10 Eastern Daylight Time 2013
+-- /___/   /\     Timestamp  : Wed Sep 18 12:04:41 Eastern Daylight Time 2013
 -- \   \  /  \
 --  \___\/\___\
 --
 -- Design Name: ISE Instantiation template
+-- Component Identifier: xilinx.com:ip:chipscope_icon:1.04.a
 -------------------------------------------------------------------------------
 -- The following code must appear in the VHDL architecture header:
 

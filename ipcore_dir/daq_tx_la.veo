@@ -1,14 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2012 Xilinx, Inc.
+// Copyright (c) 2013 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 1.0
+// \   \   \/     Version    : 14.6
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : daq_tx_la.veo
-// /___/   /\     Timestamp  : Mon Nov 12 12:33:47 Eastern Standard Time 2012
+// /___/   /\     Timestamp  : Wed Sep 18 16:45:03 Eastern Daylight Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

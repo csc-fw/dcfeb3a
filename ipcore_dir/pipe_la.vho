@@ -5,14 +5,15 @@
 --   ____  ____
 --  /   /\/   /
 -- /___/  \  /    Vendor     : Xilinx
--- \   \   \/     Version    : 1.0
+-- \   \   \/     Version    : 14.6
 --  \   \         Application: Xilinx CORE Generator
 --  /   /         Filename   : pipe_la.vho
--- /___/   /\     Timestamp  : Thu Aug 08 13:20:59 Eastern Daylight Time 2013
+-- /___/   /\     Timestamp  : Wed Sep 18 12:29:25 Eastern Daylight Time 2013
 -- \   \  /  \
 --  \___\/\___\
 --
 -- Design Name: ISE Instantiation template
+-- Component Identifier: xilinx.com:ip:chipscope_ila:1.03.a
 -------------------------------------------------------------------------------
 -- The following code must appear in the VHDL architecture header:
 

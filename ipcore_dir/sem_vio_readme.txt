@@ -1,59 +1,51 @@
-The following files were generated for 'sem_vio' in directory 
-C:\Users\bylsma\Projects\DCFEB\firmware\dcfeb_f3.0\ipcore_dir\
+The following files were generated for 'sem_vio' in directory
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
 
-sem_vio.asy:
-   Graphical symbol information file. Used by the ISE tools and some
-   third party tools to create a symbol representing the core.
+XCO file generator:
+   Generate an XCO file for compatibility with legacy flows.
 
-sem_vio.cdc:
-   Please see the core data sheet.
+   * sem_vio.xco
 
-sem_vio.gise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+Creates an implementation netlist:
+   Creates an implementation netlist for the IP.
 
-sem_vio.ngc:
-   Binary Xilinx implementation netlist file containing the information
-   required to implement the module in a Xilinx (R) FPGA.
+   * sem_vio.cdc
+   * sem_vio.constraints/sem_vio.ucf
+   * sem_vio.constraints/sem_vio.xdc
+   * sem_vio.ngc
+   * sem_vio.ucf
+   * sem_vio.v
+   * sem_vio.veo
+   * sem_vio.xdc
+   * sem_vio_xmdf.tcl
 
-sem_vio.v:
-   Verilog wrapper file provided to support functional simulation.
-   This file contains simulation model customization data that is
-   passed to a parameterized simulation model for the core.
+IP Symbol Generator:
+   Generate an IP symbol based on the current project options'.
 
-sem_vio.veo:
-   VEO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a Verilog design.
+   * sem_vio.asy
 
-sem_vio.vhd:
-   VHDL wrapper file provided to support functional simulation. This
-   file contains simulation model customization data that is passed to
-   a parameterized simulation model for the core.
+SYM file generator:
+   Generate a SYM file for compatibility with legacy flows
 
-sem_vio.vho:
-   VHO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a VHDL design.
+   * sem_vio.sym
 
-sem_vio.xco:
-   CORE Generator input file containing the parameters used to
-   regenerate a core.
+Generate ISE subproject:
+   Create an ISE subproject for use when including this core in ISE designs
 
-sem_vio.xise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+   * _xmsgs/pn_parser.xmsgs
+   * sem_vio.gise
+   * sem_vio.xise
 
-sem_vio_readme.txt:
-   Text file indicating the files generated and how they are used.
+Deliver Readme:
+   Readme file for the IP.
 
-sem_vio_xmdf.tcl:
-   ISE Project Navigator interface file. ISE uses this file to determine
-   how the files output by CORE Generator for the core can be integrated
-   into your ISE project.
+   * sem_vio_readme.txt
 
-sem_vio_flist.txt:
-   Text file listing all of the output files produced when a customized
-   core was generated in the CORE Generator.
+Generate FLIST file:
+   Text file listing all of the output files produced when a customized core was
+   generated in the CORE Generator.
 
+   * sem_vio_flist.txt
 
 Please see the Xilinx CORE Generator online help for further details on
 generated files and how to use them.

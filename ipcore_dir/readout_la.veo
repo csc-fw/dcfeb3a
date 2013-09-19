@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 1.0
+// \   \   \/     Version    : 14.6
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : readout_la.veo
-// /___/   /\     Timestamp  : Fri May 03 16:34:19 Eastern Daylight Time 2013
+// /___/   /\     Timestamp  : Wed Sep 18 16:41:00 Eastern Daylight Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

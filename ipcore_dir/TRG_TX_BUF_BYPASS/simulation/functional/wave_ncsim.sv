@@ -1,7 +1,7 @@
 
 ###############################################################################
 ##
-## (c) Copyright 2009-2010 Xilinx, Inc. All rights reserved.
+## (c) Copyright 2009-2011 Xilinx, Inc. All rights reserved.
 ##
 ## This file contains confidential and proprietary information
 ## of Xilinx, Inc. and is protected under U.S. and
@@ -52,31 +52,31 @@
   
   waveform  add  -label GTX0_TRG_TX_BUF_BYPASS -comment GTX0_TRG_TX_BUF_BYPASS
   waveform  add  -label Receive_Ports_-_RX_Driver,OOB_signalling,Coupling_and_Eq.,CDR  -comment  Receive_Ports_-_RX_Driver,OOB_signalling,Coupling_and_Eq.,CDR
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:RXN_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:RXP_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.RXN_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.RXP_IN
   waveform  add  -label Transmit_Ports_-_8b10b_Encoder_Control_Ports  -comment  Transmit_Ports_-_8b10b_Encoder_Control_Ports
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXCHARISK_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXCHARISK_IN
   waveform  add  -label Transmit_Ports_-_TX_Data_Path_interface  -comment  Transmit_Ports_-_TX_Data_Path_interface
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXDATA_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXOUTCLK_OUT
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXUSRCLK_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXUSRCLK2_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXDATA_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXOUTCLK_OUT
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXUSRCLK_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXUSRCLK2_IN
   waveform  add  -label Transmit_Ports_-_TX_Driver_and_OOB_signaling  -comment  Transmit_Ports_-_TX_Driver_and_OOB_signaling
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXN_OUT
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXP_OUT
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXN_OUT
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXP_OUT
   waveform  add  -label Transmit_Ports_-_TX_Elastic_Buffer_and_Phase_Alignment_Ports  -comment  Transmit_Ports_-_TX_Elastic_Buffer_and_Phase_Alignment_Ports
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXDLYALIGNDISABLE_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXDLYALIGNMONENB_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXDLYALIGNMONITOR_OUT
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXDLYALIGNRESET_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXENPMAPHASEALIGN_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXPMASETPHASE_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXDLYALIGNDISABLE_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXDLYALIGNMONENB_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXDLYALIGNMONITOR_OUT
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXDLYALIGNRESET_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXENPMAPHASEALIGN_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXPMASETPHASE_IN
   waveform  add  -label Transmit_Ports_-_TX_PLL_Ports  -comment  Transmit_Ports_-_TX_PLL_Ports
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:GTXTXRESET_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:MGTREFCLKTX_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:PLLTXRESET_IN
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXPLLLKDET_OUT
-  waveform  add  -signals  :trg_tx_buf_bypass_top_i:trg_tx_buf_bypass_i:gtx0_trg_tx_buf_bypass_i:TXRESETDONE_OUT
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.GTXTXRESET_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.MGTREFCLKTX_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.PLLTXRESET_IN
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXPLLLKDET_OUT
+  waveform  add  -signals  DEMO_TB.TRG_TX_BUF_BYPASS_top_i.TRG_TX_BUF_BYPASS_i.gtx0_TRG_TX_BUF_BYPASS_i.TXRESETDONE_OUT
 
   console submit -using simulator -wait no "run 145 us"
 

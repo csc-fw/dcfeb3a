@@ -1,14 +1,14 @@
 #ChipScope Pro Analyzer Project File, Version 3.0
 #Thu Jul 27 15:56:09 IST 2006
-device.1.configFileDir=C:\Users\bylsma\Projects\DCFEB\firmware\dcfeb_f1.0\ipcore_dir\.\tmp\_cg
-device.1.configFilename=trg_tx_buf_bypass_top.bit
+device.1.configFileDir=C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.6/dcfeb_f3a/ipcore_dir/TRG_TX_BUF_BYPASS/implement/
+device.1.configFilename=TRG_TX_BUF_BYPASS_top.bit
 deviceChain.deviceName0=System_ACE
 deviceChain.deviceName1=XC6VLX130T
 deviceChain.iRLength0=8
 deviceChain.iRLength1=10
 deviceChain.name0=MyDevice0
 deviceChain.name1=MyDevice1
-deviceIds=0a00109302a96093
+#deviceIds=0a00109302a96093
 focus=
 mdiAreaHeight=0.7984031936127745
 mdiAreaHeightLast=0.7984031936127745

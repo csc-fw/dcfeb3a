@@ -8,6 +8,15 @@
 ======================================================================
 
 
+V51: 19 Sept. 2013, BGB
+--------------------------------
+Started a branch for ISE 14.6
+Used the latest version of the wizards to regenerate all Xilinx cores
+in the project, (clock managers, GTX transceivers, and Chip Scope Pro).
+In particular we are now using the latest version of the Soft Error
+Mitigation (SEM) IP.  We had issues with the version provided with
+ISE 12.4.  The was the main reason for trying ISE 14.6.
+
 V50: 17 Sept. 2013, BGB
 --------------------------------
 Reintroduce ipcore files for adc_frame_clk.xco for simulations.

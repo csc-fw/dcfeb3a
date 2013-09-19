@@ -1,14 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2011 Xilinx, Inc.
+// Copyright (c) 2013 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 1.0
+// \   \   \/     Version    : 14.6
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : adc_cnfg_mem_la.veo
-// /___/   /\     Timestamp  : Fri Apr 29 11:49:24 Eastern Daylight Time 2011
+// /___/   /\     Timestamp  : Wed Sep 18 17:18:58 Eastern Daylight Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

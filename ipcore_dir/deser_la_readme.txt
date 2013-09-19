@@ -1,59 +1,52 @@
-The following files were generated for 'deser_la' in directory 
-C:\Users\bylsma\Projects\DCFEB\firmware\dcfeb_f3.0\ipcore_dir\
+The following files were generated for 'deser_la' in directory
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
 
-deser_la.asy:
-   Graphical symbol information file. Used by the ISE tools and some
-   third party tools to create a symbol representing the core.
+XCO file generator:
+   Generate an XCO file for compatibility with legacy flows.
 
-deser_la.cdc:
-   Please see the core data sheet.
+   * deser_la.xco
 
-deser_la.gise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+Creates an implementation netlist:
+   Creates an implementation netlist for the IP.
 
-deser_la.ngc:
-   Binary Xilinx implementation netlist file containing the information
-   required to implement the module in a Xilinx (R) FPGA.
+   * deser_la.cdc
+   * deser_la.constraints/deser_la.ucf
+   * deser_la.constraints/deser_la.xdc
+   * deser_la.ncf
+   * deser_la.ngc
+   * deser_la.ucf
+   * deser_la.v
+   * deser_la.veo
+   * deser_la.xdc
+   * deser_la_xmdf.tcl
 
-deser_la.v:
-   Verilog wrapper file provided to support functional simulation.
-   This file contains simulation model customization data that is
-   passed to a parameterized simulation model for the core.
+IP Symbol Generator:
+   Generate an IP symbol based on the current project options'.
 
-deser_la.veo:
-   VEO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a Verilog design.
+   * deser_la.asy
 
-deser_la.vhd:
-   VHDL wrapper file provided to support functional simulation. This
-   file contains simulation model customization data that is passed to
-   a parameterized simulation model for the core.
+SYM file generator:
+   Generate a SYM file for compatibility with legacy flows
 
-deser_la.vho:
-   VHO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a VHDL design.
+   * deser_la.sym
 
-deser_la.xco:
-   CORE Generator input file containing the parameters used to
-   regenerate a core.
+Generate ISE subproject:
+   Create an ISE subproject for use when including this core in ISE designs
 
-deser_la.xise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+   * _xmsgs/pn_parser.xmsgs
+   * deser_la.gise
+   * deser_la.xise
 
-deser_la_readme.txt:
-   Text file indicating the files generated and how they are used.
+Deliver Readme:
+   Readme file for the IP.
 
-deser_la_xmdf.tcl:
-   ISE Project Navigator interface file. ISE uses this file to determine
-   how the files output by CORE Generator for the core can be integrated
-   into your ISE project.
+   * deser_la_readme.txt
 
-deser_la_flist.txt:
-   Text file listing all of the output files produced when a customized
-   core was generated in the CORE Generator.
+Generate FLIST file:
+   Text file listing all of the output files produced when a customized core was
+   generated in the CORE Generator.
 
+   * deser_la_flist.txt
 
 Please see the Xilinx CORE Generator online help for further details on
 generated files and how to use them.

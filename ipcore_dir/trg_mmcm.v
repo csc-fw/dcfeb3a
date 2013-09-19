@@ -1,6 +1,6 @@
 // file: trg_mmcm.v
 // 
-// (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+// (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -52,21 +52,21 @@
 // None
 //
 //----------------------------------------------------------------------------
-// Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
-// Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+// "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
+// "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 //----------------------------------------------------------------------------
-// CLK_OUT1   160.000    270.000      50.0      116.326     95.014
-// CLK_OUT2    80.000    315.000      50.0      132.221     95.014
-// CLK_OUT3    40.000      0.000      50.0      153.625     95.014
+// CLK_OUT1___160.000____270.000______50.0______116.326_____95.014
+// CLK_OUT2____80.000____315.000______50.0______132.221_____95.014
+// CLK_OUT3____40.000______0.000______50.0______153.625_____95.014
 //
 //----------------------------------------------------------------------------
-// Input Clock   Input Freq (MHz)   Input Jitter (UI)
+// "Input Clock   Freq (MHz)    Input Jitter (UI)"
 //----------------------------------------------------------------------------
-// primary          80.000            0.010
+// __primary__________80.000____________0.010
 
 `timescale 1ps/1ps
 
-(* CORE_GENERATION_INFO = "trg_mmcm,clk_wiz_v1_8,{component_name=trg_mmcm,use_phase_alignment=true,use_min_o_jitter=true,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,feedback_source=FDBK_AUTO,primtype_sel=MMCM_ADV,num_out_clk=3,clkin1_period=12.5,clkin2_period=10.0,use_power_down=false,use_reset=true,use_locked=true,use_inclk_stopped=false,use_status=false,use_freeze=false,use_clk_valid=false,feedback_type=SINGLE,clock_mgr_type=MANUAL,manual_override=false}" *)
+(* CORE_GENERATION_INFO = "trg_mmcm,clk_wiz_v3_6,{component_name=trg_mmcm,use_phase_alignment=true,use_min_o_jitter=true,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,feedback_source=FDBK_AUTO,primtype_sel=MMCM_ADV,num_out_clk=3,clkin1_period=12.500,clkin2_period=10.0,use_power_down=false,use_reset=true,use_locked=true,use_inclk_stopped=false,use_status=false,use_freeze=false,use_clk_valid=false,feedback_type=SINGLE,clock_mgr_type=MANUAL,manual_override=false}" *)
 module trg_mmcm
  (// Clock in ports
   input         CLK_IN1,
@@ -128,7 +128,7 @@ module trg_mmcm
     .CLKOUT2_PHASE        (0.000),
     .CLKOUT2_DUTY_CYCLE   (0.500),
     .CLKOUT2_USE_FINE_PS  ("FALSE"),
-    .CLKIN1_PERIOD        (12.5),
+    .CLKIN1_PERIOD        (12.500),
     .REF_JITTER1          (0.010))
   mmcm_adv_inst
     // Output clocks
@@ -176,7 +176,6 @@ module trg_mmcm
   BUFG clkf_buf
    (.O (clkfbout_buf),
     .I (clkfbout));
-
 
   BUFG clkout1_buf
    (.O   (CLK_OUT1),

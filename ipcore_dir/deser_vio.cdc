@@ -1,5 +1,5 @@
 #ChipScope Core Generator Project File Version 3.0
-#Thu Jun 13 09:36:20 Eastern Daylight Time 2013
+#Wed Sep 18 16:10:57 Eastern Daylight Time 2013
 SignalExport.asyncInputWidth=0
 SignalExport.asyncOutputWidth=0
 SignalExport.clockChannel=CLK

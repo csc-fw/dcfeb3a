@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 1.0
+// \   \   \/     Version    : 14.6
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : CSP_sem_cntrl.veo
-// /___/   /\     Timestamp  : Wed Aug 21 14:19:10 Eastern Daylight Time 2013
+// /___/   /\     Timestamp  : Wed Sep 18 15:54:15 Eastern Daylight Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

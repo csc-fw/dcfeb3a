@@ -1,6 +1,6 @@
                Core name: Xilinx LogiCORE System Monitor Wizard
-                Version: System Monitor Wizard v2.1
-                Release Date: December 14, 2010
+                Version: System Monitor Wizard v2.1 Rev 2
+                Release Date: June 22, 2011
 
 
 ================================================================================
@@ -45,13 +45,14 @@ http://www.xilinx.com/products/design_resources/conn_central/solution_kits/wizar
  
 The following device families are supported by the core for this release.
 
-Virtex-6 XC CXT/LXT/SXT/HXT
+Virtex-6 XC LXT/SXT/HXT
 Virtex-6 XQ LXT/SXT                                                       
 Virtex-6 -1L XC LXT/SXT 
 Virtex-5
 
 4. RESOLVED ISSUES
-
+- System Monitor wizard v2.1 does not support Virtex-6 CXT. Virtex-6 CXT devices
+  do not have SYSMON primitive.
 
 5. KNOWN ISSUES
 
@@ -77,6 +78,8 @@ designs that do not follow specified guidelines.
 
 Date        By            Version      Description
 ================================================================================
+06/22/2010  Xilinx, Inc.  2.1 Rev 2    ISE 13.4 support
+06/22/2010  Xilinx, Inc.  2.1 Rev 1    ISE 13.2 support
 12/14/2010  Xilinx, Inc.  2.1          ISE 12.4 support
 04/19/2010  Xilinx, Inc.  2.0          ISE 12.1 support
 ================================================================================

@@ -1,59 +1,57 @@
-The following files were generated for 'bpi_la' in directory 
-C:\Users\bylsma\Projects\DCFEB\firmware\dcfeb_f1.0\ipcore_dir\
+The following files were generated for 'bpi_la' in directory
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
 
-bpi_la.asy:
-   Graphical symbol information file. Used by the ISE tools and some
-   third party tools to create a symbol representing the core.
+XCO file generator:
+   Generate an XCO file for compatibility with legacy flows.
 
-bpi_la.cdc:
-   Please see the core data sheet.
+   * bpi_la.xco
 
-bpi_la.gise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+Creates an implementation netlist:
+   Creates an implementation netlist for the IP.
 
-bpi_la.ngc:
-   Binary Xilinx implementation netlist file containing the information
-   required to implement the module in a Xilinx (R) FPGA.
+   * bpi_la.cdc
+   * bpi_la.constraints/bpi_la.ucf
+   * bpi_la.constraints/bpi_la.xdc
+   * bpi_la.ncf
+   * bpi_la.ngc
+   * bpi_la.ucf
+   * bpi_la.v
+   * bpi_la.veo
+   * bpi_la.xdc
+   * bpi_la_xmdf.tcl
 
-bpi_la.v:
-   Verilog wrapper file provided to support functional simulation.
-   This file contains simulation model customization data that is
-   passed to a parameterized simulation model for the core.
+Creates an HDL instantiation template:
+   Creates an HDL instantiation template for the IP.
 
-bpi_la.veo:
-   VEO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a Verilog design.
+   * bpi_la.veo
 
-bpi_la.vhd:
-   VHDL wrapper file provided to support functional simulation. This
-   file contains simulation model customization data that is passed to
-   a parameterized simulation model for the core.
+IP Symbol Generator:
+   Generate an IP symbol based on the current project options'.
 
-bpi_la.vho:
-   VHO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a VHDL design.
+   * bpi_la.asy
 
-bpi_la.xco:
-   CORE Generator input file containing the parameters used to
-   regenerate a core.
+SYM file generator:
+   Generate a SYM file for compatibility with legacy flows
 
-bpi_la.xise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+   * bpi_la.sym
 
-bpi_la_readme.txt:
-   Text file indicating the files generated and how they are used.
+Generate ISE subproject:
+   Create an ISE subproject for use when including this core in ISE designs
 
-bpi_la_xmdf.tcl:
-   ISE Project Navigator interface file. ISE uses this file to determine
-   how the files output by CORE Generator for the core can be integrated
-   into your ISE project.
+   * _xmsgs/pn_parser.xmsgs
+   * bpi_la.gise
+   * bpi_la.xise
 
-bpi_la_flist.txt:
-   Text file listing all of the output files produced when a customized
-   core was generated in the CORE Generator.
+Deliver Readme:
+   Readme file for the IP.
 
+   * bpi_la_readme.txt
+
+Generate FLIST file:
+   Text file listing all of the output files produced when a customized core was
+   generated in the CORE Generator.
+
+   * bpi_la_flist.txt
 
 Please see the Xilinx CORE Generator online help for further details on
 generated files and how to use them.

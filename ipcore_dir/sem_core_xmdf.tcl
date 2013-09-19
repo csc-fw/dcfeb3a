@@ -14,7 +14,7 @@ namespace eval ::sem_core_xmdf {
 # Optional when the use context does not require the param or ports
 # arrays to be available.
 proc ::sem_core_xmdf::xmdfInit { instance } {
-# Variable containg name of library into which module is compiled
+# Variable containing name of library into which module is compiled
 # Recommendation: <module_name>
 # Required
 utilities_xmdf::xmdfSetData $instance Module Attributes Name sem_core
@@ -30,17 +30,12 @@ set fcount 0
 # Examples include unisim and xilinxcorelib
 # Optional
 # In this example, we assume that the unisim library will
-# be magically
-# available to the simulation and synthesis tool
+# be available to the simulation and synthesis tool
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type logical_library
 utilities_xmdf::xmdfSetData $instance FileSet $fcount logical_library unisim
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/doc/ds796_sem.pdf
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/doc/ug764_sem.pdf
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/doc/pg036_sem.pdf
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
@@ -48,43 +43,35 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/exa
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_cfg.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_core_sem_cfg.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_example.ucf
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_core_sem_example.ucf
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_example.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_core_sem_example.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_hid.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_core_sem_hid.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_mon.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_core_sem_mon.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_mon_fifo.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_core_sem_mon_fifo.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_mon_piso.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_core_sem_mon_piso.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_mon_sipo.v
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_target.v
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_userapp.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/example_design/sem_core_sem_mon_sipo.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
@@ -104,7 +91,7 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/imp
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/sem_readme.txt
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core/sem_v3_6_readme.txt
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
@@ -114,10 +101,6 @@ incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core.ngc
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type ngc
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core.sym
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type symbol
 incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core.v

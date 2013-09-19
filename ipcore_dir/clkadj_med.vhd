@@ -1,6 +1,6 @@
 -- file: clkadj_med.vhd
 -- 
--- (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -52,19 +52,19 @@
 -- None
 --
 ------------------------------------------------------------------------------
--- Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
--- Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+-- "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
+-- "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 ------------------------------------------------------------------------------
--- CLK_OUT1    20.000    345.000      50.0      263.808    309.209
--- CLK_OUT2    20.000     30.000      50.0      263.808    309.209
--- CLK_OUT3    20.000     75.000      50.0      263.808    309.209
--- CLK_OUT4    20.000    120.000      50.0      263.808    309.209
+-- CLK_OUT1____20.000____345.000______50.0______263.808____309.209
+-- CLK_OUT2____20.000_____30.000______50.0______263.808____309.209
+-- CLK_OUT3____20.000_____75.000______50.0______263.808____309.209
+-- CLK_OUT4____20.000____120.000______50.0______263.808____309.209
 --
 ------------------------------------------------------------------------------
--- Input Clock   Input Freq (MHz)   Input Jitter (UI)
+-- "Input Clock   Freq (MHz)    Input Jitter (UI)"
 ------------------------------------------------------------------------------
--- primary          20.000            0.010
--- secondary        20.000            0.010
+-- __primary__________20.000____________0.010
+-- _secondary________20.000____________0.010
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -80,7 +80,7 @@ port
  (-- Clock in ports
   CLK_IN1           : in     std_logic;
   CLK_IN2           : in     std_logic;
-  CLK_IN_SEL        : in     std_logic;
+  CLK_IN_SEL           : in     std_logic;
   CLKFB_IN          : in     std_logic;
   -- Clock out ports
   CLK_OUT1          : out    std_logic;
@@ -96,7 +96,7 @@ end clkadj_med;
 
 architecture xilinx of clkadj_med is
   attribute CORE_GENERATION_INFO : string;
-  attribute CORE_GENERATION_INFO of xilinx : architecture is "clkadj_med,clk_wiz_v1_8,{component_name=clkadj_med,use_phase_alignment=true,use_min_o_jitter=true,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=true,use_dyn_reconfig=false,feedback_source=FDBK_ONCHIP,primtype_sel=MMCM_ADV,num_out_clk=4,clkin1_period=50.0,clkin2_period=50.0,use_power_down=false,use_reset=true,use_locked=true,use_inclk_stopped=false,use_status=false,use_freeze=false,use_clk_valid=false,feedback_type=SINGLE,clock_mgr_type=MANUAL,manual_override=false}";
+  attribute CORE_GENERATION_INFO of xilinx : architecture is "clkadj_med,clk_wiz_v3_6,{component_name=clkadj_med,use_phase_alignment=true,use_min_o_jitter=true,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=true,use_dyn_reconfig=false,feedback_source=FDBK_ONCHIP,primtype_sel=MMCM_ADV,num_out_clk=4,clkin1_period=50.0,clkin2_period=50.0,use_power_down=false,use_reset=true,use_locked=true,use_inclk_stopped=false,use_status=false,use_freeze=false,use_clk_valid=false,feedback_type=SINGLE,clock_mgr_type=MANUAL,manual_override=false}";
   -- Input clock buffering / unused connectors
   signal clkin1      : std_logic;
   signal clkin2      : std_logic;
@@ -136,7 +136,6 @@ begin
   -- Instantiation of the MMCM primitive
   --    * Unused inputs are tied off
   --    * Unused outputs are labeled unused
-
   mmcm_adv_inst : MMCM_ADV
   generic map
    (BANDWIDTH            => "OPTIMIZED",

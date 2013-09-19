@@ -1,7 +1,7 @@
 ##############################################################
 #
-# Xilinx Core Generator version 12.4
-# Date: Tue Jun 18 14:44:18 2013
+# Xilinx Core Generator version 14.6
+# Date: Wed Sep 18 19:50:23 2013
 #
 ##############################################################
 #
@@ -9,6 +9,10 @@
 #  Xilinx CORE Generator IP GUI. It is strongly recommended
 #  that you do not manually alter this file as it may cause
 #  unexpected and unsupported behavior.
+#
+##############################################################
+#
+#  Generated from component: xilinx.com:ip:chipscope_icon:1.06.a
 #
 ##############################################################
 #
@@ -20,7 +24,7 @@ SET createndf = false
 SET designentry = Verilog
 SET device = xc6vlx130t
 SET devicefamily = virtex6
-SET flowvendor = Foundation_ISE
+SET flowvendor = Other
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
@@ -29,19 +33,24 @@ SET removerpms = false
 SET simulationfiles = Structural
 SET speedgrade = -1
 SET verilogsim = true
-SET vhdlsim = true
+SET vhdlsim = false
 # END Project Options
 # BEGIN Select
-SELECT ICON_(ChipScope_Pro_-_Integrated_Controller) family Xilinx,_Inc. 1.04.a
+SELECT ICON_(ChipScope_Pro_-_Integrated_Controller) family Xilinx,_Inc. 1.06.a
 # END Select
 # BEGIN Parameters
 CSET component_name=CSP_deser_cntrl
+CSET constraint_type=external
 CSET enable_jtag_bufg=true
+CSET example_design=false
 CSET number_control_ports=4
 CSET use_ext_bscan=false
 CSET use_softbscan=false
 CSET use_unused_bscan=false
 CSET user_scan_chain=USER3
 # END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2013-06-08T17:28:33Z
+# END Extra information
 GENERATE
-# CRC: 49e75dfb
+# CRC: 8ee939cc

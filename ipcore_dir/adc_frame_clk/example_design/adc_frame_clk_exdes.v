@@ -1,6 +1,6 @@
 // file: adc_frame_clk_exdes.v
 // 
-// (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+// (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -66,6 +66,7 @@ module adc_frame_clk_exdes
   input         CLK_IN_SEL,
   // Reset that only drives logic in example design
   input         COUNTER_RESET,
+  output [3:1]  CLK_OUT,
   // High bits of counters driven by clocks
   output [3:1]  COUNT,
   // Status and control signals
@@ -82,6 +83,12 @@ module adc_frame_clk_exdes
   genvar        count_gen;
   // When the clock goes out of lock, reset the counters
   wire          reset_int = !LOCKED || RESET || COUNTER_RESET;
+
+   reg [NUM_C:1] rst_sync;
+   reg [NUM_C:1] rst_sync_int;
+   reg [NUM_C:1] rst_sync_int1;
+   reg [NUM_C:1] rst_sync_int2;
+
 
   // Declare the clocks and counters
   wire [NUM_C:1] clk_int;
@@ -112,6 +119,22 @@ module adc_frame_clk_exdes
     .RESET              (RESET),
     .LOCKED             (LOCKED));
 
+genvar clk_out_pins;
+
+generate 
+  for (clk_out_pins = 1; clk_out_pins <= NUM_C; clk_out_pins = clk_out_pins + 1) 
+  begin: gen_outclk_oddr
+  ODDR clkout_oddr
+   (.Q  (CLK_OUT[clk_out_pins]),
+    .C  (clk[clk_out_pins]),
+    .CE (1'b1),
+    .D1 (1'b1),
+    .D2 (1'b0),
+    .R  (1'b0),
+    .S  (1'b0));
+  end
+endgenerate
+
   // Connect the output clocks to the design
   //-----------------------------------------
   assign clk[1] = clk_int[1];
@@ -119,12 +142,33 @@ module adc_frame_clk_exdes
   assign clk[3] = clk_int[3];
 
 
+  // Reset synchronizer
+  //-----------------------------------
+  generate for (count_gen = 1; count_gen <= NUM_C; count_gen = count_gen + 1) begin: counters_1
+    always @(posedge reset_int or posedge clk[count_gen]) begin
+       if (reset_int) begin
+            rst_sync[count_gen] <= 1'b1;
+            rst_sync_int[count_gen]<= 1'b1;
+            rst_sync_int1[count_gen]<= 1'b1;
+            rst_sync_int2[count_gen]<= 1'b1;
+       end
+       else begin
+            rst_sync[count_gen] <= 1'b0;
+            rst_sync_int[count_gen] <= rst_sync[count_gen];     
+            rst_sync_int1[count_gen] <= rst_sync_int[count_gen]; 
+            rst_sync_int2[count_gen] <= rst_sync_int1[count_gen];
+       end
+    end
+  end
+  endgenerate
+
+
   // Output clock sampling
   //-----------------------------------
   generate for (count_gen = 1; count_gen <= NUM_C; count_gen = count_gen + 1) begin: counters
 
-    always @(posedge clk[count_gen]) begin
-      if (reset_int) begin
+    always @(posedge clk[count_gen] or posedge rst_sync_int2[count_gen]) begin
+      if (rst_sync_int2[count_gen]) begin
         counter[count_gen] <= #TCQ { C_W { 1'b 0 } };
       end else begin
         counter[count_gen] <= #TCQ counter[count_gen] + 1'b 1;

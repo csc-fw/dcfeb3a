@@ -1,5 +1,5 @@
 -- 
--- (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -51,19 +51,19 @@
 -- None
 --
 ------------------------------------------------------------------------------
--- Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
--- Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+-- "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
+-- "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 ------------------------------------------------------------------------------
--- CLK_OUT1    20.000    345.000      50.0      263.808    309.209
--- CLK_OUT2    20.000     30.000      50.0      263.808    309.209
--- CLK_OUT3    20.000     75.000      50.0      263.808    309.209
--- CLK_OUT4    20.000    120.000      50.0      263.808    309.209
+-- CLK_OUT1____20.000____345.000______50.0______263.808____309.209
+-- CLK_OUT2____20.000_____30.000______50.0______263.808____309.209
+-- CLK_OUT3____20.000_____75.000______50.0______263.808____309.209
+-- CLK_OUT4____20.000____120.000______50.0______263.808____309.209
 --
 ------------------------------------------------------------------------------
--- Input Clock   Input Freq (MHz)   Input Jitter (UI)
+-- "Input Clock   Freq (MHz)    Input Jitter (UI)"
 ------------------------------------------------------------------------------
--- primary          20.000            0.010
--- secondary        20.000            0.010
+-- __primary__________20.000____________0.010
+-- _secondary________20.000____________0.010
 
 
 -- The following code must appear in the VHDL architecture header:
@@ -73,7 +73,7 @@ port
  (-- Clock in ports
   CLK_IN1           : in     std_logic;
   CLK_IN2           : in     std_logic;
-  CLK_IN_SEL        : in     std_logic;
+  CLK_IN_SEL           : in     std_logic;
   CLKFB_IN          : in     std_logic;
   -- Clock out ports
   CLK_OUT1          : out    std_logic;
@@ -94,17 +94,17 @@ end component;
 your_instance_name : clkadj_med
   port map
    (-- Clock in ports
-    CLK_IN1            => CLK_IN1,
-    CLK_IN2            => CLK_IN2,
-    CLK_IN_SEL         => CLK_IN_SEL,
-    CLKFB_IN           => CLKFB_IN,
+    CLK_IN1 => CLK_IN1,
+    CLK_IN2 => CLK_IN2,
+    CLK_IN_SEL => CLK_IN_SEL,
+    CLKFB_IN => CLKFB_IN,
     -- Clock out ports
-    CLK_OUT1           => CLK_OUT1,
-    CLK_OUT2           => CLK_OUT2,
-    CLK_OUT3           => CLK_OUT3,
-    CLK_OUT4           => CLK_OUT4,
-    CLKFB_OUT          => CLKFB_OUT,
+    CLK_OUT1 => CLK_OUT1,
+    CLK_OUT2 => CLK_OUT2,
+    CLK_OUT3 => CLK_OUT3,
+    CLK_OUT4 => CLK_OUT4,
+    CLKFB_OUT => CLKFB_OUT,
     -- Status and control signals
-    RESET              => RESET,
-    LOCKED             => LOCKED);
+    RESET  => RESET,
+    LOCKED => LOCKED);
 -- INST_TAG_END ------ End INSTANTIATION Template ------------

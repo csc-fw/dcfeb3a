@@ -1,6 +1,6 @@
 -- file: clkadj_coarse_exdes.vhd
 -- 
--- (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -71,6 +71,7 @@ port
   CLK_IN1           : in  std_logic;
   -- Reset that only drives logic in example design
   COUNTER_RESET     : in  std_logic;
+  CLK_OUT           : out std_logic_vector(4 downto 1) ;
   -- High bits of counters driven by clocks
   COUNT             : out std_logic_vector(4 downto 1);
   -- Status and control signals
@@ -95,6 +96,7 @@ architecture xilinx of clkadj_coarse_exdes is
   signal   reset_int  : std_logic                     := '0';
   -- Declare the clocks and counters
   signal   clk        : std_logic_vector(NUM_C downto 1);
+ 
   signal   clk_int    : std_logic_vector(NUM_C downto 1);
   signal   counter    : ctrarr := (( others => (others => '0')));
 
@@ -104,6 +106,11 @@ architecture xilinx of clkadj_coarse_exdes is
   -- Connect the feedback on chip
   signal   CLKFB_IN     : std_logic;
   signal   CLKFB_OUT    : std_logic;
+  signal rst_sync : std_logic_vector(NUM_C downto 1);
+  signal rst_sync_int : std_logic_vector(NUM_C downto 1);
+  signal rst_sync_int1 : std_logic_vector(NUM_C downto 1);
+  signal rst_sync_int2 : std_logic_vector(NUM_C downto 1);
+
 
 component clkadj_coarse is
 port
@@ -127,6 +134,24 @@ begin
 
   -- When the clock goes out of lock, reset the counters
   reset_int <= (not locked_int) or COUNTER_RESET;
+
+
+  counters_1: for count_gen in 1 to NUM_C generate begin
+ process (clk(count_gen), reset_int) begin
+   if (reset_int = '1') then
+       rst_sync(count_gen) <= '1';
+       rst_sync_int(count_gen) <= '1';
+       rst_sync_int1(count_gen) <= '1';
+       rst_sync_int2(count_gen) <= '1';
+   elsif (clk(count_gen) 'event and clk(count_gen)='1') then
+       rst_sync(count_gen) <= '0';
+       rst_sync_int(count_gen) <= rst_sync(count_gen);
+       rst_sync_int1(count_gen) <= rst_sync_int(count_gen);
+       rst_sync_int2(count_gen) <= rst_sync_int1(count_gen);
+   end if;
+ end process;
+end generate counters_1;
+
 
   -- Insert BUFGs on all input clocks that don't already have them
   ----------------------------------------------------------------
@@ -155,6 +180,19 @@ begin
     LOCKED             => locked_int);
 
 
+  gen_outclk_oddr: 
+  for clk_out_pins in 1 to NUM_C generate 
+  begin
+  clkout_oddr : ODDR port map
+    (Q  => CLK_OUT(clk_out_pins),
+     C  => clk(clk_out_pins),
+     CE => '1',
+     D1 => '1',
+     D2 => '0',
+     R  => '0',
+     S  => '0');
+   end generate;
+
   -- Connect the output clocks to the design
   -------------------------------------------
   clkout1_buf : BUFG
@@ -177,14 +215,12 @@ begin
   -- Output clock sampling
   -------------------------------------
   counters: for count_gen in 1 to NUM_C generate begin
-    process (clk(count_gen)) begin
-      if (rising_edge(clk(count_gen))) then
-        if (reset_int = '1') then
+    process (clk(count_gen), rst_sync_int2(count_gen)) begin
+        if (rst_sync_int2(count_gen) = '1') then
           counter(count_gen) <= (others => '0') after TCQ;
-        else
+        elsif (rising_edge (clk(count_gen))) then
           counter(count_gen) <= counter(count_gen) + 1 after TCQ;
         end if;
-      end if;
     end process;
 
     -- alias the high bit of each counter to the corresponding

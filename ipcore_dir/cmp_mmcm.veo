@@ -1,5 +1,5 @@
 // 
-// (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+// (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -51,18 +51,18 @@
 // None
 //
 //----------------------------------------------------------------------------
-// Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
-// Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+// "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
+// "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 //----------------------------------------------------------------------------
-// CLK_OUT1    40.000      0.000      50.0      247.096    196.976
-// CLK_OUT2    80.000      0.000      50.0      200.412    196.976
-// CLK_OUT3   160.000      0.000      50.0      169.112    196.976
+// CLK_OUT1____40.000______0.000______50.0______247.096____196.976
+// CLK_OUT2____80.000______0.000______50.0______200.412____196.976
+// CLK_OUT3___160.000______0.000______50.0______169.112____196.976
 //
 //----------------------------------------------------------------------------
-// Input Clock   Input Freq (MHz)   Input Jitter (UI)
+// "Input Clock   Freq (MHz)    Input Jitter (UI)"
 //----------------------------------------------------------------------------
-// primary          40.000            0.010
-// secondary        40.000            0.010
+// __primary__________40.000____________0.010
+// _secondary________40.000____________0.010
 
 // The following must be inserted into your Verilog file for this
 // core to be instantiated. Change the instance name and port connections
@@ -72,14 +72,14 @@
 
   cmp_mmcm instance_name
    (// Clock in ports
-    .CLK_IN1            (CLK_IN1),      // IN
-    .CLK_IN2            (CLK_IN2),      // IN
-    .CLK_IN_SEL         (CLK_IN_SEL),   // IN
+    .CLK_IN1(CLK_IN1),      // IN
+    .CLK_IN2(CLK_IN2),      // IN
+    .CLK_IN_SEL(CLK_IN_SEL),   // IN
     // Clock out ports
-    .CLK_OUT1           (CLK_OUT1),     // OUT
-    .CLK_OUT2           (CLK_OUT2),     // OUT
-    .CLK_OUT3           (CLK_OUT3),     // OUT
+    .CLK_OUT1(CLK_OUT1),     // OUT
+    .CLK_OUT2(CLK_OUT2),     // OUT
+    .CLK_OUT3(CLK_OUT3),     // OUT
     // Status and control signals
-    .RESET              (RESET),        // IN
-    .LOCKED             (LOCKED));      // OUT
+    .RESET(RESET),// IN
+    .LOCKED(LOCKED));      // OUT
 // INST_TAG_END ------ End INSTANTIATION Template ---------

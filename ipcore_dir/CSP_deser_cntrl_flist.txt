@@ -1,12 +1,15 @@
 # Output products list for <CSP_deser_cntrl>
 CSP_deser_cntrl.asy
+CSP_deser_cntrl.constraints\CSP_deser_cntrl.ucf
+CSP_deser_cntrl.constraints\CSP_deser_cntrl.xdc
 CSP_deser_cntrl.gise
 CSP_deser_cntrl.ngc
+CSP_deser_cntrl.sym
+CSP_deser_cntrl.ucf
 CSP_deser_cntrl.v
 CSP_deser_cntrl.veo
-CSP_deser_cntrl.vhd
-CSP_deser_cntrl.vho
 CSP_deser_cntrl.xco
+CSP_deser_cntrl.xdc
 CSP_deser_cntrl.xise
 CSP_deser_cntrl_flist.txt
 CSP_deser_cntrl_readme.txt

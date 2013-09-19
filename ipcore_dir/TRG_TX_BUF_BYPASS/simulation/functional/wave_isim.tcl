@@ -1,6 +1,6 @@
 ###############################################################################
 ##
-## (c) Copyright 2009-2010 Xilinx, Inc. All rights reserved.
+## (c) Copyright 2009-2011 Xilinx, Inc. All rights reserved.
 ##
 ## This file contains confidential and proprietary information
 ## of Xilinx, Inc. and is protected under U.S. and
@@ -50,31 +50,31 @@
 
 wcfg new
 divider add "Receive Ports - RX Driver,OOB signalling,Coupling and Eq.,CDR"
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/RXN_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/RXP_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/RXN_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/RXP_IN
 divider add "Transmit Ports - 8b10b Encoder Control Ports"
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXCHARISK_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXCHARISK_IN
 divider add "Transmit Ports - TX Data Path interface"
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXDATA_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXOUTCLK_OUT
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXUSRCLK_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXUSRCLK2_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXDATA_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXOUTCLK_OUT
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXUSRCLK_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXUSRCLK2_IN
 divider add "Transmit Ports - TX Driver and OOB signaling"
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXN_OUT
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXP_OUT
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXN_OUT
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXP_OUT
 divider add "Transmit Ports - TX Elastic Buffer and Phase Alignment Ports"
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXDLYALIGNDISABLE_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXDLYALIGNMONENB_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXDLYALIGNMONITOR_OUT
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXDLYALIGNRESET_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXENPMAPHASEALIGN_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXPMASETPHASE_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXDLYALIGNDISABLE_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXDLYALIGNMONENB_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXDLYALIGNMONITOR_OUT
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXDLYALIGNRESET_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXENPMAPHASEALIGN_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXPMASETPHASE_IN
 divider add "Transmit Ports - TX PLL Ports"
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/GTXTXRESET_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/MGTREFCLKTX_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/PLLTXRESET_IN
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXPLLLKDET_OUT
-wave add /DEMO_TB/trg_tx_buf_bypass_top_i/trg_tx_buf_bypass_i/gtx0_trg_tx_buf_bypass_i/TXRESETDONE_OUT
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/GTXTXRESET_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/MGTREFCLKTX_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/PLLTXRESET_IN
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXPLLLKDET_OUT
+wave add /DEMO_TB/TRG_TX_BUF_BYPASS_top_i/TRG_TX_BUF_BYPASS_i/gtx0_TRG_TX_BUF_BYPASS_i/TXRESETDONE_OUT
 
 run 145 us
 quit

@@ -170,7 +170,7 @@ module jtag_access #(
 	wire status_correction;
 	wire status_classification;
 	wire status_injection;
-	wire status_critical;
+	wire status_essential;
 	wire status_uncorrectable;
 	wire [7:0] monitor_txdata;
 	wire monitor_txwrite;
@@ -273,7 +273,7 @@ sem_la sem_la0 (
 	assign sem_la0_data[123]        = status_correction;
 	assign sem_la0_data[124]        = status_classification;
 	assign sem_la0_data[125]        = status_injection;
-	assign sem_la0_data[126]        = status_critical;
+	assign sem_la0_data[126]        = status_essential;
 	assign sem_la0_data[127]        = status_uncorrectable;
 	assign sem_la0_data[128]        = monitor_txwrite;
 	assign sem_la0_data[129]        = monitor_rxread;
@@ -446,7 +446,7 @@ sem_core sem_core1 (
 	.status_correction(status_correction),
 	.status_classification(status_classification),
 	.status_injection(status_injection),
-	.status_critical(status_critical),
+	.status_essential(status_essential),
 	.status_uncorrectable(status_uncorrectable),
 	.monitor_txdata(monitor_txdata), // Bus [7 : 0] 
 	.monitor_txwrite(monitor_txwrite),
@@ -474,7 +474,7 @@ sem_core sem_core1 (
 	.fecc_synword(fecc_synword)); // Bus [6 : 0] 
 
    ICAP_VIRTEX6 #(
-      .DEVICE_ID(0'h8424a093),     // Specifies the pre-programmed Device ID value
+      .DEVICE_ID(32'h0424a093),     // Specifies the pre-programmed Device ID value
       .ICAP_WIDTH("X32"),          // Specifies the input and output data width to be used with the
                                   // ICAP_VIRTEX6.
       .SIM_CFG_FILE_NAME("NONE")  // Specifies the Raw Bitstream (RBT) file to be parsed by the simulation

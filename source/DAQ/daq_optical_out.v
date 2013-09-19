@@ -364,7 +364,7 @@ end
 //                                                                  //
 //////////////////////////////////////////////////////////////////////
 
-    DAQ_GTX_dual_rate_custom #
+    daq_gtx_dual_rate_custom #
     (
         .WRAPPER_SIM_GTXRESET_SPEEDUP   (SIM_SPEEDUP)      // Set this to 1 for simulation
     )

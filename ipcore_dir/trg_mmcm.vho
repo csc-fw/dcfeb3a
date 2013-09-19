@@ -1,5 +1,5 @@
 -- 
--- (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -51,17 +51,17 @@
 -- None
 --
 ------------------------------------------------------------------------------
--- Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
--- Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+-- "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
+-- "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 ------------------------------------------------------------------------------
--- CLK_OUT1   160.000    270.000      50.0      116.326     95.014
--- CLK_OUT2    80.000    315.000      50.0      132.221     95.014
--- CLK_OUT3    40.000      0.000      50.0      153.625     95.014
+-- CLK_OUT1___160.000____270.000______50.0______116.326_____95.014
+-- CLK_OUT2____80.000____315.000______50.0______132.221_____95.014
+-- CLK_OUT3____40.000______0.000______50.0______153.625_____95.014
 --
 ------------------------------------------------------------------------------
--- Input Clock   Input Freq (MHz)   Input Jitter (UI)
+-- "Input Clock   Freq (MHz)    Input Jitter (UI)"
 ------------------------------------------------------------------------------
--- primary          80.000            0.010
+-- __primary__________80.000____________0.010
 
 
 -- The following code must appear in the VHDL architecture header:
@@ -87,12 +87,12 @@ end component;
 your_instance_name : trg_mmcm
   port map
    (-- Clock in ports
-    CLK_IN1            => CLK_IN1,
+    CLK_IN1 => CLK_IN1,
     -- Clock out ports
-    CLK_OUT1           => CLK_OUT1,
-    CLK_OUT2           => CLK_OUT2,
-    CLK_OUT3           => CLK_OUT3,
+    CLK_OUT1 => CLK_OUT1,
+    CLK_OUT2 => CLK_OUT2,
+    CLK_OUT3 => CLK_OUT3,
     -- Status and control signals
-    RESET              => RESET,
-    LOCKED             => LOCKED);
+    RESET  => RESET,
+    LOCKED => LOCKED);
 -- INST_TAG_END ------ End INSTANTIATION Template ------------

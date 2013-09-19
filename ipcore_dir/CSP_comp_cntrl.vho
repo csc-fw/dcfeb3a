@@ -1,18 +1,19 @@
 -------------------------------------------------------------------------------
--- Copyright (c) 2012 Xilinx, Inc.
+-- Copyright (c) 2013 Xilinx, Inc.
 -- All Rights Reserved
 -------------------------------------------------------------------------------
 --   ____  ____
 --  /   /\/   /
 -- /___/  \  /    Vendor     : Xilinx
--- \   \   \/     Version    : 1.0
+-- \   \   \/     Version    : 14.6
 --  \   \         Application: Xilinx CORE Generator
 --  /   /         Filename   : CSP_comp_cntrl.vho
--- /___/   /\     Timestamp  : Fri Jul 27 13:01:40 Eastern Daylight Time 2012
+-- /___/   /\     Timestamp  : Wed Sep 18 11:59:37 Eastern Daylight Time 2013
 -- \   \  /  \
 --  \___\/\___\
 --
 -- Design Name: ISE Instantiation template
+-- Component Identifier: xilinx.com:ip:chipscope_icon:1.04.a
 -------------------------------------------------------------------------------
 -- The following code must appear in the VHDL architecture header:
 

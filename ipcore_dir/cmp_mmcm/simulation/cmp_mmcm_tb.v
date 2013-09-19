@@ -1,6 +1,6 @@
 // file: cmp_mmcm_tb.v
 // 
-// (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+// (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -75,7 +75,7 @@ module cmp_mmcm_tb ();
   localparam time PER1_1  = PER1/2;
   localparam time PER1_2  = PER1 - PER1/2;
   localparam time PER2    = 25.000*ONE_NS;
-  localparam time PER2_1  = PER2/2;
+  localparam time PER3_3  = PER2/2;
   localparam time PER2_2  = PER2 - PER2/2;
 
   // Declare the input clock signals
@@ -89,6 +89,24 @@ module cmp_mmcm_tb ();
   reg         RESET      = 0;
   wire        LOCKED;
   reg         COUNTER_RESET = 0;
+wire [3:1] CLK_OUT;
+//Freq Check using the M & D values setting and actual Frequency generated
+real period1;
+real ref_period1;
+localparam  ref_period1_clkin1 = (25.000*1*24.000*1000/24.000);
+localparam  ref_period1_clkin2 = (25.000*1*24.000*1000/24.000);
+time prev_rise1;
+real period2;
+real ref_period2;
+localparam  ref_period2_clkin1 = (25.000*1*12*1000/24.000);
+localparam  ref_period2_clkin2 = (25.000*1*12*1000/24.000);
+time prev_rise2;
+real period3;
+real ref_period3;
+localparam  ref_period3_clkin1 = (25.000*1*6*1000/24.000);
+localparam  ref_period3_clkin2 = (25.000*1*6*1000/24.000);
+time prev_rise3;
+
 
   // Input clock generation
   //------------------------------------
@@ -97,7 +115,7 @@ module cmp_mmcm_tb ();
     CLK_IN1 = #PER1_2 ~CLK_IN1;
   end
   always begin
-    CLK_IN2 = #PER2_1 ~CLK_IN2;
+    CLK_IN2 = #PER3_3 ~CLK_IN2;
     CLK_IN2 = #PER2_2 ~CLK_IN2;
   end
 
@@ -113,25 +131,57 @@ module cmp_mmcm_tb ();
     RESET = 0;
     test_phase = "wait lock";
     `wait_lock;
+    #(PER1*6);
     COUNTER_RESET = 1;
     #(PER1*20)
     COUNTER_RESET = 0;
 
     test_phase = "counting";
     #(PER1*COUNT_PHASE);
+    $display("Output Frequencies w.r.t Primary clock"); 
+    if ((period1 -ref_period1_clkin1) <= 100 && (period1 -ref_period1_clkin1) >= -100) begin
+    $display("Freq of CLK_OUT[1] ( in MHz ) : %0f\n", 1000000/period1);
+    end else 
+    $display("ERROR: Freq of CLK_OUT[1] is not correct"); 
+    if ((period2 -ref_period2_clkin1) <= 100 && (period2 -ref_period2_clkin1) >= -100) begin
+    $display("Freq of CLK_OUT[2] ( in MHz ) : %0f\n", 1000000/period2);
+    end else 
+    $display("ERROR: Freq of CLK_OUT[2] is not correct"); 
+    if ((period3 -ref_period3_clkin1) <= 100 && (period3 -ref_period3_clkin1) >= -100) begin
+    $display("Freq of CLK_OUT[3] ( in MHz ) : %0f\n", 1000000/period3);
+    end else 
+    $display("ERROR: Freq of CLK_OUT[3] is not correct"); 
+
     test_phase = "change clocks";
     RESET = 1;
-    #(PER2*2);
+    #(PER2*1);
     CLK_IN_SEL = 0;
+    #(PER2*2);
     RESET = 0;
     #(PER2*2);
     `wait_lock;
+    #(PER1*6);
     COUNTER_RESET = 1;
     #(PER2*20)
     COUNTER_RESET = 0;
     test_phase = "counting";
     #(PER2*COUNT_PHASE);
+    $display("Output Frequencies w.r.t Secondary clock"); 
+    if ((period1 -ref_period1_clkin2) <= 100 && (period1 -ref_period1_clkin2) >= -100) begin
+    $display("Freq of CLK_OUT[1] ( in MHz ) : %0f\n", 1000000/period1);
+    end else 
+    $display("ERROR: Freq of CLK_OUT[1] is not correct"); 
+    if ((period2 -ref_period2_clkin2) <= 100 && (period2 -ref_period2_clkin2) >= -100) begin
+    $display("Freq of CLK_OUT[2] ( in MHz ) : %0f\n", 1000000/period2);
+    end else 
+    $display("ERROR: Freq of CLK_OUT[2] is not correct"); 
+    if ((period3 -ref_period3_clkin2) <= 100 && (period3 -ref_period3_clkin2) >= -100) begin
+    $display("Freq of CLK_OUT[3] ( in MHz ) : %0f\n", 1000000/period3);
+    end else 
+    $display("ERROR: Freq of CLK_OUT[3] is not correct"); 
+
     $display("SIMULATION PASSED");
+    $display("SYSTEM_CLOCK_COUNTER : %0d\n",$time/PER1);
     $finish;
   end
 
@@ -148,10 +198,40 @@ module cmp_mmcm_tb ();
     .CLK_IN_SEL         (CLK_IN_SEL),
     // Reset for logic in example design
     .COUNTER_RESET      (COUNTER_RESET),
+    .CLK_OUT            (CLK_OUT),
     // High bits of the counters
     .COUNT              (COUNT),
     // Status and control signals
     .RESET              (RESET),
     .LOCKED             (LOCKED));
+
+// Freq Check 
+initial
+  prev_rise1 = 0;
+
+always @(posedge CLK_OUT[1])
+begin
+  if (prev_rise1 != 0)
+    period1 = $time - prev_rise1;
+  prev_rise1 = $time;
+end
+initial
+  prev_rise2 = 0;
+
+always @(posedge CLK_OUT[2])
+begin
+  if (prev_rise2 != 0)
+    period2 = $time - prev_rise2;
+  prev_rise2 = $time;
+end
+initial
+  prev_rise3 = 0;
+
+always @(posedge CLK_OUT[3])
+begin
+  if (prev_rise3 != 0)
+    period3 = $time - prev_rise3;
+  prev_rise3 = $time;
+end
 
 endmodule

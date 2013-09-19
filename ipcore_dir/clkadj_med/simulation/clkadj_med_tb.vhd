@@ -1,6 +1,6 @@
 -- file: clkadj_med_tb.vhd
 -- 
--- (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -96,6 +96,26 @@ architecture test of clkadj_med_tb is
   signal RESET         : std_logic := '0';
   signal LOCKED        : std_logic;
   signal COUNTER_RESET : std_logic := '0';
+--  signal defined to stop mti simulation without severity failure in the report
+  signal end_of_sim : std_logic := '0';
+  signal CLK_OUT : std_logic_vector(4 downto 1);
+--Freq Check using the M & D values setting and actual Frequency generated
+  signal period1 : time := 0 ps;
+constant  ref_period1_clkin1 : time := (50.0*1*60.000/60.000)*1000 ps;
+constant  ref_period1_clkin2 : time := (50.0*1*60.000/60.000)*1000 ps;
+   signal prev_rise1 : time := 0 ps;
+  signal period2 : time := 0 ps;
+constant  ref_period2_clkin1 : time := (50.0*1*60/60.000)*1000 ps;
+constant  ref_period2_clkin2 : time := (50.0*1*60/60.000)*1000 ps;
+   signal prev_rise2 : time := 0 ps;
+  signal period3 : time := 0 ps;
+constant  ref_period3_clkin1 : time := (50.0*1*60/60.000)*1000 ps;
+constant  ref_period3_clkin2 : time := (50.0*1*60/60.000)*1000 ps;
+   signal prev_rise3 : time := 0 ps;
+  signal period4 : time := 0 ps;
+constant  ref_period4_clkin1 : time := (50.0*1*60/60.000)*1000 ps;
+constant  ref_period4_clkin2 : time := (50.0*1*60/60.000)*1000 ps;
+   signal prev_rise4 : time := 0 ps;
 
 component clkadj_med_exdes
 generic (
@@ -107,6 +127,7 @@ port
   CLK_IN_SEL        : in  std_logic;
   -- Reset that only drives logic in example design
   COUNTER_RESET     : in  std_logic;
+  CLK_OUT           : out std_logic_vector(4 downto 1) ;
   -- High bits of counters driven by clocks
   COUNT             : out std_logic_vector(4 downto 1);
   -- Status and control signals
@@ -127,20 +148,81 @@ begin
   end process;
 
   -- Test sequence
-  process begin
+  process 
+
+    procedure simtimeprint is
+      variable outline : line;
+    begin
+      write(outline, string'("## SYSTEM_CYCLE_COUNTER "));
+      write(outline, NOW/PER1);
+      write(outline, string'(" ns"));
+      writeline(output,outline);
+    end simtimeprint;
+
+    procedure simfreqprint (period : time; clk_num : integer) is
+       variable outputline : LINE;
+       variable str1 : string(1 to 16);
+       variable str2 : integer;
+       variable str3 : string(1 to 2);
+       variable str4 : integer;
+       variable str5 : string(1 to 4);
+    begin
+       str1 := "Freq of CLK_OUT(";
+       str2 :=  clk_num;
+       str3 :=  ") ";
+       str4 :=  1000000 ps/period ;
+       str5 :=  " MHz" ;
+       write(outputline, str1 );
+       write(outputline, str2);
+       write(outputline, str3);
+       write(outputline, str4);
+       write(outputline, str5);
+       writeline(output, outputline);
+    end simfreqprint;
+
+  begin
     RESET      <= '1';
     wait for (PER1*6);
     RESET      <= '0';
     wait until LOCKED = '1';
+    COUNTER_RESET <= '1';
+    wait for (PER1*20);
+    COUNTER_RESET <= '0';
     wait for (PER1*COUNT_PHASE);
+    report "Output Frequencies w.r.t Primary clock" severity note;
+    simfreqprint(period1, 1);
+    assert (((period1 - ref_period1_clkin1) >= -100 ps) and ((period1 - ref_period1_clkin1) <= 100 ps)) report "ERROR: Freq of CLK_OUT(1) is not correct"  severity note;
+    simfreqprint(period2, 2);
+    assert (((period2 - ref_period2_clkin1) >= -100 ps) and ((period2 - ref_period2_clkin1) <= 100 ps)) report "ERROR: Freq of CLK_OUT(2) is not correct"  severity note;
+    simfreqprint(period3, 3);
+    assert (((period3 - ref_period3_clkin1) >= -100 ps) and ((period3 - ref_period3_clkin1) <= 100 ps)) report "ERROR: Freq of CLK_OUT(3) is not correct"  severity note;
+    simfreqprint(period4, 4);
+    assert (((period4 - ref_period4_clkin1) >= -100 ps) and ((period4 - ref_period4_clkin1) <= 100 ps)) report "ERROR: Freq of CLK_OUT(4) is not correct"  severity note;
+
     RESET <= '1';
-    wait for (PER2*2);
+    wait for (PER2*1);
     CLK_IN_SEL <= '0';
+    wait for (PER2*2);
     RESET <= '0';
     wait for (PER2*2);
     wait until LOCKED = '1';
+    COUNTER_RESET <= '1';
+    wait for (PER2*20);
+    COUNTER_RESET <= '0';
     wait for (PER2*COUNT_PHASE);
+    report "Output Frequencies w.r.t Secondary clock" severity note;
+    simfreqprint(period1, 1);
+    assert (((period1 - ref_period1_clkin2) >= -100 ps) and ((period1 - ref_period1_clkin2) <= 100 ps)) report "ERROR: Freq of CLK_OUT(1) is not correct"  severity note;
+    simfreqprint(period2, 2);
+    assert (((period2 - ref_period2_clkin2) >= -100 ps) and ((period2 - ref_period2_clkin2) <= 100 ps)) report "ERROR: Freq of CLK_OUT(2) is not correct"  severity note;
+    simfreqprint(period3, 3);
+    assert (((period3 - ref_period3_clkin2) >= -100 ps) and ((period3 - ref_period3_clkin2) <= 100 ps)) report "ERROR: Freq of CLK_OUT(3) is not correct"  severity note;
+    simfreqprint(period4, 4);
+    assert (((period4 - ref_period4_clkin2) >= -100 ps) and ((period4 - ref_period4_clkin2) <= 100 ps)) report "ERROR: Freq of CLK_OUT(4) is not correct"  severity note;
 
+    simtimeprint;
+    end_of_sim <= '1';
+    wait for 1 ps;
     report "Simulation Stopped." severity failure;
     wait;
   end process;
@@ -158,10 +240,49 @@ begin
     CLK_IN_SEL         => CLK_IN_SEL,
     -- Reset for logic in example design
     COUNTER_RESET      => COUNTER_RESET,
+    CLK_OUT            => CLK_OUT,
     -- High bits of the counters
     COUNT              => COUNT,
     -- Status and control signals
     RESET              => RESET,
     LOCKED             => LOCKED);
+
+-- Freq Check 
+   process(CLK_OUT(1))
+   begin
+   if (CLK_OUT(1)'event and CLK_OUT(1) = '1') then
+     if (prev_rise1 /= 0 ps) then
+       period1 <= NOW - prev_rise1;
+     end if;
+     prev_rise1 <= NOW; 
+   end if;
+   end process;
+   process(CLK_OUT(2))
+   begin
+   if (CLK_OUT(2)'event and CLK_OUT(2) = '1') then
+     if (prev_rise2 /= 0 ps) then
+       period2 <= NOW - prev_rise2;
+     end if;
+     prev_rise2 <= NOW; 
+   end if;
+   end process;
+   process(CLK_OUT(3))
+   begin
+   if (CLK_OUT(3)'event and CLK_OUT(3) = '1') then
+     if (prev_rise3 /= 0 ps) then
+       period3 <= NOW - prev_rise3;
+     end if;
+     prev_rise3 <= NOW; 
+   end if;
+   end process;
+   process(CLK_OUT(4))
+   begin
+   if (CLK_OUT(4)'event and CLK_OUT(4) = '1') then
+     if (prev_rise4 /= 0 ps) then
+       period4 <= NOW - prev_rise4;
+     end if;
+     prev_rise4 <= NOW; 
+   end if;
+   end process;
 
 end test;

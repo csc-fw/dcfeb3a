@@ -1,14 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2011 Xilinx, Inc.
+// Copyright (c) 2013 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 1.0
+// \   \   \/     Version    : 14.6
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : bpi_la.veo
-// /___/   /\     Timestamp  : Wed Oct 19 10:28:37 Eastern Daylight Time 2011
+// /___/   /\     Timestamp  : Wed Sep 18 16:02:51 Eastern Daylight Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

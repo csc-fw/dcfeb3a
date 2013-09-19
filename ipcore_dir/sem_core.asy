@@ -1,7 +1,7 @@
 Version 4
 SymbolType BLOCK
 TEXT 32 32 LEFT 4 sem_core
-RECTANGLE Normal 32 32 704 736
+RECTANGLE Normal 32 32 704 768
 LINE Normal 0 80 32 80
 PIN 0 80 LEFT 36
 PINATTR PinName inject_strobe
@@ -26,52 +26,52 @@ LINE Normal 0 240 32 240
 PIN 0 240 LEFT 36
 PINATTR PinName icap_csb
 PINATTR Polarity OUT
-LINE Normal 0 272 32 272
-PIN 0 272 LEFT 36
+LINE Normal 0 304 32 304
+PIN 0 304 LEFT 36
 PINATTR PinName icap_rdwrb
 PINATTR Polarity OUT
-LINE Wide 0 304 32 304
-PIN 0 304 LEFT 36
+LINE Wide 0 336 32 336
+PIN 0 336 LEFT 36
 PINATTR PinName icap_i[31:0]
 PINATTR Polarity OUT
-LINE Normal 0 336 32 336
-PIN 0 336 LEFT 36
-PINATTR PinName icap_grant
-PINATTR Polarity IN
 LINE Normal 0 368 32 368
 PIN 0 368 LEFT 36
-PINATTR PinName icap_request
-PINATTR Polarity OUT
+PINATTR PinName icap_grant
+PINATTR Polarity IN
 LINE Normal 0 400 32 400
 PIN 0 400 LEFT 36
-PINATTR PinName fecc_crcerr
-PINATTR Polarity IN
+PINATTR PinName icap_request
+PINATTR Polarity OUT
 LINE Normal 0 432 32 432
 PIN 0 432 LEFT 36
-PINATTR PinName fecc_eccerr
+PINATTR PinName fecc_crcerr
 PINATTR Polarity IN
 LINE Normal 0 464 32 464
 PIN 0 464 LEFT 36
-PINATTR PinName fecc_eccerrsingle
+PINATTR PinName fecc_eccerr
 PINATTR Polarity IN
 LINE Normal 0 496 32 496
 PIN 0 496 LEFT 36
-PINATTR PinName fecc_syndromevalid
+PINATTR PinName fecc_eccerrsingle
 PINATTR Polarity IN
-LINE Wide 0 528 32 528
+LINE Normal 0 528 32 528
 PIN 0 528 LEFT 36
-PINATTR PinName fecc_syndrome[12:0]
+PINATTR PinName fecc_syndromevalid
 PINATTR Polarity IN
 LINE Wide 0 560 32 560
 PIN 0 560 LEFT 36
-PINATTR PinName fecc_far[23:0]
+PINATTR PinName fecc_syndrome[12:0]
 PINATTR Polarity IN
 LINE Wide 0 592 32 592
 PIN 0 592 LEFT 36
-PINATTR PinName fecc_synbit[4:0]
+PINATTR PinName fecc_far[23:0]
 PINATTR Polarity IN
 LINE Wide 0 624 32 624
 PIN 0 624 LEFT 36
+PINATTR PinName fecc_synbit[4:0]
+PINATTR Polarity IN
+LINE Wide 0 656 32 656
+PIN 0 656 LEFT 36
 PINATTR PinName fecc_synword[6:0]
 PINATTR Polarity IN
 LINE Normal 736 80 704 80
@@ -100,7 +100,7 @@ PINATTR PinName status_injection
 PINATTR Polarity OUT
 LINE Normal 736 272 704 272
 PIN 736 272 RIGHT 36
-PINATTR PinName status_critical
+PINATTR PinName status_essential
 PINATTR Polarity OUT
 LINE Normal 736 304 704 304
 PIN 736 304 RIGHT 36

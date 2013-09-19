@@ -1,7 +1,7 @@
 ##############################################################
 #
-# Xilinx Core Generator version 12.4
-# Date: Fri Jun 14 20:07:13 2013
+# Xilinx Core Generator version 14.6
+# Date: Wed Sep 18 20:05:15 2013
 #
 ##############################################################
 #
@@ -9,6 +9,10 @@
 #  Xilinx CORE Generator IP GUI. It is strongly recommended
 #  that you do not manually alter this file as it may cause
 #  unexpected and unsupported behavior.
+#
+##############################################################
+#
+#  Generated from component: xilinx.com:ip:chipscope_ila:1.05.a
 #
 ##############################################################
 #
@@ -20,7 +24,7 @@ SET createndf = false
 SET designentry = Verilog
 SET device = xc6vlx130t
 SET devicefamily = virtex6
-SET flowvendor = Foundation_ISE
+SET flowvendor = Other
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
@@ -29,13 +33,15 @@ SET removerpms = false
 SET simulationfiles = Structural
 SET speedgrade = -1
 SET verilogsim = true
-SET vhdlsim = true
+SET vhdlsim = false
 # END Project Options
 # BEGIN Select
-SELECT ILA_(ChipScope_Pro_-_Integrated_Logic_Analyzer) family Xilinx,_Inc. 1.03.a
+SELECT ILA_(ChipScope_Pro_-_Integrated_Logic_Analyzer) family Xilinx,_Inc. 1.05.a
 # END Select
 # BEGIN Parameters
+CSET check_bramcount=false
 CSET component_name=deser_la
+CSET constraint_type=external
 CSET counter_width_1=3
 CSET counter_width_10=Disabled
 CSET counter_width_11=Disabled
@@ -54,8 +60,10 @@ CSET counter_width_8=Disabled
 CSET counter_width_9=Disabled
 CSET data_port_width=96
 CSET data_same_as_trigger=false
+CSET disable_save_keep=false
 CSET enable_storage_qualification=false
 CSET enable_trigger_output_port=false
+CSET example_design=false
 CSET exclude_from_data_storage_1=true
 CSET exclude_from_data_storage_10=true
 CSET exclude_from_data_storage_11=true
@@ -126,5 +134,8 @@ CSET trigger_port_width_8=8
 CSET trigger_port_width_9=8
 CSET use_rpms=true
 # END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2013-06-08T17:29:07Z
+# END Extra information
 GENERATE
-# CRC: 2aaa0388
+# CRC: 29e5c060

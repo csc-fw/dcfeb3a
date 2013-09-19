@@ -1,6 +1,6 @@
 // file: daq_mmcm.v
 // 
-// (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+// (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -52,23 +52,23 @@
 // None
 //
 //----------------------------------------------------------------------------
-// Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
-// Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+// "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
+// "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 //----------------------------------------------------------------------------
-// CLK_OUT1    40.000      0.000      50.0      247.096    196.976
-// CLK_OUT2   160.000      0.000      50.0      169.112    196.976
-// CLK_OUT3   120.000      0.000      50.0      180.794    196.976
-// CLK_OUT4    20.000      0.000      50.0      298.160    196.976
-// CLK_OUT5     1.000      0.000      50.0      357.000    196.976
+// CLK_OUT1____40.000______0.000______50.0______247.096____196.976
+// CLK_OUT2___160.000______0.000______50.0______169.112____196.976
+// CLK_OUT3___120.000______0.000______50.0______180.794____196.976
+// CLK_OUT4____20.000______0.000______50.0______298.160____196.976
+// CLK_OUT5_____1.000______0.000______50.0______357.000____196.976
 //
 //----------------------------------------------------------------------------
-// Input Clock   Input Freq (MHz)   Input Jitter (UI)
+// "Input Clock   Freq (MHz)    Input Jitter (UI)"
 //----------------------------------------------------------------------------
-// primary          40.000            0.010
+// __primary__________40.000____________0.010
 
 `timescale 1ps/1ps
 
-(* CORE_GENERATION_INFO = "daq_mmcm,clk_wiz_v1_8,{component_name=daq_mmcm,use_phase_alignment=true,use_min_o_jitter=true,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,feedback_source=FDBK_AUTO,primtype_sel=MMCM_ADV,num_out_clk=5,clkin1_period=25.000,clkin2_period=10.000,use_power_down=false,use_reset=true,use_locked=true,use_inclk_stopped=false,use_status=false,use_freeze=false,use_clk_valid=false,feedback_type=SINGLE,clock_mgr_type=MANUAL,manual_override=true}" *)
+(* CORE_GENERATION_INFO = "daq_mmcm,clk_wiz_v3_6,{component_name=daq_mmcm,use_phase_alignment=true,use_min_o_jitter=true,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,feedback_source=FDBK_AUTO,primtype_sel=MMCM_ADV,num_out_clk=5,clkin1_period=25.000,clkin2_period=10.0,use_power_down=false,use_reset=true,use_locked=true,use_inclk_stopped=false,use_status=false,use_freeze=false,use_clk_valid=false,feedback_type=SINGLE,clock_mgr_type=MANUAL,manual_override=true}" *)
 module daq_mmcm_custom
  (// Clock in ports
   input         CLK_IN1,
@@ -100,15 +100,10 @@ module daq_mmcm_custom
   wire        clkfbout;
   wire        clkfbout_buf;
   wire        clkfboutb_unused;
-  wire        clkout0;
   wire        clkout0b_unused;
-  wire        clkout1;
   wire        clkout1b_unused;
-  wire        clkout2;
   wire        clkout2b_unused;
-  wire        clkout3;
   wire        clkout3b;
-  wire        clkout4;
   wire        clkout5_unused;
   wire        clkout6_unused;
   wire        clkfbstopped_unused;
@@ -160,8 +155,8 @@ module daq_mmcm_custom
     .CLKOUT1B            (clkout1b_unused),
     .CLKOUT2             (clkout2),
     .CLKOUT2B            (clkout2b_unused),
-    .CLKOUT3             (CLK_OUT4_RAW),
-    .CLKOUT3B            (CLK_OUT4_B_RAW),
+    .CLKOUT3             (clkout3),
+    .CLKOUT3B            (clkout3b),
     .CLKOUT4             (clkout4),
     .CLKOUT5             (clkout5_unused),
     .CLKOUT6             (clkout6_unused),
@@ -197,7 +192,6 @@ module daq_mmcm_custom
    (.O (clkfbout_buf),
     .I (clkfbout));
 
-
   BUFG clkout1_buf
    (.O   (CLK_OUT1),
     .I   (clkout0));
@@ -211,10 +205,12 @@ module daq_mmcm_custom
    (.O   (CLK_OUT3),
     .I   (clkout2));
 
+  assign CLK_OUT4_RAW = clkout3;
+  assign CLK_OUT4_B_RAW = clkout3b;
+
   BUFG clkout5_buf
    (.O   (CLK_OUT5),
     .I   (clkout4));
-	 
 
 
 

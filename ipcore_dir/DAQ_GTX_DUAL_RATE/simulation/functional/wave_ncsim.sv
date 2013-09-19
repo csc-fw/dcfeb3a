@@ -1,7 +1,7 @@
 
 ###############################################################################
 ##
-## (c) Copyright 2009-2010 Xilinx, Inc. All rights reserved.
+## (c) Copyright 2009-2011 Xilinx, Inc. All rights reserved.
 ##
 ## This file contains confidential and proprietary information
 ## of Xilinx, Inc. and is protected under U.S. and
@@ -52,43 +52,43 @@
   
   waveform  add  -label GTX0_DAQ_GTX_DUAL_RATE -comment GTX0_DAQ_GTX_DUAL_RATE
   waveform  add  -label Receive_Ports_-_RX_Data_Path_interface  -comment  Receive_Ports_-_RX_Data_Path_interface
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:RXRESET_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.RXRESET_IN
   waveform  add  -label Receive_Ports_-_RX_Driver,OOB_signalling,Coupling_and_Eq.,CDR  -comment  Receive_Ports_-_RX_Driver,OOB_signalling,Coupling_and_Eq.,CDR
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:RXN_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:RXP_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.RXN_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.RXP_IN
   waveform  add  -label Receive_Ports_-_RX_PLL_Ports  -comment  Receive_Ports_-_RX_PLL_Ports
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:GREFCLKRX_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:NORTHREFCLKRX_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:PERFCLKRX_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:RXPLLREFSELDY_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:SOUTHREFCLKRX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.GREFCLKRX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.NORTHREFCLKRX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.PERFCLKRX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.RXPLLREFSELDY_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.SOUTHREFCLKRX_IN
   waveform  add  -label Transmit_Ports_-_8b10b_Encoder_Control_Ports  -comment  Transmit_Ports_-_8b10b_Encoder_Control_Ports
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXCHARISK_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXCHARISK_IN
   waveform  add  -label Transmit_Ports_-_GTX_Ports  -comment  Transmit_Ports_-_GTX_Ports
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:GTXTEST_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.GTXTEST_IN
   waveform  add  -label Transmit_Ports_-_TX_Data_Path_interface  -comment  Transmit_Ports_-_TX_Data_Path_interface
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXDATA_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXOUTCLK_OUT
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXRESET_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXUSRCLK2_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXDATA_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXOUTCLK_OUT
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRESET_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXUSRCLK2_IN
   waveform  add  -label Transmit_Ports_-_TX_Driver_and_OOB_signaling  -comment  Transmit_Ports_-_TX_Driver_and_OOB_signaling
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXN_OUT
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXP_OUT
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXN_OUT
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXP_OUT
   waveform  add  -label Transmit_Ports_-_TX_Elastic_Buffer_and_Phase_Alignment  -comment  Transmit_Ports_-_TX_Elastic_Buffer_and_Phase_Alignment
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXBUFSTATUS_OUT
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXBUFSTATUS_OUT
   waveform  add  -label Transmit_Ports_-_TX_PLL_Ports  -comment  Transmit_Ports_-_TX_PLL_Ports
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:GREFCLKTX_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:GTXTXRESET_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:MGTREFCLKTX_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:NORTHREFCLKTX_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:PERFCLKTX_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:PLLTXRESET_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:SOUTHREFCLKTX_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXPLLLKDET_OUT
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXPLLREFSELDY_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXRATE_IN
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXRATEDONE_OUT
-  waveform  add  -signals  :daq_gtx_dual_rate_top_i:daq_gtx_dual_rate_i:gtx0_daq_gtx_dual_rate_i:TXRESETDONE_OUT
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.GREFCLKTX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.GTXTXRESET_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.MGTREFCLKTX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.NORTHREFCLKTX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.PERFCLKTX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.PLLTXRESET_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.SOUTHREFCLKTX_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXPLLLKDET_OUT
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXPLLREFSELDY_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRATE_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRATEDONE_OUT
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRESETDONE_OUT
 
   console submit -using simulator -wait no "run 64 us"
 

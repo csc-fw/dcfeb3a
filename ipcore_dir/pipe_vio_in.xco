@@ -1,7 +1,7 @@
 ##############################################################
 #
-# Xilinx Core Generator version 12.4
-# Date: Thu Aug 08 21:00:25 2013
+# Xilinx Core Generator version 14.6
+# Date: Wed Sep 18 20:16:00 2013
 #
 ##############################################################
 #
@@ -9,6 +9,10 @@
 #  Xilinx CORE Generator IP GUI. It is strongly recommended
 #  that you do not manually alter this file as it may cause
 #  unexpected and unsupported behavior.
+#
+##############################################################
+#
+#  Generated from component: xilinx.com:ip:chipscope_vio:1.05.a
 #
 ##############################################################
 #
@@ -20,7 +24,7 @@ SET createndf = false
 SET designentry = Verilog
 SET device = xc6vlx130t
 SET devicefamily = virtex6
-SET flowvendor = Foundation_ISE
+SET flowvendor = Other
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
@@ -29,22 +33,27 @@ SET removerpms = false
 SET simulationfiles = Structural
 SET speedgrade = -1
 SET verilogsim = true
-SET vhdlsim = true
+SET vhdlsim = false
 # END Project Options
 # BEGIN Select
-SELECT VIO_(ChipScope_Pro_-_Virtual_Input/Output) family Xilinx,_Inc. 1.03.a
+SELECT VIO_(ChipScope_Pro_-_Virtual_Input/Output) family Xilinx,_Inc. 1.05.a
 # END Select
 # BEGIN Parameters
 CSET asynchronous_input_port_width=8
 CSET asynchronous_output_port_width=8
 CSET component_name=pipe_vio_in
+CSET constraint_type=external
 CSET enable_asynchronous_input_port=false
 CSET enable_asynchronous_output_port=false
 CSET enable_synchronous_input_port=true
 CSET enable_synchronous_output_port=false
+CSET example_design=false
 CSET invert_clock_input=false
 CSET synchronous_input_port_width=129
 CSET synchronous_output_port_width=8
 # END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2013-06-08T17:29:43Z
+# END Extra information
 GENERATE
-# CRC: a00e99e4
+# CRC: 61bf8824

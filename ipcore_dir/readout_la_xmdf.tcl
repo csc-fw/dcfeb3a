@@ -14,7 +14,7 @@ namespace eval ::readout_la_xmdf {
 # Optional when the use context does not require the param or ports
 # arrays to be available.
 proc ::readout_la_xmdf::xmdfInit { instance } {
-# Variable containg name of library into which module is compiled
+# Variable containing name of library into which module is compiled
 # Recommendation: <module_name>
 # Required
 utilities_xmdf::xmdfSetData $instance Module Attributes Name readout_la
@@ -30,11 +30,11 @@ set fcount 0
 # Examples include unisim and xilinxcorelib
 # Optional
 # In this example, we assume that the unisim library will
-# be magically
-# available to the simulation and synthesis tool
+# be available to the simulation and synthesis tool
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type logical_library
 utilities_xmdf::xmdfSetData $instance FileSet $fcount logical_library unisim
 incr fcount
+
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.asy
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type asy
@@ -42,6 +42,20 @@ incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.cdc
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type AnyView
+incr fcount
+
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.constraints/readout_la.ucf
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ucf
+incr fcount
+
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.ncf
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ncf
+incr fcount
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.constraints/readout_la.xdc
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Xdc
 incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.ngc
@@ -54,14 +68,6 @@ incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.veo
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog_template
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.vhd
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.vho
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl_template
 incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path readout_la.xco
@@ -78,3 +84,4 @@ incr fcount
 }
 
 # ::gen_comp_name_xmdf::xmdfApplyParams
+

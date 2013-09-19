@@ -1,56 +1,50 @@
-The following files were generated for 'CSP_deser_cntrl' in directory 
-C:\Users\bylsma\Projects\DCFEB\firmware\dcfeb_f3.0\ipcore_dir\
+The following files were generated for 'CSP_deser_cntrl' in directory
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
 
-CSP_deser_cntrl.asy:
-   Graphical symbol information file. Used by the ISE tools and some
-   third party tools to create a symbol representing the core.
+XCO file generator:
+   Generate an XCO file for compatibility with legacy flows.
 
-CSP_deser_cntrl.gise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+   * CSP_deser_cntrl.xco
 
-CSP_deser_cntrl.ngc:
-   Binary Xilinx implementation netlist file containing the information
-   required to implement the module in a Xilinx (R) FPGA.
+Creates an implementation netlist:
+   Creates an implementation netlist for the IP.
 
-CSP_deser_cntrl.v:
-   Verilog wrapper file provided to support functional simulation.
-   This file contains simulation model customization data that is
-   passed to a parameterized simulation model for the core.
+   * CSP_deser_cntrl.constraints/CSP_deser_cntrl.ucf
+   * CSP_deser_cntrl.constraints/CSP_deser_cntrl.xdc
+   * CSP_deser_cntrl.ngc
+   * CSP_deser_cntrl.ucf
+   * CSP_deser_cntrl.v
+   * CSP_deser_cntrl.veo
+   * CSP_deser_cntrl.xdc
+   * CSP_deser_cntrl_xmdf.tcl
 
-CSP_deser_cntrl.veo:
-   VEO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a Verilog design.
+IP Symbol Generator:
+   Generate an IP symbol based on the current project options'.
 
-CSP_deser_cntrl.vhd:
-   VHDL wrapper file provided to support functional simulation. This
-   file contains simulation model customization data that is passed to
-   a parameterized simulation model for the core.
+   * CSP_deser_cntrl.asy
 
-CSP_deser_cntrl.vho:
-   VHO template file containing code that can be used as a model for
-   instantiating a CORE Generator module in a VHDL design.
+SYM file generator:
+   Generate a SYM file for compatibility with legacy flows
 
-CSP_deser_cntrl.xco:
-   CORE Generator input file containing the parameters used to
-   regenerate a core.
+   * CSP_deser_cntrl.sym
 
-CSP_deser_cntrl.xise:
-   ISE Project Navigator support file. This is a generated file and should
-   not be edited directly.
+Generate ISE subproject:
+   Create an ISE subproject for use when including this core in ISE designs
 
-CSP_deser_cntrl_readme.txt:
-   Text file indicating the files generated and how they are used.
+   * CSP_deser_cntrl.gise
+   * CSP_deser_cntrl.xise
+   * _xmsgs/pn_parser.xmsgs
 
-CSP_deser_cntrl_xmdf.tcl:
-   ISE Project Navigator interface file. ISE uses this file to determine
-   how the files output by CORE Generator for the core can be integrated
-   into your ISE project.
+Deliver Readme:
+   Readme file for the IP.
 
-CSP_deser_cntrl_flist.txt:
-   Text file listing all of the output files produced when a customized
-   core was generated in the CORE Generator.
+   * CSP_deser_cntrl_readme.txt
 
+Generate FLIST file:
+   Text file listing all of the output files produced when a customized core was
+   generated in the CORE Generator.
+
+   * CSP_deser_cntrl_flist.txt
 
 Please see the Xilinx CORE Generator online help for further details on
 generated files and how to use them.

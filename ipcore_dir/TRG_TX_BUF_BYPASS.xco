@@ -1,56 +1,75 @@
 ##############################################################
+#
+# Xilinx Core Generator version 14.6
+# Date: Wed Sep 18 21:46:53 2013
+#
 ##############################################################
+#
+#  This file contains the customisation parameters for a
+#  Xilinx CORE Generator IP GUI. It is strongly recommended
+#  that you do not manually alter this file as it may cause
+#  unexpected and unsupported behavior.
+#
 ##############################################################
+#
+#  Generated from component: xilinx.com:ip:v6_gtxwizard:1.12
+#
+##############################################################
+#
+# BEGIN Project Options
 SET addpads = false
 SET asysymbol = true
+SET busformat = BusFormatAngleBracketNotRipped
 SET createndf = false
+SET designentry = Verilog
+SET device = xc6vlx130t
+SET devicefamily = virtex6
+SET flowvendor = Other
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
+SET package = ff1156
 SET removerpms = false
 SET simulationfiles = Behavioral
-SET workingdirectory = ./tmp/
-SET designentry = Verilog
-SET BusFormat = BusFormatAngleBracketNotRipped
-SET devicefamily = virtex6
-SET device = xc6vlx130t
-SET package = ff1156
-SET speedgrade = -3
-SET FlowVendor = Foundation_ISE
-SET VerilogSim = True
-SET VHDLSim = True
-SELECT Virtex-6_FPGA_GTX_Transceiver_Wizard family Xilinx,_Inc. 1.8
+SET speedgrade = -1
+SET verilogsim = true
+SET vhdlsim = false
+# END Project Options
+# BEGIN Select
+SELECT Virtex-6_FPGA_GTX_Transceiver_Wizard xilinx.com:ip:v6_gtxwizard:1.12
+# END Select
+# BEGIN Parameters
 CSET advanced_clocking=false
 CSET bytes_to_reduce_error=8
-CSET cb_seq_1_1=00000000
+CSET cb_seq_1_1=0000000000
 CSET cb_seq_1_1_disp=false
 CSET cb_seq_1_1_k=false
 CSET cb_seq_1_1_mask=true
-CSET cb_seq_1_2=00000000
+CSET cb_seq_1_2=0000000000
 CSET cb_seq_1_2_disp=false
 CSET cb_seq_1_2_k=false
 CSET cb_seq_1_2_mask=true
-CSET cb_seq_1_3=00000000
+CSET cb_seq_1_3=0000000000
 CSET cb_seq_1_3_disp=false
 CSET cb_seq_1_3_k=false
 CSET cb_seq_1_3_mask=true
-CSET cb_seq_1_4=00000000
+CSET cb_seq_1_4=0000000000
 CSET cb_seq_1_4_disp=false
 CSET cb_seq_1_4_k=false
 CSET cb_seq_1_4_mask=true
-CSET cb_seq_2_1=00000000
+CSET cb_seq_2_1=0000000000
 CSET cb_seq_2_1_disp=false
 CSET cb_seq_2_1_k=false
 CSET cb_seq_2_1_mask=true
-CSET cb_seq_2_2=00000000
+CSET cb_seq_2_2=0000000000
 CSET cb_seq_2_2_disp=false
 CSET cb_seq_2_2_k=false
 CSET cb_seq_2_2_mask=true
-CSET cb_seq_2_3=00000000
+CSET cb_seq_2_3=0000000000
 CSET cb_seq_2_3_disp=false
 CSET cb_seq_2_3_k=false
 CSET cb_seq_2_3_mask=true
-CSET cb_seq_2_4=00000000
+CSET cb_seq_2_4=0000000000
 CSET cb_seq_2_4_disp=false
 CSET cb_seq_2_4_k=false
 CSET cb_seq_2_4_mask=true
@@ -58,35 +77,35 @@ CSET cb_sequence_1_max_skew=1
 CSET cb_sequence_2_max_skew=1
 CSET cb_sequence_length=1
 CSET cc_keep_one_idle=false
-CSET cc_seq_1_1=00000000
+CSET cc_seq_1_1=0000000000
 CSET cc_seq_1_1_disp=false
 CSET cc_seq_1_1_k=true
 CSET cc_seq_1_1_mask=true
-CSET cc_seq_1_2=00000000
+CSET cc_seq_1_2=0000000000
 CSET cc_seq_1_2_disp=false
 CSET cc_seq_1_2_k=true
 CSET cc_seq_1_2_mask=true
-CSET cc_seq_1_3=00000000
+CSET cc_seq_1_3=0000000000
 CSET cc_seq_1_3_disp=false
 CSET cc_seq_1_3_k=true
 CSET cc_seq_1_3_mask=true
-CSET cc_seq_1_4=00000000
+CSET cc_seq_1_4=0000000000
 CSET cc_seq_1_4_disp=false
 CSET cc_seq_1_4_k=true
 CSET cc_seq_1_4_mask=true
-CSET cc_seq_2_1=00000000
+CSET cc_seq_2_1=0000000000
 CSET cc_seq_2_1_disp=false
 CSET cc_seq_2_1_k=true
 CSET cc_seq_2_1_mask=true
-CSET cc_seq_2_2=00000000
+CSET cc_seq_2_2=0000000000
 CSET cc_seq_2_2_disp=false
 CSET cc_seq_2_2_k=true
 CSET cc_seq_2_2_mask=true
-CSET cc_seq_2_3=00000000
+CSET cc_seq_2_3=0000000000
 CSET cc_seq_2_3_disp=false
 CSET cc_seq_2_3_k=true
 CSET cc_seq_2_3_mask=true
-CSET cc_seq_2_4=00000000
+CSET cc_seq_2_4=0000000000
 CSET cc_seq_2_4_disp=false
 CSET cc_seq_2_4_k=true
 CSET cc_seq_2_4_mask=true
@@ -101,16 +120,16 @@ CSET com_burst_val=15
 CSET comma_alignment=Any_Byte_Boundary
 CSET comma_double=false
 CSET comma_mask=1111111111
-CSET comma_preset=K28.5
+CSET comma_preset=User_defined
 CSET component_name=TRG_TX_BUF_BYPASS
 CSET dec_mcomma_detect=false
 CSET dec_pcomma_detect=false
 CSET dec_valid_comma_only=false
-CSET decoding=8B/10B
+CSET decoding=None
 CSET dfe_mode=Fixed_tap_mode
 CSET disable_ac_coupling=false
 CSET driver_swing=0111
-CSET en_idle_reset_buf=false
+CSET en_idle_reset_buf=true
 CSET enable_dfe=false
 CSET encoding=8B/10B
 CSET errors_to_lose_sync=128
@@ -158,15 +177,15 @@ CSET rx_decode_seq_match=true
 CSET rx_divider=/1
 CSET rx_en_idle_hold_cdr=false
 CSET rx_en_idle_hold_dfe=true
-CSET rx_en_idle_reset_fr=false
-CSET rx_en_idle_reset_ph=false
+CSET rx_en_idle_reset_fr=true
+CSET rx_en_idle_reset_ph=true
 CSET rx_en_mode_reset_buf=true
 CSET rx_en_rate_reset_buf=true
 CSET rx_en_realign_reset_buf=false
 CSET rx_fifo_addr_mode=FULL
 CSET rx_idle_hi_cnt=1000
 CSET rx_idle_lo_cnt=0000
-CSET rx_line_rate=3.2
+CSET rx_line_rate=3.125
 CSET rx_oob_threshold=011
 CSET rx_refclk_x0_y0=REFCLK1_Q0
 CSET rx_refclk_x0_y1=REFCLK1_Q0
@@ -204,7 +223,7 @@ CSET rx_refclk_x0_y6=REFCLK1_Q1
 CSET rx_refclk_x0_y7=REFCLK1_Q1
 CSET rx_refclk_x0_y8=REFCLK1_Q2
 CSET rx_refclk_x0_y9=REFCLK1_Q2
-CSET rx_reference_clock=160.00
+CSET rx_reference_clock=156.25
 CSET rx_slide_mode=OFF
 CSET rx_termination_voltage=MGTAVTT
 CSET rxlossofsyncport=false
@@ -225,12 +244,12 @@ CSET trans_time_from_p2=60
 CSET trans_time_non_p2=25
 CSET trans_time_rate=FF
 CSET trans_time_to_p2=100
-CSET tx_datapath_width=40
+CSET tx_datapath_width=32
 CSET tx_divider=/1
 CSET tx_drive_mode=DIRECT
 CSET tx_en_rate_reset_buf=true
-CSET tx_idle_assert_delay=100
-CSET tx_idle_deassert_delay=010
+CSET tx_idle_assert_delay=110
+CSET tx_idle_deassert_delay=100
 CSET tx_line_rate=3.2
 CSET tx_refclk_x0_y0=REFCLK0_Q0
 CSET tx_refclk_x0_y1=REFCLK0_Q0
@@ -324,6 +343,7 @@ CSET use_port_comwakedet=false
 CSET use_port_drp=false
 CSET use_port_enmcommaalign=false
 CSET use_port_enpcommaalign=false
+CSET use_port_gtxtest=false
 CSET use_port_loopback=false
 CSET use_port_phystatus=false
 CSET use_port_plllkdet=true
@@ -383,3 +403,9 @@ CSET use_tx_oversampling=false
 CSET use_txbuffer=false
 CSET use_txpllrefclk=true
 CSET wideband_highpass_mix=Use_RXEQMIX_Port
+# END Parameters
+# BEGIN Extra information
+MISC pkg_timestamp=2011-04-08T05:24:23Z
+# END Extra information
+GENERATE
+# CRC: f104cba6

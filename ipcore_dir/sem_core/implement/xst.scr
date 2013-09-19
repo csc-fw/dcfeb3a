@@ -1,7 +1,7 @@
 run
 -ifmt mixed
 -ifn xst.prj
--top sem_example
+-top sem_core_sem_example
 -ofn sem_example
 -opt_mode area
 -opt_level 2

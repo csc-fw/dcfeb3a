@@ -1,14 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2011 Xilinx, Inc.
+// Copyright (c) 2013 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 1.0
+// \   \   \/     Version    : 14.6
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : cmp_tx_vio.veo
-// /___/   /\     Timestamp  : Tue Aug 23 10:54:26 Eastern Daylight Time 2011
+// /___/   /\     Timestamp  : Wed Sep 18 16:59:43 Eastern Daylight Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

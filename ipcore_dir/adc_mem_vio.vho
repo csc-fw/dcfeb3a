@@ -1,18 +1,19 @@
 -------------------------------------------------------------------------------
--- Copyright (c) 2011 Xilinx, Inc.
+-- Copyright (c) 2013 Xilinx, Inc.
 -- All Rights Reserved
 -------------------------------------------------------------------------------
 --   ____  ____
 --  /   /\/   /
 -- /___/  \  /    Vendor     : Xilinx
--- \   \   \/     Version    : 1.0
+-- \   \   \/     Version    : 14.6
 --  \   \         Application: Xilinx CORE Generator
 --  /   /         Filename   : adc_mem_vio.vho
--- /___/   /\     Timestamp  : Thu Apr 28 10:13:06 Eastern Daylight Time 2011
+-- /___/   /\     Timestamp  : Wed Sep 18 12:08:47 Eastern Daylight Time 2013
 -- \   \  /  \
 --  \___\/\___\
 --
 -- Design Name: ISE Instantiation template
+-- Component Identifier: xilinx.com:ip:chipscope_vio:1.03.a
 -------------------------------------------------------------------------------
 -- The following code must appear in the VHDL architecture header:
 

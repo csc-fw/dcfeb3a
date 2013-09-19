@@ -1,5 +1,5 @@
 -- 
--- (c) Copyright 2008 - 2010 Xilinx, Inc. All rights reserved.
+-- (c) Copyright 2008 - 2011 Xilinx, Inc. All rights reserved.
 -- 
 -- This file contains confidential and proprietary information
 -- of Xilinx, Inc. and is protected under U.S. and
@@ -51,18 +51,18 @@
 -- None
 --
 ------------------------------------------------------------------------------
--- Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
--- Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+-- "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
+-- "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 ------------------------------------------------------------------------------
--- CLK_OUT1    40.000      0.000      50.0      232.099    191.950
--- CLK_OUT2    40.000     90.000      50.0      232.099    191.950
--- CLK_OUT3    40.000    180.000      50.0      232.099    191.950
--- CLK_OUT4    40.000    270.000      50.0      232.099    191.950
+-- CLK_OUT1____40.000______0.000______50.0______232.099____191.950
+-- CLK_OUT2____40.000_____90.000______50.0______232.099____191.950
+-- CLK_OUT3____40.000____180.000______50.0______232.099____191.950
+-- CLK_OUT4____40.000____270.000______50.0______232.099____191.950
 --
 ------------------------------------------------------------------------------
--- Input Clock   Input Freq (MHz)   Input Jitter (UI)
+-- "Input Clock   Freq (MHz)    Input Jitter (UI)"
 ------------------------------------------------------------------------------
--- primary          40.000            0.010
+-- __primary__________40.000____________0.010
 
 
 -- The following code must appear in the VHDL architecture header:
@@ -90,14 +90,14 @@ end component;
 your_instance_name : clkadj_coarse
   port map
    (-- Clock in ports
-    CLK_IN1            => CLK_IN1,
-    CLKFB_IN           => CLKFB_IN,
+    CLK_IN1 => CLK_IN1,
+    CLKFB_IN => CLKFB_IN,
     -- Clock out ports
-    CLK_OUT1           => CLK_OUT1,
-    CLK_OUT2           => CLK_OUT2,
-    CLK_OUT3           => CLK_OUT3,
-    CLK_OUT4           => CLK_OUT4,
-    CLKFB_OUT          => CLKFB_OUT,
+    CLK_OUT1 => CLK_OUT1,
+    CLK_OUT2 => CLK_OUT2,
+    CLK_OUT3 => CLK_OUT3,
+    CLK_OUT4 => CLK_OUT4,
+    CLKFB_OUT => CLKFB_OUT,
     -- Status and control signals
-    LOCKED             => LOCKED);
+    LOCKED => LOCKED);
 -- INST_TAG_END ------ End INSTANTIATION Template ------------

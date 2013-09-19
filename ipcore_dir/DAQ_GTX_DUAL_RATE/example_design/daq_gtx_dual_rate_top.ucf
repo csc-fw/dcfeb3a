@@ -2,10 +2,10 @@
 ##   ____  ____
 ##  /   /\/   /
 ## /___/  \  /    Vendor: Xilinx
-## \   \   \/     Version : 1.8
+## \   \   \/     Version : 1.12
 ##  \   \         Application : Virtex-6 FPGA GTX Transceiver Wizard
 ##  /   /         Filename : daq_gtx_dual_rate_top.ucf
-## /___/   /\     Timestamp :
+## /___/   /\     
 ## \   \  /  \ 
 ##  \___\/\___\
 ##
@@ -16,7 +16,7 @@
 ## Device:  xc6vlx130t
 ## Package: ff1156
 ##
-## (c) Copyright 2009-2010 Xilinx, Inc. All rights reserved.
+## (c) Copyright 2009-2011 Xilinx, Inc. All rights reserved.
 ##
 ## This file contains confidential and proprietary information
 ## of Xilinx, Inc. and is protected under U.S. and
@@ -64,7 +64,8 @@
 
 ################################## Clock Constraints ##########################
 
-NET q3_clk0_refclk_i PERIOD = 8.0 ns;
+NET "q3_clk0_refclk_i" TNM_NET = "q3_clk0_refclk_i";
+TIMESPEC "TS_q3_clk0_refclk_i" = PERIOD "q3_clk0_refclk_i" 8.0;
 
 
 
@@ -75,7 +76,6 @@ TIMESPEC "TS_gtx0_txusrclk2_i" = PERIOD "gtx0_txusrclk2_i" 16.0;
 
 
 #################### locs for top level ports (ML623 Board) ###################
-
 
 
 
