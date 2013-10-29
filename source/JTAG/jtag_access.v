@@ -507,7 +507,8 @@ sem_core sem_core1 (
       .SYNWORD(fecc_synword)                // 7-bit output Word output in the frame where an ECC error has been detected
    );
 
-assign ff_read = csp_read & ff_data_present;
+//assign ff_read = csp_read & ff_data_present;
+assign ff_read = ff_data_present;
 
 	sem_mon_fifo_bgb monitor_fifo1(
   .icap_clk(CLK40),
