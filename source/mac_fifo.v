@@ -79,6 +79,13 @@ reg [6:0] seq,seq1;
 reg clr_crc;
 reg valid1,valid2;
 
+reg resync_1;
+reg resync_2;
+reg resync_3;
+reg resync_4;
+wire resync_stretch;
+wire rst_resync;
+
 // diagnostic signals
 reg [5:0] l1a_timer;
 reg l1a_pending;
@@ -188,14 +195,22 @@ endgenerate
       .DI(WDATA),                   // Input data, width defined by DATA_WIDTH parameter
       .RDCLK(RCLK),             // 1-bit input read clock
       .RDEN(nxt_wrd),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
+      .RST(rst_resync),                 // 1-bit input reset
       .WRCLK(WCLK),             // 1-bit input write clock
       .WREN(WREN)                // 1-bit input write enable
    );
 
+assign resync_stretch = (resync_1 | resync_2 | resync_3 | resync_4); 
+assign rst_resync = RST || resync_stretch;
 
 always @(posedge CMSCLK) begin
-	if(RESYNC || RST)
+	resync_1 <= RESYNC;
+	resync_2 <= resync_1;
+	resync_3 <= resync_2;
+	resync_4 <= resync_3;
+end
+always @(posedge CMSCLK) begin
+	if(rst_resync)
 	   l1acnt <= 24'h000000;
 	else
 		if(L1A)
@@ -204,7 +219,7 @@ always @(posedge CMSCLK) begin
 			l1acnt <= l1acnt;
 end
 always @(posedge CMSCLK) begin
-	if(RESYNC || RST)
+	if(rst_resync)
 	   l1amcnt <= 24'h000000;
 	else
 		if(L1A_MATCH)
@@ -227,8 +242,8 @@ always @(posedge RCLK) begin
 		else
 			l1a_pending <= l1a_pending;
 end
-always @(posedge RCLK or posedge RST) begin
-	if(RST)
+always @(posedge RCLK or posedge rst_resync) begin
+	if(rst_resync)
 	   l1a_timer <= 6'h00;
 	else
 		if(rst_time)
@@ -273,7 +288,7 @@ assign missed_pkt = check_time & l1a_pending & !pkt_prg;
       .DI({L1A_PHASE,l1amcnt,l1acnt[11:0]}),                   // Input data, width defined by DATA_WIDTH parameter
       .RDCLK(RCLK),             // 1-bit input read clock
       .RDEN(nxt_l1a),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
+      .RST(rst_resync),                 // 1-bit input reset
       .WRCLK(CMSCLK),             // 1-bit input write clock
       .WREN(l1a_push)                // 1-bit input write enable
    );
@@ -336,8 +351,8 @@ always @(posedge RCLK) begin
 end
 assign l1a_in = l1a_push_sync1 & ~l1a_push_sync2;
 
-always @(posedge RCLK or posedge RST) begin
-	if(RST)
+always @(posedge RCLK or posedge rst_resync) begin
+	if(rst_resync)
 		l1abuf <= 5'h00;
 	else
 		if(l1a_in && !nxt_l1a)
@@ -348,8 +363,8 @@ always @(posedge RCLK or posedge RST) begin
 			l1abuf <= l1abuf;
 end
 
-always @(posedge RCLK or posedge RST) begin
-	if(RST)
+always @(posedge RCLK or posedge rst_resync) begin
+	if(rst_resync)
 		smp <= 7'h00;
 	else
 		if(inc_smp)
@@ -359,8 +374,8 @@ always @(posedge RCLK or posedge RST) begin
 		else
 			smp <= smp;
 end
-always @(posedge RCLK or posedge RST) begin
-	if(RST)
+always @(posedge RCLK or posedge rst_resync) begin
+	if(rst_resync)
 		seq <= 7'h00;
 	else
 		if(inc_seq)
