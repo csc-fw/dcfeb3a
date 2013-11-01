@@ -1021,7 +1021,8 @@ rd_fifo2(
 	.TXD_VLD(txd_vld)                  // data valid signal
    );
 	
-
+wire [2:0] jdaq_prbs_tst;
+wire jdaq_inj_err;
 
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
@@ -1049,6 +1050,8 @@ daq_optical_out_i (
 	.TXD(txd),                         // 16-bit data for frame processor
 	.TXD_VLD(txd_vld),                   // frame data valid signal
 	.JDAQ_RATE(jdaq_rate),
+	.JDAQ_PRBS_TST(jdaq_prbs_tst),      // PRBS test mode from JTAG interface
+	.JDAQ_INJ_ERR(jdaq_inj_err),        // Error injection requested from JTAG interface
 	.RATE_1_25(rate_1_25),
 	.RATE_3_2(rate_3_2),
 	.TX_ACK(txack),
@@ -1640,6 +1643,8 @@ SPI_PORT_i  (
 		.LAY1_TO_6_HALF_STRIP(lay1_to_6_half_strip), //half strips to inject into data stream for each layer
 		.LAYER_MASK(layer_mask),     //layer mask to indicate which layers are active.
 		.JDAQ_RATE(jdaq_rate),        //DAQ Rate selection: 0 = 1GbE (1.25Gbps line rate), 1 = 2.56GbE (3.2Gbps line rate).
+		.JDAQ_PRBS_TST(jdaq_prbs_tst),      // PRBS test mode from JTAG interface
+		.JDAQ_INJ_ERR(jdaq_inj_err),        // Error injection requested from JTAG interface
 		.USE_ANY_L1A(juse_any_l1a),   //L1A_MATCH source: 0 = L1A_MATCH = skw_rw_l1a_match, 1 = L1A_MATCH = skw_rw_l1a.
 		.L1A_HEAD(jl1a_head)         //L1A_HEAD flag: 0 -> l1anum is NOT used as header in data stream, 1 -> l1anum IS used as header in data stream.
    );

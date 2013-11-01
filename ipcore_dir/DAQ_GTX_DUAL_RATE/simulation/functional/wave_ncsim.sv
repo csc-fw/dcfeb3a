@@ -89,6 +89,9 @@
   waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRATE_IN
   waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRATEDONE_OUT
   waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRESETDONE_OUT
+  waveform  add  -label Transmit_Ports_-_TX_PRBS_Generator  -comment  Transmit_Ports_-_TX_PRBS_Generator
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXENPRBSTST_IN
+  waveform  add  -signals  DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXPRBSFORCEERR_IN
 
   console submit -using simulator -wait no "run 64 us"
 

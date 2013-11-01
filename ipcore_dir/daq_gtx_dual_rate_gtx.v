@@ -114,7 +114,10 @@ module daq_gtx_dual_rate_gtx #
     input   [2:0]   TXPLLREFSELDY_IN,
     input   [1:0]   TXRATE_IN,
     output          TXRATEDONE_OUT,
-    output          TXRESETDONE_OUT
+    output          TXRESETDONE_OUT,
+    //------------------- Transmit Ports - TX PRBS Generator -------------------
+    input   [2:0]   TXENPRBSTST_IN,
+    input           TXPRBSFORCEERR_IN
 
 
 );
@@ -568,8 +571,8 @@ module daq_gtx_dual_rate_gtx #
         .TXRATEDONE                     (TXRATEDONE_OUT),
         .TXRESETDONE                    (TXRESETDONE_OUT),
         //------------------- Transmit Ports - TX PRBS Generator -------------------
-        .TXENPRBSTST                    (tied_to_ground_vec_i[2:0]),
-        .TXPRBSFORCEERR                 (tied_to_ground_i),
+        .TXENPRBSTST                    (TXENPRBSTST_IN),
+        .TXPRBSFORCEERR                 (TXPRBSFORCEERR_IN),
         //------------------ Transmit Ports - TX Polarity Control ------------------
         .TXPOLARITY                     (tied_to_ground_i),
         //--------------- Transmit Ports - TX Ports for PCI Express ----------------

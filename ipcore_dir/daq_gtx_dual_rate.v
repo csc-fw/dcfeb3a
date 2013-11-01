@@ -115,7 +115,10 @@
     input   [2:0]   GTX0_TXPLLREFSELDY_IN,
     input   [1:0]   GTX0_TXRATE_IN,
     output          GTX0_TXRATEDONE_OUT,
-    output          GTX0_TXRESETDONE_OUT
+    output          GTX0_TXRESETDONE_OUT,
+    //------------------- Transmit Ports - TX PRBS Generator -------------------
+    input   [2:0]   GTX0_TXENPRBSTST_IN,
+    input           GTX0_TXPRBSFORCEERR_IN
 
 
 );
@@ -201,7 +204,10 @@
         .TXPLLREFSELDY_IN               (GTX0_TXPLLREFSELDY_IN),
         .TXRATE_IN                      (GTX0_TXRATE_IN),
         .TXRATEDONE_OUT                 (GTX0_TXRATEDONE_OUT),
-        .TXRESETDONE_OUT                (GTX0_TXRESETDONE_OUT)
+        .TXRESETDONE_OUT                (GTX0_TXRESETDONE_OUT),
+        //------------------- Transmit Ports - TX PRBS Generator -------------------
+        .TXENPRBSTST_IN                 (GTX0_TXENPRBSTST_IN),
+        .TXPRBSFORCEERR_IN              (GTX0_TXPRBSFORCEERR_IN)
 
     );
 

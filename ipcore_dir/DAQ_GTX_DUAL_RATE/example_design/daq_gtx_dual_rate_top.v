@@ -128,6 +128,9 @@ module daq_gtx_dual_rate_top #
     wire    [1:0]   gtx0_txrate_i;
     wire            gtx0_txratedone_i;
     wire            gtx0_txresetdone_i;
+    //------------------- Transmit Ports - TX PRBS Generator -------------------
+    wire    [2:0]   gtx0_txenprbstst_i;
+    wire            gtx0_txprbsforceerr_i;
 
 
 
@@ -342,7 +345,10 @@ module daq_gtx_dual_rate_top #
         .GTX0_TXPLLREFSELDY_IN          (gtx0_txpllrefseldy_i),
         .GTX0_TXRATE_IN                 (gtx0_txrate_i),
         .GTX0_TXRATEDONE_OUT            (gtx0_txratedone_i),
-        .GTX0_TXRESETDONE_OUT           (gtx0_txresetdone_i)
+        .GTX0_TXRESETDONE_OUT           (gtx0_txresetdone_i),
+        //------------------- Transmit Ports - TX PRBS Generator -------------------
+        .GTX0_TXENPRBSTST_IN            (gtx0_txenprbstst_i),
+        .GTX0_TXPRBSFORCEERR_IN         (gtx0_txprbsforceerr_i)
 
 
     );
@@ -593,6 +599,8 @@ begin : chipscope
     assign  gtx0_plltxreset_i                    =  tx_data_vio_async_out_i[31];
     assign  gtx0_txpllrefseldy_i                 =  tx_data_vio_async_out_i[30:28];
     assign  gtx0_txrate_i                        =  tx_data_vio_async_out_i[27:26];
+    assign  gtx0_txenprbstst_i                   =  tx_data_vio_sync_out_i[31:29];
+    assign  gtx0_txprbsforceerr_i                =  tx_data_vio_sync_out_i[28];
     assign  gtx0_rx_data_vio_async_in_i[31:0]    =  32'b00000000000000000000000000000000;
     assign  gtx0_rx_data_vio_sync_in_i[31:0]     =  32'b00000000000000000000000000000000;
     assign  gtx0_rxpllrefseldy_i                 =  rx_data_vio_async_out_i[31:29];
@@ -633,6 +641,8 @@ begin: no_chipscope
     assign  gtx0_plltxreset_i                    =  tied_to_ground_i;
     assign  gtx0_txpllrefseldy_i                 =  tied_to_ground_vec_i[2:0];
     assign  gtx0_txrate_i                        =  tied_to_ground_vec_i[1:0];
+    assign  gtx0_txenprbstst_i                   =  tied_to_ground_vec_i[2:0];
+    assign  gtx0_txprbsforceerr_i                =  tied_to_ground_i;
     assign  gtx0_rxpllrefseldy_i                 =  tied_to_ground_vec_i[2:0];
 
 

@@ -60,6 +60,8 @@
 //  42     | Disable l1anum use in data to ODMB. Clear the L1A_HEAD flag. -- Instruction only
 //  43     | Enable l1anum use in data to ODMB. Set the L1A_HEAD flag.  This is the default -- Instruction only
 //  44     | Sampling Clock phase register (3-bits, 0-7).
+//  45     | PRBS test mode for DAQ optical path (3-bits, 0-7).
+//  46     | Inject error into PRBS test for DAQ optical path.
 //
 // Revision: 
 // Revision 0.01 - File Created

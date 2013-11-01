@@ -87,6 +87,9 @@ wave add /DEMO_TB/daq_gtx_dual_rate_top_i/daq_gtx_dual_rate_i/gtx0_daq_gtx_dual_
 wave add /DEMO_TB/daq_gtx_dual_rate_top_i/daq_gtx_dual_rate_i/gtx0_daq_gtx_dual_rate_i/TXRATE_IN
 wave add /DEMO_TB/daq_gtx_dual_rate_top_i/daq_gtx_dual_rate_i/gtx0_daq_gtx_dual_rate_i/TXRATEDONE_OUT
 wave add /DEMO_TB/daq_gtx_dual_rate_top_i/daq_gtx_dual_rate_i/gtx0_daq_gtx_dual_rate_i/TXRESETDONE_OUT
+divider add "Transmit Ports - TX PRBS Generator"
+wave add /DEMO_TB/daq_gtx_dual_rate_top_i/daq_gtx_dual_rate_i/gtx0_daq_gtx_dual_rate_i/TXENPRBSTST_IN
+wave add /DEMO_TB/daq_gtx_dual_rate_top_i/daq_gtx_dual_rate_i/gtx0_daq_gtx_dual_rate_i/TXPRBSFORCEERR_IN
 
 run 64 us
 quit

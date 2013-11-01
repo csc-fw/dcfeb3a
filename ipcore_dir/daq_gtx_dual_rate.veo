@@ -116,7 +116,10 @@
         .GTX0_TXPLLREFSELDY_IN          (),
         .GTX0_TXRATE_IN                 (),
         .GTX0_TXRATEDONE_OUT            (),
-        .GTX0_TXRESETDONE_OUT           ()
+        .GTX0_TXRESETDONE_OUT           (),
+        //------------------- Transmit Ports - TX PRBS Generator -------------------
+        .GTX0_TXENPRBSTST_IN            (),
+        .GTX0_TXPRBSFORCEERR_IN         ()
 
 
     );

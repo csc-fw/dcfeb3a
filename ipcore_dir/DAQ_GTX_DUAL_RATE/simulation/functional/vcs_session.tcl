@@ -104,6 +104,9 @@
   gui_sg_addsignal -group daq_gtx_dual_rate_Group {DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRATE_IN}
   gui_sg_addsignal -group daq_gtx_dual_rate_Group {DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRATEDONE_OUT}
   gui_sg_addsignal -group daq_gtx_dual_rate_Group {DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXRESETDONE_OUT}
+  gui_sg_addsignal -group daq_gtx_dual_rate_Group {{Transmit Ports - TX PRBS Generator}} -divider
+  gui_sg_addsignal -group daq_gtx_dual_rate_Group {DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXENPRBSTST_IN}
+  gui_sg_addsignal -group daq_gtx_dual_rate_Group {DEMO_TB.daq_gtx_dual_rate_top_i.daq_gtx_dual_rate_i.gtx0_daq_gtx_dual_rate_i.TXPRBSFORCEERR_IN}
 
 
   gui_zoom -window Wave.1 -full

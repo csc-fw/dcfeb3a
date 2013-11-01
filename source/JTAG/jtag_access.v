@@ -61,6 +61,8 @@
 //  42     | Disable l1anum use in data to ODMB. Clear the L1A_HEAD flag. -- Instruction only
 //  43     | Enable l1anum use in data to ODMB. Set the L1A_HEAD flag.  This is the default -- Instruction only
 //  44     | Sampling Clock phase register (3-bits, 0-7).
+//  45     | PRBS test mode for DAQ optical path (3-bits, 0-7).
+//  46     | Inject error into PRBS test for DAQ optical path.
 //
 // Revision: 
 // Revision 0.01 - File Created
@@ -124,6 +126,8 @@ module jtag_access #(
 	 output [29:0] LAY1_TO_6_HALF_STRIP, // TMB half strips for injecting patterns into the optical serial data stream
 	 output [5:0] LAYER_MASK, // layer mask to indicate which layers to use for active half strips.
 	 output reg JDAQ_RATE,    //DAQ Rate selection: 0 = 1GbE (1.25Gbps line rate), 1 = 2.56GbE (3.2Gbps line rate).
+	output [2:0]JDAQ_PRBS_TST,   // PRBS test mode from JTAG interface
+	output JDAQ_INJ_ERR,         // Error injection requested from JTAG interface
 	output reg USE_ANY_L1A,   //L1A_MATCH source: 0 -> L1A_MATCH = skw_rw_l1a_match, 1 -> L1A_MATCH = skw_rw_l1a.
 	output reg L1A_HEAD      //L1A_HEAD flag: 0 -> l1anum is NOT used as header in data stream, 1 -> l1anum IS used as header in data stream.
 	 );
@@ -226,8 +230,8 @@ module jtag_access #(
 
 	wire [63:0] f; //JTAG functions (one hot);
 	wire f11;
-	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13;
-	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c;
+	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14;
+	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d;
 	wire [31:16] status_h;
    wire [6:1] bky_mask;
 	wire [6:0] nsamp;
@@ -370,7 +374,7 @@ endgenerate
 //	assign rst_cntrs = RST | cntr_rst;
 	
 	
-	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c);
+	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c | tdof2d);
 	assign status_h[31:16] = {5'b10110,XL1DLYSET,LOADPBLK,COMP_TIME,COMP_MODE};
 	
 	assign JTAG_SYS_RST  = f[1];  // System Reset JTAG command (like power on reset without reprogramming)
@@ -386,6 +390,7 @@ endgenerate
 	assign clrf = clr_pip[10] & p_in; // auto reset functions last 11 25ns clocks then clear
 	
 	assign JTAG_RD_MODE = f[6];    // JTAG readout mode when reading ADC data
+	assign JDAQ_INJ_ERR = f[46];   // JTAG request for error injection in PRBS test
 //
 //
 // JTAG to SPI interface for Comparator DAC, Calibration DAC and MAX 1271 ADC
@@ -1162,5 +1167,34 @@ sem_cmds sem_cmds_FSM(
 //      .RST(RST),          // Reset default state
 //		.BUS({multi_bit_err_cnt,sngl_bit_err_cnt}), // Bus to capture
 //      .TDO(tdof27));      // Serial Test Data Out
+		
+//
+// PRBS testing mode for DAQ optical path
+//      Modes are 
+//      000: Standard operation
+//      001: PRBS-7
+//      010: PRBS-15
+//      011: PRBS-23
+//      100: PRBS-31
+//      101: PCI Express pattern
+//      110: Square wave with 2 UI
+//      111: Square wave with 16 UI (or 20 UI)
+
+   user_wr_reg #(.width(3), .def_value(3'b000)) // default is normal mode, no PRBS testing
+   PRBS_tst_mode(
+	   .TCK(tck2),         // TCK for update register
+      .DRCK(tck2),        // Data Reg Clock
+      .FSEL(f[45]),       // Function select
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .DSY_IN(1'b0),      // Serial Daisy chained data in
+      .SHIFT(jshift2),      // Shift state
+      .UPDATE(update2),    // Update state
+      .RST(RST),          // Reset default state
+      .DSY_CHAIN(1'b0),   // Daisy chain mode
+      .PO(JDAQ_PRBS_TST),    // Parallel output
+      .TDO(tdof2d),        // Serial Test Data Out
+      .DSY_OUT(dmy14));    // Daisy chained serial data out
+		
 
 endmodule

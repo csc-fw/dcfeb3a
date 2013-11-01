@@ -23,6 +23,8 @@ module daq_optical_out #(
 	input [15:0] TXD,           // Data to be transmitted
 	input  TXD_VLD,             // Flag for valid data; initiates data transfer
 	input JDAQ_RATE,            // requested DAQ rate from JTAG interface
+	input [2:0]JDAQ_PRBS_TST,   // PRBS test mode from JTAG interface
+	input JDAQ_INJ_ERR,         // Error injection requested from JTAG interface
 	output RATE_1_25,           // Flag to indicate 1.25 Gbps line rate operation
 	output RATE_3_2,            // Flag to indicate 3.2 Gbps line rate operation
 	output TX_ACK,              // Handshake signal indicates preamble has been sent, data flow should start
@@ -132,10 +134,17 @@ localparam
 	wire clr_cnt_rst;
 	wire inc_cnt;
 	reg [3:0] count;
+	
+	// PRBS signals
+	wire force_error;
+	reg  inj_err1;
+	reg  inj_err2;
 
 assign CSP_MAN_CTRL = man_control;
 assign CSP_USE_ANY_L1A = man_use_any_l1a;
 assign CSP_L1A_HEAD = man_l1a_head;
+
+assign force_error = inj_err1 & ~inj_err2;
 
 generate
 if(USE_CHIPSCOPE==1) 
@@ -411,10 +420,26 @@ end
         .GTX0_TXPLLREFSELDY_IN          (ref_clk_sel),
         .GTX0_TXRATE_IN                 (txrate_sel),
         .GTX0_TXRATEDONE_OUT            (txrate_done),
-        .GTX0_TXRESETDONE_OUT           (txresetdone)
-    );
+        .GTX0_TXRESETDONE_OUT           (txresetdone),
+         //------------------- Transmit Ports - TX PRBS Generator -------------------
+        .GTX0_TXENPRBSTST_IN            (JDAQ_PRBS_TST),
+        .GTX0_TXPRBSFORCEERR_IN         (force_error)
+
+   );
     
 
+//////////////////////////////////////////////////////////////
+//                                                          //
+// Force error in PRBS tests.                               //
+// One per command input.                                   //
+//                                                          //
+//////////////////////////////////////////////////////////////
+
+always @(posedge usr_clk_wordwise)
+begin
+	inj_err1 <= JDAQ_INJ_ERR;
+	inj_err2 <= inj_err1;
+end
 
 //////////////////////////////////////////////////////////////
 //                                                          //
