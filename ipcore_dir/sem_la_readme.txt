@@ -1,5 +1,5 @@
 The following files were generated for 'sem_la' in directory
-C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\ipcore_dir\
 
 XCO file generator:
    Generate an XCO file for compatibility with legacy flows.
@@ -20,15 +20,15 @@ Creates an implementation netlist:
    * sem_la.xdc
    * sem_la_xmdf.tcl
 
+Creates an HDL instantiation template:
+   Creates an HDL instantiation template for the IP.
+
+   * sem_la.veo
+
 IP Symbol Generator:
    Generate an IP symbol based on the current project options'.
 
    * sem_la.asy
-
-SYM file generator:
-   Generate a SYM file for compatibility with legacy flows
-
-   * sem_la.sym
 
 Generate ISE subproject:
    Create an ISE subproject for use when including this core in ISE designs

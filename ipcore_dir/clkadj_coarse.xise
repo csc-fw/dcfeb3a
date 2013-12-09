@@ -12,13 +12,13 @@
     <!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved. -->
   </header>
 
-  <version xil_pn:ise_version="14.6" xil_pn:schema_version="2"/>
+  <version xil_pn:ise_version="14.7" xil_pn:schema_version="2"/>
 
   <files>
     <file xil_pn:name="clkadj_coarse.ucf" xil_pn:type="FILE_UCF">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="clkadj_coarse.vhd" xil_pn:type="FILE_VHDL">
+    <file xil_pn:name="clkadj_coarse.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="3"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="1"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="3"/>
@@ -34,8 +34,8 @@
     <property xil_pn:name="Device Family" xil_pn:value="Virtex6" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Enable Internal Done Pipe" xil_pn:value="true" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Implementation Stop View" xil_pn:value="PreSynthesis" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Implementation Top" xil_pn:value="Architecture|clkadj_coarse|xilinx" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Implementation Top File" xil_pn:value="clkadj_coarse.vhd" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top" xil_pn:value="Module|clkadj_coarse" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Implementation Top File" xil_pn:value="clkadj_coarse.v" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Implementation Top Instance Path" xil_pn:value="/clkadj_coarse" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Package" xil_pn:value="ff1156" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Preferred Language" xil_pn:value="Verilog" xil_pn:valueState="default"/>
@@ -51,8 +51,8 @@
     <!--                                                                                  -->
     <property xil_pn:name="PROP_DesignName" xil_pn:value="clkadj_coarse" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_DevFamilyPMName" xil_pn:value="virtex6" xil_pn:valueState="default"/>
-    <property xil_pn:name="PROP_intProjectCreationTimestamp" xil_pn:value="2013-09-18T13:57:22" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="PROP_intWbtProjectID" xil_pn:value="845B818FC7DC4B6FB0685593DE302473" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="PROP_intProjectCreationTimestamp" xil_pn:value="2013-11-05T17:18:57" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="PROP_intWbtProjectID" xil_pn:value="44C8DF6FF24C4B65B4AC7F9DAC24703D" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_intWorkingDirLocWRTProjDir" xil_pn:value="Same" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_intWorkingDirUsed" xil_pn:value="No" xil_pn:valueState="non-default"/>
   </properties>

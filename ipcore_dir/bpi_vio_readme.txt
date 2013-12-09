@@ -1,5 +1,5 @@
 The following files were generated for 'bpi_vio' in directory
-C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\ipcore_dir\
 
 XCO file generator:
    Generate an XCO file for compatibility with legacy flows.
@@ -19,15 +19,15 @@ Creates an implementation netlist:
    * bpi_vio.xdc
    * bpi_vio_xmdf.tcl
 
+Creates an HDL instantiation template:
+   Creates an HDL instantiation template for the IP.
+
+   * bpi_vio.veo
+
 IP Symbol Generator:
    Generate an IP symbol based on the current project options'.
 
    * bpi_vio.asy
-
-SYM file generator:
-   Generate a SYM file for compatibility with legacy flows
-
-   * bpi_vio.sym
 
 Generate ISE subproject:
    Create an ISE subproject for use when including this core in ISE designs

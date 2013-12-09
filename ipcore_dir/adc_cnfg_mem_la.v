@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 14.6
+// \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : adc_cnfg_mem_la.v
-// /___/   /\     Timestamp  : Wed Sep 18 17:18:58 Eastern Daylight Time 2013
+// /___/   /\     Timestamp  : Tue Nov 05 17:12:14 Eastern Standard Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

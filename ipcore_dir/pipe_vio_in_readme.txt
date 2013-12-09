@@ -1,5 +1,5 @@
 The following files were generated for 'pipe_vio_in' in directory
-C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\ipcore_dir\
 
 XCO file generator:
    Generate an XCO file for compatibility with legacy flows.
@@ -23,11 +23,6 @@ IP Symbol Generator:
    Generate an IP symbol based on the current project options'.
 
    * pipe_vio_in.asy
-
-SYM file generator:
-   Generate a SYM file for compatibility with legacy flows
-
-   * pipe_vio_in.sym
 
 Generate ISE subproject:
    Create an ISE subproject for use when including this core in ISE designs

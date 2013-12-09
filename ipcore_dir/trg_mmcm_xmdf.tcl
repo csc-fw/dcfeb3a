@@ -64,7 +64,7 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm/imp
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm/simulation/trg_mmcm_tb.vhd
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm/simulation/trg_mmcm_tb.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
@@ -81,6 +81,18 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm/simulation/functional/simulate_ncsim.sh
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
+incr fcount
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm/simulation/functional/simulate_vcs.sh
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
+incr fcount
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm/simulation/functional/ucli_commands.key
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
+incr fcount
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm/simulation/functional/vcs_session.tcl
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
@@ -104,12 +116,12 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm.ucf
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type ucf
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm.vhd
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm.vho
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl_template
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm.veo
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog_template
 incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path trg_mmcm.xco

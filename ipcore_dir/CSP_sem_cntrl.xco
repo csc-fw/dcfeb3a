@@ -1,7 +1,7 @@
 ##############################################################
 #
-# Xilinx Core Generator version 14.6
-# Date: Thu Sep 26 15:17:58 2013
+# Xilinx Core Generator version 14.7
+# Date: Tue Nov 05 22:07:09 2013
 #
 ##############################################################
 #
@@ -30,7 +30,7 @@ SET foundationsym = false
 SET implementationfiletype = Ngc
 SET package = ff1156
 SET removerpms = false
-SET simulationfiles = Structural
+SET simulationfiles = Behavioral
 SET speedgrade = -1
 SET verilogsim = true
 SET vhdlsim = false
@@ -50,7 +50,7 @@ CSET use_unused_bscan=false
 CSET user_scan_chain=USER3
 # END Parameters
 # BEGIN Extra information
-MISC pkg_timestamp=2013-06-08T17:28:33Z
+MISC pkg_timestamp=2013-10-13T14:12:40Z
 # END Extra information
 GENERATE
-# CRC:  55d5772
+# CRC: ef672006

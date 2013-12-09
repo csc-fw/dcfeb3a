@@ -4,7 +4,6 @@ CSP_sem_cntrl.constraints\CSP_sem_cntrl.ucf
 CSP_sem_cntrl.constraints\CSP_sem_cntrl.xdc
 CSP_sem_cntrl.gise
 CSP_sem_cntrl.ngc
-CSP_sem_cntrl.sym
 CSP_sem_cntrl.ucf
 CSP_sem_cntrl.v
 CSP_sem_cntrl.veo

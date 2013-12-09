@@ -4,7 +4,6 @@ CSP_pipe_cntrl.constraints\CSP_pipe_cntrl.ucf
 CSP_pipe_cntrl.constraints\CSP_pipe_cntrl.xdc
 CSP_pipe_cntrl.gise
 CSP_pipe_cntrl.ngc
-CSP_pipe_cntrl.sym
 CSP_pipe_cntrl.ucf
 CSP_pipe_cntrl.v
 CSP_pipe_cntrl.veo

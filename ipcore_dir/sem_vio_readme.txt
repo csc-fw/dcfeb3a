@@ -1,5 +1,5 @@
 The following files were generated for 'sem_vio' in directory
-C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.6\dcfeb_f3a\ipcore_dir\
+C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\ipcore_dir\
 
 XCO file generator:
    Generate an XCO file for compatibility with legacy flows.

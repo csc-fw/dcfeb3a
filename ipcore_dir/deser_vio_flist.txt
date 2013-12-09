@@ -6,7 +6,6 @@ deser_vio.constraints\deser_vio.ucf
 deser_vio.constraints\deser_vio.xdc
 deser_vio.gise
 deser_vio.ngc
-deser_vio.sym
 deser_vio.ucf
 deser_vio.v
 deser_vio.veo

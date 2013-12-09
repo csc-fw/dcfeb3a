@@ -6,7 +6,6 @@ bpi_vio.constraints\bpi_vio.ucf
 bpi_vio.constraints\bpi_vio.xdc
 bpi_vio.gise
 bpi_vio.ngc
-bpi_vio.sym
 bpi_vio.ucf
 bpi_vio.v
 bpi_vio.veo

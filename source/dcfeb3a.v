@@ -12,11 +12,11 @@
 module dcfeb3a #(
 	parameter USE_DESER_CHIPSCOPE = 0,
 	parameter USE_CMP_CHIPSCOPE = 0,
-	parameter USE_DAQ_CHIPSCOPE = 1,
+	parameter USE_DAQ_CHIPSCOPE = 0,
 	parameter USE_FF_EMU_CHIPSCOPE = 0,
 	parameter USE_SPI_CHIPSCOPE = 0,
 	parameter USE_PIPE_CHIPSCOPE = 0,
-	parameter USE_SEM_CHIPSCOPE = 0
+	parameter USE_SEM_CHIPSCOPE = 1
 	)(
 
 	//Clocks
@@ -276,7 +276,7 @@ CSP_pipe_cntrl pipe_cntrl1 (
 	assign sem_vio_in0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 1) 
-begin : chipscope_with_pipeline
+begin : chipscope_with_SEM
 CSP_sem_cntrl sem_cntrl1 (
     .CONTROL0(sem_la0_c0), // INOUT BUS [35:0]
     .CONTROL1(sem_vio_in0_c1)  // INOUT BUS [35:0]
@@ -413,7 +413,6 @@ endgenerate
  wire [2:0]tmb_tx_mode;
  wire qpll_lock;
  wire qpll_error;
- wire crc_error;
  wire jdaq_rate;
  wire rate_1_25;
  wire rate_3_2;
@@ -1584,12 +1583,8 @@ SPI_PORT_i  (
 	
 
 
-	jtag_access #(
-	.USE_CHIPSCOPE(USE_SEM_CHIPSCOPE)
-	)
+	jtag_access 
 	jtag_acc1(
-		.CSP_LA0_CNTRL(sem_la0_c0),
-		.CSP_VIO0_CNTRL(sem_vio_in0_c1),
 		
       .CLK20(clk20),      // 20 MHz Clock
       .CLK40(clk40),      // 40 MHz Clock
@@ -1606,7 +1601,6 @@ SPI_PORT_i  (
 		.JTAG_SYS_RST(jtag_sys_rst), // Issue the equivalent of power on reset without reprogramming.
 		.RDFIFO(rdfifo),            // Advance fifo to next word
 		.JTAG_RD_MODE(jtag_rd_mode),// JTAG read out mode for FIFO1 
-		.CRC_ERROR(crc_error),        // CRC error detected in configuration memory (two or more bit errors in one Frame)
       .XL1DLYSET(xl1dlyset),      // Extra L1A delay setting [1:0]
       .LOADPBLK(loadpblk),        // Pre-blockend bits [3:0] not used in DCFEB
 		.COMP_MODE(comp_mode),      // comparator mode bits [1:0]
@@ -1798,6 +1792,22 @@ endgenerate
 		.TP_B26_(TP_B26_),
 		.TP_B35_(TP_B35_) // bits 9 and 10 are skipped.
 	);
-  
+
+ /////////////////////////////////////////////////////////////////////////////
+ //                                                                         //
+ //  SEM module for testing configuration memory error correction           //
+ //                                                                         //
+ /////////////////////////////////////////////////////////////////////////////
+ 
+	wire [15:0] SEM_status;
+	
+SEM_module SEM_module_i (
+    .CSP_LA0_CNTRL(sem_la0_c0),
+    .CSP_VIO0_CNTRL(sem_vio_in0_c1),
+    .CLK40(clk40),             // 40 MHz Clock
+    .RST(sys_rst),             // Reset default state
+	 .LED_OUT(SEM_status)           // status out to LEDs
+	 );
+
 	
 endmodule

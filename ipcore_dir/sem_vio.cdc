@@ -1,5 +1,5 @@
 #ChipScope Core Generator Project File Version 3.0
-#Wed Sep 18 17:11:34 Eastern Daylight Time 2013
+#Mon Dec 09 13:38:54 Eastern Standard Time 2013
 SignalExport.asyncInputWidth=0
 SignalExport.asyncOutputWidth=0
 SignalExport.clockChannel=CLK
@@ -59,6 +59,7 @@ SignalExport.syncOutput<0043>=SyncOut[43]
 SignalExport.syncOutput<0044>=SyncOut[44]
 SignalExport.syncOutput<0045>=SyncOut[45]
 SignalExport.syncOutput<0046>=SyncOut[46]
-SignalExport.syncOutputWidth=47
+SignalExport.syncOutput<0047>=SyncOut[47]
+SignalExport.syncOutputWidth=48
 SignalExport.type=vio
 

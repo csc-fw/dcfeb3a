@@ -1,5 +1,5 @@
 #ChipScope Core Generator Project File Version 3.0
-#Wed Sep 18 15:58:07 Eastern Daylight Time 2013
+#Tue Nov 05 17:18:10 Eastern Standard Time 2013
 SignalExport.asyncInput<0000>=AsyncIn[0]
 SignalExport.asyncInput<0001>=AsyncIn[1]
 SignalExport.asyncInput<0002>=AsyncIn[2]

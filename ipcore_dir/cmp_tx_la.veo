@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 14.6
+// \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : cmp_tx_la.veo
-// /___/   /\     Timestamp  : Wed Sep 18 17:05:24 Eastern Daylight Time 2013
+// /___/   /\     Timestamp  : Tue Nov 05 17:24:09 Eastern Standard Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

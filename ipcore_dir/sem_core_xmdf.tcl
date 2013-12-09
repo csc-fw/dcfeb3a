@@ -111,14 +111,6 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core.veo
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog_template
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core.vhd
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core.vho
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl_template
-incr fcount
-
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sem_core.xco
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type coregen_ip
 incr fcount

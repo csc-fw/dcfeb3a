@@ -64,7 +64,7 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_cl
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk/simulation/adc_frame_clk_tb.vhd
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk/simulation/adc_frame_clk_tb.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
@@ -81,6 +81,18 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk/simulation/functional/simulate_ncsim.sh
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
+incr fcount
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk/simulation/functional/simulate_vcs.sh
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
+incr fcount
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk/simulation/functional/ucli_commands.key
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
+incr fcount
+
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk/simulation/functional/vcs_session.tcl
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
@@ -104,12 +116,12 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_cl
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type ucf
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk.vhd
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk.v
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk.vho
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl_template
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk.veo
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog_template
 incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path adc_frame_clk.xco

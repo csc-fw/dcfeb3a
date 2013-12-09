@@ -4,7 +4,6 @@ CSP_comp_daq_cntrl.constraints\CSP_comp_daq_cntrl.ucf
 CSP_comp_daq_cntrl.constraints\CSP_comp_daq_cntrl.xdc
 CSP_comp_daq_cntrl.gise
 CSP_comp_daq_cntrl.ngc
-CSP_comp_daq_cntrl.sym
 CSP_comp_daq_cntrl.ucf
 CSP_comp_daq_cntrl.v
 CSP_comp_daq_cntrl.veo

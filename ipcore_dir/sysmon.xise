@@ -12,7 +12,7 @@
     <!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved. -->
   </header>
 
-  <version xil_pn:ise_version="14.6" xil_pn:schema_version="2"/>
+  <version xil_pn:ise_version="14.7" xil_pn:schema_version="2"/>
 
   <files>
     <file xil_pn:name="sysmon.v" xil_pn:type="FILE_VERILOG">
@@ -21,13 +21,6 @@
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="2"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="2"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="2"/>
-    </file>
-    <file xil_pn:name="sysmon.vhd" xil_pn:type="FILE_VHDL">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="4"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="4"/>
-      <association xil_pn:name="PostMapSimulation" xil_pn:seqID="4"/>
-      <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="4"/>
-      <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="4"/>
     </file>
   </files>
 
@@ -356,8 +349,8 @@
     <property xil_pn:name="PROP_PostSynthSimTop" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="PROP_PostXlateSimTop" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="PROP_PreSynthesis" xil_pn:value="PreSynthesis" xil_pn:valueState="default"/>
-    <property xil_pn:name="PROP_intProjectCreationTimestamp" xil_pn:value="2013-09-18T12:39:47" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="PROP_intWbtProjectID" xil_pn:value="6E6F833769F640919E20A5ABD51803C4" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="PROP_intProjectCreationTimestamp" xil_pn:value="2013-11-05T17:48:50" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="PROP_intWbtProjectID" xil_pn:value="397995060EF74FC9A2D5FCD4FEEF9934" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_intWorkingDirLocWRTProjDir" xil_pn:value="Same" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_intWorkingDirUsed" xil_pn:value="No" xil_pn:valueState="non-default"/>
   </properties>

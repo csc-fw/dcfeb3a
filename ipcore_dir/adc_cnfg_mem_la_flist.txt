@@ -7,7 +7,6 @@ adc_cnfg_mem_la.constraints\adc_cnfg_mem_la.xdc
 adc_cnfg_mem_la.gise
 adc_cnfg_mem_la.ncf
 adc_cnfg_mem_la.ngc
-adc_cnfg_mem_la.sym
 adc_cnfg_mem_la.ucf
 adc_cnfg_mem_la.v
 adc_cnfg_mem_la.veo

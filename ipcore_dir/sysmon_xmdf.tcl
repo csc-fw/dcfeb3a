@@ -47,10 +47,6 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon/examp
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon/example_design/sysmon_exdes.vhd
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
-incr fcount
-
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon/implement/implement.bat
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
@@ -103,10 +99,6 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon/simul
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon/simulation/sysmon_tb.vhd
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
-incr fcount
-
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon/sysmon_wiz_readme.txt
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type Ignore
 incr fcount
@@ -121,14 +113,6 @@ incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon.veo
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog_template
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon.vhd
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl
-incr fcount
-
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon.vho
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type vhdl_template
 incr fcount
 
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon.xco

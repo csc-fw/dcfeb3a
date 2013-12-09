@@ -1,5 +1,5 @@
 #ChipScope Core Generator Project File Version 3.0
-#Wed Sep 18 16:22:50 Eastern Daylight Time 2013
+#Tue Nov 05 17:37:48 Eastern Standard Time 2013
 SignalExport.clockChannel=CLK
 SignalExport.dataChannel<0000>=DATA[0]
 SignalExport.dataChannel<0001>=DATA[1]

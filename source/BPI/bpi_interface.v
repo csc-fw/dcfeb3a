@@ -41,6 +41,7 @@ module bpi_interface(
     output FOE_B,
     output FWE_B,
     output FLATCH_B,
+    // diagnostic outputs for startup display
 	 output [2:0] TMROUT,
 	 output CLK100KHZ
     );

@@ -6,7 +6,6 @@ adc_mem_vio.constraints\adc_mem_vio.ucf
 adc_mem_vio.constraints\adc_mem_vio.xdc
 adc_mem_vio.gise
 adc_mem_vio.ngc
-adc_mem_vio.sym
 adc_mem_vio.ucf
 adc_mem_vio.v
 adc_mem_vio.veo

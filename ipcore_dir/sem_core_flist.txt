@@ -5,8 +5,6 @@ sem_core.gise
 sem_core.ngc
 sem_core.v
 sem_core.veo
-sem_core.vhd
-sem_core.vho
 sem_core.xco
 sem_core.xise
 sem_core\doc\pg036_sem.pdf

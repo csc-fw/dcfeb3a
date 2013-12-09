@@ -4,7 +4,6 @@ CSP_comp_cntrl.constraints\CSP_comp_cntrl.ucf
 CSP_comp_cntrl.constraints\CSP_comp_cntrl.xdc
 CSP_comp_cntrl.gise
 CSP_comp_cntrl.ngc
-CSP_comp_cntrl.sym
 CSP_comp_cntrl.ucf
 CSP_comp_cntrl.v
 CSP_comp_cntrl.veo

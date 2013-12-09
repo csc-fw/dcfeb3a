@@ -6,15 +6,15 @@ SET_PREFERENCE device xc6vlx130t
 SET_PREFERENCE speedgrade -1
 SET_PREFERENCE package ff1156
 SET_PREFERENCE verilogsim true
-SET_PREFERENCE vhdlsim true
+SET_PREFERENCE vhdlsim false
 SET_PREFERENCE simulationfiles Behavioral
 SET_PREFERENCE busformat BusFormatAngleBracketNotRipped
-SET_PREFERENCE outputdirectory C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.6/dcfeb_f3a/ipcore_dir/
-SET_PREFERENCE workingdirectory C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.6/dcfeb_f3a/ipcore_dir/tmp/
-SET_PREFERENCE subworkingdirectory C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.6/dcfeb_f3a/ipcore_dir/tmp/_cg/
-SET_PREFERENCE transientdirectory C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.6/dcfeb_f3a/ipcore_dir/tmp/_cg/_dbg/
+SET_PREFERENCE outputdirectory C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/
+SET_PREFERENCE workingdirectory C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/
+SET_PREFERENCE subworkingdirectory C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/
+SET_PREFERENCE transientdirectory C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/_dbg/
 SET_PREFERENCE designentry Verilog
-SET_PREFERENCE flowvendor Foundation_ISE
+SET_PREFERENCE flowvendor Other
 SET_PREFERENCE addpads false
 SET_PREFERENCE projectname coregen
 SET_PREFERENCE formalverification false
@@ -23,8 +23,8 @@ SET_PREFERENCE implementationfiletype Ngc
 SET_PREFERENCE foundationsym false
 SET_PREFERENCE createndf false
 SET_PREFERENCE removerpms false
-SET_PARAMETER Component_Name cmp_mmcm
-SET_PARAMETER Use_Freq_Synth true
+SET_PARAMETER Component_Name clkadj_fine
+SET_PARAMETER Use_Freq_Synth false
 SET_PARAMETER Use_Phase_Alignment true
 SET_PARAMETER Use_Min_Power false
 SET_PARAMETER Use_Dyn_Phase_Shift false
@@ -46,11 +46,11 @@ SET_PARAMETER Clkin1_Jitter_Ps 250.0
 SET_PARAMETER Clkin2_Jitter_Ps 250.0
 SET_PARAMETER Clkout2_Used true
 SET_PARAMETER Clkout3_Used true
-SET_PARAMETER Clkout4_Used false
+SET_PARAMETER Clkout4_Used true
 SET_PARAMETER Clkout5_Used false
 SET_PARAMETER Clkout6_Used false
 SET_PARAMETER Clkout7_Used false
-SET_PARAMETER Num_Out_Clks 3
+SET_PARAMETER Num_Out_Clks 4
 SET_PARAMETER Clk_Out1_Use_Fine_Ps_GUI false
 SET_PARAMETER Clk_Out2_Use_Fine_Ps_GUI false
 SET_PARAMETER Clk_Out3_Use_Fine_Ps_GUI false
@@ -80,22 +80,22 @@ SET_PARAMETER PSDONE_port PSDONE
 SET_PARAMETER Clkout1_Requested_Out_Freq 40.000
 SET_PARAMETER Clkout1_Requested_Phase 0.000
 SET_PARAMETER Clkout1_Requested_Duty_Cycle 50.000
-SET_PARAMETER Clkout2_Requested_Out_Freq 80.000
-SET_PARAMETER Clkout2_Requested_Phase 0.000
+SET_PARAMETER Clkout2_Requested_Out_Freq 40.000
+SET_PARAMETER Clkout2_Requested_Phase 22.500
 SET_PARAMETER Clkout2_Requested_Duty_Cycle 50.000
-SET_PARAMETER Clkout3_Requested_Out_Freq 160.000
-SET_PARAMETER Clkout3_Requested_Phase 0.000
+SET_PARAMETER Clkout3_Requested_Out_Freq 40.000
+SET_PARAMETER Clkout3_Requested_Phase 45.000
 SET_PARAMETER Clkout3_Requested_Duty_Cycle 50.000
-SET_PARAMETER Clkout4_Requested_Out_Freq 100.000
-SET_PARAMETER Clkout4_Requested_Phase 0.000
+SET_PARAMETER Clkout4_Requested_Out_Freq 40.000
+SET_PARAMETER Clkout4_Requested_Phase 67.500
 SET_PARAMETER Clkout4_Requested_Duty_Cycle 50.000
-SET_PARAMETER Clkout5_Requested_Out_Freq 100.000
+SET_PARAMETER Clkout5_Requested_Out_Freq 40.000
 SET_PARAMETER Clkout5_Requested_Phase 0.000
 SET_PARAMETER Clkout5_Requested_Duty_Cycle 50.000
-SET_PARAMETER Clkout6_Requested_Out_Freq 100.000
+SET_PARAMETER Clkout6_Requested_Out_Freq 40.000
 SET_PARAMETER Clkout6_Requested_Phase 0.000
 SET_PARAMETER Clkout6_Requested_Duty_Cycle 50.000
-SET_PARAMETER Clkout7_Requested_Out_Freq 100.000
+SET_PARAMETER Clkout7_Requested_Out_Freq 40.000
 SET_PARAMETER Clkout7_Requested_Phase 0.000
 SET_PARAMETER Clkout7_Requested_Duty_Cycle 50.000
 SET_PARAMETER Use_Max_I_Jitter false
@@ -104,14 +104,14 @@ SET_PARAMETER Prim_Source No_buffer
 SET_PARAMETER Use_Inclk_Switchover true
 SET_PARAMETER secondary_port CLK_IN2
 SET_PARAMETER Secondary_Source No_buffer
-SET_PARAMETER Clkout1_Drives BUFG
-SET_PARAMETER Clkout2_Drives BUFG
-SET_PARAMETER Clkout3_Drives BUFG
-SET_PARAMETER Clkout4_Drives BUFG
+SET_PARAMETER Clkout1_Drives No_buffer
+SET_PARAMETER Clkout2_Drives No_buffer
+SET_PARAMETER Clkout3_Drives No_buffer
+SET_PARAMETER Clkout4_Drives No_buffer
 SET_PARAMETER Clkout5_Drives BUFG
 SET_PARAMETER Clkout6_Drives BUFG
 SET_PARAMETER Clkout7_Drives BUFG
-SET_PARAMETER Feedback_Source FDBK_AUTO
+SET_PARAMETER Feedback_Source FDBK_ONCHIP
 SET_PARAMETER Clkfb_In_Signaling SINGLE
 SET_PARAMETER CLKFB_IN_port CLKFB_IN
 SET_PARAMETER CLKFB_IN_P_port CLKFB_IN_P
@@ -157,17 +157,17 @@ SET_PARAMETER Mmcm_Clkout0_Divide_F 24.000
 SET_PARAMETER Mmcm_Clkout0_Duty_Cycle 0.500
 SET_PARAMETER Mmcm_Clkout0_Phase 0.000
 SET_PARAMETER Mmcm_Clkout0_Use_Fine_Ps false
-SET_PARAMETER Mmcm_Clkout1_Divide 12
+SET_PARAMETER Mmcm_Clkout1_Divide 24
 SET_PARAMETER Mmcm_Clkout1_Duty_Cycle 0.500
-SET_PARAMETER Mmcm_Clkout1_Phase 0.000
+SET_PARAMETER Mmcm_Clkout1_Phase 22.500
 SET_PARAMETER Mmcm_Clkout1_Use_Fine_Ps false
-SET_PARAMETER Mmcm_Clkout2_Divide 6
+SET_PARAMETER Mmcm_Clkout2_Divide 24
 SET_PARAMETER Mmcm_Clkout2_Duty_Cycle 0.500
-SET_PARAMETER Mmcm_Clkout2_Phase 0.000
+SET_PARAMETER Mmcm_Clkout2_Phase 45.000
 SET_PARAMETER Mmcm_Clkout2_Use_Fine_Ps false
-SET_PARAMETER Mmcm_Clkout3_Divide 1
+SET_PARAMETER Mmcm_Clkout3_Divide 24
 SET_PARAMETER Mmcm_Clkout3_Duty_Cycle 0.500
-SET_PARAMETER Mmcm_Clkout3_Phase 0.000
+SET_PARAMETER Mmcm_Clkout3_Phase 67.500
 SET_PARAMETER Mmcm_Clkout3_Use_Fine_Ps false
 SET_PARAMETER Mmcm_Clkout4_Divide 1
 SET_PARAMETER Mmcm_Clkout4_Duty_Cycle 0.500
@@ -247,7 +247,7 @@ SET_PARAMETER SS_Mode CENTER_HIGH
 SET_PARAMETER SS_Mod_Freq 250
 SET_SIM_PARAMETER c_clkout2_used 1
 SET_SIM_PARAMETER c_clkout3_used 1
-SET_SIM_PARAMETER c_clkout4_used 0
+SET_SIM_PARAMETER c_clkout4_used 1
 SET_SIM_PARAMETER c_clkout5_used 0
 SET_SIM_PARAMETER c_clkout6_used 0
 SET_SIM_PARAMETER c_clkout7_used 0
@@ -255,9 +255,9 @@ SET_SIM_PARAMETER c_use_clkout1_bar 0
 SET_SIM_PARAMETER c_use_clkout2_bar 0
 SET_SIM_PARAMETER c_use_clkout3_bar 0
 SET_SIM_PARAMETER c_use_clkout4_bar 0
-SET_SIM_PARAMETER c_component_name cmp_mmcm
+SET_SIM_PARAMETER c_component_name clkadj_fine
 SET_SIM_PARAMETER c_platform nt64
-SET_SIM_PARAMETER c_use_freq_synth 1
+SET_SIM_PARAMETER c_use_freq_synth 0
 SET_SIM_PARAMETER c_use_phase_alignment 1
 SET_SIM_PARAMETER c_prim_in_jitter 0.010
 SET_SIM_PARAMETER c_secondary_in_jitter 0.010
@@ -275,7 +275,7 @@ SET_SIM_PARAMETER c_use_clk_valid 0
 SET_SIM_PARAMETER c_prim_in_freq 40.000
 SET_SIM_PARAMETER c_in_freq_units Units_MHz
 SET_SIM_PARAMETER c_secondary_in_freq 40.000
-SET_SIM_PARAMETER c_feedback_source FDBK_AUTO
+SET_SIM_PARAMETER c_feedback_source FDBK_ONCHIP
 SET_SIM_PARAMETER c_prim_source No_buffer
 SET_SIM_PARAMETER c_secondary_source No_buffer
 SET_SIM_PARAMETER c_clkfb_in_signaling SINGLE
@@ -286,11 +286,11 @@ SET_SIM_PARAMETER c_use_clkfb_stopped 0
 SET_SIM_PARAMETER c_use_power_down 0
 SET_SIM_PARAMETER c_use_status 0
 SET_SIM_PARAMETER c_use_freeze 0
-SET_SIM_PARAMETER c_num_out_clks 3
-SET_SIM_PARAMETER c_clkout1_drives BUFG
-SET_SIM_PARAMETER c_clkout2_drives BUFG
-SET_SIM_PARAMETER c_clkout3_drives BUFG
-SET_SIM_PARAMETER c_clkout4_drives BUFG
+SET_SIM_PARAMETER c_num_out_clks 4
+SET_SIM_PARAMETER c_clkout1_drives No_buffer
+SET_SIM_PARAMETER c_clkout2_drives No_buffer
+SET_SIM_PARAMETER c_clkout3_drives No_buffer
+SET_SIM_PARAMETER c_clkout4_drives No_buffer
 SET_SIM_PARAMETER c_clkout5_drives BUFG
 SET_SIM_PARAMETER c_clkout6_drives BUFG
 SET_SIM_PARAMETER c_clkout7_drives BUFG
@@ -300,23 +300,23 @@ SET_SIM_PARAMETER c_inclk_sum_row2 _secondary________40.000____________0.010
 SET_SIM_PARAMETER c_outclk_sum_row0a "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
 SET_SIM_PARAMETER c_outclk_sum_row0b "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 SET_SIM_PARAMETER c_outclk_sum_row1 CLK_OUT1____40.000______0.000______50.0______247.096____196.976
-SET_SIM_PARAMETER c_outclk_sum_row2 CLK_OUT2____80.000______0.000______50.0______200.412____196.976
-SET_SIM_PARAMETER c_outclk_sum_row3 CLK_OUT3___160.000______0.000______50.0______169.112____196.976
-SET_SIM_PARAMETER c_outclk_sum_row4 no_CLK_OUT4_output
+SET_SIM_PARAMETER c_outclk_sum_row2 CLK_OUT2____40.000_____22.500______50.0______247.096____196.976
+SET_SIM_PARAMETER c_outclk_sum_row3 CLK_OUT3____40.000_____45.000______50.0______247.096____196.976
+SET_SIM_PARAMETER c_outclk_sum_row4 CLK_OUT4____40.000_____67.500______50.0______247.096____196.976
 SET_SIM_PARAMETER c_outclk_sum_row5 no_CLK_OUT5_output
 SET_SIM_PARAMETER c_outclk_sum_row6 no_CLK_OUT6_output
 SET_SIM_PARAMETER c_outclk_sum_row7 no_CLK_OUT7_output 
 SET_SIM_PARAMETER c_clkout1_requested_out_freq 40.000
-SET_SIM_PARAMETER c_clkout2_requested_out_freq 80.000
-SET_SIM_PARAMETER c_clkout3_requested_out_freq 160.000
-SET_SIM_PARAMETER c_clkout4_requested_out_freq 100.000
-SET_SIM_PARAMETER c_clkout5_requested_out_freq 100.000
-SET_SIM_PARAMETER c_clkout6_requested_out_freq 100.000
-SET_SIM_PARAMETER c_clkout7_requested_out_freq 100.000
+SET_SIM_PARAMETER c_clkout2_requested_out_freq 40.000
+SET_SIM_PARAMETER c_clkout3_requested_out_freq 40.000
+SET_SIM_PARAMETER c_clkout4_requested_out_freq 40.000
+SET_SIM_PARAMETER c_clkout5_requested_out_freq 40.000
+SET_SIM_PARAMETER c_clkout6_requested_out_freq 40.000
+SET_SIM_PARAMETER c_clkout7_requested_out_freq 40.000
 SET_SIM_PARAMETER c_clkout1_requested_phase 0.000
-SET_SIM_PARAMETER c_clkout2_requested_phase 0.000
-SET_SIM_PARAMETER c_clkout3_requested_phase 0.000
-SET_SIM_PARAMETER c_clkout4_requested_phase 0.000
+SET_SIM_PARAMETER c_clkout2_requested_phase 22.500
+SET_SIM_PARAMETER c_clkout3_requested_phase 45.000
+SET_SIM_PARAMETER c_clkout4_requested_phase 67.500
 SET_SIM_PARAMETER c_clkout5_requested_phase 0.000
 SET_SIM_PARAMETER c_clkout6_requested_phase 0.000
 SET_SIM_PARAMETER c_clkout7_requested_phase 0.000
@@ -328,23 +328,23 @@ SET_SIM_PARAMETER c_clkout5_requested_duty_cycle 50.000
 SET_SIM_PARAMETER c_clkout6_requested_duty_cycle 50.000
 SET_SIM_PARAMETER c_clkout7_requested_duty_cycle 50.000
 SET_SIM_PARAMETER c_clkout1_out_freq 40.000
-SET_SIM_PARAMETER c_clkout2_out_freq 80.000
-SET_SIM_PARAMETER c_clkout3_out_freq 160.000
-SET_SIM_PARAMETER c_clkout4_out_freq N/A
+SET_SIM_PARAMETER c_clkout2_out_freq 40.000
+SET_SIM_PARAMETER c_clkout3_out_freq 40.000
+SET_SIM_PARAMETER c_clkout4_out_freq 40.000
 SET_SIM_PARAMETER c_clkout5_out_freq N/A
 SET_SIM_PARAMETER c_clkout6_out_freq N/A
 SET_SIM_PARAMETER c_clkout7_out_freq N/A
 SET_SIM_PARAMETER c_clkout1_phase 0.000
-SET_SIM_PARAMETER c_clkout2_phase 0.000
-SET_SIM_PARAMETER c_clkout3_phase 0.000
-SET_SIM_PARAMETER c_clkout4_phase N/A
+SET_SIM_PARAMETER c_clkout2_phase 22.500
+SET_SIM_PARAMETER c_clkout3_phase 45.000
+SET_SIM_PARAMETER c_clkout4_phase 67.500
 SET_SIM_PARAMETER c_clkout5_phase N/A
 SET_SIM_PARAMETER c_clkout6_phase N/A
 SET_SIM_PARAMETER c_clkout7_phase N/A
 SET_SIM_PARAMETER c_clkout1_duty_cycle 50.0
 SET_SIM_PARAMETER c_clkout2_duty_cycle 50.0
 SET_SIM_PARAMETER c_clkout3_duty_cycle 50.0
-SET_SIM_PARAMETER c_clkout4_duty_cycle N/A
+SET_SIM_PARAMETER c_clkout4_duty_cycle 50.0
 SET_SIM_PARAMETER c_clkout5_duty_cycle N/A
 SET_SIM_PARAMETER c_clkout6_duty_cycle N/A
 SET_SIM_PARAMETER c_clkout7_duty_cycle N/A
@@ -361,9 +361,9 @@ SET_SIM_PARAMETER c_mmcm_ref_jitter1 0.010
 SET_SIM_PARAMETER c_mmcm_ref_jitter2 0.010
 SET_SIM_PARAMETER c_mmcm_startup_wait FALSE
 SET_SIM_PARAMETER c_mmcm_clkout0_divide_f 24.000
-SET_SIM_PARAMETER c_mmcm_clkout1_divide 12
-SET_SIM_PARAMETER c_mmcm_clkout2_divide 6
-SET_SIM_PARAMETER c_mmcm_clkout3_divide 1
+SET_SIM_PARAMETER c_mmcm_clkout1_divide 24
+SET_SIM_PARAMETER c_mmcm_clkout2_divide 24
+SET_SIM_PARAMETER c_mmcm_clkout3_divide 24
 SET_SIM_PARAMETER c_mmcm_clkout4_divide 1
 SET_SIM_PARAMETER c_mmcm_clkout5_divide 1
 SET_SIM_PARAMETER c_mmcm_clkout6_divide 1
@@ -376,9 +376,9 @@ SET_SIM_PARAMETER c_mmcm_clkout5_duty_cycle 0.500
 SET_SIM_PARAMETER c_mmcm_clkout6_duty_cycle 0.500
 SET_SIM_PARAMETER c_mmcm_clkfbout_phase 0.000
 SET_SIM_PARAMETER c_mmcm_clkout0_phase 0.000
-SET_SIM_PARAMETER c_mmcm_clkout1_phase 0.000
-SET_SIM_PARAMETER c_mmcm_clkout2_phase 0.000
-SET_SIM_PARAMETER c_mmcm_clkout3_phase 0.000
+SET_SIM_PARAMETER c_mmcm_clkout1_phase 22.500
+SET_SIM_PARAMETER c_mmcm_clkout2_phase 45.000
+SET_SIM_PARAMETER c_mmcm_clkout3_phase 67.500
 SET_SIM_PARAMETER c_mmcm_clkout4_phase 0.000
 SET_SIM_PARAMETER c_mmcm_clkout5_phase 0.000
 SET_SIM_PARAMETER c_mmcm_clkout6_phase 0.000
@@ -432,7 +432,7 @@ SET_SIM_PARAMETER c_dcm_startup_wait FALSE
 SET_SIM_PARAMETER c_dcm_clk_out1_port CLK0
 SET_SIM_PARAMETER c_dcm_clk_out2_port CLK0
 SET_SIM_PARAMETER c_dcm_clk_out3_port CLK0
-SET_SIM_PARAMETER c_dcm_clk_out4_port NONE
+SET_SIM_PARAMETER c_dcm_clk_out4_port CLK0
 SET_SIM_PARAMETER c_dcm_clk_out5_port NONE
 SET_SIM_PARAMETER c_dcm_clk_out6_port NONE
 SET_SIM_PARAMETER c_dcm_clkgen_notes None
@@ -497,9 +497,9 @@ SET_CORE_NAME Clocking Wizard
 SET_CORE_VERSION 3.6
 SET_CORE_VLNV xilinx.com:ip:clk_wiz:3.6
 SET_CORE_CLASS com.xilinx.ip.clk_wiz_v3_6.clk_wiz_v3_6
-SET_CORE_PATH C:/Xilinx/14.6/ISE_DS/ISE/coregen/ip/xilinx/primary/com/xilinx/ip/clk_wiz_v3_6
-SET_CORE_GUIPATH C:/Xilinx/14.6/ISE_DS/ISE/coregen/ip/xilinx/primary/com/xilinx/ip/clk_wiz_v3_6/gui/clk_wiz_v3_6.tcl
-SET_CORE_DATASHEET C:\Xilinx\14.6\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\ip\clk_wiz_v3_6\doc\pg065_clk_wiz.pdf
-ADD_CORE_DOCUMENT <C:\Xilinx\14.6\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\ip\clk_wiz_v3_6\doc\pg065_clk_wiz.pdf><pg065_clk_wiz.pdf>
-ADD_CORE_DOCUMENT <C:\Xilinx\14.6\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\ip\clk_wiz_v3_6\doc\clk_wiz_v3_6_readme.txt><clk_wiz_v3_6_readme.txt>
-ADD_CORE_DOCUMENT <C:\Xilinx\14.6\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\ip\clk_wiz_v3_6\doc\clk_wiz_v3_6_vinfo.html><clk_wiz_v3_6_vinfo.html>
+SET_CORE_PATH C:/Xilinx/14.7/ISE_DS/ISE/coregen/ip/xilinx/primary/com/xilinx/ip/clk_wiz_v3_6
+SET_CORE_GUIPATH C:/Xilinx/14.7/ISE_DS/ISE/coregen/ip/xilinx/primary/com/xilinx/ip/clk_wiz_v3_6/gui/clk_wiz_v3_6.tcl
+SET_CORE_DATASHEET C:\Xilinx\14.7\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\ip\clk_wiz_v3_6\doc\pg065_clk_wiz.pdf
+ADD_CORE_DOCUMENT <C:\Xilinx\14.7\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\ip\clk_wiz_v3_6\doc\pg065_clk_wiz.pdf><pg065_clk_wiz.pdf>
+ADD_CORE_DOCUMENT <C:\Xilinx\14.7\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\ip\clk_wiz_v3_6\doc\clk_wiz_v3_6_readme.txt><clk_wiz_v3_6_readme.txt>
+ADD_CORE_DOCUMENT <C:\Xilinx\14.7\ISE_DS\ISE\coregen\ip\xilinx\primary\com\xilinx\ip\clk_wiz_v3_6\doc\clk_wiz_v3_6_vinfo.html><clk_wiz_v3_6_vinfo.html>

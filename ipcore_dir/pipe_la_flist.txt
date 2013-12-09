@@ -7,7 +7,6 @@ pipe_la.constraints\pipe_la.xdc
 pipe_la.gise
 pipe_la.ncf
 pipe_la.ngc
-pipe_la.sym
 pipe_la.ucf
 pipe_la.v
 pipe_la.veo

@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 14.6
+// \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : pipe_la.veo
-// /___/   /\     Timestamp  : Wed Sep 18 16:22:50 Eastern Daylight Time 2013
+// /___/   /\     Timestamp  : Tue Nov 05 17:37:48 Eastern Standard Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

@@ -4,7 +4,6 @@ CSP_deser_cntrl.constraints\CSP_deser_cntrl.ucf
 CSP_deser_cntrl.constraints\CSP_deser_cntrl.xdc
 CSP_deser_cntrl.gise
 CSP_deser_cntrl.ngc
-CSP_deser_cntrl.sym
 CSP_deser_cntrl.ucf
 CSP_deser_cntrl.v
 CSP_deser_cntrl.veo

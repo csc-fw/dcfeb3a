@@ -7,7 +7,6 @@ deser_la.constraints\deser_la.xdc
 deser_la.gise
 deser_la.ncf
 deser_la.ngc
-deser_la.sym
 deser_la.ucf
 deser_la.v
 deser_la.veo

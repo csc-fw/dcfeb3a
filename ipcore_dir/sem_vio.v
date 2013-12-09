@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 14.6
+// \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : sem_vio.v
-// /___/   /\     Timestamp  : Wed Sep 18 17:11:34 Eastern Daylight Time 2013
+// /___/   /\     Timestamp  : Mon Dec 09 13:38:54 Eastern Standard Time 2013
 // \   \  /  \
 //  \___\/\___\
 //
@@ -28,6 +28,6 @@ module sem_vio(
 inout [35 : 0] CONTROL;
 input CLK;
 input [7 : 0] SYNC_IN;
-output [46 : 0] SYNC_OUT;
+output [47 : 0] SYNC_OUT;
 
 endmodule

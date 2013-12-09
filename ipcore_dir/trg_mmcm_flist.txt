@@ -5,8 +5,6 @@ trg_mmcm.gise
 trg_mmcm.ucf
 trg_mmcm.v
 trg_mmcm.veo
-trg_mmcm.vhd
-trg_mmcm.vho
 trg_mmcm.xco
 trg_mmcm.xdc
 trg_mmcm.xise
@@ -16,7 +14,6 @@ trg_mmcm\doc\clk_wiz_v3_6_vinfo.html
 trg_mmcm\doc\pg065_clk_wiz.pdf
 trg_mmcm\example_design\trg_mmcm_exdes.ucf
 trg_mmcm\example_design\trg_mmcm_exdes.v
-trg_mmcm\example_design\trg_mmcm_exdes.vhd
 trg_mmcm\example_design\trg_mmcm_exdes.xdc
 trg_mmcm\implement\implement.bat
 trg_mmcm\implement\implement.sh
@@ -49,11 +46,9 @@ trg_mmcm\simulation\timing\simulate_mti.sh
 trg_mmcm\simulation\timing\simulate_ncsim.sh
 trg_mmcm\simulation\timing\simulate_vcs.sh
 trg_mmcm\simulation\timing\trg_mmcm_tb.v
-trg_mmcm\simulation\timing\trg_mmcm_tb.vhd
 trg_mmcm\simulation\timing\ucli_commands.key
 trg_mmcm\simulation\timing\vcs_session.tcl
 trg_mmcm\simulation\timing\wave.do
 trg_mmcm\simulation\trg_mmcm_tb.v
-trg_mmcm\simulation\trg_mmcm_tb.vhd
 trg_mmcm_flist.txt
 trg_mmcm_xmdf.tcl

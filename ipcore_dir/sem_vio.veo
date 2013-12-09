@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 14.6
+// \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : sem_vio.veo
-// /___/   /\     Timestamp  : Wed Sep 18 17:11:34 Eastern Daylight Time 2013
+// /___/   /\     Timestamp  : Mon Dec 09 13:38:54 Eastern Standard Time 2013
 // \   \  /  \
 //  \___\/\___\
 //
@@ -24,7 +24,7 @@ sem_vio YourInstanceName (
     .CONTROL(CONTROL), // INOUT BUS [35:0]
     .CLK(CLK), // IN
     .SYNC_IN(SYNC_IN), // IN BUS [7:0]
-    .SYNC_OUT(SYNC_OUT) // OUT BUS [46:0]
+    .SYNC_OUT(SYNC_OUT) // OUT BUS [47:0]
 );
 
 // INST_TAG_END ------ End INSTANTIATION Template ---------

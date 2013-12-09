@@ -6,7 +6,6 @@ cmp_tx_vio.constraints\cmp_tx_vio.ucf
 cmp_tx_vio.constraints\cmp_tx_vio.xdc
 cmp_tx_vio.gise
 cmp_tx_vio.ngc
-cmp_tx_vio.sym
 cmp_tx_vio.ucf
 cmp_tx_vio.v
 cmp_tx_vio.veo

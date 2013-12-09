@@ -5,8 +5,6 @@ clkadj_fine.gise
 clkadj_fine.ucf
 clkadj_fine.v
 clkadj_fine.veo
-clkadj_fine.vhd
-clkadj_fine.vho
 clkadj_fine.xco
 clkadj_fine.xdc
 clkadj_fine.xise
@@ -16,7 +14,6 @@ clkadj_fine\doc\clk_wiz_v3_6_vinfo.html
 clkadj_fine\doc\pg065_clk_wiz.pdf
 clkadj_fine\example_design\clkadj_fine_exdes.ucf
 clkadj_fine\example_design\clkadj_fine_exdes.v
-clkadj_fine\example_design\clkadj_fine_exdes.vhd
 clkadj_fine\example_design\clkadj_fine_exdes.xdc
 clkadj_fine\implement\implement.bat
 clkadj_fine\implement\implement.sh
@@ -29,7 +26,6 @@ clkadj_fine\implement\planAhead_rdn.tcl
 clkadj_fine\implement\xst.prj
 clkadj_fine\implement\xst.scr
 clkadj_fine\simulation\clkadj_fine_tb.v
-clkadj_fine\simulation\clkadj_fine_tb.vhd
 clkadj_fine\simulation\functional\simcmds.tcl
 clkadj_fine\simulation\functional\simulate_isim.bat
 clkadj_fine\simulation\functional\simulate_isim.sh
@@ -43,7 +39,6 @@ clkadj_fine\simulation\functional\vcs_session.tcl
 clkadj_fine\simulation\functional\wave.do
 clkadj_fine\simulation\functional\wave.sv
 clkadj_fine\simulation\timing\clkadj_fine_tb.v
-clkadj_fine\simulation\timing\clkadj_fine_tb.vhd
 clkadj_fine\simulation\timing\sdf_cmd_file
 clkadj_fine\simulation\timing\simcmds.tcl
 clkadj_fine\simulation\timing\simulate_isim.sh

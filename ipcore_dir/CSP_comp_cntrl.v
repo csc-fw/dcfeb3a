@@ -5,10 +5,10 @@
 //   ____  ____
 //  /   /\/   /
 // /___/  \  /    Vendor     : Xilinx
-// \   \   \/     Version    : 14.6
+// \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : CSP_comp_cntrl.v
-// /___/   /\     Timestamp  : Wed Sep 18 15:47:53 Eastern Daylight Time 2013
+// /___/   /\     Timestamp  : Tue Nov 05 17:03:23 Eastern Standard Time 2013
 // \   \  /  \
 //  \___\/\___\
 //

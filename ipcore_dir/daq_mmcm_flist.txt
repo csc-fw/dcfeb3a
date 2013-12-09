@@ -2,7 +2,6 @@
 _xmsgs\pn_parser.xmsgs
 daq_mmcm.asy
 daq_mmcm.gise
-daq_mmcm.sym
 daq_mmcm.ucf
 daq_mmcm.v
 daq_mmcm.veo

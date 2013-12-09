@@ -7,7 +7,6 @@ readout_la.constraints\readout_la.xdc
 readout_la.gise
 readout_la.ncf
 readout_la.ngc
-readout_la.sym
 readout_la.ucf
 readout_la.v
 readout_la.veo

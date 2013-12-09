@@ -69,11 +69,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module jtag_access #(
-	parameter USE_CHIPSCOPE = 1
-	)(
-    inout [35:0] CSP_LA0_CNTRL,
-    inout [35:0] CSP_VIO0_CNTRL,
+module jtag_access (
 	 
     input CLK20,             // 20 MHz Clock
     input CLK40,             // 40 MHz Clock
@@ -89,7 +85,6 @@ module jtag_access #(
 	 output JTAG_SYS_RST,      // JTAG initiated system reset 
     output reg RDFIFO,       // Advance fifo to next word
 	 output JTAG_RD_MODE,     // JTAG read out mode for FIFO1 
-	 output CRC_ERROR,        // CRC error detected in configuration memory (two or more bit errors in one Frame)
     output [1:0] XL1DLYSET,  // Extra L1A delay setting [1:0]
     output [3:0] LOADPBLK,   // Pre-blockend bits [3:0] not used in DCFEB
     output [1:0] COMP_MODE,  // comparator mode bits [1:0]
@@ -165,68 +160,6 @@ module jtag_access #(
 	wire p_in;
 	wire tclk2_raw;
 	
-//
-// SEM signals
-//
-	wire status_heartbeat;
-	wire status_initialization;
-	wire status_observation;
-	wire status_correction;
-	wire status_classification;
-	wire status_injection;
-	wire status_essential;
-	wire status_uncorrectable;
-	wire [7:0] monitor_txdata;
-	wire monitor_txwrite;
-	wire monitor_txfull;
-	wire [7:0] monitor_rxdata; 
-	wire monitor_rxread;
-	wire monitor_rxempty;
-	wire inject_strobe;
-	wire [35:0] inject_address; 
-
-//
-// FRAME_ECC_VIRTEX6 signals
-//
-	wire fecc_crcerror;
-	wire fecc_eccerror;
-	wire fecc_eccerrorsingle;
-	wire [23:0] fecc_far;
-//	reg  [23:0] cap_far;
-	wire [4:0] fecc_synbit;
-	wire [12:0] fecc_syndrome;
-	wire fecc_syndromevalid;
-	wire [6:0] fecc_synword;
-//
-// ICAP_VIRTEX6 signals
-//
-	wire icap_busy;
-	wire [31:0] icap_o;
-	wire icap_csb;
-	wire [31:0] icap_i;
-	wire icap_rdwrb;
-
-	wire [7:0] ff_data_out;
-	wire ff_data_present;
-	wire ff_read;
-	wire csp_read;
-	wire cmd_ready;
-	wire sem_cmd_rst;
-	wire tr0,tr1,tr2;
-	wire csp_send_cmd;
-	wire [1:0] sem_state;
-
-	
-// wire inc_sngl_bit_err_cntr;
-//	wire inc_multi_bit_err_cntr;
-//	wire rst_cntrs;
-//	wire cntr_rst;
-//	reg [7:0] sngl_bit_err_cnt;
-//	reg [7:0] multi_bit_err_cnt;
-//	reg eccerror_r;
-//	reg eccerrorsingle_r;
-
-	
 
 	wire [63:0] f; //JTAG functions (one hot);
 	wire f11;
@@ -247,130 +180,8 @@ module jtag_access #(
 	reg [15:0] spi_rtn_reg;
 
 
-generate
-if(USE_CHIPSCOPE==1) 
-begin : chipscope_sem
-//
-// Logic analyzer for pipeline
-wire [163:0] sem_la0_data;
-wire [15:0] sem_la0_trig;
-
-sem_la sem_la0 (
-    .CONTROL(CSP_LA0_CNTRL),
-    .CLK(CLK40),
-    .DATA(sem_la0_data),  // IN BUS [163:0]
-    .TRIG0(sem_la0_trig)  // IN BUS [15:0]
-);
-
-
-// LA Data [163:0]
-	assign sem_la0_data[7:0]        = monitor_txdata;
-	assign sem_la0_data[31:8]       = fecc_far;
-	assign sem_la0_data[43:32]      = fecc_syndrome;
-	assign sem_la0_data[48:44]      = fecc_synbit;
-	assign sem_la0_data[55:49]      = fecc_synword;
-	assign sem_la0_data[87:56]      = icap_o;
-	assign sem_la0_data[119:88]     = icap_i;
-	assign sem_la0_data[120]        = status_heartbeat;
-	assign sem_la0_data[121]        = status_initialization;
-	assign sem_la0_data[122]        = status_observation;
-	assign sem_la0_data[123]        = status_correction;
-	assign sem_la0_data[124]        = status_classification;
-	assign sem_la0_data[125]        = status_injection;
-	assign sem_la0_data[126]        = status_essential;
-	assign sem_la0_data[127]        = status_uncorrectable;
-	assign sem_la0_data[128]        = monitor_txwrite;
-	assign sem_la0_data[129]        = monitor_rxread;
-	assign sem_la0_data[130]        = inject_strobe;
-	assign sem_la0_data[131]        = fecc_crcerror;
-	assign sem_la0_data[132]        = fecc_eccerror;
-	assign sem_la0_data[133]        = fecc_eccerrorsingle;
-	assign sem_la0_data[134]        = fecc_syndromevalid;
-	assign sem_la0_data[135]        = icap_busy;
-	assign sem_la0_data[136]        = icap_csb;
-	assign sem_la0_data[137]        = icap_rdwrb;
-	assign sem_la0_data[138]        = monitor_txfull;
-	assign sem_la0_data[139]        = monitor_rxempty;
-	assign sem_la0_data[147:140]    = monitor_rxdata;
-	assign sem_la0_data[148]        = csp_read;
-	assign sem_la0_data[149]        = ff_read;
-	assign sem_la0_data[150]        = ff_data_present;
-	assign sem_la0_data[151]        = cmd_ready;
-	assign sem_la0_data[159:152]    = ff_data_out;
-	assign sem_la0_data[160]        = csp_send_cmd;
-	assign sem_la0_data[161]        = RST;
-	assign sem_la0_data[163:162]    = sem_state;
-	
-	
-
-// LA Trigger [15:0]
-	assign sem_la0_trig[0]       = status_heartbeat;
-	assign sem_la0_trig[1]       = status_initialization;
-	assign sem_la0_trig[2]       = status_observation;
-	assign sem_la0_trig[3]       = status_correction;
-	assign sem_la0_trig[4]       = status_injection;
-	assign sem_la0_trig[5]       = fecc_crcerror;
-	assign sem_la0_trig[6]       = fecc_eccerror;
-	assign sem_la0_trig[7]       = fecc_eccerrorsingle;
-	assign sem_la0_trig[8]       = icap_csb;
-	assign sem_la0_trig[9]       = icap_rdwrb;
-	assign sem_la0_trig[10]      = icap_busy;
-	assign sem_la0_trig[11]      = monitor_txwrite;
-	assign sem_la0_trig[12]      = inject_strobe;
-	assign sem_la0_trig[13]      = csp_read;
-	assign sem_la0_trig[14]      = csp_send_cmd;
-	assign sem_la0_trig[15]      = monitor_rxread;
-	
-// Virtual I/O for SEM
-
-wire [46:0] sem_vio0_sync_out;
-wire [7:0] sem_vio0_sync_in;
-	
-sem_vio sem_vio_0 (
-    .CONTROL(CSP_VIO0_CNTRL), // INOUT BUS [35:0]
-    .CLK(CLK40),
-    .SYNC_IN(sem_vio0_sync_in), // IN BUS [7:0]
-    .SYNC_OUT(sem_vio0_sync_out) // OUT BUS [46:0]
-);
-
-
-// VIO Sync In Data [7:0]
-	assign sem_vio0_sync_in[0]  = status_initialization;
-	assign sem_vio0_sync_in[1]  = status_observation;
-	assign sem_vio0_sync_in[2]  = status_correction;
-	assign sem_vio0_sync_in[3]  = status_classification;
-	assign sem_vio0_sync_in[4]  = status_injection;
-	assign sem_vio0_sync_in[5]  = fecc_crcerror;
-	assign sem_vio0_sync_in[6]  = fecc_eccerror;
-	assign sem_vio0_sync_in[7]  = fecc_eccerrorsingle;
-
-
-// VIO Sync Out Data [46:0]
-	assign inject_address = sem_vio0_sync_out[35:0];
-	assign inject_strobe  = sem_vio0_sync_out[36];
-	assign csp_send_cmd   = sem_vio0_sync_out[37];
-	assign csp_read       = sem_vio0_sync_out[38];
-	assign monitor_rxdata = sem_vio0_sync_out[46:39];
-
-	
-end
-
-else
-begin
-	assign inject_address   = 36'h000000000;
-	assign inject_strobe = 1'b0;
-	assign csp_send_cmd   = 1'b0;
-	assign csp_read       = 1'b1;
-	assign monitor_rxdata = 8'h00;
-end
-endgenerate
-
-
 	assign SAMP_MAX = nsamp-1;
 	assign JC_ADC_CNFG = f[14];
-//	assign inc_sngl_bit_err_cntr = fecc_eccerror & ~eccerror_r & fecc_eccerrorsingle & ~eccerrorsingle_r;
-//	assign inc_multi_bit_err_cntr = ~fecc_crcerror & fecc_eccerror & ~eccerror_r & ~(fecc_eccerrorsingle & ~eccerrorsingle_r);
-	assign CRC_ERROR = fecc_crcerror;
 //	assign rst_cntrs = RST | cntr_rst;
 	
 	
@@ -444,136 +255,8 @@ endgenerate
    (.O   (tck2),.I   (tck2_raw));
 
 
-sem_core sem_core1 (
-	.status_heartbeat(status_heartbeat),
-	.status_initialization(status_initialization),
-	.status_observation(status_observation),
-	.status_correction(status_correction),
-	.status_classification(status_classification),
-	.status_injection(status_injection),
-	.status_essential(status_essential),
-	.status_uncorrectable(status_uncorrectable),
-	.monitor_txdata(monitor_txdata), // Bus [7 : 0] 
-	.monitor_txwrite(monitor_txwrite),
-	.monitor_txfull(monitor_txfull),
-	.monitor_rxdata(monitor_rxdata), // Bus [7 : 0] 
-	.monitor_rxread(monitor_rxread),
-	.monitor_rxempty(monitor_rxempty),
-	.inject_strobe(inject_strobe),
-	.inject_address(inject_address), // Bus [35 : 0] 
-	.icap_busy(icap_busy),
-	.icap_o(icap_o), // Bus [31 : 0] 
-	.icap_csb(icap_csb),
-	.icap_rdwrb(icap_rdwrb),
-	.icap_i(icap_i), // Bus [31 : 0] 
-	.icap_clk(CLK40),
-	.icap_request(icap_request), 
-	.icap_grant(1'b1),
-	.fecc_crcerr(fecc_crcerror),
-	.fecc_eccerr(fecc_eccerror),
-	.fecc_eccerrsingle(fecc_eccerrsingle),
-	.fecc_syndromevalid(fecc_syndromevalid),
-	.fecc_syndrome(fecc_syndrome), // Bus [12 : 0] 
-	.fecc_far(fecc_far), // Bus [23 : 0] 
-	.fecc_synbit(fecc_synbit), // Bus [4 : 0] 
-	.fecc_synword(fecc_synword)); // Bus [6 : 0] 
-
-   ICAP_VIRTEX6 #(
-      .DEVICE_ID(32'h0424a093),     // Specifies the pre-programmed Device ID value
-      .ICAP_WIDTH("X32"),          // Specifies the input and output data width to be used with the
-                                  // ICAP_VIRTEX6.
-      .SIM_CFG_FILE_NAME("NONE")  // Specifies the Raw Bitstream (RBT) file to be parsed by the simulation
-                                  // model
-   )
-   ICAP_VIRTEX6_inst (
-      .BUSY(icap_busy),   // 1-bit output Busy/Ready output
-      .O(icap_o),         // 32-bit output Configuration data output bus
-      .CLK(CLK40),        // 1-bit input Clock Input
-      .CSB(icap_csb),     // 1-bit input Active-Low ICAP input Enable
-      .I(icap_i),         // 32-bit input Configuration data input bus
-      .RDWRB(icap_rdwrb)  // 1-bit input Read/Write Select input
-   );
-	
-   FRAME_ECC_VIRTEX6 #(
-      .FARSRC("EFAR"),                // Determines if the output of FAR[23:0] configuration register points to
-                                      // the FAR or EFAR. Sets configuration option register bit CTL0[7].
-      .FRAME_RBT_IN_FILENAME("NONE")  // This file is output by the ICAP_VIRTEX6 model and it contains Frame
-                                      // Data information for the Raw Bitstream (RBT) file. The FRAME_ECC model
-                                      // will parse this file, calculate ECC and output any error conditions.
-   )
-   FRAME_ECC_VIRTEX6_inst (
-      .CRCERROR(fecc_crcerror),             // 1-bit output Output indicating a CRC error
-      .ECCERROR(fecc_eccerror),             // 1-bit output Output indicating an ECC error
-      .ECCERRORSINGLE(fecc_eccerrorsingle), // 1-bit output Output Indicating single-bit Frame ECC error detected.
-      .FAR(fecc_far),                       // 24-bit output Frame Address Register Value output
-      .SYNBIT(fecc_synbit),                 // 5-bit output Output bit address of error
-      .SYNDROME(fecc_syndrome),             // 13-bit output Output location of erroneous bit
-      .SYNDROMEVALID(fecc_syndromevalid),   // 1-bit output Frame ECC output indicating the SYNDROME output is valid.
-      .SYNWORD(fecc_synword)                // 7-bit output Word output in the frame where an ECC error has been detected
-   );
-
-//assign ff_read = csp_read & ff_data_present;
-assign ff_read = ff_data_present;
-
-	sem_mon_fifo_bgb monitor_fifo1(
-  .icap_clk(CLK40),
-  .data_in(monitor_txdata),
-  .data_out(ff_data_out),
-  .write(monitor_txwrite),
-  .read(ff_read),
-  .full(monitor_txfull),
-  .data_present(ff_data_present)
-  );
-
-assign monitor_rxempty = !cmd_ready;
-
-sem_cmds sem_cmds_FSM(
-  .READY(cmd_ready),
-  .SEM_STATE(sem_state),
-  .ACK(monitor_rxread),
-  .CLK(CLK40),
-  .RST(RST),
-  .SEND(csp_send_cmd) 
-);
-  
 
 
-//   always @(posedge CLK40) begin
-//		eccerror_r <= fecc_eccerror;
-//		eccerrorsingle_r <= fecc_eccerrorsingle;
-//	end
-//
-//	always @(posedge CLK40  or posedge rst_cntrs) begin
-//		if(rst_cntrs)
-//			sngl_bit_err_cnt <= 8'h00;
-//		else
-//			if(inc_sngl_bit_err_cntr)
-//				sngl_bit_err_cnt <= sngl_bit_err_cnt+1;
-//			else
-//				sngl_bit_err_cnt <= sngl_bit_err_cnt;			
-//	end
-//	
-//	always @(posedge CLK40  or posedge rst_cntrs) begin
-//		if(rst_cntrs)
-//			multi_bit_err_cnt <= 8'h00;
-//		else
-//			if(inc_multi_bit_err_cntr)
-//				multi_bit_err_cnt <= multi_bit_err_cnt+1;
-//			else
-//				multi_bit_err_cnt <= multi_bit_err_cnt;			
-//	end
-//	
-//	// capture the Frame Address where the error is
-//	always @(posedge CLK40 or posedge RST) begin
-//		if(RST)
-//			cap_far <= 24'h000000;
-//		else
-//			if(fecc_eccerror & ~fecc_eccerrorsingle)
-//				cap_far <= fecc_far;
-//			else
-//				cap_far <= cap_far;
-//	end
-//	
 	
 	always @(posedge FSTCLK) dshift <= jshift2;  // Shift state delayed by 6.25ns
 //

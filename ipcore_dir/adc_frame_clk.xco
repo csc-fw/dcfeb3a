@@ -1,7 +1,7 @@
 ##############################################################
 #
-# Xilinx Core Generator version 14.6
-# Date: Wed Sep 18 17:40:13 2013
+# Xilinx Core Generator version 14.7
+# Date: Tue Nov 05 22:12:42 2013
 #
 ##############################################################
 #
@@ -24,7 +24,7 @@ SET createndf = false
 SET designentry = Verilog
 SET device = xc6vlx130t
 SET devicefamily = virtex6
-SET flowvendor = Foundation_ISE
+SET flowvendor = Other
 SET formalverification = false
 SET foundationsym = false
 SET implementationfiletype = Ngc
@@ -33,7 +33,7 @@ SET removerpms = false
 SET simulationfiles = Behavioral
 SET speedgrade = -1
 SET verilogsim = true
-SET vhdlsim = true
+SET vhdlsim = false
 # END Project Options
 # BEGIN Select
 SELECT Clocking_Wizard xilinx.com:ip:clk_wiz:3.6
@@ -266,4 +266,4 @@ CSET use_status=false
 MISC pkg_timestamp=2012-05-10T12:44:55Z
 # END Extra information
 GENERATE
-# CRC: 920ac0b4
+# CRC: 35d458d0

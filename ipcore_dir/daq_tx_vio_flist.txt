@@ -6,7 +6,6 @@ daq_tx_vio.constraints\daq_tx_vio.ucf
 daq_tx_vio.constraints\daq_tx_vio.xdc
 daq_tx_vio.gise
 daq_tx_vio.ngc
-daq_tx_vio.sym
 daq_tx_vio.ucf
 daq_tx_vio.v
 daq_tx_vio.veo
