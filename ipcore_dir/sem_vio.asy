@@ -8,7 +8,7 @@ PINATTR PinName control[35:0]
 PINATTR Polarity BOTH
 LINE Wide 0 144 32 144
 PIN 0 144 LEFT 36
-PINATTR PinName sync_in[23:0]
+PINATTR PinName sync_in[71:0]
 PINATTR Polarity IN
 LINE Normal 0 176 32 176
 PIN 0 176 LEFT 36

@@ -1,5 +1,5 @@
 #ChipScope Pro Analyzer Project File, Version 3.0
-#Wed Dec 18 16:14:53 EST 2013
+#Thu Dec 19 11:43:14 EST 2013
 deviceChain.deviceName0=XC6VLX130T
 deviceChain.iRLength0=10
 deviceChain.name0=MyDevice0
@@ -38,7 +38,7 @@ unit.0.0.1.HEIGHT1=0.9358816
 unit.0.0.1.WIDTH1=0.99037886
 unit.0.0.1.X1=0.0072158747
 unit.0.0.1.Y1=0.048088778
-unit.0.0.MFBitsA0=XXXXXX10XXXXXXXX
+unit.0.0.MFBitsA0=XX1XXXXXXXXXXXXX
 unit.0.0.MFBitsA1=XXXXXXXXXXXX1XXX
 unit.0.0.MFBitsA2=XXXXXXXXXXXXX1XX
 unit.0.0.MFBitsA3=XXXXXXXXXXXXXX1X
@@ -70,7 +70,7 @@ unit.0.0.SQContiguous1=0
 unit.0.0.SQContiguous2=0
 unit.0.0.SQContiguous3=0
 unit.0.0.SequencerOn=0
-unit.0.0.TCActive=0
+unit.0.0.TCActive=3
 unit.0.0.TCAdvanced0=0
 unit.0.0.TCAdvanced1=0
 unit.0.0.TCAdvanced2=0
@@ -1897,7 +1897,7 @@ unit.0.1.port.2.b.0.tokencount=0
 unit.0.1.port.2.b.0.unsignedOffset=0.0
 unit.0.1.port.2.b.0.unsignedPrecision=0
 unit.0.1.port.2.b.0.unsignedScaleFactor=1.0
-unit.0.1.port.2.b.0.value=C00003018
+unit.0.1.port.2.b.0.value=C00004018
 unit.0.1.port.2.b.0.visible=1
 unit.0.1.port.2.b.1.alias=rxdata
 unit.0.1.port.2.b.1.channellist=39 40 41 42 43 44 45 46
@@ -1955,7 +1955,7 @@ unit.0.1.port.2.s.12.display=0
 unit.0.1.port.2.s.12.name=SyncOut[12]
 unit.0.1.port.2.s.12.orderindex=-1
 unit.0.1.port.2.s.12.persistence=0
-unit.0.1.port.2.s.12.value=1
+unit.0.1.port.2.s.12.value=0
 unit.0.1.port.2.s.12.visible=0
 unit.0.1.port.2.s.13.alias=
 unit.0.1.port.2.s.13.color=java.awt.Color[r\=0,g\=0,b\=124]
@@ -1963,7 +1963,7 @@ unit.0.1.port.2.s.13.display=0
 unit.0.1.port.2.s.13.name=SyncOut[13]
 unit.0.1.port.2.s.13.orderindex=-1
 unit.0.1.port.2.s.13.persistence=0
-unit.0.1.port.2.s.13.value=1
+unit.0.1.port.2.s.13.value=0
 unit.0.1.port.2.s.13.visible=0
 unit.0.1.port.2.s.14.alias=
 unit.0.1.port.2.s.14.color=java.awt.Color[r\=0,g\=0,b\=124]
@@ -1971,7 +1971,7 @@ unit.0.1.port.2.s.14.display=0
 unit.0.1.port.2.s.14.name=SyncOut[14]
 unit.0.1.port.2.s.14.orderindex=-1
 unit.0.1.port.2.s.14.persistence=0
-unit.0.1.port.2.s.14.value=0
+unit.0.1.port.2.s.14.value=1
 unit.0.1.port.2.s.14.visible=0
 unit.0.1.port.2.s.15.alias=
 unit.0.1.port.2.s.15.color=java.awt.Color[r\=0,g\=0,b\=124]

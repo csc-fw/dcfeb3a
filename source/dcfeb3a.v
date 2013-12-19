@@ -1590,7 +1590,10 @@ SPI_PORT_i  (
 	wire jtag_rst_sem_cntrs;
 	wire jtag_send_cmd;
 	wire [7:0] jtag_cmd_data;
-	wire [49:0] sem_status;
+	wire [23:0] sem_far_pa;
+	wire [23:0] sem_far_la;
+	wire [15:0] sem_errcnt;
+	wire [15:0] sem_status;
 	
 
 
@@ -1657,7 +1660,10 @@ SPI_PORT_i  (
 		.JTAG_RST_SEM_CNTRS(jtag_rst_sem_cntrs),// Reset the error counters
 		.JTAG_SEND_CMD(jtag_send_cmd),          // single pulse to execute command in JTAG_CMD_DATA
 		.JTAG_CMD_DATA(jtag_cmd_data),          //Data for SEM commands
-		.SEM_STATUS(sem_status)                 //Status state, errors and FAR address
+		.SEM_FAR_PA(sem_far_pa),                //Frame Address Register - Physical Address
+		.SEM_FAR_LA(sem_far_la),                //Frame Address Register - Linear Address
+		.SEM_ERRCNT(sem_errcnt),                //Error counters - {dbl,sngl} 8 bits each
+		.SEM_STATUS(sem_status)                 //Status states, and error flags
    );
 		
  /////////////////////////////////////////////////////////////////////////////
@@ -1827,7 +1833,10 @@ SEM_module SEM_module_i (
 	 .JTAG_RST_SEM_CNTRS(jtag_rst_sem_cntrs),// Reset the error counters
 	 .JTAG_SEND_CMD(jtag_send_cmd),          // single pulse to execute command in JTAG_CMD_DATA
 	 .JTAG_CMD_DATA(jtag_cmd_data),          //Data for SEM commands
-	 .SEM_STATUS(sem_status)                 //Status state, errors and FAR address
+	 .SEM_FAR_PA(sem_far_pa),                //Frame Address Register - Physical Address
+	 .SEM_FAR_LA(sem_far_la),                //Frame Address Register - Linear Address
+	 .SEM_ERRCNT(sem_errcnt),                //Error counters - {dbl,sngl} 8 bits each
+	 .SEM_STATUS(sem_status)                 //Status states, and error flags
 	 );
 
 endmodule

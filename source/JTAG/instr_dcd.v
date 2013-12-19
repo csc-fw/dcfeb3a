@@ -52,7 +52,7 @@
 //  34     | Program Calibration DAC -- same style as Comparator DAC
 //  35     | Send Control Byte to the MAX 1271 ADC (and conversion clocks)
 //  36     | Read back the MAX 1271 ADC conversion stored in the SPI return register.
-//  37     | Read the FRAME Address Register for the address of the frame with the bit errors that caused the CRC error (24 bits).
+//  37     | Read the SEM status and FRAME Address Register for the address of the frame with the bit errors that caused the CRC error (34 bits).
 //  38     | Reset the configuration ECC error counters. -- Instruction only, (Auto reset)
 //  39     | Read the ECC error counters (16-bits total, {8-bits for multi-bit error count, 8-bits for single-bit error counts})
 //  40     | Set L1A_MATCH source to use only matched L1A's (skw_rw_l1a_match). Clear the USE_ANY_L1A flag. -- Instruction only
@@ -62,6 +62,11 @@
 //  44     | Sampling Clock phase register (3-bits, 0-7).
 //  45     | PRBS test mode for DAQ optical path (3-bits, 0-7).
 //  46     | Inject error into PRBS test for DAQ optical path.
+//  47     | Take control of the SEM command interface (only needs to be set after ChipScope Pro has been in control).
+//  48     | Reset the double error detected flag (SEM module).
+//  49     | Send ASCII command to the SEM controller (8-bits). 
+//  50     | Frame Address Register (FAR) in Linear Address format indicating the frame containing the error (24-bits). 
+//  51     | Frame Address Register (FAR) in Physical Address format indicating the frame containing the error (24-bits). 
 //
 // Revision: 
 // Revision 0.01 - File Created

@@ -25,10 +25,12 @@ module SEM_module (
 	 input JTAG_RST_SEM_CNTRS,  // Reset the error counters
 	 input JTAG_SEND_CMD,       // single pulse to execute command in JTAG_CMD_DATA
 	 input [7:0] JTAG_CMD_DATA, //Data for SEM commands
-	 output [49:0] SEM_STATUS   //Status state, errors and FAR address
+	 output [23:0] SEM_FAR_PA,  //Frame Address Register - Physical Address
+	 output [23:0] SEM_FAR_LA,  //Frame Address Register - Linear Address
+	 output [15:0] SEM_ERRCNT,  //Error counters - {dbl,sngl} 8 bits each
+	 output [15:0] SEM_STATUS   //Status states, and error flags
 	 );
 
-	
 //
 // SEM signals
 //
@@ -71,6 +73,9 @@ module SEM_module (
 	wire icap_unused;
 	wire icap_grant;
 
+//
+// User signals
+//
 	wire [7:0] ff_data_out;
 	wire ff_data_present;
 	wire ff_read;
@@ -94,6 +99,20 @@ module SEM_module (
 	wire inc_sngl_cnt;
 	reg fecc_eccerr_r1;
 	reg dbl_err_det_r1;
+	reg [8*9-1:0] monout;
+	wire ded;
+	wire sed;
+	wire pa;
+	wire la;
+	wire load_pa;
+	wire load_la;
+	reg ded_r1;
+	reg sed_r1;
+	reg pa_r1;
+	reg la_r1;
+	reg [23:0] far_pa;
+	reg [23:0] far_la;
+	
 
 // FIFO signals
    wire famt;
@@ -151,13 +170,28 @@ sem_la sem_la0 (
 	assign sem_la0_data[149]        = ff_read;
 	assign sem_la0_data[150]        = ff_data_present;
 //	assign sem_la0_data[151]        = cmd_ready;
-	assign sem_la0_data[151]        = 1'b0;
-	assign sem_la0_data[159:152]    = ff_data_out;
+//	assign sem_la0_data[159:152]    = ff_data_out;
+	assign sem_la0_data[151]        = pa;
+	assign sem_la0_data[152]        = la;
+	assign sem_la0_data[153]        = inc_dbl_cnt;
+	assign sem_la0_data[154]        = inc_sngl_cnt;
+	assign sem_la0_data[155]        = load_pa;
+	assign sem_la0_data[156]        = load_la;
+	assign sem_la0_data[157]        = 1'b0;
+	assign sem_la0_data[158]        = 1'b0;
+	assign sem_la0_data[159]        = 1'b0;
 	assign sem_la0_data[160]        = csp_send_cmd;
 	assign sem_la0_data[161]        = RST;
 //	assign sem_la0_data[163:162]    = sem_state;
-	assign sem_la0_data[163:162]    = 2'b00;
+	assign sem_la0_data[162]        = sed;
+	assign sem_la0_data[163]        = ded;
 	
+	assign pa  = (monout[8*9-1:8*6] == "PA ");
+	assign la  = (monout[8*9-1:8*6] == "LA ");
+	assign inc_dbl_cnt = ded & ~ded_r1;
+	assign inc_sngl_cnt = sed & ~sed_r1;
+	assign load_pa = pa & ~pa_r1;
+	assign load_la = la & ~la_r1;
 	
 
 // LA Trigger [15:0]
@@ -181,12 +215,12 @@ sem_la sem_la0 (
 // Virtual I/O for SEM
 
 wire [47:0] sem_vio0_sync_out;
-wire [23:0] sem_vio0_sync_in;
+wire [71:0] sem_vio0_sync_in;
 	
 sem_vio sem_vio_0 (
     .CONTROL(CSP_VIO0_CNTRL), // INOUT BUS [35:0]
     .CLK(CLK40),
-    .SYNC_IN(sem_vio0_sync_in), // IN BUS [23:0]
+    .SYNC_IN(sem_vio0_sync_in), // IN BUS [71:0]
     .SYNC_OUT(sem_vio0_sync_out) // OUT BUS [47:0]
 );
 
@@ -202,6 +236,8 @@ sem_vio sem_vio_0 (
 	assign sem_vio0_sync_in[7]  = fecc_eccerrsingle;
 	assign sem_vio0_sync_in[15:8] = sngl_bit_err_cnt;
 	assign sem_vio0_sync_in[23:16] = multi_bit_err_cnt;
+	assign sem_vio0_sync_in[47:24] = far_pa;
+	assign sem_vio0_sync_in[71:48] = far_la;
 
 
 // VIO Sync Out Data [47:0]
@@ -214,6 +250,7 @@ sem_vio sem_vio_0 (
 
 
 assign icap_grant = 1'b1;
+assign monitor_txfull = 1'b0;
 
 sem_core sem_core1 (
 	.status_heartbeat(status_heartbeat),
@@ -283,32 +320,61 @@ sem_core sem_core1 (
       .SYNWORD(fecc_synword)                // 7-bit output Word output in the frame where an ECC error has been detected
    );
 
-assign ff_data_present = !fmt;
-assign ff_read = csp_read & !fmt;
+//assign ff_data_present = !fmt;
+//assign ff_read = csp_read & !fmt;
+assign ff_data_present = 1'b0;
+assign ff_read = 1'b0;
 
-   FIFO_SYNC_MACRO  #(
-      .DEVICE("VIRTEX6"), // Target Device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(9'h080), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(9'h080),  // Sets almost full threshold
-      .DATA_WIDTH(8), // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .DO_REG(0),     // Optional output register (0 or 1)
-      .FIFO_SIZE ("18Kb") // Target BRAM: "18Kb" or "36Kb" 
-   ) monitor_fifo2 (
-      .ALMOSTEMPTY(famt), // 1-bit output almost empty
-      .ALMOSTFULL(faf),   // 1-bit output almost full
-      .DO(ff_data_out),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt),             // 1-bit output empty
-      .FULL(monitor_txfull),               // 1-bit output full
-      .RDCOUNT(rdcount),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr),             // 1-bit output read error
-      .WRCOUNT(wrcount),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr),             // 1-bit output write error
-      .CLK(CLK40),                 // 1-bit input clock
-      .DI(monitor_txdata),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDEN(ff_read),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WREN(monitor_txwrite)                // 1-bit input write enable
-   );
+//   FIFO_SYNC_MACRO  #(
+//      .DEVICE("VIRTEX6"), // Target Device: "VIRTEX5", "VIRTEX6" 
+//      .ALMOST_EMPTY_OFFSET(9'h080), // Sets the almost empty threshold
+//      .ALMOST_FULL_OFFSET(9'h080),  // Sets almost full threshold
+//      .DATA_WIDTH(8), // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
+//      .DO_REG(0),     // Optional output register (0 or 1)
+//      .FIFO_SIZE ("18Kb") // Target BRAM: "18Kb" or "36Kb" 
+//   ) monitor_fifo2 (
+//      .ALMOSTEMPTY(famt), // 1-bit output almost empty
+//      .ALMOSTFULL(faf),   // 1-bit output almost full
+//      .DO(ff_data_out),                   // Output data, width defined by DATA_WIDTH parameter
+//      .EMPTY(fmt),             // 1-bit output empty
+//      .FULL(monitor_txfull),               // 1-bit output full
+//      .RDCOUNT(rdcount),         // Output read count, width determined by FIFO depth
+//      .RDERR(rderr),             // 1-bit output read error
+//      .WRCOUNT(wrcount),         // Output write count, width determined by FIFO depth
+//      .WRERR(wrerr),             // 1-bit output write error
+//      .CLK(CLK40),                 // 1-bit input clock
+//      .DI(monitor_txdata),                   // Input data, width defined by DATA_WIDTH parameter
+//      .RDEN(ff_read),               // 1-bit input read enable
+//      .RST(RST),                 // 1-bit input reset
+//      .WREN(monitor_txwrite)                // 1-bit input write enable
+//   );
+	
+	
+	assign ded = (monout[8*3-1:0] == "DED");
+	assign sed = (monout[8*3-1:0] == "SED");
+	assign pa  = (monout[8*9-1:8*6] == "PA ");
+	assign la  = (monout[8*9-1:8*6] == "LA ");
+	assign inc_dbl_cnt = ded & ~ded_r1;
+	assign inc_sngl_cnt = sed & ~sed_r1;
+	assign load_pa = pa & ~pa_r1;
+	assign load_la = la & ~la_r1;
+	
+always @(posedge CLK40) begin
+	ded_r1 <= ded;
+	sed_r1 <= sed;
+	pa_r1  <= pa;
+	la_r1  <= la;
+end
+
+always @(posedge CLK40 or posedge RST) begin
+	if(RST)
+		monout <= "         ";
+	else
+		if(monitor_txwrite)
+			monout <= {monout[63:0],monitor_txdata};
+		else
+			monout <= monout;
+end
 	
 //assign monitor_rxempty = !cmd_ready;
 //
@@ -369,27 +435,49 @@ end
 	end
 	
 	// capture the Frame Address where the error is
+//	always @(posedge CLK40 or posedge RST) begin
+//		if(RST)
+//			cap_far <= 24'h000000;
+//		else
+//			if(inc_dbl_cnt)
+//				cap_far <= fecc_far;
+//			else
+//				cap_far <= cap_far;
+//	end
 	always @(posedge CLK40 or posedge RST) begin
 		if(RST)
-			cap_far <= 24'h000000;
+			far_pa <= 24'h000000;
 		else
-			if(inc_dbl_cnt)
-				cap_far <= fecc_far;
+			if(load_pa)
+				far_pa <= {monout[43:40],monout[35:32],monout[27:24],monout[19:16],monout[11:8],monout[3:0]};
+			else if(JTAG_DED_RST)
+				far_pa <= 24'h000000;
 			else
-				cap_far <= cap_far;
+				far_pa <= far_pa;
+	end
+	always @(posedge CLK40 or posedge RST) begin
+		if(RST)
+			far_la <= 24'h000000;
+		else
+			if(load_la)
+				far_la <= {monout[43:40],monout[35:32],monout[27:24],monout[19:16],monout[11:8],monout[3:0]};
+			else if(JTAG_DED_RST)
+				far_la <= 24'h000000;
+			else
+				far_la <= far_la;
 	end
 	
 	
 	
-	always @(posedge CLK40) begin
-		fecc_eccerr_r1 <= fecc_eccerr;
-		dbl_err_det_r1 <= dbl_err_det;
-	end
+//	always @(posedge CLK40) begin
+//		fecc_eccerr_r1 <= fecc_eccerr;
+//		dbl_err_det_r1 <= dbl_err_det;
+//	end
 
 
-assign le_eccerr = fecc_eccerr & ~fecc_eccerr_r1;
-assign inc_dbl_cnt = dbl_err_det & ~dbl_err_det_r1;
-assign inc_sngl_cnt = le_eccerr & fecc_eccerrsingle & status_correction;
+//assign le_eccerr = fecc_eccerr & ~fecc_eccerr_r1;
+//assign inc_dbl_cnt = dbl_err_det & ~dbl_err_det_r1;
+//assign inc_sngl_cnt = le_eccerr & fecc_eccerrsingle & status_correction;
 
 	always @(posedge CLK40 or posedge RST) begin
 		if(RST)
@@ -397,7 +485,8 @@ assign inc_sngl_cnt = le_eccerr & fecc_eccerrsingle & status_correction;
 		else
 			if(JTAG_DED_RST)
 				dbl_err_det <= 1'b0;
-			else if(le_eccerr && ~fecc_eccerrsingle)
+//			else if(le_eccerr && ~fecc_eccerrsingle)
+			else if(inc_dbl_cnt)
 				dbl_err_det <= 1'b1;
 			else
 				dbl_err_det <= dbl_err_det;
@@ -414,9 +503,12 @@ assign inc_sngl_cnt = le_eccerr & fecc_eccerrsingle & status_correction;
 	assign SEM_STATUS[7] = 1'b0;
 	assign SEM_STATUS[8] = fecc_crcerr;
 	assign SEM_STATUS[9] = dbl_err_det;
-	assign SEM_STATUS[33:10] = cap_far;
-	assign SEM_STATUS[41:34] = sngl_bit_err_cnt;
-	assign SEM_STATUS[49:42] = multi_bit_err_cnt;
+	assign SEM_STATUS[15:10] = 6'h00;
 
+	assign SEM_FAR_PA = far_pa;
+	assign SEM_FAR_LA = far_la;
+	assign SEM_ERRCNT[7:0]  = sngl_bit_err_cnt;
+	assign SEM_ERRCNT[15:8] = multi_bit_err_cnt;
+	
 
 endmodule

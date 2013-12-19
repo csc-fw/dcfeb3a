@@ -66,6 +66,8 @@
 //  47     | Take control of the SEM command interface (only needs to be set after ChipScope Pro has been in control).
 //  48     | Reset the double error detected flag (SEM module).
 //  49     | Send ASCII command to the SEM controller (8-bits). 
+//  50     | Frame Address Register (FAR) in Linear Address format indicating the frame containing the error (24-bits). 
+//  51     | Frame Address Register (FAR) in Physical Address format indicating the frame containing the error (24-bits). 
 //
 // Revision: 
 // Revision 0.01 - File Created
@@ -133,7 +135,10 @@ module jtag_access (
 	 output JTAG_RST_SEM_CNTRS,      // Reset the error counters
 	 output reg JTAG_SEND_CMD,       // single pulse to execute command in JTAG_CMD_DATA
 	 output [7:0] JTAG_CMD_DATA, //Data for SEM commands
-	 input [49:0] SEM_STATUS         //Status state, errors and FAR address
+	 input [23:0] SEM_FAR_PA,    //Frame Address Register - Physical Address
+	 input [23:0] SEM_FAR_LA,    //Frame Address Register - Linear Address
+	 input [15:0] SEM_ERRCNT,    //Error counters - {dbl,sngl} 8 bits each
+	 input [15:0] SEM_STATUS     //Status states, and error flags
 	 );
 
    reg dshift;
@@ -174,7 +179,7 @@ module jtag_access (
 	wire [63:0] f; //JTAG functions (one hot);
 	wire f11;
 	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15;
-	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31;
+	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31,tdof32,tdof33;
 	wire [31:16] status_h;
    wire [6:1] bky_mask;
 	wire [6:0] nsamp;
@@ -189,12 +194,21 @@ module jtag_access (
 	reg set_rate_1_25, set_rate_3_2;
 	reg [15:0] spi_rtn_reg;
 
+// Auto Load constants
+   wire AUTO_LOAD;
+	wire al_ctime;
+	wire al_cmode;
+	wire al_pdepth;
+	wire al_nsamp;
+	wire al_cmp_clk_phase;
+	wire al_samp_clk_phase;
 
+	assign AUTO_LOAD = 1'b0;
 	assign SAMP_MAX = nsamp-1;
 	assign JC_ADC_CNFG = f[14];
 	
 	
-	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c | tdof2d | tdof31);
+	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c | tdof2d | tdof31 | tdof32 | tdof33);
 	assign status_h[31:16] = {5'b10110,XL1DLYSET,LOADPBLK,COMP_TIME,COMP_MODE};
 	
 	assign JTAG_SYS_RST  = f[1];  // System Reset JTAG command (like power on reset without reprogramming)
@@ -338,7 +352,6 @@ module jtag_access (
       .PO(LOADPBLK),      // Parallel output
       .TDO(tdof8),        // Serial Test Data Out
       .DSY_OUT(prbout));  // Daisy chained serial data out
-
 //
 // JTAG Comparator Mode and Timing bits Register
 //
@@ -875,10 +888,10 @@ module jtag_access (
 //	[7] = 1'b0;
 //	[8] = CRC error;
 //	[9] = double error detected;
-//	[33:10] = FAR address of error; 
+//	[33:10] = FAR Physical address of error; 
 
    user_cap_reg #(.width(34))
-   Frame_ECC_Reg(
+   SEM_Status_Reg(
       .DRCK(tck2),        // Data Reg Clock
       .FSH(1'b0),         // Shift Function
       .FCAP(f[37]),        // Capture Function
@@ -887,7 +900,7 @@ module jtag_access (
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
       .RST(RST),          // Reset default state
-		.BUS(SEM_STATUS[33:0]), // Bus to capture // bits 33:10 are FAR, bit 9 is double error detected, bit 8 is crc error
+		.BUS({SEM_FAR_PA,SEM_STATUS[9:0]}), // Bus to capture // bits 33:10 are FAR, bit 9 is double error detected, bit 8 is crc error
       .TDO(tdof25));      // Serial Test Data Out
 //	assign SEM_STATUS[0] = status_initialization;
 //	assign SEM_STATUS[1] = status_observation;
@@ -899,7 +912,6 @@ module jtag_access (
 //	assign SEM_STATUS[7] = 1'b0;
 //	assign SEM_STATUS[8] = fecc_crcerr;
 //	assign SEM_STATUS[9] = dbl_err_det;
-//	assign SEM_STATUS[33:10] = cap_far;
 
 //
 // Function 39:
@@ -919,7 +931,7 @@ module jtag_access (
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
       .RST(RST),          // Reset default state
-		.BUS(SEM_STATUS[49:34]), // Bus to capture //[bits 15:8 are multi-bit error counts, bits 7:0 are single-bit error counts
+		.BUS(SEM_ERRCNT), // Bus to capture //[bits 15:8 are multi-bit error counts, bits 7:0 are single-bit error counts
       .TDO(tdof27));      // Serial Test Data Out
 		
 //
@@ -1022,5 +1034,39 @@ module jtag_access (
 		 JTAG_SEND_CMD <= we49;                                 // delay write enable one clock cycle
 	end
 
+//
+// Function 50:
+//
+// SEM Frame Address Register (FAR) Linear address format capture and shift
+
+   user_cap_reg #(.width(24))
+   Frame_ECC_LA_Reg(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[50]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),          // Reset default state
+		.BUS(SEM_FAR_LA),   // Bus to capture // 
+      .TDO(tdof32));      // Serial Test Data Out
+//
+// Function 51:
+//
+// SEM Frame Address Register (FAR) Physica address format capture and shift
+
+   user_cap_reg #(.width(24))
+   Frame_ECC_PA_Reg(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[50]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),          // Reset default state
+		.BUS(SEM_FAR_PA),   // Bus to capture // 
+      .TDO(tdof33));      // Serial Test Data Out
 		
 endmodule
