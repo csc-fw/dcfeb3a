@@ -34,6 +34,8 @@ module user_wr_reg(
   input UPDATE,      // Update state
   input RST,         // Reset default state
   input DSY_CHAIN,   // Daisy chain mode
+  input LOAD,        // Load parallel input
+  input [width-1:0]  PI,         // Parallel input
   output reg [width-1:0]  PO,         // Parallel output
   output TDO,        // Serial Test Data Out
   output DSY_OUT);   // Daisy chained serial data out
@@ -65,6 +67,8 @@ module user_wr_reg(
 	 else
 	   if(UPDATE)
         PO <= d;
+	   else if(LOAD)
+        PO <= PI;
 		else
 		  PO <= PO;
   end

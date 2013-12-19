@@ -73,7 +73,7 @@ module daq_mmcm_custom
  (// Clock in ports
   input         CLK_IN1,
   // Clock out ports
-  output        CLK_OUT1,
+  output        CLK_OUT1_RAW,
   output        CLK_OUT2,
   output        CLK_OUT3,
   output        CLK_OUT4_RAW,
@@ -192,9 +192,7 @@ module daq_mmcm_custom
    (.O (clkfbout_buf),
     .I (clkfbout));
 
-  BUFG clkout1_buf
-   (.O   (CLK_OUT1),
-    .I   (clkout0));
+  assign CLK_OUT1_RAW = clkout0;
 
 
   BUFG clkout2_buf

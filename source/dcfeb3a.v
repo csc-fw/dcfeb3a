@@ -328,6 +328,8 @@ endgenerate
 
    wire sys_rst;
 	wire cms_clk,cms80;
+	wire icap_clk;
+	wire icap_clk_ena;
 	wire daq_tx_125_refclk,daq_tx_125_refclk_dv2;
 	wire trg_tx_160_refclk,trg_tx_160_refclk_buf;
 	wire comp_clk;
@@ -374,6 +376,8 @@ endgenerate
 	   // Internal inputs
 		.RST(sys_rst),
 		.RESYNC(resync),
+      .ICAP_CLK_ENA(icap_clk_ena),       // ICAP Clock Enable for holding off initialization.
+		.DAQ_MMCM_RST(mmcm_rst),
 	   // Internal outputs
 		.CMS80(cms80),
 		.DAQ_TX_125_REFCLK(daq_tx_125_refclk),
@@ -388,10 +392,10 @@ endgenerate
 		.CLK40(clk40),
 		.CLK20(clk20),
 		.CLK1MHZ(clk1mhz),
+      .ICAP_CLK(icap_clk),       // Clock Enabled 40MHz clock
 		.FEM_CLK320(fem_clk320),
 		.ADC_CLK(adc_clk),
 		.DSR_RESYNC(dsr_resync),
-		.DAQ_MMCM_RST(mmcm_rst),
 		.DAQ_MMCM_LOCK(daq_mmcm_lock),
 		.STRTUP_CLK(strtup_clk),           // internal config clock for power on state machines in reset manager
 		.EOS(eos),                          // End Of Startup
@@ -1534,6 +1538,7 @@ SPI_PORT_i  (
 	wire cmp_clk_phs_chng;
 	
 	assign adc_init = por_adc_init | jtag_adc_init | csp_adc_init;
+	assign icap_clk_ena = ~por;
 
 	reset_manager rsm1(
 		.STUP_CLK(strtup_clk),
@@ -1580,6 +1585,12 @@ SPI_PORT_i  (
 	wire [11:0] adc_mask;
 	wire adc_we;
 	wire jc_adc_cnfg;
+	wire jtag_tk_ctrl_sem;
+	wire jtag_ded_rst;
+	wire jtag_rst_sem_cntrs;
+	wire jtag_send_cmd;
+	wire [7:0] jtag_cmd_data;
+	wire [49:0] sem_status;
 	
 
 
@@ -1640,7 +1651,13 @@ SPI_PORT_i  (
 		.JDAQ_PRBS_TST(jdaq_prbs_tst),      // PRBS test mode from JTAG interface
 		.JDAQ_INJ_ERR(jdaq_inj_err),        // Error injection requested from JTAG interface
 		.USE_ANY_L1A(juse_any_l1a),   //L1A_MATCH source: 0 = L1A_MATCH = skw_rw_l1a_match, 1 = L1A_MATCH = skw_rw_l1a.
-		.L1A_HEAD(jl1a_head)         //L1A_HEAD flag: 0 -> l1anum is NOT used as header in data stream, 1 -> l1anum IS used as header in data stream.
+		.L1A_HEAD(jl1a_head),         //L1A_HEAD flag: 0 -> l1anum is NOT used as header in data stream, 1 -> l1anum IS used as header in data stream.
+		.JTAG_TK_CTRL(jtag_tk_ctrl_sem),        // Sets csp_jtag_b signal
+		.JTAG_DED_RST(jtag_ded_rst),            // Reset the double error detected flag
+		.JTAG_RST_SEM_CNTRS(jtag_rst_sem_cntrs),// Reset the error counters
+		.JTAG_SEND_CMD(jtag_send_cmd),          // single pulse to execute command in JTAG_CMD_DATA
+		.JTAG_CMD_DATA(jtag_cmd_data),          //Data for SEM commands
+		.SEM_STATUS(sem_status)                 //Status state, errors and FAR address
    );
 		
  /////////////////////////////////////////////////////////////////////////////
@@ -1798,16 +1815,19 @@ endgenerate
  //  SEM module for testing configuration memory error correction           //
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
- 
-	wire [15:0] SEM_status;
 	
 SEM_module SEM_module_i (
     .CSP_LA0_CNTRL(sem_la0_c0),
     .CSP_VIO0_CNTRL(sem_vio_in0_c1),
-    .CLK40(clk40),             // 40 MHz Clock
-    .RST(sys_rst),             // Reset default state
-	 .LED_OUT(SEM_status)           // status out to LEDs
+    .CLK40(clk40),                          // Free running 40 MHz Clock after mmcm lock.
+    .ICAP_CLK(icap_clk),                    // Clock Enabled 40MHz clock
+    .RST(sys_rst),                          // Reset for state machines and FIFO
+	 .JTAG_TK_CTRL(jtag_tk_ctrl_sem),        // Sets csp_jtag_b signal
+	 .JTAG_DED_RST(jtag_ded_rst),            // Reset the double error detected flag
+	 .JTAG_RST_SEM_CNTRS(jtag_rst_sem_cntrs),// Reset the error counters
+	 .JTAG_SEND_CMD(jtag_send_cmd),          // single pulse to execute command in JTAG_CMD_DATA
+	 .JTAG_CMD_DATA(jtag_cmd_data),          //Data for SEM commands
+	 .SEM_STATUS(sem_status)                 //Status state, errors and FAR address
 	 );
 
-	
 endmodule

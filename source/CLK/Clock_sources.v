@@ -41,6 +41,8 @@ module Clock_sources(
 	   // Internal inputs
 	 input RST,
 	 input RESYNC,
+    input  ICAP_CLK_ENA,
+    input DAQ_MMCM_RST,
 	   // Internal outputs
     output CMS80,
     output DAQ_TX_125_REFCLK,
@@ -55,10 +57,10 @@ module Clock_sources(
     output CLK40,
     output CLK20,
     output CLK1MHZ,
+    output ICAP_CLK,
     output FEM_CLK320,
     output ADC_CLK,
     output DSR_RESYNC,
-    input DAQ_MMCM_RST,
     output DAQ_MMCM_LOCK,
     output STRTUP_CLK,
     output EOS,
@@ -92,6 +94,7 @@ wire samp_med_lock;
 wire cmp_coarse_lock;
 wire cmp_fine_lock;
 wire samp_in_sel;
+wire pre_clk40;
 wire pre_clk20, pre_clk20_b;
 //reg cap_phase;
 wire clk20_nophase;
@@ -202,11 +205,24 @@ end
 // primary          40.000            0.010
 
 daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
-	.CLK_OUT1(CLK40),.CLK_OUT2(CLK160),.CLK_OUT3(CLK120),
+	.CLK_OUT1_RAW(pre_clk40),
+	.CLK_OUT2(CLK160),
+	.CLK_OUT3(CLK120),
 	.CLK_OUT4_RAW(pre_clk20),.CLK_OUT4_B_RAW(pre_clk20_b),
 	.CLK_OUT5(CLK1MHZ),
 	.RESET(DAQ_MMCM_RST),
 	.LOCKED(DAQ_MMCM_LOCK));
+
+  BUFG clk40_buf (
+	.O   (CLK40),
+	.I   (pre_clk40)
+	);
+	 
+  BUFGCE icap_clk_bufg (
+    .I(pre_clk40),
+	 .CE(ICAP_CLK_ENA),
+    .O(ICAP_CLK)
+    );
 
    BUFH	clk20_nophase_i (.O(clk20_nophase),  .I(pre_clk20));
    BUFH	clk20_nophase_b_i (.O(clk20_nophase_b),  .I(pre_clk20_b));

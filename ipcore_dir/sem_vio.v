@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : sem_vio.v
-// /___/   /\     Timestamp  : Mon Dec 09 13:38:54 Eastern Standard Time 2013
+// /___/   /\     Timestamp  : Wed Dec 18 12:01:36 Eastern Standard Time 2013
 // \   \  /  \
 //  \___\/\___\
 //
@@ -27,7 +27,7 @@ module sem_vio(
 
 inout [35 : 0] CONTROL;
 input CLK;
-input [7 : 0] SYNC_IN;
+input [23 : 0] SYNC_IN;
 output [47 : 0] SYNC_OUT;
 
 endmodule

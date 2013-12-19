@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : sem_vio.veo
-// /___/   /\     Timestamp  : Mon Dec 09 13:38:54 Eastern Standard Time 2013
+// /___/   /\     Timestamp  : Wed Dec 18 12:01:36 Eastern Standard Time 2013
 // \   \  /  \
 //  \___\/\___\
 //
@@ -23,7 +23,7 @@
 sem_vio YourInstanceName (
     .CONTROL(CONTROL), // INOUT BUS [35:0]
     .CLK(CLK), // IN
-    .SYNC_IN(SYNC_IN), // IN BUS [7:0]
+    .SYNC_IN(SYNC_IN), // IN BUS [23:0]
     .SYNC_OUT(SYNC_OUT) // OUT BUS [47:0]
 );
 

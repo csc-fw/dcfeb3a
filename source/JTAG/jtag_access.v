@@ -53,7 +53,7 @@
 //  34     | Program Calibration DAC -- same style as Comparator DAC
 //  35     | Send Control Byte to the MAX 1271 ADC (and conversion clocks)
 //  36     | Read back the MAX 1271 ADC conversion stored in the SPI return register.
-//  37     | Read the FRAME Address Register for the address of the frame with the bit errors that caused the CRC error (24 bits).
+//  37     | Read the SEM status and FRAME Address Register for the address of the frame with the bit errors that caused the CRC error (34 bits).
 //  38     | Reset the configuration ECC error counters. -- Instruction only, (Auto reset)
 //  39     | Read the ECC error counters (16-bits total, {8-bits for multi-bit error count, 8-bits for single-bit error counts})
 //  40     | Set L1A_MATCH source to use only matched L1A's (skw_rw_l1a_match). Clear the USE_ANY_L1A flag. -- Instruction only
@@ -63,6 +63,9 @@
 //  44     | Sampling Clock phase register (3-bits, 0-7).
 //  45     | PRBS test mode for DAQ optical path (3-bits, 0-7).
 //  46     | Inject error into PRBS test for DAQ optical path.
+//  47     | Take control of the SEM command interface (only needs to be set after ChipScope Pro has been in control).
+//  48     | Reset the double error detected flag (SEM module).
+//  49     | Send ASCII command to the SEM controller (8-bits). 
 //
 // Revision: 
 // Revision 0.01 - File Created
@@ -121,15 +124,22 @@ module jtag_access (
 	 output [29:0] LAY1_TO_6_HALF_STRIP, // TMB half strips for injecting patterns into the optical serial data stream
 	 output [5:0] LAYER_MASK, // layer mask to indicate which layers to use for active half strips.
 	 output reg JDAQ_RATE,    //DAQ Rate selection: 0 = 1GbE (1.25Gbps line rate), 1 = 2.56GbE (3.2Gbps line rate).
-	output [2:0]JDAQ_PRBS_TST,   // PRBS test mode from JTAG interface
-	output JDAQ_INJ_ERR,         // Error injection requested from JTAG interface
-	output reg USE_ANY_L1A,   //L1A_MATCH source: 0 -> L1A_MATCH = skw_rw_l1a_match, 1 -> L1A_MATCH = skw_rw_l1a.
-	output reg L1A_HEAD      //L1A_HEAD flag: 0 -> l1anum is NOT used as header in data stream, 1 -> l1anum IS used as header in data stream.
+	 output [2:0]JDAQ_PRBS_TST,   // PRBS test mode from JTAG interface
+	 output JDAQ_INJ_ERR,         // Error injection requested from JTAG interface
+	 output reg USE_ANY_L1A,   //L1A_MATCH source: 0 -> L1A_MATCH = skw_rw_l1a_match, 1 -> L1A_MATCH = skw_rw_l1a.
+	 output reg L1A_HEAD,      //L1A_HEAD flag: 0 -> l1anum is NOT used as header in data stream, 1 -> l1anum IS used as header in data stream.
+	 output JTAG_TK_CTRL,            // Sets csp_jtag_b signal
+	 output JTAG_DED_RST,            // Reset the double error detected flag
+	 output JTAG_RST_SEM_CNTRS,      // Reset the error counters
+	 output reg JTAG_SEND_CMD,       // single pulse to execute command in JTAG_CMD_DATA
+	 output [7:0] JTAG_CMD_DATA, //Data for SEM commands
+	 input [49:0] SEM_STATUS         //Status state, errors and FAR address
 	 );
 
    reg dshift;
    reg we,pre_we,pre_rd;
    reg we21,pre_we21,pre_rd22;
+   reg we49,pre_we49;
 	
 //
 // BSCAN signals
@@ -163,8 +173,8 @@ module jtag_access (
 
 	wire [63:0] f; //JTAG functions (one hot);
 	wire f11;
-	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14;
-	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d;
+	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15;
+	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31;
 	wire [31:16] status_h;
    wire [6:1] bky_mask;
 	wire [6:0] nsamp;
@@ -182,10 +192,9 @@ module jtag_access (
 
 	assign SAMP_MAX = nsamp-1;
 	assign JC_ADC_CNFG = f[14];
-//	assign rst_cntrs = RST | cntr_rst;
 	
 	
-	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c | tdof2d);
+	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c | tdof2d | tdof31);
 	assign status_h[31:16] = {5'b10110,XL1DLYSET,LOADPBLK,COMP_TIME,COMP_MODE};
 	
 	assign JTAG_SYS_RST  = f[1];  // System Reset JTAG command (like power on reset without reprogramming)
@@ -196,8 +205,10 @@ module jtag_access (
 	assign BPI_ENABLE  = f[27];   // Enable BPI processing
 	assign CMP_CLK_PHS_CHNG = f[28];  // Hold TMB transceiver in reset while the clock phase is changing.  Handled in reset manager state machine
 	assign SAMP_CLK_PHS_CHNG = f[44] & update2;  // Initiate a deserializer reset at end of changing sampling clock phase change.
-	assign cntr_rst  = f[38];     // reset ECC error counters
-	assign p_in = f[1] | f[13] | f[15] | f[25] | f[38];  // JTAG_SYS_RST, ADC_Init, Restart pipeline, BPI_Reset, and Err_Cnt_Rst JTAG commands are to be auto reset;
+	assign JTAG_TK_CTRL  = f[47];     // reset ECC error counters
+	assign JTAG_DED_RST  = f[48];     // reset ECC error counters
+	assign JTAG_RST_SEM_CNTRS  = f[38];     // reset ECC error counters
+	assign p_in = f[1] | f[13] | f[15] | f[25] | f[38] | f[47] | f[48];  // JTAG_SYS_RST, ADC_Init, Restart pipeline, BPI_Reset, and SEM JTAG commands are to be auto reset;
 	assign clrf = clr_pip[10] & p_in; // auto reset functions last 11 25ns clocks then clear
 	
 	assign JTAG_RD_MODE = f[6];    // JTAG readout mode when reading ADC data
@@ -301,6 +312,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(f[7]),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(2'b01),         // Parallel input
       .PO(XL1DLYSET),     // Parallel output
       .TDO(tdof5),        // Serial Test Data Out
       .DSY_OUT(lxdlyout));// Daisy chained serial data out
@@ -320,6 +333,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(f[7]),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(4'h9),          // Parallel input
       .PO(LOADPBLK),      // Parallel output
       .TDO(tdof8),        // Serial Test Data Out
       .DSY_OUT(prbout));  // Daisy chained serial data out
@@ -339,6 +354,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(f[7]),   // Daisy chain mode
+		.LOAD(AUTO_LOAD),   // Load parallel input
+		.PI({al_ctime,al_cmode}),          // Parallel input
       .PO({COMP_TIME,COMP_MODE}), // Parallel output
       .TDO(tdof9),        // Serial Test Data Out
       .DSY_OUT(dsy7));    // Daisy chained serial data out
@@ -407,6 +424,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(6'b111111),          // Parallel input
       .PO(bky_mask),      // Parallel output
       .TDO(tdofa),        // Serial Test Data Out
       .DSY_OUT(dmy2));    // Daisy chained serial data out
@@ -459,6 +478,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(12'hFFF),          // Parallel input
       .PO(ADC_MASK),      // Parallel output
       .TDO(tdofc),        // Serial Test Data Out
       .DSY_OUT(dmy3));    // Daisy chained serial data out
@@ -478,6 +499,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(26'h0000000),          // Parallel input
       .PO(ADC_MEM),       // Parallel output
       .TDO(tdofe),        // Serial Test Data Out
       .DSY_OUT(dmy4));    // Daisy chained serial data out
@@ -497,6 +520,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(AUTO_LOAD),   // Load parallel input
+		.PI(al_pdepth),          // Parallel input
       .PO(PDEPTH),        // Parallel output
       .TDO(tdof10),        // Serial Test Data Out
       .DSY_OUT(dmy5));    // Daisy chained serial data out
@@ -521,6 +546,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(2'b10),          // Parallel input
       .PO(TTC_SRC),        // Parallel output
       .TDO(tdof11),        // Serial Test Data Out
       .DSY_OUT(dmy6));    // Daisy chained serial data out
@@ -575,6 +602,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(AUTO_LOAD),   // Load parallel input
+		.PI(al_nsamp),          // Parallel input
       .PO(nsamp),        // Parallel output
       .TDO(tdof14),        // Serial Test Data Out
       .DSY_OUT(dmy7));    // Daisy chained serial data out
@@ -595,6 +624,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(16'h0000),          // Parallel input
       .PO(BPI_WRT_FIFO),       // Parallel output
       .TDO(tdof15),        // Serial Test Data Out
       .DSY_OUT(dmy8));    // Daisy chained serial data out
@@ -681,6 +712,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(AUTO_LOAD),   // Load parallel input
+		.PI(al_cmp_clk_phase),          // Parallel input
       .PO(CMP_CLK_PHASE),        // Parallel output
       .TDO(tdof1c),        // Serial Test Data Out
       .DSY_OUT(dmy9));    // Daisy chained serial data out
@@ -700,6 +733,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(AUTO_LOAD),   // Load parallel input
+		.PI(al_samp_clk_phase),          // Parallel input
       .PO(SAMP_CLK_PHASE),  // Parallel output
       .TDO(tdof2c),        // Serial Test Data Out
       .DSY_OUT(dmy13));    // Daisy chained serial data out
@@ -729,6 +764,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(3'b000),          // Parallel input
       .PO(TMB_TX_MODE),    // Parallel output
       .TDO(tdof1d),        // Serial Test Data Out
       .DSY_OUT(dmy10));    // Daisy chained serial data out
@@ -749,6 +786,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(30'h00000000),          // Parallel input
       .PO(LAY1_TO_6_HALF_STRIP),    // Parallel output
       .TDO(tdof1e),        // Serial Test Data Out
       .DSY_OUT(dmy11));    // Daisy chained serial data out
@@ -770,6 +809,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(6'b111111),          // Parallel input
       .PO(LAYER_MASK),    // Parallel output
       .TDO(tdof1f),        // Serial Test Data Out
       .DSY_OUT(dmy12));    // Daisy chained serial data out
@@ -819,37 +860,67 @@ module jtag_access (
 		.BUS(spi_rtn_reg), // Bus to capture
       .TDO(tdof24));      // Serial Test Data Out
 
-//
-// Configuration Frame Address Register (FAR) capture and shift
-//
-//   user_cap_reg #(.width(24))
-//   Frame_ECC_Reg(
-//      .DRCK(tck2),        // Data Reg Clock
-//      .FSH(1'b0),         // Shift Function
-//      .FCAP(f[37]),        // Capture Function
-//      .SEL(jsel2),        // User 2 mode active
-//      .TDI(tdi2),          // Serial Test Data In
-//      .SHIFT(jshift2),      // Shift state
-//      .CAPTURE(capture2),  // Capture state
-//      .RST(RST),          // Reset default state
-//		.BUS(cap_far), // Bus to capture
-//      .TDO(tdof25));      // Serial Test Data Out
 
 //
-// ECC Error counters capture and shift
+// Function 37:
 //
-//   user_cap_reg #(.width(16))
-//   ECC_Error_Counts(
-//      .DRCK(tck2),        // Data Reg Clock
-//      .FSH(1'b0),         // Shift Function
-//      .FCAP(f[39]),        // Capture Function
-//      .SEL(jsel2),        // User 2 mode active
-//      .TDI(tdi2),          // Serial Test Data In
-//      .SHIFT(jshift2),      // Shift state
-//      .CAPTURE(capture2),  // Capture state
-//      .RST(RST),          // Reset default state
-//		.BUS({multi_bit_err_cnt,sngl_bit_err_cnt}), // Bus to capture
-//      .TDO(tdof27));      // Serial Test Data Out
+// SEM Status and Configuration Frame Address Register (FAR) capture and shift
+//	[0] = status_initialization;
+//	[1] = status_observation;
+//	[2] = status_correction;
+//	[3] = status_classification;
+//	[4] = status_injection;
+//	[5] = status_essential;
+//	[6] = status_uncorrectable;
+//	[7] = 1'b0;
+//	[8] = CRC error;
+//	[9] = double error detected;
+//	[33:10] = FAR address of error; 
+
+   user_cap_reg #(.width(34))
+   Frame_ECC_Reg(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[37]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),          // Reset default state
+		.BUS(SEM_STATUS[33:0]), // Bus to capture // bits 33:10 are FAR, bit 9 is double error detected, bit 8 is crc error
+      .TDO(tdof25));      // Serial Test Data Out
+//	assign SEM_STATUS[0] = status_initialization;
+//	assign SEM_STATUS[1] = status_observation;
+//	assign SEM_STATUS[2] = status_correction;
+//	assign SEM_STATUS[3] = status_classification;
+//	assign SEM_STATUS[4] = status_injection;
+//	assign SEM_STATUS[5] = status_essential;
+//	assign SEM_STATUS[6] = status_uncorrectable;
+//	assign SEM_STATUS[7] = 1'b0;
+//	assign SEM_STATUS[8] = fecc_crcerr;
+//	assign SEM_STATUS[9] = dbl_err_det;
+//	assign SEM_STATUS[33:10] = cap_far;
+
+//
+// Function 39:
+//
+// ECC Error counters capture and shift
+// 16 bit word
+//	[15:8] = multi_bit_err_cnt;
+//	[7:0]  = sngl_bit_err_cnt;
+
+   user_cap_reg #(.width(16))
+   ECC_Error_Counts(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[39]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),          // Reset default state
+		.BUS(SEM_STATUS[49:34]), // Bus to capture //[bits 15:8 are multi-bit error counts, bits 7:0 are single-bit error counts
+      .TDO(tdof27));      // Serial Test Data Out
 		
 //
 // PRBS testing mode for DAQ optical path
@@ -875,9 +946,81 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(3'b000),          // Parallel input
       .PO(JDAQ_PRBS_TST),    // Parallel output
       .TDO(tdof2d),        // Serial Test Data Out
       .DSY_OUT(dmy14));    // Daisy chained serial data out
 		
+//
+// Function 49:
+//
+// SEM command interface data word
+//       8 bit word to be written to the SEM controller (ASCII commands)
+// The write enable for the SEM controller is generated automatically
+//
+// Valid commands are:
+// Char  ASCII     Function
+//-----------------------------------
+// 'I'   0x49    Go to Idle state
+// 'O'   0x4F    Go to Observation state
+// 'S'   0x53    Request status
+// 'N {9digit hex}'   0x4E,0x20,0x43,0x30... 
+//       Error injection request (followed by a space and 9 digit location)
+// ' '   0x20    Space
+// <cr>  0x0D    carraige return
+// '0'   0x30
+// '1'   0x31
+//  .
+//  .
+// '9'   0x39
+//
+// Injection address format for linear addresses:
+// bit 35                                          0
+//      1100_000L_LLLL_LLLL_LLLL_LLLL_WWWW_WWWB_BBBB
+// where:
+//        LLLLLLLLLLLLLLLLL = linera frame address 17-bits
+//                  WWWWWWW = word address 7-bits
+//                    BBBBB = bit address b-bits
+//
+// Injection address format for physical addresses:
+// bit 35                                          0
+//      0TTH_RRRR_RCCC_CCCC_CMMM_MMMM_WWWW_WWWB_BBBB
+// where:
+//                       TT = block type 2-bits
+//                        H = half address 1-bits
+//                    RRRRR = row address 5-bits
+//                 CCCCCCCC = column address 8-bits
+//                  MMMMMMM = minor address 7-bits
+//                  WWWWWWW = word address 7-bits
+//                    BBBBB = bit address b-bits
+//
+   user_wr_reg #(.width(8), .def_value(8'h00))
+   SEM_cmd_data_reg(
+	   .TCK(tck2),         // TCK for update register
+      .DRCK(tck2),        // Data Reg Clock
+      .FSEL(f[49]),       // Function select
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .DSY_IN(1'b0),      // Serial Daisy chained data in
+      .SHIFT(jshift2),      // Shift state
+      .UPDATE(update2),    // Update state
+      .RST(RST),          // Reset default state
+      .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(16'h0000),          // Parallel input
+      .PO(JTAG_CMD_DATA),       // Parallel output
+      .TDO(tdof31),        // Serial Test Data Out
+      .DSY_OUT(dmy15));    // Daisy chained serial data out
+		
+//
+// BPI  Write enable for BPI write FIFO
+//
+   always @(posedge CLK40) begin
+		 pre_we49 <= f[49] & jsel2 & update2;              // only at update2
+		 we49     <= ~(f[49] & jsel2 & update2) & pre_we49;  // generate tailing edge pulse one clock long
+		 JTAG_SEND_CMD <= we49;                                 // delay write enable one clock cycle
+	end
 
+		
 endmodule
