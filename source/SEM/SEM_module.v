@@ -112,6 +112,9 @@ module SEM_module (
 	reg la_r1;
 	reg [23:0] far_pa;
 	reg [23:0] far_la;
+	reg load_pa_d1;
+	reg load_la_d1;
+	reg [23:0] conv;
 	
 
 // FIFO signals
@@ -444,12 +447,23 @@ end
 //			else
 //				cap_far <= cap_far;
 //	end
+
+	always @(posedge CLK40) begin
+	   load_pa_d1 <= load_pa;
+	   load_la_d1 <= load_la;
+		conv[3:0]   <= monout[6]  ? monout[3:0]+9   : monout[3:0];
+		conv[7:4]   <= monout[14] ? monout[11:8]+9  : monout[11:8];
+		conv[11:8]  <= monout[22] ? monout[19:16]+9 : monout[19:16];
+		conv[15:12] <= monout[30] ? monout[27:24]+9 : monout[27:24];
+		conv[19:16] <= monout[38] ? monout[35:32]+9 : monout[35:32];
+		conv[23:20] <= monout[46] ? monout[43:40]+9 : monout[43:40];
+	end
 	always @(posedge CLK40 or posedge RST) begin
 		if(RST)
 			far_pa <= 24'h000000;
 		else
-			if(load_pa)
-				far_pa <= {monout[43:40],monout[35:32],monout[27:24],monout[19:16],monout[11:8],monout[3:0]};
+			if(load_pa_d1)
+				far_pa <= conv;
 			else if(JTAG_DED_RST)
 				far_pa <= 24'h000000;
 			else
@@ -459,8 +473,8 @@ end
 		if(RST)
 			far_la <= 24'h000000;
 		else
-			if(load_la)
-				far_la <= {monout[43:40],monout[35:32],monout[27:24],monout[19:16],monout[11:8],monout[3:0]};
+			if(load_la_d1)
+				far_la <= conv;
 			else if(JTAG_DED_RST)
 				far_la <= 24'h000000;
 			else
