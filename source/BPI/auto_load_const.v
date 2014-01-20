@@ -31,8 +31,7 @@ module auto_load_const(
     output AUTO_LOAD_ENA,
     output CLR_AL_DONE,
     output reg [5:0] AL_CNT,
-    output reg [2:0] AL_STATUS,
-    output wire [3:0] AL_STATE
+    output reg [2:0] AL_STATUS
     );
 
 localparam Read_Array_Cmd = 16'h00FF;
@@ -40,14 +39,14 @@ localparam Read_Array_Cmd = 16'h00FF;
 wire rst_addr;
 wire addr_rst;
 wire inc_addr;
-wire [22:6] base_addr;
+wire [22:0] base_addr;
 reg [5:0] addr_offset;
 wire al_aborted;
 wire al_completed;
 
 assign addr_rst = rst_addr || RST;
-assign base_addr = 17'h1FF00; //Last parameter block 0x7FC000
-assign AL_ADDR = {base_addr,addr_offset};
+assign base_addr = 23'h7FC000; //Last parameter block 0x7FC000
+assign AL_ADDR = {base_addr[22:6],addr_offset};
 assign AL_CMD_DATA_OUT = Read_Array_Cmd;
 assign AL_OP = 2'b10;
 
@@ -95,7 +94,6 @@ end
   .EXECUTE(AL_EXECUTE),
   .INC(inc_addr),
   .RST_ADDR(rst_addr),
-  .AL_STATE(AL_STATE),
   .ADDR(addr_offset),
   .AL_DONE(AL_DONE),
   .BUSY(BUSY),

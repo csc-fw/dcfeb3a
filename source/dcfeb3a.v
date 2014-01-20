@@ -16,8 +16,7 @@ module dcfeb3a #(
 	parameter USE_FF_EMU_CHIPSCOPE = 0,
 	parameter USE_SPI_CHIPSCOPE = 0,
 	parameter USE_PIPE_CHIPSCOPE = 0,
-	parameter USE_SEM_CHIPSCOPE = 0,
-	parameter USE_ALDBG_CHIPSCOPE = 1
+	parameter USE_SEM_CHIPSCOPE = 0
 	)(
 
 	//Clocks
@@ -166,8 +165,6 @@ module dcfeb3a #(
 	wire [35:0] pipe_vio_out1_c2;
 	wire [35:0] sem_la0_c0;
 	wire [35:0] sem_vio_in0_c1;
-	wire [35:0] al_la0_c1;
-	wire [35:0] al_vio_in0_c0;
 
 generate
 if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
@@ -189,8 +186,6 @@ CSP_comp_daq_cntrl cmp_daq_cntrl1 (
 	assign pipe_vio_out1_c2 = 36'h000000000;
 	assign sem_la0_c0 = 36'h000000000;
 	assign sem_vio_in0_c1 = 36'h000000000;
-	assign al_la0_c1 = 36'h000000000;
-	assign al_vio_in0_c0 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0) 
 begin : chipscope_with_comp_no_daq
@@ -213,8 +208,6 @@ CSP_comp_cntrl comp_cntrl1 (
 	assign pipe_vio_out1_c2 = 36'h000000000;
 	assign sem_la0_c0 = 36'h000000000;
 	assign sem_vio_in0_c1 = 36'h000000000;
-	assign al_la0_c1 = 36'h000000000;
-	assign al_vio_in0_c0 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
 begin : chipscope_with_daq_no_comp
@@ -236,8 +229,6 @@ CSP_daq_cntrl daq_cntrl1 (
 	assign pipe_vio_out1_c2 = 36'h000000000;
 	assign sem_la0_c0 = 36'h000000000;
 	assign sem_vio_in0_c1 = 36'h000000000;
-	assign al_la0_c1 = 36'h000000000;
-	assign al_vio_in0_c0 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==1) 
 begin : chipscope_with_deser
@@ -261,8 +252,6 @@ CSP_deser_cntrl deser_cntrl1 (
 	assign pipe_vio_out1_c2 = 36'h000000000;
 	assign sem_la0_c0 = 36'h000000000;
 	assign sem_vio_in0_c1 = 36'h000000000;
-	assign al_la0_c1 = 36'h000000000;
-	assign al_vio_in0_c0 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 1) 
 begin : chipscope_with_pipeline
@@ -285,8 +274,6 @@ CSP_pipe_cntrl pipe_cntrl1 (
 	assign cmp_tx_la_c1 = 36'h000000000;
 	assign sem_la0_c0 = 36'h000000000;
 	assign sem_vio_in0_c1 = 36'h000000000;
-	assign al_la0_c1 = 36'h000000000;
-	assign al_vio_in0_c0 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 1) 
 begin : chipscope_with_SEM
@@ -308,31 +295,6 @@ CSP_sem_cntrl sem_cntrl1 (
 	assign cmp_tx_la_c1 = 36'h000000000;
 	assign pipe_vio_in0_c1 = 36'h000000000;
 	assign pipe_vio_out1_c2 = 36'h000000000;
-	assign al_la0_c1 = 36'h000000000;
-	assign al_vio_in0_c0 = 36'h000000000;
-end
-else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 0 && USE_ALDBG_CHIPSCOPE == 1) 
-begin : chipscope_with_ALDBG
-CSP_AL_debug AL_debug1 (
-    .CONTROL0(al_vio_in0_c0),  // INOUT BUS [35:0]
-    .CONTROL1(al_la0_c1)  // INOUT BUS [35:0]
-);
-	assign g1vio0_c0 = 36'h000000000;
-	assign g1la0_c0 = 36'h000000000;
-	assign adc_mem_vio_c0 = 36'h000000000;
-	assign adc_cnfg_mem_la_c1 = 36'h000000000;
-	assign readout_fifo1_la_c2 = 36'h000000000;
-	assign DAQ_tx_vio_c3 = 36'h000000000;
-	assign DAQ_tx_la_c4 = 36'h000000000;
-	assign rd_fifo2_la_c5 = 36'h000000000;
-	assign bpi_vio_c6 = 36'h000000000;
-	assign bpi_la_c7 = 36'h000000000;
-	assign cmp_tx_vio_c0 = 36'h000000000;
-	assign cmp_tx_la_c1 = 36'h000000000;
-	assign pipe_vio_in0_c1 = 36'h000000000;
-	assign pipe_vio_out1_c2 = 36'h000000000;
-	assign sem_la0_c0 = 36'h000000000;
-	assign sem_vio_in0_c1 = 36'h000000000;
 end
 else
 begin : no_chipscope
@@ -353,8 +315,6 @@ begin : no_chipscope
 	assign pipe_vio_out1_c2 = 36'h000000000;
 	assign sem_la0_c0 = 36'h000000000;
 	assign sem_vio_in0_c1 = 36'h000000000;
-	assign al_la0_c1 = 36'h000000000;
-	assign al_vio_in0_c0 = 36'h000000000;
 end
 endgenerate
 
@@ -455,11 +415,8 @@ endgenerate
  wire [15:0] dcfeb_status;
  wire [2:0]al_status;
  wire al_start;
-	wire run;
-reg  saw_start;
- wire [2:0] por_state;
- reg  [7:0] por_seq;
-wire [1:0]ttc_src;
+ wire run;
+ wire [1:0]ttc_src;
  wire [2:0]tmb_tx_mode;
  wire qpll_lock;
  wire qpll_error;
@@ -477,33 +434,8 @@ wire [1:0]ttc_src;
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,bc0cnt,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,1'b0,por_state,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
  assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,1'b0,al_status,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
-// assign dcfeb_status = {run,por_state,saw_start,al_status,por_seq};
  
  
-// always @(posedge clk40 or negedge eos) begin
-//	if(~eos)
-//		saw_start <= 1'b0;
-//	else
-//		if(al_start)
-//			saw_start <= 1'b1;
-//		else
-//			saw_start <= saw_start;
-// end
-// always @(posedge clk40 or negedge eos) begin
-//	if(~eos)
-//		por_seq <= 8'h00;
-//	else
-//		case (por_state)
-//			3'd0 : por_seq <= {por_seq[7:1],1'b1};
-//			3'd6 : por_seq <= {por_seq[7:2],1'b1,por_seq[0]};
-//			3'd7 : por_seq <= {por_seq[7:3],1'b1,por_seq[1:0]};
-//			3'd4 : por_seq <= {por_seq[7:4],1'b1,por_seq[2:0]};
-//			3'd3 : por_seq <= {por_seq[7:5],1'b1,por_seq[3:0]};
-//			3'd2 : por_seq <= {por_seq[7:6],1'b1,por_seq[4:0]};
-//			3'd1 : por_seq <= {por_seq[7],1'b1,por_seq[5:0]};
-//			3'd5 : por_seq <= {1'b1,por_seq[6:0]};
-//		endcase
-// end
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
  //  BPI controller for XCF128 flash PROM                                   //
@@ -576,7 +508,6 @@ reg auto_load;
 reg auto_load_m1;
 wire auto_load_ena;
 wire [5:0] al_cnt;
-wire [3:0] al_state;
 wire al_done;
 wire al_abort;
 wire [22:0] al_addr;
@@ -587,6 +518,7 @@ wire por_al_start;
 wire csp_al_start;
 wire clr_al_done;
 
+assign csp_al_start = 1'b0;
 assign al_start = por_al_start | csp_al_start;
 
    auto_load_const 
@@ -605,8 +537,7 @@ assign al_start = por_al_start | csp_al_start;
 	   .AUTO_LOAD_ENA(auto_load_ena),
 	   .CLR_AL_DONE(clr_al_done),
 	   .AL_CNT(al_cnt),
-	   .AL_STATUS(al_status),
-	   .AL_STATE(al_state)
+	   .AL_STATUS(al_status)
 	);
 
 always @(posedge clk40) begin
@@ -619,170 +550,6 @@ always @(posedge clk40) begin
 	auto_load_m1 <= auto_load_ena ? bpi_load_data : 0;
 	auto_load    <= auto_load_m1;
 end
-
-wire csp_debug;
-wire csp_next;
-wire [3:0] bpi_intf_state;
-wire jsel2;		
-wire jshift2;		
-wire update2;		
-wire csp_release;
-wire por_adc_init, jtag_adc_init, csp_adc_init;
-wire al_bky_shift;
-wire al_bky_ena;
-wire al_bky_shck_ena;
-wire al_bky_sdata;
-wire al_bshift_done;
-wire al_bky_mt;
-wire al_bky_rderr;
-wire al_bky_wrterr;
-wire al_bky_rdena;
-wire [4:0] al_bky_rdcnt;
-wire [4:0] al_bky_wrtcnt;
-wire [15:0] al_bky_data;
-wire [15:0] al_bky_shft;
-wire [3:0]  al_bky_scnt;
-wire [4:0]  al_bky_lcnt;
-   wire [6:1] bky_clk;
-
-generate
-if(USE_ALDBG_CHIPSCOPE==1) 
-begin : chipscope_al_debug
-wire [131:0] al_debug_la_data;
-wire [8:0] al_debug_la_trig;
-
-	al_debug_la al_debug_la_i (
-		 .CONTROL(al_la0_c1),
-		 .CLK(clk40),
-		 .DATA(al_debug_la_data), // IN BUS [131:0]
-		 .TRIG0(al_debug_la_trig) // IN BUS [8:0]
-	);
-	
-// LA Data [131:0]
-//	assign al_debug_la_data[15:0]     = bpi_data_from; 
-//	assign al_debug_la_data[31:16]    = bpi_al_reg;
-//	assign al_debug_la_data[54:32]    = al_addr;
-//	assign al_debug_la_data[60:55]    = al_cnt;
-//	assign al_debug_la_data[64:61]    = al_state;
-//	assign al_debug_la_data[68:65]    = bpi_intf_state;
-//	assign al_debug_la_data[70:69]    = comp_mode;
-//	assign al_debug_la_data[73:71]    = comp_time;
-//	assign al_debug_la_data[82:74]    = pdepth;
-//	assign al_debug_la_data[89:83]    = samp_max;
-//	assign al_debug_la_data[93:90]    = cmp_clk_phase;
-//	assign al_debug_la_data[96:94]    = samp_clk_phase;
-
-
-	assign al_debug_la_data[15:0]     = bpi_al_reg;
-	assign al_debug_la_data[31:16]    = al_bky_data;
-	assign al_debug_la_data[47:32]    = al_bky_shft;
-	assign al_debug_la_data[53:48]    = al_cnt;
-	assign al_debug_la_data[57:54]    = al_state;
-	assign al_debug_la_data[61:58]    = bpi_intf_state;
-	assign al_debug_la_data[64:62]    = por_state;
-	assign al_debug_la_data[74:65]    = al_bky_rdcnt;
-	assign al_debug_la_data[84:75]    = al_bky_wrtcnt;
-	assign al_debug_la_data[88:85]    = al_bky_scnt;
-	assign al_debug_la_data[93:89]    = al_bky_lcnt;
-
-	assign al_debug_la_data[94]       = bky_clk[1];
-	assign al_debug_la_data[95]       = al_bky_rderr;
-	assign al_debug_la_data[96]       = al_bky_wrterr;
-	
-	assign al_debug_la_data[97]       = sys_rst;
-	assign al_debug_la_data[98]       = auto_load_ena;
-	assign al_debug_la_data[99]       = al_start;
-	assign al_debug_la_data[100]      = clr_al_done;
-	assign al_debug_la_data[101]      = al_execute;
-	assign al_debug_la_data[102]      = al_done;
-	assign al_debug_la_data[103]      = bpi_busy;
-	assign al_debug_la_data[104]      = bpi_seq_idle;
-	assign al_debug_la_data[105]      = csp_next;
-	assign al_debug_la_data[106]      = csp_debug;
-	assign al_debug_la_data[107]      = bpi_load_data;
-	assign al_debug_la_data[108]      = auto_load;
-	assign al_debug_la_data[109]      = jtag_sys_rst;
-	assign al_debug_la_data[110]      = cdac_enb;
-	assign al_debug_la_data[111]      = spi_ck;
-	assign al_debug_la_data[112]      = spi_dat;
-	assign al_debug_la_data[113]      = jsel2;
-	assign al_debug_la_data[114]      = jshift2;
-	assign al_debug_la_data[115]      = update2;
-	assign al_debug_la_data[116]      = run;
-	
-	assign al_debug_la_data[117]       = bpi_execute;
-	assign al_debug_la_data[118]       = al_abort;
-	assign al_debug_la_data[119]       = al_bky_mt;
-	
-	assign al_debug_la_data[120]      = csp_release;
-	assign al_debug_la_data[121]      = por_adc_init;
-	assign al_debug_la_data[122]      = por_al_start;
-	assign al_debug_la_data[123]      = dsr_rst;
-	assign al_debug_la_data[124]      = adc_rst;
-	assign al_debug_la_data[125]      = comp_rst;
-	
-	assign al_debug_la_data[126]      = al_bky_shift;
-	assign al_debug_la_data[127]      = al_bky_ena;
-	assign al_debug_la_data[128]      = al_bky_shck_ena;
-	assign al_debug_la_data[129]      = al_bky_sdata;
-	assign al_debug_la_data[130]      = al_bshift_done;
-	assign al_debug_la_data[131]      = al_bky_rdena;
-
-// LA Trigger [8:0]
-	assign al_debug_la_trig[0]      = sys_rst;
-	assign al_debug_la_trig[1]      = auto_load_ena;
-	assign al_debug_la_trig[2]      = al_start;
-	assign al_debug_la_trig[3]      = al_execute;
-	assign al_debug_la_trig[4]      = auto_load;
-	assign al_debug_la_trig[5]      = bpi_load_data;
-	assign al_debug_la_trig[6]      = csp_next;
-	assign al_debug_la_trig[7]      = al_done;
-	assign al_debug_la_trig[8]      = csp_release;
-
-
-
-wire [70:0] al_debug_vio_sync_in;
-wire [3:0]  al_debug_vio_sync_out;
-
-
-wire [3:0] dummy_ssigs;
-
-	al_debug_vio al_debug_vio_i (
-		 .CONTROL(al_vio_in0_c0), // INOUT BUS [35:0]
-		 .CLK(clk40),
-		 .SYNC_IN(al_debug_vio_sync_in), // IN BUS [70:0]
-		 .SYNC_OUT(al_debug_vio_sync_out) // OUT BUS [3:0]
-	);
-
-
-//		 SYNC_IN [55:0]
-	assign al_debug_vio_sync_in[15:0]     = bpi_data_from; 
-	assign al_debug_vio_sync_in[31:16]    = bpi_al_reg;
-	assign al_debug_vio_sync_in[54:32]    = al_addr;
-	assign al_debug_vio_sync_in[56:55]    = al_op;
-	assign al_debug_vio_sync_in[57]       = al_start;
-	assign al_debug_vio_sync_in[58]       = auto_load_ena;
-	assign al_debug_vio_sync_in[59]       = bpi_busy;
-	assign al_debug_vio_sync_in[60]       = al_done;
-	assign al_debug_vio_sync_in[64:61]    = al_state;
-	assign al_debug_vio_sync_in[68:65]    = bpi_intf_state;
-	assign al_debug_vio_sync_in[69]       = bpi_seq_idle;
-	assign al_debug_vio_sync_in[70]       = run;
-
-//		 SYNC_OUT [3:0]
-	assign csp_debug           = al_debug_vio_sync_out[0];
-	assign csp_next            = al_debug_vio_sync_out[1];
-	assign csp_al_start        = al_debug_vio_sync_out[2];
-	assign csp_release         = al_debug_vio_sync_out[3];
-end
-else
-begin : no_chipscope_al_debug
-	assign csp_debug           = 1'b0;
-	assign csp_next            = 1'b0;
-	assign csp_al_start        = 1'b0;
-	assign csp_release         = 1'b1;
-end
-endgenerate
 
 
  /////////////////////////////////////////////////////////////////////////////
@@ -803,12 +570,9 @@ endgenerate
 	   .CMD_DATA_OUT(bpi_data_to), //Data being written to FLASH device
 	   .OP(bpi_op),           //Operation: 00-standby, 01-write, 10-read, 11-not allowed(standby)
 		.EXECUTE(bpi_execute),
-		.NEXT(csp_next),
-		.DEBUG(csp_debug),
 		.DATA_IN(bpi_data_from),  //Data read from FLASH device
 		.LOAD_DATA(bpi_load_data),           //Clock enable signal for capturing Data read from FLASH device
 		.BUSY(bpi_busy),            //Operation in progress signal (not ready)
-		.INTF_STATE(bpi_intf_state),            //Operation in progress signal (not ready)
 	// signals for Auto Loading Constants
 	   .AUTO_LOAD_ENA(auto_load_ena),
 	   .AL_ADDR(al_addr),
@@ -838,7 +602,7 @@ endgenerate
 
    wire [6:1] to_bky;
    wire [6:1] bky_rtn;
-//   wire [6:1] bky_clk;
+   wire [6:1] bky_clk;
 
    buckeye_interface
 	bky_intf1 (
@@ -1838,7 +1602,9 @@ SPI_PORT_i  (
  //  and control signals for the QPLL                                       //
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
-  
+
+	wire [2:0] por_state;
+	wire por_adc_init, jtag_adc_init, csp_adc_init;
 //	wire adc_init;
 //	wire adc_init_done;
 	wire jtag_sys_rst;
@@ -1889,8 +1655,6 @@ SPI_PORT_i  (
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
  
-	wire [1:0] xl1dlyset;
-	wire [3:0] loadpblk;
 	wire [25:0] adc_mem;
 	wire [11:0] adc_mask;
 	wire adc_we;
@@ -1927,28 +1691,10 @@ SPI_PORT_i  (
 	   .AL_CNT(al_cnt),      // Auto load counter
 	   .CLR_AL_DONE(clr_al_done),  // Clear Auto Load Done flag
 	   .AL_DONE(al_done),          // Auto load process complete
-	   .al_abort(al_abort),          // Auto load process complete
-	   .al_bky_shift(al_bky_shift),
-	   .al_bky_ena(al_bky_ena),
-	   .al_bky_shck_ena(al_bky_shck_ena),
-	   .al_bky_sdata(al_bky_sdata),
-	   .al_bshift_done(al_bshift_done),
-	   .AL_BKY_MT(al_bky_mt),
-	   .AL_BKY_RDERR(al_bky_rderr),
-	   .AL_BKY_WRTERR(al_bky_wrterr),
-	   .AL_BKY_RDENA(al_bky_rdena),
-	   .AL_BKY_RDCNT(al_bky_rdcnt),
-	   .AL_BKY_WRTCNT(al_bky_wrtcnt),
-	   .AL_BKY_DATA(al_bky_data),
-		.AL_BKY_SHFT(al_bky_shft),
-		.AL_BKY_SCNT(al_bky_scnt),
-		.AL_BKY_LCNT(al_bky_lcnt),
 		
 		.JTAG_SYS_RST(jtag_sys_rst), // Issue the equivalent of power on reset without reprogramming.
 		.RDFIFO(rdfifo),            // Advance fifo to next word
 		.JTAG_RD_MODE(jtag_rd_mode),// JTAG read out mode for FIFO1 
-      .XL1DLYSET(xl1dlyset),      // Extra L1A delay setting [1:0]
-      .LOADPBLK(loadpblk),        // Pre-blockend bits [3:0] not used in DCFEB
 		.COMP_MODE(comp_mode),      // comparator mode bits [1:0]
 		.COMP_TIME(comp_time),      // comparator timing bits [2:0]
 		.CDAC_ENB(cdac_enb),        // Comparator DAC enable
@@ -1992,9 +1738,6 @@ SPI_PORT_i  (
 		.JTAG_RST_SEM_CNTRS(jtag_rst_sem_cntrs),// Reset the error counters
 		.JTAG_SEND_CMD(jtag_send_cmd),          // single pulse to execute command in JTAG_CMD_DATA
 		.JTAG_CMD_DATA(jtag_cmd_data),          //Data for SEM commands
-		.jsel2(jsel2),
-		.jshift2(jshift2),
-		.update2(update2),
 		.SEM_FAR_PA(sem_far_pa),                //Frame Address Register - Physical Address
 		.SEM_FAR_LA(sem_far_la),                //Frame Address Register - Linear Address
 		.SEM_ERRCNT(sem_errcnt),                //Error counters - {dbl,sngl} 8 bits each
@@ -2086,7 +1829,7 @@ begin
 	assign spare = 18'h00000;
 	assign spr2 = 2'b00;
 	assign spr1 = 1'b0;
-//	assign csp_sys_rst = 1'b0;
+	assign csp_sys_rst = 1'b0;
 	assign csp_sys_rst = csp_dsr_sys_rst;
 	assign csp_adc_init = 1'b0;
 	assign csp_rd_ctrl = 1'b0;

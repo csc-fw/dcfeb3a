@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2013:02:04 at 11:26:10 (www.fizzim.com)
+// Created by fizzim.pl version 4.41 on 2014:01:20 at 13:16:14 (www.fizzim.com)
 
 module BPI_intrf_FSM (
   output reg BUSY,
@@ -36,18 +36,20 @@ module BPI_intrf_FSM (
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
     case (state)
-      Standby   : if      (EXECUTE)  nextstate = Capture;
-                  else               nextstate = Standby;
-      Capture   :                    nextstate = Latch_Addr;
-      Latch_Addr: if      (WRITE)    nextstate = WE1;
-                  else if (READ)     nextstate = Wait1;
-      Load      :                    nextstate = Wait4;
-      WE1       :                    nextstate = WE2;
-      WE2       :                    nextstate = Standby;
-      Wait1     :                    nextstate = Wait2;
-      Wait2     :                    nextstate = Wait3;
-      Wait3     :                    nextstate = Load;
-      Wait4     :                    nextstate = Standby;
+      Standby   : if      (EXECUTE)          nextstate = Capture;
+                  else                       nextstate = Standby;
+      Capture   :                            nextstate = Latch_Addr;
+      Latch_Addr: if      (READ && WRITE)    nextstate = Standby;
+                  else if (WRITE)            nextstate = WE1;
+                  else if (READ)             nextstate = Wait1;
+                  else if (!READ && !WRITE)  nextstate = Standby;
+      Load      :                            nextstate = Wait4;
+      WE1       :                            nextstate = WE2;
+      WE2       :                            nextstate = Standby;
+      Wait1     :                            nextstate = Wait2;
+      Wait2     :                            nextstate = Wait3;
+      Wait3     :                            nextstate = Load;
+      Wait4     :                            nextstate = Standby;
     endcase
   end
   

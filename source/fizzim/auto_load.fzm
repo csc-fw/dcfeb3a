@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 12:53:29 PM on 1/17/14
+## File last modified by Fizzim: 1:27:28 PM on 1/20/14
 <version>
    11.09.25
 </version>
@@ -340,62 +340,6 @@
          -1
          </page>
       </insert_at_top_of_module>
-      <stateout>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         AL_STATE
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </stateout>
    </machine>
    <inputs>
       <CLK>

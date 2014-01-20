@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2014:01:17 at 13:26:28 (www.fizzim.com)
+// Created by fizzim.pl version 4.41 on 2014:01:20 at 13:28:20 (www.fizzim.com)
 
 module auto_load_FSM (
   output reg ABORTED,
@@ -9,7 +9,6 @@ module auto_load_FSM (
   output reg EXECUTE,
   output reg INC,
   output reg RST_ADDR,
-  output wire [3:0] AL_STATE,
   input wire [5:0] ADDR,
   input AL_DONE,
   input BUSY,
@@ -38,7 +37,6 @@ module auto_load_FSM (
   Wait6      = 4'b1011; 
   
   reg [3:0] state;
-  assign AL_STATE = state;
   reg [3:0] nextstate;
   
   // comb always block

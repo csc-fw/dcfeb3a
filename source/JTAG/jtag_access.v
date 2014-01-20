@@ -97,27 +97,11 @@ module jtag_access (
 	 input [5:0] AL_CNT,      // Auto load counter
 	 input CLR_AL_DONE,       // Clear Auto Load Done flag
 	 output reg AL_DONE,      // Auto load process complete
-	 output al_abort,      // Auto load process complete
-	output al_bky_shift,
-	output al_bky_ena,
-	output al_bky_shck_ena,
-	output al_bky_sdata,
-	output al_bshift_done,
-	output AL_BKY_MT,
-	output AL_BKY_RDERR,
-	output AL_BKY_WRTERR,
-	output AL_BKY_RDENA,
-	output [9:0] AL_BKY_RDCNT,
-	output [9:0] AL_BKY_WRTCNT,
-	output [15:0] AL_BKY_DATA,
-	output [15:0] AL_BKY_SHFT,
-	output [3:0] AL_BKY_SCNT,
-	output [4:0] AL_BKY_LCNT,
 	 output JTAG_SYS_RST,     // JTAG initiated system reset 
     output reg RDFIFO,       // Advance fifo to next word
 	 output JTAG_RD_MODE,     // JTAG read out mode for FIFO1 
-    output [1:0] XL1DLYSET,  // Extra L1A delay setting [1:0]
-    output [3:0] LOADPBLK,   // Pre-blockend bits [3:0] not used in DCFEB
+//    output [1:0] XL1DLYSET,  // Extra L1A delay setting [1:0]
+//    output [3:0] LOADPBLK,   // Pre-blockend bits [3:0] not used in DCFEB
     output [1:0] COMP_MODE,  // comparator mode bits [1:0]
     output [2:0] COMP_TIME,  // comparator timing bits [2:0]
 	 output CDAC_ENB,         // Comparator DAC enable
@@ -161,9 +145,6 @@ module jtag_access (
 	 output JTAG_RST_SEM_CNTRS,      // Reset the error counters
 	 output reg JTAG_SEND_CMD,       // single pulse to execute command in JTAG_CMD_DATA
 	 output [7:0] JTAG_CMD_DATA, //Data for SEM commands
-	 output jsel2,
-	 output jshift2,
-	 output update2,
 	 input [23:0] SEM_FAR_PA,    //Frame Address Register - Physical Address
 	 input [23:0] SEM_FAR_LA,    //Frame Address Register - Linear Address
 	 input [15:0] SEM_ERRCNT,    //Error counters - {dbl,sngl} 8 bits each
@@ -226,12 +207,12 @@ module jtag_access (
 	reg [15:0] sel_reg;
 
 // Auto Load constants
-//	wire al_bshift_done;
+	wire al_bshift_done;
 	wire al_bky_shck;
-//	wire al_bky_shck_ena;
-//	wire al_bky_ena;
-//	wire al_bky_sdata;
-//	wire al_bky_shift;
+	wire al_bky_shck_ena;
+	wire al_bky_ena;
+	wire al_bky_sdata;
+	wire al_bky_shift;
 	
 	wire al_cthresh_done;
 	wire al_cth_shck;
@@ -240,7 +221,7 @@ module jtag_access (
 	wire al_dac_enb;
 	
 	reg [1:0] cmode_hold;
-//	wire al_abort;
+	wire al_abort;
 	wire al_cthresh;
 	wire al_cmode;
 	wire al_ctime;
@@ -574,17 +555,7 @@ end
 		.AL_BKY_ENA(al_bky_ena),
 		.SHCK_ENA(al_bky_shck_ena),
 		.SDATA(al_bky_sdata),
-		.DONE(al_bshift_done),
-		.AL_BKY_MT(AL_BKY_MT),
-		.AL_BKY_RDERR(AL_BKY_RDERR),
-		.AL_BKY_WRTERR(AL_BKY_WRTERR),
-		.AL_BKY_RDENA(AL_BKY_RDENA),
-		.AL_BKY_RDCNT(AL_BKY_RDCNT),
-		.AL_BKY_WRTCNT(AL_BKY_WRTCNT),
-		.AL_BKY_DATA(AL_BKY_DATA),
-		.bky_shft(AL_BKY_SHFT),
-		.scnt(AL_BKY_SCNT),
-		.lcnt(AL_BKY_LCNT)
+		.DONE(al_bshift_done)
 	);
 	
 //

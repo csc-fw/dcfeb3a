@@ -26,12 +26,9 @@ module bpi_interface(
     input [15:0] CMD_DATA_OUT, //Command or Data being written to FLASH device
 	 input [1:0]  OP,           //Operation: 00-standby, 01-write, 10-read, 11-not allowed(standby)
 	 input EXECUTE,
-	 input NEXT,
-	 input DEBUG,
     output [15:0] DATA_IN,      //Data read from FLASH device
     output LOAD_DATA,           //Clock enable signal for capturing Data read from FLASH device
 	 output BUSY,                //Operation in progress signal (not ready)
-    output wire [3:0] INTF_STATE, // Interface State
 	// signals for Auto Loading Constants
 	 input AUTO_LOAD_ENA,
 	 input [22:0] AL_ADDR,
@@ -132,8 +129,8 @@ begin
 			end
 end
   
-BPI_intrf_debug_FSM 
-BPI_intrf_debug_FSM1(
+BPI_intrf_FSM 
+BPI_intrf_FSM1(
 	.BUSY(BUSY),
 	.CAP(capture),
 	.E(fcs),
@@ -141,30 +138,12 @@ BPI_intrf_debug_FSM1(
 	.L(flatch_addr),
 	.LOAD(LOAD_DATA),
 	.W(fwe),
-	.INTF_STATE(INTF_STATE),
 	.CLK(CLK),
-	.GO(NEXT),
 	.EXECUTE(execute_i),
-	.DEBUG(DEBUG),
 	.READ(read),
 	.RST(RST),
 	.WRITE(write)
 );
-//BPI_intrf_FSM 
-//BPI_intrf_FSM1(
-//	.BUSY(BUSY),
-//	.CAP(capture),
-//	.E(fcs),
-//	.G(foe),
-//	.L(flatch_addr),
-//	.LOAD(LOAD_DATA),
-//	.W(fwe),
-//	.CLK(CLK),
-//	.EXECUTE(execute_i),
-//	.READ(read),
-//	.RST(RST),
-//	.WRITE(write)
-//);
 
 genvar ch;
 generate

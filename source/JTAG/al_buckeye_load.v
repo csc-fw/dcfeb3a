@@ -28,17 +28,7 @@ module al_buckeye_load(
     output AL_BKY_ENA,
     output SHCK_ENA,
     output SDATA,
-    output reg DONE,
-	output AL_BKY_MT,
-	output AL_BKY_RDERR,
-	output AL_BKY_WRTERR,
-	output AL_BKY_RDENA,
-	output [9:0] AL_BKY_RDCNT,
-	output [9:0] AL_BKY_WRTCNT,
-	output [15:0] AL_BKY_DATA,
-	output [15:0] bky_shft,
-	output [3:0] scnt,
-	output [4:0] lcnt
+    output reg DONE
     );
 	 
 	 
@@ -61,13 +51,6 @@ module al_buckeye_load(
 	wire [9:0] bky_wrtcnt;
 	wire [15:0] bky_data;
 	
-	assign AL_BKY_MT = bky_mt;
-	assign AL_BKY_RDERR = bky_rderr;
-	assign AL_BKY_WRTERR = bky_wrterr;
-	assign AL_BKY_RDENA = bky_rdena;
-	assign AL_BKY_RDCNT = bky_rdcnt;
-	assign AL_BKY_WRTCNT = bky_wrtcnt;
-	assign AL_BKY_DATA = bky_data;
 	
 	assign AL_BKY_ENA = load_bky;
 	assign SDATA = bky_shft[0];
