@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2013:06:07 at 12:52:32 (www.fizzim.com)
+// Created by fizzim.pl version 4.41 on 2014:01:08 at 12:25:43 (www.fizzim.com)
 
 module Startup_Display (
   output reg CLEAR,
@@ -10,6 +10,7 @@ module Startup_Display (
   input CLK,
   input DONE,
   input RST,
+  input RUN,
   input wire [15:0] TMR 
 );
   
@@ -29,7 +30,8 @@ module Startup_Display (
   always @* begin
     nextstate = 3'bxxx; // default to x because default_state_is_x is set
     case (state)
-      Reset:                      nextstate = Wait;
+      Reset: if (RUN)             nextstate = Wait;
+             else                 nextstate = Reset;
       End  :                      nextstate = End;
       Load : if (DONE)            nextstate = End;
              else                 nextstate = Wait;

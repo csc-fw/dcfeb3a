@@ -13,7 +13,9 @@
 //
 //
 //////////////////////////////////////////////////////////////////////////////////
-module SEM_module (
+module SEM_module #(
+	parameter USE_CHIPSCOPE = 1
+)(
     inout [35:0] CSP_LA0_CNTRL,
     inout [35:0] CSP_VIO0_CNTRL,
 	 
@@ -129,131 +131,140 @@ module SEM_module (
 //
 // Logic analyzer 
 //
-wire [163:0] sem_la0_data;
-wire [15:0] sem_la0_trig;
+generate
+if(USE_CHIPSCOPE==1) 
+begin : chipscope_sem
+	wire [163:0] sem_la0_data;
+	wire [15:0] sem_la0_trig;
 
-sem_la sem_la0 (
-    .CONTROL(CSP_LA0_CNTRL),
-    .CLK(CLK40),
-    .DATA(sem_la0_data),  // IN BUS [163:0]
-    .TRIG0(sem_la0_trig)  // IN BUS [15:0]
-);
+	sem_la sem_la0 (
+		 .CONTROL(CSP_LA0_CNTRL),
+		 .CLK(CLK40),
+		 .DATA(sem_la0_data),  // IN BUS [163:0]
+		 .TRIG0(sem_la0_trig)  // IN BUS [15:0]
+	);
 
 
-// LA Data [163:0]
-	assign sem_la0_data[7:0]        = monitor_txdata;
-	assign sem_la0_data[31:8]       = fecc_far;
-	assign sem_la0_data[43:32]      = fecc_syndrome;
-	assign sem_la0_data[48:44]      = fecc_synbit;
-	assign sem_la0_data[55:49]      = fecc_synword;
-	assign sem_la0_data[87:56]      = icap_o;
-	assign sem_la0_data[119:88]     = icap_i;
-	assign sem_la0_data[120]        = status_heartbeat;
-	assign sem_la0_data[121]        = status_initialization;
-	assign sem_la0_data[122]        = status_observation;
-	assign sem_la0_data[123]        = status_correction;
-	assign sem_la0_data[124]        = status_classification;
-	assign sem_la0_data[125]        = status_injection;
-	assign sem_la0_data[126]        = status_essential;
-	assign sem_la0_data[127]        = status_uncorrectable;
-	assign sem_la0_data[128]        = monitor_txwrite;
-	assign sem_la0_data[129]        = monitor_rxread;
-	assign sem_la0_data[130]        = inject_strobe;
-	assign sem_la0_data[131]        = fecc_crcerr;
-	assign sem_la0_data[132]        = fecc_eccerr;
-	assign sem_la0_data[133]        = fecc_eccerrsingle;
-	assign sem_la0_data[134]        = fecc_syndromevalid;
-	assign sem_la0_data[135]        = icap_busy;
-	assign sem_la0_data[136]        = icap_csb;
-	assign sem_la0_data[137]        = icap_rdwrb;
-	assign sem_la0_data[138]        = monitor_txfull;
-	assign sem_la0_data[139]        = monitor_rxempty;
-	assign sem_la0_data[147:140]    = monitor_rxdata;
-	assign sem_la0_data[148]        = csp_read;
-	assign sem_la0_data[149]        = ff_read;
-	assign sem_la0_data[150]        = ff_data_present;
-//	assign sem_la0_data[151]        = cmd_ready;
-//	assign sem_la0_data[159:152]    = ff_data_out;
-	assign sem_la0_data[151]        = pa;
-	assign sem_la0_data[152]        = la;
-	assign sem_la0_data[153]        = inc_dbl_cnt;
-	assign sem_la0_data[154]        = inc_sngl_cnt;
-	assign sem_la0_data[155]        = load_pa;
-	assign sem_la0_data[156]        = load_la;
-	assign sem_la0_data[157]        = 1'b0;
-	assign sem_la0_data[158]        = 1'b0;
-	assign sem_la0_data[159]        = 1'b0;
-	assign sem_la0_data[160]        = csp_send_cmd;
-	assign sem_la0_data[161]        = RST;
-//	assign sem_la0_data[163:162]    = sem_state;
-	assign sem_la0_data[162]        = sed;
-	assign sem_la0_data[163]        = ded;
-	
-	assign pa  = (monout[8*9-1:8*6] == "PA ");
-	assign la  = (monout[8*9-1:8*6] == "LA ");
-	assign inc_dbl_cnt = ded & ~ded_r1;
-	assign inc_sngl_cnt = sed & ~sed_r1;
-	assign load_pa = pa & ~pa_r1;
-	assign load_la = la & ~la_r1;
+	// LA Data [163:0]
+		assign sem_la0_data[7:0]        = monitor_txdata;
+		assign sem_la0_data[31:8]       = fecc_far;
+		assign sem_la0_data[43:32]      = fecc_syndrome;
+		assign sem_la0_data[48:44]      = fecc_synbit;
+		assign sem_la0_data[55:49]      = fecc_synword;
+		assign sem_la0_data[87:56]      = icap_o;
+		assign sem_la0_data[119:88]     = icap_i;
+		assign sem_la0_data[120]        = status_heartbeat;
+		assign sem_la0_data[121]        = status_initialization;
+		assign sem_la0_data[122]        = status_observation;
+		assign sem_la0_data[123]        = status_correction;
+		assign sem_la0_data[124]        = status_classification;
+		assign sem_la0_data[125]        = status_injection;
+		assign sem_la0_data[126]        = status_essential;
+		assign sem_la0_data[127]        = status_uncorrectable;
+		assign sem_la0_data[128]        = monitor_txwrite;
+		assign sem_la0_data[129]        = monitor_rxread;
+		assign sem_la0_data[130]        = inject_strobe;
+		assign sem_la0_data[131]        = fecc_crcerr;
+		assign sem_la0_data[132]        = fecc_eccerr;
+		assign sem_la0_data[133]        = fecc_eccerrsingle;
+		assign sem_la0_data[134]        = fecc_syndromevalid;
+		assign sem_la0_data[135]        = icap_busy;
+		assign sem_la0_data[136]        = icap_csb;
+		assign sem_la0_data[137]        = icap_rdwrb;
+		assign sem_la0_data[138]        = monitor_txfull;
+		assign sem_la0_data[139]        = monitor_rxempty;
+		assign sem_la0_data[147:140]    = monitor_rxdata;
+		assign sem_la0_data[148]        = csp_read;
+		assign sem_la0_data[149]        = ff_read;
+		assign sem_la0_data[150]        = ff_data_present;
+	//	assign sem_la0_data[151]        = cmd_ready;
+	//	assign sem_la0_data[159:152]    = ff_data_out;
+		assign sem_la0_data[151]        = pa;
+		assign sem_la0_data[152]        = la;
+		assign sem_la0_data[153]        = inc_dbl_cnt;
+		assign sem_la0_data[154]        = inc_sngl_cnt;
+		assign sem_la0_data[155]        = load_pa;
+		assign sem_la0_data[156]        = load_la;
+		assign sem_la0_data[157]        = 1'b0;
+		assign sem_la0_data[158]        = 1'b0;
+		assign sem_la0_data[159]        = 1'b0;
+		assign sem_la0_data[160]        = csp_send_cmd;
+		assign sem_la0_data[161]        = RST;
+	//	assign sem_la0_data[163:162]    = sem_state;
+		assign sem_la0_data[162]        = sed;
+		assign sem_la0_data[163]        = ded;
+		
 	
 
-// LA Trigger [15:0]
-	assign sem_la0_trig[0]       = status_heartbeat;
-	assign sem_la0_trig[1]       = status_initialization;
-	assign sem_la0_trig[2]       = status_observation;
-	assign sem_la0_trig[3]       = status_correction;
-	assign sem_la0_trig[4]       = status_injection;
-	assign sem_la0_trig[5]       = fecc_crcerr;
-	assign sem_la0_trig[6]       = fecc_eccerr;
-	assign sem_la0_trig[7]       = fecc_eccerrsingle;
-	assign sem_la0_trig[8]       = icap_csb;
-	assign sem_la0_trig[9]       = icap_rdwrb;
-	assign sem_la0_trig[10]      = icap_busy;
-	assign sem_la0_trig[11]      = monitor_txwrite;
-	assign sem_la0_trig[12]      = inject_strobe;
-	assign sem_la0_trig[13]      = csp_read;
-	assign sem_la0_trig[14]      = csp_send_cmd;
-	assign sem_la0_trig[15]      = monitor_rxread;
-	
-// Virtual I/O for SEM
+	// LA Trigger [15:0]
+		assign sem_la0_trig[0]       = status_heartbeat;
+		assign sem_la0_trig[1]       = status_initialization;
+		assign sem_la0_trig[2]       = status_observation;
+		assign sem_la0_trig[3]       = status_correction;
+		assign sem_la0_trig[4]       = status_injection;
+		assign sem_la0_trig[5]       = fecc_crcerr;
+		assign sem_la0_trig[6]       = fecc_eccerr;
+		assign sem_la0_trig[7]       = fecc_eccerrsingle;
+		assign sem_la0_trig[8]       = icap_csb;
+		assign sem_la0_trig[9]       = icap_rdwrb;
+		assign sem_la0_trig[10]      = icap_busy;
+		assign sem_la0_trig[11]      = monitor_txwrite;
+		assign sem_la0_trig[12]      = inject_strobe;
+		assign sem_la0_trig[13]      = csp_read;
+		assign sem_la0_trig[14]      = csp_send_cmd;
+		assign sem_la0_trig[15]      = monitor_rxread;
+		
+	// Virtual I/O for SEM
 
-wire [47:0] sem_vio0_sync_out;
-wire [71:0] sem_vio0_sync_in;
-	
-sem_vio sem_vio_0 (
-    .CONTROL(CSP_VIO0_CNTRL), // INOUT BUS [35:0]
-    .CLK(CLK40),
-    .SYNC_IN(sem_vio0_sync_in), // IN BUS [71:0]
-    .SYNC_OUT(sem_vio0_sync_out) // OUT BUS [47:0]
-);
-
-
-// VIO Sync In Data [7:0]
-	assign sem_vio0_sync_in[0]  = status_initialization;
-	assign sem_vio0_sync_in[1]  = status_observation;
-	assign sem_vio0_sync_in[2]  = status_correction;
-	assign sem_vio0_sync_in[3]  = status_classification;
-	assign sem_vio0_sync_in[4]  = status_injection;
-	assign sem_vio0_sync_in[5]  = fecc_crcerr;
-	assign sem_vio0_sync_in[6]  = fecc_eccerr;
-	assign sem_vio0_sync_in[7]  = fecc_eccerrsingle;
-	assign sem_vio0_sync_in[15:8] = sngl_bit_err_cnt;
-	assign sem_vio0_sync_in[23:16] = multi_bit_err_cnt;
-	assign sem_vio0_sync_in[47:24] = far_pa;
-	assign sem_vio0_sync_in[71:48] = far_la;
+	wire [47:0] sem_vio0_sync_out;
+	wire [71:0] sem_vio0_sync_in;
+		
+	sem_vio sem_vio_0 (
+		 .CONTROL(CSP_VIO0_CNTRL), // INOUT BUS [35:0]
+		 .CLK(CLK40),
+		 .SYNC_IN(sem_vio0_sync_in), // IN BUS [71:0]
+		 .SYNC_OUT(sem_vio0_sync_out) // OUT BUS [47:0]
+	);
 
 
-// VIO Sync Out Data [47:0]
-	assign inject_address = sem_vio0_sync_out[35:0];
-	assign inject_strobe  = sem_vio0_sync_out[36];
-	assign csp_send_cmd   = sem_vio0_sync_out[37];
-	assign csp_read       = sem_vio0_sync_out[38];
-	assign csp_cmd_data   = sem_vio0_sync_out[46:39];
-	assign csp_tk_ctrl    = sem_vio0_sync_out[47];
+	// VIO Sync In Data [7:0]
+		assign sem_vio0_sync_in[0]  = status_initialization;
+		assign sem_vio0_sync_in[1]  = status_observation;
+		assign sem_vio0_sync_in[2]  = status_correction;
+		assign sem_vio0_sync_in[3]  = status_classification;
+		assign sem_vio0_sync_in[4]  = status_injection;
+		assign sem_vio0_sync_in[5]  = fecc_crcerr;
+		assign sem_vio0_sync_in[6]  = fecc_eccerr;
+		assign sem_vio0_sync_in[7]  = fecc_eccerrsingle;
+		assign sem_vio0_sync_in[15:8] = sngl_bit_err_cnt;
+		assign sem_vio0_sync_in[23:16] = multi_bit_err_cnt;
+		assign sem_vio0_sync_in[47:24] = far_pa;
+		assign sem_vio0_sync_in[71:48] = far_la;
 
 
-assign icap_grant = 1'b1;
-assign monitor_txfull = 1'b0;
+	// VIO Sync Out Data [47:0]
+		assign inject_address = sem_vio0_sync_out[35:0];
+		assign inject_strobe  = sem_vio0_sync_out[36];
+		assign csp_send_cmd   = sem_vio0_sync_out[37];
+		assign csp_read       = sem_vio0_sync_out[38];
+		assign csp_cmd_data   = sem_vio0_sync_out[46:39];
+		assign csp_tk_ctrl    = sem_vio0_sync_out[47];
+
+
+	assign icap_grant = 1'b1;
+	assign monitor_txfull = 1'b0;
+end
+else
+begin : no_chipscope_sem
+	assign inject_address = 36'h000000000;
+	assign inject_strobe  = 1'b0;
+	assign csp_send_cmd   = 1'b0;
+	assign csp_read       = 1'b0;
+	assign csp_cmd_data   = 8'h00;
+	assign csp_tk_ctrl    = 1'b0;
+
+end
+endgenerate
 
 sem_core sem_core1 (
 	.status_heartbeat(status_heartbeat),

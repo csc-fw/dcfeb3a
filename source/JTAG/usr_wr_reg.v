@@ -45,11 +45,13 @@ module user_wr_reg(
   
   reg[width-1:0] d;
   wire din,ce;
+  wire sel_update;
   
   assign TDO     = FSEL & d[0];
   assign DSY_OUT = DSY_CHAIN & d[0];
   assign din     = DSY_CHAIN ? DSY_IN : TDI;
   assign ce      = SHIFT & SEL & (FSEL | DSY_CHAIN);
+  assign sel_update      = UPDATE & SEL & (FSEL | DSY_CHAIN);
   
   always @(posedge DRCK or posedge RST) begin // intermediate shift register
     if(RST)
@@ -65,7 +67,7 @@ module user_wr_reg(
     if(RST)
 	   PO <= def_value;
 	 else
-	   if(UPDATE)
+	   if(sel_update)
         PO <= d;
 	   else if(LOAD)
         PO <= PI;

@@ -67,6 +67,8 @@
 //  49     | Send ASCII command to the SEM controller (8-bits). 
 //  50     | Frame Address Register (FAR) in Linear Address format indicating the frame containing the error (24-bits). 
 //  51     | Frame Address Register (FAR) in Physical Address format indicating the frame containing the error (24-bits). 
+//  52     | Register Selection Word (Reg_Sel_Wrd) for selecting which register to independently capture and readback (8-bits). 
+//  53     | Readback Select Register: Register to capture selected register indicated in Reg_Sel_Wrd (16-bits). 
 //
 // Revision: 
 // Revision 0.01 - File Created

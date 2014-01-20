@@ -68,6 +68,8 @@
 //  49     | Send ASCII command to the SEM controller (8-bits). 
 //  50     | Frame Address Register (FAR) in Linear Address format indicating the frame containing the error (24-bits). 
 //  51     | Frame Address Register (FAR) in Physical Address format indicating the frame containing the error (24-bits). 
+//  52     | Register Selection Word (Reg_Sel_Wrd) for selecting which register to independently capture and readback (8-bits). 
+//  53     | Readback Select Register: Register to capture selected register indicated in Reg_Sel_Wrd (16-bits). 
 //
 // Revision: 
 // Revision 0.01 - File Created
@@ -76,18 +78,42 @@
 //////////////////////////////////////////////////////////////////////////////////
 module jtag_access (
 	 
+    input CLK1MHZ,           // 1 MHz Clock
     input CLK20,             // 20 MHz Clock
     input CLK40,             // 40 MHz Clock
     input CLK120,            // 120 MHz Clock
     input FSTCLK,            // Fast Clock
     input RST,               // Reset default state
+    input EOS,               // End Of Startup
     input [6:1] BKY_RTN,     // Serial data returned from amplifiers
     input [15:0] DCFEB_STATUS, // Status word
     input [191:0] ADCDATA,   // Data out of pipeline
     input [15:0] BPI_RBK_FIFO, // Data read back from BPI PROM
     input [15:0] BPI_STATUS, // STATUS word for BPI interface
     input [31:0] BPI_TIMER,  // Timer for BPI commands
-	 output JTAG_SYS_RST,      // JTAG initiated system reset 
+    input [15:0] BPI_AL_REG, // Data from BPI PROM for auto-loading
+	 input AUTO_LOAD,         // Auto load pulse for clock enabling registers;
+	 input AUTO_LOAD_ENA,     // High during Auto load process
+	 input [5:0] AL_CNT,      // Auto load counter
+	 input CLR_AL_DONE,       // Clear Auto Load Done flag
+	 output reg AL_DONE,      // Auto load process complete
+	 output al_abort,      // Auto load process complete
+	output al_bky_shift,
+	output al_bky_ena,
+	output al_bky_shck_ena,
+	output al_bky_sdata,
+	output al_bshift_done,
+	output AL_BKY_MT,
+	output AL_BKY_RDERR,
+	output AL_BKY_WRTERR,
+	output AL_BKY_RDENA,
+	output [9:0] AL_BKY_RDCNT,
+	output [9:0] AL_BKY_WRTCNT,
+	output [15:0] AL_BKY_DATA,
+	output [15:0] AL_BKY_SHFT,
+	output [3:0] AL_BKY_SCNT,
+	output [4:0] AL_BKY_LCNT,
+	 output JTAG_SYS_RST,     // JTAG initiated system reset 
     output reg RDFIFO,       // Advance fifo to next word
 	 output JTAG_RD_MODE,     // JTAG read out mode for FIFO1 
     output [1:0] XL1DLYSET,  // Extra L1A delay setting [1:0]
@@ -135,6 +161,9 @@ module jtag_access (
 	 output JTAG_RST_SEM_CNTRS,      // Reset the error counters
 	 output reg JTAG_SEND_CMD,       // single pulse to execute command in JTAG_CMD_DATA
 	 output [7:0] JTAG_CMD_DATA, //Data for SEM commands
+	 output jsel2,
+	 output jshift2,
+	 output update2,
 	 input [23:0] SEM_FAR_PA,    //Frame Address Register - Physical Address
 	 input [23:0] SEM_FAR_LA,    //Frame Address Register - Linear Address
 	 input [15:0] SEM_ERRCNT,    //Error counters - {dbl,sngl} 8 bits each
@@ -178,8 +207,8 @@ module jtag_access (
 
 	wire [63:0] f; //JTAG functions (one hot);
 	wire f11;
-	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15;
-	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31,tdof32,tdof33;
+	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15,dmy16;
+	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31,tdof32,tdof33,tdof34,tdof35;
 	wire [31:16] status_h;
    wire [6:1] bky_mask;
 	wire [6:0] nsamp;
@@ -193,22 +222,41 @@ module jtag_access (
 	reg clr_l1a_head, set_l1a_head;
 	reg set_rate_1_25, set_rate_3_2;
 	reg [15:0] spi_rtn_reg;
+	wire [7:0] reg_sel_wrd;
+	reg [15:0] sel_reg;
 
 // Auto Load constants
-   wire AUTO_LOAD;
-	wire al_ctime;
+//	wire al_bshift_done;
+	wire al_bky_shck;
+//	wire al_bky_shck_ena;
+//	wire al_bky_ena;
+//	wire al_bky_sdata;
+//	wire al_bky_shift;
+	
+	wire al_cthresh_done;
+	wire al_cth_shck;
+	wire al_cth_shck_ena;
+	wire al_cth_sdata;
+	wire al_dac_enb;
+	
+	reg [1:0] cmode_hold;
+//	wire al_abort;
+	wire al_cthresh;
 	wire al_cmode;
-	wire al_pdepth;
-	wire al_nsamp;
+	wire al_ctime;
 	wire al_cmp_clk_phase;
 	wire al_samp_clk_phase;
+	wire al_nsamp;
+	wire al_pdepth;
 
-	assign AUTO_LOAD = 1'b0;
+	wire not_eos;
+
+	assign not_eos = !EOS;
 	assign SAMP_MAX = nsamp-1;
 	assign JC_ADC_CNFG = f[14];
 	
 	
-	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c | tdof2d | tdof31 | tdof32 | tdof33);
+	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c | tdof2d | tdof31 | tdof32 | tdof33 | tdof34 | tdof35);
 	assign status_h[31:16] = {5'b10110,XL1DLYSET,LOADPBLK,COMP_TIME,COMP_MODE};
 	
 	assign JTAG_SYS_RST  = f[1];  // System Reset JTAG command (like power on reset without reprogramming)
@@ -231,13 +279,23 @@ module jtag_access (
 //
 // JTAG to SPI interface for Comparator DAC, Calibration DAC and MAX 1271 ADC
 //
-	assign CDAC_ENB = (dshift & jsel2 & f[4]);
+	assign CDAC_ENB = (dshift & jsel2 & f[4]) | al_dac_enb;
 	assign CALDAC_ENB = (dshift & jsel2 & f[34]);
 	assign CALADC_ENB = (dshift & jsel2 & f[35]);
-	assign SPI_CK = tck2 & (CDAC_ENB | CALDAC_ENB | CALADC_ENB);
-	assign SPI_DAT = tdi2 & (CDAC_ENB | CALDAC_ENB | CALADC_ENB);
+	assign SPI_CK = (AUTO_LOAD_ENA ? al_cth_shck : tck2) & (CDAC_ENB | CALDAC_ENB | CALADC_ENB);
+	assign SPI_DAT = ((AUTO_LOAD_ENA ? al_cth_sdata : tdi2) & (CDAC_ENB | CALDAC_ENB | CALADC_ENB));
+	assign al_cth_shck = CLK1MHZ & al_cth_shck_ena;
+	assign al_bky_shck = CLK1MHZ & al_bky_shck_ena;
 	
-	
+	assign al_abort          = AUTO_LOAD & (AL_CNT == 6'h00);
+	assign al_cthresh        = AUTO_LOAD & (AL_CNT == 6'h01);
+	assign al_cmode          = AUTO_LOAD & (AL_CNT == 6'h02);
+	assign al_ctime          = AUTO_LOAD & (AL_CNT == 6'h03);
+	assign al_cmp_clk_phase  = AUTO_LOAD & (AL_CNT == 6'h04);
+	assign al_samp_clk_phase = AUTO_LOAD & (AL_CNT == 6'h05);
+	assign al_nsamp          = AUTO_LOAD & (AL_CNT == 6'h06);
+	assign al_pdepth         = AUTO_LOAD & (AL_CNT == 6'h07);
+	assign al_bky_shift      = AUTO_LOAD & ((AL_CNT >= 6'h10) && (AL_CNT <= 6'h21));
  
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
@@ -276,8 +334,12 @@ module jtag_access (
       .TDO(tdo2)          // 1-bit input Data input for USER function
    );
 
-  BUFG tclk2_buf
-   (.O   (tck2),.I   (tck2_raw));
+  BUFGMUX tclk2_buf
+   (.O   (tck2),
+	 .I0   (tck2_raw),
+	 .I1   (CLK40),
+	 .S   (AUTO_LOAD_ENA)
+	 );
 
 
 
@@ -295,7 +357,7 @@ module jtag_access (
       .TDI(tdi1),         // Serial Test Data In
       .UPDATE(update1),   // Update state
       .SHIFT(jshift1),    // Shift state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),      // Reset default state
       .CLR(clrf),          // Clear the current function
       .F(f),              // Function decode output (one hot)
       .TDO(tdo1));        // Serial Test Data Out
@@ -355,6 +417,44 @@ module jtag_access (
 //
 // JTAG Comparator Mode and Timing bits Register
 //
+
+always @(posedge CLK40 or posedge RST) begin
+	if(RST)
+		AL_DONE <= 0;
+	else
+		if(CLR_AL_DONE)
+			AL_DONE <= 0;
+		else if(al_abort)
+			AL_DONE <= (BPI_AL_REG == 16'hFFFF);
+		else if(al_cthresh_done && al_bshift_done)
+			AL_DONE <= 1;
+		else
+			AL_DONE <= AL_DONE;
+end
+
+	al_cdac al_cdac_i(
+		.CLK40(CLK40),
+		.CLK1MHZ(CLK1MHZ),
+		.RST(RST),
+		.CLR_AL_DONE(CLR_AL_DONE),
+		.CAPTURE(al_cthresh),
+		.BPI_AL_REG(BPI_AL_REG[11:0]),
+		.SHCK_ENA(al_cth_shck_ena),
+		.SDATA(al_cth_sdata),
+		.DAC_ENB(al_dac_enb),
+		.DONE(al_cthresh_done)
+	);
+
+always @(posedge CLK40 or posedge RST) begin
+	if(RST)
+		cmode_hold <= 2'b00;
+	else
+		if(al_cmode)
+			cmode_hold <= BPI_AL_REG[1:0];
+		else
+			cmode_hold <= cmode_hold;
+end
+
    user_wr_reg #(.width(5), .def_value(5'b01010))
    comparator(
 	   .TCK(tck2),         // TCK for update register
@@ -367,8 +467,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(f[7]),   // Daisy chain mode
-		.LOAD(AUTO_LOAD),   // Load parallel input
-		.PI({al_ctime,al_cmode}),          // Parallel input
+		.LOAD(al_ctime),   // Load parallel input
+		.PI({BPI_AL_REG[2:0],cmode_hold}),          // Parallel input
       .PO({COMP_TIME,COMP_MODE}), // Parallel output
       .TDO(tdof9),        // Serial Test Data Out
       .DSY_OUT(dsy7));    // Daisy chained serial data out
@@ -449,16 +549,43 @@ module jtag_access (
    bky_shift 
 	bky_shift1 (
 		.DRCK(tck2),        // Data Reg Clock
+		.CLK1MHZ(CLK1MHZ),  // 1MHz clock for auto loading
 		.SEL(jsel2),         // User 2 mode active
 		.F(f[11]),          // Function select
 		.TDI(tdi2),         // Serial Test Data In
 		.MASK(bky_mask),    // Mask of which amplifiers to include in shift loop
 		.SHIFT(dshift),     // Shift state
+		.AL_BKY_ENA(al_bky_ena), // Autoload process active
+		.AL_SHCK_ENA(al_bky_shck_ena), // Autoload shift clock
+		.AL_SDATA(al_bky_sdata), // Autoload serial data
 		.DRTN(BKY_RTN),     // Serial data returned from amplifiers
 		.DSND(TO_BKY),      // Serial data sent to amplifiers
 		.BCLK(BKY_CLK),     // Shift clock for amplifiers
 		.TDO(tdofb)        // Test data out of the complete loop
 		);
+		
+	al_buckeye_load al_buckeye_load_i(
+		.CLK40(CLK40),
+		.CLK1MHZ(CLK1MHZ),
+		.RST(RST),
+		.CLR_AL_DONE(CLR_AL_DONE),
+		.CAPTURE(al_bky_shift),
+		.BPI_AL_REG(BPI_AL_REG),
+		.AL_BKY_ENA(al_bky_ena),
+		.SHCK_ENA(al_bky_shck_ena),
+		.SDATA(al_bky_sdata),
+		.DONE(al_bshift_done),
+		.AL_BKY_MT(AL_BKY_MT),
+		.AL_BKY_RDERR(AL_BKY_RDERR),
+		.AL_BKY_WRTERR(AL_BKY_WRTERR),
+		.AL_BKY_RDENA(AL_BKY_RDENA),
+		.AL_BKY_RDCNT(AL_BKY_RDCNT),
+		.AL_BKY_WRTCNT(AL_BKY_WRTCNT),
+		.AL_BKY_DATA(AL_BKY_DATA),
+		.bky_shft(AL_BKY_SHFT),
+		.scnt(AL_BKY_SCNT),
+		.lcnt(AL_BKY_LCNT)
+	);
 	
 //
 // Status capture and shift
@@ -472,7 +599,7 @@ module jtag_access (
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),       // Reset default state
 		.BUS({status_h,DCFEB_STATUS}), // Bus to capture
       .TDO(tdof2a3));      // Serial Test Data Out
 
@@ -533,8 +660,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
-		.LOAD(AUTO_LOAD),   // Load parallel input
-		.PI(al_pdepth),          // Parallel input
+		.LOAD(al_pdepth),   // Load parallel input
+		.PI(BPI_AL_REG[8:0]),          // Parallel input
       .PO(PDEPTH),        // Parallel output
       .TDO(tdof10),        // Serial Test Data Out
       .DSY_OUT(dmy5));    // Daisy chained serial data out
@@ -615,8 +742,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
-		.LOAD(AUTO_LOAD),   // Load parallel input
-		.PI(al_nsamp),          // Parallel input
+		.LOAD(al_nsamp),   // Load parallel input
+		.PI(BPI_AL_REG[6:0]),          // Parallel input
       .PO(nsamp),        // Parallel output
       .TDO(tdof14),        // Serial Test Data Out
       .DSY_OUT(dmy7));    // Daisy chained serial data out
@@ -725,8 +852,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
-		.LOAD(AUTO_LOAD),   // Load parallel input
-		.PI(al_cmp_clk_phase),          // Parallel input
+		.LOAD(al_cmp_clk_phase),   // Load parallel input
+		.PI(BPI_AL_REG[3:0]),          // Parallel input
       .PO(CMP_CLK_PHASE),        // Parallel output
       .TDO(tdof1c),        // Serial Test Data Out
       .DSY_OUT(dmy9));    // Daisy chained serial data out
@@ -746,8 +873,8 @@ module jtag_access (
       .UPDATE(update2),    // Update state
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
-		.LOAD(AUTO_LOAD),   // Load parallel input
-		.PI(al_samp_clk_phase),          // Parallel input
+		.LOAD(al_samp_clk_phase),   // Load parallel input
+		.PI(BPI_AL_REG[2:0]),          // Parallel input
       .PO(SAMP_CLK_PHASE),  // Parallel output
       .TDO(tdof2c),        // Serial Test Data Out
       .DSY_OUT(dmy13));    // Daisy chained serial data out
@@ -1054,13 +1181,13 @@ module jtag_access (
 //
 // Function 51:
 //
-// SEM Frame Address Register (FAR) Physica address format capture and shift
+// SEM Frame Address Register (FAR) Physical address format capture and shift
 
    user_cap_reg #(.width(24))
    Frame_ECC_PA_Reg(
       .DRCK(tck2),        // Data Reg Clock
       .FSH(1'b0),         // Shift Function
-      .FCAP(f[50]),        // Capture Function
+      .FCAP(f[51]),        // Capture Function
       .SEL(jsel2),        // User 2 mode active
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
@@ -1069,4 +1196,95 @@ module jtag_access (
 		.BUS(SEM_FAR_PA),   // Bus to capture // 
       .TDO(tdof33));      // Serial Test Data Out
 		
+//
+// Function 52:
+//
+// Register Selection Word
+//       8 bit word specifying which register to be read back independently
+//
+// RegSel  Register                  Bits
+//------------------------------------------
+//   0     Xtra L1a                  2 bits
+//   1     Pre Block End             4 bits
+//   2     CmpTim[2:0],CompMode[1:0] 5 bits
+//   3     Buckeye Mask              6 bits
+//   4     ADC Maslk                12 bits
+//   5     ADC Cnfg Mem Wrd         26 bits
+//   6     Pipeline Depth            9 bits
+//   7     TTC Source                2 bits
+//   8     # Samples                 7 bits
+//   9     BPI Write FIFO           16 bits
+//  10     Comp Clock Phase          4 bits
+//  11     Sampling Clock Phase      3 bits
+//  12     TMB Transmit Mode         3 bits
+//  13     HS Settings              30 bits
+//  14     TMB Layer Mask            6 bits
+//  15     PRBS Test Mode            3 bits
+//  16     SEM Command               8 bits
+//  17     Registrer Sel Word        8 bits
+//
+
+   user_wr_reg #(.width(8), .def_value(8'h00))
+   Reg_Sel_Wrd_reg(
+	   .TCK(tck2),         // TCK for update register
+      .DRCK(tck2),        // Data Reg Clock
+      .FSEL(f[52]),       // Function select
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .DSY_IN(1'b0),      // Serial Daisy chained data in
+      .SHIFT(jshift2),      // Shift state
+      .UPDATE(update2),    // Update state
+      .RST(RST),          // Reset default state
+      .DSY_CHAIN(1'b0),   // Daisy chain mode
+		.LOAD(1'b0),        // Load parallel input
+		.PI(16'h0000),          // Parallel input
+      .PO(reg_sel_wrd),       // Parallel output
+      .TDO(tdof34),        // Serial Test Data Out
+      .DSY_OUT(dmy16));    // Daisy chained serial data out
+
+
+//
+// Function 53:
+//
+// Select Readback Register.
+//       16 bit word
+//       Registers with more than 16 bits are truncated.
+//
+   user_cap_reg #(.width(16))
+   Select_Readback_Reg(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[53]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),          // Reset default state
+		.BUS(sel_reg),   // Bus to capture // 
+      .TDO(tdof35));      // Serial Test Data Out
+
+always @*
+begin
+	case (reg_sel_wrd)
+		8'd0 : sel_reg = {14'h0000,XL1DLYSET};
+		8'd1 : sel_reg = {12'h000,LOADPBLK};
+		8'd2 : sel_reg = {11'h000,COMP_TIME,COMP_MODE};
+		8'd3 : sel_reg = {10'h000,bky_mask};
+		8'd4 : sel_reg = {4'h0,ADC_MASK};
+		8'd5 : sel_reg = ADC_MEM[15:0];
+		8'd6 : sel_reg = {7'h00,PDEPTH};
+		8'd7 : sel_reg = {14'h0000,TTC_SRC};
+		8'd8 : sel_reg = {9'h000,nsamp};
+		8'd9 : sel_reg = BPI_WRT_FIFO;
+		8'd10 : sel_reg = {12'h000,CMP_CLK_PHASE};
+		8'd11 : sel_reg = {13'h0000,SAMP_CLK_PHASE};
+		8'd12 : sel_reg = {13'h0000,TMB_TX_MODE};
+		8'd13 : sel_reg = LAY1_TO_6_HALF_STRIP[15:0];
+		8'd14 : sel_reg = {10'h000,LAYER_MASK};
+		8'd15 : sel_reg = {13'h0000,JDAQ_PRBS_TST};
+		8'd16 : sel_reg = {8'h00,JTAG_CMD_DATA};
+		8'd17 : sel_reg = {8'h00,reg_sel_wrd};
+		default :  sel_reg = {8'h00,reg_sel_wrd};
+	endcase
+end		
 endmodule

@@ -47,7 +47,8 @@ module BPI_ctrl #(
 	 output [1:0] BPI_OP,
 	 output [22:0] BPI_ADDR,
 	 output [15:0] BPI_DATA_TO,
-	 output BPI_EXECUTE
+	 output BPI_EXECUTE,
+	 output BPI_SEQ_IDLE
     );
 	 
 localparam // commands
@@ -262,6 +263,7 @@ reg pe_in_suspense;
 //	$readmemh ("BPI_Commands", ram0, 0, 127);
 //end
 
+assign BPI_SEQ_IDLE = seqr_idle;
 
 //assign RD_MODE = read_mode; // only for simulations
 assign local_rst = RST || csp_man_rst;

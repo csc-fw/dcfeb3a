@@ -1,6 +1,8 @@
 `timescale 1ns / 1ps
 module test_points(
     input CLK,
+    input STUP_CLK,
+    input QPLL_LOCK,
     input DAQ_DATA_CLK,
     input CMS80,
     input COMP_CLK,
@@ -21,7 +23,6 @@ module test_points(
     input LCT,
     input CMP_CLK_PHS_CHNG,
 	 input EOS,
-	 input POR,
 	 input [2:0] POR_STATE,
 	 input DSR_ALGND,
 	 input DSR_RST,
@@ -73,7 +74,7 @@ assign tp_b35_dir = 14'h0f00;
 //
 
 assign tp_b24_out = 3'b000;
-assign tp_b25_out = {DSR_ALGND,DSR_RST,ADC_CLK,CLK20,DSR_RESYNC,CLK,1'b0,1'b0,1'b0,1'b0,1'b0,EOS,POR,POR_STATE};
+assign tp_b25_out = {DSR_ALGND,DSR_RST,ADC_CLK,CLK20,DSR_RESYNC,CLK,STUP_CLK,QPLL_LOCK,CLK100KHZ,1'b0,1'b0,EOS,SYS_RST,POR_STATE};
 assign tp_b26_out = 2'b00;
 //assign tp_b35_out = {TRG_RST,LCT,4'h0,TRG_GTXTXRESET,COMP_RST,CMP_CLK_PHS_CHNG,TRG_MMCM_LOCK,TRG_SYNCDONE,COMP_CLK160,COMP_CLK80,COMP_CLK};
 assign tp_b35_out = {SYS_RST,RESYNC,4'h0,ALG_GD,CLK,1'b0,1'b0,L1A_PUSH_MAC,L1A_PUSH_SKW,L1A,L1A_MATCH};

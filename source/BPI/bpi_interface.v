@@ -26,10 +26,20 @@ module bpi_interface(
     input [15:0] CMD_DATA_OUT, //Command or Data being written to FLASH device
 	 input [1:0]  OP,           //Operation: 00-standby, 01-write, 10-read, 11-not allowed(standby)
 	 input EXECUTE,
+	 input NEXT,
+	 input DEBUG,
     output [15:0] DATA_IN,      //Data read from FLASH device
     output LOAD_DATA,           //Clock enable signal for capturing Data read from FLASH device
 	 output BUSY,                //Operation in progress signal (not ready)
+    output wire [3:0] INTF_STATE, // Interface State
+	// signals for Auto Loading Constants
+	 input AUTO_LOAD_ENA,
+	 input [22:0] AL_ADDR,
+	 input [15:0] AL_CMD_DATA_OUT,
+	 input [1:0] AL_OP,
+	 input AL_EXECUTE,
 	// signals for LED'S after programing
+	 input RUN,
 	 input BPI_ACTIVE,
 	 input [15:0] DCFEB_STATUS,
 	 // external connections
@@ -52,6 +62,7 @@ module bpi_interface(
   wire [15:0] data_dir;
   reg  [15:0] data_out_r;
   wire [15:0] data_out_i;
+  wire execute_i;
   wire rs0_out;
   wire rs1_out;
   wire fcs,foe,fwe,flatch_addr;
@@ -99,20 +110,30 @@ assign leds_out   = display ? {cycle[15][0],cycle[14][0],cycle[13][0],cycle[12][
 assign duty_cycle = ram0[raddr];
 assign {dc[15],dc[14],dc[13],dc[12],dc[11],dc[10],dc[9],dc[8],dc[7],dc[6],dc[5],dc[4],dc[3],dc[2],dc[1],dc[0]} = duty_cycle;
 assign stop       = (passes == 4'h3);
-assign data_out_i = (fcs | BPI_ACTIVE) ? data_out_r : leds_out;
+assign data_out_i = (fcs | BPI_ACTIVE | AUTO_LOAD_ENA) ? data_out_r : leds_out;
+assign execute_i  = AUTO_LOAD_ENA ? AL_EXECUTE : EXECUTE;
 
 always @(posedge CLK)
 begin
-	if(capture) begin
-		bpi_ad_out_r   <= ADDR[22:0];
-		data_out_r     <= CMD_DATA_OUT;
-		write          <= OP[0];
-		read           <= OP[1];
-	end
+	if(capture)
+	   if(AUTO_LOAD_ENA)
+			begin
+				bpi_ad_out_r   <= AL_ADDR;
+				data_out_r     <= AL_CMD_DATA_OUT;
+				write          <= AL_OP[0];
+				read           <= AL_OP[1];
+			end
+		else
+			begin
+				bpi_ad_out_r   <= ADDR;
+				data_out_r     <= CMD_DATA_OUT;
+				write          <= OP[0];
+				read           <= OP[1];
+			end
 end
   
-BPI_intrf_FSM 
-BPI_intrf_FSM1(
+BPI_intrf_debug_FSM 
+BPI_intrf_debug_FSM1(
 	.BUSY(BUSY),
 	.CAP(capture),
 	.E(fcs),
@@ -120,12 +141,30 @@ BPI_intrf_FSM1(
 	.L(flatch_addr),
 	.LOAD(LOAD_DATA),
 	.W(fwe),
+	.INTF_STATE(INTF_STATE),
 	.CLK(CLK),
-	.EXECUTE(EXECUTE),
+	.GO(NEXT),
+	.EXECUTE(execute_i),
+	.DEBUG(DEBUG),
 	.READ(read),
 	.RST(RST),
 	.WRITE(write)
 );
+//BPI_intrf_FSM 
+//BPI_intrf_FSM1(
+//	.BUSY(BUSY),
+//	.CAP(capture),
+//	.E(fcs),
+//	.G(foe),
+//	.L(flatch_addr),
+//	.LOAD(LOAD_DATA),
+//	.W(fwe),
+//	.CLK(CLK),
+//	.EXECUTE(execute_i),
+//	.READ(read),
+//	.RST(RST),
+//	.WRITE(write)
+//);
 
 genvar ch;
 generate
@@ -203,6 +242,7 @@ Startup_Display_FSM(
   .CLK(CLK),
   .DONE(stop),
   .RST(RST),
+  .RUN(RUN),
   .TMR(tmr)
 );
 endmodule
