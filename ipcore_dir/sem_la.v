@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2013 Xilinx, Inc.
+// Copyright (c) 2014 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : sem_la.v
-// /___/   /\     Timestamp  : Tue Nov 05 17:47:46 Eastern Standard Time 2013
+// /___/   /\     Timestamp  : Tue Jan 21 13:11:16 Eastern Standard Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -27,7 +27,7 @@ module sem_la(
 
 inout [35 : 0] CONTROL;
 input CLK;
-input [163 : 0] DATA;
+input [195 : 0] DATA;
 input [15 : 0] TRIG0;
 
 endmodule

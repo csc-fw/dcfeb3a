@@ -134,25 +134,27 @@ module SEM_module #(
 generate
 if(USE_CHIPSCOPE==1) 
 begin : chipscope_sem
-	wire [163:0] sem_la0_data;
+	wire [195:0] sem_la0_data;
 	wire [15:0] sem_la0_trig;
 
 	sem_la sem_la0 (
 		 .CONTROL(CSP_LA0_CNTRL),
 		 .CLK(CLK40),
-		 .DATA(sem_la0_data),  // IN BUS [163:0]
+		 .DATA(sem_la0_data),  // IN BUS [195:0]
 		 .TRIG0(sem_la0_trig)  // IN BUS [15:0]
 	);
 
 
-	// LA Data [163:0]
+	// LA Data [195:0]
 		assign sem_la0_data[7:0]        = monitor_txdata;
 		assign sem_la0_data[31:8]       = fecc_far;
 		assign sem_la0_data[43:32]      = fecc_syndrome;
 		assign sem_la0_data[48:44]      = fecc_synbit;
 		assign sem_la0_data[55:49]      = fecc_synword;
-		assign sem_la0_data[87:56]      = icap_o;
-		assign sem_la0_data[119:88]     = icap_i;
+//		assign sem_la0_data[87:56]      = icap_o;
+//		assign sem_la0_data[119:88]     = icap_i;
+		assign sem_la0_data[79:56]      = conv;
+		assign sem_la0_data[119:80]     = monout[8*5-1:0];
 		assign sem_la0_data[120]        = status_heartbeat;
 		assign sem_la0_data[121]        = status_initialization;
 		assign sem_la0_data[122]        = status_observation;
@@ -193,6 +195,7 @@ begin : chipscope_sem
 	//	assign sem_la0_data[163:162]    = sem_state;
 		assign sem_la0_data[162]        = sed;
 		assign sem_la0_data[163]        = ded;
+		assign sem_la0_data[195:164]    = monout[8*9-1:8*5];
 		
 	
 
@@ -227,7 +230,7 @@ begin : chipscope_sem
 	);
 
 
-	// VIO Sync In Data [7:0]
+	// VIO Sync In Data [71:0]
 		assign sem_vio0_sync_in[0]  = status_initialization;
 		assign sem_vio0_sync_in[1]  = status_observation;
 		assign sem_vio0_sync_in[2]  = status_correction;
