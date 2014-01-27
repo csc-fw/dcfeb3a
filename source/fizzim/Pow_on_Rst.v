@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2014:01:17 at 15:59:44 (www.fizzim.com)
+// Created by fizzim.pl version 4.41 on 2014:01:27 at 10:19:48 (www.fizzim.com)
 
 module Pow_on_Rst 
   #(
@@ -9,7 +9,6 @@ module Pow_on_Rst
   output reg AL_START,
   output reg MMCM_RST,
   output reg POR,
-  output reg RST_QPLL,
   output reg RUN,
   output wire [2:0] POR_STATE,
   input ADC_RDY,
@@ -28,7 +27,7 @@ module Pow_on_Rst
   
   // state bits
   parameter 
-  Qpll_rst   = 3'b000, 
+  Idle       = 3'b000, 
   ADC_INIT   = 3'b001, 
   Auto_Load  = 3'b010, 
   PROM_Cnfg  = 3'b011, 
@@ -46,7 +45,7 @@ module Pow_on_Rst
   always @* begin
     nextstate = 3'bxxx; // default to x because default_state_is_x is set
     case (state)
-      Qpll_rst  :                         nextstate = W4Qpll;
+      Idle      :                         nextstate = W4Qpll;
       ADC_INIT  : if      (ADC_RDY)       nextstate = Run_State;
                   else                    nextstate = ADC_INIT;
       Auto_Load : if      (AL_DONE)       nextstate = ADC_INIT;
@@ -70,7 +69,7 @@ module Pow_on_Rst
   // sequential always block
   always @(posedge CLK or negedge EOS) begin
     if (!EOS)
-      state <= Qpll_rst;
+      state <= Idle;
     else
       state <= nextstate;
   end
@@ -82,7 +81,6 @@ module Pow_on_Rst
       AL_START <= 0;
       MMCM_RST <= 1;
       POR <= 1;
-      RST_QPLL <= 1;
       RUN <= 0;
       por_cnt <= 0;
     end
@@ -91,15 +89,13 @@ module Pow_on_Rst
       AL_START <= 0; // default
       MMCM_RST <= 0; // default
       POR <= 0; // default
-      RST_QPLL <= 0; // default
       RUN <= 0; // default
       por_cnt <= 0; // default
       case (nextstate)
-        Qpll_rst  : begin
+        Idle      : begin
                            ADC_INIT_RST <= 1;
                            MMCM_RST <= 1;
                            POR <= 1;
-                           RST_QPLL <= 1;
         end
         Auto_Load : begin
                            ADC_INIT_RST <= 1;
@@ -130,7 +126,7 @@ module Pow_on_Rst
   reg [79:0] statename;
   always @* begin
     case (state)
-      Qpll_rst  : statename = "Qpll_rst";
+      Idle      : statename = "Idle";
       ADC_INIT  : statename = "ADC_INIT";
       Auto_Load : statename = "Auto_Load";
       PROM_Cnfg : statename = "PROM_Cnfg";

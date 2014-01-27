@@ -413,13 +413,22 @@ endgenerate
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
  wire [15:0] dcfeb_status;
+ wire [15:0] startup_status;
+ reg  [7:0] qpll_cnt;
  wire [2:0]al_status;
+ wire [2:0] por_state;
  wire al_start;
  wire run;
+ wire adc_rdy;
  wire [1:0]ttc_src;
  wire [2:0]tmb_tx_mode;
  wire qpll_lock;
+ reg  qpll_lock_r1;
+ wire falling_edge_qpll;
  wire qpll_error;
+ wire qpll_cnt_full;
+ reg  qpll_cnt_full_r1;
+ reg  qpll_cnt_ovrflw;
  wire jdaq_rate;
  wire rate_1_25;
  wire rate_3_2;
@@ -433,8 +442,33 @@ endgenerate
  assign l1a_head = csp_man_ctrl ? csp_l1a_head : jl1a_head;
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,bc0cnt,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,1'b0,por_state,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
- assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,1'b0,al_status,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
- 
+ assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,  1'b0,al_status,  rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
+ assign startup_status = {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status,eos,por_state};
+
+assign falling_edge_qpll = ~qpll_lock & qpll_lock_r1;
+assign qpll_cnt_full     = (qpll_cnt == 8'hFF);
+always @(posedge clk40) begin
+	qpll_lock_r1 <= qpll_lock;
+	qpll_cnt_full_r1 <= qpll_cnt_full;
+end
+always @(posedge clk40 or posedge sys_rst) begin
+	if(sys_rst)
+		qpll_cnt <= 8'h00;
+	else
+		if(falling_edge_qpll)
+			qpll_cnt <= qpll_cnt + 1;
+		else
+			qpll_cnt <= qpll_cnt;
+end
+always @(posedge clk40 or posedge sys_rst) begin
+	if(sys_rst)
+		qpll_cnt_ovrflw <= 1'b0;
+	else
+		if(qpll_cnt_full_r1 && (qpll_cnt == 8'h00))
+			qpll_cnt_ovrflw <= 1'b1;
+		else
+			qpll_cnt_ovrflw <= qpll_cnt_ovrflw;
+end
  
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
@@ -672,94 +706,6 @@ end
 	wire bit_slip_evn;
 	wire alg_gd;
 
-//	adc_data_input_csp #(
-//	.USE_CHIPSCOPE(USE_DESER_CHIPSCOPE)
-//	)
-//	adc_data_in1(
-//		.CSP_G1LA0_CNTRL(g1la0_c0),
-//		.CSP_G1VIO0_CNTRL(g1vio0_c0),
-//		.CSP_DSR_SYS_RST(csp_dsr_sys_rst),
-//		.ADC_INIT(adc_init),
-//		.ADC_INIT_DONE(adc_init_done),
-//		.CSP_RESYNC(csp_resync),
-//		.g1bit_slip_odd1(bit_slip_odd),
-//		.g1bit_slip_evn1(bit_slip_evn),
-//		.ALG_GD(alg_gd),
-//		
-//		// Differential Serial Data Inputs
-//		.G1AD_N(G1AD_N),.G1AD_P(G1AD_P),.G2AD_N(G2AD_N),.G2AD_P(G2AD_P),.G3AD_N(G3AD_N),.G3AD_P(G3AD_P),
-//		.G4AD_N(G4AD_N),.G4AD_P(G4AD_P),.G5AD_N(G5AD_N),.G5AD_P(G5AD_P),.G6AD_N(G6AD_N),.G6AD_P(G6AD_P),
-//		// Differential Frame Clock Inputs
-//		.G1ADCLK0N(G1ADCLK0N),.G1ADCLK0P(G1ADCLK0P),
-//		.G1ADCLK1N(G1ADCLK1N),.G1ADCLK1P(G1ADCLK1P),
-//		.G2ADCLK0N(G2ADCLK0N),.G2ADCLK0P(G2ADCLK0P),
-//		.G2ADCLK1N(G2ADCLK1N),.G2ADCLK1P(G2ADCLK1P),
-//		.G3ADCLK0N(G3ADCLK0N),.G3ADCLK0P(G3ADCLK0P),
-//		.G3ADCLK1N(G3ADCLK1N),.G3ADCLK1P(G3ADCLK1P),
-//		.G4ADCLK0N(G4ADCLK0N),.G4ADCLK0P(G4ADCLK0P),
-//		.G4ADCLK1N(G4ADCLK1N),.G4ADCLK1P(G4ADCLK1P),
-//		.G5ADCLK0N(G5ADCLK0N),.G5ADCLK0P(G5ADCLK0P),
-//		.G5ADCLK1N(G5ADCLK1N),.G5ADCLK1P(G5ADCLK1P),
-//		.G6ADCLK0N(G6ADCLK0N),.G6ADCLK0P(G6ADCLK0P),
-//		.G6ADCLK1N(G6ADCLK1N),.G6ADCLK1P(G6ADCLK1P),
-//		// Differential Bit Clock Inputs
-//		.G1LCLK0N(G1LCLK0N),.G1LCLK0P(G1LCLK0P),
-//		.G1LCLK1N(G1LCLK1N),.G1LCLK1P(G1LCLK1P),
-//		.G2LCLK0N(G2LCLK0N),.G2LCLK0P(G2LCLK0P),
-//		.G2LCLK1N(G2LCLK1N),.G2LCLK1P(G2LCLK1P),
-//		.G3LCLK0N(G3LCLK0N),.G3LCLK0P(G3LCLK0P),
-//		.G3LCLK1N(G3LCLK1N),.G3LCLK1P(G3LCLK1P),
-//		.G4LCLK0N(G4LCLK0N),.G4LCLK0P(G4LCLK0P),
-//		.G4LCLK1N(G4LCLK1N),.G4LCLK1P(G4LCLK1P),
-//		.G5LCLK0N(G5LCLK0N),.G5LCLK0P(G5LCLK0P),
-//		.G5LCLK1N(G5LCLK1N),.G5LCLK1P(G5LCLK1P),
-//		.G6LCLK0N(G6LCLK0N),.G6LCLK0P(G6LCLK0P),
-//		.G6LCLK1N(G6LCLK1N),.G6LCLK1P(G6LCLK1P),
-//	   // Clocks and Resets
-//		.RST(dsr_rst),
-//		.SYS_RST(sys_rst),
-//		.DSR_RESYNC(dsr_resync),
-////	   .CLK20(clk20),
-//		.G1FRM_CLK0(g1_frm_clk0),    // Frame Clock for G1 ADC0 data
-//		.G1FRM_CLK1(g1_frm_clk1),    // Frame Clock for G1 ADC1 data
-//		.G2FRM_CLK0(g2_frm_clk0),    // Frame Clock for G2 ADC0 data
-//		.G2FRM_CLK1(g2_frm_clk1),    // Frame Clock for G2 ADC1 data
-//		.G3FRM_CLK0(g3_frm_clk0),    // Frame Clock for G3 ADC0 data
-//		.G3FRM_CLK1(g3_frm_clk1),    // Frame Clock for G3 ADC1 data
-//		.G4FRM_CLK0(g4_frm_clk0),    // Frame Clock for G4 ADC0 data
-//		.G4FRM_CLK1(g4_frm_clk1),    // Frame Clock for G4 ADC1 data
-//		.G5FRM_CLK0(g5_frm_clk0),    // Frame Clock for G5 ADC0 data
-//		.G5FRM_CLK1(g5_frm_clk1),    // Frame Clock for G5 ADC1 data
-//		.G6FRM_CLK0(g6_frm_clk0),    // Frame Clock for G6 ADC0 data
-//		.G6FRM_CLK1(g6_frm_clk1),    // Frame Clock for G6 ADC1 data
-//		//
-//		.G1RESTARTP0(g1restartp0),   // Restart pipeline for G1 ADC0
-//		.G1RESTARTP1(g1restartp1),   // Restart pipeline for G1 ADC1
-//		.G2RESTARTP0(g2restartp0),   // Restart pipeline for G2 ADC0
-//		.G2RESTARTP1(g2restartp1),   // Restart pipeline for G2 ADC1
-//		.G3RESTARTP0(g3restartp0),   // Restart pipeline for G3 ADC0
-//		.G3RESTARTP1(g3restartp1),   // Restart pipeline for G3 ADC1
-//		.G4RESTARTP0(g4restartp0),   // Restart pipeline for G4 ADC0
-//		.G4RESTARTP1(g4restartp1),   // Restart pipeline for G4 ADC1
-//		.G5RESTARTP0(g5restartp0),   // Restart pipeline for G5 ADC0
-//		.G5RESTARTP1(g5restartp1),   // Restart pipeline for G5 ADC1
-//		.G6RESTARTP0(g6restartp0),   // Restart pipeline for G6 ADC0
-//		.G6RESTARTP1(g6restartp1),   // Restart pipeline for G6 ADC1
-//		.DSR_ALIGNED(dsr_aligned),
-//		// Deserialized outputs - 16 channels of 12 bits flattend into single vectors (channel 15 in high order bits, 0 in low)
-//		.G1DAQ16CH(g1daq16ch),
-//		.G2DAQ16CH(g2daq16ch),
-//		.G3DAQ16CH(g3daq16ch),
-//		.G4DAQ16CH(g4daq16ch),
-//		.G5DAQ16CH(g5daq16ch),
-//		.G6DAQ16CH(g6daq16ch),
-//		.RESYNC(resync),
-//		.resync_d1(resync_d1),
-//		.lead_edg_resync(lead_edg_resync),
-//		.lead_edg_resync_d1(lead_edg_resync_d1),
-//		.cap_phase(cap_phase),
-//		.rst_mmcm_pipe(rst_mmcm_pipe)
-//	);
 	
 	adc_data_input_gen_csp #(
 	.USE_CHIPSCOPE(USE_DESER_CHIPSCOPE)
@@ -1603,7 +1549,6 @@ SPI_PORT_i  (
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
 
-	wire [2:0] por_state;
 	wire por_adc_init, jtag_adc_init, csp_adc_init;
 //	wire adc_init;
 //	wire adc_init_done;
@@ -1633,8 +1578,8 @@ SPI_PORT_i  (
 		.BPI_SEQ_IDLE(bpi_seq_idle),
 		
 		.ADC_INIT(por_adc_init),
+		.ADC_RDY(adc_rdy),
 		.AL_START(por_al_start),
-		.QP_RST_B(QP_RST_B),
 		.TRG_GTXTXRESET(trg_gtxtxreset),
 		.MMCM_RST(mmcm_rst),
 		.SYS_MON_RST(sys_mon_rst),
@@ -1668,6 +1613,7 @@ SPI_PORT_i  (
 	wire [23:0] sem_far_la;
 	wire [15:0] sem_errcnt;
 	wire [15:0] sem_status;
+
 	
 	jtag_access 
 	jtag_acc1(
@@ -1681,6 +1627,8 @@ SPI_PORT_i  (
       .EOS(eos),          // End Of Startup
 		.BKY_RTN(bky_rtn),  // Serial data returned from amplifiers
 		.DCFEB_STATUS(dcfeb_status),    // Status word
+		.STARTUP_STATUS(startup_status),    // Startup Status word
+		.QPLL_CNT(qpll_cnt),    // Count of lossing QPLL locks
 		.ADCDATA(doutfifo), // Data out of pipeline
 		.BPI_RBK_FIFO(bpi_rbk_fifo), // Data read back from BPI PROM
 		.BPI_STATUS(bpi_status),     // STATUS word for BPI interface
@@ -1692,6 +1640,7 @@ SPI_PORT_i  (
 	   .CLR_AL_DONE(clr_al_done),  // Clear Auto Load Done flag
 	   .AL_DONE(al_done),          // Auto load process complete
 		
+		.QP_RST_B(QP_RST_B),         // QPLL reset
 		.JTAG_SYS_RST(jtag_sys_rst), // Issue the equivalent of power on reset without reprogramming.
 		.RDFIFO(rdfifo),            // Advance fifo to next word
 		.JTAG_RD_MODE(jtag_rd_mode),// JTAG read out mode for FIFO1 

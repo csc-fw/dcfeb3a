@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Jan 21 18:07:53 2014
+# Date: Wed Jan 22 16:51:06 2014
 #
 ##############################################################
 #
@@ -88,7 +88,7 @@ CSET match_type_13=basic_with_edges
 CSET match_type_14=basic_with_edges
 CSET match_type_15=basic_with_edges
 CSET match_type_16=basic_with_edges
-CSET match_type_2=basic_with_edges
+CSET match_type_2=extended_with_edges
 CSET match_type_3=basic_with_edges
 CSET match_type_4=basic_with_edges
 CSET match_type_5=basic_with_edges
@@ -138,4 +138,4 @@ CSET use_rpms=true
 MISC pkg_timestamp=2013-10-13T14:13:15Z
 # END Extra information
 GENERATE
-# CRC: c077a881
+# CRC: 927e9e1f

@@ -70,6 +70,10 @@
 //  51     | Frame Address Register (FAR) in Physical Address format indicating the frame containing the error (24-bits). 
 //  52     | Register Selection Word (Reg_Sel_Wrd) for selecting which register to independently capture and readback (8-bits). 
 //  53     | Readback Select Register: Register to capture selected register indicated in Reg_Sel_Wrd (16-bits). 
+//  54     | QPLL reset: This requires a NoOp afterwards to clear the reset then a Hard reset.  All clocks stop while active. QPLL takes 0.5 seconds to lock. 
+//  55     | QPLL lock lost counter (8-bits). 
+//  56     | Startup Status register (16-bits).  {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],eos,por_state[2:0]};
+
 //
 // Revision: 
 // Revision 0.01 - File Created
@@ -87,6 +91,8 @@ module jtag_access (
     input EOS,               // End Of Startup
     input [6:1] BKY_RTN,     // Serial data returned from amplifiers
     input [15:0] DCFEB_STATUS, // Status word
+    input [15:0] STARTUP_STATUS, // Startup Status word
+    input [7:0] QPLL_CNT,    // Count of lossing QPLL lock
     input [191:0] ADCDATA,   // Data out of pipeline
     input [15:0] BPI_RBK_FIFO, // Data read back from BPI PROM
     input [15:0] BPI_STATUS, // STATUS word for BPI interface
@@ -97,6 +103,7 @@ module jtag_access (
 	 input [5:0] AL_CNT,      // Auto load counter
 	 input CLR_AL_DONE,       // Clear Auto Load Done flag
 	 output reg AL_DONE,      // Auto load process complete
+    output QP_RST_B,         // QPLL reset signal external connection
 	 output JTAG_SYS_RST,     // JTAG initiated system reset 
     output reg RDFIFO,       // Advance fifo to next word
 	 output JTAG_RD_MODE,     // JTAG read out mode for FIFO1 
@@ -189,7 +196,9 @@ module jtag_access (
 	wire [63:0] f; //JTAG functions (one hot);
 	wire f11;
 	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15,dmy16;
-	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15,tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31,tdof32,tdof33,tdof34,tdof35;
+	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15;
+	wire tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31;
+	wire tdof32,tdof33,tdof34,tdof35,tdof37,tdof38;
 	wire [31:16] status_h;
    wire [6:1] bky_mask;
 	wire [6:0] nsamp;
@@ -231,13 +240,20 @@ module jtag_access (
 	wire al_pdepth;
 
 	wire not_eos;
+	wire rst_qpll;
+
+	assign rst_qpll = f[54];
+	OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_QP_RST (.O(QP_RST_B),.I(~rst_qpll));
 
 	assign not_eos = !EOS;
 	assign SAMP_MAX = nsamp-1;
 	assign JC_ADC_CNFG = f[14];
 	
 	
-	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f | tdof24 | tdof25 | tdof27 | tdof2c | tdof2d | tdof31 | tdof32 | tdof33 | tdof34 | tdof35);
+	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | 
+						tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f |
+						tdof24 | tdof25 | tdof27 | tdof2c | tdof2d | tdof31 | tdof32 | tdof33 | tdof34 | tdof35 | tdof37 | tdof38);
+						
 	assign status_h[31:16] = {5'b10110,XL1DLYSET,LOADPBLK,COMP_TIME,COMP_MODE};
 	
 	assign JTAG_SYS_RST  = f[1];  // System Reset JTAG command (like power on reset without reprogramming)
@@ -975,7 +991,8 @@ end
 //
 // Function 37:
 //
-// SEM Status and Configuration Frame Address Register (FAR) capture and shift
+// SEM Status capture and shift
+
 //	[0] = status_initialization;
 //	[1] = status_observation;
 //	[2] = status_correction;
@@ -986,9 +1003,8 @@ end
 //	[7] = 1'b0;
 //	[8] = CRC error;
 //	[9] = double error detected;
-//	[33:10] = FAR Physical address of error; 
 
-   user_cap_reg #(.width(34))
+   user_cap_reg #(.width(10))
    SEM_Status_Reg(
       .DRCK(tck2),        // Data Reg Clock
       .FSH(1'b0),         // Shift Function
@@ -998,18 +1014,8 @@ end
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
       .RST(RST),          // Reset default state
-		.BUS({SEM_FAR_PA,SEM_STATUS[9:0]}), // Bus to capture // bits 33:10 are FAR, bit 9 is double error detected, bit 8 is crc error
+		.BUS(SEM_STATUS[9:0]), // Bus to capture //  bit 9 is double error detected, bit 8 is crc error
       .TDO(tdof25));      // Serial Test Data Out
-//	assign SEM_STATUS[0] = status_initialization;
-//	assign SEM_STATUS[1] = status_observation;
-//	assign SEM_STATUS[2] = status_correction;
-//	assign SEM_STATUS[3] = status_classification;
-//	assign SEM_STATUS[4] = status_injection;
-//	assign SEM_STATUS[5] = status_essential;
-//	assign SEM_STATUS[6] = status_uncorrectable;
-//	assign SEM_STATUS[7] = 1'b0;
-//	assign SEM_STATUS[8] = fecc_crcerr;
-//	assign SEM_STATUS[9] = dbl_err_det;
 
 //
 // Function 39:
@@ -1258,4 +1264,45 @@ begin
 		default :  sel_reg = {8'h00,reg_sel_wrd};
 	endcase
 end		
+	
+//
+// Function 55:
+//
+//
+// QPLL Lock Lost Counter
+//
+   user_cap_reg #(.width(8))
+   QPLL_LLC1(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[55]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(not_eos),       // Reset default state
+		.BUS(QPLL_CNT),      // Bus to capture
+      .TDO(tdof37));       // Serial Test Data Out
+//
+// Function 56:
+//
+// Startup Status Word
+//       {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],eos,por_state[2:0]};
+//
+//
+   user_cap_reg #(.width(16))
+   startup1(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[56]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(not_eos),       // Reset default state
+		.BUS(STARTUP_STATUS), // Bus to capture
+      .TDO(tdof38));       // Serial Test Data Out
+
+
+
 endmodule

@@ -88,6 +88,7 @@ module SEM_module #(
 	wire csp_send_cmd;
 	wire send_cmd;
 	wire csp_tk_ctrl;
+	wire csp_fre;
 	reg  csp_jtag_b;
 	wire rxempty_n;
 	wire fifo_unused;
@@ -127,6 +128,9 @@ module SEM_module #(
    wire [10:0] wrcount;
    wire rderr;
    wire wrerr;
+
+
+assign FRE = csp_fre;
 
 //
 // Logic analyzer 
@@ -217,6 +221,7 @@ begin : chipscope_sem
 		assign sem_la0_trig[14]      = csp_send_cmd;
 		assign sem_la0_trig[15]      = monitor_rxread;
 		
+
 	// Virtual I/O for SEM
 
 	wire [47:0] sem_vio0_sync_out;
@@ -244,7 +249,6 @@ begin : chipscope_sem
 		assign sem_vio0_sync_in[47:24] = far_pa;
 		assign sem_vio0_sync_in[71:48] = far_la;
 
-
 	// VIO Sync Out Data [47:0]
 		assign inject_address = sem_vio0_sync_out[35:0];
 		assign inject_strobe  = sem_vio0_sync_out[36];
@@ -265,6 +269,7 @@ begin : no_chipscope_sem
 	assign csp_read       = 1'b0;
 	assign csp_cmd_data   = 8'h00;
 	assign csp_tk_ctrl    = 1'b0;
+	assign csp_fre        = 1'b0;
 
 end
 endgenerate

@@ -69,6 +69,9 @@
 //  51     | Frame Address Register (FAR) in Physical Address format indicating the frame containing the error (24-bits). 
 //  52     | Register Selection Word (Reg_Sel_Wrd) for selecting which register to independently capture and readback (8-bits). 
 //  53     | Readback Select Register: Register to capture selected register indicated in Reg_Sel_Wrd (16-bits). 
+//  54     | QPLL reset: This requires a NoOp afterwards to clear the reset then a Hard reset.  All clocks stop while active. QPLL takes 0.5 seconds to lock. 
+//  55     | QPLL lock lost counter (8-bits). 
+//  56     | Startup Status register (16-bits).  {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],eos,por_state[2:0]};
 //
 // Revision: 
 // Revision 0.01 - File Created

@@ -20,6 +20,11 @@ Creates an implementation netlist:
    * sem_la.xdc
    * sem_la_xmdf.tcl
 
+Creates an HDL instantiation template:
+   Creates an HDL instantiation template for the IP.
+
+   * sem_la.veo
+
 IP Symbol Generator:
    Generate an IP symbol based on the current project options'.
 

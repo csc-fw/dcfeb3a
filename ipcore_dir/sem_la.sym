@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="sem_la">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2014-1-21T18:11:17</timestamp>
+    <timestamp>2014-1-22T16:54:26</timestamp>
     <pin polarity="Input" x="0" y="80" name="control[35:0]" />
     <pin polarity="Input" x="0" y="112" name="clk" />
     <pin polarity="Input" x="0" y="144" name="data[195:0]" />
