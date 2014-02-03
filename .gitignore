@@ -58,6 +58,7 @@ xst/
 *.rbd
 *.rbt
 *.ll
+*.svf
 
 ### Other ###
 *~
