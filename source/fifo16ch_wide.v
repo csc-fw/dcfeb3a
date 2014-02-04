@@ -115,7 +115,9 @@ module fifo16ch_wide(
 		if(srst)
 			sample <= 0;
 		else
-			if(sinc && (sel == 3'd5))
+			if(sinc && start)
+			   sample <= 0;
+			else if(sinc && (sel == 3'd5))
 				sample <= sample + 1;
 			else
 			   sample <= sample;

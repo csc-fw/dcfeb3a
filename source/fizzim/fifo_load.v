@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2013:03:27 at 16:02:50 (www.fizzim.com)
+// Created by fizzim.pl version 4.41 on 2014:02:03 at 16:24:31 (www.fizzim.com)
 
 module FIFO_Load_FSM (
   output reg SINC,
@@ -27,14 +27,14 @@ module FIFO_Load_FSM (
     SRST = 0; // default
     case (state)
       Idle    : begin
-                                                SRST = 1;
-        if (START)                              nextstate = Transfer;
-        else                                    nextstate = Idle;
+                                                          SRST = 1;
+        if (START)                                        nextstate = Transfer;
+        else                                              nextstate = Idle;
       end
       Transfer: begin
-                                                SINC = 1;
-        if (SEL == 3'd5 && SAMPLE == SAMP_MAX)  nextstate = Idle;
-        else                                    nextstate = Transfer;
+                                                          SINC = 1;
+        if (SAMPLE == SAMP_MAX && SEL == 3'd5 && !START)  nextstate = Idle;
+        else                                              nextstate = Transfer;
       end
     endcase
   end
