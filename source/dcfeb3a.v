@@ -16,7 +16,7 @@ module dcfeb3a #(
 	parameter USE_FF_EMU_CHIPSCOPE = 0,
 	parameter USE_SPI_CHIPSCOPE = 0,
 	parameter USE_PIPE_CHIPSCOPE = 0,
-	parameter USE_SEM_CHIPSCOPE = 1
+	parameter USE_SEM_CHIPSCOPE = 0
 	)(
 
 	//Clocks

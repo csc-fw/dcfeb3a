@@ -56,16 +56,15 @@ module pipeline_gen_csp #(
 	wire [95:0] daq8ch[6:1][1:0];
 	wire fifo_tst_in[6:1][1:0];
 	
-	wire amt_a[6:1][1:0],amt_b[6:1][1:0],amt_c[6:1][1:0];
-	wire afl_a[6:1][1:0],afl_b[6:1][1:0],afl_c[6:1][1:0];
-	wire  mt_a[6:1][1:0], mt_b[6:1][1:0], mt_c[6:1][1:0];
-	wire  fl_a[6:1][1:0], fl_b[6:1][1:0], fl_c[6:1][1:0];
+	wire injectsbiterr;
+	wire injectdbiterr;
+	wire  sbiterr_a[6:1][1:0], sbiterr_b[6:1][1:0];
+	wire  dbiterr_a[6:1][1:0], dbiterr_b[6:1][1:0];
+	wire  mt_a[6:1][1:0], mt_b[6:1][1:0];
+	wire  fl_a[6:1][1:0], fl_b[6:1][1:0];
 
-	wire [8:0] rdcnt_a[6:1][1:0],rdcnt_b[6:1][1:0],rdcnt_c[6:1][1:0];
-	wire rderr_a[6:1][1:0],rderr_b[6:1][1:0],rderr_c[6:1][1:0];
 
-	wire [8:0] wcnt_a[6:1][1:0],wcnt_b[6:1][1:0],wcnt_c[6:1][1:0];
-	wire wrerr_a[6:1][1:0],wrerr_b[6:1][1:0],wrerr_c[6:1][1:0];
+	wire [8:0] wcnt[6:1][1:0];
 
 	reg  [1:0] hold[6:1][1:0];
 	wire inc_h[6:1][1:0];
@@ -115,8 +114,10 @@ pipe_la pipe_la0 (
 	assign pipe_la0_data[99:90]      = tcnt[5][1];
 	assign pipe_la0_data[109:100]    = tcnt[6][0];
 	assign pipe_la0_data[119:110]    = tcnt[6][1];
-	assign pipe_la0_data[128:120]    = wcnt_a[5][1];
-	assign pipe_la0_data[137:129]    = rdcnt_a[5][1];
+//	assign pipe_la0_data[128:120]    = wcnt_a[5][1];
+//	assign pipe_la0_data[137:129]    = rdcnt_a[5][1];
+	assign pipe_la0_data[128:120]    = 9'h000;
+	assign pipe_la0_data[137:129]    = 9'h000;
 	assign pipe_la0_data[146:138]    = PDEPTH;
 	assign pipe_la0_data[147]        = 1'b0;
 	assign pipe_la0_data[148]        = 1'b0;
@@ -228,6 +229,8 @@ end
 endgenerate
 
 
+assign injectsbiterr = 1'b0;
+assign injectdbiterr = 1'b0;
 
 
 assign {wrclk[6][1],wrclk[6][0],wrclk[5][1],wrclk[5][0],wrclk[4][1],wrclk[4][0],wrclk[3][1],wrclk[3][0],wrclk[2][1],wrclk[2][0],wrclk[1][1],wrclk[1][0]} = WRCLKS;
@@ -255,23 +258,6 @@ assign daq8ch[6][1] = G6DAQ8CH_1;
 	end
 
 
-   // FIFO_DUALCLOCK_MACRO: Dual Clock First-In, First-Out (FIFO) RAM Buffer
-   //                       Virtex-6
-   // Xilinx HDL Language Template, version 12.4
-   
-   /////////////////////////////////////////////////////////////////
-   // DATA_WIDTH | FIFO_SIZE | FIFO Depth | RDCOUNT/WRCOUNT Width //
-   // ===========|===========|============|=======================//
-   //   37-72    |  "36Kb"   |     512    |         9-bit         //
-   //   19-36    |  "36Kb"   |    1024    |        10-bit         //
-   //   19-36    |  "18Kb"   |     512    |         9-bit         //
-   //   10-18    |  "36Kb"   |    2048    |        11-bit         //
-   //   10-18    |  "18Kb"   |    1024    |        10-bit         //
-   //    5-9     |  "36Kb"   |    4096    |        12-bit         //
-   //    5-9     |  "18Kb"   |    2048    |        11-bit         //
-   //    1-4     |  "36Kb"   |    8192    |        13-bit         //
-   //    1-4     |  "18Kb"   |    4096    |        12-bit         //
-   /////////////////////////////////////////////////////////////////
 genvar G,S;
 
 generate
@@ -280,82 +266,38 @@ generate
 		
 			assign fifo_tst_in[G][S] = csp_sel_tpls ? csp_inj_pulse : daq8ch[G][S][0];
 		
-			FIFO_DUALCLOCK_MACRO  #(
-				.DEVICE("VIRTEX6"),                // Target Device: "VIRTEX5", "VIRTEX6" 
-				.ALMOST_EMPTY_OFFSET(9'h080),      // Sets the almost empty threshold
-				.ALMOST_FULL_OFFSET(9'h080),       // Sets almost full threshold
-				.DATA_WIDTH(32),                   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-				.FIFO_SIZE ("18Kb"),               // Target BRAM: "18Kb" or "36Kb" 
-				.FIRST_WORD_FALL_THROUGH ("FALSE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-			) Pipeline_a (
-				.ALMOSTEMPTY(amt_a[G][S]),         // 1-bit output almost empty
-				.ALMOSTFULL(afl_a[G][S]),          // 1-bit output almost full
-				.DO(po[G][S][31:0]),               // Output data, width defined by DATA_WIDTH parameter
-				.EMPTY(mt_a[G][S]),                // 1-bit output empty
-				.FULL(fl_a[G][S]),                 // 1-bit output full
-				.RDCOUNT(rdcnt_a[G][S]),           // Output read count, width determined by FIFO depth
-				.RDERR(rderr_a[G][S]),             // 1-bit output read error
-				.WRCOUNT(wcnt_a[G][S]),            // Output write count, width determined by FIFO depth
-				.WRERR(wrerr_a[G][S]),             // 1-bit output write error
-				.DI({daq8ch[G][S][31:1],fifo_tst_in[G][S]}),           // Input data, width defined by DATA_WIDTH parameter
-				.RDCLK(RDCLK),                     // 1-bit input read clock
-				.RDEN(re_sync[G][S]),              // 1-bit input read enable
-				.RST(pipe_reset[G][S]),            // 1-bit input reset
-				.WRCLK(wrclk[G][S]),               // 1-bit input clock
-				.WREN(wena[G][S])                  // 1-bit input write enable
+			pipeline_ecc Pipeline_a (             // 36Kb FIFOs with ECC protection
+			  .rst(pipe_reset[G][S]),              // input rst
+			  .wr_clk(wrclk[G][S]),                // input wr_clk
+			  .rd_clk(RDCLK),                      // input rd_clk
+			  .din({daq8ch[G][S][63:1],fifo_tst_in[G][S]}),  // input [63 : 0] din
+			  .wr_en(wena[G][S]),                  // input wr_en
+			  .rd_en(re_sync[G][S]),               // input rd_en
+			  .injectdbiterr(injectdbiterr),       // input injectdbiterr
+			  .injectsbiterr(injectsbiterr),       // input injectsbiterr
+			  .dout({po[G][S][63:0]}),             // output [63 : 0] dout
+			  .full(fl_a[G][S]),                   // output full
+			  .empty(mt_a[G][S]),                  // output empty
+			  .sbiterr(sbiterr_a[G][S]),           // output sbiterr
+			  .dbiterr(dbiterr_a[G][S])            // output dbiterr
 			);
 			
-			FIFO_DUALCLOCK_MACRO  #(
-				.DEVICE("VIRTEX6"),                // Target Device: "VIRTEX5", "VIRTEX6" 
-				.ALMOST_EMPTY_OFFSET(9'h080),      // Sets the almost empty threshold
-				.ALMOST_FULL_OFFSET(9'h080),       // Sets almost full threshold
-				.DATA_WIDTH(32),                   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-				.FIFO_SIZE ("18Kb"),               // Target BRAM: "18Kb" or "36Kb" 
-				.FIRST_WORD_FALL_THROUGH ("FALSE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-			) Pipeline_b (
-				.ALMOSTEMPTY(amt_b[G][S]),         // 1-bit output almost empty
-				.ALMOSTFULL(afl_b[G][S]),          // 1-bit output almost full
-				.DO(po[G][S][63:32]),              // Output data, width defined by DATA_WIDTH parameter
-				.EMPTY(mt_b[G][S]),                // 1-bit output empty
-				.FULL(fl_b[G][S]),                 // 1-bit output full
-				.RDCOUNT(rdcnt_b[G][S]),           // Output read count, width determined by FIFO depth
-				.RDERR(rderr_b[G][S]),             // 1-bit output read error
-				.WRCOUNT(wcnt_b[G][S]),            // Output write count, width determined by FIFO depth
-				.WRERR(wrerr_b[G][S]),             // 1-bit output write error
-				.DI(daq8ch[G][S][63:32]),          // Input data, width defined by DATA_WIDTH parameter
-				.RDCLK(RDCLK),                     // 1-bit input read clock
-				.RDEN(re_sync[G][S]),              // 1-bit input read enable
-				.RST(pipe_reset[G][S]),            // 1-bit input reset
-				.WRCLK(wrclk[G][S]),               // 1-bit input clock
-				.WREN(wena[G][S])                  // 1-bit input write enable
+			pipeline_ecc Pipeline_b (              // 36Kb FIFOs with ECC protection
+			  .rst(pipe_reset[G][S]),              // input rst
+			  .wr_clk(wrclk[G][S]),                // input wr_clk
+			  .rd_clk(RDCLK),                      // input rd_clk
+			  .din({32'h00000000,daq8ch[G][S][95:64]}), // input [63 : 0] din
+			  .wr_en(wena[G][S]),                  // input wr_en
+			  .rd_en(re_sync[G][S]),               // input rd_en
+			  .injectdbiterr(injectdbiterr),       // input injectdbiterr
+			  .injectsbiterr(injectsbiterr),       // input injectsbiterr
+			  .dout({dummy[G][S],po[G][S][95:64]}),// output [63 : 0] dout
+			  .full(fl_b[G][S]),                   // output full
+			  .empty(mt_b[G][S]),                  // output empty
+			  .sbiterr(sbiterr_b[G][S]),           // output sbiterr
+			  .dbiterr(dbiterr_b[G][S])            // output dbiterr
 			);
 			
-			FIFO_DUALCLOCK_MACRO  #(
-				.DEVICE("VIRTEX6"),                // Target Device: "VIRTEX5", "VIRTEX6" 
-				.ALMOST_EMPTY_OFFSET(9'h080),      // Sets the almost empty threshold
-				.ALMOST_FULL_OFFSET(9'h080),       // Sets almost full threshold
-				.DATA_WIDTH(32),                   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-				.FIFO_SIZE ("18Kb"),               // Target BRAM: "18Kb" or "36Kb" 
-				.FIRST_WORD_FALL_THROUGH ("FALSE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-			) Pipeline_c (
-				.ALMOSTEMPTY(amt_c[G][S]),         // 1-bit output almost empty
-				.ALMOSTFULL(afl_c[G][S]),          // 1-bit output almost full
-				.DO(po[G][S][95:64]),              // Output data, width defined by DATA_WIDTH parameter
-				.EMPTY(mt_c[G][S]),                // 1-bit output empty
-				.FULL(fl_c[G][S]),                 // 1-bit output full
-				.RDCOUNT(rdcnt_c[G][S]),           // Output read count, width determined by FIFO depth
-				.RDERR(rderr_c[G][S]),             // 1-bit output read error
-				.WRCOUNT(wcnt_c[G][S]),            // Output write count, width determined by FIFO depth
-				.WRERR(wrerr_c[G][S]),             // 1-bit output write error
-				.DI(daq8ch[G][S][95:64]),          // Input data, width defined by DATA_WIDTH parameter
-				.RDCLK(RDCLK),                     // 1-bit input read clock
-				.RDEN(re_sync[G][S]),              // 1-bit input read enable
-				.RST(pipe_reset[G][S]),            // 1-bit input reset
-				.WRCLK(wrclk[G][S]),               // 1-bit input clock
-				.WREN(wena[G][S])                  // 1-bit input write enable
-			);
-
-	
 	
 			always @(posedge CLK160) begin
 				re_s1[G][S] <= rena[G][S];
@@ -377,7 +319,7 @@ generate
 			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
 			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
 			  .RST(RST),                           // Reset
-			  .WCNT(wcnt_a[G][S])                  // Write count from pipeline
+			  .WCNT(wcnt[G][S])                  // Write count from pipeline
 			);
 
 
@@ -391,11 +333,21 @@ generate
 						hold[G][S] <= hold[G][S];
 			end
 			
+			always @(posedge wrclk[G][S] or posedge trst[G][S]) begin
+				if(trst[G][S])
+					wcnt[G][S] <= 9'h000;
+				else
+					if(wena[G][S])
+						wcnt[G][S] <= wcnt[G][S] + 1;
+					else
+						wcnt[G][S] <= wcnt[G][S];
+			end
+			
 			assign trst[G][S] = RST | pipe_reset[G][S];
 			
 			always @(posedge CLK160 or posedge trst[G][S]) begin
 				if(trst[G][S])
-					tcnt[G][S] <= 12'h000;
+					tcnt[G][S] <= 10'h000;
 				else
 					case({re_sync[G][S],wena[G][S]})
 						2'b00:	tcnt[G][S] <= tcnt[G][S];
