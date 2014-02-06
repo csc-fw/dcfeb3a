@@ -918,8 +918,10 @@ wire l1a,l1a_match,lct,l1a_phase,bc0;
 wire l1a_push_skw, l1a_push_mac;
 wire [191:0] doutfifo;
 wire [15:0] fifo1_rd_ena;
+wire l1a_rd_en;
 wire f1rdy;
 wire [6:0] samp_max;
+wire [43:0] l1a_smp_out;
 
 fifo16ch_wide
 fifo1 (
@@ -928,6 +930,8 @@ fifo1 (
 	 .SMPCLK(clk20),	// Sample clock for L1A phase information.
     .WRCLK(clk120),  // write to FIFO at 120 MHz (6 words x 20MHz sample rate)
     .RST(sys_rst || ~daq_mmcm_lock),
+    .RESYNC(resync),
+    .L1A(l1a),			
     .L1A_MATCH(l1a_match),			
     .G1IN(g1pipout),
     .G2IN(g2pipout),
@@ -936,9 +940,10 @@ fifo1 (
     .G5IN(g5pipout),
     .G6IN(g6pipout),
     .RD_ENA(fifo1_rd_ena),
+    .L1A_RD_EN(l1a_rd_en),
 	 .SAMP_MAX(samp_max),
 	 .RDY(f1rdy),
-	 .L1A_PHASE(l1a_phase),
+    .L1A_SMP_OUT(l1a_smp_out),  // 44 bit wide output two entries per sample
     .DOUT_16CH(doutfifo)  // 192 bit wide output at 160 MHz for 6 X (n samples)
     );
 

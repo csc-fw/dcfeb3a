@@ -266,7 +266,7 @@ generate
 		
 			assign fifo_tst_in[G][S] = csp_sel_tpls ? csp_inj_pulse : daq8ch[G][S][0];
 		
-			pipeline_ecc Pipeline_a (             // 36Kb FIFOs with ECC protection
+			pipeline_ecc Pipeline_a (              // 36Kb FIFOs with ECC protection
 			  .rst(pipe_reset[G][S]),              // input rst
 			  .wr_clk(wrclk[G][S]),                // input wr_clk
 			  .rd_clk(RDCLK),                      // input rd_clk

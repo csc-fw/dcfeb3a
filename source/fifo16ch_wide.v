@@ -24,6 +24,8 @@ module fifo16ch_wide(
 	 input SMPCLK,
     input WRCLK,
     input RST,
+    input RESYNC,
+    input L1A,
     input L1A_MATCH,
     input [191:0] G1IN,
     input [191:0] G2IN,
@@ -32,43 +34,143 @@ module fifo16ch_wide(
     input [191:0] G5IN,
     input [191:0] G6IN,
     input [15:0] RD_ENA,
-	 input [6:0] SAMP_MAX,
+    input L1A_RD_EN,
+	 input [6:0] SAMP_MAX,  // number of samples per event minus 1
 	 output RDY,
-	 output reg L1A_PHASE,
+    output [43:0] L1A_SMP_OUT,
     output [191:0] DOUT_16CH
     );
 	 
-	 wire wren;
-	 wire famt0,famt1,famt2,famt3,famt4,famt5,famt6,famt7,famt8,famt9,famt10,famt11,famt12,famt13,famt14,famt15;
-	 wire fafl0,fafl1,fafl2,fafl3,fafl4,fafl5,fafl6,fafl7,fafl8,fafl9,fafl10,fafl11,fafl12,fafl13,fafl14,fafl15;
-	 wire fmt0,fmt1,fmt2,fmt3,fmt4,fmt5,fmt6,fmt7,fmt8,fmt9,fmt10,fmt11,fmt12,fmt13,fmt14,fmt15;
-	 wire ffl0,ffl1,ffl2,ffl3,ffl4,ffl5,ffl6,ffl7,ffl8,ffl9,ffl10,ffl11,ffl12,ffl13,ffl14,ffl15;
-	 wire [9:0] rdcount0,rdcount1,rdcount2,rdcount3,rdcount4,rdcount5,rdcount6,rdcount7,rdcount8,rdcount9,rdcount10,rdcount11,rdcount12,rdcount13,rdcount14,rdcount15;
-	 wire rderr0,rderr1,rderr2,rderr3,rderr4,rderr5,rderr6,rderr7,rderr8,rderr9,rderr10,rderr11,rderr12,rderr13,rderr14,rderr15;
-	 wire [9:0] wrcount0,wrcount1,wrcount2,wrcount3,wrcount4,wrcount5,wrcount6,wrcount7,wrcount8,wrcount9,wrcount10,wrcount11,wrcount12,wrcount13,wrcount14,wrcount15;
-	 wire wrerr0,wrerr1,wrerr2,wrerr3,wrerr4,wrerr5,wrerr6,wrerr7,wrerr8,wrerr9,wrerr10,wrerr11,wrerr12,wrerr13,wrerr14,wrerr15;
-	 reg [191:0] muxout;
-	 wire [11:0] fout0,fout1,fout2,fout3,fout4,fout5,fout6,fout7,fout8,fout9,fout10,fout11,fout12,fout13,fout14,fout15;
-	 wire start;
-	 wire phase_align;
-	 wire stretch_l1a;
-	 wire srst;
-	 wire sinc;
+	reg resync_1;
+	reg resync_2;
+	reg resync_3;
+	reg resync_4;
+	wire resync_stretch;
+	wire rst_resync;
+	
+	wire wren;
+	wire [15:0] fmt;
+	wire [15:0] ffl;
+	wire [15:0] ovrflw;
+	reg [11:0] muxout[15:0];
+	wire [11:0] fout[15:0];
+	wire evt_start;
+	wire evt_end;
+	wire phase_align0;
+	wire phase_align1;
+	wire stretch_l1a;
+	wire srst;
+	wire sinc;
+	wire injectsbiterr;
+	wire injectdbiterr;
+	wire sbiterr[15:0];
+	wire dbiterr[15:0];
+	wire l1a_wren;
+	wire l1a_smp_sbiterr;
+	wire l1a_smp_dbiterr;
+	wire l1a_smp_fl;
+	wire l1a_smp_mt;
+	wire ovrlap;
+	wire multi_ovlp;
+	wire new_l1a;
+	wire oinc;
+	wire odec;
+	reg  new_l1a_d1;
+	reg  [3:0] ovrlap_cnt;
+	reg  [7:0] event_pipe;
 	 
-	 reg l1a_d1;
-	 reg smpclk_dp5,smpclk_d1,smpclk_d2;
-	 reg [2:0] sel;
-	 reg [6:0] sample;
+	reg l1a_match_d1;
+	reg l1a_match_d2;
+	reg [23:0] l1acnt;
+	reg [11:0] l1amcnt;
+	reg [23:0] l1acnt_r1;
+	reg [11:0] l1amcnt_r1;
+	reg l1a_phase;
+	reg l1a_phase_r1;
+	reg smpclk_dp5,smpclk_d1,smpclk_d2;
+	reg [2:0] sel;
+	reg [6:0] sample;
 
 	 
-	assign DOUT_16CH = {fout15,fout14,fout13,fout12,fout11,fout10,fout9,fout8,fout7,fout6,fout5,fout4,fout3,fout2,fout1,fout0};
-	assign stretch_l1a = L1A_MATCH | l1a_d1;
-	assign phase_align = ~SMPCLK & ~smpclk_d2;
-	assign start = stretch_l1a & phase_align;
+	assign DOUT_16CH = {fout[15],fout[14],fout[13],fout[12],fout[11],fout[10],fout[9],fout[8],fout[7],fout[6],fout[5],fout[4],fout[3],fout[2],fout[1],fout[0]};
+	assign stretch_l1a = L1A_MATCH | l1a_match_d1;
+	assign phase_align0 = SMPCLK & smpclk_d2;
+	assign phase_align1 = ~SMPCLK & ~smpclk_d2;
+	assign evt_start = stretch_l1a & phase_align1;
+	assign evt_end = event_pipe[7];
 	assign wren = sinc;
-	assign RDY = ~famt0;
+	assign ovrlap = (ovrlap_cnt > 4'h0);
+	assign multi_ovlp = (ovrlap_cnt > 4'h1);
+	assign new_l1a = (L1A_MATCH & wren);
+	assign oinc = (new_l1a | new_l1a_d1 | (L1A_MATCH & l1a_match_d1));
+	assign odec = evt_end;
+	assign l1a_wren = wren & (phase_align0 | phase_align1);
+	assign RDY = ~l1a_smp_mt;
+	assign injectsbiterr = 1'b0;
+	assign injectdbiterr = 1'b0;
+
+	assign resync_stretch = (resync_1 | resync_2 | resync_3 | resync_4); 
+	assign rst_resync = RST || resync_stretch;
+
+	always @(posedge CLK40) begin
+		resync_1 <= RESYNC;
+		resync_2 <= resync_1;
+		resync_3 <= resync_2;
+		resync_4 <= resync_3;
+	end
+	always @(posedge CLK40) begin
+		if(rst_resync)
+			l1acnt <= 24'h000000;
+		else
+			if(L1A)
+				l1acnt <= l1acnt + 1;
+			else
+				l1acnt <= l1acnt;
+	end
+	always @(posedge CLK40) begin
+		if(rst_resync)
+			l1amcnt <= 12'h000;
+		else
+			if(L1A_MATCH)
+				l1amcnt <= l1amcnt + 1;
+			else
+				l1amcnt <= l1amcnt;
+	end
+	always @(posedge CLK40) begin
+		if(L1A_MATCH)
+			l1a_phase <= L1A_MATCH & ~SMPCLK;
+		else
+			l1a_phase <= l1a_phase;
+	end
+	
+	always @(posedge WRCLK) begin
+		if(srst)
+			ovrlap_cnt <= 4'h0;
+		else
+		   if(phase_align1)
+				case({oinc,odec})
+					2'b10: ovrlap_cnt <= ovrlap_cnt + 1;
+					2'b01: ovrlap_cnt <= ovrlap_cnt - 1;
+					default: ovrlap_cnt <= ovrlap_cnt;
+				endcase
+			else
+				ovrlap_cnt <= ovrlap_cnt;
+	end
+	always @(posedge WRCLK) begin
+		if(phase_align1)
+			event_pipe <= {event_pipe[6:0],evt_start};
+		else
+			event_pipe <= event_pipe;
+	end
 	 
-	always @(posedge CLK40) l1a_d1 <= L1A_MATCH;
+	always @(posedge CLK40) begin
+		l1a_match_d1 <= L1A_MATCH;
+		l1a_match_d2 <= l1a_match_d1;
+		l1acnt_r1    <= l1acnt;
+		l1amcnt_r1   <= l1amcnt;
+		l1a_phase_r1 <= l1a_phase;
+		new_l1a_d1   <= new_l1a;
+	end
 		
 	always @(negedge WRCLK) begin
 	   if(SMPCLK)
@@ -80,22 +182,16 @@ module fifo16ch_wide(
 		smpclk_d1 <= smpclk_dp5;
 		smpclk_d2 <= smpclk_d1;
 	end
-	always @(posedge CLK40) begin
-		if(L1A_MATCH)
-			L1A_PHASE <= L1A_MATCH & ~SMPCLK;
-		else
-			L1A_PHASE <= L1A_PHASE;
-	end
 	 
 	always @* begin
 		case (sel)
-			3'h0: muxout = G1IN;
-			3'h1: muxout = G2IN;
-			3'h2: muxout = G3IN;
-			3'h3: muxout = G4IN;
-			3'h4: muxout = G5IN;
-			3'h5: muxout = G6IN;
-			default: muxout = 0;
+			3'h0: {muxout[15],muxout[14],muxout[13],muxout[12],muxout[11],muxout[10],muxout[9],muxout[8],muxout[7],muxout[6],muxout[5],muxout[4],muxout[3],muxout[2],muxout[1],muxout[0]} = G1IN;
+			3'h1: {muxout[15],muxout[14],muxout[13],muxout[12],muxout[11],muxout[10],muxout[9],muxout[8],muxout[7],muxout[6],muxout[5],muxout[4],muxout[3],muxout[2],muxout[1],muxout[0]} = G2IN;
+			3'h2: {muxout[15],muxout[14],muxout[13],muxout[12],muxout[11],muxout[10],muxout[9],muxout[8],muxout[7],muxout[6],muxout[5],muxout[4],muxout[3],muxout[2],muxout[1],muxout[0]} = G3IN;
+			3'h3: {muxout[15],muxout[14],muxout[13],muxout[12],muxout[11],muxout[10],muxout[9],muxout[8],muxout[7],muxout[6],muxout[5],muxout[4],muxout[3],muxout[2],muxout[1],muxout[0]} = G4IN;
+			3'h4: {muxout[15],muxout[14],muxout[13],muxout[12],muxout[11],muxout[10],muxout[9],muxout[8],muxout[7],muxout[6],muxout[5],muxout[4],muxout[3],muxout[2],muxout[1],muxout[0]} = G5IN;
+			3'h5: {muxout[15],muxout[14],muxout[13],muxout[12],muxout[11],muxout[10],muxout[9],muxout[8],muxout[7],muxout[6],muxout[5],muxout[4],muxout[3],muxout[2],muxout[1],muxout[0]} = G6IN;
+			default: {muxout[15],muxout[14],muxout[13],muxout[12],muxout[11],muxout[10],muxout[9],muxout[8],muxout[7],muxout[6],muxout[5],muxout[4],muxout[3],muxout[2],muxout[1],muxout[0]} = 0;
 		endcase
 	end
 
@@ -115,7 +211,7 @@ module fifo16ch_wide(
 		if(srst)
 			sample <= 0;
 		else
-			if(sinc && start)
+			if(sinc && evt_start)
 			   sample <= 0;
 			else if(sinc && (sel == 3'd5))
 				sample <= sample + 1;
@@ -128,414 +224,50 @@ module fifo16ch_wide(
      .SINC(sinc),
      .SRST(srst),
      .CLK(WRCLK),
-     .RST(RST),
+     .RST(rst_resync),
 	  .SAMPLE(sample),
 	  .SAMP_MAX(SAMP_MAX),
      .SEL(sel),
-     .START(start) 
+     .START(evt_start) 
 );
   
 
+genvar Ch;
 
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_0 (
-      .ALMOSTEMPTY(famt0), // 1-bit output almost empty
-      .ALMOSTFULL(fafl0),   // 1-bit output almost full
-      .DO(fout0),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt0),             // 1-bit output empty
-      .FULL(ffl0),               // 1-bit output full
-      .RDCOUNT(rdcount0),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr0),             // 1-bit output read error
-      .WRCOUNT(wrcount0),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr0),             // 1-bit output write error
-      .DI(muxout[11:0]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[0]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
+generate
+	for (Ch=0; Ch<16; Ch=Ch+1) begin : channel
+		ch_fifo_ecc fifo_ch (            // 36Kb FIFO with ECC protection
+		  .rst(rst_resync),              // input rst
+		  .wr_clk(WRCLK),                // input wr_clk
+		  .rd_clk(RDCLK),                // input rd_clk
+		  .din(muxout[Ch]),              // input [11 : 0] din
+		  .wr_en(wren),                  // input wr_en
+		  .rd_en(RD_ENA[Ch]),            // input rd_en
+		  .injectdbiterr(injectdbiterr), // input injectdbiterr
+		  .injectsbiterr(injectsbiterr), // input injectsbiterr
+		  .dout(fout[Ch]),               // output [11 : 0] dout
+		  .full(ffl[Ch]),                // output full
+		  .overflow(ovrflw[Ch]),         // output overflow
+		  .empty(fmt[Ch]),               // output empty
+		  .sbiterr(sbiterr[Ch]),         // output sbiterr
+		  .dbiterr(dbiterr[Ch])          // output dbiterr
+		);
+	end
+endgenerate
 
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_1 (
-      .ALMOSTEMPTY(famt1), // 1-bit output almost empty
-      .ALMOSTFULL(fafl1),   // 1-bit output almost full
-      .DO(fout1),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt1),             // 1-bit output empty
-      .FULL(ffl1),               // 1-bit output full
-      .RDCOUNT(rdcount1),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr1),             // 1-bit output read error
-      .WRCOUNT(wrcount1),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr1),             // 1-bit output write error
-      .DI(muxout[23:12]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[1]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_2 (
-      .ALMOSTEMPTY(famt2), // 1-bit output almost empty
-      .ALMOSTFULL(fafl2),   // 1-bit output almost full
-      .DO(fout2),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt2),             // 1-bit output empty
-      .FULL(ffl2),               // 1-bit output full
-      .RDCOUNT(rdcount2),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr2),             // 1-bit output read error
-      .WRCOUNT(wrcount2),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr2),             // 1-bit output write error
-      .DI(muxout[35:24]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[2]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_3 (
-      .ALMOSTEMPTY(famt3), // 1-bit output almost empty
-      .ALMOSTFULL(fafl3),   // 1-bit output almost full
-      .DO(fout3),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt3),             // 1-bit output empty
-      .FULL(ffl3),               // 1-bit output full
-      .RDCOUNT(rdcount3),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr3),             // 1-bit output read error
-      .WRCOUNT(wrcount3),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr3),             // 1-bit output write error
-      .DI(muxout[47:36]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[3]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_4 (
-      .ALMOSTEMPTY(famt4), // 1-bit output almost empty
-      .ALMOSTFULL(fafl4),   // 1-bit output almost full
-      .DO(fout4),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt4),             // 1-bit output empty
-      .FULL(ffl4),               // 1-bit output full
-      .RDCOUNT(rdcount4),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr4),             // 1-bit output read error
-      .WRCOUNT(wrcount4),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr4),             // 1-bit output write error
-      .DI(muxout[59:48]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[4]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_5 (
-      .ALMOSTEMPTY(famt5), // 1-bit output almost empty
-      .ALMOSTFULL(fafl5),   // 1-bit output almost full
-      .DO(fout5),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt5),             // 1-bit output empty
-      .FULL(ffl5),               // 1-bit output full
-      .RDCOUNT(rdcount5),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr5),             // 1-bit output read error
-      .WRCOUNT(wrcount5),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr5),             // 1-bit output write error
-      .DI(muxout[71:60]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[5]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_6 (
-      .ALMOSTEMPTY(famt6), // 1-bit output almost empty
-      .ALMOSTFULL(fafl6),   // 1-bit output almost full
-      .DO(fout6),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt6),             // 1-bit output empty
-      .FULL(ffl6),               // 1-bit output full
-      .RDCOUNT(rdcount6),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr6),             // 1-bit output read error
-      .WRCOUNT(wrcount6),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr6),             // 1-bit output write error
-      .DI(muxout[83:72]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[6]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_7 (
-      .ALMOSTEMPTY(famt7), // 1-bit output almost empty
-      .ALMOSTFULL(fafl7),   // 1-bit output almost full
-      .DO(fout7),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt7),             // 1-bit output empty
-      .FULL(ffl7),               // 1-bit output full
-      .RDCOUNT(rdcount7),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr7),             // 1-bit output read error
-      .WRCOUNT(wrcount7),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr7),             // 1-bit output write error
-      .DI(muxout[95:84]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[7]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_8 (
-      .ALMOSTEMPTY(famt8), // 1-bit output almost empty
-      .ALMOSTFULL(fafl8),   // 1-bit output almost full
-      .DO(fout8),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt8),             // 1-bit output empty
-      .FULL(ffl8),               // 1-bit output full
-      .RDCOUNT(rdcount8),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr8),             // 1-bit output read error
-      .WRCOUNT(wrcount8),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr8),             // 1-bit output write error
-      .DI(muxout[107:96]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[8]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_9 (
-      .ALMOSTEMPTY(famt9), // 1-bit output almost empty
-      .ALMOSTFULL(fafl9),   // 1-bit output almost full
-      .DO(fout9),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt9),             // 1-bit output empty
-      .FULL(ffl9),               // 1-bit output full
-      .RDCOUNT(rdcount9),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr9),             // 1-bit output read error
-      .WRCOUNT(wrcount9),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr9),             // 1-bit output write error
-      .DI(muxout[119:108]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[9]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_10 (
-      .ALMOSTEMPTY(famt10), // 1-bit output almost empty
-      .ALMOSTFULL(fafl10),   // 1-bit output almost full
-      .DO(fout10),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt10),             // 1-bit output empty
-      .FULL(ffl10),               // 1-bit output full
-      .RDCOUNT(rdcount10),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr10),             // 1-bit output read error
-      .WRCOUNT(wrcount10),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr10),             // 1-bit output write error
-      .DI(muxout[131:120]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[10]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_11 (
-      .ALMOSTEMPTY(famt11), // 1-bit output almost empty
-      .ALMOSTFULL(fafl11),   // 1-bit output almost full
-      .DO(fout11),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt11),             // 1-bit output empty
-      .FULL(ffl11),               // 1-bit output full
-      .RDCOUNT(rdcount11),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr11),             // 1-bit output read error
-      .WRCOUNT(wrcount11),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr11),             // 1-bit output write error
-      .DI(muxout[143:132]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[11]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_12 (
-      .ALMOSTEMPTY(famt12), // 1-bit output almost empty
-      .ALMOSTFULL(fafl12),   // 1-bit output almost full
-      .DO(fout12),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt12),             // 1-bit output empty
-      .FULL(ffl12),               // 1-bit output full
-      .RDCOUNT(rdcount12),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr12),             // 1-bit output read error
-      .WRCOUNT(wrcount12),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr12),             // 1-bit output write error
-      .DI(muxout[155:144]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[12]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_13 (
-      .ALMOSTEMPTY(famt13), // 1-bit output almost empty
-      .ALMOSTFULL(fafl13),   // 1-bit output almost full
-      .DO(fout13),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt13),             // 1-bit output empty
-      .FULL(ffl13),               // 1-bit output full
-      .RDCOUNT(rdcount13),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr13),             // 1-bit output read error
-      .WRCOUNT(wrcount13),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr13),             // 1-bit output write error
-      .DI(muxout[167:156]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[13]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_14 (
-      .ALMOSTEMPTY(famt14), // 1-bit output almost empty
-      .ALMOSTFULL(fafl14),   // 1-bit output almost full
-      .DO(fout14),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt14),             // 1-bit output empty
-      .FULL(ffl14),               // 1-bit output full
-      .RDCOUNT(rdcount14),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr14),             // 1-bit output read error
-      .WRCOUNT(wrcount14),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr14),             // 1-bit output write error
-      .DI(muxout[179:168]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[14]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .ALMOST_EMPTY_OFFSET(10'h007), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h040),  // Sets almost full threshold
-      .DATA_WIDTH(12),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) FIFO_CH_15 (
-      .ALMOSTEMPTY(famt15), // 1-bit output almost empty
-      .ALMOSTFULL(fafl15),   // 1-bit output almost full
-      .DO(fout15),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(fmt15),             // 1-bit output empty
-      .FULL(ffl15),               // 1-bit output full
-      .RDCOUNT(rdcount15),         // Output read count, width determined by FIFO depth
-      .RDERR(rderr15),             // 1-bit output read error
-      .WRCOUNT(wrcount15),         // Output write count, width determined by FIFO depth
-      .WRERR(wrerr15),             // 1-bit output write error
-      .DI(muxout[191:180]),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(RDCLK),             // 1-bit input read clock
-      .RDEN(RD_ENA[15]),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(WRCLK),             // 1-bit input write clock
-      .WREN(wren)                // 1-bit input write enable
-   );
+l1a_smp_fifo l1a_smp_fifo_i (
+  .rst(rst_resync),                    // input rst
+  .wr_clk(WRCLK),                      // input wr_clk
+  .rd_clk(RDCLK),                      // input rd_clk
+  .din({multi_ovlp,ovrlap,l1a_phase_r1,l1a_match_d2,ovrlap_cnt,l1amcnt_r1,l1acnt_r1}), // input [43 : 0] din
+  .wr_en(l1a_wren),                    // input wr_en
+  .rd_en(L1A_RD_EN),                   // input rd_en
+  .dout(L1A_SMP_OUT),                  // output [43 : 0] dout
+  .full(l1a_smp_fl),                   // output full
+  .empty(l1a_smp_mt),                  // output empty
+  .sbiterr(l1a_smp_sbiterr),           // output sbiterr
+  .dbiterr(l1a_smp_dbiterr)            // output dbiterr
+);
 
 	
 endmodule

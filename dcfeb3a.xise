@@ -504,6 +504,14 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="336"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="336"/>
     </file>
+    <file xil_pn:name="ipcore_dir/ch_fifo_ecc.xco" xil_pn:type="FILE_COREGEN">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="343"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="343"/>
+    </file>
+    <file xil_pn:name="ipcore_dir/l1a_smp_fifo.xco" xil_pn:type="FILE_COREGEN">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="350"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="350"/>
+    </file>
     <file xil_pn:name="ipcore_dir/adc_frame_clk.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
@@ -596,6 +604,12 @@
     </file>
     <file xil_pn:name="ipcore_dir/pipeline_ecc.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="337"/>
+    </file>
+    <file xil_pn:name="ipcore_dir/ch_fifo_ecc.xise" xil_pn:type="FILE_COREGENISE">
+      <association xil_pn:name="Implementation" xil_pn:seqID="344"/>
+    </file>
+    <file xil_pn:name="ipcore_dir/l1a_smp_fifo.xise" xil_pn:type="FILE_COREGENISE">
+      <association xil_pn:name="Implementation" xil_pn:seqID="351"/>
     </file>
   </files>
 
