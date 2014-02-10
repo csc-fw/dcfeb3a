@@ -94,7 +94,7 @@ module jtag_access (
     input [15:0] STARTUP_STATUS, // Startup Status word
     input [7:0] QPLL_CNT,    // Count of lossing QPLL lock
     input [191:0] ADCDATA,   // Data out of pipeline
-    input [15:0] BPI_RBK_FIFO, // Data read back from BPI PROM
+    input [15:0] BPI_RBK_FIFO_DATA, // Data read back from BPI PROM
     input [15:0] BPI_STATUS, // STATUS word for BPI interface
     input [31:0] BPI_TIMER,  // Timer for BPI commands
     input [15:0] BPI_AL_REG, // Data from BPI PROM for auto-loading
@@ -128,7 +128,7 @@ module jtag_access (
 	 output RSTRT_PIPE,       // Restart pipeline on JTAG command
     output [8:0] PDEPTH,     // Pipeline Depth register (9 bits)
     output [1:0] TTC_SRC,    // TTC source register (2 bits)
-    output [15:0] BPI_WRT_FIFO,   // Data word for ADC configuration memory
+    output [15:0] BPI_CMD_FIFO_DATA,   // Data word for BPI command FIFO
     output reg BPI_WE,       // Write enable for BPI Write FIFO
     output reg BPI_RDENA,    // Read enable for BPI Readback FIFO
     output BPI_RESET,        // Reset signal for BPI interface (does not reset the PROM)
@@ -753,7 +753,7 @@ end
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(16'h0000),          // Parallel input
-      .PO(BPI_WRT_FIFO),       // Parallel output
+      .PO(BPI_CMD_FIFO_DATA),       // Parallel output
       .TDO(tdof15),        // Serial Test Data Out
       .DSY_OUT(dmy8));    // Daisy chained serial data out
 		
@@ -767,7 +767,7 @@ end
 	end
 
 //
-// BPI Data readback  capture and shift from BPI_RBK_FIFO
+// BPI Data readback  capture and shift from BPI_RBK_FIFO_DATA
 //
    user_cap_reg #(.width(16))
    BPI_rbk_FIFO_Jreg(
@@ -779,7 +779,7 @@ end
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
       .RST(RST),          // Reset default state
-		.BUS(BPI_RBK_FIFO), // Bus to capture
+		.BUS(BPI_RBK_FIFO_DATA), // Bus to capture
       .TDO(tdof16));      // Serial Test Data Out
 	
 //
@@ -1252,7 +1252,7 @@ begin
 		8'd6 : sel_reg = {7'h00,PDEPTH};
 		8'd7 : sel_reg = {14'h0000,TTC_SRC};
 		8'd8 : sel_reg = {9'h000,nsamp};
-		8'd9 : sel_reg = BPI_WRT_FIFO;
+		8'd9 : sel_reg = BPI_CMD_FIFO_DATA;
 		8'd10 : sel_reg = {12'h000,CMP_CLK_PHASE};
 		8'd11 : sel_reg = {13'h0000,SAMP_CLK_PHASE};
 		8'd12 : sel_reg = {13'h0000,TMB_TX_MODE};

@@ -22,23 +22,25 @@ module BPI_ctrl #(
 	parameter USE_CHIPSCOPE = 1
 )
 (
+	// Chip Scope Pro control signals
 	inout [35:0] BPI_VIO_CNTRL,
 	inout [35:0] BPI_LA_CNTRL,
 	// added for sim of external PROM
 //	output [1:0]RD_MODE,
 	//
-    input CLK,
-    input CLK1MHZ,
+    input CLK,                  // 40 MHz clock
+    input CLK1MHZ,              //  1 MHz clock for timers
     input RST,
-	 // Signals to/from JTAG interface
-	 input [15:0] BPI_JWRT_FIFO,
-	 input BPI_JWE,
-	 input BPI_JRE,
-    input BPI_JDSBL,      // Disable BPI processing
-    input BPI_JENBL,      // Enable BPI processing
-	 output [15:0] BPI_JRBK_FIFO,
-	 output reg [15:0] BPI_STATUS,
-	 output reg [31:0] BPI_TIMER,
+	 // Interface Signals to/from JTAG interface
+	 input [15:0] BPI_CMD_FIFO_DATA, // Data for command FIFO
+	 input BPI_WE,                   // Command FIFO write enable  (pulse one clock cycle for one write)
+	 input BPI_RE,                   // Read back FIFO read enable  (pulse one clock cycle for one read)
+    input BPI_DSBL,                 // Disable parsing of BPI commands in the command FIFO (while being filled)
+    input BPI_ENBL,                 // Enable  parsing of BPI commands in the command FIFO
+	 output [15:0] BPI_RBK_FIFO_DATA,// Data on output of the Read back FIFO
+	 output [10:0] BPI_RBK_WRD_CNT,  // Word count of the Read back FIFO (number of available reads)
+	 output reg [15:0] BPI_STATUS,   // FIFO status bits and latest value of the PROM status register. 
+	 output reg [31:0] BPI_TIMER,    // General timer
 	 // Signals to/from low level BPI interface
 	 input BPI_BUSY,
 	 input [15:0] BPI_DATA_FROM,
@@ -51,7 +53,11 @@ module BPI_ctrl #(
 	 output BPI_SEQ_IDLE
     );
 	 
-localparam // commands
+	 //
+	 // Declaration of commands used throughout the BPI interface
+	 //
+localparam 
+// commands for the PROM
 	NoOp            = 5'h00,
 	Write_1         = 5'h01,
 	Read_1          = 5'h02,
@@ -75,6 +81,7 @@ localparam // commands
 	Block_UnLock    = 5'h14,
 	Block_Lock_Down = 5'h15,
 	Blank_Check     = 5'h16,
+// commands for local control
 	Load_Address    = 5'h17,
 	Unassigned      = 5'h18,
 	Start_Timer     = 5'h19,
@@ -82,13 +89,13 @@ localparam // commands
 	Reset_Timer     = 5'h1B,
 	Clr_BPI_Status  = 5'h1C;
 
-localparam // Read modes
+localparam // Read modes (Array, Status Register, Electronic Signature, or Common Flash Interface Query)
    Rd_Array        = 2'd0,
    Rd_SR           = 2'd1,
    Rd_ESig         = 2'd2,
    Rd_CFIQ         = 2'd3;
 	
-localparam // Read modes
+localparam // Operational modes (synchronous or asynchronous)
    CRD_Sync        = 16'h3DDF,
    CRD_ASync       = 16'hBDDF;
 
@@ -146,20 +153,20 @@ wire [3:0] ctrl_state;
 wire [4:0] seq_state;
 wire [3:0] parse_state;
 
-// BPI write FIFO signals
-wire bpi_amt;
-wire bpi_afl;
-wire bpi_mt;
-wire bpi_full;
+// BPI command FIFO signals
+wire bpi_cmd_amt;
+wire bpi_cmd_afl;
+wire bpi_cmd_mt;
+wire bpi_cmd_full;
+wire bpi_wrena;
 wire [10:0] bpi_wrtcnt;
 wire bpi_wrterr;
+wire bpi_rdena;
 wire [10:0] bpi_rdcnt;
 wire bpi_rderr;
-wire bpi_rdena;
-wire bpi_wrena;
-wire [15:0] data_fifo;
-wire [15:0] bpi_wrt_data;
-wire [10:0] bpi_cnt;
+wire [15:0] data_fifo;     // command FIFO data output
+wire [15:0] bpi_wrt_data;  // command FIFO data input
+reg [10:0] bpi_cmd_cnt;       // words in FIFO
 // BPI read FIFO signals
 wire bpi_rbk_amt;
 wire bpi_rbk_afl;
@@ -170,6 +177,7 @@ wire bpi_rbk_wrterr;
 wire [10:0] bpi_rbk_rdcnt;
 wire bpi_rbk_rderr;
 wire bpi_rbk_wena;
+reg [10:0] bpi_rbk_cnt;       // words in FIFO
 
 // chip scope signals
 wire [6:0]  csp_base_address;
@@ -273,7 +281,7 @@ assign base_address = csp_ctrl ? csp_base_address : ff_base_address;
 assign start_offset = csp_ctrl ? csp_start_offset : ff_start_offset;
 assign n_minus_1    = csp_ctrl ? (csp_ncnt[4:0]-1): ff_n_minus_1[4:0];
 assign ncnt         = csp_ctrl ? csp_ncnt         : ff_n_minus_1 + 1;
-assign bpi_wrt_data = csp_fifo_src ? csp_data         : BPI_JWRT_FIFO;
+assign bpi_wrt_data = csp_fifo_src ? csp_data         : BPI_CMD_FIFO_DATA;
 assign ff_load_offset = enable_cmd && (ff_usr_cmnd == Load_Address);
 assign start_tmr      = enable_cmd && (ff_usr_cmnd == Start_Timer);
 assign stop_tmr       = enable_cmd && (ff_usr_cmnd == Stop_Timer);
@@ -304,9 +312,8 @@ assign BPI_DATA_TO = cycle2 ? data2 : data1;
 assign term_cnt = (count == 16'h0000);
 assign loop_done = (full_count == 16'h0000);
 assign pec_busy = (check_PEC || check_buf) && !sr_reg[7];
-assign bpi_cnt = bpi_wrtcnt - bpi_rdcnt;
 assign bpi_rdena = (next && write_n) || read_ff;
-assign bpi_wrena = csp_bpi_wrena || BPI_JWE;
+assign bpi_wrena = csp_bpi_wrena || BPI_WE;
 assign bpi_rbk_wena = usr_read_req && BPI_LOAD_DATA;
 
 assign buf_prog        = (usr_cmnd == Buffer_Program);
@@ -314,6 +321,7 @@ assign buf_prog        = (usr_cmnd == Buffer_Program);
 assign BPI_ACTIVE   = csp_ctrl || csp_fifo_src || parser_active;
 assign trl_edge_pa  = ~parser_active & parser_active_r;
 assign p_tmr_rst    = local_rst || ~parser_idle || trl_edge_pa;
+assign BPI_RBK_WRD_CNT = bpi_rbk_cnt;
 
 always @(posedge CLK or posedge local_rst)
 begin
@@ -492,8 +500,8 @@ wire [3:0] dummy_ssigs;
 	assign bpi_vio_sync_in[10]      = rpt_error;
 	assign bpi_vio_sync_in[11]      = seq_cmplt;
 	assign bpi_vio_sync_in[12]      = error;
-	assign bpi_vio_sync_in[22:13]   = bpi_cnt[9:0];
-	assign bpi_vio_sync_in[23]      = bpi_mt;
+	assign bpi_vio_sync_in[22:13]   = bpi_cmd_cnt[9:0];
+	assign bpi_vio_sync_in[23]      = bpi_cmd_mt;
 	assign bpi_vio_sync_in[31:24]   = rbk_count[7:0];
 	assign bpi_vio_sync_in[39:32]   = sr_reg;
 	assign bpi_vio_sync_in[55:40]   = esig_reg;
@@ -561,15 +569,15 @@ wire [3:0] dummy_ssigs;
 	assign bpi_la_data[104:100]= usr_cmnd;
 	assign bpi_la_data[120:105]= data_fifo;
 	assign bpi_la_data[124:121]= parse_state;
-	assign bpi_la_data[125]    = bpi_mt;
+	assign bpi_la_data[125]    = bpi_cmd_mt;
 	assign bpi_la_data[126]    = bpi_rdena;
 	assign bpi_la_data[127]    = bpi_wrena;
 	assign bpi_la_data[143:128]= bpi_wrt_data;
 	assign bpi_la_data[144]    = bpi_rbk_mt;
 	assign bpi_la_data[145]    = usr_read_req;
 	assign bpi_la_data[146]    = bpi_rbk_wena;
-	assign bpi_la_data[147]    = BPI_JRE;
-	assign bpi_la_data[163:148]= BPI_JRBK_FIFO;
+	assign bpi_la_data[147]    = BPI_RE;
+	assign bpi_la_data[163:148]= BPI_RBK_FIFO_DATA;
 
 // LA Trigger [7:0]
 	assign bpi_la_trig[0]      = local_rst;
@@ -579,7 +587,7 @@ wire [3:0] dummy_ssigs;
 	assign bpi_la_trig[4]      = bpi_wrena;
 	assign bpi_la_trig[5]      = bpi_rbk_mt;
 	assign bpi_la_trig[6]      = bpi_rbk_wena;
-	assign bpi_la_trig[7]      = BPI_JRE;
+	assign bpi_la_trig[7]      = BPI_RE;
 
 end
 else
@@ -825,7 +833,7 @@ end
 
 always @(posedge CLK)
 begin
-	if((ff_usr_cmnd == Load_Address) && decode && !bpi_mt) begin
+	if((ff_usr_cmnd == Load_Address) && decode && !bpi_cmd_mt) begin
 		ff_base_address <= ff_ba_cnt[6:0];
 		ff_start_offset <= data_fifo;
 	end
@@ -838,7 +846,7 @@ always @(posedge CLK)
 begin
 	if(cnt_cmd && decode) ff_n_minus_1 <= ff_ba_cnt;
 	else						 ff_n_minus_1 <= ff_n_minus_1;
-	if((ff_usr_cmnd == Set_Cnfg_Reg) && decode && !bpi_mt) cngf_reg_data <= data_fifo;
+	if((ff_usr_cmnd == Set_Cnfg_Reg) && decode && !bpi_cmd_mt) cngf_reg_data <= data_fifo;
 	else	if(set_asynch)								  cngf_reg_data <= CRD_ASync;
 	else													  cngf_reg_data <= cngf_reg_data;
 end
@@ -917,11 +925,11 @@ begin
 		BPI_STATUS <= 16'h0000;
 	else
 		if(ld_status)
-			BPI_STATUS <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | BPI_STATUS[13], bpi_rbk_wrterr | BPI_STATUS[12], bpi_mt, bpi_full, bpi_rderr | BPI_STATUS[9], bpi_wrterr | BPI_STATUS[8], sr_reg};
+			BPI_STATUS <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | BPI_STATUS[13], bpi_rbk_wrterr | BPI_STATUS[12], bpi_cmd_mt, bpi_cmd_full, bpi_rderr | BPI_STATUS[9], bpi_wrterr | BPI_STATUS[8], sr_reg};
 		else if(clr_error_bits)
-			BPI_STATUS <= {bpi_rbk_mt, bpi_rbk_full, 1'b0, 1'b0,bpi_mt, bpi_full, 1'b0, 1'b0,sr_reg[7:6],3'b000,sr_reg[2],1'b0,sr_reg[0]};
+			BPI_STATUS <= {bpi_rbk_mt, bpi_rbk_full, 1'b0, 1'b0,bpi_cmd_mt, bpi_cmd_full, 1'b0, 1'b0,sr_reg[7:6],3'b000,sr_reg[2],1'b0,sr_reg[0]};
 		else
-			BPI_STATUS <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | BPI_STATUS[13], bpi_rbk_wrterr | BPI_STATUS[12], bpi_mt, bpi_full, bpi_rderr | BPI_STATUS[9], bpi_wrterr | BPI_STATUS[8], sr_reg[7:6], BPI_STATUS[5:3], sr_reg[2], BPI_STATUS[1], sr_reg[0]};
+			BPI_STATUS <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | BPI_STATUS[13], bpi_rbk_wrterr | BPI_STATUS[12], bpi_cmd_mt, bpi_cmd_full, bpi_rderr | BPI_STATUS[9], bpi_wrterr | BPI_STATUS[8], sr_reg[7:6], BPI_STATUS[5:3], sr_reg[2], BPI_STATUS[1], sr_reg[0]};
 end
 
 always @(posedge CLK)
@@ -956,14 +964,43 @@ begin
 			else
 				bpi_enable <= bpi_enable;
 		else
-			if(BPI_JENBL)
+			if(BPI_ENBL)
 				bpi_enable <= 1;
-			else if(BPI_JDSBL)
+			else if(BPI_DSBL)
 				bpi_enable <= 0;
 			else
 				bpi_enable <= bpi_enable;
 end
-	
+
+//
+// Command FIFO word counter
+//
+always @(posedge CLK or posedge local_rst)
+begin
+	if(local_rst)
+		bpi_cmd_cnt <= 11'h000;
+	else
+		casex ({bpi_cmd_mt,bpi_cmd_full,bpi_wrena,bpi_rdena})
+		  4'b01x1,4'b0001:  bpi_cmd_cnt <= bpi_cmd_cnt - 1; // count down
+		  4'b101x,4'b0010:  bpi_cmd_cnt <= bpi_cmd_cnt + 1; // count up
+		  default:          bpi_cmd_cnt <= bpi_cmd_cnt;     // hold
+		endcase
+end	
+
+//
+// Readback FIFO word counter
+//
+always @(posedge CLK or posedge local_rst)
+begin
+	if(local_rst)
+		bpi_rbk_cnt <= 11'h000;
+	else
+		casex ({bpi_rbk_mt,bpi_rbk_full,bpi_rbk_wena,BPI_RE})
+		  4'b01x1,4'b0001:  bpi_rbk_cnt <= bpi_rbk_cnt - 1; // count down
+		  4'b101x,4'b0010:  bpi_rbk_cnt <= bpi_rbk_cnt + 1; // count up
+		  default:          bpi_rbk_cnt <= bpi_rbk_cnt;     // hold
+		endcase
+end	
    /////////////////////////////////////////////////////////////////
    // DATA_WIDTH | FIFO_SIZE | FIFO Depth | RDCOUNT/WRCOUNT Width //
    // ===========|===========|============|=======================//
@@ -977,6 +1014,11 @@ end
    //    1-4     |  "36Kb"   |    8192    |        13-bit         //
    //    1-4     |  "18Kb"   |    4096    |        12-bit         //
    /////////////////////////////////////////////////////////////////
+	
+	//
+	// BPI Command FIFO  (holds commands to be executed -- either local or for the BPI PROM)
+	//                    disable the parsing of commands while FIFO is being filled
+   //
 
    FIFO_DUALCLOCK_MACRO  #(
       .ALMOST_EMPTY_OFFSET(11'h040), // Sets the almost empty threshold
@@ -985,12 +1027,12 @@ end
       .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
       .FIFO_SIZE ("36Kb"), // Target BRAM: "18Kb" or "36Kb" 
       .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) BPI_wrt_FIFO_data_i (
-      .ALMOSTEMPTY(bpi_amt), // 1-bit output almost empty
-      .ALMOSTFULL(bpi_afl),   // 1-bit output almost full
+   ) BPI_CMD_FIFO_i (
+      .ALMOSTEMPTY(bpi_cmd_amt), // 1-bit output almost empty
+      .ALMOSTFULL(bpi_cmd_afl),   // 1-bit output almost full
       .DO(data_fifo),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(bpi_mt),             // 1-bit output empty
-      .FULL(bpi_full),               // 1-bit output full
+      .EMPTY(bpi_cmd_mt),             // 1-bit output empty
+      .FULL(bpi_cmd_full),               // 1-bit output full
       .RDCOUNT(bpi_rdcnt),         // Output read count, width determined by FIFO depth
       .RDERR(bpi_rderr),             // 1-bit output read error
       .WRCOUNT(bpi_wrtcnt),         // Output write count, width determined by FIFO depth
@@ -1003,6 +1045,10 @@ end
       .WREN(bpi_wrena)                // 1-bit input write enable
    );
 	
+	//
+	// BPI Readback FIFO (holds data read back from the BPI PROM until read by VME)
+   //
+
    FIFO_DUALCLOCK_MACRO  #(
       .ALMOST_EMPTY_OFFSET(11'h040), // Sets the almost empty threshold
       .ALMOST_FULL_OFFSET(11'h080),  // Sets almost full threshold
@@ -1013,7 +1059,7 @@ end
    ) BPI_rbk_FIFO_data_i (
       .ALMOSTEMPTY(bpi_rbk_amt), // 1-bit output almost empty
       .ALMOSTFULL(bpi_rbk_afl),   // 1-bit output almost full
-      .DO(BPI_JRBK_FIFO),                   // Output data, width defined by DATA_WIDTH parameter
+      .DO(BPI_RBK_FIFO_DATA),                   // Output data, width defined by DATA_WIDTH parameter
       .EMPTY(bpi_rbk_mt),             // 1-bit output empty
       .FULL(bpi_rbk_full),               // 1-bit output full
       .RDCOUNT(bpi_rbk_rdcnt),         // Output read count, width determined by FIFO depth
@@ -1022,7 +1068,7 @@ end
       .WRERR(bpi_rbk_wrterr),             // 1-bit output write error
       .DI(BPI_DATA_FROM),                   // Input data, width defined by DATA_WIDTH parameter
       .RDCLK(CLK),             // 1-bit input read clock
-      .RDEN(BPI_JRE),               // 1-bit input read enable
+      .RDEN(BPI_RE),               // 1-bit input read enable
       .RST(local_rst),                 // 1-bit input reset
       .WRCLK(CLK),             // 1-bit input write clock
       .WREN(bpi_rbk_wena)                // 1-bit input write enable
@@ -1048,7 +1094,7 @@ BPI_cmd_parser_FSM BPI_cmd_parser_FSM_i(
 	.DATA(has_data),
 	.LOCAL(local),
 	.LOOP_DONE(loop_done),
-	.MT(bpi_mt),
+	.MT(bpi_cmd_mt),
 	.PASS(pass),
 	.READ_N(read_n),
 	.RPT_ERROR(rpt_error),
@@ -1097,7 +1143,7 @@ BPI_ctrl_FSM BPI_ctrl_FSM_i(
 	.BUSY(intf_busy),
 	.CLK(CLK),
 	.LD_DAT(BPI_LOAD_DATA),
-	.MT(bpi_mt),
+	.MT(bpi_cmd_mt),
 	.NOOP(noop),
 	.OTHER(other),
 	.RDY(intf_rdy),

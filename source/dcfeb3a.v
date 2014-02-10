@@ -487,8 +487,9 @@ end
  wire bpi_seq_idle;
  
  // Jtag interface signals
- 	wire [15:0] bpi_rbk_fifo;
-	wire [15:0] bpi_wrt_fifo;
+ 	wire [15:0] bpi_rbk_fifo_data;
+	wire [15:0] bpi_cmd_fifo_data;
+	wire [10:0] bpi_rbk_wrd_cnt;
 	wire [15:0] bpi_status;
 	wire [31:0] bpi_timer;
 	wire bpi_jwe;
@@ -509,14 +510,15 @@ end
     .CLK(clk40),
     .CLK1MHZ(clk1mhz),
     .RST(bpi_rst),
-	 // Signals to/from JTAG interface
-	 .BPI_JWRT_FIFO(bpi_wrt_fifo),
-	 .BPI_JWE(bpi_jwe),
-	 .BPI_JRE(bpi_jre),
-	 .BPI_JDSBL(BPI_disable),  // Disable BPI processing
-	 .BPI_JENBL(BPI_enable),    // Enable BPI processing
-	 .BPI_JRBK_FIFO(bpi_rbk_fifo),
-	 .BPI_STATUS(bpi_status),
+	 // Interface Signals to/from JTAG interface
+	 .BPI_CMD_FIFO_DATA(bpi_cmd_fifo_data),
+	 .BPI_WE(bpi_jwe),
+	 .BPI_RE(bpi_jre),
+	 .BPI_DSBL(BPI_disable),  // Disable BPI processing
+	 .BPI_ENBL(BPI_enable),    // Enable BPI processing
+	 .BPI_RBK_FIFO_DATA(bpi_rbk_fifo_data),
+	 .BPI_RBK_WRD_CNT(bpi_rbk_wrd_cnt),  // Word count of the Read back FIFO (number of available reads)
+	 .BPI_STATUS(bpi_status),  // FIFO status bits and latest value of the PROM status register. 
 	 .BPI_TIMER(bpi_timer),    // stop watch timer for BPI commands
 	 // Signals to/from BPI interface
 	 .BPI_BUSY(bpi_busy),
@@ -1630,7 +1632,7 @@ SPI_PORT_i  (
 		.STARTUP_STATUS(startup_status),    // Startup Status word
 		.QPLL_CNT(qpll_cnt),    // Count of lossing QPLL locks
 		.ADCDATA(doutfifo), // Data out of pipeline
-		.BPI_RBK_FIFO(bpi_rbk_fifo), // Data read back from BPI PROM
+		.BPI_RBK_FIFO_DATA(bpi_rbk_fifo_data), // Data read back from BPI PROM
 		.BPI_STATUS(bpi_status),     // STATUS word for BPI interface
 		.BPI_TIMER(bpi_timer),     // stop watch timer for BPI commands
       .BPI_AL_REG(bpi_al_reg), // Data from BPI PROM for auto-loading
@@ -1663,7 +1665,7 @@ SPI_PORT_i  (
       .RSTRT_PIPE(jrstrt_pipe),    // Restart pipeline on JTAG command
       .PDEPTH(pdepth),            // Pipeline Depth register (9 bits)
       .TTC_SRC(ttc_src),          // TTC source register (2 bits)
-		.BPI_WRT_FIFO(bpi_wrt_fifo),// Data word for ADC configuration memory
+		.BPI_CMD_FIFO_DATA(bpi_cmd_fifo_data),// Data word for BPI command FIFO
 		.BPI_WE(bpi_jwe),           // Write enable for BPI Write FIFO
 		.BPI_RDENA(bpi_jre),        // Read enable for BPI Readback FIFO
 		.BPI_RESET(bpi_jrst),       // Reset signal for BPI interface (does not reset the PROM)
