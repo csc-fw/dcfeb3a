@@ -919,7 +919,7 @@ wire l1a_push_skw, l1a_push_mac;
 wire [191:0] doutfifo;
 wire [15:0] fifo1_rd_ena;
 wire l1a_rd_en;
-wire f1rdy;
+wire l1a_smp_rdy;
 wire [6:0] samp_max;
 wire [43:0] l1a_smp_out;
 
@@ -942,12 +942,12 @@ fifo1 (
     .RD_ENA(fifo1_rd_ena),
     .L1A_RD_EN(l1a_rd_en),
 	 .SAMP_MAX(samp_max),
-	 .RDY(f1rdy),
+	 .RDY(l1a_smp_rdy),
     .L1A_SMP_OUT(l1a_smp_out),  // 44 bit wide output two entries per sample
     .DOUT_16CH(doutfifo)  // 192 bit wide output at 160 MHz for 6 X (n samples)
     );
 
-wire rdfifo;
+wire jrdfifo;
 wire rdf_wren;
 wire jtag_rd_mode;
 wire [11:0] rdf_wdata;
@@ -974,14 +974,15 @@ wire dmb_vld;
  /////////////////////////////////////////////////////////////////////////////
  
 
-xfer2fifo xfer2fifo_1(   // Transfer data from FIFO1 to readout FIFO at 160 MHz
+xfer2ringbuf xfer2ringbuf_i(   // Transfer data from FIFO1 to readout ring buffer at 160 MHz
     .CLK(clk160),
     .RST(sys_rst),
     .JTAG_MODE(jtag_rd_mode),
 	 .SAMP_MAX(samp_max),
-    .RD_FIFO(rdfifo),
+    .J_RD_FIFO(jrdfifo),
     .DIN_16CH(doutfifo),
-	 .RDY(f1rdy),
+	 .RDY(l1a_smp_rdy),
+	 .L1A_RD_EN(l1a_rd_en),
     .RD_ENA(fifo1_rd_ena),
 	 .WREN(rdf_wren),
 	 .DMUX(rdf_wdata)  // 12 bit data out
@@ -1647,7 +1648,7 @@ SPI_PORT_i  (
 		
 		.QP_RST_B(QP_RST_B),         // QPLL reset
 		.JTAG_SYS_RST(jtag_sys_rst), // Issue the equivalent of power on reset without reprogramming.
-		.RDFIFO(rdfifo),            // Advance fifo to next word
+		.RDFIFO(jrdfifo),            // Advance fifo to next word
 		.JTAG_RD_MODE(jtag_rd_mode),// JTAG read out mode for FIFO1 
 		.COMP_MODE(comp_mode),      // comparator mode bits [1:0]
 		.COMP_TIME(comp_time),      // comparator timing bits [2:0]

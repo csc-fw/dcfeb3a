@@ -77,7 +77,7 @@ module fifo16ch_wide(
 	wire odec;
 	reg  new_l1a_d1;
 	reg  [3:0] ovrlap_cnt;
-	reg  [7:0] event_pipe;
+	reg  [127:0] event_pipe;
 	 
 	reg l1a_match_d1;
 	reg l1a_match_d2;
@@ -97,7 +97,7 @@ module fifo16ch_wide(
 	assign phase_align0 = SMPCLK & smpclk_d2;
 	assign phase_align1 = ~SMPCLK & ~smpclk_d2;
 	assign evt_start = stretch_l1a & phase_align1;
-	assign evt_end = event_pipe[7];
+	assign evt_end = event_pipe[SAMP_MAX];
 	assign wren = sinc;
 	assign ovrlap = (ovrlap_cnt > 4'h0);
 	assign multi_ovlp = (ovrlap_cnt > 4'h1);
@@ -156,9 +156,9 @@ module fifo16ch_wide(
 			else
 				ovrlap_cnt <= ovrlap_cnt;
 	end
-	always @(posedge WRCLK) begin
+	always @(posedge WRCLK) begin   // output tap selected by SAMP_MAX
 		if(phase_align1)
-			event_pipe <= {event_pipe[6:0],evt_start};
+			event_pipe <= {event_pipe[126:0],evt_start};
 		else
 			event_pipe <= event_pipe;
 	end

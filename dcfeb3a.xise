@@ -171,10 +171,6 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="66"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="56"/>
     </file>
-    <file xil_pn:name="source/xfer2fifo.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="67"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="55"/>
-    </file>
     <file xil_pn:name="source/ADC/adc_config.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="68"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="80"/>
@@ -511,6 +507,10 @@
     <file xil_pn:name="ipcore_dir/l1a_smp_fifo.xco" xil_pn:type="FILE_COREGEN">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="350"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="350"/>
+    </file>
+    <file xil_pn:name="source/xfer2ringbuf.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="357"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="357"/>
     </file>
     <file xil_pn:name="ipcore_dir/adc_frame_clk.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
