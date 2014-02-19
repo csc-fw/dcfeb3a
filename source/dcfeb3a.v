@@ -915,13 +915,28 @@ pipeline_gen_csp #(
  /////////////////////////////////////////////////////////////////////////////
 
 wire l1a,l1a_match,lct,l1a_phase,bc0;
-wire l1a_push_skw, l1a_push_mac;
 wire [191:0] doutfifo;
 wire [15:0] fifo1_rd_ena;
 wire l1a_rd_en;
 wire l1a_smp_rdy;
 wire [6:0] samp_max;
 wire [43:0] l1a_smp_out;
+reg resync_1;
+reg resync_2;
+reg resync_3;
+reg resync_4;
+wire resync_stretch;
+wire rst_resync;
+
+assign resync_stretch = (resync_1 | resync_2 | resync_3 | resync_4); 
+assign rst_resync = sys_rst || resync_stretch;
+
+always @(posedge clk40) begin
+	resync_1 <= resync;
+	resync_2 <= resync_1;
+	resync_3 <= resync_2;
+	resync_4 <= resync_3;
+end
 
 fifo16ch_wide
 fifo1 (
@@ -930,7 +945,7 @@ fifo1 (
 	 .SMPCLK(clk20),	// Sample clock for L1A phase information.
     .WRCLK(clk120),  // write to FIFO at 120 MHz (6 words x 20MHz sample rate)
     .RST(sys_rst || ~daq_mmcm_lock),
-    .RESYNC(resync),
+    .RST_RESYNC(rst_resync),
     .L1A(l1a),			
     .L1A_MATCH(l1a_match),			
     .G1IN(g1pipout),
@@ -975,18 +990,52 @@ wire dmb_vld;
  
 
 xfer2ringbuf xfer2ringbuf_i(   // Transfer data from FIFO1 to readout ring buffer at 160 MHz
-    .CLK(clk160),
-    .RST(sys_rst),
-    .JTAG_MODE(jtag_rd_mode),
-	 .SAMP_MAX(samp_max),
-    .J_RD_FIFO(jrdfifo),
-    .DIN_16CH(doutfifo),
-	 .RDY(l1a_smp_rdy),
-	 .L1A_RD_EN(l1a_rd_en),
-    .RD_ENA(fifo1_rd_ena),
-	 .WREN(rdf_wren),
-	 .DMUX(rdf_wdata)  // 12 bit data out
-    );
+	.CLK(clk160),
+	.RST(sys_rst),
+	.JTAG_MODE(jtag_rd_mode),
+	.J_RD_FIFO(jrdfifo),
+	.DIN_16CH(doutfifo),
+	.RDY(l1a_smp_rdy),
+	.RD_ENA(fifo1_rd_ena),
+	.L1A_RD_EN(l1a_rd_en),
+	.WREN(rdf_wren),
+	.DMUX(rdf_wdata)  // 12 bit data out
+	);
+	 
+ /////////////////////////////////////////////////////////////////////////////
+ //                                                                         //
+ //  Ring Buffer to feed ethernet and channel link FIFOs.                   //
+ //                                                                         //
+ /////////////////////////////////////////////////////////////////////////////
+
+wire [36:0] l1a_evt_data;
+wire l1a_evt_push;
+wire [17:0] ff_data;
+wire ff_push;
+wire ring_warn;
+wire chlnk_evt_buf_amt;
+wire chlnk_evt_buf_afl;
+wire eth_evt_buf_amt;
+wire eth_evt_buf_afl;
+
+
+ringbuf 
+ringbuf_i(
+   .CLK(clk160),
+   .RST_RESYNC(rst_resync),
+	.SAMP_MAX(samp_max),
+   .WDATA(rdf_wdata),
+	.WREN(rdf_wren),
+   .L1A_SMP_DATA(l1a_smp_out),  // 44 bit wide input;
+	.L1A_WRT_EN(l1a_rd_en),
+	.EVT_BUF_AMT(chlnk_evt_buf_amt),
+	.EVT_BUF_AFL(chlnk_evt_buf_afl),
+	.L1A_EVT_DATA(l1a_evt_data), // 37 bits {l1a_phs,l1a_mtch_num,l1anum}
+	.L1A_EVT_PUSH(l1a_evt_push),
+	.RDATA(ff_data),             // 18 bits {movlp,ovrlp,ocnt,ring_out}
+	.DATA_PUSH(ff_push),
+	.WARN(ring_warn)
+   );
 
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
@@ -999,54 +1048,44 @@ xfer2ringbuf xfer2ringbuf_i(   // Transfer data from FIFO1 to readout ring buffe
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
 
-readout_fifo #(
-	.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE)
-	)
-rd_fifo1(
-	.CSP_CNTRL(readout_fifo1_la_c2),
-    .WCLK(clk160),
-    .RCLK(clk40),
-    .CMSCLK(clk40),
-    .RST(sys_rst),
-	 .SAMP_MAX(samp_max),
-    .WDATA(rdf_wdata),
-	 .WREN(rdf_wren),
-	 .L1A(l1a),
-	 .L1A_MATCH(l1a_match),
-	 .L1A_PHASE(l1a_phase),
-	 .RESYNC(resync),
-	 .l1a_push(l1a_push_skw),
-	 .LAST_WRD(last_wrd),
-	 .DVALID(dvalid),
-    .DOUT(frm_data)
-    );
+chanlink_fifo 
+chanlink_fifo_i(
+	.WCLK(clk160),
+	.RCLK(clk40),
+   .RST_RESYNC(rst_resync),
+	.SAMP_MAX(samp_max),
+	.WDATA(ff_data),              // 18 bits {movlp,ovrlp,ocnt,ring_out}
+	.WREN(ff_push),
+	.L1A_EVT_DATA(l1a_evt_data),  // 37 bits {l1a_phs,l1a_mtch_num,l1anum}
+	.L1A_WRT_EN(l1a_evt_push),
+	.WARN(ring_warn),
+	.EVT_BUF_AMT(chlnk_evt_buf_amt),
+	.EVT_BUF_AFL(chlnk_evt_buf_afl),
+	.LAST_WRD(last_wrd),
+	.DVALID(dvalid),
+	.DOUT(frm_data)
+	);
 	 
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
- //  Readout FIFO2 to feed MAC for GbE optical path.                        //
+ //  Ethernet FIFO to feed GbE optical path.                                //
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
 
 
-mac_fifo #(
-	.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE)
-	)
-rd_fifo2(
-	.CSP_CNTRL(rd_fifo2_la_c5),
+eth_fifo 
+eth_fifo_i(
    .WCLK(clk160),
    .RCLK(daq_data_clk),
-   .CMSCLK(clk40),
-   .RST(sys_rst),
+   .RST_RESYNC(rst_resync),
 	.SAMP_MAX(samp_max),
-   .WDATA(rdf_wdata),
-	.WREN(rdf_wren),
+	.WDATA(ff_data),              // 18 bits {movlp,ovrlp,ocnt,ring_out}
+	.WREN(ff_push),
+	.L1A_EVT_DATA(l1a_evt_data),  // 37 bits {l1a_phs,l1a_mtch_num,l1anum}
+	.L1A_WRT_EN(l1a_evt_push),
+	.WARN(ring_warn),
 	.L1A_HEAD(l1a_head),
-	.L1A(l1a),
-	.L1A_MATCH(l1a_match),
-	.L1A_PHASE(l1a_phase),
-	.RESYNC(resync),
 	.TXACK(txack),                     // Data acknowledge signal from frame processor
-	 .l1a_push(l1a_push_mac),
 	.TXD(txd),                         // 16-bit data for frame processor
 	.TXD_VLD(txd_vld)                  // data valid signal
    );
@@ -1837,8 +1876,7 @@ endgenerate
 		.ADC_INIT(adc_init),
 		.L1A(l1a),
 		.L1A_MATCH(l1a_match),
-		.L1A_PUSH_SKW(l1a_push_skw),
-		.L1A_PUSH_MAC(l1a_push_mac),
+		.L1A_EVT_PUSH(l1a_evt_push),
 		.ALG_GD(alg_gd),
 		//
 		.SEL_CON_B(SEL_CON_B),

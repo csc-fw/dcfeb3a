@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 2:47:05 PM on 2/10/14
+## File last modified by Fizzim: 12:09:39 PM on 2/11/14
 <version>
    11.09.25
 </version>
@@ -2402,7 +2402,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         Inc_Chan
+         Inc_Chan_state
             <status>
             LOCAL
             </status>
@@ -5081,7 +5081,7 @@ fzm_globalTable
    Rd_Ena
    </startState>
    <endState>
-   Inc_Chan
+   Inc_Chan_state
    </endState>
    <startPtX>
    479.0
@@ -5321,7 +5321,7 @@ fzm_globalTable
       </priority>
    </attributes>
    <startState>
-   Inc_Chan
+   Inc_Chan_state
    </startState>
    <endState>
    Rd_Ena
