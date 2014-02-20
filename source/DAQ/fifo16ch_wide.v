@@ -18,28 +18,33 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module fifo16ch_wide(
-    input CLK40,
-    input RDCLK,
-	 input SMPCLK,
-    input WRCLK,
-    input RST,
-    input RST_RESYNC,
-    input L1A,
-    input L1A_MATCH,
-    input [191:0] G1IN,
-    input [191:0] G2IN,
-    input [191:0] G3IN,
-    input [191:0] G4IN,
-    input [191:0] G5IN,
-    input [191:0] G6IN,
-    input [15:0] RD_ENA,
-    input L1A_RD_EN,
-	 input [6:0] SAMP_MAX,  // number of samples per event minus 1
-	 output RDY,
-    output [43:0] L1A_SMP_OUT,
-    output [191:0] DOUT_16CH
-    );
+module fifo16ch_wide #(
+	parameter USE_CHIPSCOPE = 1
+	)(
+	inout [35:0] LA_CNTRL,
+	input CLK40,
+	input RDCLK,
+	input SMPCLK,
+	input WRCLK,
+	input RST,
+	input RST_RESYNC,
+	input L1A,
+	input L1A_MATCH,
+	input [191:0] G1IN,
+	input [191:0] G2IN,
+	input [191:0] G3IN,
+	input [191:0] G4IN,
+	input [191:0] G5IN,
+	input [191:0] G6IN,
+	input [15:0] RD_ENA,
+	input L1A_RD_EN,
+	input [6:0] SAMP_MAX,  // number of samples per event minus 1
+	input TRIG_IN,
+	output TRIG_OUT,
+	output RDY,
+	output [43:0] L1A_SMP_OUT,
+	output [191:0] DOUT_16CH
+	);
 	 
 	
 	wire wren;
@@ -102,6 +107,78 @@ module fifo16ch_wide(
 	assign RDY = ~l1a_smp_mt;
 	assign injectsbiterr = 1'b0;
 	assign injectdbiterr = 1'b0;
+	
+	
+generate
+if(USE_CHIPSCOPE==1) 
+begin : chipscope_rng_fifo1
+//
+// Logic analyzer for readout FIFO
+wire [74:0] rng_fifo1_la_data;
+wire [3:0] rng_fifo1_la_trig;
+
+fifo1_la fifo1_la_i (
+    .CONTROL(LA_CNTRL),
+    .CLK(WRCLK),
+    .DATA(rng_fifo1_la_data),  // IN BUS [74:0]
+    .TRIG0(rng_fifo1_la_trig),  // IN BUS [3:0]
+    .TRIG_OUT(TRIG_OUT) // OUT
+);
+	always @(posedge CLK40) begin
+		l1a_match_d1 <= L1A_MATCH;
+		l1a_match_d2 <= l1a_match_d1;
+		l1acnt_r1    <= l1acnt;
+		l1amcnt_r1   <= l1amcnt;
+		l1a_phase_r1 <= l1a_phase;
+		new_l1a_d1   <= new_l1a;
+	end
+		
+
+// LA Data [74:0]
+	assign rng_fifo1_la_data[3:0]    = l1acnt[3:0];
+	assign rng_fifo1_la_data[7:4]    = l1acnt_r1[3:0];
+	assign rng_fifo1_la_data[11:8]   = l1amcnt[3:0];
+	assign rng_fifo1_la_data[15:12]  = l1amcnt_r1[3:0];
+	assign rng_fifo1_la_data[19:16]  = ovrlap_cnt[3:0];
+	assign rng_fifo1_la_data[31:20]  = event_pipe[11:0];
+	assign rng_fifo1_la_data[43:32]  = muxout[0];
+	assign rng_fifo1_la_data[46:44]  = sel[2:0];
+	assign rng_fifo1_la_data[53:47]  = sample[6:0];
+	assign rng_fifo1_la_data[54]     = L1A;
+	assign rng_fifo1_la_data[55]     = L1A_MATCH;
+	assign rng_fifo1_la_data[56]     = l1a_match_d1;
+	assign rng_fifo1_la_data[57]     = l1a_match_d2;
+	assign rng_fifo1_la_data[58]     = phase_align0;
+	assign rng_fifo1_la_data[59]     = phase_align1;
+	assign rng_fifo1_la_data[60]     = l1a_phase;
+	assign rng_fifo1_la_data[61]     = l1a_phase_r1;
+	assign rng_fifo1_la_data[62]     = stretch_l1a;
+	assign rng_fifo1_la_data[63]     = evt_start;
+	assign rng_fifo1_la_data[64]     = evt_end;
+	assign rng_fifo1_la_data[65]     = wren;
+	assign rng_fifo1_la_data[66]     = l1a_wren;
+	assign rng_fifo1_la_data[67]     = ovrlap;
+	assign rng_fifo1_la_data[68]     = multi_ovlp;
+	assign rng_fifo1_la_data[69]     = oinc;
+	assign rng_fifo1_la_data[70]     = srst;
+	assign rng_fifo1_la_data[71]     = l1a_smp_mt;
+	assign rng_fifo1_la_data[72]     = L1A_RD_EN;
+	assign rng_fifo1_la_data[73]     = RD_ENA[0];
+	assign rng_fifo1_la_data[74]     = new_l1a;
+
+// LA Trigger [3:0]
+	assign rng_fifo1_la_trig[0]      = L1A;
+	assign rng_fifo1_la_trig[1]      = L1A_MATCH;
+	assign rng_fifo1_la_trig[2]      = evt_start;
+	assign rng_fifo1_la_trig[3]      = TRIG_IN;
+	
+end
+else
+begin
+	assign TRIG_OUT = 0;
+end
+endgenerate
+
 
 	always @(posedge CLK40) begin
 		if(RST_RESYNC)

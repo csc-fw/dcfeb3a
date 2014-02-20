@@ -1,5 +1,8 @@
 `timescale 1ns / 1ps
-module ringbuf (
+module ringbuf #(
+	parameter USE_CHIPSCOPE = 1
+	)(
+	inout [35:0] LA_CNTRL,
    input CLK,
 	input RST_RESYNC,
 	input [6:0] SAMP_MAX,
@@ -9,6 +12,8 @@ module ringbuf (
 	input L1A_WRT_EN,
 	input EVT_BUF_AMT,
 	input EVT_BUF_AFL,
+	input TRIG_IN,
+	output TRIG_OUT,
 	output [36:0] L1A_EVT_DATA,
 	output L1A_EVT_PUSH,
 	output [17:0] RDATA,
@@ -31,12 +36,15 @@ wire ring_sbiterr;
 wire ring_dbiterr;
 wire ring_err;
 reg [12:0] wrt_addr;
+reg [12:0] wrt_addr2;
 reg [11:0] rd_addr;
 wire [11:0] rdaddrecc;
-wire strt_addr;
-reg  prev_strt_addr;
-wire mask_b12;
-wire [12:0] ring_cnt;
+wire [11:0] strt_addr;
+reg  [11:0] prev_strt_addr;
+wire mask_b12_strt;
+wire mask_b12_rdad;
+wire [12:0] ring_cnt_strt;
+wire [12:0] ring_cnt_rdad;
 wire ring_amt;
 
 wire ovrlp;
@@ -72,23 +80,112 @@ assign injectdbiterr = 0;
 assign injectsbiterr = 0;
 assign {multi_ovlp_smp,ovrlap_smp,l1a_phase_smp,l1a_match_smp,ovrlap_cnt,l1amcnt,l1acnt} = L1A_SMP_DATA;
 assign l1a_push     = L1A_WRT_EN & l1a_match_smp;
-assign ring_cnt     = wrt_addr - strt_addr;
-assign ring_amt     = (ring_cnt < 13'd7);
-assign WARN         = (ring_cnt > 13'd3328);
-assign ring_err     = (ring_cnt > 13'h0FFF);
-assign mask_b12     = (({1'b0,strt_addr} - prev_strt_addr) >= 0);
+assign ring_cnt_strt = wrt_addr - strt_addr;
+assign ring_cnt_rdad = wrt_addr2 - rd_addr;
+assign ring_amt     = (ring_cnt_rdad < 13'd7);
+assign WARN         = (ring_cnt_strt > 13'd3328);
+assign ring_err     = (ring_cnt_strt > 13'h0FFF);
+assign mask_b12_strt = (({1'b0,strt_addr} - prev_strt_addr) >= 0);
+assign mask_b12_rdad = nxt_wrd && (rd_addr == 12'hFFF);
 assign L1A_EVT_DATA = {l1a_phs,l1a_mtch_num,l1anum};
 assign L1A_EVT_PUSH = ld_addr;
 assign RDATA        = {movlp,ovrlp,ocnt,ring_out};
+
+generate
+if(USE_CHIPSCOPE==1) 
+begin : chipscope_rng_buf
+//
+// Logic analyzer for readout FIFO
+wire [170:0] rng_buf_la_data;
+wire [3:0] rng_buf_la_trig;
+
+ring_buf_la ring_buf_la_i (
+    .CONTROL(LA_CNTRL),
+    .CLK(CLK),
+    .DATA(rng_buf_la_data),  // IN BUS [170:0]
+    .TRIG0(rng_buf_la_trig),  // IN BUS [3:0]
+    .TRIG_OUT(TRIG_OUT) // OUT
+);
+
+// LA Data [170:0]
+	assign rng_buf_la_data[3:0]     = l1acnt[3:0];
+	assign rng_buf_la_data[7:4]     = l1amcnt[3:0];
+	assign rng_buf_la_data[11:8]    = ovrlap_cnt[3:0];
+	assign rng_buf_la_data[23:12]   = rd_addr;
+	assign rng_buf_la_data[35:24]   = rdaddrecc;
+	assign rng_buf_la_data[47:36]   = strt_addr;
+	assign rng_buf_la_data[59:48]   = prev_strt_addr;
+	assign rng_buf_la_data[71:60]   = ring_cnt_rdad;
+	assign rng_buf_la_data[84:72]   = wrt_addr;
+	assign rng_buf_la_data[89:85]   = l1abuf;
+	assign rng_buf_la_data[93:90]   = ocnt;
+	assign rng_buf_la_data[97:94]   = l1anum[3:0];
+	assign rng_buf_la_data[101:98]  = l1a_mtch_num[3:0];
+	assign rng_buf_la_data[105:102] = evt_state;
+	assign rng_buf_la_data[112:106] = smp;
+	assign rng_buf_la_data[119:113] = seq;
+	assign rng_buf_la_data[131:120] = WDATA;
+	assign rng_buf_la_data[143:132] = ring_out;
+
+	assign rng_buf_la_data[144]     = WREN;
+	assign rng_buf_la_data[145]     = L1A_WRT_EN;
+	assign rng_buf_la_data[146]     = EVT_BUF_AMT;
+	assign rng_buf_la_data[147]     = EVT_BUF_AFL;
+	assign rng_buf_la_data[148]     = L1A_EVT_PUSH;
+	assign rng_buf_la_data[149]     = WARN;
+	assign rng_buf_la_data[150]     = l1a_buf_mt;
+	assign rng_buf_la_data[151]     = ring_err;
+	assign rng_buf_la_data[152]     = mask_b12_rdad;
+	assign rng_buf_la_data[153]     = ring_amt;
+	assign rng_buf_la_data[154]     = ovrlp;
+	assign rng_buf_la_data[155]     = movlp;
+	assign rng_buf_la_data[156]     = l1a_match_smp;
+	assign rng_buf_la_data[157]     = l1a_phase_smp;
+	assign rng_buf_la_data[158]     = ovrlap_smp;
+	assign rng_buf_la_data[159]     = multi_ovlp_smp;
+	assign rng_buf_la_data[160]     = l1a_phs;
+	assign rng_buf_la_data[161]     = l1a_push;
+	assign rng_buf_la_data[162]     = nxt_l1a;
+	assign rng_buf_la_data[163]     = nxt_wrd;
+	assign rng_buf_la_data[164]     = valid1;
+	assign rng_buf_la_data[165]     = DATA_PUSH;
+	assign rng_buf_la_data[166]     = ld_addr;
+	assign rng_buf_la_data[167]     = inc_seq;
+	assign rng_buf_la_data[168]     = rst_seq;
+	assign rng_buf_la_data[169]     = inc_smp;
+	assign rng_buf_la_data[170]     = rst_smp;
+
+// LA Trigger [3:0]
+	assign rng_buf_la_trig[0]       = WREN;
+	assign rng_buf_la_trig[1]       = L1A_WRT_EN;
+	assign rng_buf_la_trig[2]       = l1a_buf_mt;
+	assign rng_buf_la_trig[3]       = TRIG_IN;
+	
+end
+else
+begin
+	assign TRIG_OUT = 0;
+end
+endgenerate
 
 always @(posedge CLK or posedge RST_RESYNC) begin
 	if(RST_RESYNC)
 		wrt_addr <= 13'h0000;
 	else
 		if(WREN)
-			wrt_addr <= (wrt_addr & {mask_b12,12'hFFF}) + 1;
+			wrt_addr <= (wrt_addr & {mask_b12_strt,12'hFFF}) + 1;
 		else
-			wrt_addr <= (wrt_addr & {mask_b12,12'hFFF});
+			wrt_addr <= (wrt_addr & {mask_b12_strt,12'hFFF});
+end
+
+always @(posedge CLK or posedge RST_RESYNC) begin
+	if(RST_RESYNC)
+		wrt_addr2 <= 13'h0000;
+	else
+		if(WREN)
+			wrt_addr2 <= (wrt_addr2 & {mask_b12_rdad,12'hFFF}) + 1;
+		else
+			wrt_addr2 <= (wrt_addr2 & {mask_b12_rdad,12'hFFF});
 end
 
 

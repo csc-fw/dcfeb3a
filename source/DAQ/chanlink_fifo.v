@@ -18,7 +18,10 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module chanlink_fifo (
+module chanlink_fifo #(
+	parameter USE_CHIPSCOPE = 1
+	)(
+	inout [35:0] LA_CNTRL,
 	input WCLK,
 	input RCLK,
 	input RST_RESYNC,
@@ -28,6 +31,8 @@ module chanlink_fifo (
 	input [36:0] L1A_EVT_DATA,
 	input L1A_WRT_EN,
 	input WARN,
+	input TRIG_IN,
+	output TRIG_OUT,
 	output EVT_BUF_AMT,
 	output EVT_BUF_AFL,
 	output reg LAST_WRD,
@@ -91,6 +96,80 @@ assign injectsbiterr = 0;
 assign ovrlap = 0;
 assign {l1a_phase,l1amcnt,l1acnt} = L1A_EVT_DATA;
 assign l1a_out = nxt_l1a_sync1 & ~nxt_l1a_sync2;
+
+generate
+if(USE_CHIPSCOPE==1) 
+begin : chipscope_rng_chn
+//
+// Logic analyzer for readout FIFO
+wire [146:0] rng_chn_la_data;
+wire [3:0] rng_chn_la_trig;
+
+chnlnk_fifo_la chnlnk_fifo_la_i (
+    .CONTROL(LA_CNTRL),
+    .CLK(WRCLK),
+    .DATA(rng_chn_la_data),  // IN BUS [146:0]
+    .TRIG0(rng_chn_la_trig),  // IN BUS [3:0]
+    .TRIG_OUT(TRIG_OUT) // OUT
+);
+
+// LA Data [146:0]
+	assign rng_chn_la_data[3:0]     = l1acnt[3:0];
+	assign rng_chn_la_data[7:4]     = l1amcnt[3:0];
+	assign rng_chn_la_data[24:8]    = WDATA[16:0];
+	assign rng_chn_la_data[36:25]   = data_out;
+	assign rng_chn_la_data[52:37]   = fullwrd;
+	assign rng_chn_la_data[68:53]   = frame;
+	assign rng_chn_la_data[84:69]   = DOUT;
+	assign rng_chn_la_data[89:85]   = l1abuf;
+	assign rng_chn_la_data[93:90]   = ocnt;
+	assign rng_chn_la_data[97:94]   = l1anum[3:0];
+	assign rng_chn_la_data[101:98]  = l1a_mtch_num[3:0];
+	assign rng_chn_la_data[105:102] = frm_state;
+	assign rng_chn_la_data[112:106] = smp;
+	assign rng_chn_la_data[119:113] = seq;
+	
+	assign rng_chn_la_data[120]     = WREN;
+	assign rng_chn_la_data[121]     = L1A_WRT_EN;
+	assign rng_chn_la_data[122]     = EVT_BUF_AMT;
+	assign rng_chn_la_data[123]     = EVT_BUF_AFL;
+	assign rng_chn_la_data[124]     = LAST_WRD;
+	assign rng_chn_la_data[125]     = WARN;
+	assign rng_chn_la_data[126]     = l1a_buf_mt;
+	assign rng_chn_la_data[127]     = evt_buf_mt;
+	assign rng_chn_la_data[128]     = 1'b0;
+	assign rng_chn_la_data[129]     = mt_r3;
+	assign rng_chn_la_data[130]     = ovrlp;
+	assign rng_chn_la_data[131]     = movlp;
+	assign rng_chn_la_data[132]     = serial;
+	assign rng_chn_la_data[133]     = l1a_out;
+	assign rng_chn_la_data[134]     = 1'b0;
+	assign rng_chn_la_data[135]     = 1'b0;
+	assign rng_chn_la_data[136]     = l1a_phs;
+	assign rng_chn_la_data[137]     = l1a_phase;
+	assign rng_chn_la_data[138]     = nxt_l1a;
+	assign rng_chn_la_data[139]     = nxt_wrd;
+	assign rng_chn_la_data[140]     = valid0;
+	assign rng_chn_la_data[141]     = DVALID;
+	assign rng_chn_la_data[142]     = 1'b0;
+	assign rng_chn_la_data[143]     = inc_seq;
+	assign rng_chn_la_data[144]     = rst_seq;
+	assign rng_chn_la_data[145]     = inc_smp;
+	assign rng_chn_la_data[146]     = rst_smp;
+	
+
+// LA Trigger [11:0]
+	assign rng_chn_la_trig[0]       = WREN;
+	assign rng_chn_la_trig[1]       = evt_buf_mt;
+	assign rng_chn_la_trig[2]       = l1a_buf_mt;
+	assign rng_chn_la_trig[3]       = TRIG_IN;
+	
+end
+else
+begin
+	assign TRIG_OUT = 0;
+end
+endgenerate
 
 always @(posedge WCLK) begin
 	nxt_l1a_sync1 <= nxt_l1a;
