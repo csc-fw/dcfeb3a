@@ -73,6 +73,11 @@
 //  54     | QPLL reset: This requires a NoOp afterwards to clear the reset then a Hard reset.  All clocks stop while active. QPLL takes 0.5 seconds to lock. 
 //  55     | QPLL lock lost counter (8-bits). 
 //  56     | Startup Status register (16-bits).  {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],eos,por_state[2:0]};
+//  57     | Read L1A counter (24 bits).
+//  58     | Read L1A_MATCH counter (12 bits).
+//  59     | Read INJPLS counter (12 bits).
+//  60     | Read EXTPLS counter (12 bits).
+//  61     | Read BC0 counter (12 bits).
 
 //
 // Revision: 
@@ -155,7 +160,12 @@ module jtag_access (
 	 input [23:0] SEM_FAR_PA,    //Frame Address Register - Physical Address
 	 input [23:0] SEM_FAR_LA,    //Frame Address Register - Linear Address
 	 input [15:0] SEM_ERRCNT,    //Error counters - {dbl,sngl} 8 bits each
-	 input [15:0] SEM_STATUS     //Status states, and error flags
+	 input [15:0] SEM_STATUS,     //Status states, and error flags
+	 input [23:0] L1ACNT,        //L1A counter value
+	 input [11:0] L1AMCNT,       //L1A_MATCH counter value
+	 input [11:0] INJPLSCNT,     //INJPLS counter value
+	 input [11:0] EXTPLSCNT,     //EXTPLS counter value
+	 input [11:0] BC0CNT         //BC0 counter value
 	 );
 
    reg dshift;
@@ -198,7 +208,7 @@ module jtag_access (
 	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15,dmy16;
 	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15;
 	wire tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31;
-	wire tdof32,tdof33,tdof34,tdof35,tdof37,tdof38;
+	wire tdof32,tdof33,tdof34,tdof35,tdof37,tdof38,tdof39,tdof3a,tdof3b,tdof3c,tdof3d;
 	wire [31:16] status_h;
    wire [6:1] bky_mask;
 	wire [6:0] nsamp;
@@ -252,7 +262,8 @@ module jtag_access (
 	
 	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | 
 						tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f |
-						tdof24 | tdof25 | tdof27 | tdof2c | tdof2d | tdof31 | tdof32 | tdof33 | tdof34 | tdof35 | tdof37 | tdof38);
+						tdof24 | tdof25 | tdof27 | tdof2c | tdof2d |
+						tdof31 | tdof32 | tdof33 | tdof34 | tdof35 | tdof37 | tdof38 | tdof39 | tdof3a | tdof3b | tdof3c | tdof3d);
 						
 	assign status_h[31:16] = {5'b10110,XL1DLYSET,LOADPBLK,COMP_TIME,COMP_MODE};
 	
@@ -1302,6 +1313,101 @@ end
       .RST(not_eos),       // Reset default state
 		.BUS(STARTUP_STATUS), // Bus to capture
       .TDO(tdof38));       // Serial Test Data Out
+
+//
+// Function 57:
+//
+// Read L1A counter (24 bits)
+//
+//
+   user_cap_reg #(.width(24))
+   L1A_counter(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[57]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),       // Reset default state
+		.BUS(L1ACNT),        // Bus to capture
+      .TDO(tdof39));       // Serial Test Data Out
+
+//
+// Function 58:
+//
+// Read L1A_MATCH counter (12 bits)
+//
+//
+   user_cap_reg #(.width(12))
+   L1A_match_counter(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[58]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),       // Reset default state
+		.BUS(L1AMCNT),        // Bus to capture
+      .TDO(tdof3a));       // Serial Test Data Out
+
+//
+// Function 59:
+//
+// Read INJPLS counter (12 bits)
+//
+//
+   user_cap_reg #(.width(12))
+   Inj_pulse_counter(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[59]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),       // Reset default state
+		.BUS(INJPLSCNT),     // Bus to capture
+      .TDO(tdof3b));       // Serial Test Data Out
+
+//
+// Function 60:
+//
+// Read EXTPLS counter (12 bits)
+//
+//
+   user_cap_reg #(.width(12))
+   Ext_pulse_counter(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[60]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),       // Reset default state
+		.BUS(EXTPLSCNT),     // Bus to capture
+      .TDO(tdof3c));       // Serial Test Data Out
+
+//
+// Function 61:
+//
+// Read BC0 counter (12 bits)
+//
+//
+   user_cap_reg #(.width(12))
+   BC0_counter(
+      .DRCK(tck2),        // Data Reg Clock
+      .FSH(1'b0),         // Shift Function
+      .FCAP(f[61]),        // Capture Function
+      .SEL(jsel2),        // User 2 mode active
+      .TDI(tdi2),          // Serial Test Data In
+      .SHIFT(jshift2),      // Shift state
+      .CAPTURE(capture2),  // Capture state
+      .RST(RST),       // Reset default state
+		.BUS(BC0CNT),        // Bus to capture
+      .TDO(tdof3d));       // Serial Test Data Out
 
 
 

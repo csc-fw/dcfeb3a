@@ -20,6 +20,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 module calib_intf(
 	input CLK40,
+	input RST,
+	input RESYNC,
 	// external connections
 	input SKW_EXTPLS_P,
 	input SKW_EXTPLS_N,
@@ -37,7 +39,10 @@ module calib_intf(
 	output INJPULSE_N,
 	output EXTPULSE_P,
 	output EXTPULSE_N,
-	output reg TRG_PULSE
+	output reg TRG_PULSE,
+	// counters
+	output reg [11:0] INJPLSCNT,
+	output reg [11:0] EXTPLSCNT
 	);
   // TTC configuration modes
   parameter 
@@ -53,6 +58,15 @@ wire trg_extpls;
 wire trg_injpls;
 reg ext_pulse;
 reg inj_pulse;
+reg ext_pulse_r1;
+reg inj_pulse_r1;
+wire inc_ext;
+wire inc_inj;
+wire rst_resync;
+
+assign rst_resync = RST || RESYNC;
+assign inc_ext = ext_pulse & ~ext_pulse_r1;
+assign inc_inj = inj_pulse & ~inj_pulse_r1;
 
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_EXP (.O(skw_rw_extpls),.I(SKW_EXTPLS_P),.IB(SKW_EXTPLS_N));
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_IJP (.O(skw_rw_injpls),.I(SKW_INJPLS_P),.IB(SKW_INJPLS_N));
@@ -99,5 +113,29 @@ reg inj_pulse;
 			end
 		endcase
 	end
-
+	
+	always @(posedge CLK40) begin
+		ext_pulse_r1 <= ext_pulse;
+		inj_pulse_r1 <= inj_pulse;
+	end
+	
+	always @(posedge CLK40 or posedge rst_resync) begin
+		if(rst_resync)
+			EXTPLSCNT <= 12'h000;
+		else
+			if(inc_ext)
+				EXTPLSCNT <= EXTPLSCNT + 1;
+			else
+				EXTPLSCNT <= EXTPLSCNT;
+	end
+	
+	always @(posedge CLK40 or posedge rst_resync) begin
+		if(rst_resync)
+			INJPLSCNT <= 12'h000;
+		else
+			if(inc_inj)
+				INJPLSCNT <= INJPLSCNT + 1;
+			else
+				INJPLSCNT <= INJPLSCNT;
+	end
 endmodule

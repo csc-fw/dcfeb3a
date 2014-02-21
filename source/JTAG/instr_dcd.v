@@ -72,6 +72,11 @@
 //  54     | QPLL reset: This requires a NoOp afterwards to clear the reset then a Hard reset.  All clocks stop while active. QPLL takes 0.5 seconds to lock. 
 //  55     | QPLL lock lost counter (8-bits). 
 //  56     | Startup Status register (16-bits).  {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],eos,por_state[2:0]};
+//  57     | Read L1A counter (24 bits).
+//  58     | Read L1A_MATCH counter (12 bits).
+//  59     | Read INJPLS counter (12 bits).
+//  60     | Read EXTPLS counter (12 bits).
+//  61     | Read BC0 counter (12 bits).
 //
 // Revision: 
 // Revision 0.01 - File Created

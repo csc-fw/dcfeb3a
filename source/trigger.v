@@ -45,7 +45,7 @@ module trigger(
 	output reg L1A_MATCH,
 	output reg LCT,
 	output reg RESYNC,
-	output reg [3:0] BC0CNT,
+	output reg [11:0] BC0CNT,
 	output reg BC0
 	);
   // TTC configuration modes
@@ -61,6 +61,9 @@ wire skw_rw_bc0;
 wire fmu_rw_l1a;
 wire fmu_rw_l1a_match;
 wire fmu_rw_resync;
+wire rst_resync;
+
+assign rst_resync = RST || RESYNC;
 
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_L1A (.O(skw_rw_l1a),.I(SKW_L1A_P),.IB(SKW_L1A_N));
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_L1A_MATCH (.O(skw_rw_l1a_match),.I(SKW_L1A_MATCH_P),.IB(SKW_L1A_MATCH_N));
@@ -104,9 +107,9 @@ wire fmu_rw_resync;
 	end
 	
 	
-	always @(posedge CLK40 or posedge RST) begin
-		if(RST)
-			BC0CNT <= 4'h0;
+	always @(posedge CLK40 or posedge rst_resync) begin
+		if(rst_resync)
+			BC0CNT <= 12'h000;
 		else
 			if(BC0)
 				BC0CNT <= BC0CNT + 1;

@@ -432,7 +432,7 @@ endgenerate
  wire jdaq_rate;
  wire rate_1_25;
  wire rate_3_2;
- wire [3:0] bc0cnt;
+ wire [11:0] bc0cnt;
  wire csp_man_ctrl;
  wire use_any_l1a, juse_any_l1a, csp_use_any_l1a;
  wire l1a_head, jl1a_head, csp_l1a_head;
@@ -440,7 +440,7 @@ endgenerate
 
  assign use_any_l1a = csp_man_ctrl ? csp_use_any_l1a : juse_any_l1a;
  assign l1a_head = csp_man_ctrl ? csp_l1a_head : jl1a_head;
-// assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,bc0cnt,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
+// assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,bc0cnt[3:0],rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,1'b0,por_state,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
  assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,  1'b0,al_status,  rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
  assign startup_status = {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status,eos,por_state};
@@ -955,6 +955,8 @@ wire daq_data_clk;
 wire [15:0] txd;
 wire txd_vld;
 wire txack;
+wire [23:0] l1a_cnt;
+wire [11:0] l1a_mtch_cnt;
 
 wire [15:0] dmb_data;
 wire dmb_vld;
@@ -1043,6 +1045,8 @@ rd_fifo2(
 	.RESYNC(resync),
 	.TXACK(txack),                     // Data acknowledge signal from frame processor
 	 .l1a_push(l1a_push_mac),
+	.L1A_CNT(l1a_cnt),
+	.L1A_MTCH_CNT(l1a_mtch_cnt),
 	.TXD(txd),                         // 16-bit data for frame processor
 	.TXD_VLD(txd_vld)                  // data valid signal
    );
@@ -1179,10 +1183,14 @@ daq_optical_out_i (
 	wire fem_injpls;
 	wire fem_extpls;
 	wire trg_pulse;
+	wire injplscnt;
+	wire extplscnt;
 
 	calib_intf
 	calib_intf_i(                           // provides multiplexing for calibration i/o
 		.CLK40(clk40),
+		.RST(sys_rst),
+		.RESYNC(resync),
 	 // external connections
 		.SKW_EXTPLS_P(\SKW_EXTPLS+ ),.SKW_EXTPLS_N(\SKW_EXTPLS- ),
 		.SKW_INJPLS_P(\SKW_INJPLS+ ),.SKW_INJPLS_N(\SKW_INJPLS- ),
@@ -1196,7 +1204,10 @@ daq_optical_out_i (
 	 // common output signals
 		.INJPULSE_P(\INJPULSE+ ),.INJPULSE_N(\INJPULSE- ),
 		.EXTPULSE_P(\EXTPULSE+ ),.EXTPULSE_N(\EXTPULSE- ),
-		.TRG_PULSE(trg_pulse)
+		.TRG_PULSE(trg_pulse),
+	// counters
+		.INJPLSCNT(injplscnt),
+		.EXTPLSCNT(extplscnt)
 	);
 
 
@@ -1692,7 +1703,12 @@ SPI_PORT_i  (
 		.SEM_FAR_PA(sem_far_pa),                //Frame Address Register - Physical Address
 		.SEM_FAR_LA(sem_far_la),                //Frame Address Register - Linear Address
 		.SEM_ERRCNT(sem_errcnt),                //Error counters - {dbl,sngl} 8 bits each
-		.SEM_STATUS(sem_status)                 //Status states, and error flags
+		.SEM_STATUS(sem_status),                 //Status states, and error flags
+		.L1ACNT(l1a_cnt),        //L1A counter value
+		.L1AMCNT(l1a_mtch_cnt),       //L1A_MATCH counter value
+		.INJPLSCNT(injplscnt),        //INJPLS counter value
+		.EXTPLSCNT(extplscnt),        //EXTPLS counter value
+		.BC0CNT(bc0cnt)               //BC0 counter value
    );
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //

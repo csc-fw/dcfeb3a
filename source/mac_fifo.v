@@ -17,6 +17,8 @@ module mac_fifo #(
 	input RESYNC,
 	input TXACK,
 	output l1a_push,
+	output [23:0] L1A_CNT,
+	output [11:0] L1A_MTCH_CNT,
 	output reg [15:0] TXD,
 	output  reg TXD_VLD
    );
@@ -100,6 +102,8 @@ assign nxt_l1a = last_wrd0;
 assign warn = l1a_buf_afl0;
 assign l1ahigh = l1anum[23:12];
 assign l1alow = l1anum[11:0];
+assign L1A_CNT = l1acnt;
+assign L1A_MTCH_CNT = l1amcnt;
 	
 generate
 if(USE_CHIPSCOPE==1) 
@@ -220,7 +224,7 @@ always @(posedge CMSCLK) begin
 end
 always @(posedge CMSCLK) begin
 	if(rst_resync)
-	   l1amcnt <= 24'h000000;
+	   l1amcnt <= 12'h000;
 	else
 		if(L1A_MATCH)
 			l1amcnt <= l1amcnt + 1;
