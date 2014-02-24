@@ -1183,8 +1183,8 @@ daq_optical_out_i (
 	wire fem_injpls;
 	wire fem_extpls;
 	wire trg_pulse;
-	wire injplscnt;
-	wire extplscnt;
+	wire [11:0] injplscnt;
+	wire [11:0] extplscnt;
 
 	calib_intf
 	calib_intf_i(                           // provides multiplexing for calibration i/o
