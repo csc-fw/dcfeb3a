@@ -275,8 +275,8 @@ module jtag_access (
 	assign BPI_ENABLE  = f[27];   // Enable BPI processing
 	assign CMP_CLK_PHS_CHNG = f[28];  // Hold TMB transceiver in reset while the clock phase is changing.  Handled in reset manager state machine
 	assign SAMP_CLK_PHS_CHNG = f[44] & update2;  // Initiate a deserializer reset at end of changing sampling clock phase change.
-	assign JTAG_TK_CTRL  = f[47];     // reset ECC error counters
-	assign JTAG_DED_RST  = f[48];     // reset ECC error counters
+	assign JTAG_TK_CTRL  = f[47];     // Take control of the SEM command interface (only needs to be set after ChipScope Pro has been in control).
+	assign JTAG_DED_RST  = f[48];     // Reset the double error detected flag (SEM module).
 	assign JTAG_RST_SEM_CNTRS  = f[38];     // reset ECC error counters
 	assign p_in = f[1] | f[13] | f[15] | f[25] | f[38] | f[47] | f[48];  // JTAG_SYS_RST, ADC_Init, Restart pipeline, BPI_Reset, and SEM JTAG commands are to be auto reset;
 	assign clrf = clr_pip[10] & p_in; // auto reset functions last 11 25ns clocks then clear
