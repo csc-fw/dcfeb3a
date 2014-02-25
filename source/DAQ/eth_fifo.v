@@ -79,7 +79,6 @@ reg valid1,valid2;
 reg mt_r1,mt_r2,mt_r3;
 
 
-
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
 assign ovrlap = 0;

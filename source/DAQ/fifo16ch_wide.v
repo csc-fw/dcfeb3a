@@ -43,7 +43,9 @@ module fifo16ch_wide #(
 	output TRIG_OUT,
 	output RDY,
 	output [43:0] L1A_SMP_OUT,
-	output [191:0] DOUT_16CH
+	output [191:0] DOUT_16CH,
+	output [23:0] L1A_CNT,
+	output [11:0] L1A_MTCH_CNT
 	);
 	 
 	
@@ -90,6 +92,8 @@ module fifo16ch_wide #(
 	reg [2:0] sel;
 	reg [6:0] sample;
 
+	assign L1A_CNT = l1acnt;
+	assign L1A_MTCH_CNT = l1amcnt;
 	 
 	assign DOUT_16CH = {fout[15],fout[14],fout[13],fout[12],fout[11],fout[10],fout[9],fout[8],fout[7],fout[6],fout[5],fout[4],fout[3],fout[2],fout[1],fout[0]};
 	assign stretch_l1a = L1A_MATCH | l1a_match_d1;

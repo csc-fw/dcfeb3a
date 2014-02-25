@@ -973,6 +973,8 @@ pipeline_gen_csp #(
  /////////////////////////////////////////////////////////////////////////////
 
 wire l1a,l1a_match,lct,l1a_phase,bc0;
+wire [23:0] l1a_cnt;
+wire [11:0] l1a_mtch_cnt;
 wire [191:0] doutfifo;
 wire [15:0] fifo1_rd_ena;
 wire l1a_rd_en;
@@ -1037,7 +1039,9 @@ fifo1 (
 	.TRIG_OUT(rng_ff1_trg_out),
 	.RDY(l1a_smp_rdy),
 	.L1A_SMP_OUT(l1a_smp_out),  // 44 bit wide output two entries per sample
-	.DOUT_16CH(doutfifo)  // 192 bit wide output at 160 MHz for 6 X (n samples)
+	.DOUT_16CH(doutfifo),  // 192 bit wide output at 160 MHz for 6 X (n samples)
+	.L1A_CNT(l1a_cnt),
+	.L1A_MTCH_CNT(l1a_mtch_cnt)
 	);
 
 wire jrdfifo;
@@ -1051,8 +1055,6 @@ wire daq_data_clk;
 wire [15:0] txd;
 wire txd_vld;
 wire txack;
-wire [23:0] l1a_cnt;
-wire [11:0] l1a_mtch_cnt;
 
 wire [15:0] dmb_data;
 wire dmb_vld;
@@ -1113,8 +1115,8 @@ ringbuf_i(
 	.WREN(rdf_wren),
    .L1A_SMP_DATA(l1a_smp_out),  // 44 bit wide input;
 	.L1A_WRT_EN(l1a_rd_en),
-	.EVT_BUF_AMT(chlnk_evt_buf_amt),
-	.EVT_BUF_AFL(chlnk_evt_buf_afl),
+	.EVT_BUF_AMT(eth_evt_buf_amt),
+	.EVT_BUF_AFL(eth_evt_buf_afl),
 	.TRIG_IN(rng_buf_trg_in),
 	.TRIG_OUT(rng_buf_trg_out),
 	.L1A_EVT_DATA(l1a_evt_data), // 37 bits {l1a_phs,l1a_mtch_num,l1anum}
@@ -1187,8 +1189,8 @@ eth_fifo_i(
 	.TXACK(txack),                     // Data acknowledge signal from frame processor
 	.TRIG_IN(rng_eth_trg_in),
 	.TRIG_OUT(rng_eth_trg_out),
-	.L1A_CNT(l1a_cnt),
-	.L1A_MTCH_CNT(l1a_mtch_cnt),
+	.EVT_BUF_AMT(eth_evt_buf_amt),
+	.EVT_BUF_AFL(eth_evt_buf_afl),
 	.TXD(txd),                         // 16-bit data for frame processor
 	.TXD_VLD(txd_vld)                  // data valid signal
    );
