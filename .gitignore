@@ -59,6 +59,7 @@ xst/
 *.rbt
 *.ll
 *.svf
+ipcore_dir/tmp/
 
 ### Other ###
 *~
