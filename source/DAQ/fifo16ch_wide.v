@@ -128,14 +128,6 @@ fifo1_la fifo1_la_i (
     .TRIG0(rng_fifo1_la_trig),  // IN BUS [3:0]
     .TRIG_OUT(TRIG_OUT) // OUT
 );
-	always @(posedge CLK40) begin
-		l1a_match_d1 <= L1A_MATCH;
-		l1a_match_d2 <= l1a_match_d1;
-		l1acnt_r1    <= l1acnt;
-		l1amcnt_r1   <= l1amcnt;
-		l1a_phase_r1 <= l1a_phase;
-		new_l1a_d1   <= new_l1a;
-	end
 		
 
 // LA Data [74:0]

@@ -23,7 +23,10 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module user_wr_reg(
+module user_wr_reg #(
+  parameter width = 8,
+  parameter def_value = 8'h00
+  )(
   input TCK,         // TCK for update register
   input DRCK,        // Data Reg Clock
   input FSEL,        // Function select
@@ -40,8 +43,6 @@ module user_wr_reg(
   output TDO,        // Serial Test Data Out
   output DSY_OUT);   // Daisy chained serial data out
   
-  parameter width = 8;
-  parameter def_value = 8'h00;
   
   reg[width-1:0] d;
   wire din,ce;

@@ -22,7 +22,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module user_cap_reg(
+module user_cap_reg #(
+  parameter width = 8
+  )(
     input DRCK,
     input FSH,
     input FCAP,
@@ -35,7 +37,6 @@ module user_cap_reg(
     output TDO
     );
 
-  parameter width = 8;
   
   reg[width-1:0] q;
   wire ce;
