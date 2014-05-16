@@ -255,6 +255,34 @@ module jtag_access (
 	wire not_eos;
 	wire rst_qpll;
 
+// clock synchronizing signals
+
+   reg p_in_s1;
+   reg f18_s1;
+   reg f19_s1;
+   reg f21_up2_s1;
+   reg f22_up2_s1;
+   reg f32_s1;
+   reg f33_s1;
+   reg f40_s1;
+   reg f41_s1;
+   reg f42_s1;
+   reg f43_s1;
+   reg f49_up2_s1;
+   reg p_in_s2;
+   reg f18_s2;
+   reg f19_s2;
+   reg f21_up2_s2;
+   reg f22_up2_s2;
+   reg f32_s2;
+   reg f33_s2;
+   reg f40_s2;
+   reg f41_s2;
+   reg f42_s2;
+   reg f43_s2;
+   reg f49_up2_s2;
+
+
 	assign rst_qpll = f[54];
 	OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_QP_RST (.O(QP_RST_B),.I(~rst_qpll));
 
@@ -282,7 +310,7 @@ module jtag_access (
 	assign JTAG_DED_RST  = f[48];     // Reset the double error detected flag (SEM module).
 	assign JTAG_RST_SEM_CNTRS  = f[38];     // reset ECC error counters
 	assign p_in = f[1] | f[13] | f[15] | f[25] | f[38] | f[47] | f[48];  // JTAG_SYS_RST, ADC_Init, Restart pipeline, BPI_Reset, and SEM JTAG commands are to be auto reset;
-	assign clrf = clr_pip[10] & p_in; // auto reset functions last 11 25ns clocks then clear
+	assign clrf = clr_pip[10] & p_in_s2; // auto reset functions last 11 25ns clocks then clear
 	
 	assign JTAG_RD_MODE = f[6];    // JTAG readout mode when reading ADC data
 	assign JDAQ_INJ_ERR = f[46];   // JTAG request for error injection in PRBS test
@@ -372,13 +400,42 @@ module jtag_access (
       .CLR(clrf),          // Clear the current function
       .F(f),              // Function decode output (one hot)
       .TDO(tdo1));        // Serial Test Data Out
-		
+
+//
+// synchronize some signals to 40 MHz clock
+//
+   always @(posedge CLK40) begin
+	   p_in_s1 <= p_in;
+		f18_s1 <= f[18];
+		f19_s1 <= f[19];
+		f21_up2_s1 <= f[21] & jsel2 & update2;
+		f22_up2_s1 <= f[22] & jsel2 & update2;
+		f32_s1 <= f[32];
+		f33_s1 <= f[33];
+		f40_s1 <= f[40];
+		f41_s1 <= f[41];
+		f42_s1 <= f[42];
+		f43_s1 <= f[43];
+		f49_up2_s1 <= f[49] & jsel2 & update2;
+	   p_in_s2 <= p_in_s1;
+		f18_s2 <= f18_s1;
+		f19_s2 <= f19_s1;
+		f21_up2_s2 <= f21_up2_s1;
+		f22_up2_s2 <= f22_up2_s1;
+		f32_s2 <= f32_s1;
+		f33_s2 <= f33_s1;
+		f40_s2 <= f40_s1;
+		f41_s2 <= f41_s1;
+		f42_s2 <= f42_s1;
+		f43_s2 <= f43_s1;
+		f49_up2_s2 <= f49_up2_s1;
+	end
 		
 //
 // pipline to set length of auto reset signals
 //
    always @(posedge CLK40) begin
-	    clr_pip <= {clr_pip[10:0],p_in};
+	    clr_pip <= {clr_pip[10:0],p_in_s2};
 	end
   
 //
@@ -488,10 +545,10 @@ end
 // Calibration mode
 //
    always @(posedge CLK40) begin
-		 f18dly <= f[18];
-		 f19dly <= f[19];
-		 clr_cal_mode <= f[18] & ~f18dly;  // leading edge of function being set (after update1)
-		 set_cal_mode <= f[19] & ~f19dly;  // leading edge of function being set (after update1)
+		 f18dly <= f18_s2;
+		 f19dly <= f19_s2;
+		 clr_cal_mode <= f18_s2 & ~f18dly;  // leading edge of function being set (after update1)
+		 set_cal_mode <= f19_s2 & ~f19dly;  // leading edge of function being set (after update1)
 		 if(clr_cal_mode || RST)
 			CAL_MODE <= 1'b0;
 		 else if(set_cal_mode)
@@ -504,10 +561,10 @@ end
 // L1A_MATCH source flag
 //
    always @(posedge CLK40) begin
-		 f40dly <= f[40];
-		 f41dly <= f[41];
-		 clr_use_any_l1a <= f[40] & ~f40dly;  // leading edge of function being set (after update1)
-		 set_use_any_l1a <= f[41] & ~f41dly;  // leading edge of function being set (after update1)
+		 f40dly <= f40_s2;
+		 f41dly <= f41_s2;
+		 clr_use_any_l1a <= f40_s2 & ~f40dly;  // leading edge of function being set (after update1)
+		 set_use_any_l1a <= f41_s2 & ~f41dly;  // leading edge of function being set (after update1)
 		 if(clr_use_any_l1a || RST)
 			USE_ANY_L1A <= 1'b0;
 		 else if(set_use_any_l1a)
@@ -520,10 +577,10 @@ end
 // L1A_HEAD flag; controls use of l1anum as the header in the data stream
 //
    always @(posedge CLK40) begin
-		 f42dly <= f[42];
-		 f43dly <= f[43];
-		 clr_l1a_head <= f[42] & ~f42dly;  // leading edge of function being set (after update1)
-		 set_l1a_head <= f[43] & ~f43dly;  // leading edge of function being set (after update1)
+		 f42dly <= f42_s2;
+		 f43dly <= f43_s2;
+		 clr_l1a_head <= f42_s2 & ~f42dly;  // leading edge of function being set (after update1)
+		 set_l1a_head <= f43_s2 & ~f43dly;  // leading edge of function being set (after update1)
 		 if(set_l1a_head || RST)
 			L1A_HEAD <= 1'b1;
 		 else if(clr_l1a_head)
@@ -775,9 +832,9 @@ end
 // BPI  Write enable for BPI write FIFO
 //
    always @(posedge CLK40) begin
-		 pre_we21 <= f[21] & jsel2 & update2;              // only at update2
-		 we21     <= ~(f[21] & jsel2 & update2) & pre_we21;  // generate tailing edge pulse one clock long
-		 BPI_WE <= we21;                                 // delay write enable one clock cycle
+		 pre_we21 <= f21_up2_s2;              // only at update2
+		 we21     <= ~f21_up2_s2 & pre_we21;  // generate tailing edge pulse one clock long
+		 BPI_WE <= we21;                      // delay write enable one clock cycle
 	end
 
 //
@@ -800,8 +857,8 @@ end
 // Read enable for BPI data FIFO -- advance on each JTAG read.
 //
    always @(posedge CLK40) begin
-		 pre_rd22 <= f[22] & jsel2 & update2;              // only at update2
-		 BPI_RDENA <= (f[22] & jsel2 & update2) & ~pre_rd22;  // generate leading edge pulse one clock long
+		 pre_rd22 <= f22_up2_s2;              // only at update2
+		 BPI_RDENA <= f22_up2_s2 & ~pre_rd22;  // generate leading edge pulse one clock long
 	end
 		
 //
@@ -960,10 +1017,10 @@ end
 // DAQ rate selection
 //
    always @(posedge CLK40) begin
-		 f32dly <= f[32];
-		 f33dly <= f[33];
-		 set_rate_1_25 <= f[32] & ~f32dly;  // leading edge of function being set (after update1)
-		 set_rate_3_2  <= f[33] & ~f33dly;  // leading edge of function being set (after update1)
+		 f32dly <= f32_s2;
+		 f33dly <= f33_s2;
+		 set_rate_1_25 <= f32_s2 & ~f32dly;  // leading edge of function being set (after update1)
+		 set_rate_3_2  <= f33_s2 & ~f33dly;  // leading edge of function being set (after update1)
 		 if(set_rate_1_25)
 			JDAQ_RATE <= 1'b0;
 		 else if(set_rate_3_2 || RST)
@@ -1147,8 +1204,8 @@ end
 // BPI  Write enable for BPI write FIFO
 //
    always @(posedge CLK40) begin
-		 pre_we49 <= f[49] & jsel2 & update2;              // only at update2
-		 we49     <= ~(f[49] & jsel2 & update2) & pre_we49;  // generate tailing edge pulse one clock long
+		 pre_we49 <= f49_up2_s2;              // only at update2
+		 we49     <= ~f49_up2_s2 & pre_we49;  // generate tailing edge pulse one clock long
 		 JTAG_SEND_CMD <= we49;                                 // delay write enable one clock cycle
 	end
 
