@@ -92,18 +92,18 @@ if(USE_CHIPSCOPE==1)
 begin : chipscope_rng_eth
 //
 // Logic analyzer for readout FIFO
-wire [146:0] rng_eth_la_data;
-wire [3:0] rng_eth_la_trig;
+wire [148:0] rng_eth_la_data;
+wire [5:0] rng_eth_la_trig;
 
 eth_fifo_la eth_fifo_la_i (
     .CONTROL(LA_CNTRL),
     .CLK(WCLK),
-    .DATA(rng_eth_la_data),  // IN BUS [146:0]
-    .TRIG0(rng_eth_la_trig),  // IN BUS [3:0]
+    .DATA(rng_eth_la_data),  // IN BUS [148:0]
+    .TRIG0(rng_eth_la_trig),  // IN BUS [5:0]
     .TRIG_OUT(TRIG_OUT) // OUT
 );
 
-// LA Data [146:0]
+// LA Data [148:0]
 	assign rng_eth_la_data[3:0]     = l1acnt[3:0];
 	assign rng_eth_la_data[7:4]     = l1amcnt[3:0];
 	assign rng_eth_la_data[24:8]    = WDATA[16:0];
@@ -146,14 +146,17 @@ eth_fifo_la eth_fifo_la_i (
 	assign rng_eth_la_data[144]     = rst_seq;
 	assign rng_eth_la_data[145]     = inc_smp;
 	assign rng_eth_la_data[146]     = rst_smp;
+	assign rng_eth_la_data[147]     = evt_buf_underflow;
+	assign rng_eth_la_data[148]     = evt_buf_overflow;
 	
 
-// LA Trigger [3:0]
+// LA Trigger [5:0]
 	assign rng_eth_la_trig[0]       = WREN;
 	assign rng_eth_la_trig[1]       = evt_buf_mt;
 	assign rng_eth_la_trig[2]       = l1a_buf_mt;
 	assign rng_eth_la_trig[3]       = TRIG_IN;
-	
+	assign rng_eth_la_trig[4]       = evt_buf_underflow;
+	assign rng_eth_la_trig[5]       = evt_buf_overflow;
 end
 else
 begin
@@ -205,7 +208,9 @@ end
 		.injectsbiterr(injectsbiterr),
 		.dout({movlp,ovrlp,ocnt,data_out}), // output [17 : 0] dout
 		.full(evt_buf_full),
+		.overflow(evt_buf_overflow), // output overflow
 		.empty(evt_buf_mt),
+		.underflow(evt_buf_underflow), // output underflow
 		.prog_full(EVT_BUF_AFL),
 		.prog_empty(EVT_BUF_AMT),
 		.sbiterr(evt_sbiterr),

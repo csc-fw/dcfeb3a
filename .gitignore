@@ -16,6 +16,8 @@ xst/
 synlog/
 syntmp/
 synwork/
+ipcore_dir/tmp/
+planAhead_*
 *.tlg
 *.szr
 *.prs
@@ -81,7 +83,8 @@ synwork/
 *.rbt
 *.ll
 *.svf
-ipcore_dir/tmp/
+*.VcsAnalyst
+
 
 ### Other ###
 *~

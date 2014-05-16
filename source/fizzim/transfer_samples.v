@@ -1,7 +1,8 @@
 
-// Created by fizzim.pl version 4.41 on 2014:02:11 at 12:10:13 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:05:13 at 14:23:48 (www.fizzim.com)
 
 module transfer_samples (
+  output reg DONE,
   output reg INC_CHAN,
   output reg INC_CHIP,
   output reg INC_CNT,
@@ -10,6 +11,7 @@ module transfer_samples (
   output reg RST_CHAN,
   output reg RST_CHIP,
   output reg RST_CNT,
+  output wire [2:0] XSTATE,
   input CLK,
   input JTAG_MODE,
   input RDY,
@@ -18,7 +20,7 @@ module transfer_samples (
   input wire [2:0] CHIP,
   input wire [3:0] CHAN 
 );
-  
+
   // state bits
   parameter 
   Idle           = 3'b000, 
@@ -27,21 +29,37 @@ module transfer_samples (
   Last           = 3'b011, 
   Rd_Ena         = 3'b100, 
   Wait           = 3'b101; 
-  
+
   reg [2:0] state;
+
+  assign XSTATE = state;
+
   reg [2:0] nextstate;
-  
+
+  reg next_DONE;
+
   // comb always block
   always @* begin
     nextstate = 3'bxxx; // default to x because default_state_is_x is set
+    next_DONE = DONE;
     case (state)
-      Idle          : if      (RDY && !JTAG_MODE)           nextstate = Wait;
-                      else                                  nextstate = Idle;
+      Idle          : begin
+        if                    (RDY && !JTAG_MODE) begin
+                                                            nextstate = Wait;
+                                                            next_DONE = 0;
+        end
+        else                                                nextstate = Idle;
+      end
       Inc_Chan_state:                                       nextstate = Rd_Ena;
       L1A_Rd_two    : if      (CNT ==  1)                   nextstate = Rd_Ena;
                       else                                  nextstate = L1A_Rd_two;
-      Last          : if      (RDY)                         nextstate = Wait;
-                      else                                  nextstate = Idle;
+      Last          : begin
+        if                    (RDY)                         nextstate = Wait;
+        else begin
+                                                            nextstate = Idle;
+                                                            next_DONE = 1;
+        end
+      end
       Rd_Ena        : if      ((CHIP == 4) && (CHAN ==15))  nextstate = Last;
                       else if ((CHIP == 4))                 nextstate = Inc_Chan_state;
                       else                                  nextstate = Rd_Ena;
@@ -49,17 +67,21 @@ module transfer_samples (
                       else                                  nextstate = Wait;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
-    if (RST)
+    if (RST) begin
       state <= Idle;
-    else
+      DONE <= 0;
+    end
+    else begin
       state <= nextstate;
+      DONE <= next_DONE;
+    end
   end
-  
+
   // datapath sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST) begin
@@ -112,7 +134,7 @@ module transfer_samples (
       endcase
     end
   end
-  
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [111:0] statename;

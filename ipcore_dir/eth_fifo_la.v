@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : eth_fifo_la.v
-// /___/   /\     Timestamp  : Wed Feb 19 16:51:51 Eastern Standard Time 2014
+// /___/   /\     Timestamp  : Tue May 06 10:52:05 Eastern Daylight Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -28,8 +28,8 @@ module eth_fifo_la(
 
 inout [35 : 0] CONTROL;
 input CLK;
-input [146 : 0] DATA;
-input [3 : 0] TRIG0;
+input [148 : 0] DATA;
+input [5 : 0] TRIG0;
 output TRIG_OUT;
 
 endmodule

@@ -51,10 +51,10 @@ ring_buf your_instance_name (
   .clka(clka), // input clka
   .wea(wea), // input [0 : 0] wea
   .addra(addra), // input [11 : 0] addra
-  .dina(dina), // input [15 : 0] dina
+  .dina(dina), // input [17 : 0] dina
   .clkb(clkb), // input clkb
   .addrb(addrb), // input [11 : 0] addrb
-  .doutb(doutb), // output [15 : 0] doutb
+  .doutb(doutb), // output [17 : 0] doutb
   .injectsbiterr(injectsbiterr), // input injectsbiterr
   .injectdbiterr(injectdbiterr), // input injectdbiterr
   .sbiterr(sbiterr), // output sbiterr

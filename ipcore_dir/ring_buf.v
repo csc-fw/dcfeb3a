@@ -54,10 +54,10 @@ module ring_buf(
 input clka;
 input [0 : 0] wea;
 input [11 : 0] addra;
-input [15 : 0] dina;
+input [17 : 0] dina;
 input clkb;
 input [11 : 0] addrb;
-output [15 : 0] doutb;
+output [17 : 0] doutb;
 input injectsbiterr;
 input injectdbiterr;
 output sbiterr;
@@ -105,8 +105,8 @@ output [11 : 0] rdaddrecc;
     .C_PRIM_TYPE(6),
     .C_READ_DEPTH_A(4096),
     .C_READ_DEPTH_B(4096),
-    .C_READ_WIDTH_A(16),
-    .C_READ_WIDTH_B(16),
+    .C_READ_WIDTH_A(18),
+    .C_READ_WIDTH_B(18),
     .C_RST_PRIORITY_A("CE"),
     .C_RST_PRIORITY_B("CE"),
     .C_RST_TYPE("SYNC"),
@@ -125,8 +125,8 @@ output [11 : 0] rdaddrecc;
     .C_WRITE_DEPTH_B(4096),
     .C_WRITE_MODE_A("WRITE_FIRST"),
     .C_WRITE_MODE_B("WRITE_FIRST"),
-    .C_WRITE_WIDTH_A(16),
-    .C_WRITE_WIDTH_B(16),
+    .C_WRITE_WIDTH_A(18),
+    .C_WRITE_WIDTH_B(18),
     .C_XDEVICEFAMILY("virtex6")
   )
   inst (

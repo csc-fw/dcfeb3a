@@ -104,6 +104,8 @@ ARCHITECTURE simulation_arch OF evt_buf_synth IS
     SIGNAL dbiterr                        :   STD_LOGIC;
     SIGNAL injectsbiterr                  :   STD_LOGIC;
     SIGNAL injectdbiterr                  :   STD_LOGIC;
+    SIGNAL overflow                       :   STD_LOGIC;
+    SIGNAL underflow                      :   STD_LOGIC;
     SIGNAL wr_en                          :   STD_LOGIC;
     SIGNAL rd_en                          :   STD_LOGIC;
     SIGNAL din                            :   STD_LOGIC_VECTOR(18-1 DOWNTO 0);
@@ -265,6 +267,8 @@ ARCHITECTURE simulation_arch OF evt_buf_synth IS
            DBITERR                   => dbiterr,
            INJECTSBITERR             => injectsbiterr,
            INJECTDBITERR             => injectdbiterr,
+           OVERFLOW                  => overflow,
+           UNDERFLOW                 => underflow,
            WR_EN 		     => wr_en,
            RD_EN                     => rd_en,
            DIN                       => din,

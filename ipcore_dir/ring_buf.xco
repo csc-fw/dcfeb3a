@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Wed Feb 12 19:08:16 2014
+# Date: Fri May 02 16:49:41 2014
 #
 ##############################################################
 #
@@ -74,8 +74,8 @@ CSET port_b_clock=100
 CSET port_b_enable_rate=100
 CSET port_b_write_rate=0
 CSET primitive=256x72
-CSET read_width_a=16
-CSET read_width_b=16
+CSET read_width_a=18
+CSET read_width_b=18
 CSET register_porta_input_of_softecc=false
 CSET register_porta_output_of_memory_core=false
 CSET register_porta_output_of_memory_primitives=false
@@ -98,11 +98,11 @@ CSET use_regceb_pin=false
 CSET use_rsta_pin=false
 CSET use_rstb_pin=false
 CSET write_depth_a=4096
-CSET write_width_a=16
-CSET write_width_b=16
+CSET write_width_a=18
+CSET write_width_b=18
 # END Parameters
 # BEGIN Extra information
 MISC pkg_timestamp=2012-11-19T16:22:25Z
 # END Extra information
 GENERATE
-# CRC: db21c9e8
+# CRC: 97d960f2

@@ -54,8 +54,6 @@ module adc_config(
    reg [4:0] a;
 
 
-	wire ms_rst;
-	wire ms_inc;
 	wire add_rst;
 	wire cntr_rst;
 	wire incr;
@@ -70,7 +68,7 @@ module adc_config(
 	reg [5:0] shift_cntr;
 	
 	initial begin
-	   $readmemh ("ADC_ram_contents", ram0, 0, 32);
+	   $readmemh ("ADC_ram_contents", ram0, 0, 31);
 	end
 
 	assign la_msel = 4'h0;
@@ -232,5 +230,4 @@ module adc_config(
   .SCNTR(shift_cntr));   // input  -- Shift counter for sequence control.
 
 endmodule
-
 

@@ -58,6 +58,8 @@ wire l1a_push;
 wire nxt_l1a;
 wire nxt_wrd;
 reg valid1;
+reg eb_amt_s1;
+reg eb_amt_s2;
 reg [4:0] l1abuf;
 wire [3:0] ovrlap_cnt;
 wire [3:0] ocnt;
@@ -96,18 +98,22 @@ if(USE_CHIPSCOPE==1)
 begin : chipscope_rng_buf
 //
 // Logic analyzer for readout FIFO
-wire [170:0] rng_buf_la_data;
-wire [3:0] rng_buf_la_trig;
+wire [171:0] rng_buf_la_data;
+wire [5:0] rng_buf_la_trig0;
+wire [3:0] rng_buf_la_trig1;
+wire [3:0] rng_buf_la_trig2;
 
 ring_buf_la ring_buf_la_i (
     .CONTROL(LA_CNTRL),
     .CLK(CLK),
-    .DATA(rng_buf_la_data),  // IN BUS [170:0]
-    .TRIG0(rng_buf_la_trig),  // IN BUS [3:0]
+    .DATA(rng_buf_la_data),  // IN BUS [171:0]
+    .TRIG0(rng_buf_la_trig0),  // IN BUS [5:0]
+    .TRIG1(rng_buf_la_trig1),  // IN BUS [3:0]
+    .TRIG2(rng_buf_la_trig2),  // IN BUS [3:0]
     .TRIG_OUT(TRIG_OUT) // OUT
 );
 
-// LA Data [170:0]
+// LA Data [171:0]
 	assign rng_buf_la_data[3:0]     = l1acnt[3:0];
 	assign rng_buf_la_data[7:4]     = l1amcnt[3:0];
 	assign rng_buf_la_data[11:8]    = ovrlap_cnt[3:0];
@@ -129,7 +135,7 @@ ring_buf_la ring_buf_la_i (
 
 	assign rng_buf_la_data[144]     = WREN;
 	assign rng_buf_la_data[145]     = L1A_WRT_EN;
-	assign rng_buf_la_data[146]     = EVT_BUF_AMT;
+	assign rng_buf_la_data[146]     = eb_amt_s2;
 	assign rng_buf_la_data[147]     = EVT_BUF_AFL;
 	assign rng_buf_la_data[148]     = L1A_EVT_PUSH;
 	assign rng_buf_la_data[149]     = WARN;
@@ -154,12 +160,21 @@ ring_buf_la ring_buf_la_i (
 	assign rng_buf_la_data[168]     = rst_seq;
 	assign rng_buf_la_data[169]     = inc_smp;
 	assign rng_buf_la_data[170]     = rst_smp;
+	assign rng_buf_la_data[171]     = mask_b12_strt;
 
-// LA Trigger [3:0]
-	assign rng_buf_la_trig[0]       = WREN;
-	assign rng_buf_la_trig[1]       = L1A_WRT_EN;
-	assign rng_buf_la_trig[2]       = l1a_buf_mt;
-	assign rng_buf_la_trig[3]       = TRIG_IN;
+// LA Trigger0 [5:0]
+	assign rng_buf_la_trig0[0]       = WREN;
+	assign rng_buf_la_trig0[1]       = L1A_WRT_EN;
+	assign rng_buf_la_trig0[2]       = l1a_buf_mt;
+	assign rng_buf_la_trig0[3]       = TRIG_IN;
+	assign rng_buf_la_trig0[4]       = EVT_BUF_AMT;
+	assign rng_buf_la_trig0[5]       = EVT_BUF_AFL;
+	
+// LA Trigger1 [3:0]
+	assign rng_buf_la_trig1[3:0]     = evt_state;
+
+// LA Trigger2 [3:0]
+	assign rng_buf_la_trig2[3:0]     = smp[3:0];
 	
 end
 else
@@ -283,10 +298,11 @@ end
 always @(posedge CLK) begin
 	valid1 <= nxt_wrd;
 	DATA_PUSH <= valid1;
+	eb_amt_s1 <= EVT_BUF_AMT;
+	eb_amt_s2 <= eb_amt_s1;
 end
 
-
-Ring_Trans 
+Ring_Trans
 Ring_Trans_FSM (
    .INC_SEQ(inc_seq),
    .INC_SMP(inc_smp),
@@ -295,10 +311,10 @@ Ring_Trans_FSM (
    .RD(nxt_wrd),
    .RST_SEQ(rst_seq),
    .RST_SMP(rst_smp),
-	.EVT_STATE(evt_state),
+   .EVT_STATE(evt_state[2:0]),
    .CLK(CLK),
    .EVT_BUF_AFL(EVT_BUF_AFL),
-   .EVT_BUF_AMT(EVT_BUF_AMT),
+   .EVT_BUF_AMT(eb_amt_s2),
    .L1A_BUF_MT(l1a_buf_mt),
    .RING_AMT(ring_amt),
    .RST(RST_RESYNC),
@@ -306,6 +322,25 @@ Ring_Trans_FSM (
    .SEQ(seq),
    .SMP(smp)
 );
+//Ring_Trans_TMR
+//Ring_Trans_TMR_FSM (
+//   .INC_SEQ(inc_seq),
+//   .INC_SMP(inc_smp),
+//   .LD_ADDR(ld_addr),
+//   .NXT_L1A(nxt_l1a),
+//   .RD(nxt_wrd),
+//   .RST_SEQ(rst_seq),
+//   .RST_SMP(rst_smp),
+//   .EVT_STATE(evt_state[2:0]),
+//   .CLK(CLK),
+//   .EVT_BUF_AFL(EVT_BUF_AFL),
+//   .EVT_BUF_AMT(eb_amt_s2),
+//   .L1A_BUF_MT(l1a_buf_mt),
+//   .RING_AMT(ring_amt),
+//   .RST(RST_RESYNC),
+//   .SAMP_MAX(SAMP_MAX),
+//   .SEQ(seq),
+//   .SMP(smp)
+//);
 	
 endmodule
-

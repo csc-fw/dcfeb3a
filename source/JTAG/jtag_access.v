@@ -168,6 +168,9 @@ module jtag_access (
 	 input [11:0] BC0CNT         //BC0 counter value
 	 );
 
+    wire [1:0] XL1DLYSET;  // Extra L1A delay setting [1:0]
+    wire [3:0] LOADPBLK;   // Pre-blockend bits [3:0] not used in DCFEB
+
    reg dshift;
    reg we,pre_we,pre_rd;
    reg we21,pre_we21,pre_rd22;
@@ -1135,7 +1138,7 @@ end
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
-		.PI(16'h0000),          // Parallel input
+		.PI(8'h00),          // Parallel input
       .PO(JTAG_CMD_DATA),       // Parallel output
       .TDO(tdof31),        // Serial Test Data Out
       .DSY_OUT(dmy15));    // Daisy chained serial data out
@@ -1225,7 +1228,7 @@ end
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
-		.PI(16'h0000),          // Parallel input
+		.PI(8'h00),          // Parallel input
       .PO(reg_sel_wrd),       // Parallel output
       .TDO(tdof34),        // Serial Test Data Out
       .DSY_OUT(dmy16));    // Daisy chained serial data out

@@ -79,7 +79,7 @@ module pipeline_gen_csp #(
 	reg [9:0] tcnt[6:1][1:0];
 
 	wire trst[6:1][1:0];
-	wire dummy[6:1][1:0];
+	wire [31:0] dummy[6:1][1:0];
 
 	wire csp_restart;
 	wire csp_inj_pulse;
@@ -363,4 +363,3 @@ generate
 endgenerate
 
 endmodule
-

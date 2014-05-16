@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : CSP_rngbuf_cntrl.veo
-// /___/   /\     Timestamp  : Thu Feb 20 10:31:48 Eastern Standard Time 2014
+// /___/   /\     Timestamp  : Tue May 13 14:00:10 Eastern Daylight Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -23,7 +23,8 @@
 CSP_rngbuf_cntrl YourInstanceName (
     .CONTROL0(CONTROL0), // INOUT BUS [35:0]
     .CONTROL1(CONTROL1), // INOUT BUS [35:0]
-    .CONTROL2(CONTROL2) // INOUT BUS [35:0]
+    .CONTROL2(CONTROL2), // INOUT BUS [35:0]
+    .CONTROL3(CONTROL3) // INOUT BUS [35:0]
 );
 
 // INST_TAG_END ------ End INSTANTIATION Template ---------

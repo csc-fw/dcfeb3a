@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : eth_fifo_la.veo
-// /___/   /\     Timestamp  : Wed Feb 19 16:51:51 Eastern Standard Time 2014
+// /___/   /\     Timestamp  : Tue May 06 10:52:05 Eastern Daylight Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -23,8 +23,8 @@
 eth_fifo_la YourInstanceName (
     .CONTROL(CONTROL), // INOUT BUS [35:0]
     .CLK(CLK), // IN
-    .DATA(DATA), // IN BUS [146:0]
-    .TRIG0(TRIG0), // IN BUS [3:0]
+    .DATA(DATA), // IN BUS [148:0]
+    .TRIG0(TRIG0), // IN BUS [5:0]
     .TRIG_OUT(TRIG_OUT) // OUT
 );
 

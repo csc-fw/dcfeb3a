@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : ring_buf_la.v
-// /___/   /\     Timestamp  : Wed Feb 19 16:05:36 Eastern Standard Time 2014
+// /___/   /\     Timestamp  : Tue May 06 10:46:32 Eastern Daylight Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -23,13 +23,17 @@ module ring_buf_la(
     CLK,
     DATA,
     TRIG0,
+    TRIG1,
+    TRIG2,
     TRIG_OUT) /* synthesis syn_black_box syn_noprune=1 */;
 
 
 inout [35 : 0] CONTROL;
 input CLK;
-input [170 : 0] DATA;
-input [3 : 0] TRIG0;
+input [171 : 0] DATA;
+input [5 : 0] TRIG0;
+input [3 : 0] TRIG1;
+input [3 : 0] TRIG2;
 output TRIG_OUT;
 
 endmodule

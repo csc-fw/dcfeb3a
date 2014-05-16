@@ -45,12 +45,13 @@ module fifo16ch_wide #(
 	output [43:0] L1A_SMP_OUT,
 	output [191:0] DOUT_16CH,
 	output [23:0] L1A_CNT,
-	output [11:0] L1A_MTCH_CNT
+	output [11:0] L1A_MTCH_CNT,
+	output [15:0] fmt
 	);
 	 
 	
 	wire wren;
-	wire [15:0] fmt;
+//	wire [15:0] fmt;
 	wire [15:0] ffl;
 	wire [15:0] ovrflw;
 	reg [11:0] muxout[15:0];

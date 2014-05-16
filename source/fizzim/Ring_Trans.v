@@ -31,7 +31,7 @@ module Ring_Trans (
   W4Data     = 3'b101, 
   W4_EVT_AMT = 3'b110; 
   
-  reg [2:0] state;
+  reg [2:0] state  /* synthesis syn_encoding="original" */;
   assign EVT_STATE = state;
   reg [2:0] nextstate;
   

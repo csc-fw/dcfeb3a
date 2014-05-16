@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : ring_buf_la.veo
-// /___/   /\     Timestamp  : Wed Feb 19 16:05:36 Eastern Standard Time 2014
+// /___/   /\     Timestamp  : Tue May 06 10:46:32 Eastern Daylight Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -23,8 +23,10 @@
 ring_buf_la YourInstanceName (
     .CONTROL(CONTROL), // INOUT BUS [35:0]
     .CLK(CLK), // IN
-    .DATA(DATA), // IN BUS [170:0]
-    .TRIG0(TRIG0), // IN BUS [3:0]
+    .DATA(DATA), // IN BUS [171:0]
+    .TRIG0(TRIG0), // IN BUS [5:0]
+    .TRIG1(TRIG1), // IN BUS [3:0]
+    .TRIG2(TRIG2), // IN BUS [3:0]
     .TRIG_OUT(TRIG_OUT) // OUT
 );
 

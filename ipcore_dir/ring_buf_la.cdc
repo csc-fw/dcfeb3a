@@ -1,5 +1,5 @@
 #ChipScope Core Generator Project File Version 3.0
-#Wed Feb 19 16:05:36 Eastern Standard Time 2014
+#Tue May 06 10:46:32 Eastern Daylight Time 2014
 SignalExport.clockChannel=CLK
 SignalExport.dataChannel<0000>=DATA[0]
 SignalExport.dataChannel<0001>=DATA[1]
@@ -172,15 +172,32 @@ SignalExport.dataChannel<0167>=DATA[167]
 SignalExport.dataChannel<0168>=DATA[168]
 SignalExport.dataChannel<0169>=DATA[169]
 SignalExport.dataChannel<0170>=DATA[170]
+SignalExport.dataChannel<0171>=DATA[171]
 SignalExport.dataEqualsTrigger=false
-SignalExport.dataPortWidth=171
+SignalExport.dataPortWidth=172
 SignalExport.triggerChannel<0000><0000>=TRIG0[0]
 SignalExport.triggerChannel<0000><0001>=TRIG0[1]
 SignalExport.triggerChannel<0000><0002>=TRIG0[2]
 SignalExport.triggerChannel<0000><0003>=TRIG0[3]
+SignalExport.triggerChannel<0000><0004>=TRIG0[4]
+SignalExport.triggerChannel<0000><0005>=TRIG0[5]
+SignalExport.triggerChannel<0001><0000>=TRIG1[0]
+SignalExport.triggerChannel<0001><0001>=TRIG1[1]
+SignalExport.triggerChannel<0001><0002>=TRIG1[2]
+SignalExport.triggerChannel<0001><0003>=TRIG1[3]
+SignalExport.triggerChannel<0002><0000>=TRIG2[0]
+SignalExport.triggerChannel<0002><0001>=TRIG2[1]
+SignalExport.triggerChannel<0002><0002>=TRIG2[2]
+SignalExport.triggerChannel<0002><0003>=TRIG2[3]
 SignalExport.triggerPort<0000>.name=TRIG0
-SignalExport.triggerPortCount=1
+SignalExport.triggerPort<0001>.name=TRIG1
+SignalExport.triggerPort<0002>.name=TRIG2
+SignalExport.triggerPortCount=3
 SignalExport.triggerPortIsData<0000>=false
-SignalExport.triggerPortWidth<0000>=4
+SignalExport.triggerPortIsData<0001>=false
+SignalExport.triggerPortIsData<0002>=false
+SignalExport.triggerPortWidth<0000>=6
+SignalExport.triggerPortWidth<0001>=4
+SignalExport.triggerPortWidth<0002>=4
 SignalExport.type=ila
 

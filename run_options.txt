@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version I-2014.03-1 
 #--  Project file C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\run_options.txt
-#--  Written on Tue Apr 29 16:54:30 2014
+#--  Written on Fri May 16 09:41:10 2014
 
 
 #project files
@@ -53,6 +53,7 @@ add_file -xilinx "./ipcore_dir/CSP_rngbuf_cntrl.ngc"
 add_file -xilinx "./ipcore_dir/ring_buf_la.ngc"
 add_file -xilinx "./ipcore_dir/eth_fifo_la.ngc"
 add_file -xilinx "./ipcore_dir/chnlnk_fifo_la.ngc"
+add_file -xilinx "./ipcore_dir/xfer2ring_la.ngc"
 add_file -verilog "../../../../../../../Xilinx/14.7/ISE_DS/ISE/verilog/src/unimacro/FIFO_DUALCLOCK_MACRO.v"
 add_file -verilog "./source/TMB/lfsr_R24.v"
 add_file -verilog "./source/fizzim/comp_thresh_load.v"
@@ -91,6 +92,7 @@ add_file -verilog "./source/DAQ/crc_gen.v"
 add_file -verilog "./source/CLK/daq_mmcm_custom.v"
 add_file -verilog "./source/CLK/clk_div_reset.v"
 add_file -verilog "./source/ADC/deserializer.v"
+add_file -verilog "./ipcore_dir/xfer2ring_la.v"
 add_file -verilog "./ipcore_dir/sem_vio.v"
 add_file -verilog "./ipcore_dir/sem_la.v"
 add_file -verilog "./ipcore_dir/sem_core.v"
@@ -111,15 +113,15 @@ add_file -verilog "./ipcore_dir/deser_la.v"
 add_file -verilog "./ipcore_dir/daq_tx_vio.v"
 add_file -verilog "./ipcore_dir/daq_tx_la.v"
 add_file -verilog "./ipcore_dir/ch_fifo_ecc.v"
-add_file -verilog "./ipcore_dir/chnlnk_fifo_la.v"
 add_file -verilog "./ipcore_dir/adc_frame_clk.v"
+add_file -verilog "./ipcore_dir/chnlnk_fifo_la.v"
 add_file -verilog "./ipcore_dir/bpi_vio.v"
 add_file -verilog "./ipcore_dir/bpi_la.v"
 add_file -verilog "./source/trigger.v"
 add_file -verilog "./source/TMB/tmb_fiber_out.v"
 add_file -verilog "./source/TMB/comparator_io.v"
-add_file -verilog "./source/test_points.v"
 add_file -verilog "./ipcore_dir/trg_mmcm.v"
+add_file -verilog "./source/test_points.v"
 add_file -verilog "./source/spi_port.v"
 add_file -verilog "./source/SEM/SEM_module.v"
 add_file -verilog "./source/RESET/reset_manager.v"
@@ -170,6 +172,7 @@ impl -add dcfeb3a -type fpga
 set_option -vlog_std v2001
 set_option -num_critical_paths 4
 set_option -num_startend_points 4
+set_option -include_path {C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a;C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source;C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/ADC;C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/BPI}
 
 #device options
 set_option -technology VIRTEX6
@@ -184,6 +187,7 @@ set_option -top_module "dcfeb3a"
 
 # mapper_options
 set_option -frequency 40.0
+set_option -default_enum_encoding sequential
 set_option -write_verilog 0
 set_option -write_vhdl 0
 set_option -srs_instrumentation 1
@@ -193,11 +197,11 @@ set_option -RWCheckOnRam 1
 
 # Xilinx Virtex2
 set_option -run_prop_extract 1
-set_option -maxfan 100
+set_option -maxfan 40
 set_option -disable_io_insertion 0
 set_option -pipe 1
 set_option -update_models_cp 0
-set_option -retiming 0
+set_option -retiming 1
 set_option -no_sequential_opt 0
 set_option -fix_gated_and_generated_clocks 1
 

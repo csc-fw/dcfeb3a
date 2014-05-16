@@ -8,7 +8,7 @@
 //     Version: 2.17 11/09/12 Changes to mac_fifo port and signal names didn't get propagated to daq_transceiver_io.  Now fixed.
 //     Version: 2.16 11/08/12 registered di-strip output in tmb_fiber_out for half strip test mode to adjust phase by half a clock
 //////////////////////////////////////////////////////////////////////////////////
-
+(* syn_encoding = "safe original" *)
 module dcfeb3a #(
 	parameter USE_DESER_CHIPSCOPE = 0,
 	parameter USE_CMP_CHIPSCOPE = 0,
@@ -170,6 +170,7 @@ module dcfeb3a #(
 	wire [35:0] rng_buf_la0_c1;
 	wire [35:0] rng_eth_la0_c2;
 	wire [35:0] rng_chn_la0_c3;
+	wire [35:0] rng_xfr_la0_c3;
 
 generate
 if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
@@ -195,6 +196,7 @@ CSP_comp_daq_cntrl cmp_daq_cntrl1 (
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0) 
 begin : chipscope_with_comp_no_daq
@@ -221,6 +223,7 @@ CSP_comp_cntrl comp_cntrl1 (
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
 begin : chipscope_with_daq_no_comp
@@ -246,6 +249,7 @@ CSP_daq_cntrl daq_cntrl1 (
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==1) 
 begin : chipscope_with_deser
@@ -273,6 +277,7 @@ CSP_deser_cntrl deser_cntrl1 (
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 1) 
 begin : chipscope_with_pipeline
@@ -299,6 +304,7 @@ CSP_pipe_cntrl pipe_cntrl1 (
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 1) 
 begin : chipscope_with_SEM
@@ -324,14 +330,16 @@ CSP_sem_cntrl sem_cntrl1 (
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 0 && USE_RINGBUF_CHIPSCOPE == 1) 
 begin : chipscope_with_Ring_Buf
 CSP_rngbuf_cntrl rngbuf_cntrl1 (
     .CONTROL0(rng_ff1_la0_c0), // INOUT BUS [35:0]
     .CONTROL1(rng_buf_la0_c1), // INOUT BUS [35:0]
-    .CONTROL2(rng_eth_la0_c2) // INOUT BUS [35:0]
+    .CONTROL2(rng_eth_la0_c2), // INOUT BUS [35:0]
 //    .CONTROL3(rng_chn_la0_c3)  // INOUT BUS [35:0]
+    .CONTROL3(rng_xfr_la0_c3)  // INOUT BUS [35:0]
 );
 	assign g1vio0_c0 = 36'h000000000;
 	assign g1la0_c0 = 36'h000000000;
@@ -371,6 +379,7 @@ begin : no_chipscope
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
 end
 endgenerate
 
@@ -981,6 +990,7 @@ wire l1a_rd_en;
 wire l1a_smp_rdy;
 wire [6:0] samp_max;
 wire [43:0] l1a_smp_out;
+wire [15:0] f16_mt;
 reg resync_1;
 reg resync_2;
 reg resync_3;
@@ -991,15 +1001,18 @@ wire rng_ff1_trg_in;
 wire rng_buf_trg_in;
 wire rng_chn_trg_in;
 wire rng_eth_trg_in;
+wire rng_xfr_trg_in;
 wire rng_ff1_trg_out;
 wire rng_buf_trg_out;
 wire rng_chn_trg_out;
 wire rng_eth_trg_out;
+wire rng_xfr_trg_out;
 
-assign rng_ff1_trg_in = rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out;
-assign rng_buf_trg_in = rng_ff1_trg_out || rng_chn_trg_out || rng_eth_trg_out;
-assign rng_chn_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_eth_trg_out;
-assign rng_eth_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out;
+assign rng_ff1_trg_in = rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out || rng_xfr_trg_out;
+assign rng_buf_trg_in = rng_ff1_trg_out || rng_chn_trg_out || rng_eth_trg_out || rng_xfr_trg_out;
+assign rng_chn_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_eth_trg_out || rng_xfr_trg_out;
+assign rng_eth_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_xfr_trg_out;
+assign rng_xfr_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out;
 
 assign resync_stretch = (resync_1 | resync_2 | resync_3 | resync_4); 
 assign rst_resync = sys_rst || resync_stretch;
@@ -1041,7 +1054,8 @@ fifo1 (
 	.L1A_SMP_OUT(l1a_smp_out),  // 44 bit wide output two entries per sample
 	.DOUT_16CH(doutfifo),  // 192 bit wide output at 160 MHz for 6 X (n samples)
 	.L1A_CNT(l1a_cnt),
-	.L1A_MTCH_CNT(l1a_mtch_cnt)
+	.L1A_MTCH_CNT(l1a_mtch_cnt),
+	.fmt(f16_mt)
 	);
 
 wire jrdfifo;
@@ -1071,13 +1085,22 @@ wire dmb_vld;
  /////////////////////////////////////////////////////////////////////////////
  
 
-xfer2ringbuf xfer2ringbuf_i(   // Transfer data from FIFO1 to readout ring buffer at 160 MHz
+xfer2ringbuf  #(
+	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE)
+	)
+xfer2ringbuf_i(   // Transfer data from FIFO1 to readout ring buffer at 160 MHz
+	// ChipScope Pro signlas
+	.LA_CNTRL(rng_xfr_la0_c3),
+	//
 	.CLK(clk160),
 	.RST(sys_rst),
 	.JTAG_MODE(jtag_rd_mode),
 	.J_RD_FIFO(jrdfifo),
 	.DIN_16CH(doutfifo),
 	.RDY(l1a_smp_rdy),
+	.F16_MT(f16_mt),
+	.TRIG_IN(rng_xfr_trg_in),
+	.TRIG_OUT(rng_xfr_trg_out),
 	.RD_ENA(fifo1_rd_ena),
 	.L1A_RD_EN(l1a_rd_en),
 	.WREN(rdf_wren),

@@ -93,7 +93,7 @@ ENTITY ring_buf_exdes IS
     WEA            : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     ADDRA          : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
   
-    DINA           : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    DINA           : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
   
     SBITERR        : OUT STD_LOGIC;
     DBITERR        : OUT STD_LOGIC;
@@ -108,7 +108,7 @@ ENTITY ring_buf_exdes IS
   
       --Inputs - Port B
     ADDRB          : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
-    DOUTB          : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+    DOUTB          : OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
     CLKB           : IN STD_LOGIC
 
   );
@@ -132,7 +132,7 @@ ARCHITECTURE xilinx OF ring_buf_exdes IS
     WEA        : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     ADDRA      : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
   
-    DINA       : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    DINA       : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
 
   
       --ECC
@@ -149,7 +149,7 @@ ARCHITECTURE xilinx OF ring_buf_exdes IS
   
       --Port B
     ADDRB      : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
-    DOUTB      : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+    DOUTB      : OUT STD_LOGIC_VECTOR(17 DOWNTO 0);
     CLKB       : IN STD_LOGIC
 
 

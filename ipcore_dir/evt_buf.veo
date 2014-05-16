@@ -68,7 +68,9 @@ evt_buf your_instance_name (
   .injectsbiterr(injectsbiterr), // input injectsbiterr
   .dout(dout), // output [17 : 0] dout
   .full(full), // output full
+  .overflow(overflow), // output overflow
   .empty(empty), // output empty
+  .underflow(underflow), // output underflow
   .prog_full(prog_full), // output prog_full
   .prog_empty(prog_empty), // output prog_empty
   .sbiterr(sbiterr), // output sbiterr

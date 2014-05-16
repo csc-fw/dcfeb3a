@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : CSP_rngbuf_cntrl.v
-// /___/   /\     Timestamp  : Thu Feb 20 10:31:48 Eastern Standard Time 2014
+// /___/   /\     Timestamp  : Tue May 13 14:00:10 Eastern Daylight Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -21,11 +21,13 @@
 module CSP_rngbuf_cntrl(
     CONTROL0,
     CONTROL1,
-    CONTROL2) /* synthesis syn_black_box syn_noprune=1 */;
+    CONTROL2,
+    CONTROL3) /* synthesis syn_black_box syn_noprune=1 */;
 
 
 inout [35 : 0] CONTROL0;
 inout [35 : 0] CONTROL1;
 inout [35 : 0] CONTROL2;
+inout [35 : 0] CONTROL3;
 
 endmodule

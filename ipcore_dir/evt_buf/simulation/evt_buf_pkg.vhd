@@ -207,6 +207,8 @@ PACKAGE evt_buf_pkg IS
            DBITERR                   : OUT std_logic;
            INJECTSBITERR             : IN  std_logic;
            INJECTDBITERR             : IN  std_logic;
+           OVERFLOW                  : OUT std_logic;
+           UNDERFLOW                 : OUT std_logic;
            WR_EN 		     : IN  std_logic;
            RD_EN                     : IN  std_logic;
            DIN                       : IN  std_logic_vector(18-1 DOWNTO 0);

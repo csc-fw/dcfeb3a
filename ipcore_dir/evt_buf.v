@@ -47,7 +47,9 @@ module evt_buf(
   injectsbiterr,
   dout,
   full,
+  overflow,
   empty,
+  underflow,
   prog_full,
   prog_empty,
   sbiterr,
@@ -64,7 +66,9 @@ input injectdbiterr;
 input injectsbiterr;
 output [17 : 0] dout;
 output full;
+output overflow;
 output empty;
+output underflow;
 output prog_full;
 output prog_empty;
 output sbiterr;
@@ -148,7 +152,7 @@ output dbiterr;
     .C_HAS_INT_CLK(0),
     .C_HAS_MASTER_CE(0),
     .C_HAS_MEMINIT_FILE(0),
-    .C_HAS_OVERFLOW(0),
+    .C_HAS_OVERFLOW(1),
     .C_HAS_PROG_FLAGS_AXIS(0),
     .C_HAS_PROG_FLAGS_RACH(0),
     .C_HAS_PROG_FLAGS_RDCH(0),
@@ -160,7 +164,7 @@ output dbiterr;
     .C_HAS_RST(1),
     .C_HAS_SLAVE_CE(0),
     .C_HAS_SRST(0),
-    .C_HAS_UNDERFLOW(0),
+    .C_HAS_UNDERFLOW(1),
     .C_HAS_VALID(0),
     .C_HAS_WR_ACK(0),
     .C_HAS_WR_DATA_COUNT(0),
@@ -274,7 +278,9 @@ output dbiterr;
     .INJECTSBITERR(injectsbiterr),
     .DOUT(dout),
     .FULL(full),
+    .OVERFLOW(overflow),
     .EMPTY(empty),
+    .UNDERFLOW(underflow),
     .PROG_FULL(prog_full),
     .PROG_EMPTY(prog_empty),
     .SBITERR(sbiterr),
@@ -294,10 +300,8 @@ output dbiterr;
     .INT_CLK(),
     .ALMOST_FULL(),
     .WR_ACK(),
-    .OVERFLOW(),
     .ALMOST_EMPTY(),
     .VALID(),
-    .UNDERFLOW(),
     .DATA_COUNT(),
     .RD_DATA_COUNT(),
     .WR_DATA_COUNT(),
