@@ -77,6 +77,7 @@
 //  59     | Read INJPLS counter (12 bits).
 //  60     | Read EXTPLS counter (12 bits).
 //  61     | Read BC0 counter (12 bits).
+//  62     | Comparator Clock Phase Reset (CMP_PHS_JTAG_RST),  Instruction only, (Auto reset)
 //
 // Revision: 
 // Revision 0.01 - File Created

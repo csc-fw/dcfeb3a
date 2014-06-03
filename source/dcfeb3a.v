@@ -400,7 +400,7 @@ endgenerate
 	wire comp_clk;
 	wire comp_clk80;
 	wire comp_clk160;
-	wire [3:0] cmp_clk_phase;
+	wire [4:0] cmp_clk_phase;
 	wire [2:0] samp_clk_phase;
 	wire cmp_c0;
 	wire cmp_f0;
@@ -422,6 +422,14 @@ endgenerate
 	wire cap_phase;
 	wire [7:0] rst_mmcm_pipe;
 	wire samp_clk_phs_chng;
+	wire cmp_phs_jtag_rst;
+	wire cmp_phs_psen;
+	wire cmp_phs_psdone;
+	wire cmp_phs_busy;
+	wire [10:0] cmp_phase;
+	wire cmp_phs_change;
+	wire cmp_phs_rst;
+	wire [2:0] cmp_phs_state;
 	
 //   assign eos_sim = eos | eos_stim;
 	
@@ -434,7 +442,8 @@ endgenerate
 		.XO_CLK_AC_N(XO_CLK_AC_N), .XO_CLK_AC_P(XO_CLK_AC_P),              // Crystal Osc. 125 MHz    Ref for DAQ GTX for GbE
 		.FEM_CLK320_N(\FEM_CLK320- ), .FEM_CLK320_P(\FEM_CLK320+ ),                        // FF_EMU Emulator high speed clock
 		.GC0N(GC0N), .GC0P(GC0P), .GC1N(GC1N), .GC1P(GC1P),                // Spare global clock inputs
-		.CMP_CLK_PHASE(cmp_clk_phase),    // Comparator Clock Phase (0-15)
+		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst), // on demand reset of comparator MMCM and dynamic phase state machine
+		.CMP_CLK_PHASE(cmp_clk_phase),    // Comparator Clock Phase 5 bits (0-31)
 		.SAMP_CLK_PHASE(samp_clk_phase),    // Comparator Clock Phase (0-15)
 		.SAMP_CLK_PHS_CHNG(samp_clk_phs_chng), // Sampling Clock Phase Change in progress; Reset deserializers.
 		.TP_B35_0N(TP_B35_0N), .TP_B35_0P(TP_B35_0P),                                  // Test point clock output
@@ -468,7 +477,14 @@ endgenerate
 		.lead_edg_resync(lead_edg_resync),
 		.lead_edg_resync_d1(lead_edg_resync_d1),
 		.cap_phase(cap_phase),
-		.rst_mmcm_pipe(rst_mmcm_pipe)
+		.rst_mmcm_pipe(rst_mmcm_pipe),
+		.cmp_phase(cmp_phase),    // translated comp Phase 11 bits (0-1344)
+		.cmp_phs_change(cmp_phs_change),    // cmp_phase != CMP_CLK_PHASE
+		.cmp_phs_psen(cmp_phs_psen),
+		.cmp_phs_psdone(cmp_phs_psdone),
+		.cmp_phs_busy(cmp_phs_busy),
+		.cmp_phs_rst(cmp_phs_rst),
+		.cmp_phs_state(cmp_phs_state)
 	);
   
 
@@ -1850,8 +1866,9 @@ SPI_PORT_i  (
 		.BPI_DISABLE(BPI_disable),  // Disable BPI processing
 		.BPI_ENABLE(BPI_enable),    // Enable BPI processing
 		.SAMP_MAX(samp_max),        // Number of samples to readout minus 1
-		.CMP_CLK_PHASE(cmp_clk_phase), // Comparator Clock Phase (0-15)
+		.CMP_CLK_PHASE(cmp_clk_phase), // Comparator Clock Phase 5-bits (0-31)
 		.SAMP_CLK_PHASE(samp_clk_phase), // Sampling Clock Phase (0-7)
+		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst), // Manual reset of Comp Clock Phase MMCM;
 		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng), // Comp Clock Phase Change in progress; Reset TMB path transceiver.
 		.SAMP_CLK_PHS_CHNG(samp_clk_phs_chng), // Sampling Clock Phase Change in progress; Reset deserializers.
 		.TMB_TX_MODE(tmb_tx_mode),   // TMB transmit mode (3-bits, 0: comparator data, 1: fixed patterns, 2: counters, 3: randoms, 5: half strips).
@@ -2002,9 +2019,18 @@ endgenerate
 		.TRG_SYNCDONE(tx_sync_done),
 		.TRG_MMCM_LOCK(trg_mmcm_lock),
 		.COMP_RST(comp_rst),
+		.cmp_phs_psen(cmp_phs_psen),
+		.cmp_phs_psdone(cmp_phs_psdone),
+		.cmp_phs_busy(cmp_phs_busy),
+		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst),
+		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng),
+		.CMP_CLK_PHASE(cmp_clk_phase),    // Comparator Clock Phase 5 bits (0-31)
+		.cmp_phase(cmp_phase),    // translated comp Phase 11 bits (0-1344)
+		.cmp_phs_change(cmp_phs_change),    // cmp_phase != CMP_CLK_PHASE
+		.cmp_phs_rst(cmp_phs_rst),
+		.cmp_phs_state(cmp_phs_state),
 		.TRG_RST(trg_rst),
 		.LCT(lct),
-		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng),
 		.EOS(eos),
 		.POR_STATE(por_state),
 		.DSR_ALGND(dsr_aligned),
