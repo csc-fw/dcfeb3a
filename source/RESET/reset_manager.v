@@ -31,7 +31,7 @@ module reset_manager(
 	 output reg RUN,
 	 output QPLL_LOCK,
 	 output QPLL_ERROR,
-	 output [2:0] POR_STATE
+	 output [3:0] POR_STATE
     );
 
 wire ainc;
