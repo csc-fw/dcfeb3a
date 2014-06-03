@@ -1749,7 +1749,7 @@ SPI_PORT_i  (
 		.CSP_SYS_RST(csp_sys_rst),
 		.DAQ_MMCM_LOCK(daq_mmcm_lock),
 		.TRG_MMCM_LOCK(trg_mmcm_lock),
-		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng),
+		.CMP_PHS_CHANGE(cmp_clk_phs_chng),
 		.TRG_SYNC_DONE(tx_sync_done),
 		.QP_ERROR(QP_ERROR),
 		.QP_LOCKED(QP_LOCKED),
