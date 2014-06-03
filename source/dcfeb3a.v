@@ -508,7 +508,7 @@ endgenerate
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,bc0cnt[3:0],rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,1'b0,por_state,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
  assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,  1'b0,al_status,  rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
- assign startup_status = {qpll_lock,qpll_error,qpll_cnt_ovrflw,eos,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status,por_state};
+ assign startup_status = {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,eos,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status,por_state};
 
 assign falling_edge_qpll = ~qpll_lock & qpll_lock_r1;
 assign qpll_cnt_full     = (qpll_cnt == 8'hFF);
