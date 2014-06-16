@@ -52,6 +52,7 @@ module Clock_sources(
     output COMP_CLK,
     output COMP_CLK80,
     output COMP_CLK160,
+	 output reg CMP_PHS_CHANGE,
     output TRG_MMCM_LOCK,
     output CLK160,
     output CLK120,
@@ -71,7 +72,6 @@ module Clock_sources(
 	output reg cap_phase,
 	output reg [7:0] rst_mmcm_pipe,
 	output reg [10:0] cmp_phase,
-	output reg cmp_phs_change,
 	output cmp_phs_psen,
 	output cmp_phs_psdone,
 	output cmp_phs_busy,
@@ -130,7 +130,6 @@ wire rst_samp_mmcm;
 //	reg [10:0] cmp_phase;
 	reg [10:0] cmp_rom [31:0];	
 	reg cmp_phs_chg_m1;
-//	reg cmp_phs_change;
 	reg cmp_phs_inc;
 	wire cmp_phs_busy;
 	wire cmp_phs_psen;
@@ -387,7 +386,7 @@ daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
 	always @(posedge CLK40) begin
 		cmp_phs_inc   <= (cmp_phase >  cur_cmp_phase);
 		cmp_phs_chg_m1 <= !(cmp_phase == cur_cmp_phase);
-		cmp_phs_change <= cmp_phs_chg_m1;                // delay signaling phase change to allow change to settle
+		CMP_PHS_CHANGE <= cmp_phs_chg_m1;                // delay signaling phase change to allow change to settle
 		cmp_phase <= cmp_rom[CMP_CLK_PHASE];
 	end
 
@@ -413,11 +412,9 @@ daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
      .DYN_PHS_STATE(cmp_phs_state),
      .CLK(CLK40),
      .LOCKED(TRG_MMCM_LOCK),
-     .PH_CHANGE(cmp_phs_change),
+     .PH_CHANGE(CMP_PHS_CHANGE),
      .PS_DONE(cmp_phs_psdone),
      .RST(cmp_phs_rst)
 );
-
-
 
 endmodule

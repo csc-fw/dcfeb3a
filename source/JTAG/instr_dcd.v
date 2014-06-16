@@ -52,7 +52,7 @@
 //  34     | Program Calibration DAC -- same style as Comparator DAC
 //  35     | Send Control Byte to the MAX 1271 ADC (and conversion clocks)
 //  36     | Read back the MAX 1271 ADC conversion stored in the SPI return register.
-//  37     | Read the SEM status and FRAME Address Register for the address of the frame with the bit errors that caused the CRC error (34 bits).
+//  37     | Read the SEM status (10 bits).
 //  38     | Reset the configuration ECC error counters. -- Instruction only, (Auto reset)
 //  39     | Read the ECC error counters (16-bits total, {8-bits for multi-bit error count, 8-bits for single-bit error counts})
 //  40     | Set L1A_MATCH source to use only matched L1A's (skw_rw_l1a_match). Clear the USE_ANY_L1A flag. -- Instruction only
@@ -71,7 +71,7 @@
 //  53     | Readback Select Register: Register to capture selected register indicated in Reg_Sel_Wrd (16-bits). 
 //  54     | QPLL reset: This requires a NoOp afterwards to clear the reset then a Hard reset.  All clocks stop while active. QPLL takes 0.5 seconds to lock. 
 //  55     | QPLL lock lost counter (8-bits). 
-//  56     | Startup Status register (16-bits).  {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],eos,por_state[2:0]};
+//  56     | Startup Status register (16-bits).  {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,eos,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],por_state[3:0]};
 //  57     | Read L1A counter (24 bits).
 //  58     | Read L1A_MATCH counter (12 bits).
 //  59     | Read INJPLS counter (12 bits).

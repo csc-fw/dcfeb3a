@@ -460,6 +460,7 @@ endgenerate
 		.COMP_CLK(comp_clk),              // comparator clock 
 		.COMP_CLK80(comp_clk80),          // comparator GTX USRCLK2
 		.COMP_CLK160(comp_clk160),          // comparator GTX USRCLK
+		.CMP_PHS_CHANGE(cmp_phs_change),     // Comp Clock Phase Change in progress; Reset TMB path transceiver.
 		.TRG_MMCM_LOCK(trg_mmcm_lock),
 		.CLK160(clk160),
 		.CLK120(clk120),
@@ -479,7 +480,6 @@ endgenerate
 		.cap_phase(cap_phase),
 		.rst_mmcm_pipe(rst_mmcm_pipe),
 		.cmp_phase(cmp_phase),    // translated comp Phase 11 bits (0-1344)
-		.cmp_phs_change(cmp_phs_change),    // cmp_phase != CMP_CLK_PHASE
 		.cmp_phs_psen(cmp_phs_psen),
 		.cmp_phs_psdone(cmp_phs_psdone),
 		.cmp_phs_busy(cmp_phs_busy),
@@ -1407,7 +1407,7 @@ daq_optical_out_i (
 	wire [7:0]g1c,g2c,g3c,g4c,g5c,g6c;
 	wire [1:0]comp_mode;
 	wire [2:0]comp_time;
-	wire lct_rst;
+	wire comp_rst;
 	
 	comparator_io
 	comp_io1 (
@@ -1750,7 +1750,6 @@ SPI_PORT_i  (
 //	wire adc_init_done;
 	wire jtag_sys_rst;
 	wire csp_sys_rst;
-	wire cmp_clk_phs_chng;
 	
 	assign adc_init = por_adc_init | jtag_adc_init | csp_adc_init;
 	assign icap_clk_ena = ~sys_rst;
@@ -1765,7 +1764,7 @@ SPI_PORT_i  (
 		.CSP_SYS_RST(csp_sys_rst),
 		.DAQ_MMCM_LOCK(daq_mmcm_lock),
 		.TRG_MMCM_LOCK(trg_mmcm_lock),
-		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng),
+		.CMP_PHS_CHANGE(cmp_phs_change),     // Comp Clock Phase Change in progress; Reset TMB path transceiver.
 		.TRG_SYNC_DONE(tx_sync_done),
 		.QP_ERROR(QP_ERROR),
 		.QP_LOCKED(QP_LOCKED),
@@ -1869,7 +1868,6 @@ SPI_PORT_i  (
 		.CMP_CLK_PHASE(cmp_clk_phase), // Comparator Clock Phase 5-bits (0-31)
 		.SAMP_CLK_PHASE(samp_clk_phase), // Sampling Clock Phase (0-7)
 		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst), // Manual reset of Comp Clock Phase MMCM;
-		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng), // Comp Clock Phase Change in progress; Reset TMB path transceiver.
 		.SAMP_CLK_PHS_CHNG(samp_clk_phs_chng), // Sampling Clock Phase Change in progress; Reset deserializers.
 		.TMB_TX_MODE(tmb_tx_mode),   // TMB transmit mode (3-bits, 0: comparator data, 1: fixed patterns, 2: counters, 3: randoms, 5: half strips).
 		.LAY1_TO_6_HALF_STRIP(lay1_to_6_half_strip), //half strips to inject into data stream for each layer
@@ -2023,10 +2021,9 @@ endgenerate
 		.cmp_phs_psdone(cmp_phs_psdone),
 		.cmp_phs_busy(cmp_phs_busy),
 		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst),
-		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng),
 		.CMP_CLK_PHASE(cmp_clk_phase),    // Comparator Clock Phase 5 bits (0-31)
 		.cmp_phase(cmp_phase),    // translated comp Phase 11 bits (0-1344)
-		.cmp_phs_change(cmp_phs_change),    // cmp_phase != CMP_CLK_PHASE
+		.CMP_PHS_CHANGE(cmp_phs_change),     // Comp Clock Phase Change in progress; Reset TMB path transceiver.
 		.cmp_phs_rst(cmp_phs_rst),
 		.cmp_phs_state(cmp_phs_state),
 		.TRG_RST(trg_rst),
