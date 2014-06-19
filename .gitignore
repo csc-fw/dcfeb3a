@@ -21,6 +21,7 @@ planAhead_*
 *.tlg
 *.szr
 *.prs
+*.psr
 *.lmp
 *.xdm
 *.fcd

@@ -302,8 +302,8 @@ always @(posedge CLK) begin
 	eb_amt_s2 <= eb_amt_s1;
 end
 
-Ring_Trans
-Ring_Trans_FSM (
+Ring_Trans_FSM
+Ring_Trans_FSM_i (
    .INC_SEQ(inc_seq),
    .INC_SMP(inc_smp),
    .LD_ADDR(ld_addr),

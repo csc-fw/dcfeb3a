@@ -1,6 +1,6 @@
-## File last modified by Fizzim: 12:12:59 PM on 11/7/12
+## File last modified by Fizzim: 1:38:51 PM on 6/17/14
 <version>
-   11.09.25
+   14.02.18
 </version>
 <globals>
    <machine>
@@ -753,7 +753,7 @@
             </status>
          </vis>
          <type>
-         comb
+         regdp
             <status>
             GLOBAL_VAR
             </status>
@@ -777,7 +777,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -809,7 +809,7 @@
             </status>
          </vis>
          <type>
-         comb
+         regdp
             <status>
             GLOBAL_VAR
             </status>
@@ -833,7 +833,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -865,7 +865,7 @@
             </status>
          </vis>
          <type>
-         comb
+         regdp
             <status>
             GLOBAL_VAR
             </status>
@@ -889,7 +889,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -921,7 +921,7 @@
             </status>
          </vis>
          <type>
-         comb
+         regdp
             <status>
             GLOBAL_VAR
             </status>
@@ -945,7 +945,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -977,7 +977,7 @@
             </status>
          </vis>
          <type>
-         comb
+         regdp
             <status>
             GLOBAL_VAR
             </status>
@@ -1001,7 +1001,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1033,7 +1033,7 @@
             </status>
          </vis>
          <type>
-         comb
+         regdp
             <status>
             GLOBAL_VAR
             </status>
@@ -1057,7 +1057,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1089,7 +1089,7 @@
             </status>
          </vis>
          <type>
-         comb
+         regdp
             <status>
             GLOBAL_VAR
             </status>
@@ -1113,7 +1113,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1145,7 +1145,7 @@
             </status>
          </vis>
          <type>
-         comb
+         regdp
             <status>
             GLOBAL_VAR
             </status>
@@ -1169,7 +1169,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1283,7 +1283,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1339,7 +1339,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1395,7 +1395,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1451,7 +1451,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1507,7 +1507,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1563,7 +1563,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1619,7 +1619,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -1675,7 +1675,7 @@
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>

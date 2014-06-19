@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2013:01:30 at 11:47:11 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:55:36 (www.fizzim.com)
 
 module BPI_cmd_parser_FSM (
   output reg ACK,
@@ -28,7 +28,7 @@ module BPI_cmd_parser_FSM (
   input SEQ_CMPLT,
   input XTRA_WORD 
 );
-  
+
   // state bits
   parameter 
   Idle          = 4'b0000, 
@@ -44,99 +44,56 @@ module BPI_cmd_parser_FSM (
   Read_FF       = 4'b1010, 
   Update_Status = 4'b1011, 
   Wait4Seq      = 4'b1100; 
-  
+
   reg [3:0] state;
+
   assign OUT_STATE = state;
+
   reg [3:0] nextstate;
-  
+
+
   // comb always block
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
-    ACK = 0; // default
-    DECODE = 0; // default
-    ENABLE_CMD = 0; // default
-    IDLE = 0; // default
-    LD_CNTS = 0; // default
-    LD_FULL = 0; // default
-    LD_STATUS = 0; // default
-    LD_USR = 0; // default
-    READ_FF = 0; // default
     case (state)
-      Idle         : begin
-                                                                    IDLE = 1;
-        if                   (!MT && ENABLE && SEQR_IDLE)           nextstate = Load_Cmd;
-        else                                                        nextstate = Idle;
-      end
-      Ack          : begin
-                                                                    ACK = 1;
-        if                   (!RPT_ERROR)                           nextstate = Wait4Seq;
-        else                                                        nextstate = Ack;
-      end
-      Dcd_n_Ld     : begin
-                                                                    DECODE = 1;
-        if                   (PASS)                                 nextstate = Exec_Pass;
-        else if              (CNT_CMD)                              nextstate = Load_Full;
-        else if              (DATA && !MT)                          nextstate = Exec_1Data;
-        else if              (LOCAL && !XTRA_WORD)                  nextstate = Exec_Local;
-        else if              (LOCAL && XTRA_WORD && !MT)            nextstate = Exec_Local;
-        else if              (!DATA && !LOCAL)                      nextstate = Idle;
-        else                                                        nextstate = Dcd_n_Ld;
-      end
-      Exec_1Data   : begin
-                                                                    ENABLE_CMD = 1;
-        if                   (RPT_ERROR)                            nextstate = Update_Status;
-        else if              (SEQ_CMPLT)                            nextstate = Read_FF;
-        else                                                        nextstate = Exec_1Data;
-      end
-      Exec_Buf32   : begin
-                                                                    ENABLE_CMD = 1;
-        if                   (RPT_ERROR)                            nextstate = Update_Status;
-        else if              (SEQ_CMPLT && LOOP_DONE)               nextstate = Idle;
-        else if              (SEQ_CMPLT)                            nextstate = Load_Cnts;
-        else                                                        nextstate = Exec_Buf32;
-      end
-      Exec_Local   : begin
-                                                                    ENABLE_CMD = 1;
-        if                   (XTRA_WORD)                            nextstate = Read_FF;
-        else                                                        nextstate = Idle;
-      end
-      Exec_Pass    : begin
-                                                                    ENABLE_CMD = 1;
-        if                   (RPT_ERROR)                            nextstate = Update_Status;
-        else if              (SEQ_CMPLT)                            nextstate = Idle;
-        else                                                        nextstate = Exec_Pass;
-      end
-      Load_Cmd     : begin
-                                                                    LD_USR = 1;
-                                                                    READ_FF = 1;
-                                                                    nextstate = Dcd_n_Ld;
-      end
-      Load_Cnts    : begin
-                                                                    LD_CNTS = 1;
-                                                                    nextstate = Exec_Buf32;
-      end
-      Load_Full    : begin
-                                                                    LD_FULL = 1;
-        if                   (READ_N)                               nextstate = Exec_Pass;
-        else                                                        nextstate = Load_Cnts;
-      end
-      Read_FF      : begin
-                                                                    READ_FF = 1;
-                                                                    nextstate = Idle;
-      end
-      Update_Status: begin
-                                                                    LD_STATUS = 1;
-                                                                    nextstate = Ack;
-      end
+      Idle         : if      (!MT && ENABLE && SEQR_IDLE)           nextstate = Load_Cmd;
+                     else                                           nextstate = Idle;
+      Ack          : if      (!RPT_ERROR)                           nextstate = Wait4Seq;
+                     else                                           nextstate = Ack;
+      Dcd_n_Ld     : if      (PASS)                                 nextstate = Exec_Pass;
+                     else if (CNT_CMD)                              nextstate = Load_Full;
+                     else if (DATA && !MT)                          nextstate = Exec_1Data;
+                     else if (LOCAL && !XTRA_WORD)                  nextstate = Exec_Local;
+                     else if (LOCAL && XTRA_WORD && !MT)            nextstate = Exec_Local;
+                     else if (!DATA && !LOCAL)                      nextstate = Idle;
+                     else                                           nextstate = Dcd_n_Ld;
+      Exec_1Data   : if      (RPT_ERROR)                            nextstate = Update_Status;
+                     else if (SEQ_CMPLT)                            nextstate = Read_FF;
+                     else                                           nextstate = Exec_1Data;
+      Exec_Buf32   : if      (RPT_ERROR)                            nextstate = Update_Status;
+                     else if (SEQ_CMPLT && LOOP_DONE)               nextstate = Idle;
+                     else if (SEQ_CMPLT)                            nextstate = Load_Cnts;
+                     else                                           nextstate = Exec_Buf32;
+      Exec_Local   : if      (XTRA_WORD)                            nextstate = Read_FF;
+                     else                                           nextstate = Idle;
+      Exec_Pass    : if      (RPT_ERROR)                            nextstate = Update_Status;
+                     else if (SEQ_CMPLT)                            nextstate = Idle;
+                     else                                           nextstate = Exec_Pass;
+      Load_Cmd     :                                                nextstate = Dcd_n_Ld;
+      Load_Cnts    :                                                nextstate = Exec_Buf32;
+      Load_Full    : if      (READ_N)                               nextstate = Exec_Pass;
+                     else                                           nextstate = Load_Cnts;
+      Read_FF      :                                                nextstate = Idle;
+      Update_Status:                                                nextstate = Ack;
       Wait4Seq     : if      (SEQ_CMPLT && BUF_PROG && !LOOP_DONE)  nextstate = Load_Cnts;
                      else if (SEQ_CMPLT && XTRA_WORD)               nextstate = Read_FF;
                      else if (SEQ_CMPLT)                            nextstate = Idle;
                      else                                           nextstate = Wait4Seq;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST)
@@ -144,7 +101,50 @@ module BPI_cmd_parser_FSM (
     else
       state <= nextstate;
   end
-  
+
+  // datapath sequential always block
+  always @(posedge CLK or posedge RST) begin
+    if (RST) begin
+      ACK <= 0;
+      DECODE <= 0;
+      ENABLE_CMD <= 0;
+      IDLE <= 0;
+      LD_CNTS <= 0;
+      LD_FULL <= 0;
+      LD_STATUS <= 0;
+      LD_USR <= 0;
+      READ_FF <= 0;
+    end
+    else begin
+      ACK <= 0; // default
+      DECODE <= 0; // default
+      ENABLE_CMD <= 0; // default
+      IDLE <= 0; // default
+      LD_CNTS <= 0; // default
+      LD_FULL <= 0; // default
+      LD_STATUS <= 0; // default
+      LD_USR <= 0; // default
+      READ_FF <= 0; // default
+      case (nextstate)
+        Idle         :        IDLE <= 1;
+        Ack          :        ACK <= 1;
+        Dcd_n_Ld     :        DECODE <= 1;
+        Exec_1Data   :        ENABLE_CMD <= 1;
+        Exec_Buf32   :        ENABLE_CMD <= 1;
+        Exec_Local   :        ENABLE_CMD <= 1;
+        Exec_Pass    :        ENABLE_CMD <= 1;
+        Load_Cmd     : begin
+                              LD_USR <= 1;
+                              READ_FF <= 1;
+        end
+        Load_Cnts    :        LD_CNTS <= 1;
+        Load_Full    :        LD_FULL <= 1;
+        Read_FF      :        READ_FF <= 1;
+        Update_Status:        LD_STATUS <= 1;
+      endcase
+    end
+  end
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [103:0] statename;

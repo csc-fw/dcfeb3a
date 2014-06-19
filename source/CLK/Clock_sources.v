@@ -131,10 +131,10 @@ wire rst_samp_mmcm;
 	reg [10:0] cmp_rom [31:0];	
 	reg cmp_phs_chg_m1;
 	reg cmp_phs_inc;
-	wire cmp_phs_busy;
-	wire cmp_phs_psen;
+//	wire cmp_phs_busy;
+//	wire cmp_phs_psen;
 	wire cmp_mmcm_lock;
-	wire cmp_phs_psdone;
+//	wire cmp_phs_psdone;
 //	wire cmp_phs_rst;
 	
 	assign cmp_phs_rst = RST || CMP_PHS_JTAG_RST;
@@ -374,14 +374,17 @@ daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
 // Steps in 25ns = 25ns X 56X24X40MHz = 1344
 //------------------------------------------------------------------------------------------------------------------
 	
-	integer iadr;
-
-	always @* begin	
-		for (iadr=0; iadr<32; iadr=iadr+1) begin
-			cmp_rom[iadr] = $rtoi((iadr*1344.0/31.0)+0.5);
-			$display ("adr=%d  data=%d",iadr,cmp_rom[iadr]);
-		end
-	end
+//	integer iadr;
+//
+//	always @* begin	
+//		for (iadr=0; iadr<32; iadr=iadr+1) begin
+//			cmp_rom[iadr] = $rtoi((iadr*1344.0/31.0)+0.5);
+//			$display ("adr=%d  data=%d",iadr,cmp_rom[iadr]);
+//		end
+//	end
+initial begin
+	$readmemh ("comp_phase", cmp_rom, 0, 31);
+end
 	
 	always @(posedge CLK40) begin
 		cmp_phs_inc   <= (cmp_phase >  cur_cmp_phase);

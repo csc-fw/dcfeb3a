@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2013:06:28 at 13:13:01 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:23:57 (www.fizzim.com)
 
 module ADC_Config_FSM 
   #(
@@ -18,7 +18,7 @@ module ADC_Config_FSM
   input RST,
   input wire [5:0] SCNTR 
 );
-  
+
   // state bits
   parameter 
   Idle         = 3'b000, 
@@ -28,66 +28,31 @@ module ADC_Config_FSM
   Load         = 3'b100, 
   Shift_Enable = 3'b101, 
   Start_Seq    = 3'b110; 
-  
+
   reg [2:0] state;
+
   reg [2:0] nextstate;
-  
+
+
   // comb always block
   always @* begin
     nextstate = 3'bxxx; // default to x because default_state_is_x is set
-    ADDR_RST = 0; // default
-    CNTR_RST = 0; // default
-    INCR = 0; // default
-    LOAD = 0; // default
-    SCKEN = 0; // default
-    SHEN = 0; // default
     case (state)
-      Idle        : begin
-                                                          ADDR_RST = 1;
-                                                          CNTR_RST = 1;
-        if      (INIT)                                    nextstate = Start_Seq;
-        else                                              nextstate = Idle;
-      end
-      Done        : begin
-                                                          ADDR_RST = 1;
-                                                          CNTR_RST = 1;
-        if      (~INIT)                                   nextstate = Idle;
-      end
-      End_Seq     : begin
-                                                          CNTR_RST = 1;
-                                                          SCKEN = 1;
-                                                          nextstate = Done;
-      end
-      Incr_Addr   : begin
-                                                          CNTR_RST = 1;
-                                                          INCR = 1;
-                                                          SCKEN = 1;
-                                                          SHEN = 1;
-                                                          nextstate = Load;
-      end
-      Load        : begin
-                                                          LOAD = 1;
-                                                          SCKEN = 1;
-                                                          SHEN = 1;
-                                                          nextstate = Shift_Enable;
-      end
-      Shift_Enable: begin
-                                                          SCKEN = 1;
-                                                          SHEN = 1;
-        if      ((SCNTR == 6'd46) && (ADR == Last_Addr))  nextstate = End_Seq;
-        else if ((SCNTR == 6'd46) && (ADR < Last_Addr))   nextstate = Incr_Addr;
-        else                                              nextstate = Shift_Enable;
-      end
-      Start_Seq   : begin
-                                                          LOAD = 1;
-                                                          SCKEN = 1;
-                                                          nextstate = Shift_Enable;
-      end
+      Idle        : if      (INIT)                                    nextstate = Start_Seq;
+                    else                                              nextstate = Idle;
+      Done        : if      (~INIT)                                   nextstate = Idle;
+      End_Seq     :                                                   nextstate = Done;
+      Incr_Addr   :                                                   nextstate = Load;
+      Load        :                                                   nextstate = Shift_Enable;
+      Shift_Enable: if      ((SCNTR == 6'd46) && (ADR == Last_Addr))  nextstate = End_Seq;
+                    else if ((SCNTR == 6'd46) && (ADR < Last_Addr))   nextstate = Incr_Addr;
+                    else                                              nextstate = Shift_Enable;
+      Start_Seq   :                                                   nextstate = Shift_Enable;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST)
@@ -95,18 +60,63 @@ module ADC_Config_FSM
     else
       state <= nextstate;
   end
-  
+
   // datapath sequential always block
   always @(posedge CLK or posedge RST) begin
-    if (RST)     DONE <= 0;
+    if (RST) begin
+      ADDR_RST <= 0;
+      CNTR_RST <= 0;
+      DONE <= 0;
+      INCR <= 0;
+      LOAD <= 0;
+      SCKEN <= 0;
+      SHEN <= 0;
+    end
     else begin
+      ADDR_RST <= 0; // default
+      CNTR_RST <= 0; // default
       DONE <= 0; // default
+      INCR <= 0; // default
+      LOAD <= 0; // default
+      SCKEN <= 0; // default
+      SHEN <= 0; // default
       case (nextstate)
-        Done        : DONE <= 1;
+        Idle        : begin
+                             ADDR_RST <= 1;
+                             CNTR_RST <= 1;
+        end
+        Done        : begin
+                             ADDR_RST <= 1;
+                             CNTR_RST <= 1;
+                             DONE <= 1;
+        end
+        End_Seq     : begin
+                             CNTR_RST <= 1;
+                             SCKEN <= 1;
+        end
+        Incr_Addr   : begin
+                             CNTR_RST <= 1;
+                             INCR <= 1;
+                             SCKEN <= 1;
+                             SHEN <= 1;
+        end
+        Load        : begin
+                             LOAD <= 1;
+                             SCKEN <= 1;
+                             SHEN <= 1;
+        end
+        Shift_Enable: begin
+                             SCKEN <= 1;
+                             SHEN <= 1;
+        end
+        Start_Seq   : begin
+                             LOAD <= 1;
+                             SCKEN <= 1;
+        end
       endcase
     end
   end
-  
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [95:0] statename;

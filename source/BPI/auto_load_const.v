@@ -85,7 +85,7 @@ always @(posedge CLK or posedge RST) begin
 end
 
 
-	auto_load_FSM 
+	auto_load_FSM #(.MAX_ADDR(6'd33))
 	auto_load_FSM_i(
   .ABORTED(al_aborted),
   .AL_ENA(AUTO_LOAD_ENA),

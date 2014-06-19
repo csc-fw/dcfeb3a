@@ -207,8 +207,8 @@ endgenerate
 			   rd_sel <= rd_sel;
 	end
 
-transfer_samples 
-transfer_samples_FSM(
+transfer_samples_FSM 
+transfer_samples_FSM_i(
   .DONE(xfer_done),
   .INC_CHAN(inc_chan),
   .INC_CHIP(inc_chip),

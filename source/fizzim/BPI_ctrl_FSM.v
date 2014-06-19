@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2013:01:29 at 14:24:02 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:55:53 (www.fizzim.com)
 
 module BPI_ctrl_FSM (
   output reg CYCLE2,
@@ -23,7 +23,7 @@ module BPI_ctrl_FSM (
   input TWO_CYCLE,
   input WRITE_N 
 );
-  
+
   // state bits
   parameter 
   Idle           = 4'b0000, 
@@ -38,79 +38,51 @@ module BPI_ctrl_FSM (
   Wait4Rdy1      = 4'b1001, 
   Wait4Rdy2      = 4'b1010, 
   Wait4RdyRW     = 4'b1011; 
-  
+
   reg [3:0] state;
+
   assign OUT_STATE = state;
+
   reg [3:0] nextstate;
-  
+
+
   // comb always block
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
-    CYCLE2 = 0; // default
-    DECR = 0; // default
-    EXECUTE = 0; // default
-    LOAD_N = 0; // default
-    NEXT = 0; // default
-    SEQ_DONE = 0; // default
     case (state)
       Idle          : if      (WRITE_N || READ_N)     nextstate = Load_n;
                       else if (OTHER)                 nextstate = Wait4Rdy1;
                       else                            nextstate = Idle;
-      Decr          : begin
-                                                      DECR = 1;
-                                                      nextstate = Next;
-      end
-      Ex_2nd_Cycle  : begin
-                                                      CYCLE2 = 1;
-                                                      EXECUTE = 1;
-        if                    (BUSY)                  nextstate = Seq_Done;
-        else                                          nextstate = Ex_2nd_Cycle;
-      end
-      Ex_First_Cycle: begin
-                                                      EXECUTE = 1;
-        if                    (BUSY && TWO_CYCLE)     nextstate = Wait4Rdy2;
-        else if               (BUSY && READ_1)        nextstate = Wait4Data;
-        else if               (BUSY)                  nextstate = Seq_Done;
-        else                                          nextstate = Ex_First_Cycle;
-      end
-      Ex_RW         : begin
-                                                      EXECUTE = 1;
-        if                    (BUSY && READ_N)        nextstate = Wait4Data;
-        else if               (BUSY)                  nextstate = Decr;
-        else                                          nextstate = Ex_RW;
-      end
-      Load_n        : begin
-                                                      LOAD_N = 1;
-                                                      nextstate = Wait4RdyRW;
-      end
-      Next          : begin
-                                                      NEXT = 1;
-        if                    (TERM_CNT)              nextstate = Seq_Done;
-        else                                          nextstate = Wait4RdyRW;
-      end
-      Seq_Done      : begin
-                                                      SEQ_DONE = 1;
-        if                    (NOOP)                  nextstate = Idle;
-        else                                          nextstate = Seq_Done;
-      end
+      Decr          :                                 nextstate = Next;
+      Ex_2nd_Cycle  : if      (BUSY)                  nextstate = Seq_Done;
+                      else                            nextstate = Ex_2nd_Cycle;
+      Ex_First_Cycle: if      (BUSY && TWO_CYCLE)     nextstate = Wait4Rdy2;
+                      else if (BUSY && READ_1)        nextstate = Wait4Data;
+                      else if (BUSY)                  nextstate = Seq_Done;
+                      else                            nextstate = Ex_First_Cycle;
+      Ex_RW         : if      (BUSY && READ_N)        nextstate = Wait4Data;
+                      else if (BUSY)                  nextstate = Decr;
+                      else                            nextstate = Ex_RW;
+      Load_n        :                                 nextstate = Wait4RdyRW;
+      Next          : if      (TERM_CNT)              nextstate = Seq_Done;
+                      else                            nextstate = Wait4RdyRW;
+      Seq_Done      : if      (NOOP)                  nextstate = Idle;
+                      else                            nextstate = Seq_Done;
       Wait4Data     : if      (LD_DAT && READ_N)      nextstate = Decr;
                       else if (LD_DAT && READ_1)      nextstate = Seq_Done;
                       else                            nextstate = Wait4Data;
       Wait4Rdy1     : if      (RDY)                   nextstate = Ex_First_Cycle;
                       else                            nextstate = Wait4Rdy1;
-      Wait4Rdy2     : begin
-                                                      CYCLE2 = 1;
-        if                    (RDY)                   nextstate = Ex_2nd_Cycle;
-        else                                          nextstate = Wait4Rdy2;
-      end
+      Wait4Rdy2     : if      (RDY)                   nextstate = Ex_2nd_Cycle;
+                      else                            nextstate = Wait4Rdy2;
       Wait4RdyRW    : if      (RDY && READ_N)         nextstate = Ex_RW;
                       else if (RDY & WRITE_N && !MT)  nextstate = Ex_RW;
                       else                            nextstate = Wait4RdyRW;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST)
@@ -118,7 +90,40 @@ module BPI_ctrl_FSM (
     else
       state <= nextstate;
   end
-  
+
+  // datapath sequential always block
+  always @(posedge CLK or posedge RST) begin
+    if (RST) begin
+      CYCLE2 <= 0;
+      DECR <= 0;
+      EXECUTE <= 0;
+      LOAD_N <= 0;
+      NEXT <= 0;
+      SEQ_DONE <= 0;
+    end
+    else begin
+      CYCLE2 <= 0; // default
+      DECR <= 0; // default
+      EXECUTE <= 0; // default
+      LOAD_N <= 0; // default
+      NEXT <= 0; // default
+      SEQ_DONE <= 0; // default
+      case (nextstate)
+        Decr          :        DECR <= 1;
+        Ex_2nd_Cycle  : begin
+                               CYCLE2 <= 1;
+                               EXECUTE <= 1;
+        end
+        Ex_First_Cycle:        EXECUTE <= 1;
+        Ex_RW         :        EXECUTE <= 1;
+        Load_n        :        LOAD_N <= 1;
+        Next          :        NEXT <= 1;
+        Seq_Done      :        SEQ_DONE <= 1;
+        Wait4Rdy2     :        CYCLE2 <= 1;
+      endcase
+    end
+  end
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [111:0] statename;

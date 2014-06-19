@@ -1,7 +1,10 @@
 
-// Created by fizzim.pl version 4.41 on 2014:01:20 at 13:28:20 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:32:47 (www.fizzim.com)
 
-module auto_load_FSM (
+module auto_load_FSM 
+  #(
+    parameter MAX_ADDR = 6'd33
+  )(
   output reg ABORTED,
   output reg AL_ENA,
   output reg CLR_AL_DONE,
@@ -16,11 +19,7 @@ module auto_load_FSM (
   input RST,
   input START 
 );
-  
-  // Inserted from attribute insert_at_top_of_module:
-  localparam  MAX_ADDR     = 6'd33; 
-  
-  
+
   // state bits
   parameter 
   Idle       = 4'b0000, 
@@ -35,10 +34,12 @@ module auto_load_FSM (
   Wait4      = 4'b1001, 
   Wait5      = 4'b1010, 
   Wait6      = 4'b1011; 
-  
+
   reg [3:0] state;
+
   reg [3:0] nextstate;
-  
+
+
   // comb always block
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
@@ -65,9 +66,9 @@ module auto_load_FSM (
                   else                 nextstate = Wait6;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST)
@@ -75,7 +76,7 @@ module auto_load_FSM (
     else
       state <= nextstate;
   end
-  
+
   // datapath sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST) begin
@@ -110,7 +111,7 @@ module auto_load_FSM (
       endcase
     end
   end
-  
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [79:0] statename;

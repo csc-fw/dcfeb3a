@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2014:01:20 at 13:16:14 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:56:07 (www.fizzim.com)
 
 module BPI_intrf_FSM (
   output reg BUSY,
@@ -15,7 +15,7 @@ module BPI_intrf_FSM (
   input RST,
   input WRITE 
 );
-  
+
   // state bits
   parameter 
   Standby    = 4'b0000, 
@@ -28,10 +28,12 @@ module BPI_intrf_FSM (
   Wait2      = 4'b0111, 
   Wait3      = 4'b1000, 
   Wait4      = 4'b1001; 
-  
+
   reg [3:0] state;
+
   reg [3:0] nextstate;
-  
+
+
   // comb always block
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
@@ -52,9 +54,9 @@ module BPI_intrf_FSM (
       Wait4     :                            nextstate = Standby;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST)
@@ -62,7 +64,7 @@ module BPI_intrf_FSM (
     else
       state <= nextstate;
   end
-  
+
   // datapath sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST) begin
@@ -121,7 +123,7 @@ module BPI_intrf_FSM (
       endcase
     end
   end
-  
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [79:0] statename;

@@ -77,7 +77,7 @@ localparam
 	wire rst_rom;
 	wire rst_rom_arst;
 	reg [2:0] rom_addr;
-	wire [2:0] frm_state;
+	wire [3:0] frm_state;
 	wire [3:0] dqrt_state;
 
 	wire clr_crc;
@@ -88,7 +88,7 @@ localparam
 	wire [15:0] crc;
 	reg  [15:0] crc1;
 	wire crc_dv;
-	
+	reg txd_vld1;
 
    // Asynchronous reset signals
 	wire arst;
@@ -145,6 +145,7 @@ assign CSP_USE_ANY_L1A = man_use_any_l1a;
 assign CSP_L1A_HEAD = man_l1a_head;
 
 assign force_error = inj_err1 & ~inj_err2;
+assign crc_vld = !TXD_VLD & txd_vld1; // trailing edge of valid data
 
 generate
 if(USE_CHIPSCOPE==1) 
@@ -240,7 +241,7 @@ wire [3:0] dummy_asigs;
 	assign daq_tx_la_data[79]      = inc_rom;
 	assign daq_tx_la_data[80]      = rst_rom;
 	assign daq_tx_la_data[83:81]   = rom_addr;
-	assign daq_tx_la_data[87:84]   = {1'b0,frm_state};
+	assign daq_tx_la_data[87:84]   = frm_state;
 	assign daq_tx_la_data[88]      = cdv_init;
 	assign daq_tx_la_data[89]      = div_clk_rst;
 	assign daq_tx_la_data[105:90]  = mgt_tx_data_r;
@@ -491,7 +492,6 @@ Frame_Proc_FSM
 Frame_Proc_FSM_i (
   .CLR_CRC(clr_crc),
   .CRC_CALC(crc_calc),
-  .CRC_VLD(crc_vld),
   .INC_ROM(inc_rom),
   .RST_ROM(rst_rom),
   .TX_ACK(TX_ACK),
@@ -507,6 +507,7 @@ Frame_Proc_FSM_i (
 	always @(posedge usr_clk_wordwise)
 	begin
 		txcharisk_r <= kcnst;
+		txd_vld1 <= TXD_VLD;
 		crc_vld1 <= crc_vld;
 		crc_vld2 <= crc_vld1;
 		data1 <= TXD;

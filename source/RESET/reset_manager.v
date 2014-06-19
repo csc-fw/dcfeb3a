@@ -39,6 +39,9 @@ reg [4:0] awcnt;
 wire awrst;
 wire qpll_lock_disable;
 reg [11:0] dsr_tmr;
+reg [6:0] timer;
+wire por_done;
+wire por_cnt;
 
 reg adc_rdy_r1, adc_rdy_r2;
 reg al_done_r1, al_done_r2;
@@ -59,6 +62,8 @@ wire restart_all;
 wire strt_dly_done;
 reg [19:0] startup_cnt;
 
+localparam POR_tmo = 7'd120;
+
  IBUF IBUF_QP_ERROR (.O(QPLL_ERROR),.I(QP_ERROR));
  IBUF IBUF_QP_LOCKED (.O(QPLL_LOCK),.I(QP_LOCKED));
  
@@ -68,6 +73,8 @@ assign DSR_RST    = ~ADC_RDY || SYS_RST;
 assign SYS_MON_RST = 1'b0;
 assign qpll_lock_disable = 1'b1;
 assign strt_dly_done = (startup_cnt == 20'h7FFFF);
+assign por_done = por_cnt && (timer == POR_tmo);
+
 
 // Synchronize inputs to startup clock for POR state machine
 
@@ -96,10 +103,39 @@ always @(posedge STUP_CLK or negedge EOS) begin
 		   startup_cnt <= startup_cnt;
 end
 
-Pow_on_Rst #(.POR_tmo(7'd120)) POW_on_Reset_FSM   (.ADC_INIT_RST(adc_init_rst_i),.AL_START(al_start_i),.MMCM_RST(MMCM_RST),.POR(por_i),
-                                                 .RUN(run_i),.POR_STATE(POR_STATE), // outputs
-                                     .ADC_RDY(adc_rdy_r2),.AL_DONE(al_done_r2),.BPI_SEQ_IDLE(bpi_seq_idle_r2), // inputs
-												 .CLK(STUP_CLK),.EOS(EOS),.MMCM_LOCK(daq_mmcm_lock_r2),.QPLL_LOCK(qpll_lock_r2),.RESTART_ALL(restart_all),.STRT_DLY_DONE(strt_dly_done)); // inputs
+always @(posedge STUP_CLK)
+begin
+  if(por_cnt)
+	  if(por_done)
+		  timer <= timer;
+	  else
+		  timer <= timer + 1;
+  else
+	  timer <= 4'h0;
+end
+
+Pow_on_Rst_FSM
+POW_on_Reset_FSM_i (
+	 // Outputs
+	.ADC_INIT_RST(adc_init_rst_i),
+	.AL_START(al_start_i),
+	.MMCM_RST(MMCM_RST),
+	.POR(por_i),
+	.POR_CNT(por_cnt),
+	.RUN(run_i),
+	.POR_STATE(POR_STATE),
+	// Inputs
+   .ADC_RDY(adc_rdy_r2),
+	.AL_DONE(al_done_r2),
+	.BPI_SEQ_IDLE(bpi_seq_idle_r2),
+	.CLK(STUP_CLK),
+	.EOS(EOS),
+	.MMCM_LOCK(daq_mmcm_lock_r2),
+	.POR_DONE(por_done),
+	.QPLL_LOCK(qpll_lock_r2),
+	.RESTART_ALL(restart_all),
+	.STRT_DLY_DONE(strt_dly_done)
+);
 
 // Synchronize outputs to 40MHz clock 
 
@@ -128,13 +164,34 @@ always @(posedge CLK or negedge EOS) begin
 end
 
 												 
-Trg_Clock_Strt   Trg_Clock_Strt_FSM (.GTX_RST(TRG_GTXTXRESET),.TRG_RST(TRG_RST), // outputs
-                                     .CLK(COMP_CLK),.MMCM_LOCK(TRG_MMCM_LOCK),.RST(SYS_RST),.SYNC_DONE(TRG_SYNC_DONE),.CLK_PHS_CHNG(CMP_PHS_CHANGE)); // inputs
+Trg_Clock_Strt_FSM
+Trg_Clock_Strt_FSM_i (
+	 // Outputs
+	.GTX_RST(TRG_GTXTXRESET),
+	.TRG_RST(TRG_RST),
+	// Inputs
+	.CLK(COMP_CLK),
+	.CLK_PHS_CHNG(CMP_PHS_CHANGE),
+	.MMCM_LOCK(TRG_MMCM_LOCK),
+	.RST(SYS_RST),
+	.SYNC_DONE(TRG_SYNC_DONE)
+);
 
-ADC_Init  #(.TIME_OUT(12'd1000)) // 10ms  
-         ADC_Init_FSM       (.ADC_INIT(ADC_INIT),.ADC_RST(ADC_RST),.CRST(awrst),.INC(ainc),.RUN(ADC_RDY),
-                                     .CLK(CLK),.CNT(awcnt),.INIT_DONE(ADC_INIT_DONE),.RST(adc_init_rst_r2),.SLOW_CNT(dsr_tmr));
-
+ADC_Init_FSM  #(.TIME_OUT(12'd1000)) // 10ms  
+ADC_Init_FSM_i (
+	 // Outputs
+	.ADC_INIT(ADC_INIT),
+	.ADC_RST(ADC_RST),
+	.CRST(awrst),
+	.INC(ainc),
+	.RUN(ADC_RDY),
+	// Inputs
+	.CLK(CLK),
+	.CNT(awcnt),
+	.INIT_DONE(ADC_INIT_DONE),
+	.RST(adc_init_rst_r2),
+	.SLOW_CNT(dsr_tmr)
+);
 
 always @(posedge CLK or posedge awrst) begin
    if(awrst)
@@ -145,7 +202,6 @@ always @(posedge CLK or posedge awrst) begin
 		else
 		   awcnt <= awcnt;
 end
-
 
 always @(posedge CLK100KHZ or posedge ADC_RST) begin
    if(ADC_RST)

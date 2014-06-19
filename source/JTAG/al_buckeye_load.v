@@ -103,8 +103,8 @@ always @(negedge CLK1MHZ or posedge RST) begin
 			lcnt <= lcnt;
 end
 
-bky_load         //States change on negative edge of clock
-bky_load_FSM(
+bky_load_FSM         //States change on negative edge of clock
+bky_load_FSM_i(
   .CLR_CNT(clr_cnt),
   .RDENA(bky_rdena),
   .SET_DONE(set_done),

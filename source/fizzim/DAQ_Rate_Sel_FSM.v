@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2012:11:12 at 15:14:04 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 16:09:09 (www.fizzim.com)
 
 module DAQ_Rate_Sel_FSM (
   output reg CDV_INIT,
@@ -19,7 +19,7 @@ module DAQ_Rate_Sel_FSM (
   input RST,
   input TXRATEDONE 
 );
-  
+
   // state bits
   parameter 
   ST_3_2_GBPS  = 4'b0000, 
@@ -32,11 +32,14 @@ module DAQ_Rate_Sel_FSM (
   ST_1_25_GBPS = 4'b0111, 
   WrdClk160    = 4'b1000, 
   WrdClk62_5   = 4'b1001; 
-  
+
   reg [3:0] state;
+
   assign DQRT_STATE = state;
+
   reg [3:0] nextstate;
-  
+
+
   // comb always block
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
@@ -63,9 +66,9 @@ module DAQ_Rate_Sel_FSM (
                     else              nextstate = WrdClk62_5;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST)
@@ -73,37 +76,37 @@ module DAQ_Rate_Sel_FSM (
     else
       state <= nextstate;
   end
-  
+
   // datapath sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST) begin
       CDV_INIT <= 0;
-      CLK_SEL[2:0] <= 3'b001;
+      CLK_SEL <= 3'b001;
       CLR_CNT <= 0;
       INC_CNT <= 0;
       PCSRST <= 0;
       RATE_1_25 <= 0;
       RATE_3_2 <= 0;
-      RATE_SEL[1:0] <= 2'b11;
+      RATE_SEL <= 2'b11;
       WRDCLKSEL <= 1;
     end
     else begin
       CDV_INIT <= 0; // default
-      CLK_SEL[2:0] <= 3'b001; // default
+      CLK_SEL <= 3'b001; // default
       CLR_CNT <= 0; // default
       INC_CNT <= 0; // default
       PCSRST <= 0; // default
       RATE_1_25 <= 0; // default
       RATE_3_2 <= 0; // default
-      RATE_SEL[1:0] <= 2'b11; // default
+      RATE_SEL <= 2'b11; // default
       WRDCLKSEL <= 1; // default
       case (nextstate)
         ST_3_2_GBPS :        RATE_3_2 <= 1;
         RefClk125   : begin
                              CDV_INIT <= 1;
-                             CLK_SEL[2:0] <= 3'b000;
+                             CLK_SEL <= 3'b000;
                              CLR_CNT <= 1;
-                             RATE_SEL[1:0] <= 2'b10;
+                             RATE_SEL <= 2'b10;
         end
         RefClk160   : begin
                              CDV_INIT <= 1;
@@ -111,17 +114,17 @@ module DAQ_Rate_Sel_FSM (
                              WRDCLKSEL <= 0;
         end
         RstClkDiv125: begin
-                             CLK_SEL[2:0] <= 3'b000;
+                             CLK_SEL <= 3'b000;
                              CLR_CNT <= 1;
-                             RATE_SEL[1:0] <= 2'b10;
+                             RATE_SEL <= 2'b10;
                              WRDCLKSEL <= 0;
         end
         RstClkDiv160:        CLR_CNT <= 1;
         RstPCS125   : begin
-                             CLK_SEL[2:0] <= 3'b000;
+                             CLK_SEL <= 3'b000;
                              INC_CNT <= 1;
                              PCSRST <= 1;
-                             RATE_SEL[1:0] <= 2'b10;
+                             RATE_SEL <= 2'b10;
                              WRDCLKSEL <= 0;
         end
         RstPCS160   : begin
@@ -129,9 +132,9 @@ module DAQ_Rate_Sel_FSM (
                              PCSRST <= 1;
         end
         ST_1_25_GBPS: begin
-                             CLK_SEL[2:0] <= 3'b000;
+                             CLK_SEL <= 3'b000;
                              RATE_1_25 <= 1;
-                             RATE_SEL[1:0] <= 2'b10;
+                             RATE_SEL <= 2'b10;
                              WRDCLKSEL <= 0;
         end
         WrdClk160   : begin
@@ -140,15 +143,15 @@ module DAQ_Rate_Sel_FSM (
         end
         WrdClk62_5  : begin
                              CDV_INIT <= 1;
-                             CLK_SEL[2:0] <= 3'b0000;
+                             CLK_SEL <= 3'b0000;
                              INC_CNT <= 1;
-                             RATE_SEL[1:0] <= 2'b10;
+                             RATE_SEL <= 2'b10;
                              WRDCLKSEL <= 0;
         end
       endcase
     end
   end
-  
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [95:0] statename;

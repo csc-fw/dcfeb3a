@@ -71,8 +71,8 @@ always @(negedge CLK1MHZ or posedge RST) begin
 		else
 			scnt <= scnt;
 end
-comp_thresh_load         //States change on negative edge of clock
-comp_thresh_load_FSM(
+comp_thresh_load_FSM         //States change on negative edge of clock
+comp_thresh_load_FSM_i(
   .CLR_CNT(clr_cnt),
   .SET_DONE(set_done),
   .SHFT_ENA(SHCK_ENA),
