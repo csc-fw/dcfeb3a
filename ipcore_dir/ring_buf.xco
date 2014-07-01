@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Fri May 02 16:49:41 2014
+# Date: Tue Jun 24 18:13:34 2014
 #
 ##############################################################
 #
@@ -30,7 +30,7 @@ SET foundationsym = false
 SET implementationfiletype = Ngc
 SET package = ff1156
 SET removerpms = false
-SET simulationfiles = Behavioral
+SET simulationfiles = Structural
 SET speedgrade = -1
 SET verilogsim = true
 SET vhdlsim = false
@@ -49,7 +49,7 @@ CSET byte_size=8
 CSET coe_file=no_coe_file_loaded
 CSET collision_warnings=NONE
 CSET component_name=ring_buf
-CSET disable_collision_warnings=true
+CSET disable_collision_warnings=false
 CSET disable_out_of_range_warnings=false
 CSET ecc=true
 CSET ecctype=BuiltIn_ECC
@@ -105,4 +105,4 @@ CSET write_width_b=18
 MISC pkg_timestamp=2012-11-19T16:22:25Z
 # END Extra information
 GENERATE
-# CRC: 97d960f2
+# CRC: db6f87c8

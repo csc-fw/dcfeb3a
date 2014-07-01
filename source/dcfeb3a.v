@@ -17,7 +17,11 @@ module dcfeb3a #(
 	parameter USE_FF_EMU_CHIPSCOPE = 0,
 	parameter USE_SPI_CHIPSCOPE = 0,
 	parameter USE_PIPE_CHIPSCOPE = 0,
-	parameter USE_SEM_CHIPSCOPE = 0
+	parameter USE_SEM_CHIPSCOPE = 0,
+	parameter Simulation = 0,
+	parameter Strt_dly = 20'h7FFFF,
+	parameter POR_tmo = 7'd120,
+	parameter ADC_Init_tmo = 12'd1000 // 10ms
 	)(
 
 	//Clocks
@@ -171,6 +175,7 @@ module dcfeb3a #(
 	wire [35:0] rng_eth_la0_c2;
 	wire [35:0] rng_chn_la0_c3;
 	wire [35:0] rng_xfr_la0_c3;
+
 
 generate
 if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
@@ -433,7 +438,9 @@ endgenerate
 	
 //   assign eos_sim = eos | eos_stim;
 	
-	Clock_sources
+	Clock_sources #(
+		.Simulation(Simulation)
+	)
 	Clk_src1(
 	   // External inputs
 		.CMS_CLK_N(CMS_CLK_N), .CMS_CLK_P(CMS_CLK_P),                      // from QPLL
@@ -497,7 +504,7 @@ endgenerate
  wire [15:0] startup_status;
  reg  [7:0] qpll_cnt;
  wire [2:0]al_status;
- wire [2:0] por_state;
+ wire [3:0] por_state;
  wire al_start;
  wire run;
  wire adc_rdy;
@@ -522,9 +529,9 @@ endgenerate
  assign use_any_l1a = csp_man_ctrl ? csp_use_any_l1a : juse_any_l1a;
  assign l1a_head = csp_man_ctrl ? csp_l1a_head : jl1a_head;
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,bc0cnt[3:0],rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
-// assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,1'b0,por_state,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
+// assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,por_state,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
  assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,  1'b0,al_status,  rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
- assign startup_status = {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status,eos,por_state};
+ assign startup_status = {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status,eos,por_state};
 
 assign falling_edge_qpll = ~qpll_lock & qpll_lock_r1;
 assign qpll_cnt_full     = (qpll_cnt == 8'hFF);
@@ -1007,12 +1014,11 @@ wire l1a_smp_rdy;
 wire [6:0] samp_max;
 wire [43:0] l1a_smp_out;
 wire [15:0] f16_mt;
-reg resync_1;
-reg resync_2;
-reg resync_3;
-reg resync_4;
-wire resync_stretch;
+reg [3:0] hold;
+wire inc_h;
 wire rst_resync;
+wire daq_fifo_rst;
+wire daq_fifo_rst_done;
 wire rng_ff1_trg_in;
 wire rng_buf_trg_in;
 wire rng_chn_trg_in;
@@ -1030,15 +1036,27 @@ assign rng_chn_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_eth_trg_out ||
 assign rng_eth_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_xfr_trg_out;
 assign rng_xfr_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out;
 
-assign resync_stretch = (resync_1 | resync_2 | resync_3 | resync_4); 
-assign rst_resync = sys_rst || resync_stretch;
+assign rst_resync = sys_rst || resync;
 
-always @(posedge clk40) begin
-	resync_1 <= resync;
-	resync_2 <= resync_1;
-	resync_3 <= resync_2;
-	resync_4 <= resync_3;
+always @(posedge clk40 or posedge rst_resync) begin
+	if(rst_resync)
+		hold <= 4'h0;
+	else
+		if(inc_h)
+			hold <= hold + 1;
+		else
+			hold <= hold;
 end
+
+DAQ_FIFO_Rst_FSM // reset all DAQ FIFOs on Resync
+DAQ_FIFO_Rst_FSM_i (
+	.DONE(daq_fifo_rst_done),
+	.FIFO_RST(daq_fifo_rst),
+	.INC_H(inc_h),
+	.CLK(clk40),
+	.HOLD(hold),
+	.RST(rst_resync) 
+);
 
 fifo16ch_wide #(
 	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE)
@@ -1053,6 +1071,7 @@ fifo1 (
 	.WRCLK(clk120),  // write to FIFO at 120 MHz (6 words x 20MHz sample rate)
 	.RST(sys_rst || ~daq_mmcm_lock),
 	.RST_RESYNC(rst_resync),
+	.FIFO_RST(daq_fifo_rst),
 	.L1A(l1a),			
 	.L1A_MATCH(l1a_match),			
 	.G1IN(g1pipout),
@@ -1149,6 +1168,7 @@ ringbuf_i(
 	//
    .CLK(clk160),
    .RST_RESYNC(rst_resync),
+	.FIFO_RST(daq_fifo_rst),
 	.SAMP_MAX(samp_max),
    .WDATA(rdf_wdata),
 	.WREN(rdf_wren),
@@ -1186,6 +1206,7 @@ chanlink_fifo_i(
 	.WCLK(clk160),
 	.RCLK(clk40),
    .RST_RESYNC(rst_resync),
+	.FIFO_RST(daq_fifo_rst),
 	.SAMP_MAX(samp_max),
 	.WDATA(ff_data),              // 18 bits {movlp,ovrlp,ocnt,ring_out}
 	.WREN(ff_push),
@@ -1218,6 +1239,7 @@ eth_fifo_i(
    .WCLK(clk160),
    .RCLK(daq_data_clk),
    .RST_RESYNC(rst_resync),
+	.FIFO_RST(daq_fifo_rst),
 	.SAMP_MAX(samp_max),
 	.WDATA(ff_data),              // 18 bits {movlp,ovrlp,ocnt,ring_out}
 	.WREN(ff_push),
@@ -1245,7 +1267,7 @@ wire jdaq_inj_err;
 
 daq_optical_out #(
 	.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE),
-	.SIM_SPEEDUP(0)
+	.SIM_SPEEDUP(Simulation)
 )
 daq_optical_out_i (
 	.DAQ_TX_VIO_CNTRL(DAQ_tx_vio_c3),
@@ -1277,7 +1299,7 @@ daq_optical_out_i (
 //	daq_transceiver_io #(
 //		.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE),
 //		.USE_2p56GbE(1),
-//		.SIM_SPEEDUP(0)
+//		.SIM_SPEEDUP(Simulation)
 //	)		
 //	daq_xcvr_io1 (
 //		.DAQ_TX_VIO_CNTRL(DAQ_tx_vio_c3),
@@ -1448,7 +1470,7 @@ daq_optical_out_i (
 	wire [5:0] layer_mask;
 	
 	tmb_fiber_out #(
-		.SIM_SPEEDUP(0)
+		.SIM_SPEEDUP(Simulation)
 	)
 	tmb_fiber_out1 (
 	   .RST(sys_rst),
@@ -1698,6 +1720,9 @@ SPI_PORT_i  (
   wire sys_mon_rst;
   wire vccaux_alarm,vccint_alarm,user_temp_alarm,ot;
   
+generate
+if(Simulation==0)
+begin : SysMonCode
   sysmon SYS_MON(
       .DCLK_IN(clk40),
       .RESET_IN(sys_mon_rst),
@@ -1737,6 +1762,9 @@ SPI_PORT_i  (
       .VP_IN(1'b0),
       .VN_IN(1'b0)
       );
+end
+endgenerate
+
 
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
@@ -1746,15 +1774,19 @@ SPI_PORT_i  (
  /////////////////////////////////////////////////////////////////////////////
 
 	wire por_adc_init, jtag_adc_init, csp_adc_init;
-//	wire adc_init;
-//	wire adc_init_done;
+	wire adc_init_rst;
 	wire jtag_sys_rst;
 	wire csp_sys_rst;
 	
 	assign adc_init = por_adc_init | jtag_adc_init | csp_adc_init;
 	assign icap_clk_ena = ~sys_rst;
 
-	reset_manager rsm1(
+	reset_manager  #(
+		.Strt_dly(Strt_dly),
+		.POR_tmo(POR_tmo),
+		.ADC_Init_tmo(ADC_Init_tmo)
+	)
+	rsm1(
 		.STUP_CLK(strtup_clk),
 		.CLK(clk40),
 		.COMP_CLK(comp_clk),
@@ -1772,6 +1804,7 @@ SPI_PORT_i  (
 		.ADC_INIT_DONE(adc_init_done),
 		.BPI_SEQ_IDLE(bpi_seq_idle),
 		
+		.ADC_INIT_RST(adc_init_rst),
 		.ADC_INIT(por_adc_init),
 		.ADC_RDY(adc_rdy),
 		.AL_START(por_al_start),
@@ -1913,7 +1946,7 @@ SPI_PORT_i  (
    adc_config
 	adc_config1 (
 		.CLK(clk20),         // 20 MHz Clock
-		.RST(adc_rst),       // Reset
+		.RST(adc_init_rst),       // Reset
 		.INIT(adc_init),     // Command to initialize the ADC's (on power up or on command)
 	   .JCTRL(jc_adc_cnfg), // Selects JWE and JDATA as source for writing memory
 		.JWE(adc_we),        // Write enable for the memory (from JTAG)
@@ -2056,6 +2089,9 @@ endgenerate
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
 	
+generate
+if(Simulation==0)
+begin : SEMCode
 SEM_module #(
 	.USE_CHIPSCOPE(USE_SEM_CHIPSCOPE)
 	) 
@@ -2075,5 +2111,7 @@ SEM_module #(
 	 .SEM_ERRCNT(sem_errcnt),                //Error counters - {dbl,sngl} 8 bits each
 	 .SEM_STATUS(sem_status)                 //Status states, and error flags
 	 );
+end
+endgenerate
 
 endmodule

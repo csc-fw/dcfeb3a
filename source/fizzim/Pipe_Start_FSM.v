@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 14:55:31 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:26 at 12:34:27 (www.fizzim.com)
 
 module Pipe_Start_FSM (
   output reg INC_H,
@@ -7,7 +7,7 @@ module Pipe_Start_FSM (
   output reg RE,
   output reg WE,
   input CLK,
-  input wire [1:0] HOLD,
+  input wire [3:0] HOLD,
   input wire [8:0] PDEPTH,
   input RESTART,
   input RST,
@@ -18,9 +18,10 @@ module Pipe_Start_FSM (
   parameter 
   Idle       = 3'b000, 
   Clear      = 3'b001, 
-  Reset_Pipe = 3'b010, 
-  Run        = 3'b011, 
-  Start_Pipe = 3'b100; 
+  Pause      = 3'b010, 
+  Reset_Pipe = 3'b011, 
+  Run        = 3'b100, 
+  Start_Pipe = 3'b101; 
 
   reg [2:0] state;
 
@@ -32,9 +33,11 @@ module Pipe_Start_FSM (
     nextstate = 3'bxxx; // default to x because default_state_is_x is set
     case (state)
       Idle      :                      nextstate = Clear;
-      Clear     : if (HOLD == 2'd3)    nextstate = Reset_Pipe;
+      Clear     : if (HOLD == 4'd5)    nextstate = Reset_Pipe;
                   else                 nextstate = Clear;
-      Reset_Pipe: if (HOLD == 2'd3)    nextstate = Start_Pipe;
+      Pause     : if (HOLD == 4'd15)   nextstate = Start_Pipe;
+                  else                 nextstate = Pause;
+      Reset_Pipe: if (HOLD == 4'd10)   nextstate = Pause;
                   else                 nextstate = Reset_Pipe;
       Run       : if (RESTART)         nextstate = Idle;
                   else                 nextstate = Run;
@@ -68,6 +71,7 @@ module Pipe_Start_FSM (
       WE <= 0; // default
       case (nextstate)
         Clear     :        INC_H <= 1;
+        Pause     :        INC_H <= 1;
         Reset_Pipe: begin
                            INC_H <= 1;
                            PIP_RST <= 1;
@@ -88,6 +92,7 @@ module Pipe_Start_FSM (
     case (state)
       Idle      : statename = "Idle";
       Clear     : statename = "Clear";
+      Pause     : statename = "Pause";
       Reset_Pipe: statename = "Reset_Pipe";
       Run       : statename = "Run";
       Start_Pipe: statename = "Start_Pipe";

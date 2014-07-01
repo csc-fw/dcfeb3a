@@ -66,7 +66,7 @@ module pipeline_gen_csp #(
 
 	reg [8:0] wcnt[6:1][1:0];
 
-	reg  [1:0] hold[6:1][1:0];
+	reg  [3:0] hold[6:1][1:0];
 	wire inc_h[6:1][1:0];
 	wire pipe_reset[6:1][1:0];
 	wire rena[6:1][1:0];
@@ -268,7 +268,7 @@ generate
 			assign fifo_tst_in[G][S] = csp_sel_tpls ? csp_inj_pulse : daq8ch[G][S][0];
 		
 			pipeline_ecc Pipeline_a (              // 36Kb FIFOs with ECC protection
-			  .rst(pipe_reset[G][S]),              // input rst
+			  .rst(pipe_reset[G][S] || RST),              // input rst
 			  .wr_clk(wrclk[G][S]),                // input wr_clk
 			  .rd_clk(RDCLK),                      // input rd_clk
 			  .din({daq8ch[G][S][63:1],fifo_tst_in[G][S]}),  // input [63 : 0] din
@@ -284,7 +284,7 @@ generate
 			);
 			
 			pipeline_ecc Pipeline_b (              // 36Kb FIFOs with ECC protection
-			  .rst(pipe_reset[G][S]),              // input rst
+			  .rst(pipe_reset[G][S] || RST),              // input rst
 			  .wr_clk(wrclk[G][S]),                // input wr_clk
 			  .rd_clk(RDCLK),                      // input rd_clk
 			  .din({32'h00000000,daq8ch[G][S][95:64]}), // input [63 : 0] din
@@ -316,7 +316,7 @@ generate
 			  .RE(rena[G][S]),                     // Read enable
 			  .WE(wena[G][S]),                     // Write enable
 			  .CLK(wrclk[G][S]),                   // Clock
-			  .HOLD(hold[G][S]),                   // 2 bit Hold counter
+			  .HOLD(hold[G][S]),                   // 4 bit Hold counter
 			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
 			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
 			  .RST(RST),                           // Reset
@@ -326,7 +326,7 @@ generate
 
 			always @(posedge wrclk[G][S] or posedge RST) begin
 				if(RST)
-					hold[G][S] <= 2'b00;
+					hold[G][S] <= 4'h0;
 				else
 					if(inc_h[G][S])
 						hold[G][S] <= hold[G][S] + 1;

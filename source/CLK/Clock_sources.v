@@ -18,7 +18,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module Clock_sources(
+module Clock_sources #(
+	parameter Simulation = 0
+)(
     input CMS_CLK_N,
     input CMS_CLK_P,
     input CMS80_N,
@@ -133,10 +135,10 @@ wire rst_samp_mmcm;
 	reg cmp_phs_inc;
 //	wire cmp_phs_busy;
 //	wire cmp_phs_psen;
-	wire cmp_mmcm_lock;
 //	wire cmp_phs_psdone;
 //	wire cmp_phs_rst;
-	
+
+
 	assign cmp_phs_rst = RST || CMP_PHS_JTAG_RST;
   
   assign tp_b35_0 = 1'b0;
@@ -318,6 +320,20 @@ daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
 //
 // configuration clock for Power On state machines
 //  
+generate
+if(Simulation == 1)
+begin : SimStartupCode
+	reg sim_eos;
+	assign STRTUP_CLK = cms_clk;
+	assign EOS = sim_eos;
+	initial begin
+		sim_eos = 1'b0;
+		#100
+		sim_eos = 1'b1;
+	end
+end
+else
+begin : StartupCode
    STARTUP_VIRTEX6 #(
       .PROG_USR("FALSE")  // Activate program event security feature
    )
@@ -338,6 +354,8 @@ daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
       .USRDONEO(1'b1),   // 1-bit input User DONE pin output control
       .USRDONETS(1'b0)  // 1-bit input User DONE 3-state enable output
    );
+end
+endgenerate
 
 //----------------------------------------------------------------------------
 // "Output    Output      Phase     Duty      Pk-to-Pk        Phase"

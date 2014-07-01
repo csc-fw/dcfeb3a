@@ -28,6 +28,7 @@ module fifo16ch_wide #(
 	input WRCLK,
 	input RST,
 	input RST_RESYNC,
+	input FIFO_RST,
 	input L1A,
 	input L1A_MATCH,
 	input [191:0] G1IN,
@@ -296,7 +297,7 @@ genvar Ch;
 generate
 	for (Ch=0; Ch<16; Ch=Ch+1) begin : channel
 		ch_fifo_ecc fifo_ch (            // 36Kb FIFO with ECC protection
-		  .rst(RST_RESYNC),              // input rst
+		  .rst(FIFO_RST),                // input rst
 		  .wr_clk(WRCLK),                // input wr_clk
 		  .rd_clk(RDCLK),                // input rd_clk
 		  .din(muxout[Ch]),              // input [11 : 0] din
@@ -315,7 +316,7 @@ generate
 endgenerate
 
 l1a_smp_fifo l1a_smp_fifo_i (
-  .rst(RST_RESYNC),                    // input rst
+  .rst(FIFO_RST),                      // input rst
   .wr_clk(WRCLK),                      // input wr_clk
   .rd_clk(RDCLK),                      // input rd_clk
   .din({multi_ovlp,ovrlap,l1a_phase_r1,l1a_match_d2,ovrlap_cnt,l1amcnt_r1,l1acnt_r1}), // input [43 : 0] din

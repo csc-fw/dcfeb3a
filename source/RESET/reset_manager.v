@@ -1,7 +1,11 @@
 `timescale 1ns / 1ps
 
 
-module reset_manager(
+module reset_manager #(
+	parameter Strt_dly = 20'h7FFFF,
+	parameter POR_tmo = 7'd120,
+	parameter ADC_Init_tmo = 12'd1000 // 10ms
+)(
     input STUP_CLK,
     input CLK,
     input COMP_CLK,
@@ -18,6 +22,7 @@ module reset_manager(
 	 input AL_DONE,
 	 input ADC_INIT_DONE,
 	 input BPI_SEQ_IDLE,
+	 output ADC_INIT_RST,
 	 output ADC_INIT,
 	 output ADC_RDY,
 	 output reg AL_START,
@@ -31,7 +36,7 @@ module reset_manager(
 	 output reg RUN,
 	 output QPLL_LOCK,
 	 output QPLL_ERROR,
-	 output [2:0] POR_STATE
+	 output [3:0] POR_STATE
     );
 
 wire ainc;
@@ -62,7 +67,6 @@ wire restart_all;
 wire strt_dly_done;
 reg [19:0] startup_cnt;
 
-localparam POR_tmo = 7'd120;
 
  IBUF IBUF_QP_ERROR (.O(QPLL_ERROR),.I(QP_ERROR));
  IBUF IBUF_QP_LOCKED (.O(QPLL_LOCK),.I(QP_LOCKED));
@@ -72,8 +76,9 @@ assign restart_all = (JTAG_SYS_RST || CSP_SYS_RST);
 assign DSR_RST    = ~ADC_RDY || SYS_RST;
 assign SYS_MON_RST = 1'b0;
 assign qpll_lock_disable = 1'b1;
-assign strt_dly_done = (startup_cnt == 20'h7FFFF);
+assign strt_dly_done = (startup_cnt == Strt_dly);
 assign por_done = por_cnt && (timer == POR_tmo);
+assign ADC_INIT_RST = adc_init_rst_r2;
 
 
 // Synchronize inputs to startup clock for POR state machine
@@ -177,7 +182,7 @@ Trg_Clock_Strt_FSM_i (
 	.SYNC_DONE(TRG_SYNC_DONE)
 );
 
-ADC_Init_FSM  #(.TIME_OUT(12'd1000)) // 10ms  
+ADC_Init_FSM  #(.TIME_OUT(ADC_Init_tmo)) // 10ms  
 ADC_Init_FSM_i (
 	 // Outputs
 	.ADC_INIT(ADC_INIT),

@@ -5,6 +5,7 @@ module ringbuf #(
 	inout [35:0] LA_CNTRL,
    input CLK,
 	input RST_RESYNC,
+	input FIFO_RST,
 	input [6:0] SAMP_MAX,
 	input [11:0] WDATA,
 	input WREN,
@@ -206,7 +207,7 @@ end
 
 	ring_l1a_buf ring_l1a_buf_i (
 	  .clk(CLK), // input clk for read and write
-	  .rst(RST_RESYNC),
+	  .rst(FIFO_RST),
 	  .din({l1a_phase_smp,wrt_addr[11:0],l1amcnt,l1acnt}), // input [48 : 0] din
 	  .wr_en(l1a_push),
 	  .rd_en(nxt_l1a),

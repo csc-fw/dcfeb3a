@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:24:13 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:25 at 14:26:17 (www.fizzim.com)
 
 module ADC_Init_FSM 
   #(
@@ -64,7 +64,7 @@ module ADC_Init_FSM
     if (RST) begin
       ADC_INIT <= 0;
       ADC_RST <= 0;
-      CRST <= 0;
+      CRST <= 1;
       INC <= 0;
       RUN <= 0;
     end

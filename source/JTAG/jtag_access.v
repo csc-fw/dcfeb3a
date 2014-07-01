@@ -204,7 +204,7 @@ module jtag_access (
    wire tdo2;
 	wire clrf;
 	wire p_in;
-	wire tclk2_raw;
+	wire tck2_raw;
 	
 
 	wire [63:0] f; //JTAG functions (one hot);

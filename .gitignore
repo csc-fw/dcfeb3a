@@ -18,6 +18,7 @@ syntmp/
 synwork/
 ipcore_dir/tmp/
 planAhead_*
+isim/
 *.tlg
 *.szr
 *.prs

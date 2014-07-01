@@ -25,6 +25,7 @@ module chanlink_fifo #(
 	input WCLK,
 	input RCLK,
 	input RST_RESYNC,
+	input FIFO_RST,
 	input [6:0] SAMP_MAX,
 	input [17:0] WDATA,          // 18 bits {movlp,ovrlp,ocnt,ring_out}
 	input WREN,
@@ -189,7 +190,7 @@ always @(posedge WCLK or posedge RST_RESYNC) begin
 end
 	
 	l1a_buf chlnk_l1a_buf_i (
-		.rst(RST_RESYNC),
+		.rst(FIFO_RST),
 		.wr_clk(WCLK),
 		.rd_clk(RCLK),
 		.din({l1a_phase,l1amcnt,l1acnt}), // input [36 : 0] din
@@ -205,7 +206,7 @@ end
 	);
 
 	evt_buf chlnk_evt_buf (
-		.rst(RST_RESYNC),
+		.rst(FIFO_RST),
 		.wr_clk(WCLK),
 		.rd_clk(RCLK),
 		.din(WDATA), // input [17 : 0] din

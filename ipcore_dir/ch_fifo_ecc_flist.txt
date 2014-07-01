@@ -3,7 +3,6 @@ _xmsgs\pn_parser.xmsgs
 ch_fifo_ecc.asy
 ch_fifo_ecc.gise
 ch_fifo_ecc.ngc
-ch_fifo_ecc.sym
 ch_fifo_ecc.v
 ch_fifo_ecc.veo
 ch_fifo_ecc.xco
