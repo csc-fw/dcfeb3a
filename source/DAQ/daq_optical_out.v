@@ -144,8 +144,6 @@ assign CSP_MAN_CTRL = man_control;
 assign CSP_USE_ANY_L1A = man_use_any_l1a;
 assign CSP_L1A_HEAD = man_l1a_head;
 
-assign force_error = inj_err1 & ~inj_err2;
-assign crc_vld = !TXD_VLD & txd_vld1; // trailing edge of valid data
 
 generate
 if(USE_CHIPSCOPE==1) 
@@ -272,7 +270,9 @@ endgenerate
 	assign DAQ_DATA_CLK = usr_clk_wordwise;
 	assign daq_tx_dis = man_daq_tx_dis;
 	assign daq_rate = man_control ? man_daq_rate : JDAQ_RATE;
-	assign crc_dv = crc_calc | crc_vld;
+	assign force_error = inj_err1 & ~inj_err2;
+	assign crc_vld = !TXD_VLD & txd_vld1; // trailing edge of valid data
+	assign crc_calc = crc_dv & TXD_VLD;
   
   OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_DAQ_TDIS (.O(DAQ_TDIS),.I(daq_tx_dis));
 BUFGMUX daq_clk_mux_i (.O(usr_clk_wordwise),.I0(DAQ_TX_125REFCLK_DV2),.I1(DAQ_TX_160REFCLK),.S(word_clk_sel));
@@ -491,7 +491,7 @@ end
 Frame_Proc_FSM
 Frame_Proc_FSM_i (
   .CLR_CRC(clr_crc),
-  .CRC_CALC(crc_calc),
+  .CRC_DV(crc_dv),
   .INC_ROM(inc_rom),
   .RST_ROM(rst_rom),
   .TX_ACK(TX_ACK),

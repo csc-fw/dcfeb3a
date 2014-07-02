@@ -1,9 +1,9 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 14:47:55 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:01 at 16:35:14 (www.fizzim.com)
 
 module Frame_Proc_FSM (
   output reg CLR_CRC,
-  output reg CRC_CALC,
+  output reg CRC_DV,
   output reg INC_ROM,
   output reg RST_ROM,
   output reg TX_ACK,
@@ -68,20 +68,20 @@ module Frame_Proc_FSM (
   always @(posedge CLK or posedge RST) begin
     if (RST) begin
       CLR_CRC <= 0;
-      CRC_CALC <= 0;
+      CRC_DV <= 0;
       INC_ROM <= 0;
       RST_ROM <= 0;
       TX_ACK <= 0;
     end
     else begin
       CLR_CRC <= 0; // default
-      CRC_CALC <= 0; // default
+      CRC_DV <= 0; // default
       INC_ROM <= 0; // default
       RST_ROM <= 0; // default
       TX_ACK <= 0; // default
       case (nextstate)
         CRC_EOP   :        INC_ROM <= 1;
-        Data      :        CRC_CALC <= VALID;
+        Data      :        CRC_DV <= 1;
         Inc_Rom   :        INC_ROM <= 1;
         Preamble_1:        CLR_CRC <= 1;
         Preamble_2:        CLR_CRC <= 1;
