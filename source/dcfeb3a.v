@@ -22,6 +22,10 @@ module dcfeb3a #(
 	parameter Strt_dly = 20'h7FFFF,
 	parameter POR_tmo = 7'd120,
 	parameter ADC_Init_tmo = 12'd1000 // 10ms
+//	parameter Simulation = 1,
+//	parameter Strt_dly = 20'h00000,
+//	parameter POR_tmo = 7'd10,
+//	parameter ADC_Init_tmo = 12'd1 // 10ms
 	)(
 
 	//Clocks
@@ -530,7 +534,7 @@ endgenerate
  assign l1a_head = csp_man_ctrl ? csp_l1a_head : jl1a_head;
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,bc0cnt[3:0],rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
 // assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,por_state,rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
- assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,  1'b0,al_status,  rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
+ assign dcfeb_status = {qpll_lock,qpll_error,l1a_head,use_any_l1a,  user_temp_alarm,al_status,  rate_3_2,rate_1_25,jdaq_rate,tmb_tx_mode,ttc_src};
  assign startup_status = {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status,eos,por_state};
 
 assign falling_edge_qpll = ~qpll_lock & qpll_lock_r1;

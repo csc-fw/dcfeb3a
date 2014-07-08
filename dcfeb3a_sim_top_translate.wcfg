@@ -10,47 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="276" />
-   <wvobject fp_name="divider287" type="divider">
-      <obj_property name="label">glbl</obj_property>
-      <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="BkColor">128 128 255</obj_property>
-      <obj_property name="TextColor">230 230 230</obj_property>
-   </wvobject>
-   <wvobject fp_name="/glbl/GSR" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">GSR</obj_property>
-      <obj_property name="ObjectShortName">GSR</obj_property>
-   </wvobject>
-   <wvobject fp_name="/glbl/GTS" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">GTS</obj_property>
-      <obj_property name="ObjectShortName">GTS</obj_property>
-   </wvobject>
-   <wvobject fp_name="/glbl/GWE" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">GWE</obj_property>
-      <obj_property name="ObjectShortName">GWE</obj_property>
-   </wvobject>
-   <wvobject fp_name="/glbl/PRLD" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">PRLD</obj_property>
-      <obj_property name="ObjectShortName">PRLD</obj_property>
-   </wvobject>
-   <wvobject fp_name="/glbl/GSR_int" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">GSR_int</obj_property>
-      <obj_property name="ObjectShortName">GSR_int</obj_property>
-   </wvobject>
-   <wvobject fp_name="/glbl/GTS_int" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">GTS_int</obj_property>
-      <obj_property name="ObjectShortName">GTS_int</obj_property>
-   </wvobject>
-   <wvobject fp_name="/glbl/PRLD_int" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">PRLD_int</obj_property>
-      <obj_property name="ObjectShortName">PRLD_int</obj_property>
-   </wvobject>
-   <wvobject fp_name="divider290" type="divider">
-      <obj_property name="label">top</obj_property>
-      <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="BkColor">128 128 255</obj_property>
-      <obj_property name="TextColor">230 230 230</obj_property>
-   </wvobject>
+   <WVObjectSize size="273" />
    <wvobject fp_name="/dcfeb3a_sim_top_tf/INJPLS_LV" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">INJPLS_LV</obj_property>
       <obj_property name="ObjectShortName">INJPLS_LV</obj_property>
@@ -542,12 +502,10 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/CMODE" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">CMODE[1:0]</obj_property>
       <obj_property name="ObjectShortName">CMODE[1:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/CTIME" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">CTIME[2:0]</obj_property>
       <obj_property name="ObjectShortName">CTIME[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/LCTCLK" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">LCTCLK</obj_property>
@@ -1061,15 +1019,43 @@
       <obj_property name="ElementShortName">SEL_CON_B</obj_property>
       <obj_property name="ObjectShortName">SEL_CON_B</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g1adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g1adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g1adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g2adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g2adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g2adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g3adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g3adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g3adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g4adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g4adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g4adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g5adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g5adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g5adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g6adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g6adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g6adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/addr" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">addr[22:0]</obj_property>
       <obj_property name="ObjectShortName">addr[22:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/out_value" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">out_value[15:0]</obj_property>
       <obj_property name="ObjectShortName">out_value[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/TMS" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">TMS</obj_property>
@@ -1118,26 +1104,32 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/g1bckshftreg" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">g1bckshftreg[47:0]</obj_property>
       <obj_property name="ObjectShortName">g1bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/g2bckshftreg" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">g2bckshftreg[47:0]</obj_property>
       <obj_property name="ObjectShortName">g2bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/g3bckshftreg" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">g3bckshftreg[47:0]</obj_property>
       <obj_property name="ObjectShortName">g3bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/g4bckshftreg" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">g4bckshftreg[47:0]</obj_property>
       <obj_property name="ObjectShortName">g4bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/g5bckshftreg" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">g5bckshftreg[47:0]</obj_property>
       <obj_property name="ObjectShortName">g5bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/g6bckshftreg" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">g6bckshftreg[47:0]</obj_property>
       <obj_property name="ObjectShortName">g6bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/rd_mode" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">rd_mode</obj_property>

@@ -205,6 +205,9 @@ TIMESPEC "TS_1063_3" = FROM "bpi_intf1_clk100khz_c_fall" TO "bpi_intf1_clk100khz
 
 
 # I/O Registers Packing Constraints
+INST "Clk_src1/Comp_Phase_FSM/BUSY" IOB=FALSE;
+
+# I/O Registers Packing Constraints
 INST "BPI_ctrl_i/esig_reg[15]" IOB=FALSE;
 INST "BPI_ctrl_i/esig_reg[14]" IOB=FALSE;
 INST "BPI_ctrl_i/esig_reg[13]" IOB=FALSE;

@@ -74,13 +74,24 @@ reg [19:0] startup_cnt;
 
 assign restart_all = (JTAG_SYS_RST || CSP_SYS_RST);
 assign DSR_RST    = ~ADC_RDY || SYS_RST;
-assign SYS_MON_RST = 1'b0;
 assign qpll_lock_disable = 1'b1;
 assign strt_dly_done = (startup_cnt == Strt_dly);
 assign por_done = por_cnt && (timer == POR_tmo);
 assign ADC_INIT_RST = adc_init_rst_r2;
 
-
+SRL16E #(
+	.INIT(16'HFFFF)
+) SysMonRst_i (
+	.Q(SYS_MON_RST),
+	.A0(1'b1),
+	.A1(1'b1),
+	.A2(1'b1),
+	.A3(1'b1),
+	.CE(1'b1),
+	.CLK(STUP_CLK),
+	.D(1'b0)
+);
+	
 // Synchronize inputs to startup clock for POR state machine
 
 always @(posedge STUP_CLK) begin
