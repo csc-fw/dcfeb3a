@@ -205,9 +205,6 @@ TIMESPEC "TS_1063_3" = FROM "bpi_intf1_clk100khz_c_fall" TO "bpi_intf1_clk100khz
 
 
 # I/O Registers Packing Constraints
-INST "Clk_src1/Comp_Phase_FSM/BUSY" IOB=FALSE;
-
-# I/O Registers Packing Constraints
 INST "BPI_ctrl_i/esig_reg[15]" IOB=FALSE;
 INST "BPI_ctrl_i/esig_reg[14]" IOB=FALSE;
 INST "BPI_ctrl_i/esig_reg[13]" IOB=FALSE;
@@ -218,27 +215,6 @@ INST "BPI_ctrl_i/esig_reg[9]" IOB=FALSE;
 INST "BPI_ctrl_i/esig_reg[8]" IOB=FALSE;
 
 # I/O Registers Packing Constraints
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep15" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep14" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep13" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep12" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep11" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep10" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep9" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep8" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep7" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep6" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep5" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep4" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep3" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep2" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep1" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_rep0" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM1/L_i" IOB=FALSE;
-INST "bpi_intf1/BPI_intrf_FSM1/W_i" IOB=FALSE;
-INST "bpi_intf1/BPI_intrf_FSM1/G_i" IOB=FALSE;
-
-# I/O Registers Packing Constraints
 INST "bpi_intf1/bpi_ad_out_r[*]" IOB=FALSE; # bpi_intf1/bpi_ad_out_r[0:22]
 
 # I/O Registers Packing Constraints
@@ -247,7 +223,6 @@ INST "chanlink_fifo_i/DVALID_i[*]" IOB=FALSE; # chanlink_fifo_i/DVALID_i[0:0]
 INST "chanlink_fifo_i/DOUT_1[*]" IOB=FALSE; # chanlink_fifo_i/DOUT_1[0:14]
 
 # I/O Registers Packing Constraints
-INST "rsm1/SYS_RST_2" IOB=FALSE;
 INST "rsm1/qpll_lock_r1" IOB=FALSE;
 
 # I/O Registers Packing Constraints

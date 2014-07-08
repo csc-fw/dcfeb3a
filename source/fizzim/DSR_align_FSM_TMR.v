@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:18 at 13:52:53 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 17:18:22 (www.fizzim.com)
 
 module DSR_align_FSM (
   output ALIGNED,
@@ -22,8 +22,8 @@ module DSR_align_FSM (
   (* syn_keep = "true" *) wire [2:0] voted_wcnt_2;
   (* syn_keep = "true" *) wire [2:0] voted_wcnt_3;
   (* syn_keep = "true" *) wire [3:0] voted_slip_cnt_1;
-  (* syn_keep = "true" *) wire [3:0] voted_slip_cnt_1;
-  (* syn_keep = "true" *) wire [3:0] voted_slip_cnt_1;
+  (* syn_keep = "true" *) wire [3:0] voted_slip_cnt_2;
+  (* syn_keep = "true" *) wire [3:0] voted_slip_cnt_3;
   assign voted_wcnt_1      = (wcnt_1     & wcnt_2    ) | (wcnt_2     & wcnt_3    ) | (wcnt_1     & wcnt_3    ); // Majority logic
   assign voted_wcnt_2      = (wcnt_1     & wcnt_2    ) | (wcnt_2     & wcnt_3    ) | (wcnt_1     & wcnt_3    ); // Majority logic
   assign voted_wcnt_3      = (wcnt_1     & wcnt_2    ) | (wcnt_2     & wcnt_3    ) | (wcnt_1     & wcnt_3    ); // Majority logic
@@ -77,7 +77,6 @@ module DSR_align_FSM (
   (* syn_preserve = "true" *)  reg STRT_PIPE_1;
   (* syn_preserve = "true" *)  reg STRT_PIPE_2;
   (* syn_preserve = "true" *)  reg STRT_PIPE_3;
-                               wire winc;
   (* syn_preserve = "true" *)  reg winc_1;
   (* syn_preserve = "true" *)  reg winc_2;
   (* syn_preserve = "true" *)  reg winc_3;
@@ -281,44 +280,44 @@ module DSR_align_FSM (
 
   // Inserted from attribute insert_at_bottom_of_module:
   always @(posedge CLK) begin
-  	   if(voted_winc_1)
-  			wcnt_1 <= voted_wcnt_1 +1;
-   	else
-  			wcnt_1 <= 3'h0;
-  	   if(voted_winc_2)
-  			wcnt_2 <= voted_wcnt_2 +1;
-   	else
-  			wcnt_2 <= 3'h0;
-  	   if(voted_winc_3)
-  			wcnt_3 <= voted_wcnt_3 +1;
-   	else
-  			wcnt_3 <= 3'h0;
-   end
-   
-   always @(posedge CLK or posedge RST) begin
-      if(RST)
-   	   slip_cnt_1 <= 4'h0;
-   	else
-   	   if(BIT_SLIP_EVN || BIT_SLIP_ODD)
-   		   slip_cnt_1 <= voted_slip_cnt_1 +1;
-   		else
-   		   slip_cnt_1 <= voted_slip_cnt_1;
-      if(RST)
-   	   slip_cnt_2 <= 4'h0;
-   	else
-   	   if(BIT_SLIP_EVN || BIT_SLIP_ODD)
-   		   slip_cnt_2 <= voted_slip_cnt_2 +1;
-   		else
-   		   slip_cnt_2 <= voted_slip_cnt_2;
-      if(RST)
-   	   slip_cnt_3 <= 4'h0;
-   	else
-   	   if(BIT_SLIP_EVN || BIT_SLIP_ODD)
-   		   slip_cnt_3 <= voted_slip_cnt_3 +1;
-   		else
-   		   slip_cnt_3 <= voted_slip_cnt_3;
-   end
-   
+  		if(voted_winc_1)
+    			wcnt_1 <= voted_wcnt_1 +1;
+  		else
+    			wcnt_1 <= 3'h0;
+  		if(voted_winc_2)
+   			wcnt_2 <= voted_wcnt_2 +1;
+  		else
+    			wcnt_2 <= 3'h0;
+  		if(voted_winc_3)
+    			wcnt_3 <= voted_wcnt_3 +1;
+  		else
+    			wcnt_3 <= 3'h0;
+  end
+     
+  always @(posedge CLK or posedge RST) begin
+  		if(RST)
+     	   slip_cnt_1 <= 4'h0;
+  		else
+  			if(BIT_SLIP_EVN || BIT_SLIP_ODD)
+     		   slip_cnt_1 <= voted_slip_cnt_1 +1;
+  			else
+     		   slip_cnt_1 <= voted_slip_cnt_1;
+  		if(RST)
+     	   slip_cnt_2 <= 4'h0;
+  		else
+     	   if(BIT_SLIP_EVN || BIT_SLIP_ODD)
+     		   slip_cnt_2 <= voted_slip_cnt_2 +1;
+     		else
+     		   slip_cnt_2 <= voted_slip_cnt_2;
+  		if(RST)
+     	   slip_cnt_3 <= 4'h0;
+     	else
+     	   if(BIT_SLIP_EVN || BIT_SLIP_ODD)
+     		   slip_cnt_3 <= voted_slip_cnt_3 +1;
+     		else
+     		   slip_cnt_3 <= voted_slip_cnt_3;
+  end
+  
   
 
 endmodule
