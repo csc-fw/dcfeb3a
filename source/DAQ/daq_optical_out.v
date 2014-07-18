@@ -73,10 +73,7 @@ localparam
 	reg crc_calc1;
 	
 	wire usr_clk_wordwise;
-	wire inc_rom;
-	wire rst_rom;
-	wire rst_rom_arst;
-	reg [2:0] rom_addr;
+	wire [2:0] rom_addr;
 	wire [3:0] frm_state;
 	wire [3:0] dqrt_state;
 
@@ -130,10 +127,6 @@ localparam
 	wire man_use_any_l1a;
 	wire man_l1a_head;
 	wire daq_rate;
-	wire clr_cnt;
-	wire clr_cnt_rst;
-	wire inc_cnt;
-	reg [3:0] count;
 	
 	// PRBS signals
 	wire force_error;
@@ -222,22 +215,22 @@ wire [3:0] dummy_asigs;
 	assign daq_tx_la_data[59:58]   = txcharisk_r;
 	assign daq_tx_la_data[60]      = word_clk_sel;
 	assign daq_tx_la_data[61]      = plllock_i;
-	assign daq_tx_la_data[62]      = clr_cnt;
-	assign daq_tx_la_data[63]      = inc_cnt;
+	assign daq_tx_la_data[62]      = 1'b0;
+	assign daq_tx_la_data[63]      = 1'b0;
 	assign daq_tx_la_data[64]      = L1A_MATCH;
 	assign daq_tx_la_data[65]      = 1'b0;
 	assign daq_tx_la_data[66]      = JDAQ_RATE;
 	assign daq_tx_la_data[67]      = RATE_1_25;
 	assign daq_tx_la_data[68]      = RATE_3_2;
 	assign daq_tx_la_data[69]      = daq_rate;
-	assign daq_tx_la_data[73:70]   = count;
+	assign daq_tx_la_data[73:70]   = 4'h0;
 	assign daq_tx_la_data[74]      = crc_dv;
 	assign daq_tx_la_data[75]      = clr_crc;
 	assign daq_tx_la_data[76]      = crc_calc;
 	assign daq_tx_la_data[77]      = crc_vld1;
 	assign daq_tx_la_data[78]      = crc_vld2;
-	assign daq_tx_la_data[79]      = inc_rom;
-	assign daq_tx_la_data[80]      = rst_rom;
+	assign daq_tx_la_data[79]      = 1'b0;
+	assign daq_tx_la_data[80]      = 1'b0;
 	assign daq_tx_la_data[83:81]   = rom_addr;
 	assign daq_tx_la_data[87:84]   = frm_state;
 	assign daq_tx_la_data[88]      = cdv_init;
@@ -287,8 +280,6 @@ BUFGMUX daq_clk_mux_i (.O(usr_clk_wordwise),.I0(DAQ_TX_125REFCLK_DV2),.I1(DAQ_TX
 
 	
 	assign arst = RST | man_rst;
-	assign clr_cnt_rst = clr_cnt | arst;
-	assign rst_rom_arst = rst_rom | arst;
 	
    always@(posedge usr_clk_wordwise or posedge arst)
       if (arst == 1'b1)
@@ -335,8 +326,6 @@ DAQ_Rate_Sel_FSM
 DAQ_Rate_Sel_FSM_i(
   .CDV_INIT(cdv_init),
   .CLK_SEL(ref_clk_sel),
-  .CLR_CNT(clr_cnt),
-  .INC_CNT(inc_cnt),
   .PCSRST(pcs_rst),
   .RATE_1_25(RATE_1_25),
   .RATE_3_2(RATE_3_2),
@@ -345,22 +334,11 @@ DAQ_Rate_Sel_FSM_i(
   .DQRT_STATE(dqrt_state),
   .CDV_DONE(clk_rst_done),
   .CLK(usr_clk_wordwise),
-  .CNT(count),
   .DAQ_RATE(daq_rate),
   .RST(arst),
   .TXRATEDONE(txrate_done)
 );
 
-always @(posedge usr_clk_wordwise or posedge clr_cnt_rst)
-begin
-	if(clr_cnt_rst)
-		count <= 4'd0;
-	else
-		if(inc_cnt)
-			count <= count + 1;
-		else
-			count <= count;
-end
 
 //////////////////////////////////////////////////////////////////////
 //                                                                  //
@@ -449,16 +427,6 @@ end
 //                                                          //
 //////////////////////////////////////////////////////////////
 
-always @(posedge usr_clk_wordwise or posedge rst_rom_arst)
-begin
-	if(rst_rom_arst)
-		rom_addr <= 3'd0;
-	else
-		if(inc_rom)
-			rom_addr <= rom_addr + 1;
-		else
-			rom_addr <= rom_addr;
-end
 
 always @(posedge usr_clk_wordwise)
 begin: Frame_ROM
@@ -492,12 +460,10 @@ Frame_Proc_FSM
 Frame_Proc_FSM_i (
   .CLR_CRC(clr_crc),
   .CRC_DV(crc_dv),
-  .INC_ROM(inc_rom),
-  .RST_ROM(rst_rom),
+  .ROM_ADDR(rom_addr),
   .TX_ACK(TX_ACK),
   .FRM_STATE(frm_state),
   .CLK(usr_clk_wordwise),
-  .ROM_ADDR(rom_addr),
   .RST(arst),
   .VALID(TXD_VLD) 
 );

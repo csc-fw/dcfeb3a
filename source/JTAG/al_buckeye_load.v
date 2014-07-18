@@ -32,11 +32,8 @@ module al_buckeye_load(
     );
 	 
 	 
-	wire clr_cnt;
 	reg load_bky;
 	wire set_done;
-	reg [3:0] scnt;
-	reg [4:0] lcnt;
 	reg [15:0] bky_shft;
 
 // FIFO signals
@@ -50,7 +47,6 @@ module al_buckeye_load(
 	wire [9:0] bky_rdcnt;
 	wire [9:0] bky_wrtcnt;
 	wire [15:0] bky_data;
-	
 	
 	assign AL_BKY_ENA = load_bky;
 	assign SDATA = bky_shft[0];
@@ -79,39 +75,13 @@ always @(negedge CLK1MHZ or posedge RST) begin
 			bky_shft <= bky_shft;
 end
 
-always @(negedge CLK1MHZ or posedge RST) begin
-	if(RST)
-		scnt <= 4'h0;
-	else
-		if(clr_cnt)
-			scnt <= 4'h0;
-		else if(SHCK_ENA)
-			scnt <= scnt+1;
-		else
-			scnt <= scnt;
-end
-
-always @(negedge CLK1MHZ or posedge RST) begin
-	if(RST)
-		lcnt <= 5'h00;
-	else
-		if(clr_cnt)
-			lcnt <= 5'h00;
-		else if(bky_rdena)
-			lcnt <= lcnt+1;
-		else
-			lcnt <= lcnt;
-end
 
 bky_load_FSM         //States change on negative edge of clock
 bky_load_FSM_i(
-  .CLR_CNT(clr_cnt),
   .RDENA(bky_rdena),
   .SET_DONE(set_done),
   .SHFT_ENA(SHCK_ENA),
   .CLK(CLK1MHZ),
-  .CNT(scnt),
-  .LOOP(lcnt),
   .MT(bky_mt),
   .RST(RST),
   .START(load_bky) 
@@ -168,6 +138,4 @@ end
       .WREN(CAPTURE)                // 1-bit input write enable
    );
 	
-	
-
 endmodule

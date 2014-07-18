@@ -1018,8 +1018,6 @@ wire l1a_smp_rdy;
 wire [6:0] samp_max;
 wire [43:0] l1a_smp_out;
 wire [15:0] f16_mt;
-reg [3:0] hold;
-wire inc_h;
 wire rst_resync;
 wire daq_fifo_rst;
 wire daq_fifo_rst_done;
@@ -1042,23 +1040,12 @@ assign rng_xfr_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out ||
 
 assign rst_resync = sys_rst || resync;
 
-always @(posedge clk40 or posedge rst_resync) begin
-	if(rst_resync)
-		hold <= 4'h0;
-	else
-		if(inc_h)
-			hold <= hold + 1;
-		else
-			hold <= hold;
-end
 
 DAQ_FIFO_Rst_FSM // reset all DAQ FIFOs on Resync
 DAQ_FIFO_Rst_FSM_i (
 	.DONE(daq_fifo_rst_done),
 	.FIFO_RST(daq_fifo_rst),
-	.INC_H(inc_h),
 	.CLK(clk40),
-	.HOLD(hold),
 	.RST(rst_resync) 
 );
 

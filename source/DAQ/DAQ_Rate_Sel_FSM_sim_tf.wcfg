@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/DAQ_Rate_Sel_FSM_sim_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="DAQ_Rate_Sel_FSM_sim_tf" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="142" />
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/CDV_INIT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/CDV_INIT_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT_trial</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/CLK_SEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/CLK_SEL_trial" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL_trial[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL_trial[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/PCSRST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST</obj_property>
+      <obj_property name="ObjectShortName">PCSRST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/PCSRST_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST_trial</obj_property>
+      <obj_property name="ObjectShortName">PCSRST_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/RATE_1_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/RATE_1_25_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25_trial</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/RATE_3_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/RATE_3_2_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2_trial</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/RATE_SEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/RATE_SEL_trial" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL_trial[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL_trial[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/WRDCLKSEL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/WRDCLKSEL_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL_trial</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[95:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[95:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DQRT_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DQRT_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">DQRT_STATE[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DQRT_STATE_trial" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DQRT_STATE_trial[3:0]</obj_property>
+      <obj_property name="ObjectShortName">DQRT_STATE_trial[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[95:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[95:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_RATE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_RATE</obj_property>
+      <obj_property name="ObjectShortName">DAQ_RATE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/TXRATEDONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TXRATEDONE</obj_property>
+      <obj_property name="ObjectShortName">TXRATEDONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/CDV_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_DONE</obj_property>
+      <obj_property name="ObjectShortName">CDV_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/count" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">count[3:0]</obj_property>
+      <obj_property name="ObjectShortName">count[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/cnt_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/CLR_CNT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CNT</obj_property>
+      <obj_property name="ObjectShortName">CLR_CNT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/INC_CNT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_CNT</obj_property>
+      <obj_property name="ObjectShortName">INC_CNT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/clr_cnt_rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clr_cnt_rst</obj_property>
+      <obj_property name="ObjectShortName">clr_cnt_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/wrd_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wrd_clk</obj_property>
+      <obj_property name="ObjectShortName">wrd_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/wrd_clk_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wrd_clk_trial</obj_property>
+      <obj_property name="ObjectShortName">wrd_clk_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/clk160" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk160</obj_property>
+      <obj_property name="ObjectShortName">clk160</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/clk125" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk125</obj_property>
+      <obj_property name="ObjectShortName">clk125</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider30" type="divider">
+      <obj_property name="label">FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CDV_INIT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLK_SEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLR_CNT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CNT</obj_property>
+      <obj_property name="ObjectShortName">CLR_CNT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/INC_CNT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_CNT</obj_property>
+      <obj_property name="ObjectShortName">INC_CNT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/PCSRST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST</obj_property>
+      <obj_property name="ObjectShortName">PCSRST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_1_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_3_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_SEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/WRDCLKSEL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/DQRT_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DQRT_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">DQRT_STATE[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CDV_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_DONE</obj_property>
+      <obj_property name="ObjectShortName">CDV_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CNT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">CNT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/DAQ_RATE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_RATE</obj_property>
+      <obj_property name="ObjectShortName">DAQ_RATE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/TXRATEDONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TXRATEDONE</obj_property>
+      <obj_property name="ObjectShortName">TXRATEDONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/voted_state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/voted_state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_3[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_3[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/nextstate_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/nextstate_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_3[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CDV_INIT_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT_1</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CDV_INIT_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT_2</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CDV_INIT_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT_3</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLK_SEL_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL_1[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLK_SEL_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL_2[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLK_SEL_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL_3[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLR_CNT_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CNT_1</obj_property>
+      <obj_property name="ObjectShortName">CLR_CNT_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLR_CNT_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CNT_2</obj_property>
+      <obj_property name="ObjectShortName">CLR_CNT_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/CLR_CNT_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CNT_3</obj_property>
+      <obj_property name="ObjectShortName">CLR_CNT_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/INC_CNT_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_CNT_1</obj_property>
+      <obj_property name="ObjectShortName">INC_CNT_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/INC_CNT_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_CNT_2</obj_property>
+      <obj_property name="ObjectShortName">INC_CNT_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/INC_CNT_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_CNT_3</obj_property>
+      <obj_property name="ObjectShortName">INC_CNT_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/PCSRST_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST_1</obj_property>
+      <obj_property name="ObjectShortName">PCSRST_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/PCSRST_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST_2</obj_property>
+      <obj_property name="ObjectShortName">PCSRST_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/PCSRST_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST_3</obj_property>
+      <obj_property name="ObjectShortName">PCSRST_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_1_25_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25_1</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_1_25_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25_2</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_1_25_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25_3</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_3_2_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2_1</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_3_2_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2_2</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_3_2_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2_3</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_SEL_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL_1[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_SEL_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL_2[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL_2[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/RATE_SEL_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL_3[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL_3[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/WRDCLKSEL_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL_1</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/WRDCLKSEL_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL_2</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/WRDCLKSEL_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL_3</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/uut/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[95:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[95:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider31" type="divider">
+      <obj_property name="label">trial FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CDV_INIT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CLK_SEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/PCSRST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST</obj_property>
+      <obj_property name="ObjectShortName">PCSRST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_1_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_3_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_SEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/WRDCLKSEL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/DQRT_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DQRT_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">DQRT_STATE[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CDV_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_DONE</obj_property>
+      <obj_property name="ObjectShortName">CDV_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/DAQ_RATE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_RATE</obj_property>
+      <obj_property name="ObjectShortName">DAQ_RATE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/TXRATEDONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TXRATEDONE</obj_property>
+      <obj_property name="ObjectShortName">TXRATEDONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_3[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_WRDCLKSEL_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_WRDCLKSEL_1</obj_property>
+      <obj_property name="ObjectShortName">voted_WRDCLKSEL_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_WRDCLKSEL_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_WRDCLKSEL_2</obj_property>
+      <obj_property name="ObjectShortName">voted_WRDCLKSEL_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_WRDCLKSEL_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_WRDCLKSEL_3</obj_property>
+      <obj_property name="ObjectShortName">voted_WRDCLKSEL_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_cnt_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_cnt_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_cnt_1[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_cnt_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_cnt_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_cnt_2[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/voted_cnt_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_cnt_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_cnt_3[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_3[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/nextstate_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_2[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/nextstate_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_3[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CDV_INIT_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT_1</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CDV_INIT_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT_2</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CDV_INIT_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CDV_INIT_3</obj_property>
+      <obj_property name="ObjectShortName">CDV_INIT_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CLK_SEL_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL_1[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CLK_SEL_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL_2[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/CLK_SEL_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK_SEL_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK_SEL_3[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/PCSRST_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST_1</obj_property>
+      <obj_property name="ObjectShortName">PCSRST_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/PCSRST_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST_2</obj_property>
+      <obj_property name="ObjectShortName">PCSRST_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/PCSRST_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">PCSRST_3</obj_property>
+      <obj_property name="ObjectShortName">PCSRST_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_1_25_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25_1</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_1_25_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25_2</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_1_25_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25_3</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_3_2_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2_1</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_3_2_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2_2</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_3_2_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2_3</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_SEL_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL_1[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_SEL_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL_2[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL_2[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/RATE_SEL_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_SEL_3[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RATE_SEL_3[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/WRDCLKSEL_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL_1</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/WRDCLKSEL_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL_2</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/WRDCLKSEL_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRDCLKSEL_3</obj_property>
+      <obj_property name="ObjectShortName">WRDCLKSEL_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/cnt_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_1[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/cnt_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_2[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/cnt_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_3[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/next_WRDCLKSEL_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">next_WRDCLKSEL_1</obj_property>
+      <obj_property name="ObjectShortName">next_WRDCLKSEL_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/next_WRDCLKSEL_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">next_WRDCLKSEL_2</obj_property>
+      <obj_property name="ObjectShortName">next_WRDCLKSEL_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/next_WRDCLKSEL_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">next_WRDCLKSEL_3</obj_property>
+      <obj_property name="ObjectShortName">next_WRDCLKSEL_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/DAQ_Rate_Sel_FSM_sim_tf/DAQ_Rate_Sel_FSM_trial_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[95:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[95:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

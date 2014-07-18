@@ -1,17 +1,14 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:45:40 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:11 at 15:32:07 (www.fizzim.com)
 
 module Pipe_Start_FSM (
-  output INC_H,
   output PIP_RST,
   output RE,
   output WE,
   input CLK,
-  input wire [3:0] HOLD,
   input wire [8:0] PDEPTH,
   input RESTART,
-  input RST,
-  input wire [8:0] WCNT 
+  input RST 
 );
 
   // state bits
@@ -39,9 +36,6 @@ module Pipe_Start_FSM (
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
   (* syn_keep = "true" *) reg [2:0] nextstate_3;
 
-  (* syn_preserve = "true" *)  reg INC_H_1;
-  (* syn_preserve = "true" *)  reg INC_H_2;
-  (* syn_preserve = "true" *)  reg INC_H_3;
   (* syn_preserve = "true" *)  reg PIP_RST_1;
   (* syn_preserve = "true" *)  reg PIP_RST_2;
   (* syn_preserve = "true" *)  reg PIP_RST_3;
@@ -51,12 +45,29 @@ module Pipe_Start_FSM (
   (* syn_preserve = "true" *)  reg WE_1;
   (* syn_preserve = "true" *)  reg WE_2;
   (* syn_preserve = "true" *)  reg WE_3;
+  (* syn_preserve = "true" *)  reg [3:0] hold_1;
+  (* syn_preserve = "true" *)  reg [3:0] hold_2;
+  (* syn_preserve = "true" *)  reg [3:0] hold_3;
+  (* syn_keep = "true" *)      wire [3:0] voted_hold_1;
+  (* syn_keep = "true" *)      wire [3:0] voted_hold_2;
+  (* syn_keep = "true" *)      wire [3:0] voted_hold_3;
+  (* syn_preserve = "true" *)  reg [8:0] wcnt_1;
+  (* syn_preserve = "true" *)  reg [8:0] wcnt_2;
+  (* syn_preserve = "true" *)  reg [8:0] wcnt_3;
+  (* syn_keep = "true" *)      wire [8:0] voted_wcnt_1;
+  (* syn_keep = "true" *)      wire [8:0] voted_wcnt_2;
+  (* syn_keep = "true" *)      wire [8:0] voted_wcnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign INC_H     = (INC_H_1   & INC_H_2  ) | (INC_H_2   & INC_H_3  ) | (INC_H_1   & INC_H_3  ); // Majority logic
   assign PIP_RST   = (PIP_RST_1 & PIP_RST_2) | (PIP_RST_2 & PIP_RST_3) | (PIP_RST_1 & PIP_RST_3); // Majority logic
   assign RE        = (RE_1      & RE_2     ) | (RE_2      & RE_3     ) | (RE_1      & RE_3     ); // Majority logic
   assign WE        = (WE_1      & WE_2     ) | (WE_2      & WE_3     ) | (WE_1      & WE_3     ); // Majority logic
+  assign voted_hold_1 = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
+  assign voted_hold_2 = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
+  assign voted_hold_3 = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
+  assign voted_wcnt_1 = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
+  assign voted_wcnt_2 = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
+  assign voted_wcnt_3 = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
 
 
   // comb always block
@@ -65,43 +76,43 @@ module Pipe_Start_FSM (
     nextstate_2 = 3'bxxx; // default to x because default_state_is_x is set
     nextstate_3 = 3'bxxx; // default to x because default_state_is_x is set
     case (voted_state_1)
-      Idle      :                      nextstate_1 = Clear;
-      Clear     : if (HOLD == 4'd5)    nextstate_1 = Reset_Pipe;
-                  else                 nextstate_1 = Clear;
-      Pause     : if (HOLD == 4'd15)   nextstate_1 = Start_Pipe;
-                  else                 nextstate_1 = Pause;
-      Reset_Pipe: if (HOLD == 4'd10)   nextstate_1 = Pause;
-                  else                 nextstate_1 = Reset_Pipe;
-      Run       : if (RESTART)         nextstate_1 = Idle;
-                  else                 nextstate_1 = Run;
-      Start_Pipe: if (WCNT == PDEPTH)  nextstate_1 = Run;
-                  else                 nextstate_1 = Start_Pipe;
+      Idle      :                              nextstate_1 = Clear;
+      Clear     : if (voted_hold_1 == 4'd5)    nextstate_1 = Reset_Pipe;
+                  else                         nextstate_1 = Clear;
+      Pause     : if (voted_hold_1 == 4'd15)   nextstate_1 = Start_Pipe;
+                  else                         nextstate_1 = Pause;
+      Reset_Pipe: if (voted_hold_1 == 4'd10)   nextstate_1 = Pause;
+                  else                         nextstate_1 = Reset_Pipe;
+      Run       : if (RESTART)                 nextstate_1 = Idle;
+                  else                         nextstate_1 = Run;
+      Start_Pipe: if (voted_wcnt_1 == PDEPTH)  nextstate_1 = Run;
+                  else                         nextstate_1 = Start_Pipe;
     endcase
     case (voted_state_2)
-      Idle      :                      nextstate_2 = Clear;
-      Clear     : if (HOLD == 4'd5)    nextstate_2 = Reset_Pipe;
-                  else                 nextstate_2 = Clear;
-      Pause     : if (HOLD == 4'd15)   nextstate_2 = Start_Pipe;
-                  else                 nextstate_2 = Pause;
-      Reset_Pipe: if (HOLD == 4'd10)   nextstate_2 = Pause;
-                  else                 nextstate_2 = Reset_Pipe;
-      Run       : if (RESTART)         nextstate_2 = Idle;
-                  else                 nextstate_2 = Run;
-      Start_Pipe: if (WCNT == PDEPTH)  nextstate_2 = Run;
-                  else                 nextstate_2 = Start_Pipe;
+      Idle      :                              nextstate_2 = Clear;
+      Clear     : if (voted_hold_2 == 4'd5)    nextstate_2 = Reset_Pipe;
+                  else                         nextstate_2 = Clear;
+      Pause     : if (voted_hold_2 == 4'd15)   nextstate_2 = Start_Pipe;
+                  else                         nextstate_2 = Pause;
+      Reset_Pipe: if (voted_hold_2 == 4'd10)   nextstate_2 = Pause;
+                  else                         nextstate_2 = Reset_Pipe;
+      Run       : if (RESTART)                 nextstate_2 = Idle;
+                  else                         nextstate_2 = Run;
+      Start_Pipe: if (voted_wcnt_2 == PDEPTH)  nextstate_2 = Run;
+                  else                         nextstate_2 = Start_Pipe;
     endcase
     case (voted_state_3)
-      Idle      :                      nextstate_3 = Clear;
-      Clear     : if (HOLD == 4'd5)    nextstate_3 = Reset_Pipe;
-                  else                 nextstate_3 = Clear;
-      Pause     : if (HOLD == 4'd15)   nextstate_3 = Start_Pipe;
-                  else                 nextstate_3 = Pause;
-      Reset_Pipe: if (HOLD == 4'd10)   nextstate_3 = Pause;
-                  else                 nextstate_3 = Reset_Pipe;
-      Run       : if (RESTART)         nextstate_3 = Idle;
-                  else                 nextstate_3 = Run;
-      Start_Pipe: if (WCNT == PDEPTH)  nextstate_3 = Run;
-                  else                 nextstate_3 = Start_Pipe;
+      Idle      :                              nextstate_3 = Clear;
+      Clear     : if (voted_hold_3 == 4'd5)    nextstate_3 = Reset_Pipe;
+                  else                         nextstate_3 = Clear;
+      Pause     : if (voted_hold_3 == 4'd15)   nextstate_3 = Start_Pipe;
+                  else                         nextstate_3 = Pause;
+      Reset_Pipe: if (voted_hold_3 == 4'd10)   nextstate_3 = Pause;
+                  else                         nextstate_3 = Reset_Pipe;
+      Run       : if (RESTART)                 nextstate_3 = Idle;
+                  else                         nextstate_3 = Run;
+      Start_Pipe: if (voted_wcnt_3 == PDEPTH)  nextstate_3 = Run;
+                  else                         nextstate_3 = Start_Pipe;
     endcase
   end
 
@@ -124,9 +135,6 @@ module Pipe_Start_FSM (
   // datapath sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST) begin
-      INC_H_1 <= 0;
-      INC_H_2 <= 0;
-      INC_H_3 <= 0;
       PIP_RST_1 <= 0;
       PIP_RST_2 <= 0;
       PIP_RST_3 <= 0;
@@ -136,11 +144,14 @@ module Pipe_Start_FSM (
       WE_1 <= 0;
       WE_2 <= 0;
       WE_3 <= 0;
+      hold_1 <= 4'h0;
+      hold_2 <= 4'h0;
+      hold_3 <= 4'h0;
+      wcnt_1 <= 9'h000;
+      wcnt_2 <= 9'h000;
+      wcnt_3 <= 9'h000;
     end
     else begin
-      INC_H_1 <= 0; // default
-      INC_H_2 <= 0; // default
-      INC_H_3 <= 0; // default
       PIP_RST_1 <= 0; // default
       PIP_RST_2 <= 0; // default
       PIP_RST_3 <= 0; // default
@@ -150,44 +161,62 @@ module Pipe_Start_FSM (
       WE_1 <= 0; // default
       WE_2 <= 0; // default
       WE_3 <= 0; // default
+      hold_1 <= 4'h0; // default
+      hold_2 <= 4'h0; // default
+      hold_3 <= 4'h0; // default
+      wcnt_1 <= 9'h000; // default
+      wcnt_2 <= 9'h000; // default
+      wcnt_3 <= 9'h000; // default
       case (nextstate_1)
-        Clear     :        INC_H_1 <= 1;
-        Pause     :        INC_H_1 <= 1;
+        Clear     :        hold_1 <= voted_hold_1 + 1;
+        Pause     :        hold_1 <= voted_hold_1 + 1;
         Reset_Pipe: begin
-                           INC_H_1 <= 1;
                            PIP_RST_1 <= 1;
+                           hold_1 <= voted_hold_1 + 1;
         end
         Run       : begin
                            RE_1 <= 1;
                            WE_1 <= 1;
+                           wcnt_1 <= voted_wcnt_1;
         end
-        Start_Pipe:        WE_1 <= 1;
+        Start_Pipe: begin
+                           WE_1 <= 1;
+                           wcnt_1 <= voted_wcnt_1 + 1;
+        end
       endcase
       case (nextstate_2)
-        Clear     :        INC_H_2 <= 1;
-        Pause     :        INC_H_2 <= 1;
+        Clear     :        hold_2 <= voted_hold_2 + 1;
+        Pause     :        hold_2 <= voted_hold_2 + 1;
         Reset_Pipe: begin
-                           INC_H_2 <= 1;
                            PIP_RST_2 <= 1;
+                           hold_2 <= voted_hold_2 + 1;
         end
         Run       : begin
                            RE_2 <= 1;
                            WE_2 <= 1;
+                           wcnt_2 <= voted_wcnt_2;
         end
-        Start_Pipe:        WE_2 <= 1;
+        Start_Pipe: begin
+                           WE_2 <= 1;
+                           wcnt_2 <= voted_wcnt_2 + 1;
+        end
       endcase
       case (nextstate_3)
-        Clear     :        INC_H_3 <= 1;
-        Pause     :        INC_H_3 <= 1;
+        Clear     :        hold_3 <= voted_hold_3 + 1;
+        Pause     :        hold_3 <= voted_hold_3 + 1;
         Reset_Pipe: begin
-                           INC_H_3 <= 1;
                            PIP_RST_3 <= 1;
+                           hold_3 <= voted_hold_3 + 1;
         end
         Run       : begin
                            RE_3 <= 1;
                            WE_3 <= 1;
+                           wcnt_3 <= voted_wcnt_3;
         end
-        Start_Pipe:        WE_3 <= 1;
+        Start_Pipe: begin
+                           WE_3 <= 1;
+                           wcnt_3 <= voted_wcnt_3 + 1;
+        end
       endcase
     end
   end

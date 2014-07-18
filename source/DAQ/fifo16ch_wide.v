@@ -62,8 +62,6 @@ module fifo16ch_wide #(
 	wire phase_align0;
 	wire phase_align1;
 	wire stretch_l1a;
-	wire srst;
-	wire sinc;
 	wire injectsbiterr;
 	wire injectdbiterr;
 	wire sbiterr[15:0];
@@ -90,25 +88,25 @@ module fifo16ch_wide #(
 	reg [11:0] l1amcnt_r1;
 	reg l1a_phase;
 	reg l1a_phase_r1;
-	reg smpclk_dp5,smpclk_d1,smpclk_d2;
-	reg [2:0] sel;
-	reg [6:0] sample;
+	reg smpclk_dp5,smpclk_d1,smpclk_d2,smpclk_d3;
+	wire [2:0] sel;
 
 	assign L1A_CNT = l1acnt;
 	assign L1A_MTCH_CNT = l1amcnt;
 	 
 	assign DOUT_16CH = {fout[15],fout[14],fout[13],fout[12],fout[11],fout[10],fout[9],fout[8],fout[7],fout[6],fout[5],fout[4],fout[3],fout[2],fout[1],fout[0]};
 	assign stretch_l1a = L1A_MATCH | l1a_match_d1;
-	assign phase_align0 = SMPCLK & smpclk_d2;
-	assign phase_align1 = ~SMPCLK & ~smpclk_d2;
+//	assign phase_align0 = SMPCLK & smpclk_d2;
+//	assign phase_align1 = ~SMPCLK & ~smpclk_d2;
+	assign phase_align0 = ~smpclk_d3 & smpclk_d2;
+	assign phase_align1 = smpclk_d3 & ~smpclk_d2;
 	assign evt_start = stretch_l1a & phase_align1;
 	assign evt_end = event_pipe[SAMP_MAX];
-	assign wren = sinc;
 	assign ovrlap = (ovrlap_cnt > 4'h0);
 	assign multi_ovlp = (ovrlap_cnt > 4'h1);
 	assign new_l1a = (L1A_MATCH & wren);
 	assign oinc = (new_l1a | new_l1a_d1 | (L1A_MATCH & l1a_match_d1));
-	assign odec = evt_end;
+	assign odec = evt_end & (ovrlap | oinc);
 	assign l1a_wren = wren & (phase_align0 | phase_align1);
 	assign RDY = ~l1a_smp_mt;
 	assign injectsbiterr = 1'b0;
@@ -141,7 +139,8 @@ fifo1_la fifo1_la_i (
 	assign rng_fifo1_la_data[31:20]  = event_pipe[11:0];
 	assign rng_fifo1_la_data[43:32]  = muxout[0];
 	assign rng_fifo1_la_data[46:44]  = sel[2:0];
-	assign rng_fifo1_la_data[53:47]  = sample[6:0];
+//	assign rng_fifo1_la_data[53:47]  = sample[6:0];
+	assign rng_fifo1_la_data[53:47]  = 7'h00;
 	assign rng_fifo1_la_data[54]     = L1A;
 	assign rng_fifo1_la_data[55]     = L1A_MATCH;
 	assign rng_fifo1_la_data[56]     = l1a_match_d1;
@@ -158,7 +157,7 @@ fifo1_la fifo1_la_i (
 	assign rng_fifo1_la_data[67]     = ovrlap;
 	assign rng_fifo1_la_data[68]     = multi_ovlp;
 	assign rng_fifo1_la_data[69]     = oinc;
-	assign rng_fifo1_la_data[70]     = srst;
+	assign rng_fifo1_la_data[70]     = 1'b0;
 	assign rng_fifo1_la_data[71]     = l1a_smp_mt;
 	assign rng_fifo1_la_data[72]     = L1A_RD_EN;
 	assign rng_fifo1_la_data[73]     = RD_ENA[0];
@@ -204,7 +203,7 @@ endgenerate
 	end
 	
 	always @(posedge WRCLK) begin
-		if(srst)
+		if(~wren)
 			ovrlap_cnt <= 4'h0;
 		else
 		   if(phase_align1)
@@ -241,6 +240,7 @@ endgenerate
 	always @(posedge WRCLK) begin
 		smpclk_d1 <= smpclk_dp5;
 		smpclk_d2 <= smpclk_d1;
+		smpclk_d3 <= smpclk_d2;
 	end
 	 
 	always @* begin
@@ -255,39 +255,14 @@ endgenerate
 		endcase
 	end
 
-	always @(posedge WRCLK or posedge srst) begin  // counter for mux selection
-		if(srst)
-			sel <= 0;
-		else
-			if(sel == 3'd5)
-				sel <= 0;
-			else if(sinc) 
-				sel <= sel + 1;
-			else
-			   sel <= sel;
-	end
-
-	always @(posedge WRCLK or posedge srst) begin  // counter for samples
-		if(srst)
-			sample <= 0;
-		else
-			if(sinc && evt_start)
-			   sample <= 0;
-			else if(sinc && (sel == 3'd5))
-				sample <= sample + 1;
-			else
-			   sample <= sample;
-	end
 
 	FIFO_Load_FSM 
 	FIFO_Load_FSM1(
-     .SINC(sinc),
-     .SRST(srst),
+     .SEL(sel),
+     .WRENA(wren),
      .CLK(WRCLK),
      .RST(RST_RESYNC),
-	  .SAMPLE(sample),
 	  .SAMP_MAX(SAMP_MAX),
-     .SEL(sel),
      .START(evt_start) 
 );
   

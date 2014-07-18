@@ -40,18 +40,11 @@ module xfer2ringbuf #(
 // signals for FIFO1 (16 channel FIFO)
 	wire re;
 	reg re_1;
-	reg [3:0]rd_sel;
-	reg [3:0]rd_sel_1;
-	reg [2:0] chip;
-	reg [1:0] cnt;
+	wire [3:0]channel;
+	reg [3:0]channel_1;
 	wire [2:0] xstate;
-	wire inc_chip;
-	wire inc_chan;
-	wire inc_cnt;
-	wire rst_chip;
-	wire rst_chan;
-	wire rst_cnt;
-	wire xfer_done;
+	
+
 	
 generate
 if(USE_CHIPSCOPE==1) 
@@ -78,25 +71,25 @@ xfer2ring_la xfer2ring_la_i (
 	assign xfer2ring_la_data[63:48]  = F16_MT;
 	assign xfer2ring_la_data[79:64]  = RD_ENA;
 	assign xfer2ring_la_data[91:80]  = DMUX;
-	assign xfer2ring_la_data[95:92]  = rd_sel;
-	assign xfer2ring_la_data[98:96]  = chip;
-	assign xfer2ring_la_data[100:99] = cnt;
+	assign xfer2ring_la_data[95:92]  = channel;
+	assign xfer2ring_la_data[98:96]  = 3'b000;
+	assign xfer2ring_la_data[100:99] = 2'b00;
 	assign xfer2ring_la_data[103:101]= xstate;
 	assign xfer2ring_la_data[104]    = RDY;
 	assign xfer2ring_la_data[105]    = L1A_RD_EN;
 	assign xfer2ring_la_data[106]    = WREN;
 	assign xfer2ring_la_data[107]    = re;
-	assign xfer2ring_la_data[108]    = inc_chip;
-	assign xfer2ring_la_data[109]    = inc_chan;
-	assign xfer2ring_la_data[110]    = inc_cnt;
-	assign xfer2ring_la_data[111]    = rst_chip;
-	assign xfer2ring_la_data[112]    = rst_chan;
-	assign xfer2ring_la_data[113]    = rst_cnt;
-	assign xfer2ring_la_data[114]    = xfer_done;
+	assign xfer2ring_la_data[108]    = 1'b0;
+	assign xfer2ring_la_data[109]    = 1'b0;
+	assign xfer2ring_la_data[110]    = 1'b0;
+	assign xfer2ring_la_data[111]    = 1'b0;
+	assign xfer2ring_la_data[112]    = 1'b0;
+	assign xfer2ring_la_data[113]    = 1'b0;
+	assign xfer2ring_la_data[114]    = 1'b0;
 	assign xfer2ring_la_data[115]    = TRIG_IN;
 	assign xfer2ring_la_data[116]    = TRIG_OUT;
 	assign xfer2ring_la_data[117]    = re_1;
-	assign xfer2ring_la_data[121:118]= rd_sel_1;
+	assign xfer2ring_la_data[121:118]= channel_1;
 
 // LA Trigger [11:0]
 	assign xfer2ring_la_trig[2:0]    = xstate;
@@ -107,7 +100,7 @@ xfer2ring_la xfer2ring_la_i (
 	assign xfer2ring_la_trig[7]      = RDY;
 	assign xfer2ring_la_trig[8]      = L1A_RD_EN;
 	assign xfer2ring_la_trig[9]      = re;
-	assign xfer2ring_la_trig[10]     = xfer_done;
+	assign xfer2ring_la_trig[10]     = 1'b0;
 	assign xfer2ring_la_trig[11]     = TRIG_IN;
 	
 end
@@ -121,14 +114,14 @@ endgenerate
 	always @(posedge CLK) begin
 		re_1 <= re;
 		WREN <= re_1;
-		rd_sel_1 <= rd_sel;
+		channel_1 <= channel;
 	end
 
 	always @(posedge CLK) begin
 	   if(JTAG_MODE)
 		   RD_ENA <= {{16{J_RD_FIFO}}};
 		else
-			case (rd_sel)
+			case (channel)
 				4'h0: RD_ENA <= {15'h0000,re};
 				4'h1: RD_ENA <= {14'h0000,re,1'h0};
 				4'h2: RD_ENA <= {13'h0000,re,2'h0};
@@ -150,7 +143,7 @@ endgenerate
 	end
 	
 	always @(posedge CLK) begin
-		case (rd_sel_1)
+		case (channel_1)
 			4'h0: DMUX <= DIN_16CH[11:0];
 			4'h1: DMUX <= DIN_16CH[23:12];
 			4'h2: DMUX <= DIN_16CH[35:24];
@@ -171,61 +164,17 @@ endgenerate
 		endcase
 	end
 	
-	always @(posedge CLK or posedge RST) begin
-	   if(RST)
-			cnt <= 2'b00;
-		else
-			if(rst_cnt)
-				cnt <= 2'b00;
-			else if(inc_cnt)
-			   cnt <= cnt +1;
-			else
-			   cnt <= cnt;
-	end
-	
-	always @(posedge CLK or posedge RST) begin
-	   if(RST)
-			chip <= 3'h0;
-		else
-			if(chip == 3'h5 || rst_chip)
-				chip <= 3'h0;
-			else if(inc_chip)
-			   chip <= chip +1;
-			else
-			   chip <= chip;
-	end
-
-	always @(posedge CLK or posedge RST) begin
-	   if(RST)
-			rd_sel <= 4'h0;
-		else
-			if(rst_chan)
-				rd_sel <= 3'h0;
-			else if(inc_chan)
-			   rd_sel <= rd_sel +1;
-			else
-			   rd_sel <= rd_sel;
-	end
 
 transfer_samples_FSM 
 transfer_samples_FSM_i(
-  .DONE(xfer_done),
-  .INC_CHAN(inc_chan),
-  .INC_CHIP(inc_chip),
-  .INC_CNT(inc_cnt),
+  .CHAN(channel),
   .L1A_RD_EN(L1A_RD_EN),
   .RDENA(re),
-  .RST_CHAN(rst_chan),
-  .RST_CHIP(rst_chip),
-  .RST_CNT(rst_cnt),
   .XSTATE(xstate),
   .CLK(CLK),
   .JTAG_MODE(JTAG_MODE),
   .RDY(RDY),
-  .RST(RST),
-  .CNT(cnt),
-  .CHIP(chip),
-  .CHAN(rd_sel)
+  .RST(RST)
 );
   
 

@@ -1,12 +1,15 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:46:01 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:17 at 17:37:35 (www.fizzim.com)
 
-module Pow_on_Rst_FSM (
+module Pow_on_Rst_FSM 
+  #(
+    parameter POR_tmo = 120,
+    parameter Strt_dly = 20'h7FFFF
+  )(
   output ADC_INIT_RST,
   output AL_START,
   output MMCM_RST,
   output POR,
-  output POR_CNT,
   output RUN,
   output wire [3:0] POR_STATE,
   input ADC_RDY,
@@ -15,10 +18,8 @@ module Pow_on_Rst_FSM (
   input CLK,
   input EOS,
   input MMCM_LOCK,
-  input POR_DONE,
   input QPLL_LOCK,
-  input RESTART_ALL,
-  input STRT_DLY_DONE 
+  input RESTART_ALL 
 );
 
   // state bits
@@ -63,20 +64,34 @@ module Pow_on_Rst_FSM (
   (* syn_preserve = "true" *)  reg POR_1;
   (* syn_preserve = "true" *)  reg POR_2;
   (* syn_preserve = "true" *)  reg POR_3;
-  (* syn_preserve = "true" *)  reg POR_CNT_1;
-  (* syn_preserve = "true" *)  reg POR_CNT_2;
-  (* syn_preserve = "true" *)  reg POR_CNT_3;
   (* syn_preserve = "true" *)  reg RUN_1;
   (* syn_preserve = "true" *)  reg RUN_2;
   (* syn_preserve = "true" *)  reg RUN_3;
+  (* syn_preserve = "true" *)  reg [6:0] por_cnt_1;
+  (* syn_preserve = "true" *)  reg [6:0] por_cnt_2;
+  (* syn_preserve = "true" *)  reg [6:0] por_cnt_3;
+  (* syn_keep = "true" *)      wire [6:0] voted_por_cnt_1;
+  (* syn_keep = "true" *)      wire [6:0] voted_por_cnt_2;
+  (* syn_keep = "true" *)      wire [6:0] voted_por_cnt_3;
+  (* syn_preserve = "true" *)  reg [19:0] strtup_cnt_1;
+  (* syn_preserve = "true" *)  reg [19:0] strtup_cnt_2;
+  (* syn_preserve = "true" *)  reg [19:0] strtup_cnt_3;
+  (* syn_keep = "true" *)      wire [19:0] voted_strtup_cnt_1;
+  (* syn_keep = "true" *)      wire [19:0] voted_strtup_cnt_2;
+  (* syn_keep = "true" *)      wire [19:0] voted_strtup_cnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign ADC_INIT_RST   = (ADC_INIT_RST_1 & ADC_INIT_RST_2) | (ADC_INIT_RST_2 & ADC_INIT_RST_3) | (ADC_INIT_RST_1 & ADC_INIT_RST_3); // Majority logic
   assign AL_START       = (AL_START_1     & AL_START_2    ) | (AL_START_2     & AL_START_3    ) | (AL_START_1     & AL_START_3    ); // Majority logic
   assign MMCM_RST       = (MMCM_RST_1     & MMCM_RST_2    ) | (MMCM_RST_2     & MMCM_RST_3    ) | (MMCM_RST_1     & MMCM_RST_3    ); // Majority logic
   assign POR            = (POR_1          & POR_2         ) | (POR_2          & POR_3         ) | (POR_1          & POR_3         ); // Majority logic
-  assign POR_CNT        = (POR_CNT_1      & POR_CNT_2     ) | (POR_CNT_2      & POR_CNT_3     ) | (POR_CNT_1      & POR_CNT_3     ); // Majority logic
   assign RUN            = (RUN_1          & RUN_2         ) | (RUN_2          & RUN_3         ) | (RUN_1          & RUN_3         ); // Majority logic
+  assign voted_por_cnt_1 = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
+  assign voted_por_cnt_2 = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
+  assign voted_por_cnt_3 = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
+  assign voted_strtup_cnt_1 = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
+  assign voted_strtup_cnt_2 = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
+  assign voted_strtup_cnt_3 = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
 
 
   // comb always block
@@ -85,64 +100,64 @@ module Pow_on_Rst_FSM (
     nextstate_2 = 4'bxxxx; // default to x because default_state_is_x is set
     nextstate_3 = 4'bxxxx; // default to x because default_state_is_x is set
     case (voted_state_1)
-      Idle      :                          nextstate_1 = W4ODMB;
-      ADC_INIT  : if      (ADC_RDY)        nextstate_1 = Run_State;
-                  else                     nextstate_1 = ADC_INIT;
-      Auto_Load : if      (AL_DONE)        nextstate_1 = ADC_INIT;
-                  else                     nextstate_1 = Auto_Load;
-      PROM_Cnfg : if      (BPI_SEQ_IDLE)   nextstate_1 = Auto_Load;
-                  else                     nextstate_1 = PROM_Cnfg;
-      Pow_on_Rst: if      (!MMCM_LOCK)     nextstate_1 = W4Qpll;
-                  else if (POR_DONE)       nextstate_1 = PROM_Cnfg;
-                  else                     nextstate_1 = Pow_on_Rst;
-      Run_State : if      (RESTART_ALL)    nextstate_1 = Pow_on_Rst;
-                  else                     nextstate_1 = Run_State;
-      W4ODMB    : if      (STRT_DLY_DONE)  nextstate_1 = W4Qpll;
-                  else                     nextstate_1 = W4ODMB;
-      W4Qpll    : if      (QPLL_LOCK)      nextstate_1 = W4SysClk;
-                  else                     nextstate_1 = W4Qpll;
-      W4SysClk  : if      (MMCM_LOCK)      nextstate_1 = Pow_on_Rst;
-                  else                     nextstate_1 = W4SysClk;
+      Idle      :                                           nextstate_1 = W4ODMB;
+      ADC_INIT  : if      (ADC_RDY)                         nextstate_1 = Run_State;
+                  else                                      nextstate_1 = ADC_INIT;
+      Auto_Load : if      (AL_DONE)                         nextstate_1 = ADC_INIT;
+                  else                                      nextstate_1 = Auto_Load;
+      PROM_Cnfg : if      (BPI_SEQ_IDLE)                    nextstate_1 = Auto_Load;
+                  else                                      nextstate_1 = PROM_Cnfg;
+      Pow_on_Rst: if      (!MMCM_LOCK)                      nextstate_1 = W4Qpll;
+                  else if (voted_por_cnt_1 == POR_tmo)      nextstate_1 = PROM_Cnfg;
+                  else                                      nextstate_1 = Pow_on_Rst;
+      Run_State : if      (RESTART_ALL)                     nextstate_1 = Pow_on_Rst;
+                  else                                      nextstate_1 = Run_State;
+      W4ODMB    : if      (voted_strtup_cnt_1 == Strt_dly)  nextstate_1 = W4Qpll;
+                  else                                      nextstate_1 = W4ODMB;
+      W4Qpll    : if      (QPLL_LOCK)                       nextstate_1 = W4SysClk;
+                  else                                      nextstate_1 = W4Qpll;
+      W4SysClk  : if      (MMCM_LOCK)                       nextstate_1 = Pow_on_Rst;
+                  else                                      nextstate_1 = W4SysClk;
     endcase
     case (voted_state_2)
-      Idle      :                          nextstate_2 = W4ODMB;
-      ADC_INIT  : if      (ADC_RDY)        nextstate_2 = Run_State;
-                  else                     nextstate_2 = ADC_INIT;
-      Auto_Load : if      (AL_DONE)        nextstate_2 = ADC_INIT;
-                  else                     nextstate_2 = Auto_Load;
-      PROM_Cnfg : if      (BPI_SEQ_IDLE)   nextstate_2 = Auto_Load;
-                  else                     nextstate_2 = PROM_Cnfg;
-      Pow_on_Rst: if      (!MMCM_LOCK)     nextstate_2 = W4Qpll;
-                  else if (POR_DONE)       nextstate_2 = PROM_Cnfg;
-                  else                     nextstate_2 = Pow_on_Rst;
-      Run_State : if      (RESTART_ALL)    nextstate_2 = Pow_on_Rst;
-                  else                     nextstate_2 = Run_State;
-      W4ODMB    : if      (STRT_DLY_DONE)  nextstate_2 = W4Qpll;
-                  else                     nextstate_2 = W4ODMB;
-      W4Qpll    : if      (QPLL_LOCK)      nextstate_2 = W4SysClk;
-                  else                     nextstate_2 = W4Qpll;
-      W4SysClk  : if      (MMCM_LOCK)      nextstate_2 = Pow_on_Rst;
-                  else                     nextstate_2 = W4SysClk;
+      Idle      :                                           nextstate_2 = W4ODMB;
+      ADC_INIT  : if      (ADC_RDY)                         nextstate_2 = Run_State;
+                  else                                      nextstate_2 = ADC_INIT;
+      Auto_Load : if      (AL_DONE)                         nextstate_2 = ADC_INIT;
+                  else                                      nextstate_2 = Auto_Load;
+      PROM_Cnfg : if      (BPI_SEQ_IDLE)                    nextstate_2 = Auto_Load;
+                  else                                      nextstate_2 = PROM_Cnfg;
+      Pow_on_Rst: if      (!MMCM_LOCK)                      nextstate_2 = W4Qpll;
+                  else if (voted_por_cnt_2 == POR_tmo)      nextstate_2 = PROM_Cnfg;
+                  else                                      nextstate_2 = Pow_on_Rst;
+      Run_State : if      (RESTART_ALL)                     nextstate_2 = Pow_on_Rst;
+                  else                                      nextstate_2 = Run_State;
+      W4ODMB    : if      (voted_strtup_cnt_2 == Strt_dly)  nextstate_2 = W4Qpll;
+                  else                                      nextstate_2 = W4ODMB;
+      W4Qpll    : if      (QPLL_LOCK)                       nextstate_2 = W4SysClk;
+                  else                                      nextstate_2 = W4Qpll;
+      W4SysClk  : if      (MMCM_LOCK)                       nextstate_2 = Pow_on_Rst;
+                  else                                      nextstate_2 = W4SysClk;
     endcase
     case (voted_state_3)
-      Idle      :                          nextstate_3 = W4ODMB;
-      ADC_INIT  : if      (ADC_RDY)        nextstate_3 = Run_State;
-                  else                     nextstate_3 = ADC_INIT;
-      Auto_Load : if      (AL_DONE)        nextstate_3 = ADC_INIT;
-                  else                     nextstate_3 = Auto_Load;
-      PROM_Cnfg : if      (BPI_SEQ_IDLE)   nextstate_3 = Auto_Load;
-                  else                     nextstate_3 = PROM_Cnfg;
-      Pow_on_Rst: if      (!MMCM_LOCK)     nextstate_3 = W4Qpll;
-                  else if (POR_DONE)       nextstate_3 = PROM_Cnfg;
-                  else                     nextstate_3 = Pow_on_Rst;
-      Run_State : if      (RESTART_ALL)    nextstate_3 = Pow_on_Rst;
-                  else                     nextstate_3 = Run_State;
-      W4ODMB    : if      (STRT_DLY_DONE)  nextstate_3 = W4Qpll;
-                  else                     nextstate_3 = W4ODMB;
-      W4Qpll    : if      (QPLL_LOCK)      nextstate_3 = W4SysClk;
-                  else                     nextstate_3 = W4Qpll;
-      W4SysClk  : if      (MMCM_LOCK)      nextstate_3 = Pow_on_Rst;
-                  else                     nextstate_3 = W4SysClk;
+      Idle      :                                           nextstate_3 = W4ODMB;
+      ADC_INIT  : if      (ADC_RDY)                         nextstate_3 = Run_State;
+                  else                                      nextstate_3 = ADC_INIT;
+      Auto_Load : if      (AL_DONE)                         nextstate_3 = ADC_INIT;
+                  else                                      nextstate_3 = Auto_Load;
+      PROM_Cnfg : if      (BPI_SEQ_IDLE)                    nextstate_3 = Auto_Load;
+                  else                                      nextstate_3 = PROM_Cnfg;
+      Pow_on_Rst: if      (!MMCM_LOCK)                      nextstate_3 = W4Qpll;
+                  else if (voted_por_cnt_3 == POR_tmo)      nextstate_3 = PROM_Cnfg;
+                  else                                      nextstate_3 = Pow_on_Rst;
+      Run_State : if      (RESTART_ALL)                     nextstate_3 = Pow_on_Rst;
+                  else                                      nextstate_3 = Run_State;
+      W4ODMB    : if      (voted_strtup_cnt_3 == Strt_dly)  nextstate_3 = W4Qpll;
+                  else                                      nextstate_3 = W4ODMB;
+      W4Qpll    : if      (QPLL_LOCK)                       nextstate_3 = W4SysClk;
+                  else                                      nextstate_3 = W4Qpll;
+      W4SysClk  : if      (MMCM_LOCK)                       nextstate_3 = Pow_on_Rst;
+                  else                                      nextstate_3 = W4SysClk;
     endcase
   end
 
@@ -177,12 +192,15 @@ module Pow_on_Rst_FSM (
       POR_1 <= 1;
       POR_2 <= 1;
       POR_3 <= 1;
-      POR_CNT_1 <= 0;
-      POR_CNT_2 <= 0;
-      POR_CNT_3 <= 0;
       RUN_1 <= 0;
       RUN_2 <= 0;
       RUN_3 <= 0;
+      por_cnt_1 <= 7'h00;
+      por_cnt_2 <= 7'h00;
+      por_cnt_3 <= 7'h00;
+      strtup_cnt_1 <= 20'h00000;
+      strtup_cnt_2 <= 20'h00000;
+      strtup_cnt_3 <= 20'h00000;
     end
     else begin
       ADC_INIT_RST_1 <= 0; // default
@@ -197,12 +215,15 @@ module Pow_on_Rst_FSM (
       POR_1 <= 0; // default
       POR_2 <= 0; // default
       POR_3 <= 0; // default
-      POR_CNT_1 <= 0; // default
-      POR_CNT_2 <= 0; // default
-      POR_CNT_3 <= 0; // default
       RUN_1 <= 0; // default
       RUN_2 <= 0; // default
       RUN_3 <= 0; // default
+      por_cnt_1 <= 7'h00; // default
+      por_cnt_2 <= 7'h00; // default
+      por_cnt_3 <= 7'h00; // default
+      strtup_cnt_1 <= 20'h00000; // default
+      strtup_cnt_2 <= 20'h00000; // default
+      strtup_cnt_3 <= 20'h00000; // default
       case (nextstate_1)
         Idle      : begin
                            ADC_INIT_RST_1 <= 1;
@@ -217,13 +238,14 @@ module Pow_on_Rst_FSM (
         Pow_on_Rst: begin
                            ADC_INIT_RST_1 <= 1;
                            POR_1 <= 1;
-                           POR_CNT_1 <= 1;
+                           por_cnt_1 <= voted_por_cnt_1 + 1;
         end
         Run_State :        RUN_1 <= 1;
         W4ODMB    : begin
                            ADC_INIT_RST_1 <= 1;
                            MMCM_RST_1 <= 1;
                            POR_1 <= 1;
+                           strtup_cnt_1 <= voted_strtup_cnt_1 + 1;
         end
         W4Qpll    : begin
                            ADC_INIT_RST_1 <= 1;
@@ -249,13 +271,14 @@ module Pow_on_Rst_FSM (
         Pow_on_Rst: begin
                            ADC_INIT_RST_2 <= 1;
                            POR_2 <= 1;
-                           POR_CNT_2 <= 1;
+                           por_cnt_2 <= voted_por_cnt_2 + 1;
         end
         Run_State :        RUN_2 <= 1;
         W4ODMB    : begin
                            ADC_INIT_RST_2 <= 1;
                            MMCM_RST_2 <= 1;
                            POR_2 <= 1;
+                           strtup_cnt_2 <= voted_strtup_cnt_2 + 1;
         end
         W4Qpll    : begin
                            ADC_INIT_RST_2 <= 1;
@@ -281,13 +304,14 @@ module Pow_on_Rst_FSM (
         Pow_on_Rst: begin
                            ADC_INIT_RST_3 <= 1;
                            POR_3 <= 1;
-                           POR_CNT_3 <= 1;
+                           por_cnt_3 <= voted_por_cnt_3 + 1;
         end
         Run_State :        RUN_3 <= 1;
         W4ODMB    : begin
                            ADC_INIT_RST_3 <= 1;
                            MMCM_RST_3 <= 1;
                            POR_3 <= 1;
+                           strtup_cnt_3 <= voted_strtup_cnt_3 + 1;
         end
         W4Qpll    : begin
                            ADC_INIT_RST_3 <= 1;

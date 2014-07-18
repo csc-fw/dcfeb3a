@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 4:02:42 PM on 6/17/14
+## File last modified by Fizzim: 1:30:47 PM on 7/11/14
 <version>
    14.02.18
 </version>
@@ -454,62 +454,6 @@
          -1
          </page>
       </START>
-      <CNT[3:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </CNT[3:0]>
    </inputs>
    <outputs>
       <SET_DONE>
@@ -624,12 +568,12 @@
          -1
          </page>
       </SHFT_ENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt
             <status>
             GLOBAL_VAR
             </status>
@@ -659,13 +603,13 @@
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -679,7 +623,7 @@
          <page>
          -1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
    </outputs>
    <state>
       <name>
@@ -850,12 +794,12 @@
          -1
          </page>
       </SHFT_ENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt
             <status>
             GLOBAL_VAR
             </status>
@@ -885,13 +829,13 @@
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -905,7 +849,7 @@
          <page>
          -1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
    </state>
    <trans>
       <name>
@@ -1083,10 +1027,10 @@
 </tabs>
 ## START PREFERENCES
 <SCounter>
-35
+36
 </SCounter>
 <TCounter>
-63
+64
 </TCounter>
 <TableVis>
 true
@@ -1306,12 +1250,12 @@ fzm_globalTable
          1
          </page>
       </SHFT_ENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt
             <status>
             GLOBAL_VAR
             </status>
@@ -1341,13 +1285,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -1361,7 +1305,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
    </attributes>
    <x0>
    500
@@ -1557,12 +1501,12 @@ fzm_globalTable
          1
          </page>
       </SHFT_ENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         1
+         4'hF
             <status>
             LOCAL
             </status>
@@ -1592,13 +1536,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -1612,7 +1556,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
    </attributes>
    <x0>
    500
@@ -1808,14 +1752,14 @@ fzm_globalTable
          1
          </page>
       </SHFT_ENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt + 1
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -1843,13 +1787,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -1863,7 +1807,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
    </attributes>
    <x0>
    500
@@ -1952,7 +1896,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         CNT == 4'hF
+         scnt == 4'hF
             <status>
             LOCAL
             </status>
@@ -3220,12 +3164,12 @@ fzm_globalTable
          1
          </page>
       </SHFT_ENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt
             <status>
             GLOBAL_VAR
             </status>
@@ -3255,13 +3199,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -3275,7 +3219,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
    </attributes>
    <x0>
    500

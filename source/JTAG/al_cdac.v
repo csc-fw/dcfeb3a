@@ -32,12 +32,10 @@ module al_cdac(
     );
 	 
 	 
-	wire clr_cnt;
 	reg load_cthresh;
 	reg load_cthresh_r1;
 	wire le_load_cthresh;
 	wire set_done;
-	reg [3:0] scnt;
 	reg [15:0] cth_shft;
 	reg [11:0] cthresh_hold;
 	
@@ -60,24 +58,12 @@ always @(negedge CLK1MHZ or posedge RST) begin
 		else
 			cth_shft <= cth_shft;
 end
-always @(negedge CLK1MHZ or posedge RST) begin
-	if(RST)
-		scnt <= 4'h0;
-	else
-		if(clr_cnt)
-			scnt <= 4'h0;
-		else if(SHCK_ENA)
-			scnt <= scnt+1;
-		else
-			scnt <= scnt;
-end
+
 comp_thresh_load_FSM         //States change on negative edge of clock
 comp_thresh_load_FSM_i(
-  .CLR_CNT(clr_cnt),
   .SET_DONE(set_done),
   .SHFT_ENA(SHCK_ENA),
   .CLK(CLK1MHZ),
-  .CNT(scnt),
   .RST(RST),
   .START(load_cthresh) 
 );

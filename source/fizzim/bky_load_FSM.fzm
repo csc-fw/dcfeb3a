@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 3:36:53 PM on 6/17/14
+## File last modified by Fizzim: 1:39:47 PM on 7/11/14
 <version>
    14.02.18
 </version>
@@ -454,62 +454,6 @@
          -1
          </page>
       </START>
-      <CNT[3:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </CNT[3:0]>
       <MT>
             <status>
             GLOBAL_FIXED
@@ -566,62 +510,6 @@
          -1
          </page>
       </MT>
-      <LOOP[4:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </LOOP[4:0]>
    </inputs>
    <outputs>
       <SET_DONE>
@@ -792,12 +680,12 @@
          -1
          </page>
       </RDENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt
             <status>
             GLOBAL_VAR
             </status>
@@ -827,13 +715,13 @@
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -847,7 +735,63 @@
          <page>
          -1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
+      <loop[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         loop
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         regdp
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </loop[4:0]>
    </outputs>
    <state>
       <name>
@@ -1074,12 +1018,12 @@
          -1
          </page>
       </RDENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt
             <status>
             GLOBAL_VAR
             </status>
@@ -1109,13 +1053,13 @@
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -1129,7 +1073,63 @@
          <page>
          -1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
+      <loop[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         loop
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </loop[4:0]>
    </state>
    <trans>
       <name>
@@ -1307,10 +1307,10 @@
 </tabs>
 ## START PREFERENCES
 <SCounter>
-38
+39
 </SCounter>
 <TCounter>
-67
+68
 </TCounter>
 <TableVis>
 true
@@ -1586,12 +1586,12 @@ fzm_globalTable
          1
          </page>
       </RDENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt
             <status>
             GLOBAL_VAR
             </status>
@@ -1621,13 +1621,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -1641,7 +1641,63 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
+      <loop[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         loop
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </loop[4:0]>
    </attributes>
    <x0>
    500
@@ -1893,14 +1949,14 @@ fzm_globalTable
          1
          </page>
       </RDENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         4'hF
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -1928,13 +1984,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -1948,7 +2004,63 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
+      <loop[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         loop + 1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </loop[4:0]>
    </attributes>
    <x0>
    500
@@ -2200,12 +2312,68 @@ fzm_globalTable
          1
          </page>
       </RDENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
+         scnt + 1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         4'h0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
          0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </scnt[3:0]>
+      <loop[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         loop
             <status>
             GLOBAL_VAR
             </status>
@@ -2235,13 +2403,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -2255,7 +2423,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </loop[4:0]>
    </attributes>
    <x0>
    500
@@ -2344,7 +2512,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         (CNT == 4'hF) && (LOOP == 5'd18)
+         (scnt == 4'hF) && (loop == 5'd18)
             <status>
             LOCAL
             </status>
@@ -2933,13 +3101,13 @@ fzm_globalTable
    575.0
    </startCtrlPtX>
    <startCtrlPtY>
-   428.0
+   444.0
    </startCtrlPtY>
    <endCtrlPtY>
    575.0
    </endCtrlPtY>
    <endCtrlPtY>
-   419.0
+   424.0
    </endCtrlPtY>
    <startStateIndex>
    9
@@ -3668,12 +3836,12 @@ fzm_globalTable
          1
          </page>
       </RDENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         scnt
             <status>
             GLOBAL_VAR
             </status>
@@ -3703,13 +3871,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         4'h0
             <status>
             GLOBAL_VAR
             </status>
@@ -3723,7 +3891,63 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </scnt[3:0]>
+      <loop[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         loop
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </loop[4:0]>
    </attributes>
    <x0>
    500
@@ -4218,12 +4442,68 @@ fzm_globalTable
          1
          </page>
       </RDENA>
-      <CLR_CNT>
+      <scnt[3:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
+         scnt
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         4'h0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
          1
+         </page>
+      </scnt[3:0]>
+      <loop[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         5'h00
             <status>
             LOCAL
             </status>
@@ -4253,13 +4533,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -4273,7 +4553,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CLR_CNT>
+      </loop[4:0]>
    </attributes>
    <x0>
    500
@@ -4605,7 +4885,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         CNT == 4'hF
+         scnt == 4'hF
             <status>
             LOCAL
             </status>
@@ -4647,10 +4927,10 @@ fzm_globalTable
             </status>
          </resetval>
          <x2Obj>
-         -41
+         -44
          </x2Obj>
          <y2Obj>
-         49
+         50
          </y2Obj>
          <page>
          1
@@ -4732,16 +5012,16 @@ fzm_globalTable
    380.0
    </endPtY>
    <startCtrlPtX>
-   483.0
+   470.0
    </startCtrlPtX>
    <startCtrlPtY>
-   453.0
+   448.0
    </startCtrlPtY>
    <endCtrlPtY>
-   484.0
+   480.0
    </endCtrlPtY>
    <endCtrlPtY>
-   411.0
+   402.0
    </endCtrlPtY>
    <startStateIndex>
    20
@@ -5191,7 +5471,7 @@ fzm_globalTable
    255.0
    </endPtY>
    <startCtrlPtX>
-   706.0
+   701.0
    </startCtrlPtX>
    <startCtrlPtY>
    201.0

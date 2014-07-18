@@ -80,14 +80,10 @@ reg [15:0] fullwrd;
 reg [15:0] frame;
 wire [2:0] frm_state;
 
-wire inc_seq;
-wire rst_seq;
-wire inc_smp;
-wire rst_smp;
 wire valid0;
 wire clr_crc0;
-reg [6:0] smp;
-reg [6:0] seq,seq1;
+wire [6:0] seq;
+reg [6:0] seq1;
 reg clr_crc;
 reg valid1,valid2;
 reg mt_r1,mt_r2,mt_r3;
@@ -127,7 +123,7 @@ chnlnk_fifo_la chnlnk_fifo_la_i (
 	assign rng_chn_la_data[97:94]   = l1anum[3:0];
 	assign rng_chn_la_data[101:98]  = l1a_mtch_num[3:0];
 	assign rng_chn_la_data[105:102] = frm_state;
-	assign rng_chn_la_data[112:106] = smp;
+	assign rng_chn_la_data[112:106] = 7'h00;
 	assign rng_chn_la_data[119:113] = seq;
 	
 	assign rng_chn_la_data[120]     = WREN;
@@ -153,10 +149,10 @@ chnlnk_fifo_la chnlnk_fifo_la_i (
 	assign rng_chn_la_data[140]     = valid0;
 	assign rng_chn_la_data[141]     = DVALID;
 	assign rng_chn_la_data[142]     = 1'b0;
-	assign rng_chn_la_data[143]     = inc_seq;
-	assign rng_chn_la_data[144]     = rst_seq;
-	assign rng_chn_la_data[145]     = inc_smp;
-	assign rng_chn_la_data[146]     = rst_smp;
+	assign rng_chn_la_data[143]     = 1'b0;
+	assign rng_chn_la_data[144]     = 1'b0;
+	assign rng_chn_la_data[145]     = 1'b0;
+	assign rng_chn_la_data[146]     = 1'b0;
 	
 
 // LA Trigger [11:0]
@@ -265,31 +261,6 @@ always @(posedge RCLK) begin
 end
 
 
-always @(posedge RCLK or posedge RST_RESYNC) begin
-	if(RST_RESYNC)
-		smp <= 7'h00;
-	else
-		if(inc_smp)
-			smp <= smp +1;
-		else if(rst_smp)
-			smp <= 7'h00;
-		else
-			smp <= smp;
-end
-always @(posedge RCLK or posedge RST_RESYNC) begin
-	if(RST_RESYNC)
-		seq <= 7'h00;
-	else
-		if(inc_seq)
-			seq <= seq +1;
-		else if(rst_seq)
-			seq <= 7'h00;
-		else
-			seq <= seq;
-end
-
-
-
 function [14:0] CRC15_D13 (input [12:0] d, input [14:0] c);
   reg [14:0] newcrc;
   begin
@@ -312,25 +283,20 @@ function [14:0] CRC15_D13 (input [12:0] d, input [14:0] c);
   end
   endfunction
 
-Frame_Seq_FSM 
+Frame_Seq_FSM
 Frame_Seq_FSM1 (
-   .CLR_CRC(clr_crc0),
-   .INC_SEQ(inc_seq),
-   .INC_SMP(inc_smp),
-   .LAST_WRD(nxt_l1a),
-   .RD(nxt_wrd),
-   .RST_SEQ(rst_seq),
-   .RST_SMP(rst_smp),
-   .VALID(valid0),
-	.FRM_STATE(frm_state),
-   .CLK(RCLK),
-   .FAMT(mt_r3),
-   .L1A_BUF_MT(l1a_buf_mt),
-   .RST(RST_RESYNC),
-   .SAMP_MAX(SAMP_MAX),
-   .SEQ(seq),
-   .SMP(smp)
+	.CLR_CRC(clr_crc0), 
+	.LAST_WRD(nxt_l1a), 
+	.RD(nxt_wrd), 
+	.SEQ(seq),
+	.VALID(valid0), 
+	.FRM_STATE(frm_state), 
+	.CLK(RCLK), 
+	.FAMT(mt_r3), 
+	.L1A_BUF_MT(l1a_buf_mt), 
+	.RST(RST_RESYNC), 
+	.SAMP_MAX(SAMP_MAX) 
 );
-  
+
 
 endmodule

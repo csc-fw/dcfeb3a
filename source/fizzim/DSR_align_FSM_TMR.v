@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 17:18:22 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:11 at 10:35:14 (www.fizzim.com)
 
 module DSR_align_FSM (
   output ALIGNED,
@@ -10,28 +10,6 @@ module DSR_align_FSM (
   input CLK,
   input RST 
 );
-
-  // Inserted from attribute insert_at_top_of_module:
-  (* syn_preserve = "true" *) reg [2:0] wcnt_1;
-  (* syn_preserve = "true" *) reg [2:0] wcnt_2;
-  (* syn_preserve = "true" *) reg [2:0] wcnt_3;
-  (* syn_preserve = "true" *) reg [3:0] slip_cnt_1;
-  (* syn_preserve = "true" *) reg [3:0] slip_cnt_2;
-  (* syn_preserve = "true" *) reg [3:0] slip_cnt_3;
-  (* syn_keep = "true" *) wire [2:0] voted_wcnt_1;
-  (* syn_keep = "true" *) wire [2:0] voted_wcnt_2;
-  (* syn_keep = "true" *) wire [2:0] voted_wcnt_3;
-  (* syn_keep = "true" *) wire [3:0] voted_slip_cnt_1;
-  (* syn_keep = "true" *) wire [3:0] voted_slip_cnt_2;
-  (* syn_keep = "true" *) wire [3:0] voted_slip_cnt_3;
-  assign voted_wcnt_1      = (wcnt_1     & wcnt_2    ) | (wcnt_2     & wcnt_3    ) | (wcnt_1     & wcnt_3    ); // Majority logic
-  assign voted_wcnt_2      = (wcnt_1     & wcnt_2    ) | (wcnt_2     & wcnt_3    ) | (wcnt_1     & wcnt_3    ); // Majority logic
-  assign voted_wcnt_3      = (wcnt_1     & wcnt_2    ) | (wcnt_2     & wcnt_3    ) | (wcnt_1     & wcnt_3    ); // Majority logic
-  assign voted_slip_cnt_1  = (slip_cnt_1 & slip_cnt_2) | (slip_cnt_2 & slip_cnt_3) | (slip_cnt_1 & slip_cnt_3); // Majority logic
-  assign voted_slip_cnt_2  = (slip_cnt_1 & slip_cnt_2) | (slip_cnt_2 & slip_cnt_3) | (slip_cnt_1 & slip_cnt_3); // Majority logic
-  assign voted_slip_cnt_3  = (slip_cnt_1 & slip_cnt_2) | (slip_cnt_2 & slip_cnt_3) | (slip_cnt_1 & slip_cnt_3); // Majority logic
-  
-  
 
   // state bits
   parameter 
@@ -77,9 +55,18 @@ module DSR_align_FSM (
   (* syn_preserve = "true" *)  reg STRT_PIPE_1;
   (* syn_preserve = "true" *)  reg STRT_PIPE_2;
   (* syn_preserve = "true" *)  reg STRT_PIPE_3;
-  (* syn_preserve = "true" *)  reg winc_1;
-  (* syn_preserve = "true" *)  reg winc_2;
-  (* syn_preserve = "true" *)  reg winc_3;
+  (* syn_preserve = "true" *)  reg [3:0] slip_cnt_1;
+  (* syn_preserve = "true" *)  reg [3:0] slip_cnt_2;
+  (* syn_preserve = "true" *)  reg [3:0] slip_cnt_3;
+  (* syn_keep = "true" *)      wire [3:0] voted_slip_cnt_1;
+  (* syn_keep = "true" *)      wire [3:0] voted_slip_cnt_2;
+  (* syn_keep = "true" *)      wire [3:0] voted_slip_cnt_3;
+  (* syn_preserve = "true" *)  reg [2:0] wcnt_1;
+  (* syn_preserve = "true" *)  reg [2:0] wcnt_2;
+  (* syn_preserve = "true" *)  reg [2:0] wcnt_3;
+  (* syn_keep = "true" *)      wire [2:0] voted_wcnt_1;
+  (* syn_keep = "true" *)      wire [2:0] voted_wcnt_2;
+  (* syn_keep = "true" *)      wire [2:0] voted_wcnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign ALIGNED        = (ALIGNED_1      & ALIGNED_2     ) | (ALIGNED_2      & ALIGNED_3     ) | (ALIGNED_1      & ALIGNED_3     ); // Majority logic
@@ -87,9 +74,12 @@ module DSR_align_FSM (
   assign BIT_SLIP_ODD   = (BIT_SLIP_ODD_1 & BIT_SLIP_ODD_2) | (BIT_SLIP_ODD_2 & BIT_SLIP_ODD_3) | (BIT_SLIP_ODD_1 & BIT_SLIP_ODD_3); // Majority logic
   assign DSR_RST        = (DSR_RST_1      & DSR_RST_2     ) | (DSR_RST_2      & DSR_RST_3     ) | (DSR_RST_1      & DSR_RST_3     ); // Majority logic
   assign STRT_PIPE      = (STRT_PIPE_1    & STRT_PIPE_2   ) | (STRT_PIPE_2    & STRT_PIPE_3   ) | (STRT_PIPE_1    & STRT_PIPE_3   ); // Majority logic
-  assign voted_winc_1   = (winc_1         & winc_2        ) | (winc_2         & winc_3        ) | (winc_1         & winc_3        ); // Majority logic
-  assign voted_winc_2   = (winc_1         & winc_2        ) | (winc_2         & winc_3        ) | (winc_1         & winc_3        ); // Majority logic
-  assign voted_winc_3   = (winc_1         & winc_2        ) | (winc_2         & winc_3        ) | (winc_1         & winc_3        ); // Majority logic
+  assign voted_slip_cnt_1 = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
+  assign voted_slip_cnt_2 = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
+  assign voted_slip_cnt_3 = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
+  assign voted_wcnt_1   = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
+  assign voted_wcnt_2   = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
+  assign voted_wcnt_3   = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
 
 
   // comb always block
@@ -98,55 +88,55 @@ module DSR_align_FSM (
     nextstate_2 = 4'bxxxx; // default to x because default_state_is_x is set
     nextstate_3 = 4'bxxxx; // default to x because default_state_is_x is set
     case (voted_state_1)
-      Start      :                                           nextstate_1 = DSR_rst;
-      Aligned    :                                           nextstate_1 = Aligned;
-      BS_even_odd:                                           nextstate_1 = BSlip_Wait;
-      BS_odd     :                                           nextstate_1 = BSodd_Wait;
-      BSlip_Wait : if      ((voted_wcnt_1 == 4) && (voted_slip_cnt_1 == 4))  nextstate_1 = BS_odd;
-                   else if ((voted_wcnt_1 == 4))                     nextstate_1 = BS_even_odd;
-                   else                                      nextstate_1 = BSlip_Wait;
-      BSodd_Wait : if      ((voted_wcnt_1 == 4))                     nextstate_1 = ReStartPipe;
-                   else                                      nextstate_1 = BSodd_Wait;
-      DSR_rst    : if      ((voted_wcnt_1 == 5))                     nextstate_1 = Wrst;
-                   else                                      nextstate_1 = DSR_rst;
-      ReStartPipe:                                           nextstate_1 = Aligned;
-      Wait1      : if      (voted_wcnt_1 == 5)                       nextstate_1 = BS_even_odd;
-                   else                                      nextstate_1 = Wait1;
-      Wrst       :                                           nextstate_1 = Wait1;
+      Start      :                                                           nextstate_1 = DSR_rst;
+      Aligned    :                                                           nextstate_1 = Aligned;
+      BS_even_odd:                                                           nextstate_1 = BSlip_Wait;
+      BS_odd     :                                                           nextstate_1 = BSodd_Wait;
+      BSlip_Wait : if      ((voted_wcnt_1 == 5) && (voted_slip_cnt_1 == 4))  nextstate_1 = BS_odd;
+                   else if (voted_wcnt_1 == 5)                               nextstate_1 = BS_even_odd;
+                   else                                                      nextstate_1 = BSlip_Wait;
+      BSodd_Wait : if      (voted_wcnt_1 == 5)                               nextstate_1 = ReStartPipe;
+                   else                                                      nextstate_1 = BSodd_Wait;
+      DSR_rst    : if      (voted_wcnt_1 == 6)                               nextstate_1 = Wrst;
+                   else                                                      nextstate_1 = DSR_rst;
+      ReStartPipe:                                                           nextstate_1 = Aligned;
+      Wait1      : if      (voted_wcnt_1 == 6)                               nextstate_1 = BS_even_odd;
+                   else                                                      nextstate_1 = Wait1;
+      Wrst       :                                                           nextstate_1 = Wait1;
     endcase
     case (voted_state_2)
-      Start      :                                           nextstate_2 = DSR_rst;
-      Aligned    :                                           nextstate_2 = Aligned;
-      BS_even_odd:                                           nextstate_2 = BSlip_Wait;
-      BS_odd     :                                           nextstate_2 = BSodd_Wait;
-      BSlip_Wait : if      ((voted_wcnt_2 == 4) && (voted_slip_cnt_2 == 4))  nextstate_2 = BS_odd;
-                   else if ((voted_wcnt_2 == 4))                     nextstate_2 = BS_even_odd;
-                   else                                      nextstate_2 = BSlip_Wait;
-      BSodd_Wait : if      ((voted_wcnt_2 == 4))                     nextstate_2 = ReStartPipe;
-                   else                                      nextstate_2 = BSodd_Wait;
-      DSR_rst    : if      ((voted_wcnt_2 == 5))                     nextstate_2 = Wrst;
-                   else                                      nextstate_2 = DSR_rst;
-      ReStartPipe:                                           nextstate_2 = Aligned;
-      Wait1      : if      (voted_wcnt_2 == 5)                       nextstate_2 = BS_even_odd;
-                   else                                      nextstate_2 = Wait1;
-      Wrst       :                                           nextstate_2 = Wait1;
+      Start      :                                                           nextstate_2 = DSR_rst;
+      Aligned    :                                                           nextstate_2 = Aligned;
+      BS_even_odd:                                                           nextstate_2 = BSlip_Wait;
+      BS_odd     :                                                           nextstate_2 = BSodd_Wait;
+      BSlip_Wait : if      ((voted_wcnt_2 == 5) && (voted_slip_cnt_2 == 4))  nextstate_2 = BS_odd;
+                   else if (voted_wcnt_2 == 5)                               nextstate_2 = BS_even_odd;
+                   else                                                      nextstate_2 = BSlip_Wait;
+      BSodd_Wait : if      (voted_wcnt_2 == 5)                               nextstate_2 = ReStartPipe;
+                   else                                                      nextstate_2 = BSodd_Wait;
+      DSR_rst    : if      (voted_wcnt_2 == 6)                               nextstate_2 = Wrst;
+                   else                                                      nextstate_2 = DSR_rst;
+      ReStartPipe:                                                           nextstate_2 = Aligned;
+      Wait1      : if      (voted_wcnt_2 == 6)                               nextstate_2 = BS_even_odd;
+                   else                                                      nextstate_2 = Wait1;
+      Wrst       :                                                           nextstate_2 = Wait1;
     endcase
     case (voted_state_3)
-      Start      :                                           nextstate_3 = DSR_rst;
-      Aligned    :                                           nextstate_3 = Aligned;
-      BS_even_odd:                                           nextstate_3 = BSlip_Wait;
-      BS_odd     :                                           nextstate_3 = BSodd_Wait;
-      BSlip_Wait : if      ((voted_wcnt_3 == 4) && (voted_slip_cnt_3 == 4))  nextstate_3 = BS_odd;
-                   else if ((voted_wcnt_3 == 4))                     nextstate_3 = BS_even_odd;
-                   else                                      nextstate_3 = BSlip_Wait;
-      BSodd_Wait : if      ((voted_wcnt_3 == 4))                     nextstate_3 = ReStartPipe;
-                   else                                      nextstate_3 = BSodd_Wait;
-      DSR_rst    : if      ((voted_wcnt_3 == 5))                     nextstate_3 = Wrst;
-                   else                                      nextstate_3 = DSR_rst;
-      ReStartPipe:                                           nextstate_3 = Aligned;
-      Wait1      : if      (voted_wcnt_3 == 5)                       nextstate_3 = BS_even_odd;
-                   else                                      nextstate_3 = Wait1;
-      Wrst       :                                           nextstate_3 = Wait1;
+      Start      :                                                           nextstate_3 = DSR_rst;
+      Aligned    :                                                           nextstate_3 = Aligned;
+      BS_even_odd:                                                           nextstate_3 = BSlip_Wait;
+      BS_odd     :                                                           nextstate_3 = BSodd_Wait;
+      BSlip_Wait : if      ((voted_wcnt_3 == 5) && (voted_slip_cnt_3 == 4))  nextstate_3 = BS_odd;
+                   else if (voted_wcnt_3 == 5)                               nextstate_3 = BS_even_odd;
+                   else                                                      nextstate_3 = BSlip_Wait;
+      BSodd_Wait : if      (voted_wcnt_3 == 5)                               nextstate_3 = ReStartPipe;
+                   else                                                      nextstate_3 = BSodd_Wait;
+      DSR_rst    : if      (voted_wcnt_3 == 6)                               nextstate_3 = Wrst;
+                   else                                                      nextstate_3 = DSR_rst;
+      ReStartPipe:                                                           nextstate_3 = Aligned;
+      Wait1      : if      (voted_wcnt_3 == 6)                               nextstate_3 = BS_even_odd;
+                   else                                                      nextstate_3 = Wait1;
+      Wrst       :                                                           nextstate_3 = Wait1;
     endcase
   end
 
@@ -184,9 +174,12 @@ module DSR_align_FSM (
       STRT_PIPE_1 <= 0;
       STRT_PIPE_2 <= 0;
       STRT_PIPE_3 <= 0;
-      winc_1 <= 0;
-      winc_2 <= 0;
-      winc_3 <= 0;
+      slip_cnt_1 <= 4'h0;
+      slip_cnt_2 <= 4'h0;
+      slip_cnt_3 <= 4'h0;
+      wcnt_1 <= 3'b000;
+      wcnt_2 <= 3'b000;
+      wcnt_3 <= 3'b000;
     end
     else begin
       ALIGNED_1 <= 0; // default
@@ -204,56 +197,71 @@ module DSR_align_FSM (
       STRT_PIPE_1 <= 0; // default
       STRT_PIPE_2 <= 0; // default
       STRT_PIPE_3 <= 0; // default
-      winc_1 <= 0; // default
-      winc_2 <= 0; // default
-      winc_3 <= 0; // default
+      slip_cnt_1 <= voted_slip_cnt_1; // default
+      slip_cnt_2 <= voted_slip_cnt_2; // default
+      slip_cnt_3 <= voted_slip_cnt_3; // default
+      wcnt_1 <= 3'b000; // default
+      wcnt_2 <= 3'b000; // default
+      wcnt_3 <= 3'b000; // default
       case (nextstate_1)
         Aligned    :        ALIGNED_1 <= 1;
         BS_even_odd: begin
                             BIT_SLIP_EVN_1 <= 1;
                             BIT_SLIP_ODD_1 <= 1;
+                            slip_cnt_1 <= voted_slip_cnt_1 + 1;
         end
-        BS_odd     :        BIT_SLIP_ODD_1 <= 1;
-        BSlip_Wait :        winc_1 <= 1;
-        BSodd_Wait :        winc_1 <= 1;
+        BS_odd     : begin
+                            BIT_SLIP_ODD_1 <= 1;
+                            slip_cnt_1 <= voted_slip_cnt_1 + 1;
+        end
+        BSlip_Wait :        wcnt_1 <= voted_wcnt_1 + 1;
+        BSodd_Wait :        wcnt_1 <= voted_wcnt_1 + 1;
         DSR_rst    : begin
                             DSR_RST_1 <= 1;
-                            winc_1 <= 1;
+                            wcnt_1 <= voted_wcnt_1 + 1;
         end
         ReStartPipe:        STRT_PIPE_1 <= 1;
-        Wait1      :        winc_1 <= 1;
+        Wait1      :        wcnt_1 <= voted_wcnt_1 + 1;
       endcase
       case (nextstate_2)
         Aligned    :        ALIGNED_2 <= 1;
         BS_even_odd: begin
                             BIT_SLIP_EVN_2 <= 1;
                             BIT_SLIP_ODD_2 <= 1;
+                            slip_cnt_2 <= voted_slip_cnt_2 + 1;
         end
-        BS_odd     :        BIT_SLIP_ODD_2 <= 1;
-        BSlip_Wait :        winc_2 <= 1;
-        BSodd_Wait :        winc_2 <= 1;
+        BS_odd     : begin
+                            BIT_SLIP_ODD_2 <= 1;
+                            slip_cnt_2 <= voted_slip_cnt_2 + 1;
+        end
+        BSlip_Wait :        wcnt_2 <= voted_wcnt_2 + 1;
+        BSodd_Wait :        wcnt_2 <= voted_wcnt_2 + 1;
         DSR_rst    : begin
                             DSR_RST_2 <= 1;
-                            winc_2 <= 1;
+                            wcnt_2 <= voted_wcnt_2 + 1;
         end
         ReStartPipe:        STRT_PIPE_2 <= 1;
-        Wait1      :        winc_2 <= 1;
+        Wait1      :        wcnt_2 <= voted_wcnt_2 + 1;
       endcase
       case (nextstate_3)
         Aligned    :        ALIGNED_3 <= 1;
         BS_even_odd: begin
                             BIT_SLIP_EVN_3 <= 1;
                             BIT_SLIP_ODD_3 <= 1;
+                            slip_cnt_3 <= voted_slip_cnt_3 + 1;
         end
-        BS_odd     :        BIT_SLIP_ODD_3 <= 1;
-        BSlip_Wait :        winc_3 <= 1;
-        BSodd_Wait :        winc_3 <= 1;
+        BS_odd     : begin
+                            BIT_SLIP_ODD_3 <= 1;
+                            slip_cnt_3 <= voted_slip_cnt_3 + 1;
+        end
+        BSlip_Wait :        wcnt_3 <= voted_wcnt_3 + 1;
+        BSodd_Wait :        wcnt_3 <= voted_wcnt_3 + 1;
         DSR_rst    : begin
                             DSR_RST_3 <= 1;
-                            winc_3 <= 1;
+                            wcnt_3 <= voted_wcnt_3 + 1;
         end
         ReStartPipe:        STRT_PIPE_3 <= 1;
-        Wait1      :        winc_3 <= 1;
+        Wait1      :        wcnt_3 <= voted_wcnt_3 + 1;
       endcase
     end
   end
@@ -277,48 +285,6 @@ module DSR_align_FSM (
     endcase
   end
   `endif
-
-  // Inserted from attribute insert_at_bottom_of_module:
-  always @(posedge CLK) begin
-  		if(voted_winc_1)
-    			wcnt_1 <= voted_wcnt_1 +1;
-  		else
-    			wcnt_1 <= 3'h0;
-  		if(voted_winc_2)
-   			wcnt_2 <= voted_wcnt_2 +1;
-  		else
-    			wcnt_2 <= 3'h0;
-  		if(voted_winc_3)
-    			wcnt_3 <= voted_wcnt_3 +1;
-  		else
-    			wcnt_3 <= 3'h0;
-  end
-     
-  always @(posedge CLK or posedge RST) begin
-  		if(RST)
-     	   slip_cnt_1 <= 4'h0;
-  		else
-  			if(BIT_SLIP_EVN || BIT_SLIP_ODD)
-     		   slip_cnt_1 <= voted_slip_cnt_1 +1;
-  			else
-     		   slip_cnt_1 <= voted_slip_cnt_1;
-  		if(RST)
-     	   slip_cnt_2 <= 4'h0;
-  		else
-     	   if(BIT_SLIP_EVN || BIT_SLIP_ODD)
-     		   slip_cnt_2 <= voted_slip_cnt_2 +1;
-     		else
-     		   slip_cnt_2 <= voted_slip_cnt_2;
-  		if(RST)
-     	   slip_cnt_3 <= 4'h0;
-     	else
-     	   if(BIT_SLIP_EVN || BIT_SLIP_ODD)
-     		   slip_cnt_3 <= voted_slip_cnt_3 +1;
-     		else
-     		   slip_cnt_3 <= voted_slip_cnt_3;
-  end
-  
-  
 
 endmodule
 

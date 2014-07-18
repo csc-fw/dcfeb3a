@@ -1,15 +1,13 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:44:54 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:17 at 14:40:13 (www.fizzim.com)
 
 module Frame_Proc_FSM (
   output CLR_CRC,
   output CRC_DV,
-  output INC_ROM,
-  output RST_ROM,
+  output wire [2:0] ROM_ADDR,
   output TX_ACK,
   output wire [3:0] FRM_STATE,
   input CLK,
-  input wire [2:0] ROM_ADDR,
   input RST,
   input VALID 
 );
@@ -17,15 +15,15 @@ module Frame_Proc_FSM (
   // state bits
   parameter 
   Idle       = 4'b0000, 
-  CRC_EOP    = 4'b0001, 
+  CRC        = 4'b0001, 
   Data       = 4'b0010, 
-  Inc_Rom    = 4'b0011, 
+  EOP        = 4'b0011, 
   Preamble_1 = 4'b0100, 
   Preamble_2 = 4'b0101, 
   Preamble_3 = 4'b0110, 
-  Rst_ROM    = 4'b0111, 
-  SOF_TX_Ack = 4'b1000, 
-  SOP        = 4'b1001; 
+  SOF_TX_Ack = 4'b0111, 
+  SOP        = 4'b1000, 
+  Strt_Data  = 4'b1001; 
 
   (* syn_preserve = "true" *) reg [3:0] state_1;
   (* syn_preserve = "true" *) reg [3:0] state_2;
@@ -35,9 +33,9 @@ module Frame_Proc_FSM (
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
-  assign voted_state_1 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
-  assign voted_state_2 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
-  assign voted_state_3 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
+  assign voted_state_1 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_2 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_3 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
   assign FRM_STATE = voted_state_1;
 
@@ -51,22 +49,27 @@ module Frame_Proc_FSM (
   (* syn_preserve = "true" *)  reg CRC_DV_1;
   (* syn_preserve = "true" *)  reg CRC_DV_2;
   (* syn_preserve = "true" *)  reg CRC_DV_3;
-  (* syn_preserve = "true" *)  reg INC_ROM_1;
-  (* syn_preserve = "true" *)  reg INC_ROM_2;
-  (* syn_preserve = "true" *)  reg INC_ROM_3;
-  (* syn_preserve = "true" *)  reg RST_ROM_1;
-  (* syn_preserve = "true" *)  reg RST_ROM_2;
-  (* syn_preserve = "true" *)  reg RST_ROM_3;
+  (* syn_preserve = "true" *)  reg [2:0] ROM_ADDR_1;
+  (* syn_preserve = "true" *)  reg [2:0] ROM_ADDR_2;
+  (* syn_preserve = "true" *)  reg [2:0] ROM_ADDR_3;
   (* syn_preserve = "true" *)  reg TX_ACK_1;
   (* syn_preserve = "true" *)  reg TX_ACK_2;
   (* syn_preserve = "true" *)  reg TX_ACK_3;
+  (* syn_preserve = "true" *)  reg [2:0] addr_1;
+  (* syn_preserve = "true" *)  reg [2:0] addr_2;
+  (* syn_preserve = "true" *)  reg [2:0] addr_3;
+  (* syn_keep = "true" *)      wire [2:0] voted_addr_1;
+  (* syn_keep = "true" *)      wire [2:0] voted_addr_2;
+  (* syn_keep = "true" *)      wire [2:0] voted_addr_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign CLR_CRC   = (CLR_CRC_1 & CLR_CRC_2) | (CLR_CRC_2 & CLR_CRC_3) | (CLR_CRC_1 & CLR_CRC_3); // Majority logic
-  assign CRC_DV    = (CRC_DV_1  & CRC_DV_2 ) | (CRC_DV_2  & CRC_DV_3 ) | (CRC_DV_1  & CRC_DV_3 ); // Majority logic
-  assign INC_ROM   = (INC_ROM_1 & INC_ROM_2) | (INC_ROM_2 & INC_ROM_3) | (INC_ROM_1 & INC_ROM_3); // Majority logic
-  assign RST_ROM   = (RST_ROM_1 & RST_ROM_2) | (RST_ROM_2 & RST_ROM_3) | (RST_ROM_1 & RST_ROM_3); // Majority logic
-  assign TX_ACK    = (TX_ACK_1  & TX_ACK_2 ) | (TX_ACK_2  & TX_ACK_3 ) | (TX_ACK_1  & TX_ACK_3 ); // Majority logic
+  assign CLR_CRC    = (CLR_CRC_1  & CLR_CRC_2 ) | (CLR_CRC_2  & CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_3 ); // Majority logic
+  assign CRC_DV     = (CRC_DV_1   & CRC_DV_2  ) | (CRC_DV_2   & CRC_DV_3  ) | (CRC_DV_1   & CRC_DV_3  ); // Majority logic
+  assign ROM_ADDR   = (ROM_ADDR_1 & ROM_ADDR_2) | (ROM_ADDR_2 & ROM_ADDR_3) | (ROM_ADDR_1 & ROM_ADDR_3); // Majority logic
+  assign TX_ACK     = (TX_ACK_1   & TX_ACK_2  ) | (TX_ACK_2   & TX_ACK_3  ) | (TX_ACK_1   & TX_ACK_3  ); // Majority logic
+  assign voted_addr_1 = (addr_1     & addr_2    ) | (addr_2     & addr_3    ) | (addr_1     & addr_3    ); // Majority logic
+  assign voted_addr_2 = (addr_1     & addr_2    ) | (addr_2     & addr_3    ) | (addr_1     & addr_3    ); // Majority logic
+  assign voted_addr_3 = (addr_1     & addr_2    ) | (addr_2     & addr_3    ) | (addr_1     & addr_3    ); // Majority logic
 
 
   // comb always block
@@ -74,50 +77,53 @@ module Frame_Proc_FSM (
     nextstate_1 = 4'bxxxx; // default to x because default_state_is_x is set
     nextstate_2 = 4'bxxxx; // default to x because default_state_is_x is set
     nextstate_3 = 4'bxxxx; // default to x because default_state_is_x is set
+    ROM_ADDR_1 = voted_addr_1; // default
+    ROM_ADDR_2 = voted_addr_2; // default
+    ROM_ADDR_3 = voted_addr_3; // default
     case (voted_state_1)
-      Idle      : if (VALID)             nextstate_1 = Inc_Rom;
-                  else                   nextstate_1 = Idle;
-      CRC_EOP   : if (ROM_ADDR == 3'd6)  nextstate_1 = Rst_ROM;
-                  else                   nextstate_1 = CRC_EOP;
-      Data      : if (!VALID)            nextstate_1 = CRC_EOP;
-                  else                   nextstate_1 = Data;
-      Inc_Rom   :                        nextstate_1 = SOP;
-      Preamble_1:                        nextstate_1 = Preamble_2;
-      Preamble_2:                        nextstate_1 = Preamble_3;
-      Preamble_3:                        nextstate_1 = SOF_TX_Ack;
-      Rst_ROM   :                        nextstate_1 = Idle;
-      SOF_TX_Ack:                        nextstate_1 = Data;
-      SOP       :                        nextstate_1 = Preamble_1;
+      Idle      : if (VALID)                 nextstate_1 = SOP;
+                  else                       nextstate_1 = Idle;
+      CRC       :                            nextstate_1 = EOP;
+      Data      : if (!VALID)                nextstate_1 = CRC;
+                  else                       nextstate_1 = Data;
+      EOP       : if (voted_addr_1 == 3'd6)  nextstate_1 = Idle;
+                  else                       nextstate_1 = EOP;
+      Preamble_1:                            nextstate_1 = Preamble_2;
+      Preamble_2:                            nextstate_1 = Preamble_3;
+      Preamble_3:                            nextstate_1 = SOF_TX_Ack;
+      SOF_TX_Ack:                            nextstate_1 = Strt_Data;
+      SOP       :                            nextstate_1 = Preamble_1;
+      Strt_Data :                            nextstate_1 = Data;
     endcase
     case (voted_state_2)
-      Idle      : if (VALID)             nextstate_2 = Inc_Rom;
-                  else                   nextstate_2 = Idle;
-      CRC_EOP   : if (ROM_ADDR == 3'd6)  nextstate_2 = Rst_ROM;
-                  else                   nextstate_2 = CRC_EOP;
-      Data      : if (!VALID)            nextstate_2 = CRC_EOP;
-                  else                   nextstate_2 = Data;
-      Inc_Rom   :                        nextstate_2 = SOP;
-      Preamble_1:                        nextstate_2 = Preamble_2;
-      Preamble_2:                        nextstate_2 = Preamble_3;
-      Preamble_3:                        nextstate_2 = SOF_TX_Ack;
-      Rst_ROM   :                        nextstate_2 = Idle;
-      SOF_TX_Ack:                        nextstate_2 = Data;
-      SOP       :                        nextstate_2 = Preamble_1;
+      Idle      : if (VALID)                 nextstate_2 = SOP;
+                  else                       nextstate_2 = Idle;
+      CRC       :                            nextstate_2 = EOP;
+      Data      : if (!VALID)                nextstate_2 = CRC;
+                  else                       nextstate_2 = Data;
+      EOP       : if (voted_addr_2 == 3'd6)  nextstate_2 = Idle;
+                  else                       nextstate_2 = EOP;
+      Preamble_1:                            nextstate_2 = Preamble_2;
+      Preamble_2:                            nextstate_2 = Preamble_3;
+      Preamble_3:                            nextstate_2 = SOF_TX_Ack;
+      SOF_TX_Ack:                            nextstate_2 = Strt_Data;
+      SOP       :                            nextstate_2 = Preamble_1;
+      Strt_Data :                            nextstate_2 = Data;
     endcase
     case (voted_state_3)
-      Idle      : if (VALID)             nextstate_3 = Inc_Rom;
-                  else                   nextstate_3 = Idle;
-      CRC_EOP   : if (ROM_ADDR == 3'd6)  nextstate_3 = Rst_ROM;
-                  else                   nextstate_3 = CRC_EOP;
-      Data      : if (!VALID)            nextstate_3 = CRC_EOP;
-                  else                   nextstate_3 = Data;
-      Inc_Rom   :                        nextstate_3 = SOP;
-      Preamble_1:                        nextstate_3 = Preamble_2;
-      Preamble_2:                        nextstate_3 = Preamble_3;
-      Preamble_3:                        nextstate_3 = SOF_TX_Ack;
-      Rst_ROM   :                        nextstate_3 = Idle;
-      SOF_TX_Ack:                        nextstate_3 = Data;
-      SOP       :                        nextstate_3 = Preamble_1;
+      Idle      : if (VALID)                 nextstate_3 = SOP;
+                  else                       nextstate_3 = Idle;
+      CRC       :                            nextstate_3 = EOP;
+      Data      : if (!VALID)                nextstate_3 = CRC;
+                  else                       nextstate_3 = Data;
+      EOP       : if (voted_addr_3 == 3'd6)  nextstate_3 = Idle;
+                  else                       nextstate_3 = EOP;
+      Preamble_1:                            nextstate_3 = Preamble_2;
+      Preamble_2:                            nextstate_3 = Preamble_3;
+      Preamble_3:                            nextstate_3 = SOF_TX_Ack;
+      SOF_TX_Ack:                            nextstate_3 = Strt_Data;
+      SOP       :                            nextstate_3 = Preamble_1;
+      Strt_Data :                            nextstate_3 = Data;
     endcase
   end
 
@@ -146,15 +152,12 @@ module Frame_Proc_FSM (
       CRC_DV_1 <= 0;
       CRC_DV_2 <= 0;
       CRC_DV_3 <= 0;
-      INC_ROM_1 <= 0;
-      INC_ROM_2 <= 0;
-      INC_ROM_3 <= 0;
-      RST_ROM_1 <= 0;
-      RST_ROM_2 <= 0;
-      RST_ROM_3 <= 0;
       TX_ACK_1 <= 0;
       TX_ACK_2 <= 0;
       TX_ACK_3 <= 0;
+      addr_1 <= 3'd0;
+      addr_2 <= 3'd0;
+      addr_3 <= 3'd0;
     end
     else begin
       CLR_CRC_1 <= 0; // default
@@ -163,76 +166,109 @@ module Frame_Proc_FSM (
       CRC_DV_1 <= 0; // default
       CRC_DV_2 <= 0; // default
       CRC_DV_3 <= 0; // default
-      INC_ROM_1 <= 0; // default
-      INC_ROM_2 <= 0; // default
-      INC_ROM_3 <= 0; // default
-      RST_ROM_1 <= 0; // default
-      RST_ROM_2 <= 0; // default
-      RST_ROM_3 <= 0; // default
       TX_ACK_1 <= 0; // default
       TX_ACK_2 <= 0; // default
       TX_ACK_3 <= 0; // default
+      addr_1 <= 3'd0; // default
+      addr_2 <= 3'd0; // default
+      addr_3 <= 3'd0; // default
       case (nextstate_1)
-        CRC_EOP   :        INC_ROM_1 <= 1;
-        Data      :        CRC_DV_1 <= 1;
-        Inc_Rom   :        INC_ROM_1 <= 1;
-        Preamble_1:        CLR_CRC_1 <= 1;
-        Preamble_2:        CLR_CRC_1 <= 1;
+        CRC       :        addr_1 <= voted_addr_1;
+        Data      : begin
+                           CRC_DV_1 <= 1;
+                           addr_1 <= voted_addr_1;
+        end
+        EOP       :        addr_1 <= voted_addr_1 + 1;
+        Preamble_1: begin
+                           CLR_CRC_1 <= 1;
+                           addr_1 <= voted_addr_1 + 1;
+        end
+        Preamble_2: begin
+                           CLR_CRC_1 <= 1;
+                           addr_1 <= voted_addr_1;
+        end
         Preamble_3: begin
                            CLR_CRC_1 <= 1;
-                           INC_ROM_1 <= 1;
+                           addr_1 <= voted_addr_1;
         end
-        Rst_ROM   :        RST_ROM_1 <= 1;
         SOF_TX_Ack: begin
                            CLR_CRC_1 <= 1;
-                           INC_ROM_1 <= 1;
                            TX_ACK_1 <= 1;
+                           addr_1 <= voted_addr_1 + 1;
         end
         SOP       : begin
                            CLR_CRC_1 <= 1;
-                           INC_ROM_1 <= 1;
+                           addr_1 <= voted_addr_1 + 1;
+        end
+        Strt_Data : begin
+                           CRC_DV_1 <= 1;
+                           addr_1 <= voted_addr_1 + 1;
         end
       endcase
       case (nextstate_2)
-        CRC_EOP   :        INC_ROM_2 <= 1;
-        Data      :        CRC_DV_2 <= 1;
-        Inc_Rom   :        INC_ROM_2 <= 1;
-        Preamble_1:        CLR_CRC_2 <= 1;
-        Preamble_2:        CLR_CRC_2 <= 1;
+        CRC       :        addr_2 <= voted_addr_2;
+        Data      : begin
+                           CRC_DV_2 <= 1;
+                           addr_2 <= voted_addr_2;
+        end
+        EOP       :        addr_2 <= voted_addr_2 + 1;
+        Preamble_1: begin
+                           CLR_CRC_2 <= 1;
+                           addr_2 <= voted_addr_2 + 1;
+        end
+        Preamble_2: begin
+                           CLR_CRC_2 <= 1;
+                           addr_2 <= voted_addr_2;
+        end
         Preamble_3: begin
                            CLR_CRC_2 <= 1;
-                           INC_ROM_2 <= 1;
+                           addr_2 <= voted_addr_2;
         end
-        Rst_ROM   :        RST_ROM_2 <= 1;
         SOF_TX_Ack: begin
                            CLR_CRC_2 <= 1;
-                           INC_ROM_2 <= 1;
                            TX_ACK_2 <= 1;
+                           addr_2 <= voted_addr_2 + 1;
         end
         SOP       : begin
                            CLR_CRC_2 <= 1;
-                           INC_ROM_2 <= 1;
+                           addr_2 <= voted_addr_2 + 1;
+        end
+        Strt_Data : begin
+                           CRC_DV_2 <= 1;
+                           addr_2 <= voted_addr_2 + 1;
         end
       endcase
       case (nextstate_3)
-        CRC_EOP   :        INC_ROM_3 <= 1;
-        Data      :        CRC_DV_3 <= 1;
-        Inc_Rom   :        INC_ROM_3 <= 1;
-        Preamble_1:        CLR_CRC_3 <= 1;
-        Preamble_2:        CLR_CRC_3 <= 1;
+        CRC       :        addr_3 <= voted_addr_3;
+        Data      : begin
+                           CRC_DV_3 <= 1;
+                           addr_3 <= voted_addr_3;
+        end
+        EOP       :        addr_3 <= voted_addr_3 + 1;
+        Preamble_1: begin
+                           CLR_CRC_3 <= 1;
+                           addr_3 <= voted_addr_3 + 1;
+        end
+        Preamble_2: begin
+                           CLR_CRC_3 <= 1;
+                           addr_3 <= voted_addr_3;
+        end
         Preamble_3: begin
                            CLR_CRC_3 <= 1;
-                           INC_ROM_3 <= 1;
+                           addr_3 <= voted_addr_3;
         end
-        Rst_ROM   :        RST_ROM_3 <= 1;
         SOF_TX_Ack: begin
                            CLR_CRC_3 <= 1;
-                           INC_ROM_3 <= 1;
                            TX_ACK_3 <= 1;
+                           addr_3 <= voted_addr_3 + 1;
         end
         SOP       : begin
                            CLR_CRC_3 <= 1;
-                           INC_ROM_3 <= 1;
+                           addr_3 <= voted_addr_3 + 1;
+        end
+        Strt_Data : begin
+                           CRC_DV_3 <= 1;
+                           addr_3 <= voted_addr_3 + 1;
         end
       endcase
     end
@@ -244,15 +280,15 @@ module Frame_Proc_FSM (
   always @* begin
     case (state_1)
       Idle      : statename = "Idle";
-      CRC_EOP   : statename = "CRC_EOP";
+      CRC       : statename = "CRC";
       Data      : statename = "Data";
-      Inc_Rom   : statename = "Inc_Rom";
+      EOP       : statename = "EOP";
       Preamble_1: statename = "Preamble_1";
       Preamble_2: statename = "Preamble_2";
       Preamble_3: statename = "Preamble_3";
-      Rst_ROM   : statename = "Rst_ROM";
       SOF_TX_Ack: statename = "SOF_TX_Ack";
       SOP       : statename = "SOP";
+      Strt_Data : statename = "Strt_Data";
       default   : statename = "XXXXXXXXXX";
     endcase
   end

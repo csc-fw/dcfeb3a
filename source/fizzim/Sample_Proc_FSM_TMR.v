@@ -1,17 +1,14 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:46:57 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:17 at 13:32:46 (www.fizzim.com)
 
 module Sample_Proc_FSM (
   output CE,
   output CLR_CRC,
-  output INC_SEQ,
-  output INC_SMP,
   output LAST_WRD,
   output LD_L1A_H,
   output LD_L1A_L,
   output RD,
-  output RST_SEQ,
-  output RST_SMP,
+  output wire [6:0] SEQ,
   output VALID,
   output wire [3:0] SMP_STATE,
   input CLK,
@@ -20,8 +17,6 @@ module Sample_Proc_FSM (
   input L1A_HEAD,
   input RST,
   input wire [6:0] SAMP_MAX,
-  input wire [6:0] SEQ,
-  input wire [6:0] SMP,
   input TXACK 
 );
 
@@ -34,9 +29,10 @@ module Sample_Proc_FSM (
   Ld_L1A_Low  = 4'b0100, 
   Read        = 4'b0101, 
   St_Data     = 4'b0110, 
-  Tail        = 4'b0111, 
-  W4Data      = 4'b1000, 
-  W4TXACK     = 4'b1001; 
+  Strt_Seq    = 4'b0111, 
+  Tail        = 4'b1000, 
+  W4Data      = 4'b1001, 
+  W4TXACK     = 4'b1010; 
 
   (* syn_preserve = "true" *) reg [3:0] state_1;
   (* syn_preserve = "true" *) reg [3:0] state_2;
@@ -62,12 +58,6 @@ module Sample_Proc_FSM (
   (* syn_preserve = "true" *)  reg CLR_CRC_1;
   (* syn_preserve = "true" *)  reg CLR_CRC_2;
   (* syn_preserve = "true" *)  reg CLR_CRC_3;
-  (* syn_preserve = "true" *)  reg INC_SEQ_1;
-  (* syn_preserve = "true" *)  reg INC_SEQ_2;
-  (* syn_preserve = "true" *)  reg INC_SEQ_3;
-  (* syn_preserve = "true" *)  reg INC_SMP_1;
-  (* syn_preserve = "true" *)  reg INC_SMP_2;
-  (* syn_preserve = "true" *)  reg INC_SMP_3;
   (* syn_preserve = "true" *)  reg LAST_WRD_1;
   (* syn_preserve = "true" *)  reg LAST_WRD_2;
   (* syn_preserve = "true" *)  reg LAST_WRD_3;
@@ -80,28 +70,40 @@ module Sample_Proc_FSM (
   (* syn_preserve = "true" *)  reg RD_1;
   (* syn_preserve = "true" *)  reg RD_2;
   (* syn_preserve = "true" *)  reg RD_3;
-  (* syn_preserve = "true" *)  reg RST_SEQ_1;
-  (* syn_preserve = "true" *)  reg RST_SEQ_2;
-  (* syn_preserve = "true" *)  reg RST_SEQ_3;
-  (* syn_preserve = "true" *)  reg RST_SMP_1;
-  (* syn_preserve = "true" *)  reg RST_SMP_2;
-  (* syn_preserve = "true" *)  reg RST_SMP_3;
+  (* syn_preserve = "true" *)  reg [6:0] SEQ_1;
+  (* syn_preserve = "true" *)  reg [6:0] SEQ_2;
+  (* syn_preserve = "true" *)  reg [6:0] SEQ_3;
   (* syn_preserve = "true" *)  reg VALID_1;
   (* syn_preserve = "true" *)  reg VALID_2;
   (* syn_preserve = "true" *)  reg VALID_3;
+  (* syn_preserve = "true" *)  reg [6:0] seqn_1;
+  (* syn_preserve = "true" *)  reg [6:0] seqn_2;
+  (* syn_preserve = "true" *)  reg [6:0] seqn_3;
+  (* syn_keep = "true" *)      wire [6:0] voted_seqn_1;
+  (* syn_keep = "true" *)      wire [6:0] voted_seqn_2;
+  (* syn_keep = "true" *)      wire [6:0] voted_seqn_3;
+  (* syn_preserve = "true" *)  reg [6:0] smp_1;
+  (* syn_preserve = "true" *)  reg [6:0] smp_2;
+  (* syn_preserve = "true" *)  reg [6:0] smp_3;
+  (* syn_keep = "true" *)      wire [6:0] voted_smp_1;
+  (* syn_keep = "true" *)      wire [6:0] voted_smp_2;
+  (* syn_keep = "true" *)      wire [6:0] voted_smp_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign CE         = (CE_1       & CE_2      ) | (CE_2       & CE_3      ) | (CE_1       & CE_3      ); // Majority logic
   assign CLR_CRC    = (CLR_CRC_1  & CLR_CRC_2 ) | (CLR_CRC_2  & CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_3 ); // Majority logic
-  assign INC_SEQ    = (INC_SEQ_1  & INC_SEQ_2 ) | (INC_SEQ_2  & INC_SEQ_3 ) | (INC_SEQ_1  & INC_SEQ_3 ); // Majority logic
-  assign INC_SMP    = (INC_SMP_1  & INC_SMP_2 ) | (INC_SMP_2  & INC_SMP_3 ) | (INC_SMP_1  & INC_SMP_3 ); // Majority logic
   assign LAST_WRD   = (LAST_WRD_1 & LAST_WRD_2) | (LAST_WRD_2 & LAST_WRD_3) | (LAST_WRD_1 & LAST_WRD_3); // Majority logic
   assign LD_L1A_H   = (LD_L1A_H_1 & LD_L1A_H_2) | (LD_L1A_H_2 & LD_L1A_H_3) | (LD_L1A_H_1 & LD_L1A_H_3); // Majority logic
   assign LD_L1A_L   = (LD_L1A_L_1 & LD_L1A_L_2) | (LD_L1A_L_2 & LD_L1A_L_3) | (LD_L1A_L_1 & LD_L1A_L_3); // Majority logic
   assign RD         = (RD_1       & RD_2      ) | (RD_2       & RD_3      ) | (RD_1       & RD_3      ); // Majority logic
-  assign RST_SEQ    = (RST_SEQ_1  & RST_SEQ_2 ) | (RST_SEQ_2  & RST_SEQ_3 ) | (RST_SEQ_1  & RST_SEQ_3 ); // Majority logic
-  assign RST_SMP    = (RST_SMP_1  & RST_SMP_2 ) | (RST_SMP_2  & RST_SMP_3 ) | (RST_SMP_1  & RST_SMP_3 ); // Majority logic
+  assign SEQ        = (SEQ_1      & SEQ_2     ) | (SEQ_2      & SEQ_3     ) | (SEQ_1      & SEQ_3     ); // Majority logic
   assign VALID      = (VALID_1    & VALID_2   ) | (VALID_2    & VALID_3   ) | (VALID_1    & VALID_3   ); // Majority logic
+  assign voted_seqn_1 = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
+  assign voted_seqn_2 = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
+  assign voted_seqn_3 = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
+  assign voted_smp_1 = (smp_1      & smp_2     ) | (smp_2      & smp_3     ) | (smp_1      & smp_3     ); // Majority logic
+  assign voted_smp_2 = (smp_1      & smp_2     ) | (smp_2      & smp_3     ) | (smp_1      & smp_3     ); // Majority logic
+  assign voted_smp_3 = (smp_1      & smp_2     ) | (smp_2      & smp_3     ) | (smp_1      & smp_3     ); // Majority logic
 
 
   // comb always block
@@ -109,68 +111,74 @@ module Sample_Proc_FSM (
     nextstate_1 = 4'bxxxx; // default to x because default_state_is_x is set
     nextstate_2 = 4'bxxxx; // default to x because default_state_is_x is set
     nextstate_3 = 4'bxxxx; // default to x because default_state_is_x is set
+    SEQ_1 = voted_seqn_1; // default
+    SEQ_2 = voted_seqn_2; // default
+    SEQ_3 = voted_seqn_3; // default
     case (voted_state_1)
-      Idle       : if      (!L1A_BUF_MT)                 nextstate_1 = W4Data;
-                   else                                  nextstate_1 = Idle;
-      Inc_Samp   : if      (SMP == SAMP_MAX)             nextstate_1 = Last_Word;
-                   else                                  nextstate_1 = Read;
-      Last_Word  :                                       nextstate_1 = Idle;
-      Ld_L1A_High:                                       nextstate_1 = Ld_L1A_Low;
-      Ld_L1A_Low :                                       nextstate_1 = St_Data;
-      Read       : if      (SEQ == 7'd95)                nextstate_1 = Tail;
-                   else                                  nextstate_1 = Read;
-      St_Data    : if      (L1A_HEAD)                    nextstate_1 = W4TXACK;
-                   else if (!L1A_HEAD && (SEQ == 7'd2))  nextstate_1 = W4TXACK;
-                   else                                  nextstate_1 = St_Data;
-      Tail       : if      (SEQ == 7'd98)                nextstate_1 = Inc_Samp;
-                   else                                  nextstate_1 = Tail;
-      W4Data     : if      (!FAMT && L1A_HEAD)           nextstate_1 = Ld_L1A_High;
-                   else if (!FAMT && !L1A_HEAD)          nextstate_1 = St_Data;
-                   else                                  nextstate_1 = W4Data;
-      W4TXACK    : if      (TXACK)                       nextstate_1 = Read;
-                   else                                  nextstate_1 = W4TXACK;
+      Idle       : if      (!L1A_BUF_MT)                          nextstate_1 = W4Data;
+                   else                                           nextstate_1 = Idle;
+      Inc_Samp   : if      (voted_smp_1 == SAMP_MAX)              nextstate_1 = Last_Word;
+                   else                                           nextstate_1 = Strt_Seq;
+      Last_Word  :                                                nextstate_1 = Idle;
+      Ld_L1A_High:                                                nextstate_1 = Ld_L1A_Low;
+      Ld_L1A_Low :                                                nextstate_1 = St_Data;
+      Read       : if      (voted_seqn_1 == 7'd95)                nextstate_1 = Tail;
+                   else                                           nextstate_1 = Read;
+      St_Data    : if      (L1A_HEAD)                             nextstate_1 = W4TXACK;
+                   else if (!L1A_HEAD && (voted_seqn_1 == 7'd3))  nextstate_1 = W4TXACK;
+                   else                                           nextstate_1 = St_Data;
+      Strt_Seq   :                                                nextstate_1 = Read;
+      Tail       : if      (voted_seqn_1 == 7'd98)                nextstate_1 = Inc_Samp;
+                   else                                           nextstate_1 = Tail;
+      W4Data     : if      (!FAMT && L1A_HEAD)                    nextstate_1 = Ld_L1A_High;
+                   else if (!FAMT && !L1A_HEAD)                   nextstate_1 = St_Data;
+                   else                                           nextstate_1 = W4Data;
+      W4TXACK    : if      (TXACK)                                nextstate_1 = Read;
+                   else                                           nextstate_1 = W4TXACK;
     endcase
     case (voted_state_2)
-      Idle       : if      (!L1A_BUF_MT)                 nextstate_2 = W4Data;
-                   else                                  nextstate_2 = Idle;
-      Inc_Samp   : if      (SMP == SAMP_MAX)             nextstate_2 = Last_Word;
-                   else                                  nextstate_2 = Read;
-      Last_Word  :                                       nextstate_2 = Idle;
-      Ld_L1A_High:                                       nextstate_2 = Ld_L1A_Low;
-      Ld_L1A_Low :                                       nextstate_2 = St_Data;
-      Read       : if      (SEQ == 7'd95)                nextstate_2 = Tail;
-                   else                                  nextstate_2 = Read;
-      St_Data    : if      (L1A_HEAD)                    nextstate_2 = W4TXACK;
-                   else if (!L1A_HEAD && (SEQ == 7'd2))  nextstate_2 = W4TXACK;
-                   else                                  nextstate_2 = St_Data;
-      Tail       : if      (SEQ == 7'd98)                nextstate_2 = Inc_Samp;
-                   else                                  nextstate_2 = Tail;
-      W4Data     : if      (!FAMT && L1A_HEAD)           nextstate_2 = Ld_L1A_High;
-                   else if (!FAMT && !L1A_HEAD)          nextstate_2 = St_Data;
-                   else                                  nextstate_2 = W4Data;
-      W4TXACK    : if      (TXACK)                       nextstate_2 = Read;
-                   else                                  nextstate_2 = W4TXACK;
+      Idle       : if      (!L1A_BUF_MT)                          nextstate_2 = W4Data;
+                   else                                           nextstate_2 = Idle;
+      Inc_Samp   : if      (voted_smp_2 == SAMP_MAX)              nextstate_2 = Last_Word;
+                   else                                           nextstate_2 = Strt_Seq;
+      Last_Word  :                                                nextstate_2 = Idle;
+      Ld_L1A_High:                                                nextstate_2 = Ld_L1A_Low;
+      Ld_L1A_Low :                                                nextstate_2 = St_Data;
+      Read       : if      (voted_seqn_2 == 7'd95)                nextstate_2 = Tail;
+                   else                                           nextstate_2 = Read;
+      St_Data    : if      (L1A_HEAD)                             nextstate_2 = W4TXACK;
+                   else if (!L1A_HEAD && (voted_seqn_2 == 7'd3))  nextstate_2 = W4TXACK;
+                   else                                           nextstate_2 = St_Data;
+      Strt_Seq   :                                                nextstate_2 = Read;
+      Tail       : if      (voted_seqn_2 == 7'd98)                nextstate_2 = Inc_Samp;
+                   else                                           nextstate_2 = Tail;
+      W4Data     : if      (!FAMT && L1A_HEAD)                    nextstate_2 = Ld_L1A_High;
+                   else if (!FAMT && !L1A_HEAD)                   nextstate_2 = St_Data;
+                   else                                           nextstate_2 = W4Data;
+      W4TXACK    : if      (TXACK)                                nextstate_2 = Read;
+                   else                                           nextstate_2 = W4TXACK;
     endcase
     case (voted_state_3)
-      Idle       : if      (!L1A_BUF_MT)                 nextstate_3 = W4Data;
-                   else                                  nextstate_3 = Idle;
-      Inc_Samp   : if      (SMP == SAMP_MAX)             nextstate_3 = Last_Word;
-                   else                                  nextstate_3 = Read;
-      Last_Word  :                                       nextstate_3 = Idle;
-      Ld_L1A_High:                                       nextstate_3 = Ld_L1A_Low;
-      Ld_L1A_Low :                                       nextstate_3 = St_Data;
-      Read       : if      (SEQ == 7'd95)                nextstate_3 = Tail;
-                   else                                  nextstate_3 = Read;
-      St_Data    : if      (L1A_HEAD)                    nextstate_3 = W4TXACK;
-                   else if (!L1A_HEAD && (SEQ == 7'd2))  nextstate_3 = W4TXACK;
-                   else                                  nextstate_3 = St_Data;
-      Tail       : if      (SEQ == 7'd98)                nextstate_3 = Inc_Samp;
-                   else                                  nextstate_3 = Tail;
-      W4Data     : if      (!FAMT && L1A_HEAD)           nextstate_3 = Ld_L1A_High;
-                   else if (!FAMT && !L1A_HEAD)          nextstate_3 = St_Data;
-                   else                                  nextstate_3 = W4Data;
-      W4TXACK    : if      (TXACK)                       nextstate_3 = Read;
-                   else                                  nextstate_3 = W4TXACK;
+      Idle       : if      (!L1A_BUF_MT)                          nextstate_3 = W4Data;
+                   else                                           nextstate_3 = Idle;
+      Inc_Samp   : if      (voted_smp_3 == SAMP_MAX)              nextstate_3 = Last_Word;
+                   else                                           nextstate_3 = Strt_Seq;
+      Last_Word  :                                                nextstate_3 = Idle;
+      Ld_L1A_High:                                                nextstate_3 = Ld_L1A_Low;
+      Ld_L1A_Low :                                                nextstate_3 = St_Data;
+      Read       : if      (voted_seqn_3 == 7'd95)                nextstate_3 = Tail;
+                   else                                           nextstate_3 = Read;
+      St_Data    : if      (L1A_HEAD)                             nextstate_3 = W4TXACK;
+                   else if (!L1A_HEAD && (voted_seqn_3 == 7'd3))  nextstate_3 = W4TXACK;
+                   else                                           nextstate_3 = St_Data;
+      Strt_Seq   :                                                nextstate_3 = Read;
+      Tail       : if      (voted_seqn_3 == 7'd98)                nextstate_3 = Inc_Samp;
+                   else                                           nextstate_3 = Tail;
+      W4Data     : if      (!FAMT && L1A_HEAD)                    nextstate_3 = Ld_L1A_High;
+                   else if (!FAMT && !L1A_HEAD)                   nextstate_3 = St_Data;
+                   else                                           nextstate_3 = W4Data;
+      W4TXACK    : if      (TXACK)                                nextstate_3 = Read;
+                   else                                           nextstate_3 = W4TXACK;
     endcase
   end
 
@@ -199,12 +207,6 @@ module Sample_Proc_FSM (
       CLR_CRC_1 <= 0;
       CLR_CRC_2 <= 0;
       CLR_CRC_3 <= 0;
-      INC_SEQ_1 <= 0;
-      INC_SEQ_2 <= 0;
-      INC_SEQ_3 <= 0;
-      INC_SMP_1 <= 0;
-      INC_SMP_2 <= 0;
-      INC_SMP_3 <= 0;
       LAST_WRD_1 <= 0;
       LAST_WRD_2 <= 0;
       LAST_WRD_3 <= 0;
@@ -217,15 +219,15 @@ module Sample_Proc_FSM (
       RD_1 <= 0;
       RD_2 <= 0;
       RD_3 <= 0;
-      RST_SEQ_1 <= 0;
-      RST_SEQ_2 <= 0;
-      RST_SEQ_3 <= 0;
-      RST_SMP_1 <= 0;
-      RST_SMP_2 <= 0;
-      RST_SMP_3 <= 0;
       VALID_1 <= 0;
       VALID_2 <= 0;
       VALID_3 <= 0;
+      seqn_1 <= 7'h00;
+      seqn_2 <= 7'h00;
+      seqn_3 <= 7'h00;
+      smp_1 <= 7'h00;
+      smp_2 <= 7'h00;
+      smp_3 <= 7'h00;
     end
     else begin
       CE_1 <= 1; // default
@@ -234,12 +236,6 @@ module Sample_Proc_FSM (
       CLR_CRC_1 <= 0; // default
       CLR_CRC_2 <= 0; // default
       CLR_CRC_3 <= 0; // default
-      INC_SEQ_1 <= 0; // default
-      INC_SEQ_2 <= 0; // default
-      INC_SEQ_3 <= 0; // default
-      INC_SMP_1 <= 0; // default
-      INC_SMP_2 <= 0; // default
-      INC_SMP_3 <= 0; // default
       LAST_WRD_1 <= 0; // default
       LAST_WRD_2 <= 0; // default
       LAST_WRD_3 <= 0; // default
@@ -252,25 +248,21 @@ module Sample_Proc_FSM (
       RD_1 <= 0; // default
       RD_2 <= 0; // default
       RD_3 <= 0; // default
-      RST_SEQ_1 <= 0; // default
-      RST_SEQ_2 <= 0; // default
-      RST_SEQ_3 <= 0; // default
-      RST_SMP_1 <= 0; // default
-      RST_SMP_2 <= 0; // default
-      RST_SMP_3 <= 0; // default
       VALID_1 <= 0; // default
       VALID_2 <= 0; // default
       VALID_3 <= 0; // default
+      seqn_1 <= 7'h00; // default
+      seqn_2 <= 7'h00; // default
+      seqn_3 <= 7'h00; // default
+      smp_1 <= voted_smp_1; // default
+      smp_2 <= voted_smp_2; // default
+      smp_3 <= voted_smp_3; // default
       case (nextstate_1)
-        Idle       : begin
-                            RST_SEQ_1 <= 1;
-                            RST_SMP_1 <= 1;
-        end
+        Idle       :        smp_1 <= 7'h00;
         Inc_Samp   : begin
                             CLR_CRC_1 <= 1;
-                            INC_SMP_1 <= 1;
-                            RST_SEQ_1 <= 1;
                             VALID_1 <= 1;
+                            seqn_1 <= voted_seqn_1 + 1;
         end
         Last_Word  :        LAST_WRD_1 <= 1;
         Ld_L1A_High: begin
@@ -282,18 +274,22 @@ module Sample_Proc_FSM (
                             LD_L1A_L_1 <= 1;
         end
         Read       : begin
-                            INC_SEQ_1 <= 1;
                             RD_1 <= 1;
                             VALID_1 <= 1;
+                            seqn_1 <= voted_seqn_1 + 1;
         end
         St_Data    : begin
-                            INC_SEQ_1 <= 1;
                             RD_1 <= 1;
                             VALID_1 <= 1;
         end
-        Tail       : begin
-                            INC_SEQ_1 <= 1;
+        Strt_Seq   : begin
+                            RD_1 <= 1;
                             VALID_1 <= 1;
+                            smp_1 <= voted_smp_1 + 1;
+        end
+        Tail       : begin
+                            VALID_1 <= 1;
+                            seqn_1 <= voted_seqn_1 + 1;
         end
         W4Data     :        CLR_CRC_1 <= 1;
         W4TXACK    : begin
@@ -302,15 +298,11 @@ module Sample_Proc_FSM (
         end
       endcase
       case (nextstate_2)
-        Idle       : begin
-                            RST_SEQ_2 <= 1;
-                            RST_SMP_2 <= 1;
-        end
+        Idle       :        smp_2 <= 7'h00;
         Inc_Samp   : begin
                             CLR_CRC_2 <= 1;
-                            INC_SMP_2 <= 1;
-                            RST_SEQ_2 <= 1;
                             VALID_2 <= 1;
+                            seqn_2 <= voted_seqn_2 + 1;
         end
         Last_Word  :        LAST_WRD_2 <= 1;
         Ld_L1A_High: begin
@@ -322,18 +314,22 @@ module Sample_Proc_FSM (
                             LD_L1A_L_2 <= 1;
         end
         Read       : begin
-                            INC_SEQ_2 <= 1;
                             RD_2 <= 1;
                             VALID_2 <= 1;
+                            seqn_2 <= voted_seqn_2 + 1;
         end
         St_Data    : begin
-                            INC_SEQ_2 <= 1;
                             RD_2 <= 1;
                             VALID_2 <= 1;
         end
-        Tail       : begin
-                            INC_SEQ_2 <= 1;
+        Strt_Seq   : begin
+                            RD_2 <= 1;
                             VALID_2 <= 1;
+                            smp_2 <= voted_smp_2 + 1;
+        end
+        Tail       : begin
+                            VALID_2 <= 1;
+                            seqn_2 <= voted_seqn_2 + 1;
         end
         W4Data     :        CLR_CRC_2 <= 1;
         W4TXACK    : begin
@@ -342,15 +338,11 @@ module Sample_Proc_FSM (
         end
       endcase
       case (nextstate_3)
-        Idle       : begin
-                            RST_SEQ_3 <= 1;
-                            RST_SMP_3 <= 1;
-        end
+        Idle       :        smp_3 <= 7'h00;
         Inc_Samp   : begin
                             CLR_CRC_3 <= 1;
-                            INC_SMP_3 <= 1;
-                            RST_SEQ_3 <= 1;
                             VALID_3 <= 1;
+                            seqn_3 <= voted_seqn_3 + 1;
         end
         Last_Word  :        LAST_WRD_3 <= 1;
         Ld_L1A_High: begin
@@ -362,18 +354,22 @@ module Sample_Proc_FSM (
                             LD_L1A_L_3 <= 1;
         end
         Read       : begin
-                            INC_SEQ_3 <= 1;
                             RD_3 <= 1;
                             VALID_3 <= 1;
+                            seqn_3 <= voted_seqn_3 + 1;
         end
         St_Data    : begin
-                            INC_SEQ_3 <= 1;
                             RD_3 <= 1;
                             VALID_3 <= 1;
         end
-        Tail       : begin
-                            INC_SEQ_3 <= 1;
+        Strt_Seq   : begin
+                            RD_3 <= 1;
                             VALID_3 <= 1;
+                            smp_3 <= voted_smp_3 + 1;
+        end
+        Tail       : begin
+                            VALID_3 <= 1;
+                            seqn_3 <= voted_seqn_3 + 1;
         end
         W4Data     :        CLR_CRC_3 <= 1;
         W4TXACK    : begin
@@ -396,6 +392,7 @@ module Sample_Proc_FSM (
       Ld_L1A_Low : statename = "Ld_L1A_Low";
       Read       : statename = "Read";
       St_Data    : statename = "St_Data";
+      Strt_Seq   : statename = "Strt_Seq";
       Tail       : statename = "Tail";
       W4Data     : statename = "W4Data";
       W4TXACK    : statename = "W4TXACK";

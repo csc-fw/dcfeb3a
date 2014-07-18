@@ -102,57 +102,57 @@ TIMESPEC "TS_XO_CLK_AC_P" = PERIOD "XO_CLK_AC_P" 25.000 ns HIGH 50.00%;
 NET "adc_data_in1/frm_clks[0]" TNM_NET = "adc_data_in1_frm_clks_0_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_0_" = PERIOD "adc_data_in1_frm_clks_0_" 25.000 ns HIGH 50.00%; 
 
-# 1024 : define_clock {n:adc_data_in1.frm_clk\[6\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[6\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_21} -rise {0.000000} -f ... (etc.) 
+# 1016 : define_clock {n:adc_data_in1.frm_clk\[6\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[6\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_13} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[10]" TNM_NET = "adc_data_in1_frm_clks_10_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_10_" = PERIOD "adc_data_in1_frm_clks_10_" 25.000 ns HIGH 50.00%; 
 
-# 1025 : define_clock {n:adc_data_in1.frm_clk\[6\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[6\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_22} -rise {0.000000} -f ... (etc.) 
+# 1019 : define_clock {n:adc_data_in1.frm_clk\[6\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[6\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_16} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[11]" TNM_NET = "adc_data_in1_frm_clks_11_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_11_" = PERIOD "adc_data_in1_frm_clks_11_" 25.000 ns HIGH 50.00%; 
 
-# 1015 : define_clock {n:adc_data_in1.frm_clk\[1\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[1\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_12} -rise {0.000000} -f ... (etc.) 
+# 1017 : define_clock {n:adc_data_in1.frm_clk\[1\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[1\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_14} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[1]" TNM_NET = "adc_data_in1_frm_clks_1_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_1_" = PERIOD "adc_data_in1_frm_clks_1_" 25.000 ns HIGH 50.00%; 
 
-# 1016 : define_clock {n:adc_data_in1.frm_clk\[2\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[2\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_13} -rise {0.000000} -f ... (etc.) 
+# 1022 : define_clock {n:adc_data_in1.frm_clk\[2\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[2\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_19} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[2]" TNM_NET = "adc_data_in1_frm_clks_2_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_2_" = PERIOD "adc_data_in1_frm_clks_2_" 25.000 ns HIGH 50.00%; 
 
-# 1017 : define_clock {n:adc_data_in1.frm_clk\[2\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[2\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_14} -rise {0.000000} -f ... (etc.) 
+# 1024 : define_clock {n:adc_data_in1.frm_clk\[2\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[2\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_21} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[3]" TNM_NET = "adc_data_in1_frm_clks_3_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_3_" = PERIOD "adc_data_in1_frm_clks_3_" 25.000 ns HIGH 50.00%; 
 
-# 1018 : define_clock {n:adc_data_in1.frm_clk\[3\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[3\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_15} -rise {0.000000} -f ... (etc.) 
+# 1021 : define_clock {n:adc_data_in1.frm_clk\[3\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[3\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_18} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[4]" TNM_NET = "adc_data_in1_frm_clks_4_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_4_" = PERIOD "adc_data_in1_frm_clks_4_" 25.000 ns HIGH 50.00%; 
 
-# 1019 : define_clock {n:adc_data_in1.frm_clk\[3\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[3\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_16} -rise {0.000000} -f ... (etc.) 
+# 1015 : define_clock {n:adc_data_in1.frm_clk\[3\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[3\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_12} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[5]" TNM_NET = "adc_data_in1_frm_clks_5_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_5_" = PERIOD "adc_data_in1_frm_clks_5_" 25.000 ns HIGH 50.00%; 
 
-# 1020 : define_clock {n:adc_data_in1.frm_clk\[4\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[4\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_17} -rise {0.000000} -f ... (etc.) 
+# 1018 : define_clock {n:adc_data_in1.frm_clk\[4\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[4\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_15} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[6]" TNM_NET = "adc_data_in1_frm_clks_6_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_6_" = PERIOD "adc_data_in1_frm_clks_6_" 25.000 ns HIGH 50.00%; 
 
-# 1021 : define_clock {n:adc_data_in1.frm_clk\[4\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[4\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_18} -rise {0.000000} -f ... (etc.) 
+# 1025 : define_clock {n:adc_data_in1.frm_clk\[4\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[4\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_22} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[7]" TNM_NET = "adc_data_in1_frm_clks_7_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_7_" = PERIOD "adc_data_in1_frm_clks_7_" 25.000 ns HIGH 50.00%; 
 
-# 1022 : define_clock {n:adc_data_in1.frm_clk\[5\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[5\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_19} -rise {0.000000} -f ... (etc.) 
+# 1023 : define_clock {n:adc_data_in1.frm_clk\[5\]\[0\]} -name {adc_data_input_gen_csp_0s|frm_clk\[5\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_20} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[8]" TNM_NET = "adc_data_in1_frm_clks_8_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_8_" = PERIOD "adc_data_in1_frm_clks_8_" 25.000 ns HIGH 50.00%; 
 
-# 1023 : define_clock {n:adc_data_in1.frm_clk\[5\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[5\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_20} -rise {0.000000} -f ... (etc.) 
+# 1020 : define_clock {n:adc_data_in1.frm_clk\[5\]\[1\]} -name {adc_data_input_gen_csp_0s|frm_clk\[5\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_17} -rise {0.000000} -f ... (etc.) 
 
 NET "adc_data_in1/frm_clks[9]" TNM_NET = "adc_data_in1_frm_clks_9_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_9_" = PERIOD "adc_data_in1_frm_clks_9_" 25.000 ns HIGH 50.00%; 

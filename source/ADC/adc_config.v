@@ -50,13 +50,10 @@ module adc_config(
 	reg we;
 	wire [23:0] mem_out;
 	wire [23:0] mem_out0;
-   reg [4:0] ja;
-   reg [4:0] a;
+   reg [4:0] jaddr;
+   reg [4:0] waddr;
 
 
-	wire add_rst;
-	wire cntr_rst;
-	wire incr;
 	wire load;
 	wire scken;
 	wire shen;
@@ -64,9 +61,8 @@ module adc_config(
 	reg  dscken;
 	wire [11:0] cs_mask;
 	reg [4:0] raddr;
-	reg [4:0] addr;
-	reg [5:0] shift_cntr;
-	
+	wire [4:0] addr;
+
 	initial begin
 	   $readmemh ("ADC_ram_contents", ram0, 0, 31);
 	end
@@ -74,7 +70,7 @@ module adc_config(
 	assign la_msel = 4'h0;
 	assign la_mem_out = mem_out;
 	assign la_rd_addr = raddr;
-	assign la_wr_addr = a;
+	assign la_wr_addr = waddr;
 	
 
    assign mem_out0 = ram0[raddr];
@@ -92,42 +88,42 @@ module adc_config(
 //
 	always @(JDATA) begin
 		case(JDATA[23:16])
-			8'h00: ja = 5'h00;
-			8'h01: ja = 5'h01;
-			8'h0f: ja = 5'h02;
-			8'h11: ja = 5'h03;
-			8'h12: ja = 5'h04;
-			8'h14: ja = 5'h05;
-			8'h24: ja = 5'h06;
-			8'h25: ja = 5'h07;
-			8'h26: ja = 5'h08;
-			8'h27: ja = 5'h09;
-			8'h2a: ja = 5'h0a;
-			8'h2b: ja = 5'h0b;
-			8'h42: ja = 5'h0c;
-			8'h45: ja = 5'h0d;
-			8'h46: ja = 5'h0e;
-			8'he2: ja = 5'h0f;
-			8'he3: ja = 5'h10;
-			default: ja = 5'h1f;
+			8'h00: jaddr = 5'h00;
+			8'h01: jaddr = 5'h01;
+			8'h0f: jaddr = 5'h02;
+			8'h11: jaddr = 5'h03;
+			8'h12: jaddr = 5'h04;
+			8'h14: jaddr = 5'h05;
+			8'h24: jaddr = 5'h06;
+			8'h25: jaddr = 5'h07;
+			8'h26: jaddr = 5'h08;
+			8'h27: jaddr = 5'h09;
+			8'h2a: jaddr = 5'h0a;
+			8'h2b: jaddr = 5'h0b;
+			8'h42: jaddr = 5'h0c;
+			8'h45: jaddr = 5'h0d;
+			8'h46: jaddr = 5'h0e;
+			8'he2: jaddr = 5'h0f;
+			8'he3: jaddr = 5'h10;
+			default: jaddr = 5'h1f;
 		endcase
 	end
 	
 //
 // Data/addr/we source multiplexer for memory writes
 //
-   always @(JCTRL or JDATA or JWE or ja or CSP_WE or CSP_WR_DATA or CSP_WR_ADDR) begin
+   always @* begin
 	   if(JCTRL)
 		   begin
 				we = JWE;
 				mem_in = JDATA[23:0];
-				a = ja;
+				waddr = jaddr;
 			end
 		else
 			begin
 				we = CSP_WE[0];
 				mem_in = CSP_WR_DATA;
-				a = CSP_WR_ADDR;
+				waddr = CSP_WR_ADDR;
 			end
 	end
 	
@@ -153,7 +149,7 @@ module adc_config(
 //
    always @(posedge CLK) begin
 	   if(we)
-		   ram0[a] <= mem_in;
+		   ram0[waddr] <= mem_in;
 	end
 	
 //
@@ -180,54 +176,20 @@ module adc_config(
 	end
 	
 //
-// Shift counter with synchronous reset
-//    counts CLK ticks not actual shifts
-//
-   always @(posedge CLK) begin
-	   if(cntr_rst)
-		   shift_cntr <= 6'h00;
-	   else
-		   if(scken)
-			   shift_cntr <= shift_cntr + 1;
-         else
-            shift_cntr <= shift_cntr;
-   end
-
-
-
-//
-// Address counter with synchronous reset
-//
-   always @(posedge CLK) begin
-	   if(add_rst)
-		   addr <= 5'h00;
-	   else
-		   if(incr)
-			   addr <= addr + 1;
-         else
-            addr <= addr;
-   end
-
-
-	
-//
 //  Finite State Machine for controlling the ADC configuration
 //
 
+  
    ADC_Config_FSM #(.Last_Addr(5'h10)) // Use address 0-16
-   ADC_Config_FSM1	(
-  .ADDR_RST(add_rst),    // output -- synchronous address counter reset
-  .CNTR_RST(cntr_rst),   // output -- synchronous shift counter reset
+   ADC_Config_FSM_i	(
+  .ADR(addr),            // output  -- memory address
   .DONE(DONE),           // output -- Conifguration Done signal
-  .INCR(incr),           // output -- Increment address counter
   .LOAD(load),           // output -- Load shift register
   .SCKEN(scken),         // output -- Enable the serial clock generation and ADC chip select signals (CS)
   .SHEN(shen),           // output -- Shift Enable
-  .ADR(addr),            // input  -- memory address
   .CLK(CLK),             // input  -- clock
   .INIT(INIT),           // input  -- Signal to initiate the configuration
-  .RST(RST),             // input  -- Reset 
-  .SCNTR(shift_cntr));   // input  -- Shift counter for sequence control.
-
+  .RST(RST)              // input  -- Reset 
+	);
 endmodule
 

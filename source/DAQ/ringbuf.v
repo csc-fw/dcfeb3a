@@ -71,12 +71,6 @@ wire [11:0] l1a_mtch_num;
 wire [3:0] evt_state;
 
 wire ld_addr;
-wire inc_seq;
-wire rst_seq;
-wire inc_smp;
-wire rst_smp;
-reg [6:0] smp;
-reg [6:0] seq;
 
 
 assign injectdbiterr = 0;
@@ -93,6 +87,7 @@ assign mask_b12_rdad = nxt_wrd && (rd_addr == 12'hFFF);
 assign L1A_EVT_DATA = {l1a_phs,l1a_mtch_num,l1anum};
 assign L1A_EVT_PUSH = ld_addr;
 assign RDATA        = {movlp,ovrlp,ocnt,ring_out};
+assign evt_state[3] = 0;
 
 generate
 if(USE_CHIPSCOPE==1) 
@@ -129,8 +124,8 @@ ring_buf_la ring_buf_la_i (
 	assign rng_buf_la_data[97:94]   = l1anum[3:0];
 	assign rng_buf_la_data[101:98]  = l1a_mtch_num[3:0];
 	assign rng_buf_la_data[105:102] = evt_state;
-	assign rng_buf_la_data[112:106] = smp;
-	assign rng_buf_la_data[119:113] = seq;
+	assign rng_buf_la_data[112:106] = 7'h00;
+	assign rng_buf_la_data[119:113] = 7'h00;
 	assign rng_buf_la_data[131:120] = WDATA;
 	assign rng_buf_la_data[143:132] = ring_out;
 
@@ -157,10 +152,10 @@ ring_buf_la ring_buf_la_i (
 	assign rng_buf_la_data[164]     = valid1;
 	assign rng_buf_la_data[165]     = DATA_PUSH;
 	assign rng_buf_la_data[166]     = ld_addr;
-	assign rng_buf_la_data[167]     = inc_seq;
-	assign rng_buf_la_data[168]     = rst_seq;
-	assign rng_buf_la_data[169]     = inc_smp;
-	assign rng_buf_la_data[170]     = rst_smp;
+	assign rng_buf_la_data[167]     = 1'b0;
+	assign rng_buf_la_data[168]     = 1'b0;
+	assign rng_buf_la_data[169]     = 1'b0;
+	assign rng_buf_la_data[170]     = 1'b0;
 	assign rng_buf_la_data[171]     = mask_b12_strt;
 
 // LA Trigger0 [5:0]
@@ -175,7 +170,7 @@ ring_buf_la ring_buf_la_i (
 	assign rng_buf_la_trig1[3:0]     = evt_state;
 
 // LA Trigger2 [3:0]
-	assign rng_buf_la_trig2[3:0]     = smp[3:0];
+	assign rng_buf_la_trig2[3:0]     = 4'h0;
 	
 end
 else
@@ -273,28 +268,6 @@ always @(posedge CLK or posedge RST_RESYNC) begin
 			l1abuf <= l1abuf;
 end
 
-always @(posedge CLK or posedge RST_RESYNC) begin
-	if(RST_RESYNC)
-		smp <= 7'h00;
-	else
-		if(inc_smp)
-			smp <= smp +1;
-		else if(rst_smp)
-			smp <= 7'h00;
-		else
-			smp <= smp;
-end
-always @(posedge CLK or posedge RST_RESYNC) begin
-	if(RST_RESYNC)
-		seq <= 7'h00;
-	else
-		if(inc_seq)
-			seq <= seq +1;
-		else if(rst_seq)
-			seq <= 7'h00;
-		else
-			seq <= seq;
-end
 
 always @(posedge CLK) begin
 	valid1 <= nxt_wrd;
@@ -303,15 +276,12 @@ always @(posedge CLK) begin
 	eb_amt_s2 <= eb_amt_s1;
 end
 
+
 Ring_Trans_FSM
-Ring_Trans_FSM_i (
-   .INC_SEQ(inc_seq),
-   .INC_SMP(inc_smp),
+Ring_Trans_FSM (
    .LD_ADDR(ld_addr),
    .NXT_L1A(nxt_l1a),
    .RD(nxt_wrd),
-   .RST_SEQ(rst_seq),
-   .RST_SMP(rst_smp),
    .EVT_STATE(evt_state[2:0]),
    .CLK(CLK),
    .EVT_BUF_AFL(EVT_BUF_AFL),
@@ -319,29 +289,7 @@ Ring_Trans_FSM_i (
    .L1A_BUF_MT(l1a_buf_mt),
    .RING_AMT(ring_amt),
    .RST(RST_RESYNC),
-   .SAMP_MAX(SAMP_MAX),
-   .SEQ(seq),
-   .SMP(smp)
+   .SAMP_MAX(SAMP_MAX)
 );
-//Ring_Trans_TMR
-//Ring_Trans_TMR_FSM (
-//   .INC_SEQ(inc_seq),
-//   .INC_SMP(inc_smp),
-//   .LD_ADDR(ld_addr),
-//   .NXT_L1A(nxt_l1a),
-//   .RD(nxt_wrd),
-//   .RST_SEQ(rst_seq),
-//   .RST_SMP(rst_smp),
-//   .EVT_STATE(evt_state[2:0]),
-//   .CLK(CLK),
-//   .EVT_BUF_AFL(EVT_BUF_AFL),
-//   .EVT_BUF_AMT(eb_amt_s2),
-//   .L1A_BUF_MT(l1a_buf_mt),
-//   .RING_AMT(ring_amt),
-//   .RST(RST_RESYNC),
-//   .SAMP_MAX(SAMP_MAX),
-//   .SEQ(seq),
-//   .SMP(smp)
-//);
 	
 endmodule

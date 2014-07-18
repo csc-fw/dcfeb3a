@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 2:24:34 PM on 6/25/14
+## File last modified by Fizzim: 11:48:03 AM on 7/18/14
 <version>
    14.02.18
 </version>
@@ -510,62 +510,6 @@
          -1
          </page>
       </INIT_DONE>
-      <CNT[4:0]>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </CNT[4:0]>
       <SLOW_CNT[11:0]>
             <status>
             GLOBAL_FIXED
@@ -792,7 +736,7 @@
          -1
          </page>
       </ADC_INIT>
-      <INC>
+      <INC_TMR>
             <status>
             GLOBAL_FIXED
             </status>
@@ -847,13 +791,13 @@
          <page>
          -1
          </page>
-      </INC>
-      <CRST>
+      </INC_TMR>
+      <cnt[4:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -883,13 +827,13 @@
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         1
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -903,7 +847,7 @@
          <page>
          -1
          </page>
-      </CRST>
+      </cnt[4:0]>
    </outputs>
    <state>
       <name>
@@ -1130,7 +1074,7 @@
          -1
          </page>
       </ADC_INIT>
-      <INC>
+      <INC_TMR>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1185,13 +1129,13 @@
          <page>
          -1
          </page>
-      </INC>
-      <CRST>
+      </INC_TMR>
+      <cnt[4:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -1221,13 +1165,13 @@
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         1
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -1241,7 +1185,7 @@
          <page>
          -1
          </page>
-      </CRST>
+      </cnt[4:0]>
    </state>
    <trans>
       <name>
@@ -1698,7 +1642,7 @@ fzm_globalTable
          1
          </page>
       </ADC_INIT>
-      <INC>
+      <INC_TMR>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1706,62 +1650,6 @@ fzm_globalTable
          0
             <status>
             GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </INC>
-      <CRST>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         1
-            <status>
-            LOCAL
             </status>
          </value>
          <vis>
@@ -1809,7 +1697,63 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CRST>
+      </INC_TMR>
+      <cnt[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </cnt[4:0]>
    </attributes>
    <x0>
    400
@@ -2061,7 +2005,7 @@ fzm_globalTable
          1
          </page>
       </ADC_INIT>
-      <INC>
+      <INC_TMR>
             <status>
             GLOBAL_FIXED
             </status>
@@ -2069,62 +2013,6 @@ fzm_globalTable
          0
             <status>
             GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </INC>
-      <CRST>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         1
-            <status>
-            LOCAL
             </status>
          </value>
          <vis>
@@ -2172,7 +2060,63 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CRST>
+      </INC_TMR>
+      <cnt[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </cnt[4:0]>
    </attributes>
    <x0>
    400
@@ -2640,7 +2584,7 @@ fzm_globalTable
          1
          </page>
       </ADC_INIT>
-      <INC>
+      <INC_TMR>
             <status>
             GLOBAL_FIXED
             </status>
@@ -2648,62 +2592,6 @@ fzm_globalTable
          0
             <status>
             GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </INC>
-      <CRST>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         1
-            <status>
-            LOCAL
             </status>
          </value>
          <vis>
@@ -2751,7 +2639,63 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CRST>
+      </INC_TMR>
+      <cnt[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         5'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </cnt[4:0]>
    </attributes>
    <x0>
    400
@@ -3462,12 +3406,68 @@ fzm_globalTable
          1
          </page>
       </ADC_INIT>
-      <INC>
+      <INC_TMR>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
          1
+         </page>
+      </INC_TMR>
+      <cnt[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         cnt + 1
             <status>
             LOCAL
             </status>
@@ -3497,13 +3497,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -3517,63 +3517,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </INC>
-      <CRST>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </CRST>
+      </cnt[4:0]>
    </attributes>
    <x0>
    400
@@ -3905,7 +3849,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         CNT == 5
+         cnt == 6
             <status>
             LOCAL
             </status>
@@ -4527,7 +4471,7 @@ fzm_globalTable
          1
          </page>
       </ADC_INIT>
-      <INC>
+      <INC_TMR>
             <status>
             GLOBAL_FIXED
             </status>
@@ -4582,13 +4526,13 @@ fzm_globalTable
          <page>
          1
          </page>
-      </INC>
-      <CRST>
+      </INC_TMR>
+      <cnt[4:0]>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -4618,13 +4562,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -4638,7 +4582,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </CRST>
+      </cnt[4:0]>
    </attributes>
    <x0>
    400
@@ -5349,12 +5293,68 @@ fzm_globalTable
          1
          </page>
       </ADC_INIT>
-      <INC>
+      <INC_TMR>
             <status>
             GLOBAL_FIXED
             </status>
          <value>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
          1
+         </page>
+      </INC_TMR>
+      <cnt[4:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         cnt + 1
             <status>
             LOCAL
             </status>
@@ -5384,13 +5384,13 @@ fzm_globalTable
             </status>
          </color>
          <useratts>
-         
+         suppress_portlist
             <status>
             GLOBAL_VAR
             </status>
          </useratts>
          <resetval>
-         0
+         5'h00
             <status>
             GLOBAL_VAR
             </status>
@@ -5404,63 +5404,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </INC>
-      <CRST>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         2
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         output
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         1
-         </page>
-      </CRST>
+      </cnt[4:0]>
    </attributes>
    <x0>
    625
@@ -5549,7 +5493,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         CNT == 12
+         cnt == 13
             <status>
             LOCAL
             </status>
@@ -5792,7 +5736,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         CNT == 17
+         cnt == 18
             <status>
             LOCAL
             </status>

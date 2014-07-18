@@ -64,10 +64,6 @@ module pipeline_gen_csp #(
 	wire  fl_a[6:1][1:0], fl_b[6:1][1:0];
 
 
-	reg [8:0] wcnt[6:1][1:0];
-
-	reg  [3:0] hold[6:1][1:0];
-	wire inc_h[6:1][1:0];
 	wire pipe_reset[6:1][1:0];
 	wire rena[6:1][1:0];
    wire wena[6:1][1:0];
@@ -115,7 +111,6 @@ pipe_la pipe_la0 (
 	assign pipe_la0_data[99:90]      = tcnt[5][1];
 	assign pipe_la0_data[109:100]    = tcnt[6][0];
 	assign pipe_la0_data[119:110]    = tcnt[6][1];
-//	assign pipe_la0_data[128:120]    = wcnt_a[5][1];
 //	assign pipe_la0_data[137:129]    = rdcnt_a[5][1];
 	assign pipe_la0_data[128:120]    = 9'h000;
 	assign pipe_la0_data[137:129]    = 9'h000;
@@ -311,38 +306,16 @@ generate
 
 			Pipe_Start_FSM 
 			Pipe_Start_FSM (
-			  .INC_H(inc_h[G][S]),                 // Increment Hold counter
 			  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
 			  .RE(rena[G][S]),                     // Read enable
 			  .WE(wena[G][S]),                     // Write enable
 			  .CLK(wrclk[G][S]),                   // Clock
-			  .HOLD(hold[G][S]),                   // 4 bit Hold counter
 			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
 			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
-			  .RST(RST),                           // Reset
-			  .WCNT(wcnt[G][S])                  // Write count from pipeline
+			  .RST(RST)                           // Reset
 			);
 
 
-			always @(posedge wrclk[G][S] or posedge RST) begin
-				if(RST)
-					hold[G][S] <= 4'h0;
-				else
-					if(inc_h[G][S])
-						hold[G][S] <= hold[G][S] + 1;
-					else
-						hold[G][S] <= hold[G][S];
-			end
-			
-			always @(posedge wrclk[G][S] or posedge trst[G][S]) begin
-				if(trst[G][S])
-					wcnt[G][S] <= 9'h000;
-				else
-					if(wena[G][S])
-						wcnt[G][S] <= wcnt[G][S] + 1;
-					else
-						wcnt[G][S] <= wcnt[G][S];
-			end
 			
 			assign trst[G][S] = RST | pipe_reset[G][S];
 			
