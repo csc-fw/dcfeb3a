@@ -37,6 +37,7 @@ module chanlink_fifo #(
 	output EVT_BUF_AFL,
 	output reg LAST_WRD,
 	output reg DVALID,
+	output reg MLT_OVLP,
 	output reg [15:0] DOUT
 	);
 
@@ -56,9 +57,10 @@ wire l1a_buf_full;
 wire l1a_sbiterr;
 wire l1a_dbiterr;
 	
-wire ovrlap;
 wire ovrlp;
 wire movlp;
+reg  mlt_ovlp1;
+reg  mlt_ovlp2;
 wire [3:0] ocnt;
 wire [11:0] data_out;
 reg serial;
@@ -93,7 +95,6 @@ reg mt_r1,mt_r2,mt_r3;
 
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
-assign ovrlap = 0;
 assign {l1a_phase,l1amcnt,l1acnt} = L1A_EVT_DATA;
 assign l1a_out = nxt_l1a_sync1 & ~nxt_l1a_sync2;
 
@@ -237,9 +238,12 @@ always @(posedge RCLK) begin
 	mt_r2 <= mt_r1;
 	mt_r3 <= mt_r2;
 	adcdata <= {1'b0,data_out};
-	fullwrd <= {1'b0,~ovrlap,serial,1'b0,data_out};
+	fullwrd <= {1'b0,~ovrlp,serial,1'b0,data_out};
 	clr_crc <= clr_crc0;
 	seq1    <= seq;
+	mlt_ovlp1  <= movlp;
+	mlt_ovlp2  <= mlt_ovlp1;
+	MLT_OVLP  <= mlt_ovlp2;
 	valid1  <= valid0;
 	valid2  <= valid1;
 	DVALID  <= valid2;
