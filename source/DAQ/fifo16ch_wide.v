@@ -43,7 +43,8 @@ module fifo16ch_wide #(
 	input TRIG_IN,
 	output TRIG_OUT,
 	output RDY,
-	output [43:0] L1A_SMP_OUT,
+	output [37:0] L1A_SMP_OUT,
+	output reg [5:0] OVRLP_SMP_OUT,
 	output [191:0] DOUT_16CH,
 	output [23:0] L1A_CNT,
 	output [11:0] L1A_MTCH_CNT,
@@ -79,6 +80,14 @@ module fifo16ch_wide #(
 	reg  new_l1a_d1;
 	reg  [3:0] ovrlap_cnt;
 	reg  [127:0] event_pipe;
+	
+	wire ovrlap_smp_out;
+	wire multi_ovlp_smp_out;
+	wire [3:0] ovrlap_cnt_smp_out;
+	wire [23:0] l1acnt_smp_out;
+	wire [11:0] l1amcnt_smp_out;
+	wire l1a_match_smp_out;
+	wire l1a_phase_smp_out;
 	 
 	reg l1a_match_d1;
 	reg l1a_match_d2;
@@ -93,6 +102,7 @@ module fifo16ch_wide #(
 
 	assign L1A_CNT = l1acnt;
 	assign L1A_MTCH_CNT = l1amcnt;
+	assign L1A_SMP_OUT = {l1a_phase_smp_out,l1a_match_smp_out,l1amcnt_smp_out,l1acnt_smp_out};
 	 
 	assign DOUT_16CH = {fout[15],fout[14],fout[13],fout[12],fout[11],fout[10],fout[9],fout[8],fout[7],fout[6],fout[5],fout[4],fout[3],fout[2],fout[1],fout[0]};
 	assign stretch_l1a = L1A_MATCH | l1a_match_d1;
@@ -297,12 +307,18 @@ l1a_smp_fifo l1a_smp_fifo_i (
   .din({multi_ovlp,ovrlap,l1a_phase_r1,l1a_match_d2,ovrlap_cnt,l1amcnt_r1,l1acnt_r1}), // input [43 : 0] din
   .wr_en(l1a_wren),                    // input wr_en
   .rd_en(L1A_RD_EN),                   // input rd_en
-  .dout(L1A_SMP_OUT),                  // output [43 : 0] dout
+  .dout({multi_ovlp_smp_out,ovrlap_smp_out,l1a_phase_smp_out,l1a_match_smp_out,ovrlap_cnt_smp_out,l1amcnt_smp_out,l1acnt_smp_out}),             // output [43 : 0] dout
   .full(l1a_smp_fl),                   // output full
   .empty(l1a_smp_mt),                  // output empty
   .sbiterr(l1a_smp_sbiterr),           // output sbiterr
   .dbiterr(l1a_smp_dbiterr)            // output dbiterr
 );
 
+always @(posedge RDCLK) begin
+   if(L1A_RD_EN)
+		OVRLP_SMP_OUT <= {multi_ovlp_smp_out,ovrlap_smp_out,ovrlap_cnt_smp_out};
+	else
+		OVRLP_SMP_OUT <= OVRLP_SMP_OUT;
+end
 	
 endmodule

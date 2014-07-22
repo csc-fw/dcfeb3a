@@ -25,7 +25,7 @@ module dcfeb3a #(
 //	parameter Simulation = 1,
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
-//	parameter ADC_Init_tmo = 12'd1 // 10ms
+//	parameter ADC_Init_tmo = 12'd1 
 	)(
 
 	//Clocks
@@ -1016,7 +1016,8 @@ wire [15:0] fifo1_rd_ena;
 wire l1a_rd_en;
 wire l1a_smp_rdy;
 wire [6:0] samp_max;
-wire [43:0] l1a_smp_out;
+wire [37:0] l1a_smp_out;
+wire [5:0] ovrlp_smp_out;
 wire [15:0] f16_mt;
 wire rst_resync;
 wire daq_fifo_rst;
@@ -1077,8 +1078,9 @@ fifo1 (
 	.TRIG_IN(rng_ff1_trg_in),
 	.TRIG_OUT(rng_ff1_trg_out),
 	.RDY(l1a_smp_rdy),
-	.L1A_SMP_OUT(l1a_smp_out),  // 44 bit wide output two entries per sample
-	.DOUT_16CH(doutfifo),  // 192 bit wide output at 160 MHz for 6 X (n samples)
+	.L1A_SMP_OUT(l1a_smp_out),      // 38 bit wide output two entries per sample, contains L1A info
+	.OVRLP_SMP_OUT(ovrlp_smp_out),  // 6 bit wide output, overlap information, registered and clock enabled to contain the current sample info.
+	.DOUT_16CH(doutfifo),           // 192 bit wide output at 160 MHz for 6 X (n samples)
 	.L1A_CNT(l1a_cnt),
 	.L1A_MTCH_CNT(l1a_mtch_cnt),
 	.fmt(f16_mt)
@@ -1163,7 +1165,8 @@ ringbuf_i(
 	.SAMP_MAX(samp_max),
    .WDATA(rdf_wdata),
 	.WREN(rdf_wren),
-   .L1A_SMP_DATA(l1a_smp_out),  // 44 bit wide input;
+   .L1A_SMP_DATA(l1a_smp_out),  // 38 bit wide input;
+   .OVRLP_SMP_DATA(ovrlp_smp_out),  // 6 bit wide input;
 	.L1A_WRT_EN(l1a_rd_en),
 	.EVT_BUF_AMT(eth_evt_buf_amt),
 	.EVT_BUF_AFL(eth_evt_buf_afl),

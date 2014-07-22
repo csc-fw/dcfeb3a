@@ -124,6 +124,7 @@ reg dsr_ho;
 reg [7:0] dsr_ho_tmr;
 wire clr_dsr_ho;
 wire rst_samp_mmcm;
+wire rst_mmcm_pipe_in;
 
   
 
@@ -144,6 +145,7 @@ wire rst_samp_mmcm;
   assign tp_b35_0 = 1'b0;
   assign trl_edg_rst = (~RST & rst_d2); //two clocks wide
   assign lead_edg_resync = RESYNC & ~resync_d1 ; //one clocks wide
+  assign rst_mmcm_pipe_in = lead_edg_resync | trl_edg_rst | cap_phase | SAMP_CLK_PHS_CHNG;
 //  assign ADC_CLK = CLK20;
   assign rst_samp_mmcm = |rst_mmcm_pipe;
   assign DSR_RESYNC = dsr_ho;
@@ -169,7 +171,7 @@ begin
 	resync_d1 <= RESYNC;
 	lead_edg_resync_d1 <= lead_edg_resync;
 	cap_phase <= lead_edg_resync | lead_edg_resync_d1  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
-	rst_mmcm_pipe <= {rst_mmcm_pipe[6:0],cap_phase};
+	rst_mmcm_pipe <= {rst_mmcm_pipe[6:0],rst_mmcm_pipe_in};
 end
 
 always @(posedge CLK40 or posedge RST)

@@ -46,6 +46,8 @@ wire injectdbiterr;
 wire injectsbiterr;
 
 // signals for readout FIFO
+wire evt_buf_overflow;
+wire evt_buf_underflow;
 wire evt_buf_mt;
 wire evt_buf_full;
 wire evt_sbiterr;
@@ -212,7 +214,9 @@ end
 		.injectsbiterr(injectsbiterr),
 		.dout({movlp,ovrlp,ocnt,data_out}), // output [17 : 0] dout
 		.full(evt_buf_full),
+		.overflow(evt_buf_overflow), // output overflow
 		.empty(evt_buf_mt),
+		.underflow(evt_buf_underflow), // output underflow
 		.prog_full(EVT_BUF_AFL),
 		.prog_empty(EVT_BUF_AMT),
 		.sbiterr(evt_sbiterr),

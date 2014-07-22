@@ -9,7 +9,8 @@ module ringbuf #(
 	input [6:0] SAMP_MAX,
 	input [11:0] WDATA,
 	input WREN,
-	input [43:0] L1A_SMP_DATA,
+	input [37:0] L1A_SMP_DATA,
+	input [5:0] OVRLP_SMP_DATA,
 	input L1A_WRT_EN,
 	input EVT_BUF_AMT,
 	input EVT_BUF_AFL,
@@ -70,12 +71,14 @@ wire [23:0] l1anum;
 wire [11:0] l1a_mtch_num;
 wire [3:0] evt_state;
 
+
 wire ld_addr;
 
 
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
-assign {multi_ovlp_smp,ovrlap_smp,l1a_phase_smp,l1a_match_smp,ovrlap_cnt,l1amcnt,l1acnt} = L1A_SMP_DATA;
+assign {l1a_phase_smp,l1a_match_smp,l1amcnt,l1acnt} = L1A_SMP_DATA;
+assign {multi_ovlp_smp,ovrlap_smp,ovrlap_cnt} = OVRLP_SMP_DATA;
 assign l1a_push     = L1A_WRT_EN & l1a_match_smp;
 assign ring_cnt_strt = wrt_addr - strt_addr;
 assign ring_cnt_rdad = wrt_addr2 - rd_addr;
@@ -178,6 +181,7 @@ begin
 	assign TRIG_OUT = 0;
 end
 endgenerate
+
 
 always @(posedge CLK or posedge RST_RESYNC) begin
 	if(RST_RESYNC)

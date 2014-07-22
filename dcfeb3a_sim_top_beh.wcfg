@@ -10,18 +10,19 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="1260" />
+   <WVObjectSize size="1192" />
    <wave_markers>
       <marker time="388748000000" label="" />
       <marker time="385633000000" label="" />
       <marker time="385824000000" label="" />
       <marker time="385872000000" label="" />
       <marker time="436632100000" label="" />
-      <marker time="428328000000" label="" />
       <marker time="431796100000" label="" />
       <marker time="431742100000" label="" />
       <marker time="431760100000" label="" />
       <marker time="431778100000" label="" />
+      <marker time="428352000000" label="" />
+      <marker time="428392000000" label="" />
    </wave_markers>
    <wvobject fp_name="divider1732" type="divider">
       <obj_property name="label">Top</obj_property>
@@ -1128,10 +1129,6 @@
       <obj_property name="ElementShortName">adc_init_rst</obj_property>
       <obj_property name="ObjectShortName">adc_init_rst</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/inc_h" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_h</obj_property>
-      <obj_property name="ObjectShortName">inc_h</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rst_resync" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">rst_resync</obj_property>
       <obj_property name="ObjectShortName">rst_resync</obj_property>
@@ -1417,10 +1414,6 @@
       <obj_property name="ElementShortName">fl_b[6:1,1:0]</obj_property>
       <obj_property name="ObjectShortName">fl_b[6:1,1:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/inc_h" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_h[6:1,1:0]</obj_property>
-      <obj_property name="ObjectShortName">inc_h[6:1,1:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/pipe_reset" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">pipe_reset[6:1,1:0]</obj_property>
       <obj_property name="ObjectShortName">pipe_reset[6:1,1:0]</obj_property>
@@ -1470,84 +1463,6 @@
       <obj_property name="ElementShortName">G6PIPOUT[191:0]</obj_property>
       <obj_property name="ObjectShortName">G6PIPOUT[191:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">wcnt[6:1,1:0,8:0]</obj_property>
-      <obj_property name="ObjectShortName">wcnt[6:1,1:0,8:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt[6]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[6,1:0,8:0]</obj_property>
-         <obj_property name="ObjectShortName">wcnt[6,1:0,8:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt[5]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[5,1:0,8:0]</obj_property>
-         <obj_property name="ObjectShortName">wcnt[5,1:0,8:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt[4]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[4,1:0,8:0]</obj_property>
-         <obj_property name="ObjectShortName">wcnt[4,1:0,8:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt[3]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[3,1:0,8:0]</obj_property>
-         <obj_property name="ObjectShortName">wcnt[3,1:0,8:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt[2]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[2,1:0,8:0]</obj_property>
-         <obj_property name="ObjectShortName">wcnt[2,1:0,8:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt[1]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[1,1:0,8:0]</obj_property>
-         <obj_property name="ObjectShortName">wcnt[1,1:0,8:0]</obj_property>
-         <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt[1,1]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[1,1,8:0]</obj_property>
-            <obj_property name="ObjectShortName">wcnt[1,1,8:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/wcnt[1,0]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[1,0,8:0]</obj_property>
-            <obj_property name="ObjectShortName">wcnt[1,0,8:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-      </wvobject>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">hold[6:1,1:0,3:0]</obj_property>
-      <obj_property name="ObjectShortName">hold[6:1,1:0,3:0]</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold[6]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[6,1:0,3:0]</obj_property>
-         <obj_property name="ObjectShortName">hold[6,1:0,3:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold[5]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[5,1:0,3:0]</obj_property>
-         <obj_property name="ObjectShortName">hold[5,1:0,3:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold[4]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[4,1:0,3:0]</obj_property>
-         <obj_property name="ObjectShortName">hold[4,1:0,3:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold[3]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[3,1:0,3:0]</obj_property>
-         <obj_property name="ObjectShortName">hold[3,1:0,3:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold[2]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[2,1:0,3:0]</obj_property>
-         <obj_property name="ObjectShortName">hold[2,1:0,3:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold[1]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[1,1:0,3:0]</obj_property>
-         <obj_property name="ObjectShortName">hold[1,1:0,3:0]</obj_property>
-         <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold[1,1]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[1,1,3:0]</obj_property>
-            <obj_property name="ObjectShortName">hold[1,1,3:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-         <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/hold[1,0]" type="array" db_ref_id="1">
-            <obj_property name="ElementShortName">[1,0,3:0]</obj_property>
-            <obj_property name="ObjectShortName">hold[1,0,3:0]</obj_property>
-            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-         </wvobject>
-      </wvobject>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/re_s1" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">re_s1[6:1,1:0]</obj_property>
@@ -1613,10 +1528,6 @@
       <obj_property name="ElementShortName">CLK</obj_property>
       <obj_property name="ObjectShortName">CLK</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /HOLD" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">HOLD[3:0]</obj_property>
-      <obj_property name="ObjectShortName">HOLD[3:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /PDEPTH" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">PDEPTH[8:0]</obj_property>
       <obj_property name="ObjectShortName">PDEPTH[8:0]</obj_property>
@@ -1630,15 +1541,6 @@
       <obj_property name="ElementShortName">RST</obj_property>
       <obj_property name="ObjectShortName">RST</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /WCNT" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">WCNT[8:0]</obj_property>
-      <obj_property name="ObjectShortName">WCNT[8:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /INC_H" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_H</obj_property>
-      <obj_property name="ObjectShortName">INC_H</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /PIP_RST" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">PIP_RST</obj_property>
       <obj_property name="ObjectShortName">PIP_RST</obj_property>
@@ -1650,16 +1552,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /WE" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">WE</obj_property>
       <obj_property name="ObjectShortName">WE</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /state" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">state[2:0]</obj_property>
-      <obj_property name="ObjectShortName">state[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /nextstate" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate[2:0]</obj_property>
-      <obj_property name="ObjectShortName">nextstate[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/pipeline1/\grp[1].seg[0].Pipe_Start_FSM /statename" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">statename[79:0]</obj_property>
@@ -1676,11 +1568,6 @@
       <obj_property name="ElementShortName">CLK</obj_property>
       <obj_property name="ObjectShortName">CLK</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/DAQ_FIFO_Rst_FSM_i/HOLD" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">HOLD[3:0]</obj_property>
-      <obj_property name="ObjectShortName">HOLD[3:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/DAQ_FIFO_Rst_FSM_i/RST" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">RST</obj_property>
       <obj_property name="ObjectShortName">RST</obj_property>
@@ -1692,20 +1579,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/DAQ_FIFO_Rst_FSM_i/DONE" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">DONE</obj_property>
       <obj_property name="ObjectShortName">DONE</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/DAQ_FIFO_Rst_FSM_i/INC_H" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_H</obj_property>
-      <obj_property name="ObjectShortName">INC_H</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/DAQ_FIFO_Rst_FSM_i/state" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">state[2:0]</obj_property>
-      <obj_property name="ObjectShortName">state[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/DAQ_FIFO_Rst_FSM_i/nextstate" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate[2:0]</obj_property>
-      <obj_property name="ObjectShortName">nextstate[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/DAQ_FIFO_Rst_FSM_i/statename" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">statename[87:0]</obj_property>
@@ -1787,16 +1660,11 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/RD_ENA" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">RD_ENA[15:0]</obj_property>
       <obj_property name="ObjectShortName">RD_ENA[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/L1A_RD_EN" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">L1A_RD_EN</obj_property>
-      <obj_property name="ObjectShortName">L1A_RD_EN</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/SAMP_MAX" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">SAMP_MAX[6:0]</obj_property>
       <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/TRIG_IN" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">TRIG_IN</obj_property>
@@ -1810,9 +1678,13 @@
       <obj_property name="ElementShortName">RDY</obj_property>
       <obj_property name="ObjectShortName">RDY</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/L1A_RD_EN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_RD_EN</obj_property>
+      <obj_property name="ObjectShortName">L1A_RD_EN</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/L1A_SMP_OUT" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">L1A_SMP_OUT[43:0]</obj_property>
-      <obj_property name="ObjectShortName">L1A_SMP_OUT[43:0]</obj_property>
+      <obj_property name="ElementShortName">L1A_SMP_OUT[37:0]</obj_property>
+      <obj_property name="ObjectShortName">L1A_SMP_OUT[37:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/DOUT_16CH" type="array" db_ref_id="1">
@@ -1820,15 +1692,20 @@
       <obj_property name="ObjectShortName">DOUT_16CH[191:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/OVRLP_SMP_OUT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">OVRLP_SMP_OUT[5:0]</obj_property>
+      <obj_property name="ObjectShortName">OVRLP_SMP_OUT[5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/L1A_CNT" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">L1A_CNT[23:0]</obj_property>
       <obj_property name="ObjectShortName">L1A_CNT[23:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/L1A_MTCH_CNT" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">L1A_MTCH_CNT[11:0]</obj_property>
       <obj_property name="ObjectShortName">L1A_MTCH_CNT[11:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/fmt" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">fmt[15:0]</obj_property>
@@ -1874,14 +1751,6 @@
       <obj_property name="ElementShortName">stretch_l1a</obj_property>
       <obj_property name="ObjectShortName">stretch_l1a</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/srst" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">srst</obj_property>
-      <obj_property name="ObjectShortName">srst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/sinc" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">sinc</obj_property>
-      <obj_property name="ObjectShortName">sinc</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/injectsbiterr" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">injectsbiterr</obj_property>
       <obj_property name="ObjectShortName">injectsbiterr</obj_property>
@@ -1889,16 +1758,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/injectdbiterr" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">injectdbiterr</obj_property>
       <obj_property name="ObjectShortName">injectdbiterr</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/sbiterr" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">sbiterr[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sbiterr[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/dbiterr" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">dbiterr[15:0]</obj_property>
-      <obj_property name="ObjectShortName">dbiterr[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1a_wren" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">l1a_wren</obj_property>
@@ -1940,10 +1799,126 @@
       <obj_property name="ElementShortName">odec</obj_property>
       <obj_property name="ObjectShortName">odec</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/ovrlap_smp_out" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlap_smp_out</obj_property>
+      <obj_property name="ObjectShortName">ovrlap_smp_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/multi_ovlp_smp_out" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">multi_ovlp_smp_out</obj_property>
+      <obj_property name="ObjectShortName">multi_ovlp_smp_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/ovrlap_cnt_smp_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlap_cnt_smp_out[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ovrlap_cnt_smp_out[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1acnt_smp_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">l1acnt_smp_out[23:0]</obj_property>
+      <obj_property name="ObjectShortName">l1acnt_smp_out[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1amcnt_smp_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">l1amcnt_smp_out[11:0]</obj_property>
+      <obj_property name="ObjectShortName">l1amcnt_smp_out[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1a_match_smp_out" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_match_smp_out</obj_property>
+      <obj_property name="ObjectShortName">l1a_match_smp_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1a_phase_smp_out" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_phase_smp_out</obj_property>
+      <obj_property name="ObjectShortName">l1a_phase_smp_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">sel[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">muxout[15:0,11:0]</obj_property>
       <obj_property name="ObjectShortName">muxout[15:0,11:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[15]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[15,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[15,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[14]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[14,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[14,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[13]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[13,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[13,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[12]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[12,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[12,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[11]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[11,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[11,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[10]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[10,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[10,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[9]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[9,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[9,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[8]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[8,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[8,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[7]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[7,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[7,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[6]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[6,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[6,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[5]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[5,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[5,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[4]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[4,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[4,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[3]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[3,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[3,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[2]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[2,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[2,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[1]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[1,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[1,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout[0]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[0,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[0,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/new_l1a_d1" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">new_l1a_d1</obj_property>
@@ -1952,6 +1927,7 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/ovrlap_cnt" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">ovrlap_cnt[3:0]</obj_property>
       <obj_property name="ObjectShortName">ovrlap_cnt[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/event_pipe" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">event_pipe[127:0]</obj_property>
@@ -1969,22 +1945,22 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1acnt" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">l1acnt[23:0]</obj_property>
       <obj_property name="ObjectShortName">l1acnt[23:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1amcnt" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">l1amcnt[11:0]</obj_property>
       <obj_property name="ObjectShortName">l1amcnt[11:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1acnt_r1" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">l1acnt_r1[23:0]</obj_property>
       <obj_property name="ObjectShortName">l1acnt_r1[23:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1amcnt_r1" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">l1amcnt_r1[11:0]</obj_property>
       <obj_property name="ObjectShortName">l1amcnt_r1[11:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/l1a_phase" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">l1a_phase</obj_property>
@@ -2006,6 +1982,10 @@
       <obj_property name="ElementShortName">smpclk_d2</obj_property>
       <obj_property name="ObjectShortName">smpclk_d2</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/smpclk_d3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">smpclk_d3</obj_property>
+      <obj_property name="ObjectShortName">smpclk_d3</obj_property>
+   </wvobject>
    <wvobject fp_name="divider1027" type="divider">
       <obj_property name="label">FIFO_Load_FSM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -2020,11 +2000,6 @@
       <obj_property name="ElementShortName">RST</obj_property>
       <obj_property name="ObjectShortName">RST</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/SAMPLE" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">SAMPLE[6:0]</obj_property>
-      <obj_property name="ObjectShortName">SAMPLE[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/SAMP_MAX" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">SAMP_MAX[6:0]</obj_property>
       <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
@@ -2033,26 +2008,19 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/SEL" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">SEL[2:0]</obj_property>
       <obj_property name="ObjectShortName">SEL[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/WRENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRENA</obj_property>
+      <obj_property name="ObjectShortName">WRENA</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/START" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">START</obj_property>
       <obj_property name="ObjectShortName">START</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/SINC" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">SINC</obj_property>
-      <obj_property name="ObjectShortName">SINC</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/SRST" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">SRST</obj_property>
-      <obj_property name="ObjectShortName">SRST</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/state" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">state</obj_property>
-      <obj_property name="ObjectShortName">state</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/nextstate" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate</obj_property>
-      <obj_property name="ObjectShortName">nextstate</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/sample_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sample_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">sample_1[6:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/FIFO_Load_FSM1/statename" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">statename[63:0]</obj_property>
@@ -2125,34 +2093,6 @@
       <obj_property name="ObjectShortName">xstate[2:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/inc_chip" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_chip</obj_property>
-      <obj_property name="ObjectShortName">inc_chip</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/inc_chan" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_chan</obj_property>
-      <obj_property name="ObjectShortName">inc_chan</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/inc_cnt" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_cnt</obj_property>
-      <obj_property name="ObjectShortName">inc_cnt</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/rst_chip" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_chip</obj_property>
-      <obj_property name="ObjectShortName">rst_chip</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/rst_chan" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_chan</obj_property>
-      <obj_property name="ObjectShortName">rst_chan</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/rst_cnt" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_cnt</obj_property>
-      <obj_property name="ObjectShortName">rst_cnt</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/xfer_done" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">xfer_done</obj_property>
-      <obj_property name="ObjectShortName">xfer_done</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/WREN" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">WREN</obj_property>
       <obj_property name="ObjectShortName">WREN</obj_property>
@@ -2160,26 +2100,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/DMUX" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">DMUX[11:0]</obj_property>
       <obj_property name="ObjectShortName">DMUX[11:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/rd_sel" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">rd_sel[3:0]</obj_property>
-      <obj_property name="ObjectShortName">rd_sel[3:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/rd_sel_1" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">rd_sel_1[3:0]</obj_property>
-      <obj_property name="ObjectShortName">rd_sel_1[3:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/chip" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">chip[2:0]</obj_property>
-      <obj_property name="ObjectShortName">chip[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/cnt" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">cnt[1:0]</obj_property>
-      <obj_property name="ObjectShortName">cnt[1:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="divider1067" type="divider">
@@ -2209,36 +2129,10 @@
       <obj_property name="ElementShortName">RST</obj_property>
       <obj_property name="ObjectShortName">RST</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/CNT" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">CNT[1:0]</obj_property>
-      <obj_property name="ObjectShortName">CNT[1:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/CHIP" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">CHIP[2:0]</obj_property>
-      <obj_property name="ObjectShortName">CHIP[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/CHAN" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">CHAN[3:0]</obj_property>
       <obj_property name="ObjectShortName">CHAN[3:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/DONE" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">DONE</obj_property>
-      <obj_property name="ObjectShortName">DONE</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/INC_CHAN" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_CHAN</obj_property>
-      <obj_property name="ObjectShortName">INC_CHAN</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/INC_CHIP" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_CHIP</obj_property>
-      <obj_property name="ObjectShortName">INC_CHIP</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/INC_CNT" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_CNT</obj_property>
-      <obj_property name="ObjectShortName">INC_CNT</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/L1A_RD_EN" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">L1A_RD_EN</obj_property>
@@ -2248,31 +2142,13 @@
       <obj_property name="ElementShortName">RDENA</obj_property>
       <obj_property name="ObjectShortName">RDENA</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/RST_CHAN" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST_CHAN</obj_property>
-      <obj_property name="ObjectShortName">RST_CHAN</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/chip_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">chip_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">chip_1[2:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/RST_CHIP" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST_CHIP</obj_property>
-      <obj_property name="ObjectShortName">RST_CHIP</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/RST_CNT" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST_CNT</obj_property>
-      <obj_property name="ObjectShortName">RST_CNT</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/state" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">state[2:0]</obj_property>
-      <obj_property name="ObjectShortName">state[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/nextstate" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate[2:0]</obj_property>
-      <obj_property name="ObjectShortName">nextstate[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/next_DONE" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">next_DONE</obj_property>
-      <obj_property name="ObjectShortName">next_DONE</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/cnt_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_1[2:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/xfer2ringbuf_i/transfer_samples_FSM_i/statename" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">statename[111:0]</obj_property>
@@ -2312,13 +2188,39 @@
       <obj_property name="ObjectShortName">WREN</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/L1A_SMP_DATA" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">L1A_SMP_DATA[43:0]</obj_property>
-      <obj_property name="ObjectShortName">L1A_SMP_DATA[43:0]</obj_property>
+      <obj_property name="ElementShortName">L1A_SMP_DATA[37:0]</obj_property>
+      <obj_property name="ObjectShortName">L1A_SMP_DATA[37:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/OVRLP_SMP_DATA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">OVRLP_SMP_DATA[5:0]</obj_property>
+      <obj_property name="ObjectShortName">OVRLP_SMP_DATA[5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/multi_ovlp_smp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">multi_ovlp_smp</obj_property>
+      <obj_property name="ObjectShortName">multi_ovlp_smp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/ovrlap_smp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlap_smp</obj_property>
+      <obj_property name="ObjectShortName">ovrlap_smp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/ovrlap_cnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlap_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ovrlap_cnt[3:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/L1A_WRT_EN" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">L1A_WRT_EN</obj_property>
       <obj_property name="ObjectShortName">L1A_WRT_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/l1a_match_smp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_match_smp</obj_property>
+      <obj_property name="ObjectShortName">l1a_match_smp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/l1a_push" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_push</obj_property>
+      <obj_property name="ObjectShortName">l1a_push</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/EVT_BUF_AMT" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">EVT_BUF_AMT</obj_property>
@@ -2327,14 +2229,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/EVT_BUF_AFL" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">EVT_BUF_AFL</obj_property>
       <obj_property name="ObjectShortName">EVT_BUF_AFL</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/TRIG_IN" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">TRIG_IN</obj_property>
-      <obj_property name="ObjectShortName">TRIG_IN</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/TRIG_OUT" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">TRIG_OUT</obj_property>
-      <obj_property name="ObjectShortName">TRIG_OUT</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/L1A_EVT_DATA" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">L1A_EVT_DATA[36:0]</obj_property>
@@ -2358,14 +2252,6 @@
       <obj_property name="ElementShortName">ring_out[11:0]</obj_property>
       <obj_property name="ObjectShortName">ring_out[11:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/injectdbiterr" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">injectdbiterr</obj_property>
-      <obj_property name="ObjectShortName">injectdbiterr</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/injectsbiterr" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">injectsbiterr</obj_property>
-      <obj_property name="ObjectShortName">injectsbiterr</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/l1a_buf_mt" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">l1a_buf_mt</obj_property>
@@ -2451,6 +2337,11 @@
       <obj_property name="ElementShortName">multi_ovlp_smp</obj_property>
       <obj_property name="ObjectShortName">multi_ovlp_smp</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/ovrlap_cnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlap_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ovrlap_cnt[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/l1a_phs" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">l1a_phs</obj_property>
       <obj_property name="ObjectShortName">l1a_phs</obj_property>
@@ -2466,11 +2357,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/nxt_wrd" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">nxt_wrd</obj_property>
       <obj_property name="ObjectShortName">nxt_wrd</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/ovrlap_cnt" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">ovrlap_cnt[3:0]</obj_property>
-      <obj_property name="ObjectShortName">ovrlap_cnt[3:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/ocnt" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">ocnt[3:0]</obj_property>
@@ -2505,22 +2391,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/ld_addr" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">ld_addr</obj_property>
       <obj_property name="ObjectShortName">ld_addr</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/inc_seq" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_seq</obj_property>
-      <obj_property name="ObjectShortName">inc_seq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/rst_seq" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_seq</obj_property>
-      <obj_property name="ObjectShortName">rst_seq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/inc_smp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_smp</obj_property>
-      <obj_property name="ObjectShortName">inc_smp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/rst_smp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_smp</obj_property>
-      <obj_property name="ObjectShortName">rst_smp</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/DATA_PUSH" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">DATA_PUSH</obj_property>
@@ -2563,105 +2433,75 @@
       <obj_property name="ObjectShortName">l1abuf[4:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/smp" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">smp[6:0]</obj_property>
-      <obj_property name="ObjectShortName">smp[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/seq" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">seq[6:0]</obj_property>
-      <obj_property name="ObjectShortName">seq[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="divider1090" type="divider">
       <obj_property name="label">Ring Trans FSM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="BkColor">128 128 255</obj_property>
       <obj_property name="TextColor">230 230 230</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/EVT_STATE" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">EVT_STATE[2:0]</obj_property>
-      <obj_property name="ObjectShortName">EVT_STATE[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/CLK" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">CLK</obj_property>
-      <obj_property name="ObjectShortName">CLK</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/EVT_BUF_AFL" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">EVT_BUF_AFL</obj_property>
-      <obj_property name="ObjectShortName">EVT_BUF_AFL</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/EVT_BUF_AMT" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">EVT_BUF_AMT</obj_property>
-      <obj_property name="ObjectShortName">EVT_BUF_AMT</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/L1A_BUF_MT" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">L1A_BUF_MT</obj_property>
-      <obj_property name="ObjectShortName">L1A_BUF_MT</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/RING_AMT" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RING_AMT</obj_property>
-      <obj_property name="ObjectShortName">RING_AMT</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/RST" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST</obj_property>
-      <obj_property name="ObjectShortName">RST</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/SAMP_MAX" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">SAMP_MAX[6:0]</obj_property>
-      <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/SEQ" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">SEQ[6:0]</obj_property>
-      <obj_property name="ObjectShortName">SEQ[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/SMP" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">SMP[6:0]</obj_property>
-      <obj_property name="ObjectShortName">SMP[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/INC_SEQ" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_SEQ</obj_property>
-      <obj_property name="ObjectShortName">INC_SEQ</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/INC_SMP" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_SMP</obj_property>
-      <obj_property name="ObjectShortName">INC_SMP</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/LD_ADDR" type="logic" db_ref_id="1">
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/LD_ADDR" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">LD_ADDR</obj_property>
       <obj_property name="ObjectShortName">LD_ADDR</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/NXT_L1A" type="logic" db_ref_id="1">
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/NXT_L1A" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">NXT_L1A</obj_property>
       <obj_property name="ObjectShortName">NXT_L1A</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/RD" type="logic" db_ref_id="1">
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/RD" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">RD</obj_property>
       <obj_property name="ObjectShortName">RD</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/RST_SEQ" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST_SEQ</obj_property>
-      <obj_property name="ObjectShortName">RST_SEQ</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/EVT_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">EVT_STATE[2:0]</obj_property>
+      <obj_property name="ObjectShortName">EVT_STATE[2:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/RST_SMP" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST_SMP</obj_property>
-      <obj_property name="ObjectShortName">RST_SMP</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/state" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">state[2:0]</obj_property>
-      <obj_property name="ObjectShortName">state[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/EVT_BUF_AFL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">EVT_BUF_AFL</obj_property>
+      <obj_property name="ObjectShortName">EVT_BUF_AFL</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/nextstate" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate[2:0]</obj_property>
-      <obj_property name="ObjectShortName">nextstate[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/EVT_BUF_AMT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">EVT_BUF_AMT</obj_property>
+      <obj_property name="ObjectShortName">EVT_BUF_AMT</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM_i/statename" type="array" db_ref_id="1">
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/L1A_BUF_MT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_BUF_MT</obj_property>
+      <obj_property name="ObjectShortName">L1A_BUF_MT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/RING_AMT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RING_AMT</obj_property>
+      <obj_property name="ObjectShortName">RING_AMT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/LD_ADDR_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_ADDR_1</obj_property>
+      <obj_property name="ObjectShortName">LD_ADDR_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/NXT_L1A_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">NXT_L1A_1</obj_property>
+      <obj_property name="ObjectShortName">NXT_L1A_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/RD_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RD_1</obj_property>
+      <obj_property name="ObjectShortName">RD_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/seq_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">seq_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seq_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/smp_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">smp_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">smp_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ringbuf_i/Ring_Trans_FSM/statename" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">statename[79:0]</obj_property>
       <obj_property name="ObjectShortName">statename[79:0]</obj_property>
       <obj_property name="Radix">ASCIIRADIX</obj_property>
@@ -2855,22 +2695,6 @@
       <obj_property name="ObjectShortName">frm_state[3:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/inc_seq" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_seq</obj_property>
-      <obj_property name="ObjectShortName">inc_seq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/rst_seq" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_seq</obj_property>
-      <obj_property name="ObjectShortName">rst_seq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/inc_smp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_smp</obj_property>
-      <obj_property name="ObjectShortName">inc_smp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/rst_smp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_smp</obj_property>
-      <obj_property name="ObjectShortName">rst_smp</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/ce" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">ce</obj_property>
       <obj_property name="ObjectShortName">ce</obj_property>
@@ -2990,10 +2814,6 @@
       <obj_property name="BkColor">128 128 255</obj_property>
       <obj_property name="TextColor">230 230 230</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/SMP_STATE" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">SMP_STATE[3:0]</obj_property>
-      <obj_property name="ObjectShortName">SMP_STATE[3:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/CLK" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">CLK</obj_property>
       <obj_property name="ObjectShortName">CLK</obj_property>
@@ -3019,16 +2839,6 @@
       <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/SEQ" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">SEQ[6:0]</obj_property>
-      <obj_property name="ObjectShortName">SEQ[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/SMP" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">SMP[6:0]</obj_property>
-      <obj_property name="ObjectShortName">SMP[6:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/TXACK" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">TXACK</obj_property>
       <obj_property name="ObjectShortName">TXACK</obj_property>
@@ -3040,14 +2850,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/CLR_CRC" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">CLR_CRC</obj_property>
       <obj_property name="ObjectShortName">CLR_CRC</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/INC_SEQ" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_SEQ</obj_property>
-      <obj_property name="ObjectShortName">INC_SEQ</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/INC_SMP" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_SMP</obj_property>
-      <obj_property name="ObjectShortName">INC_SMP</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/LAST_WRD" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">LAST_WRD</obj_property>
@@ -3065,27 +2867,28 @@
       <obj_property name="ElementShortName">RD</obj_property>
       <obj_property name="ObjectShortName">RD</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/RST_SEQ" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST_SEQ</obj_property>
-      <obj_property name="ObjectShortName">RST_SEQ</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/RST_SMP" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST_SMP</obj_property>
-      <obj_property name="ObjectShortName">RST_SMP</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/VALID" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">VALID</obj_property>
       <obj_property name="ObjectShortName">VALID</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/state" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/SMP_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SMP_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">SMP_STATE[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/SEQ" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SEQ[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/nextstate" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate[3:0]</obj_property>
-      <obj_property name="ObjectShortName">nextstate[3:0]</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/seqn_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">seqn_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seqn_1[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/smp_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">smp_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">smp_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/Sample_Proc_FSM1/statename" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">statename[87:0]</obj_property>
@@ -3190,18 +2993,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/usr_clk_wordwise" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">usr_clk_wordwise</obj_property>
       <obj_property name="ObjectShortName">usr_clk_wordwise</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/inc_rom" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_rom</obj_property>
-      <obj_property name="ObjectShortName">inc_rom</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/rst_rom" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_rom</obj_property>
-      <obj_property name="ObjectShortName">rst_rom</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/rst_rom_arst" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_rom_arst</obj_property>
-      <obj_property name="ObjectShortName">rst_rom_arst</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/frm_state" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">frm_state[3:0]</obj_property>
@@ -3339,18 +3130,6 @@
       <obj_property name="ElementShortName">daq_rate</obj_property>
       <obj_property name="ObjectShortName">daq_rate</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/clr_cnt" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">clr_cnt</obj_property>
-      <obj_property name="ObjectShortName">clr_cnt</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/clr_cnt_rst" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">clr_cnt_rst</obj_property>
-      <obj_property name="ObjectShortName">clr_cnt_rst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/inc_cnt" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_cnt</obj_property>
-      <obj_property name="ObjectShortName">inc_cnt</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/force_error" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">force_error</obj_property>
       <obj_property name="ObjectShortName">force_error</obj_property>
@@ -3412,11 +3191,6 @@
       <obj_property name="ObjectShortName">mgt_tx_data_r[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/count" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">count[3:0]</obj_property>
-      <obj_property name="ObjectShortName">count[3:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/inj_err1" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">inj_err1</obj_property>
       <obj_property name="ObjectShortName">inj_err1</obj_property>
@@ -3457,31 +3231,14 @@
       <obj_property name="ElementShortName">CLR_CRC</obj_property>
       <obj_property name="ObjectShortName">CLR_CRC</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/CRC_CALC" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">CRC_CALC</obj_property>
-      <obj_property name="ObjectShortName">CRC_CALC</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/INC_ROM" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC_ROM</obj_property>
-      <obj_property name="ObjectShortName">INC_ROM</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/RST_ROM" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST_ROM</obj_property>
-      <obj_property name="ObjectShortName">RST_ROM</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/TX_ACK" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">TX_ACK</obj_property>
       <obj_property name="ObjectShortName">TX_ACK</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/state" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">state[3:0]</obj_property>
-      <obj_property name="ObjectShortName">state[3:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/nextstate" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate[3:0]</obj_property>
-      <obj_property name="ObjectShortName">nextstate[3:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/addr_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addr_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/statename" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">statename[79:0]</obj_property>
@@ -3758,25 +3515,9 @@
       <obj_property name="ObjectShortName">POR_STATE[3:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ainc" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ainc</obj_property>
-      <obj_property name="ObjectShortName">ainc</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/awrst" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">awrst</obj_property>
-      <obj_property name="ObjectShortName">awrst</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/qpll_lock_disable" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">qpll_lock_disable</obj_property>
       <obj_property name="ObjectShortName">qpll_lock_disable</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/por_done" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">por_done</obj_property>
-      <obj_property name="ObjectShortName">por_done</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/por_cnt" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">por_cnt</obj_property>
-      <obj_property name="ObjectShortName">por_cnt</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/adc_init_rst_i" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">adc_init_rst_i</obj_property>
@@ -3798,10 +3539,6 @@
       <obj_property name="ElementShortName">restart_all</obj_property>
       <obj_property name="ObjectShortName">restart_all</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/strt_dly_done" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">strt_dly_done</obj_property>
-      <obj_property name="ObjectShortName">strt_dly_done</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/AL_START" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">AL_START</obj_property>
       <obj_property name="ObjectShortName">AL_START</obj_property>
@@ -3814,17 +3551,9 @@
       <obj_property name="ElementShortName">RUN</obj_property>
       <obj_property name="ObjectShortName">RUN</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/awcnt" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">awcnt[4:0]</obj_property>
-      <obj_property name="ObjectShortName">awcnt[4:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/dsr_tmr" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">dsr_tmr[11:0]</obj_property>
       <obj_property name="ObjectShortName">dsr_tmr[11:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/timer" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">timer[6:0]</obj_property>
-      <obj_property name="ObjectShortName">timer[6:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/adc_rdy_r1" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">adc_rdy_r1</obj_property>
@@ -3896,11 +3625,6 @@
       <obj_property name="ElementShortName">CLK</obj_property>
       <obj_property name="ObjectShortName">CLK</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM_i/CNT" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">CNT[4:0]</obj_property>
-      <obj_property name="ObjectShortName">CNT[4:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM_i/INIT_DONE" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">INIT_DONE</obj_property>
       <obj_property name="ObjectShortName">INIT_DONE</obj_property>
@@ -3922,27 +3646,9 @@
       <obj_property name="ElementShortName">ADC_RST</obj_property>
       <obj_property name="ObjectShortName">ADC_RST</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM_i/CRST" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">CRST</obj_property>
-      <obj_property name="ObjectShortName">CRST</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM_i/INC" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INC</obj_property>
-      <obj_property name="ObjectShortName">INC</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM_i/RUN" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">RUN</obj_property>
       <obj_property name="ObjectShortName">RUN</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM_i/state" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">state[2:0]</obj_property>
-      <obj_property name="ObjectShortName">state[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM_i/nextstate" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate[2:0]</obj_property>
-      <obj_property name="ObjectShortName">nextstate[2:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM_i/statename" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">statename[71:0]</obj_property>
@@ -4060,18 +3766,6 @@
       <obj_property name="ObjectShortName">mem_out0[23:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/add_rst" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">add_rst</obj_property>
-      <obj_property name="ObjectShortName">add_rst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/cntr_rst" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">cntr_rst</obj_property>
-      <obj_property name="ObjectShortName">cntr_rst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/incr" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">incr</obj_property>
-      <obj_property name="ObjectShortName">incr</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/load" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">load</obj_property>
       <obj_property name="ObjectShortName">load</obj_property>
@@ -4120,16 +3814,6 @@
       <obj_property name="ElementShortName">we</obj_property>
       <obj_property name="ObjectShortName">we</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ja" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">ja[4:0]</obj_property>
-      <obj_property name="ObjectShortName">ja[4:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/a" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">a[4:0]</obj_property>
-      <obj_property name="ObjectShortName">a[4:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/dscken" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">dscken</obj_property>
       <obj_property name="ObjectShortName">dscken</obj_property>
@@ -4144,86 +3828,11 @@
       <obj_property name="ObjectShortName">addr[4:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/shift_cntr" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">shift_cntr[5:0]</obj_property>
-      <obj_property name="ObjectShortName">shift_cntr[5:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="divider874" type="divider">
       <obj_property name="label">ADC Config_FSM</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="BkColor">128 128 255</obj_property>
       <obj_property name="TextColor">230 230 230</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/ADR" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">ADR[4:0]</obj_property>
-      <obj_property name="ObjectShortName">ADR[4:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/CLK" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">CLK</obj_property>
-      <obj_property name="ObjectShortName">CLK</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/INIT" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INIT</obj_property>
-      <obj_property name="ObjectShortName">INIT</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/RST" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">RST</obj_property>
-      <obj_property name="ObjectShortName">RST</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/SCNTR" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">SCNTR[5:0]</obj_property>
-      <obj_property name="ObjectShortName">SCNTR[5:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/ADDR_RST" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ADDR_RST</obj_property>
-      <obj_property name="ObjectShortName">ADDR_RST</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/CNTR_RST" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">CNTR_RST</obj_property>
-      <obj_property name="ObjectShortName">CNTR_RST</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/DONE" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">DONE</obj_property>
-      <obj_property name="ObjectShortName">DONE</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/INCR" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">INCR</obj_property>
-      <obj_property name="ObjectShortName">INCR</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/LOAD" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">LOAD</obj_property>
-      <obj_property name="ObjectShortName">LOAD</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/SCKEN" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">SCKEN</obj_property>
-      <obj_property name="ObjectShortName">SCKEN</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/SHEN" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">SHEN</obj_property>
-      <obj_property name="ObjectShortName">SHEN</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/state" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">state[2:0]</obj_property>
-      <obj_property name="ObjectShortName">state[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/nextstate" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">nextstate[2:0]</obj_property>
-      <obj_property name="ObjectShortName">nextstate[2:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/statename" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">statename[95:0]</obj_property>
-      <obj_property name="ObjectShortName">statename[95:0]</obj_property>
-      <obj_property name="Radix">ASCIIRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_config1/ADC_Config_FSM1/Last_Addr" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">Last_Addr[4:0]</obj_property>
-      <obj_property name="ObjectShortName">Last_Addr[4:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="divider297" type="divider">
       <obj_property name="label">Clock_Sources</obj_property>
@@ -4407,10 +4016,6 @@
       <obj_property name="ElementShortName">EOS</obj_property>
       <obj_property name="ObjectShortName">EOS</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/lead_edg_resync" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">lead_edg_resync</obj_property>
-      <obj_property name="ObjectShortName">lead_edg_resync</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/cmp_phs_psen" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">cmp_phs_psen</obj_property>
       <obj_property name="ObjectShortName">cmp_phs_psen</obj_property>
@@ -4432,9 +4037,81 @@
       <obj_property name="ObjectShortName">cmp_phs_state[2:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/trg_tx_160_refclk_dv2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">trg_tx_160_refclk_dv2</obj_property>
+      <obj_property name="ObjectShortName">trg_tx_160_refclk_dv2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/cms_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">cms_clk</obj_property>
+      <obj_property name="ObjectShortName">cms_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/clr_dsr_ho" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clr_dsr_ho</obj_property>
+      <obj_property name="ObjectShortName">clr_dsr_ho</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/trl_edg_rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">trl_edg_rst</obj_property>
+      <obj_property name="ObjectShortName">trl_edg_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_mb" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">samp_mb</obj_property>
+      <obj_property name="ObjectShortName">samp_mb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_ma" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">samp_ma</obj_property>
+      <obj_property name="ObjectShortName">samp_ma</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_m0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">samp_m0</obj_property>
+      <obj_property name="ObjectShortName">samp_m0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_m45" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">samp_m45</obj_property>
+      <obj_property name="ObjectShortName">samp_m45</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_m90" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">samp_m90</obj_property>
+      <obj_property name="ObjectShortName">samp_m90</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_m135" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">samp_m135</obj_property>
+      <obj_property name="ObjectShortName">samp_m135</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/clk20_nophase_b" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk20_nophase_b</obj_property>
+      <obj_property name="ObjectShortName">clk20_nophase_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/clk20_nophase" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk20_nophase</obj_property>
+      <obj_property name="ObjectShortName">clk20_nophase</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/pre_clk40" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pre_clk40</obj_property>
+      <obj_property name="ObjectShortName">pre_clk40</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/pre_clk20" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pre_clk20</obj_property>
+      <obj_property name="ObjectShortName">pre_clk20</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/pre_clk20_b" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pre_clk20_b</obj_property>
+      <obj_property name="ObjectShortName">pre_clk20_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_med_lock" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">samp_med_lock</obj_property>
+      <obj_property name="ObjectShortName">samp_med_lock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/sampfbout_med" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">sampfbout_med</obj_property>
+      <obj_property name="ObjectShortName">sampfbout_med</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/CMP_PHS_CHANGE" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">CMP_PHS_CHANGE</obj_property>
       <obj_property name="ObjectShortName">CMP_PHS_CHANGE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/lead_edg_resync" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">lead_edg_resync</obj_property>
+      <obj_property name="ObjectShortName">lead_edg_resync</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/resync_d1" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">resync_d1</obj_property>
@@ -4451,6 +4128,38 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/rst_mmcm_pipe" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">rst_mmcm_pipe[7:0]</obj_property>
       <obj_property name="ObjectShortName">rst_mmcm_pipe[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/rst_samp_mmcm" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_samp_mmcm</obj_property>
+      <obj_property name="ObjectShortName">rst_samp_mmcm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_in_sel" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">samp_in_sel</obj_property>
+      <obj_property name="ObjectShortName">samp_in_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/dsr_ho_tmr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dsr_ho_tmr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">dsr_ho_tmr[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/dsr_ho" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">dsr_ho</obj_property>
+      <obj_property name="ObjectShortName">dsr_ho</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/c20_phase_sel" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">c20_phase_sel</obj_property>
+      <obj_property name="ObjectShortName">c20_phase_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/clk20_phase" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk20_phase</obj_property>
+      <obj_property name="ObjectShortName">clk20_phase</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/rst_d2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_d2</obj_property>
+      <obj_property name="ObjectShortName">rst_d2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/rst_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_d1</obj_property>
+      <obj_property name="ObjectShortName">rst_d1</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/cmp_phase" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">cmp_phase[10:0]</obj_property>

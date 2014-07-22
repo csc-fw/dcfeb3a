@@ -287,7 +287,7 @@ module dcfeb3a_sim_top_tf;
 	.USE_PIPE_CHIPSCOPE(0),
 	.USE_SEM_CHIPSCOPE(0),
 	.Simulation(1),
-	.Strt_dly(20'h00000),
+	.Strt_dly(20'h00004),
 	.POR_tmo(7'd10),
 	.ADC_Init_tmo(12'd9)
 	)
@@ -1179,16 +1179,18 @@ module dcfeb3a_sim_top_tf;
 		usr4 = 10'h3e3; // usr4 instruction
 
 		// Wait 100 ns for global reset to finish
-		#100;
+		#1;
+		#(5*PERIOD);
 		JTAG_reset;
 		Set_Func(8'h00);           // Set Pipeline depth
 		Set_User(usr2);            // User 2 for User Reg access
 		Shift_Data(9,9'd0);       // shift pipe depth
-		#100;
+		#(5*PERIOD);
 		JTAG_reset;
-		#420000;
+		#(17500*PERIOD);
 		Send_L1A_L1A_Match;
-        
+		#(5*PERIOD);
+		Send_L1A_L1A_Match;
 		// Add stimulus here
 
 	end
