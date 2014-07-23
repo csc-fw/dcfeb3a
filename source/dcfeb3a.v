@@ -1190,6 +1190,8 @@ ringbuf_i(
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
 
+wire mlt_ovlp;
+
 chanlink_fifo  #(
 	.USE_CHIPSCOPE(0)
 	)
@@ -1213,6 +1215,7 @@ chanlink_fifo_i(
 	.EVT_BUF_AFL(chlnk_evt_buf_afl),
 	.LAST_WRD(last_wrd),
 	.DVALID(dvalid),
+	.MLT_OVLP(mlt_ovlp),
 	.DOUT(frm_data)
 	);
 	 
@@ -1330,6 +1333,7 @@ daq_optical_out_i (
 		.L1A_MATCH(l1a_match),
 		.LAST_WRD(last_wrd),
 		.DVALID(dvalid),
+		.MLT_OVLP(mlt_ovlp),
 		.FRAME_DATA(frm_data)
 //Temporary assignments
 //		.L1A(1'b0),
