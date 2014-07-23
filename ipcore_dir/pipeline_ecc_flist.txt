@@ -3,7 +3,6 @@ _xmsgs\pn_parser.xmsgs
 pipeline_ecc.asy
 pipeline_ecc.gise
 pipeline_ecc.ngc
-pipeline_ecc.sym
 pipeline_ecc.v
 pipeline_ecc.veo
 pipeline_ecc.xco

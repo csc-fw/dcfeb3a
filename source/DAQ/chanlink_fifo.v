@@ -27,10 +27,11 @@ module chanlink_fifo #(
 	input RST_RESYNC,
 	input FIFO_RST,
 	input [6:0] SAMP_MAX,
-	input [17:0] WDATA,          // 18 bits {movlp,ovrlp,ocnt,ring_out}
-	input WREN,
-	input [36:0] L1A_EVT_DATA,
-	input L1A_WRT_EN,
+	input [11:0] WDATA,          // Data from FIFO1 sample FIFO through xfer2ringbuf multiplexer (12 bits);
+	input WREN,                  // write enable from transfer_samples state machine.
+	input [37:0] L1A_EVT_DATA,   // 38 bit wide input, {l1a_phase,l1a_match,l1amcnt,l1acnt};
+	input [5:0] OVRLP_EVT_DATA,  // 6 bit wide input, {movlp,ovrlp,ocnt,ring_out};
+	input L1A_WRT_EN,            // Output from L1A sample FIFO is written into L1A event FIFO if an L1A match is present (two read enables per sample).
 	input WARN,
 	input TRIG_IN,
 	output TRIG_OUT,
@@ -69,6 +70,10 @@ wire [3:0] ocnt;
 wire [11:0] data_out;
 reg serial;
 wire l1a_phase;
+wire l1a_match_smp;
+wire l1a_push;
+wire ovrlap_smp;
+wire multi_ovlp_smp;
 wire l1a_phs;
 wire nxt_l1a;
 reg nxt_l1a_sync1,nxt_l1a_sync2;
@@ -77,6 +82,7 @@ wire nxt_wrd;
 reg [4:0] l1abuf;
 wire [23:0] l1acnt;
 wire [11:0] l1amcnt;
+wire [3:0] ovrlap_cnt;
 wire [23:0] l1anum;
 wire [11:0] l1a_mtch_num;
 reg [12:0] adcdata;
@@ -97,10 +103,14 @@ reg clr_crc;
 reg valid1,valid2;
 reg mt_r1,mt_r2,mt_r3;
 
+
+
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
-assign {l1a_phase,l1amcnt,l1acnt} = L1A_EVT_DATA;
-assign l1a_out = nxt_l1a_sync1 & ~nxt_l1a_sync2;
+assign {l1a_phase,l1a_match_smp,l1amcnt,l1acnt} = L1A_EVT_DATA;
+assign {multi_ovlp_smp,ovrlap_smp,ovrlap_cnt} = OVRLP_EVT_DATA;
+assign l1a_push  = L1A_WRT_EN & l1a_match_smp;
+assign l1a_out   = nxt_l1a_sync1 & ~nxt_l1a_sync2;
 
 generate
 if(USE_CHIPSCOPE==1) 
@@ -121,7 +131,9 @@ chnlnk_fifo_la chnlnk_fifo_la_i (
 // LA Data [146:0]
 	assign rng_chn_la_data[3:0]     = l1acnt[3:0];
 	assign rng_chn_la_data[7:4]     = l1amcnt[3:0];
-	assign rng_chn_la_data[24:8]    = WDATA[16:0];
+	assign rng_chn_la_data[19:8]    = WDATA;
+	assign rng_chn_la_data[23:20]   = ovrlap_cnt;
+	assign rng_chn_la_data[24]      = ovrlap_smp;
 	assign rng_chn_la_data[36:25]   = data_out;
 	assign rng_chn_la_data[52:37]   = fullwrd;
 	assign rng_chn_la_data[68:53]   = frame;
@@ -142,7 +154,7 @@ chnlnk_fifo_la chnlnk_fifo_la_i (
 	assign rng_chn_la_data[125]     = WARN;
 	assign rng_chn_la_data[126]     = l1a_buf_mt;
 	assign rng_chn_la_data[127]     = evt_buf_mt;
-	assign rng_chn_la_data[128]     = 1'b0;
+	assign rng_chn_la_data[128]     = l1a_push;
 	assign rng_chn_la_data[129]     = mt_r3;
 	assign rng_chn_la_data[130]     = ovrlp;
 	assign rng_chn_la_data[131]     = movlp;
@@ -185,9 +197,9 @@ always @(posedge WCLK or posedge RST_RESYNC) begin
 	if(RST_RESYNC)
 		l1abuf <= 5'h00;
 	else
-		if(L1A_WRT_EN && !l1a_out)
+		if(l1a_push && !l1a_out)
 			l1abuf <= l1abuf + 1;
-		else if(l1a_out && !L1A_WRT_EN)
+		else if(l1a_out && !l1a_push)
 			l1abuf <= l1abuf - 1;
 		else
 			l1abuf <= l1abuf;
@@ -198,7 +210,7 @@ end
 		.wr_clk(WCLK),
 		.rd_clk(RCLK),
 		.din({l1a_phase,l1amcnt,l1acnt}), // input [36 : 0] din
-		.wr_en(L1A_WRT_EN),
+		.wr_en(l1a_push),
 		.rd_en(nxt_l1a),
 		.injectdbiterr(injectdbiterr),
 		.injectsbiterr(injectsbiterr),
@@ -213,7 +225,7 @@ end
 		.rst(FIFO_RST),
 		.wr_clk(WCLK),
 		.rd_clk(RCLK),
-		.din(WDATA), // input [17 : 0] din
+		.din({multi_ovlp_smp,ovrlap_smp,ovrlap_cnt,WDATA}), // input [17 : 0] din
 		.wr_en(WREN),
 		.rd_en(nxt_wrd),
 		.injectdbiterr(injectdbiterr),

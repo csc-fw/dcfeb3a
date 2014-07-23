@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Thu Feb 06 20:18:37 2014
+# Date: Wed Jul 23 18:02:35 2014
 #
 ##############################################################
 #
@@ -30,7 +30,7 @@ SET foundationsym = false
 SET implementationfiletype = Ngc
 SET package = ff1156
 SET removerpms = false
-SET simulationfiles = Behavioral
+SET simulationfiles = Structural
 SET speedgrade = -1
 SET verilogsim = true
 SET vhdlsim = false
@@ -210,4 +210,4 @@ CSET wuser_width=1
 MISC pkg_timestamp=2012-11-19T12:39:56Z
 # END Extra information
 GENERATE
-# CRC: 42d540b0
+# CRC: 4c5be90d

@@ -3,7 +3,6 @@ _xmsgs\pn_parser.xmsgs
 l1a_smp_fifo.asy
 l1a_smp_fifo.gise
 l1a_smp_fifo.ngc
-l1a_smp_fifo.sym
 l1a_smp_fifo.v
 l1a_smp_fifo.veo
 l1a_smp_fifo.xco

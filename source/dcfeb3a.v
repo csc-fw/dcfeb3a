@@ -1062,8 +1062,8 @@ fifo1 (
 	.TRIG_IN(rng_ff1_trg_in),
 	.TRIG_OUT(rng_ff1_trg_out),
 	.RDY(l1a_smp_rdy),
-	.L1A_SMP_OUT(l1a_smp_out),      // 38 bit wide output two entries per sample, contains L1A info
-	.OVRLP_SMP_OUT(ovrlp_smp_out),  // 6 bit wide output, overlap information, registered and clock enabled to contain the current sample info.
+	.L1A_SMP_OUT(l1a_smp_out),      // 38 bit wide output two entries per sample, contains L1A info, {l1a_phase,l1a_match,l1amcnt,l1acnt}
+	.OVRLP_SMP_OUT(ovrlp_smp_out),  // 6 bit wide output, overlap information, registered and clock enabled to contain the current sample info, {multi_ovlp,ovrlap,ovrlap_cnt}.
 	.DOUT_16CH(doutfifo),           // 192 bit wide output at 160 MHz for 6 X (n samples)
 	.L1A_CNT(l1a_cnt),
 	.L1A_MTCH_CNT(l1a_mtch_cnt),
@@ -1147,11 +1147,11 @@ ringbuf_i(
    .RST_RESYNC(rst_resync),
 	.FIFO_RST(daq_fifo_rst),
 	.SAMP_MAX(samp_max),
-   .WDATA(rdf_wdata),
-	.WREN(rdf_wren),
-   .L1A_SMP_DATA(l1a_smp_out),  // 38 bit wide input;
-   .OVRLP_SMP_DATA(ovrlp_smp_out),  // 6 bit wide input;
-	.L1A_WRT_EN(l1a_rd_en),
+   .WDATA(rdf_wdata),               // Data from FIFO1 sample FIFO through xfer2ringbuf multiplexer (12 bits);
+	.WREN(rdf_wren),                 // write enable from transfer_samples state machine.
+   .L1A_SMP_DATA(l1a_smp_out),      // 38 bit wide input, {l1a_phase,l1a_match,l1amcnt,l1acnt};
+   .OVRLP_SMP_DATA(ovrlp_smp_out),  // 6 bit wide input, {multi_ovlp,ovrlap,ovrlap_cnt};
+	.L1A_WRT_EN(l1a_rd_en),          // Read enable from transfer_samples state machine, (two read enables per sample)
 	.EVT_BUF_AMT(eth_evt_buf_amt),
 	.EVT_BUF_AFL(eth_evt_buf_afl),
 	.TRIG_IN(rng_buf_trg_in),
@@ -1188,10 +1188,11 @@ chanlink_fifo_i(
    .RST_RESYNC(rst_resync),
 	.FIFO_RST(daq_fifo_rst),
 	.SAMP_MAX(samp_max),
-	.WDATA(ff_data),              // 18 bits {movlp,ovrlp,ocnt,ring_out}
-	.WREN(ff_push),
-	.L1A_EVT_DATA(l1a_evt_data),  // 37 bits {l1a_phs,l1a_mtch_num,l1anum}
-	.L1A_WRT_EN(l1a_evt_push),
+	.WDATA(rdf_wdata),               // Data from FIFO1 sample FIFO through xfer2ringbuf multiplexer (12 bits);
+	.WREN(rdf_wren),                 // write enable from transfer_samples state machine.
+	.L1A_EVT_DATA(l1a_smp_out),      // 38 bit wide input, {l1a_phase,l1a_match,l1amcnt,l1acnt};
+	.OVRLP_EVT_DATA(ovrlp_smp_out),  // 6 bit wide input, {movlp,ovrlp,ocnt,ring_out};
+	.L1A_WRT_EN(l1a_rd_en),          // Output from L1A sample FIFO is written into L1A event FIFO if an L1A match is present (two read enables per sample).
 	.WARN(ring_warn),
 	.TRIG_IN(rng_chn_trg_in),
 	.TRIG_OUT(rng_chn_trg_out),

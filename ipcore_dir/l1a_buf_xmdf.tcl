@@ -227,10 +227,6 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path l1a_buf.ngc
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type ngc
 incr fcount
 
-utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path l1a_buf.sym
-utilities_xmdf::xmdfSetData $instance FileSet $fcount type symbol
-incr fcount
-
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path l1a_buf.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog
 incr fcount

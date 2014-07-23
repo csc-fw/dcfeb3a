@@ -3,7 +3,6 @@ _xmsgs\pn_parser.xmsgs
 l1a_buf.asy
 l1a_buf.gise
 l1a_buf.ngc
-l1a_buf.sym
 l1a_buf.v
 l1a_buf.veo
 l1a_buf.xco

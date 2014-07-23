@@ -3,7 +3,6 @@ _xmsgs\pn_parser.xmsgs
 evt_buf.asy
 evt_buf.gise
 evt_buf.ngc
-evt_buf.sym
 evt_buf.v
 evt_buf.veo
 evt_buf.xco

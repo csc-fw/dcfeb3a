@@ -3,7 +3,6 @@ _xmsgs\pn_parser.xmsgs
 ring_l1a_buf.asy
 ring_l1a_buf.gise
 ring_l1a_buf.ngc
-ring_l1a_buf.sym
 ring_l1a_buf.v
 ring_l1a_buf.veo
 ring_l1a_buf.xco

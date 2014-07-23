@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "unisims_ver" -lib "unimacro_ver" -lib "xilinxcorelib_ver" -lib "secureip" -o "C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/dcfeb3a_sim_top_tf_isim_beh.exe" -prj "C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/dcfeb3a_sim_top_tf_beh.prj" "work.dcfeb3a_sim_top_tf" "work.glbl" 
