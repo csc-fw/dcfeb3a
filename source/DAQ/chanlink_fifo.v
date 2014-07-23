@@ -25,6 +25,7 @@ module chanlink_fifo #(
 	input WCLK,
 	input RCLK,
 	input RST_RESYNC,
+	input FIFO_RST,
 	input [6:0] SAMP_MAX,
 	input [17:0] WDATA,          // 18 bits {movlp,ovrlp,ocnt,ring_out}
 	input WREN,
@@ -46,6 +47,8 @@ wire injectdbiterr;
 wire injectsbiterr;
 
 // signals for readout FIFO
+wire evt_buf_overflow;
+wire evt_buf_underflow;
 wire evt_buf_mt;
 wire evt_buf_full;
 wire evt_sbiterr;
@@ -57,6 +60,7 @@ wire l1a_buf_full;
 wire l1a_sbiterr;
 wire l1a_dbiterr;
 	
+wire ovrlap;
 wire ovrlp;
 wire movlp;
 reg  mlt_ovlp1;
@@ -190,7 +194,7 @@ always @(posedge WCLK or posedge RST_RESYNC) begin
 end
 	
 	l1a_buf chlnk_l1a_buf_i (
-		.rst(RST_RESYNC),
+		.rst(FIFO_RST),
 		.wr_clk(WCLK),
 		.rd_clk(RCLK),
 		.din({l1a_phase,l1amcnt,l1acnt}), // input [36 : 0] din
@@ -206,7 +210,7 @@ end
 	);
 
 	evt_buf chlnk_evt_buf (
-		.rst(RST_RESYNC),
+		.rst(FIFO_RST),
 		.wr_clk(WCLK),
 		.rd_clk(RCLK),
 		.din(WDATA), // input [17 : 0] din
@@ -216,7 +220,9 @@ end
 		.injectsbiterr(injectsbiterr),
 		.dout({movlp,ovrlp,ocnt,data_out}), // output [17 : 0] dout
 		.full(evt_buf_full),
+		.overflow(evt_buf_overflow), // output overflow
 		.empty(evt_buf_mt),
+		.underflow(evt_buf_underflow), // output underflow
 		.prog_full(EVT_BUF_AFL),
 		.prog_empty(EVT_BUF_AMT),
 		.sbiterr(evt_sbiterr),

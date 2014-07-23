@@ -5,10 +5,12 @@ module ringbuf #(
 	inout [35:0] LA_CNTRL,
    input CLK,
 	input RST_RESYNC,
+	input FIFO_RST,
 	input [6:0] SAMP_MAX,
 	input [11:0] WDATA,
 	input WREN,
-	input [43:0] L1A_SMP_DATA,
+	input [37:0] L1A_SMP_DATA,
+	input [5:0] OVRLP_SMP_DATA,
 	input L1A_WRT_EN,
 	input EVT_BUF_AMT,
 	input EVT_BUF_AFL,
@@ -69,6 +71,7 @@ wire [23:0] l1anum;
 wire [11:0] l1a_mtch_num;
 wire [3:0] evt_state;
 
+
 wire ld_addr;
 wire inc_seq;
 wire rst_seq;
@@ -80,7 +83,8 @@ reg [6:0] seq;
 
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
-assign {multi_ovlp_smp,ovrlap_smp,l1a_phase_smp,l1a_match_smp,ovrlap_cnt,l1amcnt,l1acnt} = L1A_SMP_DATA;
+assign {l1a_phase_smp,l1a_match_smp,l1amcnt,l1acnt} = L1A_SMP_DATA;
+assign {multi_ovlp_smp,ovrlap_smp,ovrlap_cnt} = OVRLP_SMP_DATA;
 assign l1a_push     = L1A_WRT_EN & l1a_match_smp;
 assign ring_cnt_strt = wrt_addr - strt_addr;
 assign ring_cnt_rdad = wrt_addr2 - rd_addr;
@@ -92,6 +96,7 @@ assign mask_b12_rdad = nxt_wrd && (rd_addr == 12'hFFF);
 assign L1A_EVT_DATA = {l1a_phs,l1a_mtch_num,l1anum};
 assign L1A_EVT_PUSH = ld_addr;
 assign RDATA        = {movlp,ovrlp,ocnt,ring_out};
+assign evt_state[3] = 0;
 
 generate
 if(USE_CHIPSCOPE==1) 
@@ -206,7 +211,7 @@ end
 
 	ring_l1a_buf ring_l1a_buf_i (
 	  .clk(CLK), // input clk for read and write
-	  .rst(RST_RESYNC),
+	  .rst(FIFO_RST),
 	  .din({l1a_phase_smp,wrt_addr[11:0],l1amcnt,l1acnt}), // input [48 : 0] din
 	  .wr_en(l1a_push),
 	  .rd_en(nxt_l1a),

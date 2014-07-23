@@ -28,6 +28,7 @@ module fifo16ch_wide #(
 	input WRCLK,
 	input RST,
 	input RST_RESYNC,
+	input FIFO_RST,
 	input L1A,
 	input L1A_MATCH,
 	input [191:0] G1IN,
@@ -42,7 +43,8 @@ module fifo16ch_wide #(
 	input TRIG_IN,
 	output TRIG_OUT,
 	output RDY,
-	output [43:0] L1A_SMP_OUT,
+	output [37:0] L1A_SMP_OUT,
+	output reg [5:0] OVRLP_SMP_OUT,
 	output [191:0] DOUT_16CH,
 	output [23:0] L1A_CNT,
 	output [11:0] L1A_MTCH_CNT,
@@ -80,6 +82,14 @@ module fifo16ch_wide #(
 	reg  new_l1a_d1;
 	reg  [3:0] ovrlap_cnt;
 	reg  [127:0] event_pipe;
+	
+	wire ovrlap_smp_out;
+	wire multi_ovlp_smp_out;
+	wire [3:0] ovrlap_cnt_smp_out;
+	wire [23:0] l1acnt_smp_out;
+	wire [11:0] l1amcnt_smp_out;
+	wire l1a_match_smp_out;
+	wire l1a_phase_smp_out;
 	 
 	reg l1a_match_d1;
 	reg l1a_match_d2;
@@ -89,17 +99,20 @@ module fifo16ch_wide #(
 	reg [11:0] l1amcnt_r1;
 	reg l1a_phase;
 	reg l1a_phase_r1;
-	reg smpclk_dp5,smpclk_d1,smpclk_d2;
+	reg smpclk_dp5,smpclk_d1,smpclk_d2,smpclk_d3;
 	reg [2:0] sel;
 	reg [6:0] sample;
 
 	assign L1A_CNT = l1acnt;
 	assign L1A_MTCH_CNT = l1amcnt;
+	assign L1A_SMP_OUT = {l1a_phase_smp_out,l1a_match_smp_out,l1amcnt_smp_out,l1acnt_smp_out};
 	 
 	assign DOUT_16CH = {fout[15],fout[14],fout[13],fout[12],fout[11],fout[10],fout[9],fout[8],fout[7],fout[6],fout[5],fout[4],fout[3],fout[2],fout[1],fout[0]};
 	assign stretch_l1a = L1A_MATCH | l1a_match_d1;
-	assign phase_align0 = SMPCLK & smpclk_d2;
-	assign phase_align1 = ~SMPCLK & ~smpclk_d2;
+//	assign phase_align0 = SMPCLK & smpclk_d2;
+//	assign phase_align1 = ~SMPCLK & ~smpclk_d2;
+	assign phase_align0 = ~smpclk_d3 & smpclk_d2;
+	assign phase_align1 = smpclk_d3 & ~smpclk_d2;
 	assign evt_start = stretch_l1a & phase_align1;
 	assign evt_end = event_pipe[SAMP_MAX];
 	assign wren = sinc;
@@ -107,7 +120,7 @@ module fifo16ch_wide #(
 	assign multi_ovlp = (ovrlap_cnt > 4'h1);
 	assign new_l1a = (L1A_MATCH & wren);
 	assign oinc = (new_l1a | new_l1a_d1 | (L1A_MATCH & l1a_match_d1));
-	assign odec = evt_end;
+	assign odec = evt_end & (ovrlap | oinc);
 	assign l1a_wren = wren & (phase_align0 | phase_align1);
 	assign RDY = ~l1a_smp_mt;
 	assign injectsbiterr = 1'b0;
@@ -240,6 +253,7 @@ endgenerate
 	always @(posedge WRCLK) begin
 		smpclk_d1 <= smpclk_dp5;
 		smpclk_d2 <= smpclk_d1;
+		smpclk_d3 <= smpclk_d2;
 	end
 	 
 	always @* begin
@@ -296,7 +310,7 @@ genvar Ch;
 generate
 	for (Ch=0; Ch<16; Ch=Ch+1) begin : channel
 		ch_fifo_ecc fifo_ch (            // 36Kb FIFO with ECC protection
-		  .rst(RST_RESYNC),              // input rst
+		  .rst(FIFO_RST),                // input rst
 		  .wr_clk(WRCLK),                // input wr_clk
 		  .rd_clk(RDCLK),                // input rd_clk
 		  .din(muxout[Ch]),              // input [11 : 0] din
@@ -315,18 +329,24 @@ generate
 endgenerate
 
 l1a_smp_fifo l1a_smp_fifo_i (
-  .rst(RST_RESYNC),                    // input rst
+  .rst(FIFO_RST),                      // input rst
   .wr_clk(WRCLK),                      // input wr_clk
   .rd_clk(RDCLK),                      // input rd_clk
   .din({multi_ovlp,ovrlap,l1a_phase_r1,l1a_match_d2,ovrlap_cnt,l1amcnt_r1,l1acnt_r1}), // input [43 : 0] din
   .wr_en(l1a_wren),                    // input wr_en
   .rd_en(L1A_RD_EN),                   // input rd_en
-  .dout(L1A_SMP_OUT),                  // output [43 : 0] dout
+  .dout({multi_ovlp_smp_out,ovrlap_smp_out,l1a_phase_smp_out,l1a_match_smp_out,ovrlap_cnt_smp_out,l1amcnt_smp_out,l1acnt_smp_out}),             // output [43 : 0] dout
   .full(l1a_smp_fl),                   // output full
   .empty(l1a_smp_mt),                  // output empty
   .sbiterr(l1a_smp_sbiterr),           // output sbiterr
   .dbiterr(l1a_smp_dbiterr)            // output dbiterr
 );
 
+always @(posedge RDCLK) begin
+   if(L1A_RD_EN)
+		OVRLP_SMP_OUT <= {multi_ovlp_smp_out,ovrlap_smp_out,ovrlap_cnt_smp_out};
+	else
+		OVRLP_SMP_OUT <= OVRLP_SMP_OUT;
+end
 	
 endmodule
