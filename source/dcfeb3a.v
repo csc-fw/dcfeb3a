@@ -401,18 +401,16 @@ endgenerate
  /////////////////////////////////////////////////////////////////////////////
 
    wire sys_rst;
-	wire cms_clk,cms80;
+	wire cms80;
 	wire icap_clk;
 	wire icap_clk_ena;
 	wire daq_tx_125_refclk,daq_tx_125_refclk_dv2;
-	wire trg_tx_160_refclk,trg_tx_160_refclk_buf;
+	wire trg_tx_160_refclk;
 	wire comp_clk;
 	wire comp_clk80;
 	wire comp_clk160;
 	wire [3:0] cmp_clk_phase;
 	wire [2:0] samp_clk_phase;
-	wire cmp_c0;
-	wire cmp_f0;
 
 	wire trg_tx_pll_lock;
 	wire trg_mmcm_lock;
@@ -420,7 +418,6 @@ endgenerate
 	wire fem_clk320;
 	wire mmcm_rst, daq_mmcm_lock;
 	wire strtup_clk, eos;
-	wire eos_sim,eos_stim;
 	wire adc_clk;
 	wire dsr_resync;
 	wire resync;
@@ -431,8 +428,6 @@ endgenerate
 	wire cap_phase;
 	wire [7:0] rst_mmcm_pipe;
 	wire samp_clk_phs_chng;
-	
-//   assign eos_sim = eos | eos_stim;
 	
 	Clock_sources #(
 		.Simulation(Simulation)
@@ -621,7 +616,6 @@ reg auto_load_m1;
 wire auto_load_ena;
 wire [5:0] al_cnt;
 wire al_done;
-wire al_abort;
 wire [22:0] al_addr;
 wire [15:0] al_cmd_data_out;
 wire [1:0]	al_op;
@@ -992,7 +986,7 @@ pipeline_gen_csp #(
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
 
-wire l1a,l1a_match,lct,l1a_phase,bc0;
+wire l1a,l1a_match,lct,bc0;
 wire [23:0] l1a_cnt;
 wire [11:0] l1a_mtch_cnt;
 wire [191:0] doutfifo;
@@ -1082,8 +1076,6 @@ wire [15:0] txd;
 wire txd_vld;
 wire txack;
 
-wire [15:0] dmb_data;
-wire dmb_vld;
 
 
  /////////////////////////////////////////////////////////////////////////////
@@ -1412,7 +1404,6 @@ daq_optical_out_i (
 	wire [7:0]g1c,g2c,g3c,g4c,g5c,g6c;
 	wire [1:0]comp_mode;
 	wire [2:0]comp_time;
-	wire lct_rst;
 	
 	comparator_io
 	comp_io1 (

@@ -62,7 +62,7 @@ module ADC_Init
     if (RST) begin
       ADC_INIT <= 0;
       ADC_RST <= 0;
-      CRST <= 0;
+      CRST <= 1;
       INC <= 0;
       RUN <= 0;
     end

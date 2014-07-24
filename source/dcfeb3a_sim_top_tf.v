@@ -289,7 +289,7 @@ module dcfeb3a_sim_top_tf;
 	.Simulation(1),
 	.Strt_dly(20'h00004),
 	.POR_tmo(7'd10),
-	.ADC_Init_tmo(12'd9)
+	.ADC_Init_tmo(12'd3)
 	)
 	uut (
 		.CMS_CLK_N(CMS_CLK_N), 
