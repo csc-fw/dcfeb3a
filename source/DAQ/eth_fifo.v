@@ -42,6 +42,7 @@ wire l1a_dbiterr;
 wire ovrlap;
 wire ovrlp;
 wire movlp;
+wire dmy;
 wire [3:0] ocnt;
 wire [11:0] data_out;
 reg serial;
@@ -202,12 +203,12 @@ end
 		.rst(FIFO_RST),
 		.wr_clk(WCLK),
 		.rd_clk(RCLK),
-		.din(WDATA), // input [17 : 0] din
+		.din({1'b0,WDATA}), // input [18 : 0] din
 		.wr_en(WREN),
 		.rd_en(nxt_wrd),
 		.injectdbiterr(injectdbiterr),
 		.injectsbiterr(injectsbiterr),
-		.dout({movlp,ovrlp,ocnt,data_out}), // output [17 : 0] dout
+		.dout({dmy,movlp,ovrlp,ocnt,data_out}), // output [18 : 0] dout
 		.full(evt_buf_full),
 		.overflow(evt_buf_overflow), // output overflow
 		.empty(evt_buf_mt),

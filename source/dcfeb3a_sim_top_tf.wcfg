@@ -10,7 +10,12 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="731" />
+   <WVObjectSize size="730" />
+   <wave_markers>
+      <marker time="392904100000" label="" />
+      <marker time="364222649000" label="" />
+      <marker time="428352000000" label="" />
+   </wave_markers>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/INJPLS_LV" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">INJPLS_LV</obj_property>
       <obj_property name="ObjectShortName">INJPLS_LV</obj_property>
@@ -6310,23 +6315,6 @@
       <obj_property name="ElementShortName">l1a_dbiterr</obj_property>
       <obj_property name="ObjectShortName">l1a_dbiterr</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovrlap" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ovrlap</obj_property>
-      <obj_property name="ObjectShortName">ovrlap</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovrlp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ovrlp</obj_property>
-      <obj_property name="ObjectShortName">ovrlp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/movlp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">movlp</obj_property>
-      <obj_property name="ObjectShortName">movlp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ocnt" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">ocnt[3:0]</obj_property>
-      <obj_property name="ObjectShortName">ocnt[3:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/data_out" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">data_out[11:0]</obj_property>
       <obj_property name="ObjectShortName">data_out[11:0]</obj_property>
@@ -6422,6 +6410,19 @@
       <obj_property name="ElementShortName">clr_crc0</obj_property>
       <obj_property name="ObjectShortName">clr_crc0</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovrlp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlp</obj_property>
+      <obj_property name="ObjectShortName">ovrlp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/movlp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">movlp</obj_property>
+      <obj_property name="ObjectShortName">movlp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ocnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ocnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ocnt[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/LAST_WRD" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">LAST_WRD</obj_property>
       <obj_property name="ObjectShortName">LAST_WRD</obj_property>
@@ -6462,7 +6463,7 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/l1abuf" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">l1abuf[4:0]</obj_property>
       <obj_property name="ObjectShortName">l1abuf[4:0]</obj_property>
-      <obj_property name="Radix">ASCIIRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/adcdata" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">adcdata[12:0]</obj_property>
@@ -7037,7 +7038,7 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM/state" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">state[2:0]</obj_property>
       <obj_property name="ObjectShortName">state[2:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/ADC_Init_FSM/nextstate" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">nextstate[2:0]</obj_property>

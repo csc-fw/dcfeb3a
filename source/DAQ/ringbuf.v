@@ -10,7 +10,7 @@ module ringbuf #(
 	input [11:0] WDATA,
 	input WREN,
 	input [37:0] L1A_SMP_DATA,
-	input [5:0] OVRLP_SMP_DATA,
+	input [6:0] OVRLP_SMP_DATA,
 	input L1A_WRT_EN,
 	input EVT_BUF_AMT,
 	input EVT_BUF_AFL,
@@ -55,6 +55,7 @@ wire l1a_match_smp;
 wire l1a_phase_smp;
 wire ovrlap_smp;
 wire multi_ovlp_smp;
+wire evt_end_smp;
 wire l1a_phs;
 wire l1a_push;
 wire nxt_l1a;
@@ -84,7 +85,7 @@ reg [6:0] seq;
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
 assign {l1a_phase_smp,l1a_match_smp,l1amcnt,l1acnt} = L1A_SMP_DATA;
-assign {multi_ovlp_smp,ovrlap_smp,ovrlap_cnt} = OVRLP_SMP_DATA;
+assign {evt_end_smp,multi_ovlp_smp,ovrlap_smp,ovrlap_cnt} = OVRLP_SMP_DATA;
 assign l1a_push     = L1A_WRT_EN & l1a_match_smp;
 assign ring_cnt_strt = wrt_addr - strt_addr;
 assign ring_cnt_rdad = wrt_addr2 - rd_addr;

@@ -61,12 +61,12 @@ evt_buf your_instance_name (
   .rst(rst), // input rst
   .wr_clk(wr_clk), // input wr_clk
   .rd_clk(rd_clk), // input rd_clk
-  .din(din), // input [17 : 0] din
+  .din(din), // input [18 : 0] din
   .wr_en(wr_en), // input wr_en
   .rd_en(rd_en), // input rd_en
   .injectdbiterr(injectdbiterr), // input injectdbiterr
   .injectsbiterr(injectsbiterr), // input injectsbiterr
-  .dout(dout), // output [17 : 0] dout
+  .dout(dout), // output [18 : 0] dout
   .full(full), // output full
   .overflow(overflow), // output overflow
   .empty(empty), // output empty

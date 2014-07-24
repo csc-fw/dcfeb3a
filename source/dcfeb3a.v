@@ -995,7 +995,7 @@ wire l1a_rd_en;
 wire l1a_smp_rdy;
 wire [6:0] samp_max;
 wire [37:0] l1a_smp_out;
-wire [5:0] ovrlp_smp_out;
+wire [6:0] ovrlp_smp_out;
 wire [15:0] f16_mt;
 wire rst_resync;
 wire daq_fifo_rst;
@@ -1057,7 +1057,7 @@ fifo1 (
 	.TRIG_OUT(rng_ff1_trg_out),
 	.RDY(l1a_smp_rdy),
 	.L1A_SMP_OUT(l1a_smp_out),      // 38 bit wide output two entries per sample, contains L1A info, {l1a_phase,l1a_match,l1amcnt,l1acnt}
-	.OVRLP_SMP_OUT(ovrlp_smp_out),  // 6 bit wide output, overlap information, registered and clock enabled to contain the current sample info, {multi_ovlp,ovrlap,ovrlap_cnt}.
+	.OVRLP_SMP_OUT(ovrlp_smp_out),  // 7 bit wide output, overlap information, registered and clock enabled to contain the current sample info, {evt_end,multi_ovlp,ovrlap,ovrlap_cnt}.
 	.DOUT_16CH(doutfifo),           // 192 bit wide output at 160 MHz for 6 X (n samples)
 	.L1A_CNT(l1a_cnt),
 	.L1A_MTCH_CNT(l1a_mtch_cnt),
@@ -1122,8 +1122,6 @@ wire l1a_evt_push;
 wire [17:0] ff_data;
 wire ff_push;
 wire ring_warn;
-wire chlnk_evt_buf_amt;
-wire chlnk_evt_buf_afl;
 wire eth_evt_buf_amt;
 wire eth_evt_buf_afl;
 
@@ -1142,7 +1140,7 @@ ringbuf_i(
    .WDATA(rdf_wdata),               // Data from FIFO1 sample FIFO through xfer2ringbuf multiplexer (12 bits);
 	.WREN(rdf_wren),                 // write enable from transfer_samples state machine.
    .L1A_SMP_DATA(l1a_smp_out),      // 38 bit wide input, {l1a_phase,l1a_match,l1amcnt,l1acnt};
-   .OVRLP_SMP_DATA(ovrlp_smp_out),  // 6 bit wide input, {multi_ovlp,ovrlap,ovrlap_cnt};
+   .OVRLP_SMP_DATA(ovrlp_smp_out),  // 7 bit wide input, {evt_end,multi_ovlp,ovrlap,ovrlap_cnt};
 	.L1A_WRT_EN(l1a_rd_en),          // Read enable from transfer_samples state machine, (two read enables per sample)
 	.EVT_BUF_AMT(eth_evt_buf_amt),
 	.EVT_BUF_AFL(eth_evt_buf_afl),
@@ -1183,13 +1181,11 @@ chanlink_fifo_i(
 	.WDATA(rdf_wdata),               // Data from FIFO1 sample FIFO through xfer2ringbuf multiplexer (12 bits);
 	.WREN(rdf_wren),                 // write enable from transfer_samples state machine.
 	.L1A_EVT_DATA(l1a_smp_out),      // 38 bit wide input, {l1a_phase,l1a_match,l1amcnt,l1acnt};
-	.OVRLP_EVT_DATA(ovrlp_smp_out),  // 6 bit wide input, {movlp,ovrlp,ocnt,ring_out};
+	.OVRLP_EVT_DATA(ovrlp_smp_out),  // 7 bit wide input, {evt_end,movlp,ovrlp,ocnt,ring_out};
 	.L1A_WRT_EN(l1a_rd_en),          // Output from L1A sample FIFO is written into L1A event FIFO if an L1A match is present (two read enables per sample).
 	.WARN(ring_warn),
 	.TRIG_IN(rng_chn_trg_in),
 	.TRIG_OUT(rng_chn_trg_out),
-	.EVT_BUF_AMT(chlnk_evt_buf_amt),
-	.EVT_BUF_AFL(chlnk_evt_buf_afl),
 	.LAST_WRD(last_wrd),
 	.DVALID(dvalid),
 	.MLT_OVLP(mlt_ovlp),

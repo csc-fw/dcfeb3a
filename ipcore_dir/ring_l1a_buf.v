@@ -33,7 +33,7 @@
 
 `timescale 1 ns/1 ps
 
-module reset_builtin (
+module reset_builtin_ring_l1a_buf (
   CLK, WR_CLK, RD_CLK, INT_CLK, RST, WR_RST_I, RD_RST_I, INT_RST_I
 )/* synthesis syn_black_box syn_noprune=1 */;
   input CLK;
@@ -257,20 +257,20 @@ module ring_l1a_buf (
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<2>_UNCONNECTED ;
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<1>_UNCONNECTED ;
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<0>_UNCONNECTED ;
-  wire [0 : 0] \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i ;
+  wire my_wr_rst_i ;
   assign
     empty = \NlwRenamedSig_OI_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/empty_user ;
   GND   XST_GND (
     .G(N1)
   );
-  reset_builtin   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt  (
+  reset_builtin_ring_l1a_buf   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt  (
     .CLK(clk),
     .WR_CLK(N1),
     .RD_CLK(N1),
     .INT_CLK(N1),
     .RST(rst),
     .WR_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_WR_RST_I<1>_UNCONNECTED , 
-\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]}),
+my_wr_rst_i}),
     .RD_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_RD_RST_I<1>_UNCONNECTED , 
 \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_RD_RST_I<0>_UNCONNECTED }),
     .INT_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_INT_RST_I<1>_UNCONNECTED , 
@@ -281,7 +281,7 @@ module ring_l1a_buf (
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/empty_q  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/empty_fifo ),
-    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
+    .PRE(my_wr_rst_i),
     .Q(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/empty_q_128 )
   );
   FIFO36E1 #(
@@ -315,7 +315,7 @@ module ring_l1a_buf (
 (\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1_RDERR_UNCONNECTED )
 ,
     .REGCE(N1),
-    .RST(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
+    .RST(my_wr_rst_i),
     .RSTREG(N1),
     .SBITERR(sbiterr),
     .WRCLK(clk),
@@ -465,7 +465,7 @@ dout[3], dout[2], dout[1], dout[0]}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/empty_user  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/empty_user_rstpot_130 ),
-    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
+    .PRE(my_wr_rst_i),
     .Q(\NlwRenamedSig_OI_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/empty_user )
   );
   LUT4 #(

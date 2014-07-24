@@ -30,13 +30,11 @@ module chanlink_fifo #(
 	input [11:0] WDATA,          // Data from FIFO1 sample FIFO through xfer2ringbuf multiplexer (12 bits);
 	input WREN,                  // write enable from transfer_samples state machine.
 	input [37:0] L1A_EVT_DATA,   // 38 bit wide input, {l1a_phase,l1a_match,l1amcnt,l1acnt};
-	input [5:0] OVRLP_EVT_DATA,  // 6 bit wide input, {movlp,ovrlp,ocnt,ring_out};
+	input [6:0] OVRLP_EVT_DATA,  // 7 bit wide input, {evt_end,movlp,ovrlp,ocnt,ring_out};
 	input L1A_WRT_EN,            // Output from L1A sample FIFO is written into L1A event FIFO if an L1A match is present (two read enables per sample).
 	input WARN,
 	input TRIG_IN,
 	output TRIG_OUT,
-	output EVT_BUF_AMT,
-	output EVT_BUF_AFL,
 	output reg LAST_WRD,
 	output reg DVALID,
 	output reg MLT_OVLP,
@@ -50,6 +48,8 @@ wire injectsbiterr;
 // signals for readout FIFO
 wire evt_buf_overflow;
 wire evt_buf_underflow;
+wire evt_buf_amt;
+wire evt_buf_afl;
 wire evt_buf_mt;
 wire evt_buf_full;
 wire evt_sbiterr;
@@ -61,9 +61,9 @@ wire l1a_buf_full;
 wire l1a_sbiterr;
 wire l1a_dbiterr;
 	
-wire ovrlap;
 wire ovrlp;
 wire movlp;
+wire end_evt;
 reg  mlt_ovlp1;
 reg  mlt_ovlp2;
 wire [3:0] ocnt;
@@ -74,6 +74,7 @@ wire l1a_match_smp;
 wire l1a_push;
 wire ovrlap_smp;
 wire multi_ovlp_smp;
+wire evt_end_smp;
 wire l1a_phs;
 wire nxt_l1a;
 reg nxt_l1a_sync1,nxt_l1a_sync2;
@@ -108,7 +109,7 @@ reg mt_r1,mt_r2,mt_r3;
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
 assign {l1a_phase,l1a_match_smp,l1amcnt,l1acnt} = L1A_EVT_DATA;
-assign {multi_ovlp_smp,ovrlap_smp,ovrlap_cnt} = OVRLP_EVT_DATA;
+assign {evt_end_smp,multi_ovlp_smp,ovrlap_smp,ovrlap_cnt} = OVRLP_EVT_DATA;
 assign l1a_push  = L1A_WRT_EN & l1a_match_smp;
 assign l1a_out   = nxt_l1a_sync1 & ~nxt_l1a_sync2;
 
@@ -148,8 +149,8 @@ chnlnk_fifo_la chnlnk_fifo_la_i (
 	
 	assign rng_chn_la_data[120]     = WREN;
 	assign rng_chn_la_data[121]     = L1A_WRT_EN;
-	assign rng_chn_la_data[122]     = EVT_BUF_AMT;
-	assign rng_chn_la_data[123]     = EVT_BUF_AFL;
+	assign rng_chn_la_data[122]     = evt_buf_amt;
+	assign rng_chn_la_data[123]     = evt_buf_afl;
 	assign rng_chn_la_data[124]     = LAST_WRD;
 	assign rng_chn_la_data[125]     = WARN;
 	assign rng_chn_la_data[126]     = l1a_buf_mt;
@@ -225,18 +226,18 @@ end
 		.rst(FIFO_RST),
 		.wr_clk(WCLK),
 		.rd_clk(RCLK),
-		.din({multi_ovlp_smp,ovrlap_smp,ovrlap_cnt,WDATA}), // input [17 : 0] din
+		.din({evt_end_smp,multi_ovlp_smp,ovrlap_smp,ovrlap_cnt,WDATA}), // input [18 : 0] din
 		.wr_en(WREN),
 		.rd_en(nxt_wrd),
 		.injectdbiterr(injectdbiterr),
 		.injectsbiterr(injectsbiterr),
-		.dout({movlp,ovrlp,ocnt,data_out}), // output [17 : 0] dout
+		.dout({end_evt,movlp,ovrlp,ocnt,data_out}), // output [18 : 0] dout
 		.full(evt_buf_full),
 		.overflow(evt_buf_overflow), // output overflow
 		.empty(evt_buf_mt),
 		.underflow(evt_buf_underflow), // output underflow
-		.prog_full(EVT_BUF_AFL),
-		.prog_empty(EVT_BUF_AMT),
+		.prog_full(evt_buf_afl),
+		.prog_empty(evt_buf_amt),
 		.sbiterr(evt_sbiterr),
 		.dbiterr(evt_dbiterr)
 	);
@@ -252,7 +253,7 @@ always @* begin
 end
 
 always @(posedge RCLK) begin
-	mt_r1 <= EVT_BUF_AMT;
+	mt_r1 <= evt_buf_mt;
 	mt_r2 <= mt_r1;
 	mt_r3 <= mt_r2;
 	adcdata <= {1'b0,data_out};

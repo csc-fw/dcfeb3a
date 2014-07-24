@@ -33,7 +33,7 @@
 
 `timescale 1 ns/1 ps
 
-module reset_builtin (
+module reset_builtin_pipeline_ecc (
   CLK, WR_CLK, RD_CLK, INT_CLK, RST, WR_RST_I, RD_RST_I, INT_RST_I
 )/* synthesis syn_black_box syn_noprune=1 */;
   input CLK;
@@ -334,20 +334,20 @@ module pipeline_ecc (
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<2>_UNCONNECTED ;
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<1>_UNCONNECTED ;
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<0>_UNCONNECTED ;
-  wire [0 : 0] \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i ;
+  wire my_wr_rst_i ;
   assign
     empty = NlwRenamedSig_OI_empty;
   GND   XST_GND (
     .G(N1)
   );
-  reset_builtin   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt  (
+  reset_builtin_pipeline_ecc   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt  (
     .CLK(N1),
     .WR_CLK(wr_clk),
     .RD_CLK(rd_clk),
     .INT_CLK(N1),
     .RST(rst),
     .WR_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_WR_RST_I<1>_UNCONNECTED , 
-\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]}),
+my_wr_rst_i}),
     .RD_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_RD_RST_I<1>_UNCONNECTED , 
 \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_RD_RST_I<0>_UNCONNECTED }),
     .INT_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_INT_RST_I<1>_UNCONNECTED , 
@@ -384,7 +384,7 @@ module pipeline_ecc (
 (\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gonep.inst_prim/gf36e1_inst.sngfifo36e1_RDERR_UNCONNECTED )
 ,
     .REGCE(N1),
-    .RST(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
+    .RST(my_wr_rst_i),
     .RSTREG(N1),
     .SBITERR(sbiterr),
     .WRCLK(wr_clk),
