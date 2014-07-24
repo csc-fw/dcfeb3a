@@ -77,6 +77,7 @@ wire multi_ovlp_smp;
 wire evt_end_smp;
 wire l1a_phs;
 wire nxt_l1a;
+reg nxt_l1a_r1;
 reg nxt_l1a_sync1,nxt_l1a_sync2;
 wire l1a_out;
 wire nxt_wrd;
@@ -267,7 +268,8 @@ always @(posedge RCLK) begin
 	valid2  <= valid1;
 	DVALID  <= valid2;
 	DOUT    <= frame;
-	LAST_WRD <= nxt_l1a;
+	nxt_l1a_r1 <= nxt_l1a;
+	LAST_WRD   <= nxt_l1a_r1;
 end
 always @(posedge RCLK or posedge clr_crc) begin
 	if(clr_crc)
@@ -334,25 +336,40 @@ function [14:0] CRC15_D13 (input [12:0] d, input [14:0] c);
   end
   endfunction
 
-Frame_Seq_FSM 
-Frame_Seq_FSM1 (
+ChnLnk_Frame_FSM 
+ChnLnk_Frame_FSM_i (
    .CLR_CRC(clr_crc0),
-   .INC_SEQ(inc_seq),
-   .INC_SMP(inc_smp),
    .LAST_WRD(nxt_l1a),
    .RD(nxt_wrd),
-   .RST_SEQ(rst_seq),
-   .RST_SMP(rst_smp),
+   .SEQ(seq),
    .VALID(valid0),
 	.FRM_STATE(frm_state),
    .CLK(RCLK),
-   .FAMT(mt_r3),
+   .END_EVT(end_evt),
+   .F_MT(mt_r3),
    .L1A_BUF_MT(l1a_buf_mt),
-   .RST(RST_RESYNC),
-   .SAMP_MAX(SAMP_MAX),
-   .SEQ(seq),
-   .SMP(smp)
+   .RST(RST_RESYNC)
 );
+
+//Frame_Seq_FSM 
+//Frame_Seq_FSM1 (
+//   .CLR_CRC(clr_crc0),
+//   .INC_SEQ(inc_seq),
+//   .INC_SMP(inc_smp),
+//   .LAST_WRD(nxt_l1a),
+//   .RD(nxt_wrd),
+//   .RST_SEQ(rst_seq),
+//   .RST_SMP(rst_smp),
+//   .VALID(valid0),
+//	.FRM_STATE(frm_state),
+//   .CLK(RCLK),
+//   .FAMT(mt_r3),
+//   .L1A_BUF_MT(l1a_buf_mt),
+//   .RST(RST_RESYNC),
+//   .SAMP_MAX(SAMP_MAX),
+//   .SEQ(seq),
+//   .SMP(smp)
+//);
   
 
 endmodule
