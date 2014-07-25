@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:24 at 17:43:51 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:24 at 19:04:10 (www.fizzim.com)
 
 module ChnLnk_Frame_FSM (
   output reg CLR_CRC,
@@ -48,6 +48,7 @@ module ChnLnk_Frame_FSM (
       Tail_End   : if      (seqn == 7'd99)             nextstate = Last_Word;
                    else                                nextstate = Tail_End;
       Tail_No_End: if      (seqn == 7'd99)             nextstate = W4Data;
+                   else                                nextstate = Tail_No_End;
       W4Data     : if      (!F_MT)                     nextstate = Strt_Sample;
                    else                                nextstate = W4Data;
     endcase

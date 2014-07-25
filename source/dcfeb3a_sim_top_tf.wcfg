@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="730" />
+   <WVObjectSize size="742" />
    <wave_markers>
       <marker time="392904100000" label="" />
       <marker time="364222649000" label="" />
@@ -5288,8 +5288,8 @@
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ovrlp_smp_out" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">ovrlp_smp_out[5:0]</obj_property>
-      <obj_property name="ObjectShortName">ovrlp_smp_out[5:0]</obj_property>
+      <obj_property name="ElementShortName">ovrlp_smp_out[6:0]</obj_property>
+      <obj_property name="ObjectShortName">ovrlp_smp_out[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/f16_mt" type="array" db_ref_id="1">
@@ -5417,14 +5417,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ring_warn" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">ring_warn</obj_property>
       <obj_property name="ObjectShortName">ring_warn</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chlnk_evt_buf_amt" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">chlnk_evt_buf_amt</obj_property>
-      <obj_property name="ObjectShortName">chlnk_evt_buf_amt</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chlnk_evt_buf_afl" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">chlnk_evt_buf_afl</obj_property>
-      <obj_property name="ObjectShortName">chlnk_evt_buf_afl</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_evt_buf_amt" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">eth_evt_buf_amt</obj_property>
@@ -6112,8 +6104,8 @@
       <obj_property name="ObjectShortName">l1a_phase_smp_out</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/OVRLP_SMP_OUT" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">OVRLP_SMP_OUT[5:0]</obj_property>
-      <obj_property name="ObjectShortName">OVRLP_SMP_OUT[5:0]</obj_property>
+      <obj_property name="ElementShortName">OVRLP_SMP_OUT[6:0]</obj_property>
+      <obj_property name="ObjectShortName">OVRLP_SMP_OUT[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/fifo1/muxout" type="array" db_ref_id="1">
@@ -6239,8 +6231,8 @@
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/OVRLP_EVT_DATA" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">OVRLP_EVT_DATA[5:0]</obj_property>
-      <obj_property name="ObjectShortName">OVRLP_EVT_DATA[5:0]</obj_property>
+      <obj_property name="ElementShortName">OVRLP_EVT_DATA[6:0]</obj_property>
+      <obj_property name="ObjectShortName">OVRLP_EVT_DATA[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/L1A_WRT_EN" type="logic" db_ref_id="1">
@@ -6259,14 +6251,6 @@
       <obj_property name="ElementShortName">TRIG_OUT</obj_property>
       <obj_property name="ObjectShortName">TRIG_OUT</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/EVT_BUF_AMT" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">EVT_BUF_AMT</obj_property>
-      <obj_property name="ObjectShortName">EVT_BUF_AMT</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/EVT_BUF_AFL" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">EVT_BUF_AFL</obj_property>
-      <obj_property name="ObjectShortName">EVT_BUF_AFL</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/injectdbiterr" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">injectdbiterr</obj_property>
       <obj_property name="ObjectShortName">injectdbiterr</obj_property>
@@ -6282,6 +6266,14 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/evt_buf_underflow" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">evt_buf_underflow</obj_property>
       <obj_property name="ObjectShortName">evt_buf_underflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/evt_buf_amt" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">evt_buf_amt</obj_property>
+      <obj_property name="ObjectShortName">evt_buf_amt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/evt_buf_afl" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">evt_buf_afl</obj_property>
+      <obj_property name="ObjectShortName">evt_buf_afl</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/evt_buf_mt" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">evt_buf_mt</obj_property>
@@ -6315,6 +6307,23 @@
       <obj_property name="ElementShortName">l1a_dbiterr</obj_property>
       <obj_property name="ObjectShortName">l1a_dbiterr</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovrlp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlp</obj_property>
+      <obj_property name="ObjectShortName">ovrlp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/movlp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">movlp</obj_property>
+      <obj_property name="ObjectShortName">movlp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/end_evt" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">end_evt</obj_property>
+      <obj_property name="ObjectShortName">end_evt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ocnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ocnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ocnt[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/data_out" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">data_out[11:0]</obj_property>
       <obj_property name="ObjectShortName">data_out[11:0]</obj_property>
@@ -6339,6 +6348,10 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/multi_ovlp_smp" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">multi_ovlp_smp</obj_property>
       <obj_property name="ObjectShortName">multi_ovlp_smp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/evt_end_smp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">evt_end_smp</obj_property>
+      <obj_property name="ObjectShortName">evt_end_smp</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/l1a_phs" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">l1a_phs</obj_property>
@@ -6386,22 +6399,6 @@
       <obj_property name="ObjectShortName">frm_state[2:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/inc_seq" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_seq</obj_property>
-      <obj_property name="ObjectShortName">inc_seq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/rst_seq" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_seq</obj_property>
-      <obj_property name="ObjectShortName">rst_seq</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/inc_smp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">inc_smp</obj_property>
-      <obj_property name="ObjectShortName">inc_smp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/rst_smp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">rst_smp</obj_property>
-      <obj_property name="ObjectShortName">rst_smp</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/valid0" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">valid0</obj_property>
       <obj_property name="ObjectShortName">valid0</obj_property>
@@ -6410,17 +6407,9 @@
       <obj_property name="ElementShortName">clr_crc0</obj_property>
       <obj_property name="ObjectShortName">clr_crc0</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovrlp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ovrlp</obj_property>
-      <obj_property name="ObjectShortName">ovrlp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/movlp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">movlp</obj_property>
-      <obj_property name="ObjectShortName">movlp</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ocnt" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">ocnt[3:0]</obj_property>
-      <obj_property name="ObjectShortName">ocnt[3:0]</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/seq" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">seq[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seq[6:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/LAST_WRD" type="logic" db_ref_id="1">
@@ -6451,6 +6440,10 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/serial" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">serial</obj_property>
       <obj_property name="ObjectShortName">serial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/nxt_l1a_r1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">nxt_l1a_r1</obj_property>
+      <obj_property name="ObjectShortName">nxt_l1a_r1</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/nxt_l1a_sync1" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">nxt_l1a_sync1</obj_property>
@@ -6485,16 +6478,6 @@
       <obj_property name="ObjectShortName">frame[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/smp" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">smp[6:0]</obj_property>
-      <obj_property name="ObjectShortName">smp[6:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/seq" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">seq[6:0]</obj_property>
-      <obj_property name="ObjectShortName">seq[6:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/seq1" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">seq1[6:0]</obj_property>
       <obj_property name="ObjectShortName">seq1[6:0]</obj_property>
@@ -6523,6 +6506,78 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/mt_r3" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">mt_r3</obj_property>
       <obj_property name="ObjectShortName">mt_r3</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider1525" type="divider">
+      <obj_property name="label">ChnLnk_Frame_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/FRM_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">FRM_STATE[2:0]</obj_property>
+      <obj_property name="ObjectShortName">FRM_STATE[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/END_EVT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">END_EVT</obj_property>
+      <obj_property name="ObjectShortName">END_EVT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/F_MT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">F_MT</obj_property>
+      <obj_property name="ObjectShortName">F_MT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/L1A_BUF_MT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_BUF_MT</obj_property>
+      <obj_property name="ObjectShortName">L1A_BUF_MT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/CLR_CRC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/LAST_WRD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LAST_WRD</obj_property>
+      <obj_property name="ObjectShortName">LAST_WRD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/RD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RD</obj_property>
+      <obj_property name="ObjectShortName">RD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/SEQ" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SEQ[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/VALID" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID</obj_property>
+      <obj_property name="ObjectShortName">VALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/nextstate" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/seqn" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">seqn[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seqn[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ChnLnk_Frame_FSM_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[87:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[87:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="divider1639" type="divider">
       <obj_property name="label">ch_link1</obj_property>
