@@ -635,7 +635,7 @@ TIMESPEC TS_G1LCLK1P = PERIOD "G1LCLK1P" 8.33 ns HIGH 50%;
 ## are not analyzed by the PERIOD constraint.  These constraints are placed
 ## to supplement the PERIOD coverage to ensure the nets are fully constrained.
 
-INST "SEM_module_i/FRAME_ECC_VIRTEX6_inst" TPSYNC = FECC_SPECIAL ;
+INST "SEMCode.SEM_module_i/FRAME_ECC_VIRTEX6_inst" TPSYNC = FECC_SPECIAL ;
 TIMESPEC "TS_FECC_SYNC" = FROM "FECC_SPECIAL" TO FFS(*) 22000 ps ;
 TIMESPEC "TS_FECC_PADS" = FROM "FECC_SPECIAL" TO PADS(*) 50000 ps ;
 
@@ -649,7 +649,7 @@ TIMESPEC "TS_FECC_PADS" = FROM "FECC_SPECIAL" TO PADS(*) 50000 ps ;
 ## near the configuration logic and also helps in generating
 ## a reasonable slice count estimate for reliability estimates.
 
-INST "SEM_module_i/sem_core1/*" AREA_GROUP = "SEM_CONTROLLER" ;
+INST "SEMCode.SEM_module_i/sem_core1/*" AREA_GROUP = "SEM_CONTROLLER" ;
 
 AREA_GROUP "SEM_CONTROLLER" RANGE = SLICE_X56Y115:SLICE_X71Y124 ;
 AREA_GROUP "SEM_CONTROLLER" RANGE = RAMB18_X3Y46:RAMB18_X3Y49 ;

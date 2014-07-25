@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="742" />
+   <WVObjectSize size="793" />
    <wave_markers>
       <marker time="392904100000" label="" />
       <marker time="364222649000" label="" />
@@ -4678,6 +4678,228 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/rd_mode" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">rd_mode</obj_property>
       <obj_property name="ObjectShortName">rd_mode</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider1751" type="divider">
+      <obj_property name="label">adc_data_input_gen_csp</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/bit_slip_odd_out" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">bit_slip_odd_out</obj_property>
+      <obj_property name="ObjectShortName">bit_slip_odd_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/bit_slip_evn_out" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">bit_slip_evn_out</obj_property>
+      <obj_property name="ObjectShortName">bit_slip_evn_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/ALG_GD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ALG_GD</obj_property>
+      <obj_property name="ObjectShortName">ALG_GD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/ADC_INIT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/ADC_INIT_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT_DONE</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/SYS_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SYS_RST</obj_property>
+      <obj_property name="ObjectShortName">SYS_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/DSR_RESYNC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DSR_RESYNC</obj_property>
+      <obj_property name="ObjectShortName">DSR_RESYNC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/RESTARTPS" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RESTARTPS[11:0]</obj_property>
+      <obj_property name="ObjectShortName">RESTARTPS[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/DSR_ALIGNED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DSR_ALIGNED</obj_property>
+      <obj_property name="ObjectShortName">DSR_ALIGNED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/RESYNC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RESYNC</obj_property>
+      <obj_property name="ObjectShortName">RESYNC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/resync_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">resync_d1</obj_property>
+      <obj_property name="ObjectShortName">resync_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/lead_edg_resync" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">lead_edg_resync</obj_property>
+      <obj_property name="ObjectShortName">lead_edg_resync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/lead_edg_resync_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">lead_edg_resync_d1</obj_property>
+      <obj_property name="ObjectShortName">lead_edg_resync_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/cap_phase" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">cap_phase</obj_property>
+      <obj_property name="ObjectShortName">cap_phase</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/rst_mmcm_pipe" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_mmcm_pipe[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rst_mmcm_pipe[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/frm_clk" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">frm_clk[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">frm_clk[6:1,1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/restartp" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">restartp[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">restartp[6:1,1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/daq8ch" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">daq8ch[6:1,1:0,95:0]</obj_property>
+      <obj_property name="ObjectShortName">daq8ch[6:1,1:0,95:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/ad" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ad[6:1,1:0,7:0]</obj_property>
+      <obj_property name="ObjectShortName">ad[6:1,1:0,7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/ad_b" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ad_b[6:1,1:0,7:0]</obj_property>
+      <obj_property name="ObjectShortName">ad_b[6:1,1:0,7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/adclk" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">adclk[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">adclk[6:1,1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/lclk" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">lclk[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">lclk[6:1,1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/bitclk" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">bitclk[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">bitclk[6:1,1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/dout" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dout[6:1,1:0,7:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">dout[6:1,1:0,7:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/qodd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">qodd[6:1,1:0,7:0,5:0]</obj_property>
+      <obj_property name="ObjectShortName">qodd[6:1,1:0,7:0,5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/qevn" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">qevn[6:1,1:0,7:0,5:0]</obj_property>
+      <obj_property name="ObjectShortName">qevn[6:1,1:0,7:0,5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/sd_rst" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sd_rst[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">sd_rst[6:1,1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/bit_slip_odd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">bit_slip_odd[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_slip_odd[6:1,1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/bit_slip_evn" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">bit_slip_evn[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_slip_evn[6:1,1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/dsr_algnd" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dsr_algnd[6:1,1:0]</obj_property>
+      <obj_property name="ObjectShortName">dsr_algnd[6:1,1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/var5" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">var5</obj_property>
+      <obj_property name="ObjectShortName">var5</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/var6" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">var6</obj_property>
+      <obj_property name="ObjectShortName">var6</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/var7" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">var7</obj_property>
+      <obj_property name="ObjectShortName">var7</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/dsr_rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">dsr_rst</obj_property>
+      <obj_property name="ObjectShortName">dsr_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider1866" type="divider">
+      <obj_property name="label">DSR_align_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /ALIGNED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ALIGNED</obj_property>
+      <obj_property name="ObjectShortName">ALIGNED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /BIT_SLIP_EVN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BIT_SLIP_EVN</obj_property>
+      <obj_property name="ObjectShortName">BIT_SLIP_EVN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /BIT_SLIP_ODD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BIT_SLIP_ODD</obj_property>
+      <obj_property name="ObjectShortName">BIT_SLIP_ODD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /DSR_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DSR_RST</obj_property>
+      <obj_property name="ObjectShortName">DSR_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /STRT_PIPE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">STRT_PIPE</obj_property>
+      <obj_property name="ObjectShortName">STRT_PIPE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /wcnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">wcnt[2:0]</obj_property>
+      <obj_property name="ObjectShortName">wcnt[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /slip_cnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">slip_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">slip_cnt[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /nextstate" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /winc" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">winc</obj_property>
+      <obj_property name="ObjectShortName">winc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /wrst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wrst</obj_property>
+      <obj_property name="ObjectShortName">wrst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/adc_data_in1/\grp[1].seg[0].DSR_align_FSM /statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[87:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[87:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="divider1170" type="divider">
       <obj_property name="label">dcfeb3</obj_property>

@@ -1,6 +1,6 @@
-## File last modified by Fizzim: 1:54:28 PM on 8/6/13
+## File last modified by Fizzim: 12:40:05 PM on 7/25/14
 <version>
-   11.09.25
+   14.02.18
 </version>
 <globals>
    <machine>
@@ -573,7 +573,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -1023,7 +1023,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -1762,7 +1762,7 @@ fzm_globalTable
          <value>
          1
             <status>
-            LOCAL
+            GLOBAL_VAR
             </status>
          </value>
          <vis>
@@ -2235,7 +2235,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -2984,7 +2984,7 @@ fzm_globalTable
          <value>
          1
             <status>
-            LOCAL
+            GLOBAL_VAR
             </status>
          </value>
          <vis>
@@ -3756,7 +3756,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -5101,7 +5101,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -5576,7 +5576,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -6053,7 +6053,7 @@ fzm_globalTable
          <value>
          1
             <status>
-            LOCAL
+            GLOBAL_VAR
             </status>
          </value>
          <vis>
@@ -8266,7 +8266,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         0
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -9042,7 +9042,7 @@ fzm_globalTable
          <value>
          1
             <status>
-            LOCAL
+            GLOBAL_VAR
             </status>
          </value>
          <vis>
