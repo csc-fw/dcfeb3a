@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="793" />
+   <WVObjectSize size="890" />
    <wave_markers>
       <marker time="392904100000" label="" />
       <marker time="364222649000" label="" />
@@ -6885,6 +6885,415 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ch_link1/dav" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">dav</obj_property>
       <obj_property name="ObjectShortName">dav</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider1594" type="divider">
+      <obj_property name="label">daq_optical_out</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_RX_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_RX_N</obj_property>
+      <obj_property name="ObjectShortName">DAQ_RX_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_RX_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_RX_P</obj_property>
+      <obj_property name="ObjectShortName">DAQ_RX_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_TDIS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TDIS</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TDIS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_TX_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TX_N</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TX_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_TX_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TX_P</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TX_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_TX_125REFCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TX_125REFCLK</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TX_125REFCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_TX_125REFCLK_DV2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TX_125REFCLK_DV2</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TX_125REFCLK_DV2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_TX_160REFCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TX_160REFCLK</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TX_160REFCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/L1A_MATCH" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_MATCH</obj_property>
+      <obj_property name="ObjectShortName">L1A_MATCH</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/TXD" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">TXD[15:0]</obj_property>
+      <obj_property name="ObjectShortName">TXD[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/TXD_VLD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TXD_VLD</obj_property>
+      <obj_property name="ObjectShortName">TXD_VLD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/JDAQ_RATE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">JDAQ_RATE</obj_property>
+      <obj_property name="ObjectShortName">JDAQ_RATE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/JDAQ_PRBS_TST" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">JDAQ_PRBS_TST[2:0]</obj_property>
+      <obj_property name="ObjectShortName">JDAQ_PRBS_TST[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/JDAQ_INJ_ERR" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">JDAQ_INJ_ERR</obj_property>
+      <obj_property name="ObjectShortName">JDAQ_INJ_ERR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/RATE_1_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_1_25</obj_property>
+      <obj_property name="ObjectShortName">RATE_1_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/RATE_3_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RATE_3_2</obj_property>
+      <obj_property name="ObjectShortName">RATE_3_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/TX_ACK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/CSP_MAN_CTRL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CSP_MAN_CTRL</obj_property>
+      <obj_property name="ObjectShortName">CSP_MAN_CTRL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/CSP_USE_ANY_L1A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CSP_USE_ANY_L1A</obj_property>
+      <obj_property name="ObjectShortName">CSP_USE_ANY_L1A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/CSP_L1A_HEAD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CSP_L1A_HEAD</obj_property>
+      <obj_property name="ObjectShortName">CSP_L1A_HEAD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/DAQ_DATA_CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_DATA_CLK</obj_property>
+      <obj_property name="ObjectShortName">DAQ_DATA_CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/usr_clk_wordwise" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">usr_clk_wordwise</obj_property>
+      <obj_property name="ObjectShortName">usr_clk_wordwise</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/inc_rom" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">inc_rom</obj_property>
+      <obj_property name="ObjectShortName">inc_rom</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/rst_rom" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_rom</obj_property>
+      <obj_property name="ObjectShortName">rst_rom</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/rst_rom_arst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_rom_arst</obj_property>
+      <obj_property name="ObjectShortName">rst_rom_arst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/frm_state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">frm_state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">frm_state[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/dqrt_state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dqrt_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">dqrt_state[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/clr_crc" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clr_crc</obj_property>
+      <obj_property name="ObjectShortName">clr_crc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc_calc" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">crc_calc</obj_property>
+      <obj_property name="ObjectShortName">crc_calc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc_vld" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">crc_vld</obj_property>
+      <obj_property name="ObjectShortName">crc_vld</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc_reg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">crc_reg[31:0]</obj_property>
+      <obj_property name="ObjectShortName">crc_reg[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">crc[15:0]</obj_property>
+      <obj_property name="ObjectShortName">crc[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc_dv" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">crc_dv</obj_property>
+      <obj_property name="ObjectShortName">crc_dv</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/arst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">arst</obj_property>
+      <obj_property name="ObjectShortName">arst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/man_rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">man_rst</obj_property>
+      <obj_property name="ObjectShortName">man_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/reset_i" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset_i</obj_property>
+      <obj_property name="ObjectShortName">reset_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/pma_reset_i" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pma_reset_i</obj_property>
+      <obj_property name="ObjectShortName">pma_reset_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/txresetdone" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">txresetdone</obj_property>
+      <obj_property name="ObjectShortName">txresetdone</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/clk_rst_done" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk_rst_done</obj_property>
+      <obj_property name="ObjectShortName">clk_rst_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/cdv_init" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">cdv_init</obj_property>
+      <obj_property name="ObjectShortName">cdv_init</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/txreset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">txreset</obj_property>
+      <obj_property name="ObjectShortName">txreset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/pcs_rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">pcs_rst</obj_property>
+      <obj_property name="ObjectShortName">pcs_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/div_clk_rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">div_clk_rst</obj_property>
+      <obj_property name="ObjectShortName">div_clk_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/txbufstatus_float" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">txbufstatus_float[1:0]</obj_property>
+      <obj_property name="ObjectShortName">txbufstatus_float[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/ref_clk_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ref_clk_sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ref_clk_sel[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/txrate_sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">txrate_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">txrate_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/txrate_done" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">txrate_done</obj_property>
+      <obj_property name="ObjectShortName">txrate_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/word_clk_sel" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">word_clk_sel</obj_property>
+      <obj_property name="ObjectShortName">word_clk_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/gtxtest" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">gtxtest[12:0]</obj_property>
+      <obj_property name="ObjectShortName">gtxtest[12:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/txoutclk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">txoutclk</obj_property>
+      <obj_property name="ObjectShortName">txoutclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/plllock_i" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">plllock_i</obj_property>
+      <obj_property name="ObjectShortName">plllock_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/daq_tx_dis" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">daq_tx_dis</obj_property>
+      <obj_property name="ObjectShortName">daq_tx_dis</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/man_daq_tx_dis" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">man_daq_tx_dis</obj_property>
+      <obj_property name="ObjectShortName">man_daq_tx_dis</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/man_control" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">man_control</obj_property>
+      <obj_property name="ObjectShortName">man_control</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/man_daq_rate" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">man_daq_rate</obj_property>
+      <obj_property name="ObjectShortName">man_daq_rate</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/man_use_any_l1a" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">man_use_any_l1a</obj_property>
+      <obj_property name="ObjectShortName">man_use_any_l1a</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/man_l1a_head" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">man_l1a_head</obj_property>
+      <obj_property name="ObjectShortName">man_l1a_head</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/daq_rate" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">daq_rate</obj_property>
+      <obj_property name="ObjectShortName">daq_rate</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/clr_cnt" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clr_cnt</obj_property>
+      <obj_property name="ObjectShortName">clr_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/clr_cnt_rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clr_cnt_rst</obj_property>
+      <obj_property name="ObjectShortName">clr_cnt_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/inc_cnt" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">inc_cnt</obj_property>
+      <obj_property name="ObjectShortName">inc_cnt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/force_error" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">force_error</obj_property>
+      <obj_property name="ObjectShortName">force_error</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/cnst" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnst[15:0]</obj_property>
+      <obj_property name="ObjectShortName">cnst[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/kcnst" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">kcnst[1:0]</obj_property>
+      <obj_property name="ObjectShortName">kcnst[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/data1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">data1[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc_calc1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">crc_calc1</obj_property>
+      <obj_property name="ObjectShortName">crc_calc1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/rom_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rom_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">rom_addr[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc_vld1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">crc_vld1</obj_property>
+      <obj_property name="ObjectShortName">crc_vld1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc_vld2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">crc_vld2</obj_property>
+      <obj_property name="ObjectShortName">crc_vld2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/crc1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">crc1[15:0]</obj_property>
+      <obj_property name="ObjectShortName">crc1[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/reset_r" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reset_r[3:0]</obj_property>
+      <obj_property name="ObjectShortName">reset_r[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/pma_reset_r" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pma_reset_r[3:0]</obj_property>
+      <obj_property name="ObjectShortName">pma_reset_r[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/txcharisk_r" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">txcharisk_r[1:0]</obj_property>
+      <obj_property name="ObjectShortName">txcharisk_r[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/mgt_tx_data_r" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mgt_tx_data_r[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mgt_tx_data_r[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/count" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">count[3:0]</obj_property>
+      <obj_property name="ObjectShortName">count[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/inj_err1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">inj_err1</obj_property>
+      <obj_property name="ObjectShortName">inj_err1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/inj_err2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">inj_err2</obj_property>
+      <obj_property name="ObjectShortName">inj_err2</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider1673" type="divider">
+      <obj_property name="label">Frame_Proc_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/FRM_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">FRM_STATE[2:0]</obj_property>
+      <obj_property name="ObjectShortName">FRM_STATE[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/ROM_ADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ROM_ADDR[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ROM_ADDR[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/VALID" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID</obj_property>
+      <obj_property name="ObjectShortName">VALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/CLR_CRC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/CRC_CALC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_CALC</obj_property>
+      <obj_property name="ObjectShortName">CRC_CALC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/CRC_VLD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_VLD</obj_property>
+      <obj_property name="ObjectShortName">CRC_VLD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/INC_ROM" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_ROM</obj_property>
+      <obj_property name="ObjectShortName">INC_ROM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/RST_ROM" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_ROM</obj_property>
+      <obj_property name="ObjectShortName">RST_ROM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/TX_ACK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/nextstate" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/hold" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">hold</obj_property>
+      <obj_property name="ObjectShortName">hold</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/hold1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">hold1</obj_property>
+      <obj_property name="ObjectShortName">hold1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/hold2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">hold2</obj_property>
+      <obj_property name="ObjectShortName">hold2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[63:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[63:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="divider1659" type="divider">
       <obj_property name="label">trig_in1</obj_property>

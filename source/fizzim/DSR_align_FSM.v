@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:25 at 12:48:02 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:29 at 15:00:21 (www.fizzim.com)
 
 module DSR_align (
   output reg ALIGNED,
@@ -80,7 +80,7 @@ module DSR_align (
       BIT_SLIP_ODD <= 0;
       DSR_RST <= 0;
       winc <= 0;
-      wrst <= 0;
+      wrst <= 1;
     end
     else begin
       ALIGNED <= 0; // default
@@ -88,14 +88,18 @@ module DSR_align (
       BIT_SLIP_ODD <= 0; // default
       DSR_RST <= 0; // default
       winc <= 0; // default
-      wrst <= 1; // default
+      wrst <= 0; // default
       case (nextstate)
         Aligned    :        ALIGNED <= 1;
         BS_even_odd: begin
                             BIT_SLIP_EVN <= 1;
                             BIT_SLIP_ODD <= 1;
+                            wrst <= 1;
         end
-        BS_odd     :        BIT_SLIP_ODD <= 1;
+        BS_odd     : begin
+                            BIT_SLIP_ODD <= 1;
+                            wrst <= 1;
+        end
         BSlip_Wait :        winc <= 1;
         BSodd_Wait :        winc <= 1;
         DSR_rst    : begin
@@ -103,6 +107,7 @@ module DSR_align (
                             winc <= 1;
         end
         Wait1      :        winc <= 1;
+        Wrst       :        wrst <= 1;
       endcase
     end
   end
