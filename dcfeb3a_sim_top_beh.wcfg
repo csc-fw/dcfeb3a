@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="1192" />
+   <WVObjectSize size="1193" />
    <wave_markers>
       <marker time="388748000000" label="" />
       <marker time="385633000000" label="" />
@@ -3230,6 +3230,10 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/CLR_CRC" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">CLR_CRC</obj_property>
       <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/CRC_DV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/Frame_Proc_FSM_i/TX_ACK" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">TX_ACK</obj_property>
