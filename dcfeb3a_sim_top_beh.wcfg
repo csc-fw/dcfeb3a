@@ -3558,6 +3558,7 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/dsr_tmr" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">dsr_tmr[11:0]</obj_property>
       <obj_property name="ObjectShortName">dsr_tmr[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/rsm1/adc_rdy_r1" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">adc_rdy_r1</obj_property>
