@@ -37,6 +37,7 @@ module chanlink_fifo #(
 	output TRIG_OUT,
 	output reg LAST_WRD,
 	output reg DVALID,
+	output reg OVLP_MUX,
 	output reg MLT_OVLP,
 	output reg [15:0] DOUT
 	);
@@ -67,6 +68,8 @@ wire end_evt;
 reg  mlt_ovlp1;
 reg  mlt_ovlp2;
 wire [3:0] ocnt;
+reg ovlp_bit;
+reg ovlp_frm;
 wire [11:0] data_out;
 reg serial;
 wire l1a_phase;
@@ -120,74 +123,74 @@ if(USE_CHIPSCOPE==1)
 begin : chipscope_rng_chn
 //
 // Logic analyzer for readout FIFO
-wire [146:0] rng_chn_la_data;
-wire [3:0] rng_chn_la_trig;
+wire [146:0] chn_lnk_la_data;
+wire [3:0] chn_lnk_la_trig;
 
 chnlnk_fifo_la chnlnk_fifo_la_i (
     .CONTROL(LA_CNTRL),
-    .CLK(WRCLK),
-    .DATA(rng_chn_la_data),  // IN BUS [146:0]
-    .TRIG0(rng_chn_la_trig),  // IN BUS [3:0]
+    .CLK(WCLK),
+    .DATA(chn_lnk_la_data),  // IN BUS [146:0]
+    .TRIG0(chn_lnk_la_trig),  // IN BUS [3:0]
     .TRIG_OUT(TRIG_OUT) // OUT
 );
 
 // LA Data [146:0]
-	assign rng_chn_la_data[3:0]     = l1acnt[3:0];
-	assign rng_chn_la_data[7:4]     = l1amcnt[3:0];
-	assign rng_chn_la_data[19:8]    = WDATA;
-	assign rng_chn_la_data[23:20]   = ovrlap_cnt;
-	assign rng_chn_la_data[24]      = ovrlap_smp;
-	assign rng_chn_la_data[36:25]   = data_out;
-	assign rng_chn_la_data[52:37]   = fullwrd;
-	assign rng_chn_la_data[68:53]   = frame;
-	assign rng_chn_la_data[84:69]   = DOUT;
-	assign rng_chn_la_data[89:85]   = l1abuf;
-	assign rng_chn_la_data[93:90]   = ocnt;
-	assign rng_chn_la_data[97:94]   = l1anum[3:0];
-	assign rng_chn_la_data[101:98]  = l1a_mtch_num[3:0];
-	assign rng_chn_la_data[105:102] = frm_state;
-//	assign rng_chn_la_data[112:106] = smp;
-	assign rng_chn_la_data[112:106] = 7'h00;
-	assign rng_chn_la_data[119:113] = seq;
+	assign chn_lnk_la_data[3:0]     = l1acnt[3:0];
+	assign chn_lnk_la_data[7:4]     = l1amcnt[3:0];
+	assign chn_lnk_la_data[19:8]    = WDATA;
+	assign chn_lnk_la_data[23:20]   = ovrlap_cnt;
+	assign chn_lnk_la_data[24]      = ovrlap_smp;
+	assign chn_lnk_la_data[36:25]   = data_out;
+	assign chn_lnk_la_data[52:37]   = fullwrd;
+	assign chn_lnk_la_data[68:53]   = frame;
+	assign chn_lnk_la_data[84:69]   = DOUT;
+	assign chn_lnk_la_data[89:85]   = l1abuf;
+	assign chn_lnk_la_data[93:90]   = ocnt;
+	assign chn_lnk_la_data[97:94]   = l1anum[3:0];
+	assign chn_lnk_la_data[101:98]  = l1a_mtch_num[3:0];
+	assign chn_lnk_la_data[105:102] = {1'b0,frm_state};
+//	assign chn_lnk_la_data[112:106] = smp;
+	assign chn_lnk_la_data[112:106] = 7'h00;
+	assign chn_lnk_la_data[119:113] = seq;
 	
-	assign rng_chn_la_data[120]     = WREN;
-	assign rng_chn_la_data[121]     = L1A_WRT_EN;
-	assign rng_chn_la_data[122]     = evt_buf_amt;
-	assign rng_chn_la_data[123]     = evt_buf_afl;
-	assign rng_chn_la_data[124]     = LAST_WRD;
-	assign rng_chn_la_data[125]     = WARN;
-	assign rng_chn_la_data[126]     = l1a_buf_mt;
-	assign rng_chn_la_data[127]     = evt_buf_mt;
-	assign rng_chn_la_data[128]     = l1a_push;
-	assign rng_chn_la_data[129]     = mt_r3;
-	assign rng_chn_la_data[130]     = ovrlp;
-	assign rng_chn_la_data[131]     = movlp;
-	assign rng_chn_la_data[132]     = serial;
-	assign rng_chn_la_data[133]     = l1a_out;
-	assign rng_chn_la_data[134]     = 1'b0;
-	assign rng_chn_la_data[135]     = 1'b0;
-	assign rng_chn_la_data[136]     = l1a_phs;
-	assign rng_chn_la_data[137]     = l1a_phase;
-	assign rng_chn_la_data[138]     = nxt_l1a;
-	assign rng_chn_la_data[139]     = nxt_wrd;
-	assign rng_chn_la_data[140]     = valid0;
-	assign rng_chn_la_data[141]     = DVALID;
-	assign rng_chn_la_data[142]     = 1'b0;
-//	assign rng_chn_la_data[143]     = inc_seq;
-//	assign rng_chn_la_data[144]     = rst_seq;
-//	assign rng_chn_la_data[145]     = inc_smp;
-//	assign rng_chn_la_data[146]     = rst_smp;
-	assign rng_chn_la_data[143]     = 1'b0;
-	assign rng_chn_la_data[144]     = 1'b0;
-	assign rng_chn_la_data[145]     = 1'b0;
-	assign rng_chn_la_data[146]     = 1'b0;
+	assign chn_lnk_la_data[120]     = WREN;
+	assign chn_lnk_la_data[121]     = L1A_WRT_EN;
+	assign chn_lnk_la_data[122]     = evt_buf_amt;
+	assign chn_lnk_la_data[123]     = evt_buf_afl;
+	assign chn_lnk_la_data[124]     = LAST_WRD;
+	assign chn_lnk_la_data[125]     = WARN;
+	assign chn_lnk_la_data[126]     = l1a_buf_mt;
+	assign chn_lnk_la_data[127]     = evt_buf_mt;
+	assign chn_lnk_la_data[128]     = l1a_push;
+	assign chn_lnk_la_data[129]     = mt_r3;
+	assign chn_lnk_la_data[130]     = ovrlp;
+	assign chn_lnk_la_data[131]     = movlp;
+	assign chn_lnk_la_data[132]     = serial;
+	assign chn_lnk_la_data[133]     = l1a_out;
+	assign chn_lnk_la_data[134]     = clr_crc0;
+	assign chn_lnk_la_data[135]     = clr_crc;
+	assign chn_lnk_la_data[136]     = l1a_phs;
+	assign chn_lnk_la_data[137]     = l1a_phase;
+	assign chn_lnk_la_data[138]     = nxt_l1a;
+	assign chn_lnk_la_data[139]     = nxt_wrd;
+	assign chn_lnk_la_data[140]     = valid0;
+	assign chn_lnk_la_data[141]     = DVALID;
+	assign chn_lnk_la_data[142]     = end_evt;
+//	assign chn_lnk_la_data[143]     = inc_seq;
+//	assign chn_lnk_la_data[144]     = rst_seq;
+//	assign chn_lnk_la_data[145]     = inc_smp;
+//	assign chn_lnk_la_data[146]     = rst_smp;
+	assign chn_lnk_la_data[143]     = RCLK;
+	assign chn_lnk_la_data[144]     = 1'b0;
+	assign chn_lnk_la_data[145]     = 1'b0;
+	assign chn_lnk_la_data[146]     = 1'b0;
 	
 
 // LA Trigger [11:0]
-	assign rng_chn_la_trig[0]       = WREN;
-	assign rng_chn_la_trig[1]       = evt_buf_mt;
-	assign rng_chn_la_trig[2]       = l1a_buf_mt;
-	assign rng_chn_la_trig[3]       = TRIG_IN;
+	assign chn_lnk_la_trig[0]       = WREN;
+	assign chn_lnk_la_trig[1]       = evt_buf_mt;
+	assign chn_lnk_la_trig[2]       = l1a_buf_mt;
+	assign chn_lnk_la_trig[3]       = TRIG_IN;
 	
 end
 else
@@ -265,15 +268,17 @@ always @(posedge RCLK) begin
 	mt_r3 <= mt_r2;
 	adcdata <= {1'b0,data_out};
 	fullwrd <= {1'b0,~ovrlp,serial,1'b0,data_out};
+	ovlp_bit <= ovrlp;
 	clr_crc <= clr_crc0;
 	seq1    <= seq;
 	mlt_ovlp1  <= movlp;
 	mlt_ovlp2  <= mlt_ovlp1;
 	MLT_OVLP  <= mlt_ovlp2;
-	valid1  <= valid0;
-	valid2  <= valid1;
-	DVALID  <= valid2;
-	DOUT    <= frame;
+	valid1    <= valid0;
+	valid2    <= valid1;
+	DVALID    <= valid2;
+	DOUT      <= frame;
+	OVLP_MUX  <= ~ovlp_frm;
 	nxt_l1a_r1 <= nxt_l1a;
 	LAST_WRD   <= nxt_l1a_r1;
 end
@@ -292,8 +297,11 @@ always @(posedge RCLK) begin
 		7'd99: frame <= 16'h7FFF;
 		default: frame <= fullwrd;
 	endcase
+	case(seq1)
+		7'd96,7'd97,7'd98,7'd99: ovlp_frm <= ovlp_frm;
+		default: ovlp_frm <= ovlp_bit;
+	endcase
 end
-
 
 //always @(posedge RCLK or posedge RST_RESYNC) begin
 //	if(RST_RESYNC)

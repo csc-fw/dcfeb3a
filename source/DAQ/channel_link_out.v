@@ -30,6 +30,7 @@ module channel_link_out(
 	 input L1A_MATCH,
 	 input LAST_WRD,
 	 input DVALID,
+	 input OVLP_MUX,
 	 input MLT_OVLP,
     input [15:0] FRAME_DATA
     );
@@ -44,7 +45,6 @@ module channel_link_out(
   assign chan_dat_out = FRAME_DATA;
   assign clnk_clk = CLK;
   assign mb_fifo_push = DVALID;
-  assign ovlp_mux = FRAME_DATA[14];
   assign end_word = LAST_WRD;
   
 	always @(posedge CLK) begin
@@ -57,7 +57,7 @@ module channel_link_out(
   OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_CHAN_LNK_CLK (.O(CHAN_LNK_CLK),.I(clnk_clk));
   OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_MB_FIFO_PUSH (.O(MB_FIFO_PUSH_B),.I(~mb_fifo_push));
   OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_MOVLP (.O(MOVLP),.I(MLT_OVLP));
-  OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_OVLPMUX (.O(OVLPMUX),.I(~ovlp_mux));
+  OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_OVLPMUX (.O(OVLPMUX),.I(OVLP_MUX));
   OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_DAV (.O(DATAAVAIL),.I(dav));
   OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_ENDWORD (.O(ENDWORD),.I(end_word));
  

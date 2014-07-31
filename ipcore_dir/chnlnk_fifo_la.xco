@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Wed Feb 19 22:04:47 2014
+# Date: Wed Jul 30 17:46:48 2014
 #
 ##############################################################
 #
@@ -42,7 +42,7 @@ SELECT ILA_(ChipScope_Pro_-_Integrated_Logic_Analyzer) family Xilinx,_Inc. 1.05.
 CSET check_bramcount=false
 CSET component_name=chnlnk_fifo_la
 CSET constraint_type=external
-CSET counter_width_1=3
+CSET counter_width_1=4
 CSET counter_width_10=Disabled
 CSET counter_width_11=Disabled
 CSET counter_width_12=Disabled
@@ -96,7 +96,7 @@ CSET match_type_6=basic_with_edges
 CSET match_type_7=basic_with_edges
 CSET match_type_8=basic_with_edges
 CSET match_type_9=basic_with_edges
-CSET match_units_1=3
+CSET match_units_1=4
 CSET match_units_10=1
 CSET match_units_11=1
 CSET match_units_12=1
@@ -112,7 +112,7 @@ CSET match_units_6=1
 CSET match_units_7=1
 CSET match_units_8=1
 CSET match_units_9=1
-CSET max_sequence_levels=3
+CSET max_sequence_levels=4
 CSET number_of_trigger_ports=1
 CSET sample_data_depth=4096
 CSET sample_on=Rising
@@ -132,10 +132,10 @@ CSET trigger_port_width_6=8
 CSET trigger_port_width_7=8
 CSET trigger_port_width_8=8
 CSET trigger_port_width_9=8
-CSET use_rpms=true
+CSET use_rpms=false
 # END Parameters
 # BEGIN Extra information
 MISC pkg_timestamp=2013-10-13T14:13:15Z
 # END Extra information
 GENERATE
-# CRC: eea0e475
+# CRC: a29b3133

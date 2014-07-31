@@ -7,8 +7,8 @@
 // /___/  \  /    Vendor     : Xilinx
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
-//  /   /         Filename   : chnlnk_fifo_la.veo
-// /___/   /\     Timestamp  : Wed Jul 30 13:49:51 Eastern Daylight Time 2014
+//  /   /         Filename   : CSP_chan_link_cntrl.veo
+// /___/   /\     Timestamp  : Wed Jul 30 12:39:09 Eastern Daylight Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -20,12 +20,8 @@
 // (in parentheses) to your own signal names.
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
-chnlnk_fifo_la YourInstanceName (
-    .CONTROL(CONTROL), // INOUT BUS [35:0]
-    .CLK(CLK), // IN
-    .DATA(DATA), // IN BUS [146:0]
-    .TRIG0(TRIG0), // IN BUS [3:0]
-    .TRIG_OUT(TRIG_OUT) // OUT
+CSP_chan_link_cntrl YourInstanceName (
+    .CONTROL0(CONTROL0) // INOUT BUS [35:0]
 );
 
 // INST_TAG_END ------ End INSTANTIATION Template ---------

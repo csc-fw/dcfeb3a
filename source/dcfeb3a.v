@@ -10,10 +10,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 (* syn_encoding = "safe original" *)
 module dcfeb3a #(
+	parameter USE_CHAN_LINK_CHIPSCOPE = 1,
 	parameter USE_DESER_CHIPSCOPE = 0,
 	parameter USE_CMP_CHIPSCOPE = 0,
 	parameter USE_DAQ_CHIPSCOPE = 0,
-	parameter USE_RINGBUF_CHIPSCOPE = 1,
+	parameter USE_RINGBUF_CHIPSCOPE = 0,
 	parameter USE_FF_EMU_CHIPSCOPE = 0,
 	parameter USE_SPI_CHIPSCOPE = 0,
 	parameter USE_PIPE_CHIPSCOPE = 0,
@@ -179,10 +180,39 @@ module dcfeb3a #(
 	wire [35:0] rng_eth_la0_c2;
 	wire [35:0] rng_chn_la0_c3;
 	wire [35:0] rng_xfr_la0_c3;
+	wire [35:0] chn_lnk_la0_c0;
 
 
 generate
-if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
+if(USE_CHAN_LINK_CHIPSCOPE==1) 
+begin : chipscope_with_chan_link_fifo
+CSP_chan_link_cntrl CSP_chan_link_cntrl_i (
+    .CONTROL0(chn_lnk_la0_c0) // INOUT BUS [35:0]
+);
+	assign g1vio0_c0 = 36'h000000000;
+	assign g1la0_c0 = 36'h000000000;
+	assign adc_mem_vio_c0 = 36'h000000000;
+	assign adc_cnfg_mem_la_c1 = 36'h000000000;
+	assign readout_fifo1_la_c2 = 36'h000000000;
+	assign DAQ_tx_vio_c3 = 36'h000000000;
+	assign DAQ_tx_la_c4 = 36'h000000000;
+	assign rd_fifo2_la_c5 = 36'h000000000;
+	assign bpi_vio_c6 = 36'h000000000;
+	assign bpi_la_c7 = 36'h000000000;
+	assign cmp_tx_vio_c0 = 36'h000000000;
+	assign cmp_tx_la_c1 = 36'h000000000;
+	assign pipe_la0_c0 = 36'h000000000;
+	assign pipe_vio_in0_c1 = 36'h000000000;
+	assign pipe_vio_out1_c2 = 36'h000000000;
+	assign sem_la0_c0 = 36'h000000000;
+	assign sem_vio_in0_c1 = 36'h000000000;
+	assign rng_ff1_la0_c0 = 36'h000000000;
+	assign rng_buf_la0_c1 = 36'h000000000;
+	assign rng_eth_la0_c2 = 36'h000000000;
+	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
+end
+else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
 begin : chipscope_with_comp_and_daq
 CSP_comp_daq_cntrl cmp_daq_cntrl1 (
     .CONTROL0(adc_mem_vio_c0), // INOUT BUS [35:0]
@@ -389,6 +419,7 @@ begin : no_chipscope
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
 end
 endgenerate
 
@@ -1165,13 +1196,14 @@ ringbuf_i(
  /////////////////////////////////////////////////////////////////////////////
 
 wire mlt_ovlp;
+wire ovlp_mux;
 
 chanlink_fifo  #(
-	.USE_CHIPSCOPE(0)
+	.USE_CHIPSCOPE(USE_CHAN_LINK_CHIPSCOPE)
 	)
 chanlink_fifo_i(
 	// ChipScope Pro signlas
-	.LA_CNTRL(rng_chn_la0_c3),
+	.LA_CNTRL(chn_lnk_la0_c0),
 	//
 	.WCLK(clk160),
 	.RCLK(clk40),
@@ -1188,6 +1220,7 @@ chanlink_fifo_i(
 	.TRIG_OUT(rng_chn_trg_out),
 	.LAST_WRD(last_wrd),
 	.DVALID(dvalid),
+	.OVLP_MUX(ovlp_mux),
 	.MLT_OVLP(mlt_ovlp),
 	.DOUT(frm_data)
 	);
@@ -1306,6 +1339,7 @@ daq_optical_out_i (
 		.L1A_MATCH(l1a_match),
 		.LAST_WRD(last_wrd),
 		.DVALID(dvalid),
+		.OVLP_MUX(ovlp_mux),
 		.MLT_OVLP(mlt_ovlp),
 		.FRAME_DATA(frm_data)
 //Temporary assignments

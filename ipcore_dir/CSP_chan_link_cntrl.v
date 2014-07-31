@@ -7,8 +7,8 @@
 // /___/  \  /    Vendor     : Xilinx
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
-//  /   /         Filename   : chnlnk_fifo_la.v
-// /___/   /\     Timestamp  : Wed Jul 30 13:49:51 Eastern Daylight Time 2014
+//  /   /         Filename   : CSP_chan_link_cntrl.v
+// /___/   /\     Timestamp  : Wed Jul 30 12:39:09 Eastern Daylight Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -18,18 +18,10 @@
 
 `timescale 1ns/1ps
 
-module chnlnk_fifo_la(
-    CONTROL,
-    CLK,
-    DATA,
-    TRIG0,
-    TRIG_OUT) /* synthesis syn_black_box syn_noprune=1 */;
+module CSP_chan_link_cntrl(
+    CONTROL0) /* synthesis syn_black_box syn_noprune=1 */;
 
 
-inout [35 : 0] CONTROL;
-input CLK;
-input [146 : 0] DATA;
-input [3 : 0] TRIG0;
-output TRIG_OUT;
+inout [35 : 0] CONTROL0;
 
 endmodule

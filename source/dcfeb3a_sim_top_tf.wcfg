@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="890" />
+   <WVObjectSize size="893" />
    <wave_markers>
       <marker time="392904100000" label="" />
       <marker time="364222649000" label="" />
@@ -6529,10 +6529,6 @@
       <obj_property name="ElementShortName">l1a_dbiterr</obj_property>
       <obj_property name="ObjectShortName">l1a_dbiterr</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovrlp" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ovrlp</obj_property>
-      <obj_property name="ObjectShortName">ovrlp</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/movlp" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">movlp</obj_property>
       <obj_property name="ObjectShortName">movlp</obj_property>
@@ -6633,6 +6629,22 @@
       <obj_property name="ElementShortName">seq[6:0]</obj_property>
       <obj_property name="ObjectShortName">seq[6:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovrlp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlp</obj_property>
+      <obj_property name="ObjectShortName">ovrlp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovlp_bit" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ovlp_bit</obj_property>
+      <obj_property name="ObjectShortName">ovlp_bit</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/ovlp_frm" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ovlp_frm</obj_property>
+      <obj_property name="ObjectShortName">ovlp_frm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/OVLP_MUX" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">OVLP_MUX</obj_property>
+      <obj_property name="ObjectShortName">OVLP_MUX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/chanlink_fifo_i/LAST_WRD" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">LAST_WRD</obj_property>
@@ -6852,6 +6864,10 @@
       <obj_property name="ElementShortName">DVALID</obj_property>
       <obj_property name="ObjectShortName">DVALID</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ch_link1/OVLP_MUX" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">OVLP_MUX</obj_property>
+      <obj_property name="ObjectShortName">OVLP_MUX</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ch_link1/MLT_OVLP" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">MLT_OVLP</obj_property>
       <obj_property name="ObjectShortName">MLT_OVLP</obj_property>
@@ -6873,10 +6889,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ch_link1/mb_fifo_push" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">mb_fifo_push</obj_property>
       <obj_property name="ObjectShortName">mb_fifo_push</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ch_link1/ovlp_mux" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ovlp_mux</obj_property>
-      <obj_property name="ObjectShortName">ovlp_mux</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/ch_link1/end_word" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">end_word</obj_property>

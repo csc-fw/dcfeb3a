@@ -39,7 +39,6 @@ wire l1a_buf_full;
 wire l1a_sbiterr;
 wire l1a_dbiterr;
 	
-wire ovrlap;
 wire ovrlp;
 wire movlp;
 wire dmy;
@@ -83,7 +82,6 @@ reg mt_r1,mt_r2,mt_r3;
 
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
-assign ovrlap = 0;
 assign l1ahigh = l1anum[23:12];
 assign l1alow = l1anum[11:0];
 assign {l1a_phase,l1amcnt,l1acnt} = L1A_EVT_DATA;
@@ -237,7 +235,7 @@ always @(posedge RCLK) begin
 		else if (ld_l1a_l)
 			fullwrd <= {4'h0,l1alow};
 		else
-			fullwrd <= {1'b0,~ovrlap,serial,1'b0,data_out};
+			fullwrd <= {1'b0,~ovrlp,serial,1'b0,data_out};
 	end
 end
 always @(posedge RCLK) begin
