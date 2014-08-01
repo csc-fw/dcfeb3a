@@ -12,8 +12,8 @@
 module dcfeb3a #(
 	parameter USE_DESER_CHIPSCOPE = 0,
 	parameter USE_CMP_CHIPSCOPE = 0,
-	parameter USE_DAQ_CHIPSCOPE = 0,
-	parameter USE_RINGBUF_CHIPSCOPE = 1,
+	parameter USE_DAQ_CHIPSCOPE = 1,
+	parameter USE_RINGBUF_CHIPSCOPE = 0,
 	parameter USE_FF_EMU_CHIPSCOPE = 0,
 	parameter USE_SPI_CHIPSCOPE = 0,
 	parameter USE_PIPE_CHIPSCOPE = 0,
