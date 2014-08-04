@@ -1,5 +1,5 @@
 
-// Created by fizzim.pl version 4.41 on 2013:01:30 at 11:41:49 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:56:20 (www.fizzim.com)
 
 module BPI_sequencer_FSM (
   output reg check_PEC,
@@ -27,7 +27,7 @@ module BPI_sequencer_FSM (
   input simple_cmd,
   input std_seq 
 );
-  
+
   // Inserted from attribute insert_at_top_of_module:
   localparam // commands 
   	NoOp            = 5'h00, 
@@ -59,7 +59,7 @@ module BPI_sequencer_FSM (
   	Stop_Timer      = 5'h1A, 
   	Reset_Timer     = 5'h1B, 
   	Clr_BPI_Status  = 5'h1C; 
-  
+
   // state bits
   parameter 
   Reset         = 5'b00000, 
@@ -91,109 +91,76 @@ module BPI_sequencer_FSM (
   Set_Asynch    = 5'b11010, 
   Simple_Cmd    = 5'b11011, 
   Write_n_Wrds  = 5'b11100; 
-  
+
   reg [4:0] state;
+
   assign OUT_STATE = state;
+
   reg [4:0] nextstate;
-  
+
+
   // comb always block
   always @* begin
     nextstate = 5'bxxxxx; // default to x because default_state_is_x is set
-    check_PEC = 0; // default
-    check_buf = 0; // default
-    check_stat = 0; // default
-    cnfrm_lk = 0; // default
-    read_es_state = 0; // default
-    rpt_error = 0; // default
-    seq_cmplt = 0; // default
-    seqr_idle = 0; // default
-    set_asynch = 0; // default
     case (state)
-      Reset        :                  nextstate = Set_Asynch;
-      Buf_Prg_Cnf  : if (seq_done)    nextstate = NoOp5;
-                     else             nextstate = Buf_Prg_Cnf;
-      Buf_Prog     : if (seq_done)    nextstate = NoOp2;
-                     else             nextstate = Buf_Prog;
-      Buf_Prog_n   : if (seq_done)    nextstate = NoOp3;
-                     else             nextstate = Buf_Prog_n;
-      Check_Buf    : begin
-                                      check_buf = 1;
-        if              (pec_busy)    nextstate = Buf_Prog;
-        else                          nextstate = Buf_Prog_n;
-      end
-      Check_PEC    : begin
-                                      check_PEC = 1;
-        if              (pec_busy)    nextstate = Read_Status;
-        else                          nextstate = Check_Stat;
-      end
-      Check_Stat   : begin
-                                      check_stat = 1;
-        if              (error)       nextstate = Rpt_Error;
-        else                          nextstate = NoOp1;
-      end
-      Clr_SR       : if (seq_done)    nextstate = NoOp1;
-                     else             nextstate = Clr_SR;
-      Cnfrm_LK     : begin
-                                      cnfrm_lk = 1;
-        if              (lk_ok)       nextstate = NoOp1;
-        else                          nextstate = Issue_LK_UnLK;
-      end
-      Complete     : begin
-                                      seq_cmplt = 1;
-        if              (noop_seq)    nextstate = Idle;
-        else                          nextstate = Complete;
-      end
-      Idle         : begin
-                                      seqr_idle = 1;
-        if              (lk_unlk)     nextstate = Issue_LK_UnLK;
-        else if         (buf_prog)    nextstate = Buf_Prog;
-        else if         (std_seq)     nextstate = Issue_Cmd;
-        else if         (simple_cmd)  nextstate = Simple_Cmd;
-        else                          nextstate = Idle;
-      end
-      Issue_Cmd    : if (seq_done)    nextstate = NoOp5;
-                     else             nextstate = Issue_Cmd;
-      Issue_LK_UnLK: if (seq_done)    nextstate = NoOp6;
-                     else             nextstate = Issue_LK_UnLK;
-      NoOp1        :                  nextstate = Rd_Array_Mode;
-      NoOp2        :                  nextstate = Read_Buf_Stat;
-      NoOp3        :                  nextstate = Write_n_Wrds;
-      NoOp4        :                  nextstate = Buf_Prg_Cnf;
-      NoOp5        :                  nextstate = Read_Status;
-      NoOp6        :                  nextstate = RES_mode;
-      NoOp7        :                  nextstate = Read_ES;
-      RES_mode     : if (seq_done)    nextstate = NoOp7;
-                     else             nextstate = RES_mode;
-      Rd_Array_Mode: if (seq_done)    nextstate = Complete;
-                     else             nextstate = Rd_Array_Mode;
-      Read_Buf_Stat: if (seq_done)    nextstate = Check_Buf;
-                     else             nextstate = Read_Buf_Stat;
-      Read_ES      : begin
-                                      read_es_state = 1;
-        if              (seq_done)    nextstate = Cnfrm_LK;
-        else                          nextstate = Read_ES;
-      end
-      Read_Status  : if (seq_done)    nextstate = Check_PEC;
-                     else             nextstate = Read_Status;
-      Rpt_Error    : begin
-                                      rpt_error = 1;
-        if              (ack)         nextstate = Clr_SR;
-        else                          nextstate = Rpt_Error;
-      end
-      Set_Asynch   : begin
-                                      set_asynch = 1;
-        if              (seq_done)    nextstate = NoOp1;
-        else                          nextstate = Set_Asynch;
-      end
-      Simple_Cmd   : if (seq_done)    nextstate = Complete;
-                     else             nextstate = Simple_Cmd;
-      Write_n_Wrds : if (seq_done)    nextstate = NoOp4;
-                     else             nextstate = Write_n_Wrds;
+      Reset        :                       nextstate = Set_Asynch;
+      Buf_Prg_Cnf  : if      (seq_done)    nextstate = NoOp5;
+                     else                  nextstate = Buf_Prg_Cnf;
+      Buf_Prog     : if      (seq_done)    nextstate = NoOp2;
+                     else                  nextstate = Buf_Prog;
+      Buf_Prog_n   : if      (seq_done)    nextstate = NoOp3;
+                     else                  nextstate = Buf_Prog_n;
+      Check_Buf    : if      (pec_busy)    nextstate = Buf_Prog;
+                     else                  nextstate = Buf_Prog_n;
+      Check_PEC    : if      (pec_busy)    nextstate = Read_Status;
+                     else                  nextstate = Check_Stat;
+      Check_Stat   : if      (error)       nextstate = Rpt_Error;
+                     else                  nextstate = NoOp1;
+      Clr_SR       : if      (seq_done)    nextstate = NoOp1;
+                     else                  nextstate = Clr_SR;
+      Cnfrm_LK     : if      (lk_ok)       nextstate = NoOp1;
+                     else                  nextstate = Issue_LK_UnLK;
+      Complete     : if      (noop_seq)    nextstate = Idle;
+                     else                  nextstate = Complete;
+      Idle         : if      (lk_unlk)     nextstate = Issue_LK_UnLK;
+                     else if (buf_prog)    nextstate = Buf_Prog;
+                     else if (std_seq)     nextstate = Issue_Cmd;
+                     else if (simple_cmd)  nextstate = Simple_Cmd;
+                     else                  nextstate = Idle;
+      Issue_Cmd    : if      (seq_done)    nextstate = NoOp5;
+                     else                  nextstate = Issue_Cmd;
+      Issue_LK_UnLK: if      (seq_done)    nextstate = NoOp6;
+                     else                  nextstate = Issue_LK_UnLK;
+      NoOp1        :                       nextstate = Rd_Array_Mode;
+      NoOp2        :                       nextstate = Read_Buf_Stat;
+      NoOp3        :                       nextstate = Write_n_Wrds;
+      NoOp4        :                       nextstate = Buf_Prg_Cnf;
+      NoOp5        :                       nextstate = Read_Status;
+      NoOp6        :                       nextstate = RES_mode;
+      NoOp7        :                       nextstate = Read_ES;
+      RES_mode     : if      (seq_done)    nextstate = NoOp7;
+                     else                  nextstate = RES_mode;
+      Rd_Array_Mode: if      (seq_done)    nextstate = Complete;
+                     else                  nextstate = Rd_Array_Mode;
+      Read_Buf_Stat: if      (seq_done)    nextstate = Check_Buf;
+                     else                  nextstate = Read_Buf_Stat;
+      Read_ES      : if      (seq_done)    nextstate = Cnfrm_LK;
+                     else                  nextstate = Read_ES;
+      Read_Status  : if      (seq_done)    nextstate = Check_PEC;
+                     else                  nextstate = Read_Status;
+      Rpt_Error    : if      (ack)         nextstate = Clr_SR;
+                     else                  nextstate = Rpt_Error;
+      Set_Asynch   : if      (seq_done)    nextstate = NoOp1;
+                     else                  nextstate = Set_Asynch;
+      Simple_Cmd   : if      (seq_done)    nextstate = Complete;
+                     else                  nextstate = Simple_Cmd;
+      Write_n_Wrds : if      (seq_done)    nextstate = NoOp4;
+                     else                  nextstate = Write_n_Wrds;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST)
@@ -201,31 +168,64 @@ module BPI_sequencer_FSM (
     else
       state <= nextstate;
   end
-  
+
   // datapath sequential always block
   always @(posedge CLK or posedge RST) begin
-    if (RST)     command[4:0] <= 5'b00000;
+    if (RST) begin
+      check_PEC <= 0;
+      check_buf <= 0;
+      check_stat <= 0;
+      cnfrm_lk <= 0;
+      command <= 5'b00000;
+      read_es_state <= 0;
+      rpt_error <= 0;
+      seq_cmplt <= 0;
+      seqr_idle <= 0;
+      set_asynch <= 0;
+    end
     else begin
-      command[4:0] <= 5'b00000; // default
+      check_PEC <= 0; // default
+      check_buf <= 0; // default
+      check_stat <= 0; // default
+      cnfrm_lk <= 0; // default
+      command <= 5'b00000; // default
+      read_es_state <= 0; // default
+      rpt_error <= 0; // default
+      seq_cmplt <= 0; // default
+      seqr_idle <= 0; // default
+      set_asynch <= 0; // default
       case (nextstate)
-        Buf_Prg_Cnf  : command[4:0] <= Buf_Prog_Conf;
-        Buf_Prog     : command[4:0] <= Buffer_Program;
-        Buf_Prog_n   : command[4:0] <= Buf_Prog_Wrt_n;
-        Clr_SR       : command[4:0] <= Clr_Status_Reg;
-        Issue_Cmd    : command[4:0] <= seq_cmnd;
-        Issue_LK_UnLK: command[4:0] <= seq_cmnd;
-        RES_mode     : command[4:0] <= Read_Elec_Sig;
-        Rd_Array_Mode: command[4:0] <= Read_Array;
-        Read_Buf_Stat: command[4:0] <= Read_1;
-        Read_ES      : command[4:0] <= Read_1;
-        Read_Status  : command[4:0] <= Read_1;
-        Set_Asynch   : command[4:0] <= Set_Cnfg_Reg;
-        Simple_Cmd   : command[4:0] <= seq_cmnd;
-        Write_n_Wrds : command[4:0] <= Write_n;
+        Buf_Prg_Cnf  :        command <= Buf_Prog_Conf;
+        Buf_Prog     :        command <= Buffer_Program;
+        Buf_Prog_n   :        command <= Buf_Prog_Wrt_n;
+        Check_Buf    :        check_buf <= 1;
+        Check_PEC    :        check_PEC <= 1;
+        Check_Stat   :        check_stat <= 1;
+        Clr_SR       :        command <= Clr_Status_Reg;
+        Cnfrm_LK     :        cnfrm_lk <= 1;
+        Complete     :        seq_cmplt <= 1;
+        Idle         :        seqr_idle <= 1;
+        Issue_Cmd    :        command <= seq_cmnd;
+        Issue_LK_UnLK:        command <= seq_cmnd;
+        RES_mode     :        command <= Read_Elec_Sig;
+        Rd_Array_Mode:        command <= Read_Array;
+        Read_Buf_Stat:        command <= Read_1;
+        Read_ES      : begin
+                              command <= Read_1;
+                              read_es_state <= 1;
+        end
+        Read_Status  :        command <= Read_1;
+        Rpt_Error    :        rpt_error <= 1;
+        Set_Asynch   : begin
+                              command <= Set_Cnfg_Reg;
+                              set_asynch <= 1;
+        end
+        Simple_Cmd   :        command <= seq_cmnd;
+        Write_n_Wrds :        command <= Write_n;
       endcase
     end
   end
-  
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [103:0] statename;

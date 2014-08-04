@@ -373,8 +373,8 @@ generate
 			end
 // State machines for alignment; separate one for each ADC
 
-//   		DSR_align_csp 	DSR_align_FSM_g1a1(.ALIGNED(dsr_algnd_g1a1),.BIT_SLIP_EVN(g1bit_slip_evn1),.BIT_SLIP_ODD(g1bit_slip_odd1),.DSR_RST(g1rst1),.DSR_state(g1_dsr_state_1),.wcnt(g1wcnt1),.slip_cnt(g1slip_cnt1),.winc(g1winc1),.wrst(g1wrst1),.CLK(G1FRM_CLK1),.RST(dsr_rst));
-			DSR_align 	DSR_align_FSM(.ALIGNED(dsr_algnd[G][S]),.BIT_SLIP_EVN(bit_slip_evn[G][S]),.BIT_SLIP_ODD(bit_slip_odd[G][S]),.DSR_RST(sd_rst[G][S]),.STRT_PIPE(restartp[G][S]),.CLK(frm_clk[G][S]),.RST(dsr_rst));
+//   		DSR_align_csp 	DSR_align_FSM_g1a1(.ALIGNED(dsr_algnd[1][1]),.BIT_SLIP_EVN(bit_slip_evn[1][1]),.BIT_SLIP_ODD(bit_slip_odd[1][1]),.DSR_RST(sd_rst[1][1]),.DSR_state(g1_dsr_state_1),.wcnt(g1wcnt1),.slip_cnt(g1slip_cnt1),.winc(g1winc1),.wrst(g1wrst1),.CLK(frm_clk[1][1]),.RST(dsr_rst));
+			DSR_align_FSM 	DSR_align_FSM_i(.ALIGNED(dsr_algnd[G][S]),.BIT_SLIP_EVN(bit_slip_evn[G][S]),.BIT_SLIP_ODD(bit_slip_odd[G][S]),.DSR_RST(sd_rst[G][S]),.STRT_PIPE(restartp[G][S]),.CLK(frm_clk[G][S]),.RST(dsr_rst));
 		end
 	end
 endgenerate

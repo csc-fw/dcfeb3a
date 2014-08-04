@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/xfer2ringbuf_sim_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="xfer2ringbuf_sim_tf" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="31" />
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/RD_ENA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RD_ENA[15:0]</obj_property>
+      <obj_property name="ObjectShortName">RD_ENA[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/L1A_RD_EN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_RD_EN</obj_property>
+      <obj_property name="ObjectShortName">L1A_RD_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/WREN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WREN</obj_property>
+      <obj_property name="ObjectShortName">WREN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/RDY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDY</obj_property>
+      <obj_property name="ObjectShortName">RDY</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider16" type="divider">
+      <obj_property name="label">xfer2ringbuf</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/re" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">re</obj_property>
+      <obj_property name="ObjectShortName">re</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/xstate" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">xstate[2:0]</obj_property>
+      <obj_property name="ObjectShortName">xstate[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[111:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[111:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/channel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">channel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">channel[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/re" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">re</obj_property>
+      <obj_property name="ObjectShortName">re</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/L1A_RD_EN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_RD_EN</obj_property>
+      <obj_property name="ObjectShortName">L1A_RD_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/RD_ENA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RD_ENA[15:0]</obj_property>
+      <obj_property name="ObjectShortName">RD_ENA[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/WREN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WREN</obj_property>
+      <obj_property name="ObjectShortName">WREN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/re_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">re_1</obj_property>
+      <obj_property name="ObjectShortName">re_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/channel_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">channel_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">channel_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider41" type="divider">
+      <obj_property name="label">transfer_samples_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/L1A_RD_EN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_RD_EN</obj_property>
+      <obj_property name="ObjectShortName">L1A_RD_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/RDENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDENA</obj_property>
+      <obj_property name="ObjectShortName">RDENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/XSTATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">XSTATE[2:0]</obj_property>
+      <obj_property name="ObjectShortName">XSTATE[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/RDY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDY</obj_property>
+      <obj_property name="ObjectShortName">RDY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/CHAN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CHAN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">CHAN[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/L1A_RD_EN_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_RD_EN_1</obj_property>
+      <obj_property name="ObjectShortName">L1A_RD_EN_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/RDENA_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDENA_1</obj_property>
+      <obj_property name="ObjectShortName">RDENA_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/xfer2ringbuf_sim_tf/uut/transfer_samples_FSM_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[111:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[111:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

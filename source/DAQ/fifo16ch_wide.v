@@ -63,8 +63,6 @@ module fifo16ch_wide #(
 	wire phase_align0;
 	wire phase_align1;
 	wire stretch_l1a;
-	wire srst;
-	wire sinc;
 	wire injectsbiterr;
 	wire injectdbiterr;
 	wire sbiterr[15:0];
@@ -116,7 +114,6 @@ module fifo16ch_wide #(
 	assign phase_align1 = smpclk_d3 & ~smpclk_d2;
 	assign evt_start = stretch_l1a & phase_align1;
 	assign evt_end = event_pipe[SAMP_MAX];
-	assign wren = sinc;
 	assign ovrlap = (ovrlap_cnt > 4'h0);
 	assign multi_ovlp = (ovrlap_cnt > 4'h1);
 	assign new_l1a = (L1A_MATCH & wren);
@@ -154,7 +151,8 @@ fifo1_la fifo1_la_i (
 	assign rng_fifo1_la_data[31:20]  = event_pipe[11:0];
 	assign rng_fifo1_la_data[43:32]  = muxout[0];
 	assign rng_fifo1_la_data[46:44]  = sel[2:0];
-	assign rng_fifo1_la_data[53:47]  = sample[6:0];
+//	assign rng_fifo1_la_data[53:47]  = sample[6:0];
+	assign rng_fifo1_la_data[53:47]  = 7'h00;
 	assign rng_fifo1_la_data[54]     = L1A;
 	assign rng_fifo1_la_data[55]     = L1A_MATCH;
 	assign rng_fifo1_la_data[56]     = l1a_match_d1;
@@ -171,7 +169,7 @@ fifo1_la fifo1_la_i (
 	assign rng_fifo1_la_data[67]     = ovrlap;
 	assign rng_fifo1_la_data[68]     = multi_ovlp;
 	assign rng_fifo1_la_data[69]     = oinc;
-	assign rng_fifo1_la_data[70]     = srst;
+	assign rng_fifo1_la_data[70]     = 1'b0;
 	assign rng_fifo1_la_data[71]     = l1a_smp_mt;
 	assign rng_fifo1_la_data[72]     = L1A_RD_EN;
 	assign rng_fifo1_la_data[73]     = RD_ENA[0];
@@ -217,7 +215,7 @@ endgenerate
 	end
 	
 	always @(posedge WRCLK) begin
-		if(srst)
+		if(~wren)
 			ovrlap_cnt <= 4'h0;
 		else
 		   if(phase_align1)
@@ -269,39 +267,14 @@ endgenerate
 		endcase
 	end
 
-	always @(posedge WRCLK or posedge srst) begin  // counter for mux selection
-		if(srst)
-			sel <= 0;
-		else
-			if(sel == 3'd5)
-				sel <= 0;
-			else if(sinc) 
-				sel <= sel + 1;
-			else
-			   sel <= sel;
-	end
-
-	always @(posedge WRCLK or posedge srst) begin  // counter for samples
-		if(srst)
-			sample <= 0;
-		else
-			if(sinc && evt_start)
-			   sample <= 0;
-			else if(sinc && (sel == 3'd5))
-				sample <= sample + 1;
-			else
-			   sample <= sample;
-	end
 
 	FIFO_Load_FSM 
 	FIFO_Load_FSM1(
-     .SINC(sinc),
-     .SRST(srst),
+     .SEL(sel),
+     .WRENA(wren),
      .CLK(WRCLK),
      .RST(RST_RESYNC),
-	  .SAMPLE(sample),
 	  .SAMP_MAX(SAMP_MAX),
-     .SEL(sel),
      .START(evt_start) 
 );
   

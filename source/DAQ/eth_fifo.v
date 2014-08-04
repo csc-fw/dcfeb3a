@@ -64,20 +64,16 @@ reg [15:0] fullwrd;
 reg [15:0] frame;
 wire [3:0] frm_state;
 
-wire inc_seq;
-wire rst_seq;
-wire inc_smp;
-wire rst_smp;
 wire ce;
 wire valid0;
 wire clr_crc0;
 wire ld_l1a_h;
 wire ld_l1a_l;
-reg [6:0] smp;
-reg [6:0] seq,seq1;
-reg clr_crc;
-reg valid1,valid2;
-reg mt_r1,mt_r2,mt_r3;
+wire [6:0] seq;
+reg  [6:0] seq1;
+reg  clr_crc;
+reg  valid1,valid2;
+reg  mt_r1,mt_r2,mt_r3;
 
 
 assign injectdbiterr = 0;
@@ -116,7 +112,7 @@ eth_fifo_la eth_fifo_la_i (
 	assign rng_eth_la_data[97:94]   = l1anum[3:0];
 	assign rng_eth_la_data[101:98]  = l1a_mtch_num[3:0];
 	assign rng_eth_la_data[105:102] = frm_state;
-	assign rng_eth_la_data[112:106] = smp;
+	assign rng_eth_la_data[112:106] = 7'h00;
 	assign rng_eth_la_data[119:113] = seq;
 	
 	assign rng_eth_la_data[120]     = WREN;
@@ -142,10 +138,10 @@ eth_fifo_la eth_fifo_la_i (
 	assign rng_eth_la_data[140]     = valid0;
 	assign rng_eth_la_data[141]     = TXD_VLD;
 	assign rng_eth_la_data[142]     = ld_l1a_l;
-	assign rng_eth_la_data[143]     = inc_seq;
-	assign rng_eth_la_data[144]     = rst_seq;
-	assign rng_eth_la_data[145]     = inc_smp;
-	assign rng_eth_la_data[146]     = rst_smp;
+	assign rng_eth_la_data[143]     = 1'b0;
+	assign rng_eth_la_data[144]     = 1'b0;
+	assign rng_eth_la_data[145]     = 1'b0;
+	assign rng_eth_la_data[146]     = 1'b0;
 	assign rng_eth_la_data[147]     = evt_buf_underflow;
 	assign rng_eth_la_data[148]     = evt_buf_overflow;
 	
@@ -272,30 +268,6 @@ always @(posedge RCLK) begin
 			TXD  <= frame;
 end
 
-
-always @(posedge RCLK or posedge RST_RESYNC) begin
-	if(RST_RESYNC)
-		smp <= 7'h00;
-	else
-		if(inc_smp)
-			smp <= smp +1;
-		else if(rst_smp)
-			smp <= 7'h00;
-		else
-			smp <= smp;
-end
-always @(posedge RCLK or posedge RST_RESYNC) begin
-	if(RST_RESYNC)
-		seq <= 7'h00;
-	else
-		if(inc_seq)
-			seq <= seq +1;
-		else if(rst_seq)
-			seq <= 7'h00;
-		else
-			seq <= seq;
-end
-
 function [14:0] CRC15_D13 (input [12:0] d, input [14:0] c);
   reg [14:0] newcrc;
   begin
@@ -321,16 +293,13 @@ function [14:0] CRC15_D13 (input [12:0] d, input [14:0] c);
 
 Sample_Proc_FSM 
 Sample_Proc_FSM1 (
+	.CE(ce),
    .CLR_CRC(clr_crc0),
-   .INC_SEQ(inc_seq),
-   .INC_SMP(inc_smp),
    .LAST_WRD(nxt_l1a),
    .LD_L1A_H(ld_l1a_h),
    .LD_L1A_L(ld_l1a_l),
    .RD(nxt_wrd),
-	.CE(ce),
-   .RST_SEQ(rst_seq),
-   .RST_SMP(rst_smp),
+   .SEQ(seq),
    .VALID(valid0),
 	.SMP_STATE(frm_state),
    .CLK(RCLK),
@@ -338,10 +307,8 @@ Sample_Proc_FSM1 (
    .L1A_BUF_MT(l1a_buf_mt),
    .L1A_HEAD(L1A_HEAD),
    .RST(RST_RESYNC),
-	.TXACK(TXACK),
    .SAMP_MAX(SAMP_MAX),
-   .SEQ(seq),
-   .SMP(smp)
+	.TXACK(TXACK)
 );
 	
 endmodule

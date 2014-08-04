@@ -211,8 +211,8 @@ always @(posedge CLK or posedge RST) begin
 			passes <= passes;
 end
 
-Startup_Display 
-Startup_Display_FSM(
+Startup_Display_FSM 
+Startup_Display_FSM_i(
   .CLEAR(clear),
   .DISP(display),
   .LOAD_PAT(load_pat),

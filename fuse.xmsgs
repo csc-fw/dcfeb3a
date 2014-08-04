@@ -5,31 +5,37 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/pipeline_ecc.v" Line 513: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
-</msg>
-
 <msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/ch_fifo_ecc.v" Line 684: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/l1a_smp_fifo.v" Line 566: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
+<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/l1a_smp_fifo.v" Line 569: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
 <msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/l1a_buf.v" Line 969: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
+<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/ring_buf.v" Line 4648: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
+</msg>
+
 <msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/ring_l1a_buf.v" Line 492: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/evt_buf.v" Line 1810: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
+<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/evt_buf.v" Line 1813: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/Pow_on_Rst.v" Line 30: Parameter declaration becomes local in <arg fmt="%s" index="1">Pow_on_Rst</arg> with formal parameter declaration list
+<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/pipeline_ecc.v" Line 513: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Init.v" Line 21: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Init</arg> with formal parameter declaration list
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/Pow_on_Rst_FSM_TMR.v" Line 26: Parameter declaration becomes local in <arg fmt="%s" index="1">Pow_on_Rst_FSM</arg> with formal parameter declaration list
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Config_FSM.v" Line 23: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Config_FSM</arg> with formal parameter declaration list
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/auto_load_FSM_TMR.v" Line 22: Parameter declaration becomes local in <arg fmt="%s" index="1">auto_load_FSM</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Init_FSM_TMR.V" Line 19: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Init_FSM</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Config_FSM_TMR.v" Line 19: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Config_FSM</arg> with formal parameter declaration list
 </msg>
 
 <msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" Line 5: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.

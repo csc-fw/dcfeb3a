@@ -1,0 +1,1138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/dcfeb3a_sim_top_tf_isim_translate.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="dcfeb3a_sim_top_tf" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="273" />
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/INJPLS_LV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INJPLS_LV</obj_property>
+      <obj_property name="ObjectShortName">INJPLS_LV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/EXTPLS_LV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">EXTPLS_LV</obj_property>
+      <obj_property name="ObjectShortName">EXTPLS_LV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1SHOUTLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1SHOUTLV</obj_property>
+      <obj_property name="ObjectShortName">G1SHOUTLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2SHOUTLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2SHOUTLV</obj_property>
+      <obj_property name="ObjectShortName">G2SHOUTLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3SHOUTLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3SHOUTLV</obj_property>
+      <obj_property name="ObjectShortName">G3SHOUTLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4SHOUTLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4SHOUTLV</obj_property>
+      <obj_property name="ObjectShortName">G4SHOUTLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5SHOUTLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5SHOUTLV</obj_property>
+      <obj_property name="ObjectShortName">G5SHOUTLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6SHOUTLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6SHOUTLV</obj_property>
+      <obj_property name="ObjectShortName">G6SHOUTLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1ADCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1ADCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G1ADCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1ADCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1ADCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G1ADCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1LCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1LCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G1LCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1LCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1LCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G1LCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2ADCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2ADCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G2ADCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2ADCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2ADCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G2ADCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2ADCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2ADCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G2ADCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2ADCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2ADCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G2ADCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2LCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2LCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G2LCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2LCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2LCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G2LCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2LCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2LCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G2LCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2LCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2LCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G2LCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3ADCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3ADCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G3ADCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3ADCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3ADCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G3ADCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3ADCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3ADCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G3ADCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3ADCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3ADCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G3ADCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3LCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3LCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G3LCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3LCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3LCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G3LCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3LCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3LCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G3LCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3LCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3LCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G3LCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4ADCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4ADCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G4ADCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4ADCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4ADCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G4ADCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4ADCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4ADCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G4ADCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4ADCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4ADCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G4ADCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4LCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4LCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G4LCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4LCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4LCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G4LCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4LCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4LCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G4LCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4LCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4LCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G4LCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5ADCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5ADCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G5ADCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5ADCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5ADCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G5ADCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5ADCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5ADCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G5ADCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5ADCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5ADCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G5ADCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5LCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5LCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G5LCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5LCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5LCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G5LCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5LCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5LCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G5LCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5LCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5LCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G5LCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6ADCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6ADCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G6ADCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6ADCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6ADCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G6ADCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6ADCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6ADCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G6ADCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6ADCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6ADCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G6ADCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6LCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6LCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G6LCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6LCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6LCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G6LCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6LCLK1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6LCLK1N</obj_property>
+      <obj_property name="ObjectShortName">G6LCLK1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6LCLK1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6LCLK1P</obj_property>
+      <obj_property name="ObjectShortName">G6LCLK1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TP_B35_0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TP_B35_0N</obj_property>
+      <obj_property name="ObjectShortName">TP_B35_0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TP_B35_0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TP_B35_0P</obj_property>
+      <obj_property name="ObjectShortName">TP_B35_0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FEM_REPROGRAM" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FEM_REPROGRAM</obj_property>
+      <obj_property name="ObjectShortName">FEM_REPROGRAM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FEM_TCK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FEM_TCK</obj_property>
+      <obj_property name="ObjectShortName">FEM_TCK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FEM_TDI" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FEM_TDI</obj_property>
+      <obj_property name="ObjectShortName">FEM_TDI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FEM_TMS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FEM_TMS</obj_property>
+      <obj_property name="ObjectShortName">FEM_TMS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\FEM_TX_DAT- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\FEM_TX_DAT- </obj_property>
+      <obj_property name="ObjectShortName">\FEM_TX_DAT- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\FEM_TX_DAT+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\FEM_TX_DAT+ </obj_property>
+      <obj_property name="ObjectShortName">\FEM_TX_DAT+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CTRL_TDIS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CTRL_TDIS</obj_property>
+      <obj_property name="ObjectShortName">CTRL_TDIS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_SPI_BUSY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_SPI_BUSY</obj_property>
+      <obj_property name="ObjectShortName">FMU_SPI_BUSY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_SPI_RTN_CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_SPI_RTN_CLK</obj_property>
+      <obj_property name="ObjectShortName">FMU_SPI_RTN_CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_SPI_RTN_DAT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_SPI_RTN_DAT</obj_property>
+      <obj_property name="ObjectShortName">FMU_SPI_RTN_DAT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_UL_TCK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_UL_TCK</obj_property>
+      <obj_property name="ObjectShortName">FMU_UL_TCK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_UL_TDI" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_UL_TDI</obj_property>
+      <obj_property name="ObjectShortName">FMU_UL_TDI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_UL_TMS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_UL_TMS</obj_property>
+      <obj_property name="ObjectShortName">FMU_UL_TMS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_FLF_E1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_FLF_E1</obj_property>
+      <obj_property name="ObjectShortName">FMU_FLF_E1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_FLF_P1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_FLF_P1</obj_property>
+      <obj_property name="ObjectShortName">FMU_FLF_P1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_FLF_P2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_FLF_P2</obj_property>
+      <obj_property name="ObjectShortName">FMU_FLF_P2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_VLF_E2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_VLF_E2</obj_property>
+      <obj_property name="ObjectShortName">FMU_VLF_E2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\FMU_CLK40_UL- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\FMU_CLK40_UL- </obj_property>
+      <obj_property name="ObjectShortName">\FMU_CLK40_UL- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\FMU_CLK40_UL+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\FMU_CLK40_UL+ </obj_property>
+      <obj_property name="ObjectShortName">\FMU_CLK40_UL+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/RST_FFEMU" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_FFEMU</obj_property>
+      <obj_property name="ObjectShortName">RST_FFEMU</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\INJPULSE- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\INJPULSE- </obj_property>
+      <obj_property name="ObjectShortName">\INJPULSE- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\INJPULSE+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\INJPULSE+ </obj_property>
+      <obj_property name="ObjectShortName">\INJPULSE+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\EXTPULSE- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\EXTPULSE- </obj_property>
+      <obj_property name="ObjectShortName">\EXTPULSE- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\EXTPULSE+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\EXTPULSE+ </obj_property>
+      <obj_property name="ObjectShortName">\EXTPULSE+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/SPI_CK_LV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SPI_CK_LV</obj_property>
+      <obj_property name="ObjectShortName">SPI_CK_LV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/SPI_DAT_LV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SPI_DAT_LV</obj_property>
+      <obj_property name="ObjectShortName">SPI_DAT_LV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/ADC_CS_LV_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_CS_LV_B</obj_property>
+      <obj_property name="ObjectShortName">ADC_CS_LV_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CAL_DAC_CS_LV_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CAL_DAC_CS_LV_B</obj_property>
+      <obj_property name="ObjectShortName">CAL_DAC_CS_LV_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/COMP_DAC_CS_LV_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">COMP_DAC_CS_LV_B</obj_property>
+      <obj_property name="ObjectShortName">COMP_DAC_CS_LV_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/BPI_AD21_RS0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BPI_AD21_RS0</obj_property>
+      <obj_property name="ObjectShortName">BPI_AD21_RS0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/BPI_AD22_RS1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BPI_AD22_RS1</obj_property>
+      <obj_property name="ObjectShortName">BPI_AD22_RS1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FCS_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FCS_B</obj_property>
+      <obj_property name="ObjectShortName">FCS_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FOE_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FOE_B</obj_property>
+      <obj_property name="ObjectShortName">FOE_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FWE_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FWE_B</obj_property>
+      <obj_property name="ObjectShortName">FWE_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FLATCH_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FLATCH_B</obj_property>
+      <obj_property name="ObjectShortName">FLATCH_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1SHINLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1SHINLV</obj_property>
+      <obj_property name="ObjectShortName">G1SHINLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2SHINLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2SHINLV</obj_property>
+      <obj_property name="ObjectShortName">G2SHINLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3SHINLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3SHINLV</obj_property>
+      <obj_property name="ObjectShortName">G3SHINLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4SHINLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4SHINLV</obj_property>
+      <obj_property name="ObjectShortName">G4SHINLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5SHINLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5SHINLV</obj_property>
+      <obj_property name="ObjectShortName">G5SHINLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6SHINLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6SHINLV</obj_property>
+      <obj_property name="ObjectShortName">G6SHINLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1SHCKLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1SHCKLV</obj_property>
+      <obj_property name="ObjectShortName">G1SHCKLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2SHCKLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2SHCKLV</obj_property>
+      <obj_property name="ObjectShortName">G2SHCKLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3SHCKLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3SHCKLV</obj_property>
+      <obj_property name="ObjectShortName">G3SHCKLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4SHCKLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4SHCKLV</obj_property>
+      <obj_property name="ObjectShortName">G4SHCKLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5SHCKLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5SHCKLV</obj_property>
+      <obj_property name="ObjectShortName">G5SHCKLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6SHCKLV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6SHCKLV</obj_property>
+      <obj_property name="ObjectShortName">G6SHCKLV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1ADC_CS0_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1ADC_CS0_B_25</obj_property>
+      <obj_property name="ObjectShortName">G1ADC_CS0_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1ADC_CS1_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1ADC_CS1_B_25</obj_property>
+      <obj_property name="ObjectShortName">G1ADC_CS1_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2ADC_CS0_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2ADC_CS0_B_25</obj_property>
+      <obj_property name="ObjectShortName">G2ADC_CS0_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2ADC_CS1_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G2ADC_CS1_B_25</obj_property>
+      <obj_property name="ObjectShortName">G2ADC_CS1_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3ADC_CS0_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3ADC_CS0_B_25</obj_property>
+      <obj_property name="ObjectShortName">G3ADC_CS0_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3ADC_CS1_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G3ADC_CS1_B_25</obj_property>
+      <obj_property name="ObjectShortName">G3ADC_CS1_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4ADC_CS0_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4ADC_CS0_B_25</obj_property>
+      <obj_property name="ObjectShortName">G4ADC_CS0_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4ADC_CS1_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G4ADC_CS1_B_25</obj_property>
+      <obj_property name="ObjectShortName">G4ADC_CS1_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5ADC_CS0_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5ADC_CS0_B_25</obj_property>
+      <obj_property name="ObjectShortName">G5ADC_CS0_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5ADC_CS1_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G5ADC_CS1_B_25</obj_property>
+      <obj_property name="ObjectShortName">G5ADC_CS1_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6ADC_CS0_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6ADC_CS0_B_25</obj_property>
+      <obj_property name="ObjectShortName">G6ADC_CS0_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6ADC_CS1_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G6ADC_CS1_B_25</obj_property>
+      <obj_property name="ObjectShortName">G6ADC_CS1_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/ADC_RST_B_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST_B_25</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST_B_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/ADC_SCLK_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_SCLK_25</obj_property>
+      <obj_property name="ObjectShortName">ADC_SCLK_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/ADC_SDATA_25" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_SDATA_25</obj_property>
+      <obj_property name="ObjectShortName">ADC_SDATA_25</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GA1ADCCLK_FN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GA1ADCCLK_FN</obj_property>
+      <obj_property name="ObjectShortName">GA1ADCCLK_FN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GA1ADCCLK_FP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GA1ADCCLK_FP</obj_property>
+      <obj_property name="ObjectShortName">GA1ADCCLK_FP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GA2ADCCLK_FN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GA2ADCCLK_FN</obj_property>
+      <obj_property name="ObjectShortName">GA2ADCCLK_FN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GA2ADCCLK_FP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GA2ADCCLK_FP</obj_property>
+      <obj_property name="ObjectShortName">GA2ADCCLK_FP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GA3ADCCLK_FN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GA3ADCCLK_FN</obj_property>
+      <obj_property name="ObjectShortName">GA3ADCCLK_FN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GA3ADCCLK_FP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GA3ADCCLK_FP</obj_property>
+      <obj_property name="ObjectShortName">GA3ADCCLK_FP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CMODE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CMODE[1:0]</obj_property>
+      <obj_property name="ObjectShortName">CMODE[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CTIME" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CTIME[2:0]</obj_property>
+      <obj_property name="ObjectShortName">CTIME[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/LCTCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LCTCLK</obj_property>
+      <obj_property name="ObjectShortName">LCTCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/LCTRST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LCTRST</obj_property>
+      <obj_property name="ObjectShortName">LCTRST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DATAOUT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DATAOUT[15:0]</obj_property>
+      <obj_property name="ObjectShortName">DATAOUT[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CHAN_LNK_CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CHAN_LNK_CLK</obj_property>
+      <obj_property name="ObjectShortName">CHAN_LNK_CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/MB_FIFO_PUSH_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">MB_FIFO_PUSH_B</obj_property>
+      <obj_property name="ObjectShortName">MB_FIFO_PUSH_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/MOVLP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">MOVLP</obj_property>
+      <obj_property name="ObjectShortName">MOVLP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/OVLPMUX" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">OVLPMUX</obj_property>
+      <obj_property name="ObjectShortName">OVLPMUX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DATAAVAIL" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DATAAVAIL</obj_property>
+      <obj_property name="ObjectShortName">DATAAVAIL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/ENDWORD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ENDWORD</obj_property>
+      <obj_property name="ObjectShortName">ENDWORD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DAQ_TDIS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TDIS</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TDIS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DAQ_TX_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TX_P</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TX_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DAQ_TX_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TX_N</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TX_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TRG_TDIS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TRG_TDIS</obj_property>
+      <obj_property name="ObjectShortName">TRG_TDIS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TRG_TX_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TRG_TX_P</obj_property>
+      <obj_property name="ObjectShortName">TRG_TX_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TRG_TX_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TRG_TX_N</obj_property>
+      <obj_property name="ObjectShortName">TRG_TX_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/QP_RST_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">QP_RST_B</obj_property>
+      <obj_property name="ObjectShortName">QP_RST_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/BPI_AD" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">BPI_AD[22:0]</obj_property>
+      <obj_property name="ObjectShortName">BPI_AD[22:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CFG_DAT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CFG_DAT[15:0]</obj_property>
+      <obj_property name="ObjectShortName">CFG_DAT[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TP_B24_" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">TP_B24_[2:0]</obj_property>
+      <obj_property name="ObjectShortName">TP_B24_[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TP_B25_" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">TP_B25_[15:0]</obj_property>
+      <obj_property name="ObjectShortName">TP_B25_[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TP_B26_" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">TP_B26_[1:0]</obj_property>
+      <obj_property name="ObjectShortName">TP_B26_[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TP_B35_" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">TP_B35_[14:1]</obj_property>
+      <obj_property name="ObjectShortName">TP_B35_[14:1]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/stored_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">stored_data[15:0]</obj_property>
+      <obj_property name="ObjectShortName">stored_data[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TDO" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TDO</obj_property>
+      <obj_property name="ObjectShortName">TDO</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CMS_CLK_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CMS_CLK_N</obj_property>
+      <obj_property name="ObjectShortName">CMS_CLK_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CMS_CLK_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CMS_CLK_P</obj_property>
+      <obj_property name="ObjectShortName">CMS_CLK_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CMS80_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CMS80_N</obj_property>
+      <obj_property name="ObjectShortName">CMS80_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CMS80_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CMS80_P</obj_property>
+      <obj_property name="ObjectShortName">CMS80_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/QPLL_CLK_AC_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">QPLL_CLK_AC_P</obj_property>
+      <obj_property name="ObjectShortName">QPLL_CLK_AC_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/QPLL_CLK_AC_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">QPLL_CLK_AC_N</obj_property>
+      <obj_property name="ObjectShortName">QPLL_CLK_AC_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/XO_CLK_AC_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">XO_CLK_AC_P</obj_property>
+      <obj_property name="ObjectShortName">XO_CLK_AC_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/XO_CLK_AC_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">XO_CLK_AC_N</obj_property>
+      <obj_property name="ObjectShortName">XO_CLK_AC_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\FEM_CLK320- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\FEM_CLK320- </obj_property>
+      <obj_property name="ObjectShortName">\FEM_CLK320- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\FEM_CLK320+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\FEM_CLK320+ </obj_property>
+      <obj_property name="ObjectShortName">\FEM_CLK320+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GC0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GC0N</obj_property>
+      <obj_property name="ObjectShortName">GC0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GC0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GC0P</obj_property>
+      <obj_property name="ObjectShortName">GC0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GC1N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GC1N</obj_property>
+      <obj_property name="ObjectShortName">GC1N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/GC1P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">GC1P</obj_property>
+      <obj_property name="ObjectShortName">GC1P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CLK320_SIGDET" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK320_SIGDET</obj_property>
+      <obj_property name="ObjectShortName">CLK320_SIGDET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\FEM_RX_DAT- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\FEM_RX_DAT- </obj_property>
+      <obj_property name="ObjectShortName">\FEM_RX_DAT- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\FEM_RX_DAT+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\FEM_RX_DAT+ </obj_property>
+      <obj_property name="ObjectShortName">\FEM_RX_DAT+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/CTRL_SIGDET" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CTRL_SIGDET</obj_property>
+      <obj_property name="ObjectShortName">CTRL_SIGDET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_TOKEN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_TOKEN</obj_property>
+      <obj_property name="ObjectShortName">FMU_TOKEN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_L1A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_L1A</obj_property>
+      <obj_property name="ObjectShortName">FMU_L1A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_RESYNC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_RESYNC</obj_property>
+      <obj_property name="ObjectShortName">FMU_RESYNC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_SPI_CS0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_SPI_CS0</obj_property>
+      <obj_property name="ObjectShortName">FMU_SPI_CS0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_SPI_CS1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_SPI_CS1</obj_property>
+      <obj_property name="ObjectShortName">FMU_SPI_CS1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_SPI_CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_SPI_CLK</obj_property>
+      <obj_property name="ObjectShortName">FMU_SPI_CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_SPI_DAT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_SPI_DAT</obj_property>
+      <obj_property name="ObjectShortName">FMU_SPI_DAT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_INJPLS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_INJPLS</obj_property>
+      <obj_property name="ObjectShortName">FMU_INJPLS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/FMU_EXTPLS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FMU_EXTPLS</obj_property>
+      <obj_property name="ObjectShortName">FMU_EXTPLS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_EXTPLS- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_EXTPLS- </obj_property>
+      <obj_property name="ObjectShortName">\SKW_EXTPLS- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_EXTPLS+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_EXTPLS+ </obj_property>
+      <obj_property name="ObjectShortName">\SKW_EXTPLS+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_INJPLS- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_INJPLS- </obj_property>
+      <obj_property name="ObjectShortName">\SKW_INJPLS- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_INJPLS+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_INJPLS+ </obj_property>
+      <obj_property name="ObjectShortName">\SKW_INJPLS+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/SPI_RTN_LV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SPI_RTN_LV</obj_property>
+      <obj_property name="ObjectShortName">SPI_RTN_LV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1AD_N" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G1AD_N[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G1AD_N[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1AD_P" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G1AD_P[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G1AD_P[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2AD_N" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G2AD_N[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G2AD_N[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2AD_P" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G2AD_P[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G2AD_P[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3AD_N" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G3AD_N[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G3AD_N[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3AD_P" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G3AD_P[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G3AD_P[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4AD_N" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G4AD_N[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G4AD_N[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4AD_P" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G4AD_P[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G4AD_P[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5AD_N" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G5AD_N[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G5AD_N[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5AD_P" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G5AD_P[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G5AD_P[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6AD_N" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G6AD_N[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G6AD_N[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6AD_P" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G6AD_P[15:0]</obj_property>
+      <obj_property name="ObjectShortName">G6AD_P[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1ADCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1ADCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G1ADCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1ADCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1ADCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G1ADCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1LCLK0N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1LCLK0N</obj_property>
+      <obj_property name="ObjectShortName">G1LCLK0N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1LCLK0P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">G1LCLK0P</obj_property>
+      <obj_property name="ObjectShortName">G1LCLK0P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G1C_LV" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G1C_LV[7:0]</obj_property>
+      <obj_property name="ObjectShortName">G1C_LV[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G2C_LV" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G2C_LV[7:0]</obj_property>
+      <obj_property name="ObjectShortName">G2C_LV[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G3C_LV" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G3C_LV[7:0]</obj_property>
+      <obj_property name="ObjectShortName">G3C_LV[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G4C_LV" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G4C_LV[7:0]</obj_property>
+      <obj_property name="ObjectShortName">G4C_LV[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G5C_LV" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G5C_LV[7:0]</obj_property>
+      <obj_property name="ObjectShortName">G5C_LV[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/G6C_LV" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G6C_LV[7:0]</obj_property>
+      <obj_property name="ObjectShortName">G6C_LV[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_L1A- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_L1A- </obj_property>
+      <obj_property name="ObjectShortName">\SKW_L1A- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_L1A+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_L1A+ </obj_property>
+      <obj_property name="ObjectShortName">\SKW_L1A+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_L1A_MATCH- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_L1A_MATCH- </obj_property>
+      <obj_property name="ObjectShortName">\SKW_L1A_MATCH- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_L1A_MATCH+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_L1A_MATCH+ </obj_property>
+      <obj_property name="ObjectShortName">\SKW_L1A_MATCH+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_RESYNC- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_RESYNC- </obj_property>
+      <obj_property name="ObjectShortName">\SKW_RESYNC- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_RESYNC+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_RESYNC+ </obj_property>
+      <obj_property name="ObjectShortName">\SKW_RESYNC+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_BC0- " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_BC0- </obj_property>
+      <obj_property name="ObjectShortName">\SKW_BC0- </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/\SKW_BC0+ " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\SKW_BC0+ </obj_property>
+      <obj_property name="ObjectShortName">\SKW_BC0+ </obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DAQ_RX_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_RX_P</obj_property>
+      <obj_property name="ObjectShortName">DAQ_RX_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DAQ_RX_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_RX_N</obj_property>
+      <obj_property name="ObjectShortName">DAQ_RX_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/ALT_SIGDET" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ALT_SIGDET</obj_property>
+      <obj_property name="ObjectShortName">ALT_SIGDET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TRG_RX_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TRG_RX_P</obj_property>
+      <obj_property name="ObjectShortName">TRG_RX_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TRG_RX_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TRG_RX_N</obj_property>
+      <obj_property name="ObjectShortName">TRG_RX_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/QP_ERROR" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">QP_ERROR</obj_property>
+      <obj_property name="ObjectShortName">QP_ERROR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/QP_LOCKED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">QP_LOCKED</obj_property>
+      <obj_property name="ObjectShortName">QP_LOCKED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DV4P_3_CUR_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DV4P_3_CUR_P</obj_property>
+      <obj_property name="ObjectShortName">DV4P_3_CUR_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DV4P_3_CUR_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DV4P_3_CUR_N</obj_property>
+      <obj_property name="ObjectShortName">DV4P_3_CUR_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DV3P_2_CUR_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DV3P_2_CUR_N</obj_property>
+      <obj_property name="ObjectShortName">DV3P_2_CUR_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DV3P_2_CUR_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DV3P_2_CUR_P</obj_property>
+      <obj_property name="ObjectShortName">DV3P_2_CUR_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DV3P_25_CUR_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DV3P_25_CUR_N</obj_property>
+      <obj_property name="ObjectShortName">DV3P_25_CUR_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/DV3P_25_CUR_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DV3P_25_CUR_P</obj_property>
+      <obj_property name="ObjectShortName">DV3P_25_CUR_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V3PDCOMP_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V3PDCOMP_MONN</obj_property>
+      <obj_property name="ObjectShortName">V3PDCOMP_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V3PDCOMP_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V3PDCOMP_MONP</obj_property>
+      <obj_property name="ObjectShortName">V3PDCOMP_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V3PIO_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V3PIO_MONN</obj_property>
+      <obj_property name="ObjectShortName">V3PIO_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V3PIO_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V3PIO_MONP</obj_property>
+      <obj_property name="ObjectShortName">V3PIO_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V25IO_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V25IO_MONN</obj_property>
+      <obj_property name="ObjectShortName">V25IO_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V25IO_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V25IO_MONP</obj_property>
+      <obj_property name="ObjectShortName">V25IO_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V5PACOMP_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V5PACOMP_MONN</obj_property>
+      <obj_property name="ObjectShortName">V5PACOMP_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V5PACOMP_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V5PACOMP_MONP</obj_property>
+      <obj_property name="ObjectShortName">V5PACOMP_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V5PSUB_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V5PSUB_MONN</obj_property>
+      <obj_property name="ObjectShortName">V5PSUB_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V5PSUB_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V5PSUB_MONP</obj_property>
+      <obj_property name="ObjectShortName">V5PSUB_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V5PPA_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V5PPA_MONP</obj_property>
+      <obj_property name="ObjectShortName">V5PPA_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V5PPA_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V5PPA_MONN</obj_property>
+      <obj_property name="ObjectShortName">V5PPA_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V33PAADC_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V33PAADC_MONP</obj_property>
+      <obj_property name="ObjectShortName">V33PAADC_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V33PAADC_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V33PAADC_MONN</obj_property>
+      <obj_property name="ObjectShortName">V33PAADC_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V18PDADC_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V18PDADC_MONP</obj_property>
+      <obj_property name="ObjectShortName">V18PDADC_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V18PDADC_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V18PDADC_MONN</obj_property>
+      <obj_property name="ObjectShortName">V18PDADC_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V5PAMP_MONP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V5PAMP_MONP</obj_property>
+      <obj_property name="ObjectShortName">V5PAMP_MONP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/V5PAMP_MONN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">V5PAMP_MONN</obj_property>
+      <obj_property name="ObjectShortName">V5PAMP_MONN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/AV54P_3_CUR_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AV54P_3_CUR_N</obj_property>
+      <obj_property name="ObjectShortName">AV54P_3_CUR_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/AV54P_3_CUR_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AV54P_3_CUR_P</obj_property>
+      <obj_property name="ObjectShortName">AV54P_3_CUR_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/AV54P_5_CUR_N" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AV54P_5_CUR_N</obj_property>
+      <obj_property name="ObjectShortName">AV54P_5_CUR_N</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/AV54P_5_CUR_P" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AV54P_5_CUR_P</obj_property>
+      <obj_property name="ObjectShortName">AV54P_5_CUR_P</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/SEL_SKW_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SEL_SKW_B</obj_property>
+      <obj_property name="ObjectShortName">SEL_SKW_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/SEL_CON_B" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SEL_CON_B</obj_property>
+      <obj_property name="ObjectShortName">SEL_CON_B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g1adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g1adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g1adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g2adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g2adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g2adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g3adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g3adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g3adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g4adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g4adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g4adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g5adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g5adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g5adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g6adcdata" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g6adcdata[127:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">g6adcdata[127:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addr[22:0]</obj_property>
+      <obj_property name="ObjectShortName">addr[22:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/out_value" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">out_value[15:0]</obj_property>
+      <obj_property name="ObjectShortName">out_value[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TMS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TMS</obj_property>
+      <obj_property name="ObjectShortName">TMS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TDI" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TDI</obj_property>
+      <obj_property name="ObjectShortName">TDI</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/TCK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TCK</obj_property>
+      <obj_property name="ObjectShortName">TCK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/jrst" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">jrst[7:0]</obj_property>
+      <obj_property name="ObjectShortName">jrst[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/sir_hdr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sir_hdr[3:0]</obj_property>
+      <obj_property name="ObjectShortName">sir_hdr[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/sdr_hdr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sdr_hdr[3:0]</obj_property>
+      <obj_property name="ObjectShortName">sdr_hdr[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/trl" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">trl[2:0]</obj_property>
+      <obj_property name="ObjectShortName">trl[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/usr1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">usr1[9:0]</obj_property>
+      <obj_property name="ObjectShortName">usr1[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/usr2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">usr2[9:0]</obj_property>
+      <obj_property name="ObjectShortName">usr2[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/usr3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">usr3[9:0]</obj_property>
+      <obj_property name="ObjectShortName">usr3[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/usr4" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">usr4[9:0]</obj_property>
+      <obj_property name="ObjectShortName">usr4[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g1bckshftreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g1bckshftreg[47:0]</obj_property>
+      <obj_property name="ObjectShortName">g1bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g2bckshftreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g2bckshftreg[47:0]</obj_property>
+      <obj_property name="ObjectShortName">g2bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g3bckshftreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g3bckshftreg[47:0]</obj_property>
+      <obj_property name="ObjectShortName">g3bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g4bckshftreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g4bckshftreg[47:0]</obj_property>
+      <obj_property name="ObjectShortName">g4bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g5bckshftreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g5bckshftreg[47:0]</obj_property>
+      <obj_property name="ObjectShortName">g5bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/g6bckshftreg" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">g6bckshftreg[47:0]</obj_property>
+      <obj_property name="ObjectShortName">g6bckshftreg[47:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/rd_mode" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rd_mode</obj_property>
+      <obj_property name="ObjectShortName">rd_mode</obj_property>
+   </wvobject>
+</wave_config>

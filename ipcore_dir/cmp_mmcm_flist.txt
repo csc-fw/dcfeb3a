@@ -2,6 +2,7 @@
 _xmsgs\pn_parser.xmsgs
 cmp_mmcm.asy
 cmp_mmcm.gise
+cmp_mmcm.sym
 cmp_mmcm.ucf
 cmp_mmcm.v
 cmp_mmcm.veo

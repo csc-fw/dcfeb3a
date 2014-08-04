@@ -1,6 +1,6 @@
-## File last modified by Fizzim: 6:41:51 PM on 5/27/11
+## File last modified by Fizzim: 1:27:20 PM on 6/16/14
 <version>
-   10.02.26
+   14.02.18
 </version>
 <globals>
    <machine>
@@ -38,6 +38,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -82,6 +94,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -126,6 +150,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -170,6 +206,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -214,6 +262,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -260,6 +320,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -304,6 +376,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -348,6 +432,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -392,6 +488,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -436,6 +544,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -480,6 +600,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -524,6 +656,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -568,6 +712,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -614,6 +770,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -658,6 +826,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -702,6 +882,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -746,6 +938,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -790,6 +994,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -836,6 +1052,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -880,6 +1108,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -924,6 +1164,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -968,6 +1220,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1012,6 +1276,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1056,6 +1332,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1102,6 +1390,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1146,6 +1446,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1190,6 +1502,18 @@
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1296,6 +1620,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1340,6 +1676,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1384,6 +1732,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1428,6 +1788,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1472,6 +1844,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1516,6 +1900,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1587,6 +1983,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1631,6 +2039,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1675,6 +2095,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1719,6 +2151,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1763,6 +2207,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1807,6 +2263,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1878,6 +2346,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1922,6 +2402,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -1966,6 +2458,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2010,6 +2514,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2054,6 +2570,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2098,6 +2626,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2169,6 +2709,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2213,6 +2765,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2257,6 +2821,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2301,6 +2877,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2345,6 +2933,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2389,6 +2989,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2460,6 +3072,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2504,6 +3128,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          -62
          </x2Obj>
@@ -2548,6 +3184,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2603,25 +3251,25 @@ fzm_globalTable
    </color>
    <pageSX>
    0.0
-   </PageSX>
+   </pageSX>
    <pageSY>
    0.0
    </pageSY>
    <pageSCX>
    0.0
-   </PageSCX>
+   </pageSCX>
    <pageSCY>
    0.0
    </pageSCY>
    <pageEX>
    0.0
-   </PageEX>
+   </pageEX>
    <pageEY>
    0.0
    </pageEY>
    <pageECX>
    0.0
-   </PageECX>
+   </pageECX>
    <pageECY>
    0.0
    </pageECY>
@@ -2667,6 +3315,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2711,6 +3371,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          76
          </x2Obj>
@@ -2755,6 +3427,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2810,25 +3494,25 @@ fzm_globalTable
    </color>
    <pageSX>
    0.0
-   </PageSX>
+   </pageSX>
    <pageSY>
    0.0
    </pageSY>
    <pageSCX>
    0.0
-   </PageSCX>
+   </pageSCX>
    <pageSCY>
    0.0
    </pageSCY>
    <pageEX>
    0.0
-   </PageEX>
+   </pageEX>
    <pageEY>
    0.0
    </pageEY>
    <pageECX>
    0.0
-   </PageECX>
+   </pageECX>
    <pageECY>
    0.0
    </pageECY>
@@ -2874,6 +3558,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2918,6 +3614,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -2962,6 +3670,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3054,6 +3774,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3098,6 +3830,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3142,6 +3886,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3186,6 +3942,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3230,6 +3998,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3274,6 +4054,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3345,6 +4137,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3389,6 +4193,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3433,6 +4249,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3525,6 +4353,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3569,6 +4409,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          -22
          </x2Obj>
@@ -3613,6 +4465,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3668,25 +4532,25 @@ fzm_globalTable
    </color>
    <pageSX>
    0.0
-   </PageSX>
+   </pageSX>
    <pageSY>
    0.0
    </pageSY>
    <pageSCX>
    0.0
-   </PageSCX>
+   </pageSCX>
    <pageSCY>
    0.0
    </pageSCY>
    <pageEX>
    0.0
-   </PageEX>
+   </pageEX>
    <pageEY>
    0.0
    </pageEY>
    <pageECX>
    0.0
-   </PageECX>
+   </pageECX>
    <pageECY>
    0.0
    </pageECY>
@@ -3732,6 +4596,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3776,6 +4652,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          28
          </x2Obj>
@@ -3820,6 +4708,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3875,25 +4775,25 @@ fzm_globalTable
    </color>
    <pageSX>
    0.0
-   </PageSX>
+   </pageSX>
    <pageSY>
    0.0
    </pageSY>
    <pageSCX>
    0.0
-   </PageSCX>
+   </pageSCX>
    <pageSCY>
    0.0
    </pageSCY>
    <pageEX>
    0.0
-   </PageEX>
+   </pageEX>
    <pageEY>
    0.0
    </pageEY>
    <pageECX>
    0.0
-   </PageECX>
+   </pageECX>
    <pageECY>
    0.0
    </pageECY>
@@ -3939,6 +4839,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -3983,6 +4895,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4027,6 +4951,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4082,25 +5018,25 @@ fzm_globalTable
    </color>
    <pageSX>
    0.0
-   </PageSX>
+   </pageSX>
    <pageSY>
    0.0
    </pageSY>
    <pageSCX>
    0.0
-   </PageSCX>
+   </pageSCX>
    <pageSCY>
    0.0
    </pageSCY>
    <pageEX>
    0.0
-   </PageEX>
+   </pageEX>
    <pageEY>
    0.0
    </pageEY>
    <pageECX>
    0.0
-   </PageECX>
+   </pageECX>
    <pageECY>
    0.0
    </pageECY>
@@ -4146,6 +5082,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4190,6 +5138,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4234,6 +5194,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4289,25 +5261,25 @@ fzm_globalTable
    </color>
    <pageSX>
    0.0
-   </PageSX>
+   </pageSX>
    <pageSY>
    0.0
    </pageSY>
    <pageSCX>
    0.0
-   </PageSCX>
+   </pageSCX>
    <pageSCY>
    0.0
    </pageSCY>
    <pageEX>
    0.0
-   </PageEX>
+   </pageEX>
    <pageEY>
    0.0
    </pageEY>
    <pageECX>
    0.0
-   </PageECX>
+   </pageECX>
    <pageECY>
    0.0
    </pageECY>
@@ -4353,6 +5325,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4397,6 +5381,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          69
          </x2Obj>
@@ -4441,6 +5437,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4496,25 +5504,25 @@ fzm_globalTable
    </color>
    <pageSX>
    0.0
-   </PageSX>
+   </pageSX>
    <pageSY>
    0.0
    </pageSY>
    <pageSCX>
    0.0
-   </PageSCX>
+   </pageSCX>
    <pageSCY>
    0.0
    </pageSCY>
    <pageEX>
    0.0
-   </PageEX>
+   </pageEX>
    <pageEY>
    0.0
    </pageEY>
    <pageECX>
    0.0
-   </PageECX>
+   </pageECX>
    <pageECY>
    0.0
    </pageECY>
@@ -4560,6 +5568,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4604,6 +5624,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4648,6 +5680,18 @@ fzm_globalTable
             GLOBAL_VAR
             </status>
          </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
          <x2Obj>
          0
          </x2Obj>
@@ -4703,25 +5747,25 @@ fzm_globalTable
    </color>
    <pageSX>
    0.0
-   </PageSX>
+   </pageSX>
    <pageSY>
    0.0
    </pageSY>
    <pageSCX>
    0.0
-   </PageSCX>
+   </pageSCX>
    <pageSCY>
    0.0
    </pageSCY>
    <pageEX>
    0.0
-   </PageEX>
+   </pageEX>
    <pageEY>
    0.0
    </pageEY>
    <pageECX>
    0.0
-   </PageECX>
+   </pageECX>
    <pageECY>
    0.0
    </pageECY>

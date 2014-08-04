@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/FSM_test_sim_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="FSM_test_sim_tf" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="70" />
+   <wvobject fp_name="/FSM_test_sim_tf/AL_ADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_ADDR[22:0]</obj_property>
+      <obj_property name="ObjectShortName">AL_ADDR[22:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/AL_EXECUTE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_EXECUTE</obj_property>
+      <obj_property name="ObjectShortName">AL_EXECUTE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/AUTO_LOAD_ENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AUTO_LOAD_ENA</obj_property>
+      <obj_property name="ObjectShortName">AUTO_LOAD_ENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/CLR_AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">CLR_AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/AL_CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_CNT[5:0]</obj_property>
+      <obj_property name="ObjectShortName">AL_CNT[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/AL_STATUS" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_STATUS[2:0]</obj_property>
+      <obj_property name="ObjectShortName">AL_STATUS[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/AL_START" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_START</obj_property>
+      <obj_property name="ObjectShortName">AL_START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider31" type="divider">
+      <obj_property name="label">auto_load</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/AL_START" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_START</obj_property>
+      <obj_property name="ObjectShortName">AL_START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/addr_offset" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addr_offset[5:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_offset[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/AL_ADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_ADDR[22:0]</obj_property>
+      <obj_property name="ObjectShortName">AL_ADDR[22:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/AL_EXECUTE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_EXECUTE</obj_property>
+      <obj_property name="ObjectShortName">AL_EXECUTE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/capture" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">capture</obj_property>
+      <obj_property name="ObjectShortName">capture</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/al_addr_v2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">al_addr_v2[22:0]</obj_property>
+      <obj_property name="ObjectShortName">al_addr_v2[22:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/al_execute_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">al_execute_2</obj_property>
+      <obj_property name="ObjectShortName">al_execute_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/capture_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">capture_2</obj_property>
+      <obj_property name="ObjectShortName">capture_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/AL_CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_CNT[5:0]</obj_property>
+      <obj_property name="ObjectShortName">AL_CNT[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/load_data" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">load_data</obj_property>
+      <obj_property name="ObjectShortName">load_data</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/al_cnt_v2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">al_cnt_v2[5:0]</obj_property>
+      <obj_property name="ObjectShortName">al_cnt_v2[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/load_data_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">load_data_2</obj_property>
+      <obj_property name="ObjectShortName">load_data_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/AUTO_LOAD_ENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AUTO_LOAD_ENA</obj_property>
+      <obj_property name="ObjectShortName">AUTO_LOAD_ENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_ena_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">auto_load_ena_2</obj_property>
+      <obj_property name="ObjectShortName">auto_load_ena_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/CLR_AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">CLR_AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/clr_al_done_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clr_al_done_2</obj_property>
+      <obj_property name="ObjectShortName">clr_al_done_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/busy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/busy_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">busy_2</obj_property>
+      <obj_property name="ObjectShortName">busy_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/rst_addr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_addr</obj_property>
+      <obj_property name="ObjectShortName">rst_addr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/addr_rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">addr_rst</obj_property>
+      <obj_property name="ObjectShortName">addr_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/inc_addr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">inc_addr</obj_property>
+      <obj_property name="ObjectShortName">inc_addr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/al_aborted" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">al_aborted</obj_property>
+      <obj_property name="ObjectShortName">al_aborted</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/al_completed" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">al_completed</obj_property>
+      <obj_property name="ObjectShortName">al_completed</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/al_completed_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">al_completed_2</obj_property>
+      <obj_property name="ObjectShortName">al_completed_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider14" type="divider">
+      <obj_property name="label">auto_load_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/ADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ADDR[5:0]</obj_property>
+      <obj_property name="ObjectShortName">ADDR[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/BUSY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BUSY</obj_property>
+      <obj_property name="ObjectShortName">BUSY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/START" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/ABORTED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ABORTED</obj_property>
+      <obj_property name="ObjectShortName">ABORTED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/AL_ENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_ENA</obj_property>
+      <obj_property name="ObjectShortName">AL_ENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/CLR_AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">CLR_AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/COMPLETED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">COMPLETED</obj_property>
+      <obj_property name="ObjectShortName">COMPLETED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/EXECUTE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">EXECUTE</obj_property>
+      <obj_property name="ObjectShortName">EXECUTE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/INC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC</obj_property>
+      <obj_property name="ObjectShortName">INC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/RST_ADDR" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_ADDR</obj_property>
+      <obj_property name="ObjectShortName">RST_ADDR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/nextstate" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[79:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[79:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider53" type="divider">
+      <obj_property name="label">auto_load_FSM_v2</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/BUSY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BUSY</obj_property>
+      <obj_property name="ObjectShortName">BUSY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/START" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/ABORTED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ABORTED</obj_property>
+      <obj_property name="ObjectShortName">ABORTED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/AL_ENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AL_ENA</obj_property>
+      <obj_property name="ObjectShortName">AL_ENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/CLR_AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">CLR_AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CNT[5:0]</obj_property>
+      <obj_property name="ObjectShortName">CNT[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/COMPLETED" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">COMPLETED</obj_property>
+      <obj_property name="ObjectShortName">COMPLETED</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/EXECUTE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">EXECUTE</obj_property>
+      <obj_property name="ObjectShortName">EXECUTE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/state" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/nextstate" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_test_sim_tf/uut/auto_load_FSM_v2_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[79:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[79:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

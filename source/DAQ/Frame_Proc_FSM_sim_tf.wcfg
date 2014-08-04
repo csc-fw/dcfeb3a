@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/Frame_Proc_FSM_sim_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="Frame_Proc_FSM_sim_tf" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="89" />
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/VALID" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID</obj_property>
+      <obj_property name="ObjectShortName">VALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/CLR_CRC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/CLR_CRC_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_trial</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/CRC_DV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/CRC_DV_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV_trial</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/rom_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">rom_addr[2:0]</obj_property>
+      <obj_property name="ObjectShortName">rom_addr[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/ROM_ADDR_trial" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ROM_ADDR_trial[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ROM_ADDR_trial[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/INC_ROM" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_ROM</obj_property>
+      <obj_property name="ObjectShortName">INC_ROM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/RST_ROM" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_ROM</obj_property>
+      <obj_property name="ObjectShortName">RST_ROM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/TX_ACK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/TX_ACK_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK_trial</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/FRM_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">FRM_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">FRM_STATE[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/FRM_STATE_trial" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">FRM_STATE_trial[3:0]</obj_property>
+      <obj_property name="ObjectShortName">FRM_STATE_trial[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/rst_rom_addr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_rom_addr</obj_property>
+      <obj_property name="ObjectShortName">rst_rom_addr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider18" type="divider">
+      <obj_property name="label">Frame_Proc_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CLR_CRC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CRC_DV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/INC_ROM" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_ROM</obj_property>
+      <obj_property name="ObjectShortName">INC_ROM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/RST_ROM" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_ROM</obj_property>
+      <obj_property name="ObjectShortName">RST_ROM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/TX_ACK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/FRM_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">FRM_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">FRM_STATE[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/ROM_ADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ROM_ADDR[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ROM_ADDR[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/VALID" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID</obj_property>
+      <obj_property name="ObjectShortName">VALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/voted_state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_2[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/voted_state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_3[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_2[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_3[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/nextstate_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_2[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/nextstate_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_3[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CLR_CRC_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_1</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CLR_CRC_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_2</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CLR_CRC_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_3</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CRC_DV_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV_1</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CRC_DV_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV_2</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/CRC_DV_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV_3</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/INC_ROM_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_ROM_1</obj_property>
+      <obj_property name="ObjectShortName">INC_ROM_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/INC_ROM_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_ROM_2</obj_property>
+      <obj_property name="ObjectShortName">INC_ROM_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/INC_ROM_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_ROM_3</obj_property>
+      <obj_property name="ObjectShortName">INC_ROM_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/RST_ROM_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_ROM_1</obj_property>
+      <obj_property name="ObjectShortName">RST_ROM_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/RST_ROM_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_ROM_2</obj_property>
+      <obj_property name="ObjectShortName">RST_ROM_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/RST_ROM_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_ROM_3</obj_property>
+      <obj_property name="ObjectShortName">RST_ROM_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/TX_ACK_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK_1</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/TX_ACK_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK_2</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/TX_ACK_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK_3</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/uut/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[79:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[79:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider19" type="divider">
+      <obj_property name="label">trial FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CLR_CRC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CRC_DV" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/ROM_ADDR" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ROM_ADDR[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ROM_ADDR[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/TX_ACK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/FRM_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">FRM_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">FRM_STATE[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/VALID" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID</obj_property>
+      <obj_property name="ObjectShortName">VALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/voted_state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_2[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/voted_state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_3[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/voted_addr_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_addr_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_addr_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/voted_addr_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_addr_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_addr_2[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/voted_addr_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_addr_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_addr_3[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_2[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_3[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/nextstate_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_2[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/nextstate_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_3[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CLR_CRC_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_1</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CLR_CRC_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_2</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CLR_CRC_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_3</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CRC_DV_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV_1</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CRC_DV_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV_2</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/CRC_DV_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRC_DV_3</obj_property>
+      <obj_property name="ObjectShortName">CRC_DV_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/ROM_ADDR_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ROM_ADDR_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ROM_ADDR_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/ROM_ADDR_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ROM_ADDR_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ROM_ADDR_2[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/ROM_ADDR_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ROM_ADDR_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ROM_ADDR_3[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/TX_ACK_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK_1</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/TX_ACK_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK_2</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/TX_ACK_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TX_ACK_3</obj_property>
+      <obj_property name="ObjectShortName">TX_ACK_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/addr_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addr_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/addr_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addr_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_2[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/addr_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">addr_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_3[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Frame_Proc_FSM_sim_tf/Frame_Proc_FSM_trial_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[79:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[79:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

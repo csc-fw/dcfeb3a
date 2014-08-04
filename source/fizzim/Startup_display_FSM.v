@@ -1,7 +1,7 @@
 
-// Created by fizzim.pl version 4.41 on 2014:01:08 at 12:25:43 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:12:45 (www.fizzim.com)
 
-module Startup_Display (
+module Startup_Display_FSM (
   output reg CLEAR,
   output reg DISP,
   output reg LOAD_PAT,
@@ -13,7 +13,7 @@ module Startup_Display (
   input RUN,
   input wire [15:0] TMR 
 );
-  
+
   // state bits
   parameter 
   Reset = 3'b000, 
@@ -22,10 +22,12 @@ module Startup_Display (
   Next  = 3'b011, 
   Skip  = 3'b100, 
   Wait  = 3'b101; 
-  
+
   reg [2:0] state;
+
   reg [2:0] nextstate;
-  
+
+
   // comb always block
   always @* begin
     nextstate = 3'bxxx; // default to x because default_state_is_x is set
@@ -41,9 +43,9 @@ module Startup_Display (
              else                 nextstate = Wait;
     endcase
   end
-  
+
   // Assign reg'd outputs to state bits
-  
+
   // sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST)
@@ -51,7 +53,7 @@ module Startup_Display (
     else
       state <= nextstate;
   end
-  
+
   // datapath sequential always block
   always @(posedge CLK or posedge RST) begin
     if (RST) begin
@@ -82,7 +84,7 @@ module Startup_Display (
       endcase
     end
   end
-  
+
   // This code allows you to see state names in simulation
   `ifndef SYNTHESIS
   reg [39:0] statename;

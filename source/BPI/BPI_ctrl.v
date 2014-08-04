@@ -260,7 +260,6 @@ wire next;
 wire term_cnt;
 wire loop_done;
 
-reg [15:0] rbk_reg;
 reg [7:0] sr_reg;
 reg [15:0] esig_reg;
 reg [15:0] cfiq_reg;
@@ -606,6 +605,8 @@ begin : no_chipscope_bpi
 	assign csp_load_offset     = 0;
 	assign csp_man_rst         = 0;
 	assign csp_load_count      = 0;
+	assign csp_bpi_enbl        = 0;
+	assign csp_bpi_dsbl        = 0;
 end
 endgenerate
 

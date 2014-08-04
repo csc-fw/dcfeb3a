@@ -44,7 +44,7 @@
 //  25     | Reset BPI interface. -- Instruction only, (Auto reset)
 //  26     | Disable BPI processing. -- Instruction only, persisting
 //  27     | Enable BPI processing. -- Instruction only, persisting
-//  28     | Comparator Clock phase register (4-bits, 0-15).
+//  28     | Comparator Clock phase register (5-bits, 0-31).
 //  29     | TMB transmit mode (2-bits, 0: comparator data, 1: fixed patterns, 2: counters, 3: randoms, 4: comparator data, 5: half strip patterns).
 //  30     | TMB half strips for injecting patterns into the optical serial data stream for transmit mode 5. (30-bits, 5 per layer) {ly6,...ly1}
 //  31     | TMB layer mask to indicat the active layers for half strip patterns in transmit mode 5. (6-bits, 1 per layer)
@@ -53,7 +53,7 @@
 //  34     | Program Calibration DAC -- same style as Comparator DAC
 //  35     | Send Control Byte to the MAX 1271 ADC (and conversion clocks)
 //  36     | Read back the MAX 1271 ADC conversion stored in the SPI return register.
-//  37     | Read the SEM status and FRAME Address Register for the address of the frame with the bit errors that caused the CRC error (34 bits).
+//  37     | Read the SEM status (10 bits).
 //  38     | Reset the configuration ECC error counters. -- Instruction only, (Auto reset)
 //  39     | Read the ECC error counters (16-bits total, {8-bits for multi-bit error count, 8-bits for single-bit error counts})
 //  40     | Set L1A_MATCH source to use only matched L1A's (skw_rw_l1a_match). Clear the USE_ANY_L1A flag. -- Instruction only
@@ -72,12 +72,13 @@
 //  53     | Readback Select Register: Register to capture selected register indicated in Reg_Sel_Wrd (16-bits). 
 //  54     | QPLL reset: This requires a NoOp afterwards to clear the reset then a Hard reset.  All clocks stop while active. QPLL takes 0.5 seconds to lock. 
 //  55     | QPLL lock lost counter (8-bits). 
-//  56     | Startup Status register (16-bits).  {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,1'b0,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],eos,por_state[2:0]};
+//  56     | Startup Status register (16-bits).  {qpll_lock,qpll_error,qpll_cnt_ovrflw,1'b0,eos,trg_mmcm_lock,daq_mmcm_lock,adc_rdy,run,al_status[2:0],por_state[3:0]};
 //  57     | Read L1A counter (24 bits).
 //  58     | Read L1A_MATCH counter (12 bits).
 //  59     | Read INJPLS counter (12 bits).
 //  60     | Read EXTPLS counter (12 bits).
 //  61     | Read BC0 counter (12 bits).
+//  62     | Comparator Clock Phase Reset (CMP_PHS_JTAG_RST),  Instruction only, (Auto reset)
 
 //
 // Revision: 
@@ -140,9 +141,9 @@ module jtag_access (
     output BPI_DISABLE,      // Disable BPI processing
     output BPI_ENABLE,       // Enable BPI processing
 	 output [6:0] SAMP_MAX,   // Number of samples to readout minus 1
-	 output [3:0] CMP_CLK_PHASE,  // Comparator Clock Phase register value (0-15).
+	 output [4:0] CMP_CLK_PHASE,  // Comparator Clock Phase register value (0-15).
 	 output [2:0] SAMP_CLK_PHASE, // Sampling Clock Phase register value (0-7).
-	 output CMP_CLK_PHS_CHNG,     // Comp Clock Phase Change in progress; Reset TMB path transceiver.
+	 output CMP_PHS_JTAG_RST,  // Comparator Clock manual Phase reset,
 	 output SAMP_CLK_PHS_CHNG,    // Sampling Clock Phase Change in progress; Reset deserializers.
 	 output [2:0] TMB_TX_MODE,    // TMB transmit mode (2-bits, 0: comparator data, 1: fixed patterns, 2: counters, 3: randoms).
 	 output [29:0] LAY1_TO_6_HALF_STRIP, // TMB half strips for injecting patterns into the optical serial data stream
@@ -203,7 +204,7 @@ module jtag_access (
    wire tdo2;
 	wire clrf;
 	wire p_in;
-	wire tclk2_raw;
+	wire tck2_raw;
 	
 
 	wire [63:0] f; //JTAG functions (one hot);
@@ -304,12 +305,12 @@ module jtag_access (
 	assign BPI_RESET  = f[25];    // Reset BPI interface JTAG command
 	assign BPI_DISABLE = f[26];   // Disable BPI processing
 	assign BPI_ENABLE  = f[27];   // Enable BPI processing
-	assign CMP_CLK_PHS_CHNG = f[28];  // Hold TMB transceiver in reset while the clock phase is changing.  Handled in reset manager state machine
+	assign CMP_PHS_JTAG_RST  = f[62];  // Comparator Clock Phase Reset 
 	assign SAMP_CLK_PHS_CHNG = f[44] & update2;  // Initiate a deserializer reset at end of changing sampling clock phase change.
 	assign JTAG_TK_CTRL  = f[47];     // Take control of the SEM command interface (only needs to be set after ChipScope Pro has been in control).
 	assign JTAG_DED_RST  = f[48];     // Reset the double error detected flag (SEM module).
 	assign JTAG_RST_SEM_CNTRS  = f[38];     // reset ECC error counters
-	assign p_in = f[1] | f[13] | f[15] | f[25] | f[38] | f[47] | f[48];  // JTAG_SYS_RST, ADC_Init, Restart pipeline, BPI_Reset, and SEM JTAG commands are to be auto reset;
+	assign p_in = f[1] | f[13] | f[15] | f[25] | f[38] | f[47] | f[48] | f[62];  // JTAG_SYS_RST, ADC_Init, Restart pipeline, BPI_Reset, and SEM JTAG commands are to be auto reset;
 	assign clrf = clr_pip[10] & p_in_s2; // auto reset functions last 11 25ns clocks then clear
 	
 	assign JTAG_RD_MODE = f[6];    // JTAG readout mode when reading ADC data
@@ -898,7 +899,7 @@ end
 // Comparator Clock phase register
 //
 
-   user_wr_reg #(.width(4), .def_value(4'h0)) // default is no phase shift
+   user_wr_reg #(.width(5), .def_value(5'd0)) // default is no phase shift
    cmp_clock_phase(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -911,15 +912,15 @@ end
       .RST(RST),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(al_cmp_clk_phase),   // Load parallel input
-		.PI(BPI_AL_REG[3:0]),          // Parallel input
+		.PI(BPI_AL_REG[4:0]),          // Parallel input
       .PO(CMP_CLK_PHASE),        // Parallel output
       .TDO(tdof1c),        // Serial Test Data Out
       .DSY_OUT(dmy9));    // Daisy chained serial data out
+		
 //
 // Sampling Clock phase register
 //
-
-   user_wr_reg #(.width(3), .def_value(3'h0)) // default is no phase shift
+   user_wr_reg #(.width(3), .def_value(3'd0)) // default is no phase shift
    samp_clock_phase(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -1324,7 +1325,7 @@ begin
 		8'd7 : sel_reg = {14'h0000,TTC_SRC};
 		8'd8 : sel_reg = {9'h000,nsamp};
 		8'd9 : sel_reg = BPI_CMD_FIFO_DATA;
-		8'd10 : sel_reg = {12'h000,CMP_CLK_PHASE};
+		8'd10 : sel_reg = {11'h000,CMP_CLK_PHASE};
 		8'd11 : sel_reg = {13'h0000,SAMP_CLK_PHASE};
 		8'd12 : sel_reg = {13'h0000,TMB_TX_MODE};
 		8'd13 : sel_reg = LAY1_TO_6_HALF_STRIP[15:0];

@@ -64,10 +64,6 @@ module pipeline_gen_csp #(
 	wire  fl_a[6:1][1:0], fl_b[6:1][1:0];
 
 
-//	reg [8:0] wcnt[6:1][1:0];
-//
-//	reg  [1:0] hold[6:1][1:0];
-//	wire inc_h[6:1][1:0];
 	wire pipe_reset[6:1][1:0];
 	wire rena[6:1][1:0];
    wire wena[6:1][1:0];
@@ -115,7 +111,6 @@ pipe_la pipe_la0 (
 	assign pipe_la0_data[99:90]      = tcnt[5][1];
 	assign pipe_la0_data[109:100]    = tcnt[6][0];
 	assign pipe_la0_data[119:110]    = tcnt[6][1];
-//	assign pipe_la0_data[128:120]    = wcnt_a[5][1];
 //	assign pipe_la0_data[137:129]    = rdcnt_a[5][1];
 	assign pipe_la0_data[128:120]    = 9'h000;
 	assign pipe_la0_data[137:129]    = 9'h000;
@@ -268,7 +263,7 @@ generate
 			assign fifo_tst_in[G][S] = csp_sel_tpls ? csp_inj_pulse : daq8ch[G][S][0];
 		
 			pipeline_ecc Pipeline_a (              // 36Kb FIFOs with ECC protection
-			  .rst(pipe_reset[G][S]),              // input rst
+			  .rst(pipe_reset[G][S] || RST),              // input rst
 			  .wr_clk(wrclk[G][S]),                // input wr_clk
 			  .rd_clk(RDCLK),                      // input rd_clk
 			  .din({daq8ch[G][S][63:1],fifo_tst_in[G][S]}),  // input [63 : 0] din
@@ -284,7 +279,7 @@ generate
 			);
 			
 			pipeline_ecc Pipeline_b (              // 36Kb FIFOs with ECC protection
-			  .rst(pipe_reset[G][S]),              // input rst
+			  .rst(pipe_reset[G][S] || RST),              // input rst
 			  .wr_clk(wrclk[G][S]),                // input wr_clk
 			  .rd_clk(RDCLK),                      // input rd_clk
 			  .din({32'h00000000,daq8ch[G][S][95:64]}), // input [63 : 0] din
@@ -334,25 +329,6 @@ generate
 			);
 
 
-//			always @(posedge wrclk[G][S] or posedge RST) begin
-//				if(RST)
-//					hold[G][S] <= 2'b00;
-//				else
-//					if(inc_h[G][S])
-//						hold[G][S] <= hold[G][S] + 1;
-//					else
-//						hold[G][S] <= hold[G][S];
-//			end
-//			
-//			always @(posedge wrclk[G][S] or posedge trst[G][S]) begin
-//				if(trst[G][S])
-//					wcnt[G][S] <= 9'h000;
-//				else
-//					if(wena[G][S])
-//						wcnt[G][S] <= wcnt[G][S] + 1;
-//					else
-//						wcnt[G][S] <= wcnt[G][S];
-//			end
 			
 			assign trst[G][S] = RST | pipe_reset[G][S];
 			

@@ -183,6 +183,7 @@ module dcfeb3a #(
 	wire [35:0] chn_lnk_la0_c0;
 
 
+
 generate
 if(USE_CHAN_LINK_CHIPSCOPE==1) 
 begin : chipscope_with_chan_link_fifo
@@ -440,7 +441,7 @@ endgenerate
 	wire comp_clk;
 	wire comp_clk80;
 	wire comp_clk160;
-	wire [3:0] cmp_clk_phase;
+	wire [4:0] cmp_clk_phase;
 	wire [2:0] samp_clk_phase;
 
 	wire trg_tx_pll_lock;
@@ -459,6 +460,14 @@ endgenerate
 	wire cap_phase;
 	wire [7:0] rst_mmcm_pipe;
 	wire samp_clk_phs_chng;
+	wire cmp_phs_jtag_rst;
+	wire cmp_phs_psen;
+	wire cmp_phs_psdone;
+	wire cmp_phs_busy;
+	wire [10:0] cmp_phase;
+	wire cmp_phs_change;
+	wire cmp_phs_rst;
+	wire [2:0] cmp_phs_state;
 	
 	Clock_sources #(
 		.Simulation(Simulation)
@@ -471,7 +480,8 @@ endgenerate
 		.XO_CLK_AC_N(XO_CLK_AC_N), .XO_CLK_AC_P(XO_CLK_AC_P),              // Crystal Osc. 125 MHz    Ref for DAQ GTX for GbE
 		.FEM_CLK320_N(\FEM_CLK320- ), .FEM_CLK320_P(\FEM_CLK320+ ),                        // FF_EMU Emulator high speed clock
 		.GC0N(GC0N), .GC0P(GC0P), .GC1N(GC1N), .GC1P(GC1P),                // Spare global clock inputs
-		.CMP_CLK_PHASE(cmp_clk_phase),    // Comparator Clock Phase (0-15)
+		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst), // on demand reset of comparator MMCM and dynamic phase state machine
+		.CMP_CLK_PHASE(cmp_clk_phase),    // Comparator Clock Phase 5 bits (0-31)
 		.SAMP_CLK_PHASE(samp_clk_phase),    // Comparator Clock Phase (0-15)
 		.SAMP_CLK_PHS_CHNG(samp_clk_phs_chng), // Sampling Clock Phase Change in progress; Reset deserializers.
 		.TP_B35_0N(TP_B35_0N), .TP_B35_0P(TP_B35_0P),                                  // Test point clock output
@@ -488,6 +498,7 @@ endgenerate
 		.COMP_CLK(comp_clk),              // comparator clock 
 		.COMP_CLK80(comp_clk80),          // comparator GTX USRCLK2
 		.COMP_CLK160(comp_clk160),          // comparator GTX USRCLK
+		.CMP_PHS_CHANGE(cmp_phs_change),     // Comp Clock Phase Change in progress; Reset TMB path transceiver.
 		.TRG_MMCM_LOCK(trg_mmcm_lock),
 		.CLK160(clk160),
 		.CLK120(clk120),
@@ -505,7 +516,13 @@ endgenerate
 		.lead_edg_resync(lead_edg_resync),
 		.lead_edg_resync_d1(lead_edg_resync_d1),
 		.cap_phase(cap_phase),
-		.rst_mmcm_pipe(rst_mmcm_pipe)
+		.rst_mmcm_pipe(rst_mmcm_pipe),
+		.cmp_phase(cmp_phase),    // translated comp Phase 11 bits (0-1344)
+		.cmp_phs_psen(cmp_phs_psen),
+		.cmp_phs_psdone(cmp_phs_psdone),
+		.cmp_phs_busy(cmp_phs_busy),
+		.cmp_phs_rst(cmp_phs_rst),
+		.cmp_phs_state(cmp_phs_state)
 	);
   
 
@@ -1434,6 +1451,7 @@ daq_optical_out_i (
 	wire [7:0]g1c,g2c,g3c,g4c,g5c,g6c;
 	wire [1:0]comp_mode;
 	wire [2:0]comp_time;
+	wire comp_rst;
 	
 	comparator_io
 	comp_io1 (
@@ -1778,11 +1796,9 @@ endgenerate
  /////////////////////////////////////////////////////////////////////////////
 
 	wire por_adc_init, jtag_adc_init, csp_adc_init;
-//	wire adc_init;
-//	wire adc_init_done;
+	wire adc_init_rst;
 	wire jtag_sys_rst;
 	wire csp_sys_rst;
-	wire cmp_clk_phs_chng;
 	
 	assign adc_init = por_adc_init | jtag_adc_init | csp_adc_init;
 	assign icap_clk_ena = ~sys_rst;
@@ -1802,7 +1818,7 @@ endgenerate
 		.CSP_SYS_RST(csp_sys_rst),
 		.DAQ_MMCM_LOCK(daq_mmcm_lock),
 		.TRG_MMCM_LOCK(trg_mmcm_lock),
-		.CMP_PHS_CHANGE(cmp_clk_phs_chng),
+		.CMP_PHS_CHANGE(cmp_phs_change),     // Comp Clock Phase Change in progress; Reset TMB path transceiver.
 		.TRG_SYNC_DONE(tx_sync_done),
 		.QP_ERROR(QP_ERROR),
 		.QP_LOCKED(QP_LOCKED),
@@ -1810,6 +1826,7 @@ endgenerate
 		.ADC_INIT_DONE(adc_init_done),
 		.BPI_SEQ_IDLE(bpi_seq_idle),
 		
+		.ADC_INIT_RST(adc_init_rst),
 		.ADC_INIT(por_adc_init),
 		.ADC_RDY(adc_rdy),
 		.AL_START(por_al_start),
@@ -1903,9 +1920,9 @@ endgenerate
 		.BPI_DISABLE(BPI_disable),  // Disable BPI processing
 		.BPI_ENABLE(BPI_enable),    // Enable BPI processing
 		.SAMP_MAX(samp_max),        // Number of samples to readout minus 1
-		.CMP_CLK_PHASE(cmp_clk_phase), // Comparator Clock Phase (0-15)
+		.CMP_CLK_PHASE(cmp_clk_phase), // Comparator Clock Phase 5-bits (0-31)
 		.SAMP_CLK_PHASE(samp_clk_phase), // Sampling Clock Phase (0-7)
-		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng), // Comp Clock Phase Change in progress; Reset TMB path transceiver.
+		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst), // Manual reset of Comp Clock Phase MMCM;
 		.SAMP_CLK_PHS_CHNG(samp_clk_phs_chng), // Sampling Clock Phase Change in progress; Reset deserializers.
 		.TMB_TX_MODE(tmb_tx_mode),   // TMB transmit mode (3-bits, 0: comparator data, 1: fixed patterns, 2: counters, 3: randoms, 5: half strips).
 		.LAY1_TO_6_HALF_STRIP(lay1_to_6_half_strip), //half strips to inject into data stream for each layer
@@ -1951,7 +1968,7 @@ endgenerate
    adc_config
 	adc_config1 (
 		.CLK(clk20),         // 20 MHz Clock
-		.RST(adc_rst),       // Reset
+		.RST(adc_init_rst),       // Reset
 		.INIT(adc_init),     // Command to initialize the ADC's (on power up or on command)
 	   .JCTRL(jc_adc_cnfg), // Selects JWE and JDATA as source for writing memory
 		.JWE(adc_we),        // Write enable for the memory (from JTAG)
@@ -2055,9 +2072,17 @@ endgenerate
 		.TRG_SYNCDONE(tx_sync_done),
 		.TRG_MMCM_LOCK(trg_mmcm_lock),
 		.COMP_RST(comp_rst),
+		.cmp_phs_psen(cmp_phs_psen),
+		.cmp_phs_psdone(cmp_phs_psdone),
+		.cmp_phs_busy(cmp_phs_busy),
+		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst),
+		.CMP_CLK_PHASE(cmp_clk_phase),    // Comparator Clock Phase 5 bits (0-31)
+		.cmp_phase(cmp_phase),    // translated comp Phase 11 bits (0-1344)
+		.CMP_PHS_CHANGE(cmp_phs_change),     // Comp Clock Phase Change in progress; Reset TMB path transceiver.
+		.cmp_phs_rst(cmp_phs_rst),
+		.cmp_phs_state(cmp_phs_state),
 		.TRG_RST(trg_rst),
 		.LCT(lct),
-		.CMP_CLK_PHS_CHNG(cmp_clk_phs_chng),
 		.EOS(eos),
 		.POR_STATE(por_state),
 		.DSR_ALGND(dsr_aligned),

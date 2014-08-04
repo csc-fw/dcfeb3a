@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/al_cdac_sim_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="al_cdac_sim_tf" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="55" />
+   <wvobject fp_name="/al_cdac_sim_tf/SHCK_ENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SHCK_ENA</obj_property>
+      <obj_property name="ObjectShortName">SHCK_ENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/SDATA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SDATA</obj_property>
+      <obj_property name="ObjectShortName">SDATA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/DAC_ENB" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAC_ENB</obj_property>
+      <obj_property name="ObjectShortName">DAC_ENB</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DONE</obj_property>
+      <obj_property name="ObjectShortName">DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/CLK40" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK40</obj_property>
+      <obj_property name="ObjectShortName">CLK40</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/CLK1MHZ" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK1MHZ</obj_property>
+      <obj_property name="ObjectShortName">CLK1MHZ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/CLR_AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">CLR_AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/CAPTURE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CAPTURE</obj_property>
+      <obj_property name="ObjectShortName">CAPTURE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/BPI_AL_REG" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">BPI_AL_REG[11:0]</obj_property>
+      <obj_property name="ObjectShortName">BPI_AL_REG[11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider12" type="divider">
+      <obj_property name="label">al cdac</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/CLK40" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK40</obj_property>
+      <obj_property name="ObjectShortName">CLK40</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/CLK1MHZ" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK1MHZ</obj_property>
+      <obj_property name="ObjectShortName">CLK1MHZ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/CLR_AL_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_AL_DONE</obj_property>
+      <obj_property name="ObjectShortName">CLR_AL_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/CAPTURE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CAPTURE</obj_property>
+      <obj_property name="ObjectShortName">CAPTURE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/BPI_AL_REG" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">BPI_AL_REG[11:0]</obj_property>
+      <obj_property name="ObjectShortName">BPI_AL_REG[11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/SHCK_ENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SHCK_ENA</obj_property>
+      <obj_property name="ObjectShortName">SHCK_ENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/SDATA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SDATA</obj_property>
+      <obj_property name="ObjectShortName">SDATA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/DAC_ENB" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAC_ENB</obj_property>
+      <obj_property name="ObjectShortName">DAC_ENB</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/le_load_cthresh" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">le_load_cthresh</obj_property>
+      <obj_property name="ObjectShortName">le_load_cthresh</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/set_done" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">set_done</obj_property>
+      <obj_property name="ObjectShortName">set_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DONE</obj_property>
+      <obj_property name="ObjectShortName">DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/load_cthresh" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">load_cthresh</obj_property>
+      <obj_property name="ObjectShortName">load_cthresh</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/load_cthresh_r1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">load_cthresh_r1</obj_property>
+      <obj_property name="ObjectShortName">load_cthresh_r1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/cth_shft" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cth_shft[15:0]</obj_property>
+      <obj_property name="ObjectShortName">cth_shft[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/cthresh_hold" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cthresh_hold[11:0]</obj_property>
+      <obj_property name="ObjectShortName">cthresh_hold[11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider29" type="divider">
+      <obj_property name="label">comp_thresh_load_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/SET_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SET_DONE</obj_property>
+      <obj_property name="ObjectShortName">SET_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/SHFT_ENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SHFT_ENA</obj_property>
+      <obj_property name="ObjectShortName">SHFT_ENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/START" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/voted_state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_2[1:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_2[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/voted_state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_3[1:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_3[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/voted_scnt_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_scnt_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_scnt_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/voted_scnt_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_scnt_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_scnt_2[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/voted_scnt_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_scnt_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_scnt_3[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_2[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state_2[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_3[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state_3[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/nextstate_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_2[1:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_2[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/nextstate_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_3[1:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_3[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/SET_DONE_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SET_DONE_1</obj_property>
+      <obj_property name="ObjectShortName">SET_DONE_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/SET_DONE_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SET_DONE_2</obj_property>
+      <obj_property name="ObjectShortName">SET_DONE_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/SET_DONE_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SET_DONE_3</obj_property>
+      <obj_property name="ObjectShortName">SET_DONE_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/SHFT_ENA_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SHFT_ENA_1</obj_property>
+      <obj_property name="ObjectShortName">SHFT_ENA_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/SHFT_ENA_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SHFT_ENA_2</obj_property>
+      <obj_property name="ObjectShortName">SHFT_ENA_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/SHFT_ENA_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SHFT_ENA_3</obj_property>
+      <obj_property name="ObjectShortName">SHFT_ENA_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/scnt_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">scnt_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">scnt_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/scnt_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">scnt_2[3:0]</obj_property>
+      <obj_property name="ObjectShortName">scnt_2[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/scnt_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">scnt_3[3:0]</obj_property>
+      <obj_property name="ObjectShortName">scnt_3[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/al_cdac_sim_tf/uut/comp_thresh_load_FSM_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[63:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[63:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

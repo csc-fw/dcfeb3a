@@ -131,7 +131,7 @@
 --    C_HAS_INJECTERR             :  3 
 --    C_SIM_COLLISION_CHECK       :  NONE 
 --    C_COMMON_CLK                :  0 
---    C_DISABLE_WARN_BHV_COLL     :  1 
+--    C_DISABLE_WARN_BHV_COLL     :  0 
 --    C_DISABLE_WARN_BHV_RANGE    :  0 
 
 --------------------------------------------------------------------------------

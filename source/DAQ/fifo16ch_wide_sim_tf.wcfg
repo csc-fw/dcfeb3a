@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/fifo16ch_wide_sim_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="fifo16ch_wide_sim_tf" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="103" />
+   <wave_markers>
+      <marker time="1918800000" label="" />
+      <marker time="1536000000" label="" />
+      <marker time="1391800000" label="" />
+   </wave_markers>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/RDY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDY</obj_property>
+      <obj_property name="ObjectShortName">RDY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/L1A_SMP_OUT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_SMP_OUT[43:0]</obj_property>
+      <obj_property name="ObjectShortName">L1A_SMP_OUT[43:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/DOUT_16CH" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DOUT_16CH[191:0]</obj_property>
+      <obj_property name="ObjectShortName">DOUT_16CH[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/L1A_CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_CNT[23:0]</obj_property>
+      <obj_property name="ObjectShortName">L1A_CNT[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/L1A_MTCH_CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_MTCH_CNT[11:0]</obj_property>
+      <obj_property name="ObjectShortName">L1A_MTCH_CNT[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/fmt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">fmt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">fmt[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/CLK40" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK40</obj_property>
+      <obj_property name="ObjectShortName">CLK40</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/SMPCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SMPCLK</obj_property>
+      <obj_property name="ObjectShortName">SMPCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/WRCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRCLK</obj_property>
+      <obj_property name="ObjectShortName">WRCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/RDCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDCLK</obj_property>
+      <obj_property name="ObjectShortName">RDCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/RST_RESYNC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_RESYNC</obj_property>
+      <obj_property name="ObjectShortName">RST_RESYNC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/FIFO_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FIFO_RST</obj_property>
+      <obj_property name="ObjectShortName">FIFO_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/L1A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A</obj_property>
+      <obj_property name="ObjectShortName">L1A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/L1A_MATCH" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_MATCH</obj_property>
+      <obj_property name="ObjectShortName">L1A_MATCH</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/G1IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G1IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G1IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/G2IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G2IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G2IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/G3IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G3IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G3IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/G4IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G4IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G4IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/G5IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G5IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G5IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/G6IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G6IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G6IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/RD_ENA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RD_ENA[15:0]</obj_property>
+      <obj_property name="ObjectShortName">RD_ENA[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/L1A_RD_EN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_RD_EN</obj_property>
+      <obj_property name="ObjectShortName">L1A_RD_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider221" type="divider">
+      <obj_property name="label">fifo16ch_wide</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/CLK40" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK40</obj_property>
+      <obj_property name="ObjectShortName">CLK40</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/RDCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDCLK</obj_property>
+      <obj_property name="ObjectShortName">RDCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/SMPCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SMPCLK</obj_property>
+      <obj_property name="ObjectShortName">SMPCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/WRCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRCLK</obj_property>
+      <obj_property name="ObjectShortName">WRCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/RST_RESYNC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_RESYNC</obj_property>
+      <obj_property name="ObjectShortName">RST_RESYNC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FIFO_RST</obj_property>
+      <obj_property name="ObjectShortName">FIFO_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/L1A" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A</obj_property>
+      <obj_property name="ObjectShortName">L1A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/L1A_MATCH" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_MATCH</obj_property>
+      <obj_property name="ObjectShortName">L1A_MATCH</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/G1IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G1IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G1IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/G2IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G2IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G2IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/G3IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G3IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G3IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/G4IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G4IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G4IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/G5IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G5IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G5IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/G6IN" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">G6IN[191:0]</obj_property>
+      <obj_property name="ObjectShortName">G6IN[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/RD_ENA" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">RD_ENA[15:0]</obj_property>
+      <obj_property name="ObjectShortName">RD_ENA[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/L1A_RD_EN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_RD_EN</obj_property>
+      <obj_property name="ObjectShortName">L1A_RD_EN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/SAMP_MAX" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/RDY" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RDY</obj_property>
+      <obj_property name="ObjectShortName">RDY</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/L1A_SMP_OUT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_SMP_OUT[43:0]</obj_property>
+      <obj_property name="ObjectShortName">L1A_SMP_OUT[43:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/DOUT_16CH" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">DOUT_16CH[191:0]</obj_property>
+      <obj_property name="ObjectShortName">DOUT_16CH[191:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/L1A_CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_CNT[23:0]</obj_property>
+      <obj_property name="ObjectShortName">L1A_CNT[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/L1A_MTCH_CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_MTCH_CNT[11:0]</obj_property>
+      <obj_property name="ObjectShortName">L1A_MTCH_CNT[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/fmt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">fmt[15:0]</obj_property>
+      <obj_property name="ObjectShortName">fmt[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/wren" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">wren</obj_property>
+      <obj_property name="ObjectShortName">wren</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/ffl" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ffl[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ffl[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/ovrflw" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrflw[15:0]</obj_property>
+      <obj_property name="ObjectShortName">ovrflw[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/fout" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">fout[15:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">fout[15:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/L1A_MATCH" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_MATCH</obj_property>
+      <obj_property name="ObjectShortName">L1A_MATCH</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1a_match_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_match_d1</obj_property>
+      <obj_property name="ObjectShortName">l1a_match_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1a_match_d2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_match_d2</obj_property>
+      <obj_property name="ObjectShortName">l1a_match_d2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/evt_start" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">evt_start</obj_property>
+      <obj_property name="ObjectShortName">evt_start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/evt_end" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">evt_end</obj_property>
+      <obj_property name="ObjectShortName">evt_end</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/phase_align0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">phase_align0</obj_property>
+      <obj_property name="ObjectShortName">phase_align0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/phase_align1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">phase_align1</obj_property>
+      <obj_property name="ObjectShortName">phase_align1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/stretch_l1a" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stretch_l1a</obj_property>
+      <obj_property name="ObjectShortName">stretch_l1a</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1a_wren" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_wren</obj_property>
+      <obj_property name="ObjectShortName">l1a_wren</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1a_smp_mt" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_smp_mt</obj_property>
+      <obj_property name="ObjectShortName">l1a_smp_mt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/ovrlap" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlap</obj_property>
+      <obj_property name="ObjectShortName">ovrlap</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/multi_ovlp" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">multi_ovlp</obj_property>
+      <obj_property name="ObjectShortName">multi_ovlp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/new_l1a" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">new_l1a</obj_property>
+      <obj_property name="ObjectShortName">new_l1a</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/new_l1a_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">new_l1a_d1</obj_property>
+      <obj_property name="ObjectShortName">new_l1a_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/oinc" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">oinc</obj_property>
+      <obj_property name="ObjectShortName">oinc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/odec" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">odec</obj_property>
+      <obj_property name="ObjectShortName">odec</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sel[2:0]</obj_property>
+      <obj_property name="ObjectShortName">sel[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">muxout[15:0,11:0]</obj_property>
+      <obj_property name="ObjectShortName">muxout[15:0,11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[15]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[15,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[15,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[14]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[14,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[14,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[13]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[13,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[13,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[12]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[12,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[12,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[11]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[11,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[11,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[10]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[10,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[10,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[9]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[9,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[9,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[8]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[8,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[8,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[7]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[7,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[7,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[6]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[6,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[6,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[5]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[5,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[5,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[4]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[4,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[4,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[3]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[3,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[3,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[2]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[2,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[2,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[1]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[1,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[1,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/muxout[0]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[0,11:0]</obj_property>
+         <obj_property name="ObjectShortName">muxout[0,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/ovrlap_cnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ovrlap_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ovrlap_cnt[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/event_pipe" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">event_pipe[127:0]</obj_property>
+      <obj_property name="ObjectShortName">event_pipe[127:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1a_match_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_match_d1</obj_property>
+      <obj_property name="ObjectShortName">l1a_match_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1a_match_d2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_match_d2</obj_property>
+      <obj_property name="ObjectShortName">l1a_match_d2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1acnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">l1acnt[23:0]</obj_property>
+      <obj_property name="ObjectShortName">l1acnt[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1amcnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">l1amcnt[11:0]</obj_property>
+      <obj_property name="ObjectShortName">l1amcnt[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1acnt_r1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">l1acnt_r1[23:0]</obj_property>
+      <obj_property name="ObjectShortName">l1acnt_r1[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1amcnt_r1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">l1amcnt_r1[11:0]</obj_property>
+      <obj_property name="ObjectShortName">l1amcnt_r1[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1a_phase" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_phase</obj_property>
+      <obj_property name="ObjectShortName">l1a_phase</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/l1a_phase_r1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">l1a_phase_r1</obj_property>
+      <obj_property name="ObjectShortName">l1a_phase_r1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/WRCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRCLK</obj_property>
+      <obj_property name="ObjectShortName">WRCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/SMPCLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">SMPCLK</obj_property>
+      <obj_property name="ObjectShortName">SMPCLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/smpclk_dp5" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">smpclk_dp5</obj_property>
+      <obj_property name="ObjectShortName">smpclk_dp5</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/smpclk_d1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">smpclk_d1</obj_property>
+      <obj_property name="ObjectShortName">smpclk_d1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/smpclk_d2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">smpclk_d2</obj_property>
+      <obj_property name="ObjectShortName">smpclk_d2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/smpclk_d3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">smpclk_d3</obj_property>
+      <obj_property name="ObjectShortName">smpclk_d3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/phase_align0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">phase_align0</obj_property>
+      <obj_property name="ObjectShortName">phase_align0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/phase_align1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">phase_align1</obj_property>
+      <obj_property name="ObjectShortName">phase_align1</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider433" type="divider">
+      <obj_property name="label">FIFO_load_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/SEL" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SEL[2:0]</obj_property>
+      <obj_property name="ObjectShortName">SEL[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/WRENA" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRENA</obj_property>
+      <obj_property name="ObjectShortName">WRENA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/SAMP_MAX" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/START" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/voted_sample_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_sample_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_sample_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[1:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/SEL_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SEL_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">SEL_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/WRENA_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">WRENA_1</obj_property>
+      <obj_property name="ObjectShortName">WRENA_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/sample_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sample_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">sample_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/fifo16ch_wide_sim_tf/uut/FIFO_Load_FSM1/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[63:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[63:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

@@ -35,7 +35,8 @@ module Clock_sources #(
     input GC0P,
     input GC1N,
     input GC1P,
-	 input  [3:0] CMP_CLK_PHASE,
+	 input CMP_PHS_JTAG_RST,
+	 input  [4:0] CMP_CLK_PHASE,  
 	 input  [2:0] SAMP_CLK_PHASE,
 	 input SAMP_CLK_PHS_CHNG,
     output TP_B35_0N,
@@ -53,6 +54,7 @@ module Clock_sources #(
     output COMP_CLK,
     output COMP_CLK80,
     output COMP_CLK160,
+	 output reg CMP_PHS_CHANGE,
     output TRG_MMCM_LOCK,
     output CLK160,
     output CLK120,
@@ -70,7 +72,14 @@ module Clock_sources #(
 	output lead_edg_resync,
 	output reg lead_edg_resync_d1,
 	output reg cap_phase,
-	output reg [7:0] rst_mmcm_pipe
+	output reg [7:0] rst_mmcm_pipe,
+	output reg [10:0] cmp_phase,
+	output cmp_phs_psen,
+	output cmp_phs_psdone,
+	output cmp_phs_busy,
+	output cmp_phs_rst,
+	output [2:0] cmp_phs_state
+
     );
 
      //---------------------Dedicated GTX Reference Clock Inputs ---------------
@@ -83,6 +92,7 @@ module Clock_sources #(
   wire gc0,gc1;
   wire tp_b35_0;
   wire dmy_cclk, dmy_din, dmy_tck, preq;
+  
 wire samp_ma, samp_mb;
 wire cmp_ca, cmp_cb;
 wire cmp_fa, cmp_fb;
@@ -115,6 +125,22 @@ reg [7:0] dsr_ho_tmr;
 wire clr_dsr_ho;
 wire rst_samp_mmcm;
 wire rst_mmcm_pipe_in;
+
+  
+
+// signals for comparator clock managment
+	reg [10:0] cur_cmp_phase;
+//	reg [10:0] cmp_phase;
+	reg [10:0] cmp_rom [31:0];	
+	reg cmp_phs_chg_m1;
+	reg cmp_phs_inc;
+//	wire cmp_phs_busy;
+//	wire cmp_phs_psen;
+//	wire cmp_phs_psdone;
+//	wire cmp_phs_rst;
+
+
+	assign cmp_phs_rst = RST || CMP_PHS_JTAG_RST;
   
   assign tp_b35_0 = 1'b0;
   assign trl_edg_rst = (~RST & rst_d2); //two clocks wide
@@ -331,164 +357,87 @@ begin : StartupCode
       .USRDONETS(1'b0)  // 1-bit input User DONE 3-state enable output
    );
 end
-endgenerate	
+endgenerate
 
 //----------------------------------------------------------------------------
-// Comparator clock phase adjustments
+// "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
+// "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 //----------------------------------------------------------------------------
-// None
+// CLK_OUT1____40.000______0.000______50.0______247.096____196.976
+// CLK_OUT2____80.000______0.000______50.0______200.412____196.976
+// CLK_OUT3___160.000______0.000______50.0______169.112____196.976
 //
 //----------------------------------------------------------------------------
-// Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
-// Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+// "Input Clock   Freq (MHz)    Input Jitter (UI)"
 //----------------------------------------------------------------------------
-// CLK_OUT1    40.000      0.000      50.0      232.099    191.950
-// CLK_OUT2    40.000     90.000      50.0      232.099    191.950
-// CLK_OUT3    40.000    180.000      50.0      232.099    191.950
-// CLK_OUT4    40.000    270.000      50.0      232.099    191.950
-//
-//----------------------------------------------------------------------------
-// Input Clock   Input Freq (MHz)   Input Jitter (UI)
-//----------------------------------------------------------------------------
-// primary          40.000            0.010
+// __primary__________40.000____________0.010
 
 
-//
-// Version without BUFGs, the BUFG for clock feedback must be added here
-//
-clkadj_coarse cmp_clk_coarse_i (
-	.CLK_IN1(cms_clk), .CLKFB_IN(cmpfbin_coarse),
-	.CLK_OUT1(cmp_c0), .CLK_OUT2(cmp_c90), .CLK_OUT3(cmp_c180), .CLK_OUT4(cmp_c270), .CLKFB_OUT(cmpfbout_coarse),
-	.LOCKED(cmp_coarse_lock)); 
-  
-   BUFG cmp_fb_coarse_i (.O(cmpfbin_coarse),  .I(cmpfbout_coarse));
-
-//
-// Version with BUFGs, which should not be needed because the clocks should be routed directly to the BUFGMUX.
-// ISE 12.4 complains when no buffer is used even though the BUFGMUXs are there. 
-//
-//----------------------------------------------------------------------------
-// Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
-// Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
-//----------------------------------------------------------------------------
-// CLK_OUT1    40.000      0.000      50.0      232.099    191.950
-// CLK_OUT2    40.000     90.000      50.0      232.099    191.950
-// CLK_OUT3    40.000    180.000      50.0      232.099    191.950
-// CLK_OUT4    40.000    270.000      50.0      232.099    191.950
-//
-//----------------------------------------------------------------------------
-// Input Clock   Input Freq (MHz)   Input Jitter (UI)
-//----------------------------------------------------------------------------
-// primary          40.000            0.010
-
-//clkadj_coarse cmp_clk_coarse_i (
-//	.CLK_IN1(cms_clk),
-//	.CLK_OUT1(cmp_c0), .CLK_OUT2(cmp_c90), .CLK_OUT3(cmp_c180), .CLK_OUT4(cmp_c270),
-//	.LOCKED(cmp_coarse_lock)); 
-
-   BUFGMUX 
-   BUFGMUX_cmp_ca (
-      .O(cmp_ca),
-      .I0(cmp_c0),
-      .I1(cmp_c90),
-      .S(CMP_CLK_PHASE[2])
-   );
-   BUFGMUX 
-   BUFGMUX_cmp_cb (
-      .O(cmp_cb),
-      .I0(cmp_c180),
-      .I1(cmp_c270),
-      .S(CMP_CLK_PHASE[2])
-   );
-  
-//----------------------------------------------------------------------------
-// Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
-// Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
-//----------------------------------------------------------------------------
-// CLK_OUT1    40.000      0.000      50.0      247.096    196.976
-// CLK_OUT2    40.000     22.500      50.0      247.096    196.976
-// CLK_OUT3    40.000     45.000      50.0      247.096    196.976
-// CLK_OUT4    40.000     67.500      50.0      247.096    196.976
-//
-//----------------------------------------------------------------------------
-// Input Clock   Input Freq (MHz)   Input Jitter (UI)
-//----------------------------------------------------------------------------
-// primary          40.000            0.010
-
-
-//
-// Version without BUFGs, the BUFG for clock feedback must be added here
-//
- clkadj_fine cmp_clk_fine_i(
-	.CLK_IN1(cmp_ca), .CLK_IN2(cmp_cb), .CLK_IN_SEL(~CMP_CLK_PHASE[3]), .CLKFB_IN(cmpfbin_fine),
-	.CLK_OUT1(cmp_f0), .CLK_OUT2(cmp_f22p5), .CLK_OUT3(cmp_f45), .CLK_OUT4(cmp_f67p5), .CLKFB_OUT(cmpfbout_fine),
-	.RESET(~cmp_coarse_lock),
-   .LOCKED(cmp_fine_lock));
-
-   BUFG cmp_fb_fine_i (.O(cmpfbin_fine),  .I(cmpfbout_fine));
-
-//
-// Version with BUFGs, which should not be needed because the clocks should be routed directly to the BUFGMUX.
-// ISE 12.4 complains when no buffer is used even though the BUFGMUXs are there. 
-//
-// clkadj_fine cmp_clk_fine_i(
-//	.CLK_IN1(cmp_ca), .CLK_IN2(cmp_cb), .CLK_IN_SEL(~CMP_CLK_PHASE[3]),
-//	.CLK_OUT1(cmp_f0), .CLK_OUT2(cmp_f22p5), .CLK_OUT3(cmp_f45), .CLK_OUT4(cmp_f67p5),
-//	.RESET(~cmp_coarse_lock),
-//   .LOCKED(cmp_fine_lock));
-
-   BUFGMUX 
-   BUFGMUX_cmp_fa (
-      .O(cmp_fa),
-      .I0(cmp_f0),
-      .I1(cmp_f22p5),
-      .S(CMP_CLK_PHASE[0])
-   );
-   BUFGMUX 
-   BUFGMUX_cmp_fb (
-      .O(cmp_fb),
-      .I0(cmp_f45),
-      .I1(cmp_f67p5),
-      .S(CMP_CLK_PHASE[0])
-   );
-	
-//----------------------------------------------------------------------------
-// Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
-// Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
-//----------------------------------------------------------------------------
-// CLK_OUT1    40.000      0.000      50.0      247.096    196.976
-// CLK_OUT2    80.000      0.000      50.0      200.412    196.976
-// CLK_OUT3   160.000      0.000      50.0      169.112    196.976
-//
-//----------------------------------------------------------------------------
-// Input Clock   Input Freq (MHz)   Input Jitter (UI)
-//----------------------------------------------------------------------------
-// primary          40.000            0.010
-// secondary        40.000            0.010
-
-  cmp_mmcm cmp_mmcm1(
-    .CLK_IN1(cmp_fa), .CLK_IN2(cmp_fb), .CLK_IN_SEL(~CMP_CLK_PHASE[1]),
+  cmp_dyn_phs_mmcm cmp_dyn_phs_mmcm_i
+   (// Clock in ports
+    .CLK_IN1(cms_clk),      // IN
+    // Clock out ports
     .CLK_OUT1(COMP_CLK),.CLK_OUT2(COMP_CLK80),.CLK_OUT3(COMP_CLK160),
-	 .RESET(~cmp_fine_lock),
-    .LOCKED(TRG_MMCM_LOCK));
-
-
-
-
-//----------------------------------------------------------------------------
-// Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
-// Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
-//----------------------------------------------------------------------------
-// CLK_OUT1   160.000    270.000      50.0      116.326     95.014
-// CLK_OUT2    80.000    315.000      50.0      132.221     95.014
-// CLK_OUT3    40.000      0.000      50.0      153.625     95.014
+    // Dynamic phase shift ports
+    .PSCLK(CLK40),// IN
+    .PSEN(cmp_phs_psen), // IN
+    .PSINCDEC(cmp_phs_inc),     // IN
+    .PSDONE(cmp_phs_psdone),       // OUT
+    // Status and control signals
+    .RESET(cmp_phs_rst),// IN
+    .LOCKED(TRG_MMCM_LOCK));      // OUT
+	
+	
+//------------------------------------------------------------------------------------------------------------------
+// Create look lookup table for phase steps for comparator clock phase
+// Translate 32 steps per cycle into 1344 steps per cycle  (resolution is 1/56th of VCO period which is 1/(24X40MHz)
+// Steps in 25ns = 25ns X 56X24X40MHz = 1344
+//------------------------------------------------------------------------------------------------------------------
+	
+//	integer iadr;
 //
-//----------------------------------------------------------------------------
-// Input Clock   Input Freq (MHz)   Input Jitter (UI)
-//----------------------------------------------------------------------------
-// primary          80.000            0.010
+//	always @* begin	
+//		for (iadr=0; iadr<32; iadr=iadr+1) begin
+//			cmp_rom[iadr] = $rtoi((iadr*1344.0/31.0)+0.5);
+//			$display ("adr=%d  data=%d",iadr,cmp_rom[iadr]);
+//		end
+//	end
+initial begin
+	$readmemh ("comp_phase", cmp_rom, 0, 31);
+end
+	
+	always @(posedge CLK40) begin
+		cmp_phs_inc   <= (cmp_phase >  cur_cmp_phase);
+		cmp_phs_chg_m1 <= !(cmp_phase == cur_cmp_phase);
+		CMP_PHS_CHANGE <= cmp_phs_chg_m1;                // delay signaling phase change to allow change to settle
+		cmp_phase <= cmp_rom[CMP_CLK_PHASE];
+	end
 
-//  trg_mmcm trg_mmcm1(.CLK_IN1(TRG_TXOUTCLK),.CLK_OUT1(TRG_TXUSRCLK),.CLK_OUT2(trg_clk80),.CLK_OUT3(trg_clk40),.RESET(!TRG_TX_PLL_LOCK),.LOCKED(TRG_MMCM_LOCK));
+// Track current phase value presumed inside MMCM
+	always @(posedge CLK40 or posedge cmp_phs_rst) begin
+		if (cmp_phs_rst)
+			cur_cmp_phase <= 11'h000;		// must match MMCM initial preset phase (normally 0)
+		else
+			if (cmp_phs_psen)
+				if (cmp_phs_inc)
+					cur_cmp_phase <= cur_cmp_phase+1;
+				else
+					cur_cmp_phase <= cur_cmp_phase-1;
+			else
+				cur_cmp_phase <= cur_cmp_phase;
+			
+	end
 
+   dyn_phase_shift_FSM
+	Comp_Phase_FSM(
+     .BUSY(cmp_phs_busy),
+     .PSEN(cmp_phs_psen),
+     .DYN_PHS_STATE(cmp_phs_state),
+     .CLK(CLK40),
+     .LOCKED(TRG_MMCM_LOCK),
+     .PH_CHANGE(CMP_PHS_CHANGE),
+     .PS_DONE(cmp_phs_psdone),
+     .RST(cmp_phs_rst)
+);
 
 endmodule

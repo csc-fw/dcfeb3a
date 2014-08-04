@@ -19,9 +19,11 @@ synwork/
 ipcore_dir/tmp/
 isim/
 planAhead_*
+isim/
 *.tlg
 *.szr
 *.prs
+*.psr
 *.lmp
 *.xdm
 *.fcd

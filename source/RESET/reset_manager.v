@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
-module reset_manager  #(
+
+module reset_manager #(
 	parameter Strt_dly = 20'h7FFFF,
 	parameter POR_tmo = 7'd120,
 	parameter ADC_Init_tmo = 12'd1000 // 10ms
@@ -21,6 +22,7 @@ module reset_manager  #(
 	 input AL_DONE,
 	 input ADC_INIT_DONE,
 	 input BPI_SEQ_IDLE,
+	 output ADC_INIT_RST,
 	 output ADC_INIT,
 	 output ADC_RDY,
 	 output reg AL_START,
@@ -37,9 +39,7 @@ module reset_manager  #(
 	 output [3:0] POR_STATE
     );
 
-wire ainc;
-reg [4:0] awcnt;
-wire awrst;
+wire inc_tmr;
 wire qpll_lock_disable;
 reg [11:0] dsr_tmr;
 
@@ -62,16 +62,29 @@ wire restart_all;
 wire strt_dly_done;
 reg [19:0] startup_cnt;
 
+
  IBUF IBUF_QP_ERROR (.O(QPLL_ERROR),.I(QP_ERROR));
  IBUF IBUF_QP_LOCKED (.O(QPLL_LOCK),.I(QP_LOCKED));
  
 
 assign restart_all = (JTAG_SYS_RST || CSP_SYS_RST);
 assign DSR_RST    = ~ADC_RDY || SYS_RST;
-assign SYS_MON_RST = 1'b0;
 assign qpll_lock_disable = 1'b1;
-assign strt_dly_done = (startup_cnt == Strt_dly);
+assign ADC_INIT_RST = adc_init_rst_r2;
 
+SRL16E #(
+	.INIT(16'HFFFF)
+) SysMonRst_i (
+	.Q(SYS_MON_RST),
+	.A0(1'b1),
+	.A1(1'b1),
+	.A2(1'b1),
+	.A3(1'b1),
+	.CE(1'b1),
+	.CLK(STUP_CLK),
+	.D(1'b0)
+);
+	
 // Synchronize inputs to startup clock for POR state machine
 
 always @(posedge STUP_CLK) begin
@@ -88,21 +101,28 @@ always @(posedge STUP_CLK) begin
 	qpll_lock_r2     <= qpll_lock_r1;
 end
 
-
-always @(posedge STUP_CLK or negedge EOS) begin
-   if(!EOS)
-	   startup_cnt <= 20'h00000;
-	else
-	   if(!strt_dly_done)
-		   startup_cnt <= startup_cnt +1;
-		else
-		   startup_cnt <= startup_cnt;
-end
-
-Pow_on_Rst #(.POR_tmo(POR_tmo)) POW_on_Reset_FSM   (.ADC_INIT_RST(adc_init_rst_i),.AL_START(al_start_i),.MMCM_RST(MMCM_RST),.POR(por_i),
-                                                 .RUN(run_i),.POR_STATE(POR_STATE), // outputs
-                                     .ADC_RDY(adc_rdy_r2),.AL_DONE(al_done_r2),.BPI_SEQ_IDLE(bpi_seq_idle_r2), // inputs
-												 .CLK(STUP_CLK),.EOS(EOS),.MMCM_LOCK(daq_mmcm_lock_r2),.QPLL_LOCK(qpll_lock_r2),.RESTART_ALL(restart_all),.STRT_DLY_DONE(strt_dly_done)); // inputs
+Pow_on_Rst_FSM #(
+		.Strt_dly(Strt_dly),
+		.POR_tmo(POR_tmo)
+)
+POW_on_Reset_FSM_i (
+	 // Outputs
+	.ADC_INIT_RST(adc_init_rst_i),
+	.AL_START(al_start_i),
+	.MMCM_RST(MMCM_RST),
+	.POR(por_i),
+	.RUN(run_i),
+	.POR_STATE(POR_STATE),
+	// Inputs
+   .ADC_RDY(adc_rdy_r2),
+	.AL_DONE(al_done_r2),
+	.BPI_SEQ_IDLE(bpi_seq_idle_r2),
+	.CLK(STUP_CLK),
+	.EOS(EOS),
+	.MMCM_LOCK(daq_mmcm_lock_r2),
+	.QPLL_LOCK(qpll_lock_r2),
+	.RESTART_ALL(restart_all)
+);
 
 // Synchronize outputs to 40MHz clock 
 
@@ -131,34 +151,42 @@ always @(posedge CLK or negedge EOS) begin
 end
 
 												 
-Trg_Clock_Strt   Trg_Clock_Strt_FSM (.GTX_RST(TRG_GTXTXRESET),.TRG_RST(TRG_RST), // outputs
-                                     .CLK(COMP_CLK),.MMCM_LOCK(TRG_MMCM_LOCK),.RST(SYS_RST),.SYNC_DONE(TRG_SYNC_DONE),.CLK_PHS_CHNG(CMP_PHS_CHANGE)); // inputs
+Trg_Clock_Strt_FSM
+Trg_Clock_Strt_FSM_i (
+	 // Outputs
+	.GTX_RST(TRG_GTXTXRESET),
+	.TRG_RST(TRG_RST),
+	// Inputs
+	.CLK(COMP_CLK),
+	.CLK_PHS_CHNG(CMP_PHS_CHANGE),
+	.MMCM_LOCK(TRG_MMCM_LOCK),
+	.RST(SYS_RST),
+	.SYNC_DONE(TRG_SYNC_DONE)
+);
 
-ADC_Init  #(.TIME_OUT(ADC_Init_tmo)) // 10ms  
-         ADC_Init_FSM       (.ADC_INIT(ADC_INIT),.ADC_RST(ADC_RST),.CRST(awrst),.INC(ainc),.RUN(ADC_RDY),
-                                     .CLK(CLK),.CNT(awcnt),.INIT_DONE(ADC_INIT_DONE),.RST(adc_init_rst_r2),.SLOW_CNT(dsr_tmr));
+ADC_Init_FSM  #(.TIME_OUT(ADC_Init_tmo)) // 10ms  
+ADC_Init_FSM_i (
+	 // Outputs
+	.ADC_INIT(ADC_INIT),
+	.ADC_RST(ADC_RST),
+	.INC_TMR(inc_tmr),
+	.RUN(ADC_RDY),
+	// Inputs
+	.CLK(CLK),
+	.INIT_DONE(ADC_INIT_DONE),
+	.RST(adc_init_rst_r2),
+	.SLOW_CNT(dsr_tmr)
+);
 
 
-always @(posedge CLK or posedge awrst) begin
-   if(awrst)
-	   awcnt <= 5'h00;
-	else
-	   if(ainc)
-		   awcnt <= awcnt +1;
-		else
-		   awcnt <= awcnt;
-end
-
-
-always @(posedge CLK100KHZ or posedge ADC_RST) begin
-   if(ADC_RST)
+always @(posedge CLK100KHZ or posedge SYS_RST) begin
+   if(SYS_RST)
 	   dsr_tmr <= 12'h000;
 	else
-	   if(ainc || ADC_INIT)
+	   if(inc_tmr)
 		   dsr_tmr <= dsr_tmr +1;
 		else
 		   dsr_tmr <= dsr_tmr;
 end
 
 endmodule
-

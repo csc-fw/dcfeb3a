@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/Sample_Proc_FSM_sim_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="Sample_Proc_FSM_sim_tf" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="103" />
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/CE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CE</obj_property>
+      <obj_property name="ObjectShortName">CE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/CE_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CE_trial</obj_property>
+      <obj_property name="ObjectShortName">CE_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/CLR_CRC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/CLR_CRC_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_trial</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/INC_SEQ" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_SEQ</obj_property>
+      <obj_property name="ObjectShortName">INC_SEQ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/INC_SMP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_SMP</obj_property>
+      <obj_property name="ObjectShortName">INC_SMP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/LAST_WRD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LAST_WRD</obj_property>
+      <obj_property name="ObjectShortName">LAST_WRD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/LAST_WRD_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LAST_WRD_trial</obj_property>
+      <obj_property name="ObjectShortName">LAST_WRD_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/LD_L1A_H" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_H</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_H</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/LD_L1A_H_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_H_trial</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_H_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/LD_L1A_L" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_L</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_L</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/LD_L1A_L_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_L_trial</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_L_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/RD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RD</obj_property>
+      <obj_property name="ObjectShortName">RD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/RD_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RD_trial</obj_property>
+      <obj_property name="ObjectShortName">RD_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/RST_SEQ" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_SEQ</obj_property>
+      <obj_property name="ObjectShortName">RST_SEQ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/RST_SMP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_SMP</obj_property>
+      <obj_property name="ObjectShortName">RST_SMP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/VALID" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID</obj_property>
+      <obj_property name="ObjectShortName">VALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/VALID_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID_trial</obj_property>
+      <obj_property name="ObjectShortName">VALID_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/SMP_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SMP_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">SMP_STATE[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/SMP_STATE_trial" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SMP_STATE_trial[3:0]</obj_property>
+      <obj_property name="ObjectShortName">SMP_STATE_trial[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/seq" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">seq[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seq[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/seq_trial" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">seq_trial[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seq_trial[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/smp" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">smp[6:0]</obj_property>
+      <obj_property name="ObjectShortName">smp[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/smp_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">smp_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">smp_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/FAMT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FAMT</obj_property>
+      <obj_property name="ObjectShortName">FAMT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/L1A_BUF_MT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_BUF_MT</obj_property>
+      <obj_property name="ObjectShortName">L1A_BUF_MT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/L1A_HEAD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_HEAD</obj_property>
+      <obj_property name="ObjectShortName">L1A_HEAD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/SAMP_MAX" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/TXACK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TXACK</obj_property>
+      <obj_property name="ObjectShortName">TXACK</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider32" type="divider">
+      <obj_property name="label">Sample_Proc_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/CE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CE</obj_property>
+      <obj_property name="ObjectShortName">CE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/CLR_CRC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/INC_SEQ" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_SEQ</obj_property>
+      <obj_property name="ObjectShortName">INC_SEQ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/INC_SMP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_SMP</obj_property>
+      <obj_property name="ObjectShortName">INC_SMP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/LAST_WRD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LAST_WRD</obj_property>
+      <obj_property name="ObjectShortName">LAST_WRD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/LD_L1A_H" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_H</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_H</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/LD_L1A_L" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_L</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_L</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/RD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RD</obj_property>
+      <obj_property name="ObjectShortName">RD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/RST_SEQ" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_SEQ</obj_property>
+      <obj_property name="ObjectShortName">RST_SEQ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/RST_SMP" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_SMP</obj_property>
+      <obj_property name="ObjectShortName">RST_SMP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/VALID" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID</obj_property>
+      <obj_property name="ObjectShortName">VALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/SMP_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SMP_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">SMP_STATE[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/FAMT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FAMT</obj_property>
+      <obj_property name="ObjectShortName">FAMT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/L1A_BUF_MT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_BUF_MT</obj_property>
+      <obj_property name="ObjectShortName">L1A_BUF_MT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/L1A_HEAD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_HEAD</obj_property>
+      <obj_property name="ObjectShortName">L1A_HEAD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/SAMP_MAX" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/SEQ" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SEQ[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ[6:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/SMP" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SMP[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SMP[6:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/TXACK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TXACK</obj_property>
+      <obj_property name="ObjectShortName">TXACK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/CE_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CE_1</obj_property>
+      <obj_property name="ObjectShortName">CE_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/CLR_CRC_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_1</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/INC_SEQ_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_SEQ_1</obj_property>
+      <obj_property name="ObjectShortName">INC_SEQ_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/INC_SMP_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_SMP_1</obj_property>
+      <obj_property name="ObjectShortName">INC_SMP_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/LAST_WRD_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LAST_WRD_1</obj_property>
+      <obj_property name="ObjectShortName">LAST_WRD_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/LD_L1A_H_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_H_1</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_H_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/LD_L1A_L_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_L_1</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_L_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/RD_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RD_1</obj_property>
+      <obj_property name="ObjectShortName">RD_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/RST_SEQ_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_SEQ_1</obj_property>
+      <obj_property name="ObjectShortName">RST_SEQ_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/RST_SMP_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST_SMP_1</obj_property>
+      <obj_property name="ObjectShortName">RST_SMP_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/VALID_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID_1</obj_property>
+      <obj_property name="ObjectShortName">VALID_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/uut/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[87:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[87:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider33" type="divider">
+      <obj_property name="label">trial_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/CE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CE</obj_property>
+      <obj_property name="ObjectShortName">CE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/CLR_CRC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/LAST_WRD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LAST_WRD</obj_property>
+      <obj_property name="ObjectShortName">LAST_WRD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/LD_L1A_H" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_H</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_H</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/LD_L1A_L" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_L</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_L</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/RD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RD</obj_property>
+      <obj_property name="ObjectShortName">RD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/SEQ" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SEQ[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/VALID" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID</obj_property>
+      <obj_property name="ObjectShortName">VALID</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/SMP_STATE" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SMP_STATE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">SMP_STATE[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/FAMT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">FAMT</obj_property>
+      <obj_property name="ObjectShortName">FAMT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/L1A_BUF_MT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_BUF_MT</obj_property>
+      <obj_property name="ObjectShortName">L1A_BUF_MT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/L1A_HEAD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">L1A_HEAD</obj_property>
+      <obj_property name="ObjectShortName">L1A_HEAD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/SAMP_MAX" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SAMP_MAX[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/TXACK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TXACK</obj_property>
+      <obj_property name="ObjectShortName">TXACK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/voted_seqn_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_seqn_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_seqn_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/voted_smp_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_smp_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_smp_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/CE_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CE_1</obj_property>
+      <obj_property name="ObjectShortName">CE_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/CLR_CRC_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLR_CRC_1</obj_property>
+      <obj_property name="ObjectShortName">CLR_CRC_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/LAST_WRD_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LAST_WRD_1</obj_property>
+      <obj_property name="ObjectShortName">LAST_WRD_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/LD_L1A_H_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_H_1</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_H_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/LD_L1A_L_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">LD_L1A_L_1</obj_property>
+      <obj_property name="ObjectShortName">LD_L1A_L_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/RD_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RD_1</obj_property>
+      <obj_property name="ObjectShortName">RD_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/SEQ_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SEQ_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">SEQ_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/VALID_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID_1</obj_property>
+      <obj_property name="ObjectShortName">VALID_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/VALID_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID_2</obj_property>
+      <obj_property name="ObjectShortName">VALID_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/VALID_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">VALID_3</obj_property>
+      <obj_property name="ObjectShortName">VALID_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/seqn_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">seqn_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seqn_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/smp_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">smp_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">smp_1[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Sample_Proc_FSM_sim_tf/Sample_Proc_FSM_trial_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[87:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[87:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

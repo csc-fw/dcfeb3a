@@ -19,9 +19,17 @@ module test_points(
     input TRG_SYNCDONE,
     input TRG_MMCM_LOCK,
     input COMP_RST,
+	input cmp_phs_psen,
+	input cmp_phs_psdone,
+	input cmp_phs_busy,
+	input CMP_PHS_JTAG_RST,
+	 input  [4:0] CMP_CLK_PHASE,  
+	input [10:0] cmp_phase,
+	input CMP_PHS_CHANGE,
+	input cmp_phs_rst,
+	input [2:0] cmp_phs_state,
     input TRG_RST,
     input LCT,
-    input CMP_CLK_PHS_CHNG,
 	 input EOS,
 	 input [3:0] POR_STATE,
 	 input DSR_ALGND,
@@ -67,16 +75,17 @@ module test_points(
 assign tp_b24_dir = 3'b000;
 assign tp_b25_dir = 16'h0000;
 assign tp_b26_dir = 2'b11;
-assign tp_b35_dir = 14'h0f00;
+assign tp_b35_dir = 14'h0300;
 
 // Outgoing data to testpoints
 //
 
 assign tp_b24_out = 3'b000;
 assign tp_b25_out = {DSR_ALGND,DSR_RST,ADC_CLK,CLK20,DSR_RESYNC,CLK,STUP_CLK,QPLL_LOCK,CLK100KHZ,1'b0,SYS_RST,EOS,POR_STATE};
+//assign tp_b25_out = {cmp_phase[8:4],CLK,CMP_PHS_CHANGE,CMP_PHS_JTAG_RST,cmp_phs_busy,cmp_phs_psdone,cmp_phs_psen,cmp_phs_rst,SYS_RST,cmp_phs_state};
 assign tp_b26_out = 2'b00;
-//assign tp_b35_out = {TRG_RST,LCT,4'h0,TRG_GTXTXRESET,COMP_RST,CMP_CLK_PHS_CHNG,TRG_MMCM_LOCK,TRG_SYNCDONE,COMP_CLK160,COMP_CLK80,COMP_CLK};
-assign tp_b35_out = {SYS_RST,RESYNC,4'h0,ALG_GD,CLK,1'b0,1'b0,1'b0,L1A_EVT_PUSH,L1A,L1A_MATCH};
+assign tp_b35_out = {CMP_CLK_PHASE[4:1],2'b0,CMP_CLK_PHASE[0],COMP_RST,TRG_GTXTXRESET,TRG_MMCM_LOCK,TRG_SYNCDONE,COMP_CLK160,COMP_CLK80,COMP_CLK};
+//assign tp_b35_out = {SYS_RST,RESYNC,4'h0,ALG_GD,CLK,1'b0,1'b0,1'b0,L1A_EVT_PUSH,L1A,L1A_MATCH};
 
 // Incoming data to fabric
 //

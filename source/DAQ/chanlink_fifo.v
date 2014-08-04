@@ -96,13 +96,8 @@ reg [15:0] fullwrd;
 reg [15:0] frame;
 wire [2:0] frm_state;
 
-//wire inc_seq;
-//wire rst_seq;
-//wire inc_smp;
-//wire rst_smp;
 wire valid0;
 wire clr_crc0;
-//reg [6:0] smp;
 wire [6:0] seq;
 reg [6:0] seq1;
 reg clr_crc;
@@ -303,30 +298,6 @@ always @(posedge RCLK) begin
 	endcase
 end
 
-//always @(posedge RCLK or posedge RST_RESYNC) begin
-//	if(RST_RESYNC)
-//		smp <= 7'h00;
-//	else
-//		if(inc_smp)
-//			smp <= smp +1;
-//		else if(rst_smp)
-//			smp <= 7'h00;
-//		else
-//			smp <= smp;
-//end
-//always @(posedge RCLK or posedge RST_RESYNC) begin
-//	if(RST_RESYNC)
-//		seq <= 7'h00;
-//	else
-//		if(inc_seq)
-//			seq <= seq +1;
-//		else if(rst_seq)
-//			seq <= 7'h00;
-//		else
-//			seq <= seq;
-//end
-
-
 
 function [14:0] CRC15_D13 (input [12:0] d, input [14:0] c);
   reg [14:0] newcrc;
@@ -365,25 +336,5 @@ ChnLnk_Frame_FSM_i (
    .RST(RST_RESYNC)
 );
 
-//Frame_Seq_FSM 
-//Frame_Seq_FSM1 (
-//   .CLR_CRC(clr_crc0),
-//   .INC_SEQ(inc_seq),
-//   .INC_SMP(inc_smp),
-//   .LAST_WRD(nxt_l1a),
-//   .RD(nxt_wrd),
-//   .RST_SEQ(rst_seq),
-//   .RST_SMP(rst_smp),
-//   .VALID(valid0),
-//	.FRM_STATE(frm_state),
-//   .CLK(RCLK),
-//   .FAMT(mt_r3),
-//   .L1A_BUF_MT(l1a_buf_mt),
-//   .RST(RST_RESYNC),
-//   .SAMP_MAX(SAMP_MAX),
-//   .SEQ(seq),
-//   .SMP(smp)
-//);
-  
 
 endmodule

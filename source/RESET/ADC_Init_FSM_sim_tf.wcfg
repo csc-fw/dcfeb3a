@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ADC_Init_FSM_sim_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="ADC_Init_FSM_sim_tf" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="90" />
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_INIT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_INIT_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT_trial</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_RST_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST_trial</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/awrst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">awrst</obj_property>
+      <obj_property name="ObjectShortName">awrst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ainc" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ainc</obj_property>
+      <obj_property name="ObjectShortName">ainc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/RUN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN</obj_property>
+      <obj_property name="ObjectShortName">RUN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/RUN_trial" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN_trial</obj_property>
+      <obj_property name="ObjectShortName">RUN_trial</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/inc_tmr" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">inc_tmr</obj_property>
+      <obj_property name="ObjectShortName">inc_tmr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/CLK100KHZ" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK100KHZ</obj_property>
+      <obj_property name="ObjectShortName">CLK100KHZ</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/awcnt" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">awcnt[4:0]</obj_property>
+      <obj_property name="ObjectShortName">awcnt[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/INIT_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INIT_DONE</obj_property>
+      <obj_property name="ObjectShortName">INIT_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/dsr_tmr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dsr_tmr[11:0]</obj_property>
+      <obj_property name="ObjectShortName">dsr_tmr[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/dsr_tmr_trial" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">dsr_tmr_trial[11:0]</obj_property>
+      <obj_property name="ObjectShortName">dsr_tmr_trial[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_tmo" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_Init_tmo[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ADC_Init_tmo[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider20" type="divider">
+      <obj_property name="label">ADC_Init_FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/ADC_INIT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/ADC_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/CRST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRST</obj_property>
+      <obj_property name="ObjectShortName">CRST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/INC" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC</obj_property>
+      <obj_property name="ObjectShortName">INC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/RUN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN</obj_property>
+      <obj_property name="ObjectShortName">RUN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">CNT[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CNT[4:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/INIT_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INIT_DONE</obj_property>
+      <obj_property name="ObjectShortName">INIT_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/SLOW_CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SLOW_CNT[11:0]</obj_property>
+      <obj_property name="ObjectShortName">SLOW_CNT[11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/voted_state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_2[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/voted_state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_3[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_2[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_3[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/nextstate_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_2[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/nextstate_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_3[2:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/ADC_INIT_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT_1</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/ADC_INIT_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT_2</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/ADC_INIT_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT_3</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/ADC_RST_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST_1</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/ADC_RST_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST_2</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/ADC_RST_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST_3</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/CRST_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRST_1</obj_property>
+      <obj_property name="ObjectShortName">CRST_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/CRST_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRST_2</obj_property>
+      <obj_property name="ObjectShortName">CRST_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/CRST_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CRST_3</obj_property>
+      <obj_property name="ObjectShortName">CRST_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/INC_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_1</obj_property>
+      <obj_property name="ObjectShortName">INC_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/INC_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_2</obj_property>
+      <obj_property name="ObjectShortName">INC_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/INC_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_3</obj_property>
+      <obj_property name="ObjectShortName">INC_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/RUN_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN_1</obj_property>
+      <obj_property name="ObjectShortName">RUN_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/RUN_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN_2</obj_property>
+      <obj_property name="ObjectShortName">RUN_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/RUN_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN_3</obj_property>
+      <obj_property name="ObjectShortName">RUN_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/uut/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[71:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[71:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider21" type="divider">
+      <obj_property name="label">trial FSM</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">128 128 255</obj_property>
+      <obj_property name="TextColor">230 230 230</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/ADC_INIT" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/ADC_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/INC_TMR" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_TMR</obj_property>
+      <obj_property name="ObjectShortName">INC_TMR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/RUN" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN</obj_property>
+      <obj_property name="ObjectShortName">RUN</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/INIT_DONE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INIT_DONE</obj_property>
+      <obj_property name="ObjectShortName">INIT_DONE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/SLOW_CNT" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">SLOW_CNT[11:0]</obj_property>
+      <obj_property name="ObjectShortName">SLOW_CNT[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/voted_state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/voted_state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_2[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/voted_state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_state_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_state_3[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/voted_cnt_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_cnt_1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_cnt_1[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/voted_cnt_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_cnt_2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_cnt_2[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/voted_cnt_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">voted_cnt_3[4:0]</obj_property>
+      <obj_property name="ObjectShortName">voted_cnt_3[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/state_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/state_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_2[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/state_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">state_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_3[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/nextstate_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_1[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_1[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/nextstate_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_2[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_2[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/nextstate_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">nextstate_3[2:0]</obj_property>
+      <obj_property name="ObjectShortName">nextstate_3[2:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/ADC_INIT_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT_1</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/ADC_INIT_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT_2</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/ADC_INIT_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_INIT_3</obj_property>
+      <obj_property name="ObjectShortName">ADC_INIT_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/ADC_RST_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST_1</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/ADC_RST_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST_2</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/ADC_RST_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ADC_RST_3</obj_property>
+      <obj_property name="ObjectShortName">ADC_RST_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/INC_TMR_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_TMR_1</obj_property>
+      <obj_property name="ObjectShortName">INC_TMR_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/INC_TMR_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_TMR_2</obj_property>
+      <obj_property name="ObjectShortName">INC_TMR_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/INC_TMR_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">INC_TMR_3</obj_property>
+      <obj_property name="ObjectShortName">INC_TMR_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/RUN_1" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN_1</obj_property>
+      <obj_property name="ObjectShortName">RUN_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/RUN_2" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN_2</obj_property>
+      <obj_property name="ObjectShortName">RUN_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/RUN_3" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RUN_3</obj_property>
+      <obj_property name="ObjectShortName">RUN_3</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/cnt_1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt_1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_1[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/cnt_2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt_2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_2[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/cnt_3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">cnt_3[4:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt_3[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/ADC_Init_FSM_sim_tf/ADC_Init_FSM_trial_i/statename" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">statename[71:0]</obj_property>
+      <obj_property name="ObjectShortName">statename[71:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

@@ -7,7 +7,7 @@
 // \   \   \/     Version: P.20131013
 //  \   \         Application: netgen
 //  /   /         Filename: pipeline_ecc.v
-// /___/   /\     Timestamp: Wed Jul 23 14:43:46 2014
+// /___/   /\     Timestamp: Thu Jun 26 15:22:00 2014
 // \   \  /  \ 
 //  \___\/\___\
 //             
@@ -354,15 +354,15 @@ my_wr_rst_i}),
 \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_INT_RST_I<0>_UNCONNECTED })
   );
   FIFO36E1 #(
-    .ALMOST_EMPTY_OFFSET ( 13'h0005 ),
-    .ALMOST_FULL_OFFSET ( 13'h0006 ),
+    .ALMOST_EMPTY_OFFSET ( 13'h0006 ),
+    .ALMOST_FULL_OFFSET ( 13'h0007 ),
     .DATA_WIDTH ( 72 ),
     .DO_REG ( 1 ),
     .EN_ECC_READ ( "TRUE" ),
     .EN_ECC_WRITE ( "TRUE" ),
     .EN_SYN ( "FALSE" ),
     .FIFO_MODE ( "FIFO36_72" ),
-    .FIRST_WORD_FALL_THROUGH ( "FALSE" ),
+    .FIRST_WORD_FALL_THROUGH ( "TRUE" ),
     .INIT ( 72'h000000000000000000 ),
     .SIM_DEVICE ( "VIRTEX6" ),
     .SRVAL ( 72'h000000000000000000 ))

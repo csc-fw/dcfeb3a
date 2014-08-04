@@ -289,7 +289,7 @@ module dcfeb3a_sim_top_tf;
 	.Simulation(1),
 	.Strt_dly(20'h00004),
 	.POR_tmo(7'd10),
-	.ADC_Init_tmo(12'd6)
+	.ADC_Init_tmo(12'd9)
 	)
 	uut (
 		.CMS_CLK_N(CMS_CLK_N), 
@@ -1182,9 +1182,11 @@ module dcfeb3a_sim_top_tf;
 		#1;
 		#(5*PERIOD);
 		JTAG_reset;
-		Set_Func(8'h00);           // Set Pipeline depth
+		Set_Func(8'h00);           // Set NoOp
 		Set_User(usr2);            // User 2 for User Reg access
-		Shift_Data(9,9'd0);       // shift pipe depth
+		Shift_Data(9,9'd0);       // shift zeros
+		#(5*PERIOD);
+		Set_Func(8'd42);           // Disable L1A headers.
 		#(5*PERIOD);
 		JTAG_reset;
 		#(17500*PERIOD);
@@ -1416,4 +1418,3 @@ end
 endtask
       
 endmodule
-
