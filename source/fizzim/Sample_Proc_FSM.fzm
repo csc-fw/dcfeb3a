@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 1:31:49 PM on 7/17/14
+## File last modified by Fizzim: 12:06:13 PM on 8/4/14
 <version>
    14.02.18
 </version>
@@ -1189,7 +1189,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -1225,7 +1225,7 @@
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -1807,7 +1807,7 @@
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -1843,7 +1843,7 @@
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -2655,7 +2655,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -2691,7 +2691,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -3298,7 +3298,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -3334,7 +3334,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -3977,7 +3977,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -5754,7 +5754,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -6397,7 +6397,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -7004,7 +7004,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -7040,7 +7040,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -9078,9 +9078,9 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         seqn
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -9114,7 +9114,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -9721,9 +9721,9 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         seqn + 1
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -9757,7 +9757,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -11066,7 +11066,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -11102,7 +11102,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -11709,7 +11709,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -11745,7 +11745,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>
@@ -12633,7 +12633,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         !L1A_HEAD && (seqn == 7'd3)
+         !L1A_HEAD && (seqn == 7'd2)
             <status>
             LOCAL
             </status>
@@ -13542,7 +13542,7 @@ fzm_globalTable
          <value>
          7'h00
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -13576,7 +13576,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         7'h00
+         7'h7F
             <status>
             GLOBAL_VAR
             </status>

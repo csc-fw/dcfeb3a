@@ -69,7 +69,6 @@ wire valid0;
 wire clr_crc0;
 wire ld_l1a_h;
 wire ld_l1a_l;
-reg  [6:0] smp;
 wire [6:0] seq;
 reg  [6:0] seq1;
 reg  clr_crc;

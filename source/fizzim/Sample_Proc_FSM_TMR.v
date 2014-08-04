@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:17 at 13:32:46 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:04 at 12:08:58 (www.fizzim.com)
 
 module Sample_Proc_FSM (
   output CE,
@@ -125,7 +125,7 @@ module Sample_Proc_FSM (
       Read       : if      (voted_seqn_1 == 7'd95)                nextstate_1 = Tail;
                    else                                           nextstate_1 = Read;
       St_Data    : if      (L1A_HEAD)                             nextstate_1 = W4TXACK;
-                   else if (!L1A_HEAD && (voted_seqn_1 == 7'd3))  nextstate_1 = W4TXACK;
+                   else if (!L1A_HEAD && (voted_seqn_1 == 7'd2))  nextstate_1 = W4TXACK;
                    else                                           nextstate_1 = St_Data;
       Strt_Seq   :                                                nextstate_1 = Read;
       Tail       : if      (voted_seqn_1 == 7'd98)                nextstate_1 = Inc_Samp;
@@ -147,7 +147,7 @@ module Sample_Proc_FSM (
       Read       : if      (voted_seqn_2 == 7'd95)                nextstate_2 = Tail;
                    else                                           nextstate_2 = Read;
       St_Data    : if      (L1A_HEAD)                             nextstate_2 = W4TXACK;
-                   else if (!L1A_HEAD && (voted_seqn_2 == 7'd3))  nextstate_2 = W4TXACK;
+                   else if (!L1A_HEAD && (voted_seqn_2 == 7'd2))  nextstate_2 = W4TXACK;
                    else                                           nextstate_2 = St_Data;
       Strt_Seq   :                                                nextstate_2 = Read;
       Tail       : if      (voted_seqn_2 == 7'd98)                nextstate_2 = Inc_Samp;
@@ -169,7 +169,7 @@ module Sample_Proc_FSM (
       Read       : if      (voted_seqn_3 == 7'd95)                nextstate_3 = Tail;
                    else                                           nextstate_3 = Read;
       St_Data    : if      (L1A_HEAD)                             nextstate_3 = W4TXACK;
-                   else if (!L1A_HEAD && (voted_seqn_3 == 7'd3))  nextstate_3 = W4TXACK;
+                   else if (!L1A_HEAD && (voted_seqn_3 == 7'd2))  nextstate_3 = W4TXACK;
                    else                                           nextstate_3 = St_Data;
       Strt_Seq   :                                                nextstate_3 = Read;
       Tail       : if      (voted_seqn_3 == 7'd98)                nextstate_3 = Inc_Samp;
@@ -222,9 +222,9 @@ module Sample_Proc_FSM (
       VALID_1 <= 0;
       VALID_2 <= 0;
       VALID_3 <= 0;
-      seqn_1 <= 7'h00;
-      seqn_2 <= 7'h00;
-      seqn_3 <= 7'h00;
+      seqn_1 <= 7'h7F;
+      seqn_2 <= 7'h7F;
+      seqn_3 <= 7'h7F;
       smp_1 <= 7'h00;
       smp_2 <= 7'h00;
       smp_3 <= 7'h00;
@@ -251,9 +251,9 @@ module Sample_Proc_FSM (
       VALID_1 <= 0; // default
       VALID_2 <= 0; // default
       VALID_3 <= 0; // default
-      seqn_1 <= 7'h00; // default
-      seqn_2 <= 7'h00; // default
-      seqn_3 <= 7'h00; // default
+      seqn_1 <= 7'h7F; // default
+      seqn_2 <= 7'h7F; // default
+      seqn_3 <= 7'h7F; // default
       smp_1 <= voted_smp_1; // default
       smp_2 <= voted_smp_2; // default
       smp_3 <= voted_smp_3; // default
@@ -281,10 +281,12 @@ module Sample_Proc_FSM (
         St_Data    : begin
                             RD_1 <= 1;
                             VALID_1 <= 1;
+                            seqn_1 <= voted_seqn_1 + 1;
         end
         Strt_Seq   : begin
                             RD_1 <= 1;
                             VALID_1 <= 1;
+                            seqn_1 <= 7'h00;
                             smp_1 <= voted_smp_1 + 1;
         end
         Tail       : begin
@@ -295,6 +297,7 @@ module Sample_Proc_FSM (
         W4TXACK    : begin
                             CE_1 <= 0;
                             VALID_1 <= 1;
+                            seqn_1 <= voted_seqn_1;
         end
       endcase
       case (nextstate_2)
@@ -321,10 +324,12 @@ module Sample_Proc_FSM (
         St_Data    : begin
                             RD_2 <= 1;
                             VALID_2 <= 1;
+                            seqn_2 <= voted_seqn_2 + 1;
         end
         Strt_Seq   : begin
                             RD_2 <= 1;
                             VALID_2 <= 1;
+                            seqn_2 <= 7'h00;
                             smp_2 <= voted_smp_2 + 1;
         end
         Tail       : begin
@@ -335,6 +340,7 @@ module Sample_Proc_FSM (
         W4TXACK    : begin
                             CE_2 <= 0;
                             VALID_2 <= 1;
+                            seqn_2 <= voted_seqn_2;
         end
       endcase
       case (nextstate_3)
@@ -361,10 +367,12 @@ module Sample_Proc_FSM (
         St_Data    : begin
                             RD_3 <= 1;
                             VALID_3 <= 1;
+                            seqn_3 <= voted_seqn_3 + 1;
         end
         Strt_Seq   : begin
                             RD_3 <= 1;
                             VALID_3 <= 1;
+                            seqn_3 <= 7'h00;
                             smp_3 <= voted_smp_3 + 1;
         end
         Tail       : begin
@@ -375,6 +383,7 @@ module Sample_Proc_FSM (
         W4TXACK    : begin
                             CE_3 <= 0;
                             VALID_3 <= 1;
+                            seqn_3 <= voted_seqn_3;
         end
       endcase
     end

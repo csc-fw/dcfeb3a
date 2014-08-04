@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="1193" />
+   <WVObjectSize size="1192" />
    <wave_markers>
       <marker time="388748000000" label="" />
       <marker time="385633000000" label="" />
@@ -2767,11 +2767,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/frame" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">frame[15:0]</obj_property>
       <obj_property name="ObjectShortName">frame[15:0]</obj_property>
-      <obj_property name="Radix">HEXRADIX</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/smp" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">smp[6:0]</obj_property>
-      <obj_property name="ObjectShortName">smp[6:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/seq" type="array" db_ref_id="1">
