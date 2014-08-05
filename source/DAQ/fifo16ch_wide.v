@@ -99,8 +99,7 @@ module fifo16ch_wide #(
 	reg l1a_phase;
 	reg l1a_phase_r1;
 	reg smpclk_dp5,smpclk_d1,smpclk_d2,smpclk_d3;
-	reg [2:0] sel;
-	reg [6:0] sample;
+	wire [2:0] sel;
 
 	assign L1A_CNT = l1acnt;
 	assign L1A_MTCH_CNT = l1amcnt;

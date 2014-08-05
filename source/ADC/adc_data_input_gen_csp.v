@@ -327,9 +327,9 @@ begin
 	assign CSP_RESYNC = 1'b0;
 	assign csp_even = 1'b0;
 	assign csp_odd = 1'b0;
-	assign var5 = 1'b0;
-	assign var6 = 1'b0;
-	assign var7 = 1'b0;
+	assign csp_var5 = 1'b0;
+	assign csp_var6 = 1'b0;
+	assign csp_var7 = 1'b0;
 end
 endgenerate
 

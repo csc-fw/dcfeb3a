@@ -36,9 +36,6 @@ module auto_load_const(
 
 localparam Read_Array_Cmd = 16'h00FF;
 
-wire rst_addr;
-wire addr_rst;
-wire inc_addr;
 wire [22:0] base_addr;
 wire al_aborted;
 wire al_completed;

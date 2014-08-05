@@ -94,18 +94,10 @@ module Clock_sources #(
   wire dmy_cclk, dmy_din, dmy_tck, preq;
   
 wire samp_ma, samp_mb;
-wire cmp_ca, cmp_cb;
-wire cmp_fa, cmp_fb;
 wire samp_m0,samp_m45,samp_m90,samp_m135;
-wire cmp_c0,cmp_c90,cmp_c180,cmp_c270;
-wire cmp_f0,cmp_f22p5,cmp_f45,cmp_f67p5;
 //wire sampfbin_med;
 wire sampfbout_med;
-wire cmpfbin_coarse, cmpfbout_coarse;
-wire cmpfbin_fine, cmpfbout_fine;
 wire samp_med_lock;
-wire cmp_coarse_lock;
-wire cmp_fine_lock;
 wire samp_in_sel;
 wire pre_clk40;
 wire pre_clk20, pre_clk20_b;

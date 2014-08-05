@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version I-2014.03-1 
 #--  Project file C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\run_options.txt
-#--  Written on Mon Aug 04 13:25:32 2014
+#--  Written on Tue Aug 05 10:51:49 2014
 
 
 #project files
@@ -52,6 +52,7 @@ add_file -xilinx "./ipcore_dir/chnlnk_fifo_la.ngc"
 add_file -xilinx "./ipcore_dir/xfer2ring_la.ngc"
 add_file -verilog "./ipcore_dir/cmp_dyn_phs_mmcm.v"
 add_file -xilinx "./ipcore_dir/pipeline_ecc.ngc"
+add_file -xilinx "./ipcore_dir/CSP_chan_link_cntrl.ngc"
 add_file -verilog "../../../../../../../Xilinx/14.7/ISE_DS/ISE/verilog/src/unimacro/FIFO_DUALCLOCK_MACRO.v"
 add_file -verilog "./source/TMB/lfsr_R24.v"
 add_file -verilog "./source/fizzim/comp_thresh_load_FSM_TMR.v"
@@ -73,12 +74,12 @@ add_file -verilog "./source/fizzim/Sample_Proc_FSM_TMR.v"
 add_file -verilog "./source/fizzim/Ring_Trans_FSM_TMR.v"
 add_file -verilog "./source/fizzim/Pow_on_Rst_FSM_TMR.v"
 add_file -verilog "./source/fizzim/Pipe_Start_FSM_TMR.v"
-add_file -verilog "./source/fizzim/Frame_Seq_FSM_TMR.v"
 add_file -verilog "./source/fizzim/Frame_Proc_FSM_TMR.v"
 add_file -verilog "./source/fizzim/fifo_load_FSM_TMR.v"
 add_file -verilog "./source/fizzim/dyn_phase_shift_FSM_TMR.v"
 add_file -verilog "./source/fizzim/DSR_align_FSM_TMR.v"
 add_file -verilog "./source/fizzim/DAQ_Rate_Sel_FSM_TMR.v"
+add_file -verilog "./source/fizzim/ChnLnk_Frame_FSM_TMR.v"
 add_file -verilog "./source/fizzim/BPI_sequencer_FSM_TMR.v"
 add_file -verilog "./source/fizzim/BPI_intrf_FSM_TMR.v"
 add_file -verilog "./source/fizzim/BPI_ctrl_FSM_TMR.v"
@@ -92,6 +93,7 @@ add_file -verilog "./source/CLK/daq_mmcm_custom.v"
 add_file -verilog "./source/CLK/clk_div_reset.v"
 add_file -verilog "./source/ADC/deserializer.v"
 add_file -verilog "./ipcore_dir/xfer2ring_la.v"
+add_file -verilog "./ipcore_dir/TRG_TX_BUF_BYPASS/example_design/frame_check.v"
 add_file -verilog "./ipcore_dir/sem_vio.v"
 add_file -verilog "./ipcore_dir/sem_la.v"
 add_file -verilog "./ipcore_dir/sem_core.v"
@@ -153,12 +155,12 @@ add_file -verilog "./ipcore_dir/CSP_deser_cntrl.v"
 add_file -verilog "./ipcore_dir/CSP_daq_cntrl.v"
 add_file -verilog "./ipcore_dir/CSP_comp_daq_cntrl.v"
 add_file -verilog "./ipcore_dir/CSP_comp_cntrl.v"
+add_file -verilog "./ipcore_dir/CSP_chan_link_cntrl.v"
 add_file -verilog "./ipcore_dir/cmp_tx_vio.v"
 add_file -verilog "./ipcore_dir/cmp_tx_la.v"
 add_file -verilog "./ipcore_dir/adc_mem_vio.v"
 add_file -verilog "./ipcore_dir/adc_cnfg_mem_la.v"
 add_file -verilog "./source/dcfeb3a.v"
-add_file -verilog "./ipcore_dir/TRG_TX_BUF_BYPASS/example_design/frame_check.v"
 add_file -constraint "C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/dcfeb3a.sdc"
 
 
