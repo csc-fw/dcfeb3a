@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:17 at 16:57:08 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:32:25 (www.fizzim.com)
 
-module DAQ_Rate_Sel_FSM (
+module DAQ_Rate_Sel_FSM_TMR (
   output CDV_INIT,
   output wire [2:0] CLK_SEL,
   output PCSRST,
@@ -38,9 +38,9 @@ module DAQ_Rate_Sel_FSM (
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
-  assign voted_state_1     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
-  assign voted_state_2     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
-  assign voted_state_3     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
+  assign voted_state_1           = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
+  assign voted_state_2           = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
+  assign voted_state_3           = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
 
   assign DQRT_STATE = voted_state_1;
 
@@ -83,20 +83,21 @@ module DAQ_Rate_Sel_FSM (
   (* syn_keep = "true" *)      reg next_WRDCLKSEL_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign CDV_INIT          = (CDV_INIT_1  & CDV_INIT_2 ) | (CDV_INIT_2  & CDV_INIT_3 ) | (CDV_INIT_1  & CDV_INIT_3 ); // Majority logic
-  assign CLK_SEL           = (CLK_SEL_1   & CLK_SEL_2  ) | (CLK_SEL_2   & CLK_SEL_3  ) | (CLK_SEL_1   & CLK_SEL_3  ); // Majority logic
-  assign PCSRST            = (PCSRST_1    & PCSRST_2   ) | (PCSRST_2    & PCSRST_3   ) | (PCSRST_1    & PCSRST_3   ); // Majority logic
-  assign RATE_1_25         = (RATE_1_25_1 & RATE_1_25_2) | (RATE_1_25_2 & RATE_1_25_3) | (RATE_1_25_1 & RATE_1_25_3); // Majority logic
-  assign RATE_3_2          = (RATE_3_2_1  & RATE_3_2_2 ) | (RATE_3_2_2  & RATE_3_2_3 ) | (RATE_3_2_1  & RATE_3_2_3 ); // Majority logic
-  assign RATE_SEL          = (RATE_SEL_1  & RATE_SEL_2 ) | (RATE_SEL_2  & RATE_SEL_3 ) | (RATE_SEL_1  & RATE_SEL_3 ); // Majority logic
-  assign voted_WRDCLKSEL_1 = (WRDCLKSEL_1 & WRDCLKSEL_2) | (WRDCLKSEL_2 & WRDCLKSEL_3) | (WRDCLKSEL_1 & WRDCLKSEL_3); // Majority logic
-  assign voted_WRDCLKSEL_2 = (WRDCLKSEL_1 & WRDCLKSEL_2) | (WRDCLKSEL_2 & WRDCLKSEL_3) | (WRDCLKSEL_1 & WRDCLKSEL_3); // Majority logic
-  assign voted_WRDCLKSEL_3 = (WRDCLKSEL_1 & WRDCLKSEL_2) | (WRDCLKSEL_2 & WRDCLKSEL_3) | (WRDCLKSEL_1 & WRDCLKSEL_3); // Majority logic
+  assign CDV_INIT        = (CDV_INIT_1  & CDV_INIT_2 ) | (CDV_INIT_2  & CDV_INIT_3 ) | (CDV_INIT_1  & CDV_INIT_3 ); // Majority logic
+  assign CLK_SEL         = (CLK_SEL_1   & CLK_SEL_2  ) | (CLK_SEL_2   & CLK_SEL_3  ) | (CLK_SEL_1   & CLK_SEL_3  ); // Majority logic
+  assign PCSRST          = (PCSRST_1    & PCSRST_2   ) | (PCSRST_2    & PCSRST_3   ) | (PCSRST_1    & PCSRST_3   ); // Majority logic
+  assign RATE_1_25       = (RATE_1_25_1 & RATE_1_25_2) | (RATE_1_25_2 & RATE_1_25_3) | (RATE_1_25_1 & RATE_1_25_3); // Majority logic
+  assign RATE_3_2        = (RATE_3_2_1  & RATE_3_2_2 ) | (RATE_3_2_2  & RATE_3_2_3 ) | (RATE_3_2_1  & RATE_3_2_3 ); // Majority logic
+  assign RATE_SEL        = (RATE_SEL_1  & RATE_SEL_2 ) | (RATE_SEL_2  & RATE_SEL_3 ) | (RATE_SEL_1  & RATE_SEL_3 ); // Majority logic
+  assign voted_WRDCLKSEL_1       = (WRDCLKSEL_1 & WRDCLKSEL_2) | (WRDCLKSEL_2 & WRDCLKSEL_3) | (WRDCLKSEL_1 & WRDCLKSEL_3); // Majority logic
+  assign voted_WRDCLKSEL_2       = (WRDCLKSEL_1 & WRDCLKSEL_2) | (WRDCLKSEL_2 & WRDCLKSEL_3) | (WRDCLKSEL_1 & WRDCLKSEL_3); // Majority logic
+  assign voted_WRDCLKSEL_3       = (WRDCLKSEL_1 & WRDCLKSEL_2) | (WRDCLKSEL_2 & WRDCLKSEL_3) | (WRDCLKSEL_1 & WRDCLKSEL_3); // Majority logic
   assign WRDCLKSEL = voted_WRDCLKSEL_1;
-  assign voted_cnt_1       = (cnt_1       & cnt_2      ) | (cnt_2       & cnt_3      ) | (cnt_1       & cnt_3      ); // Majority logic
-  assign voted_cnt_2       = (cnt_1       & cnt_2      ) | (cnt_2       & cnt_3      ) | (cnt_1       & cnt_3      ); // Majority logic
-  assign voted_cnt_3       = (cnt_1       & cnt_2      ) | (cnt_2       & cnt_3      ) | (cnt_1       & cnt_3      ); // Majority logic
+  assign voted_cnt_1             = (cnt_1       & cnt_2      ) | (cnt_2       & cnt_3      ) | (cnt_1       & cnt_3      ); // Majority logic
+  assign voted_cnt_2             = (cnt_1       & cnt_2      ) | (cnt_2       & cnt_3      ) | (cnt_1       & cnt_3      ); // Majority logic
+  assign voted_cnt_3             = (cnt_1       & cnt_2      ) | (cnt_2       & cnt_3      ) | (cnt_1       & cnt_3      ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

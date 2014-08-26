@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:18 at 15:34:41 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 15:30:03 (www.fizzim.com)
 
-module ADC_Config_FSM 
+module ADC_Config_FSM_TMR 
   #(
     parameter Last_Addr = 5'h10
   )(
@@ -70,18 +70,19 @@ module ADC_Config_FSM
   (* syn_keep = "true" *)      wire [5:0] voted_scntr_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign ADR     = (ADR_1   & ADR_2  ) | (ADR_2   & ADR_3  ) | (ADR_1   & ADR_3  ); // Majority logic
-  assign DONE    = (DONE_1  & DONE_2 ) | (DONE_2  & DONE_3 ) | (DONE_1  & DONE_3 ); // Majority logic
-  assign LOAD    = (LOAD_1  & LOAD_2 ) | (LOAD_2  & LOAD_3 ) | (LOAD_1  & LOAD_3 ); // Majority logic
-  assign SCKEN   = (SCKEN_1 & SCKEN_2) | (SCKEN_2 & SCKEN_3) | (SCKEN_1 & SCKEN_3); // Majority logic
-  assign SHEN    = (SHEN_1  & SHEN_2 ) | (SHEN_2  & SHEN_3 ) | (SHEN_1  & SHEN_3 ); // Majority logic
-  assign voted_addr_1 = (addr_1  & addr_2 ) | (addr_2  & addr_3 ) | (addr_1  & addr_3 ); // Majority logic
-  assign voted_addr_2 = (addr_1  & addr_2 ) | (addr_2  & addr_3 ) | (addr_1  & addr_3 ); // Majority logic
-  assign voted_addr_3 = (addr_1  & addr_2 ) | (addr_2  & addr_3 ) | (addr_1  & addr_3 ); // Majority logic
+  assign ADR   = (ADR_1   & ADR_2  ) | (ADR_2   & ADR_3  ) | (ADR_1   & ADR_3  ); // Majority logic
+  assign DONE  = (DONE_1  & DONE_2 ) | (DONE_2  & DONE_3 ) | (DONE_1  & DONE_3 ); // Majority logic
+  assign LOAD  = (LOAD_1  & LOAD_2 ) | (LOAD_2  & LOAD_3 ) | (LOAD_1  & LOAD_3 ); // Majority logic
+  assign SCKEN = (SCKEN_1 & SCKEN_2) | (SCKEN_2 & SCKEN_3) | (SCKEN_1 & SCKEN_3); // Majority logic
+  assign SHEN  = (SHEN_1  & SHEN_2 ) | (SHEN_2  & SHEN_3 ) | (SHEN_1  & SHEN_3 ); // Majority logic
+  assign voted_addr_1  = (addr_1  & addr_2 ) | (addr_2  & addr_3 ) | (addr_1  & addr_3 ); // Majority logic
+  assign voted_addr_2  = (addr_1  & addr_2 ) | (addr_2  & addr_3 ) | (addr_1  & addr_3 ); // Majority logic
+  assign voted_addr_3  = (addr_1  & addr_2 ) | (addr_2  & addr_3 ) | (addr_1  & addr_3 ); // Majority logic
   assign voted_scntr_1 = (scntr_1 & scntr_2) | (scntr_2 & scntr_3) | (scntr_1 & scntr_3); // Majority logic
   assign voted_scntr_2 = (scntr_1 & scntr_2) | (scntr_2 & scntr_3) | (scntr_1 & scntr_3); // Majority logic
   assign voted_scntr_3 = (scntr_1 & scntr_2) | (scntr_2 & scntr_3) | (scntr_1 & scntr_3); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

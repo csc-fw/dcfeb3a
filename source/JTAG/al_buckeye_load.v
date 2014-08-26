@@ -18,7 +18,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module al_buckeye_load(
+module al_buckeye_load #(
+	parameter TMR = 0
+)(
     input CLK40,
     input CLK1MHZ,
     input RST,
@@ -76,16 +78,34 @@ always @(negedge CLK1MHZ or posedge RST) begin
 end
 
 
-bky_load_FSM         //States change on negative edge of clock
-bky_load_FSM_i(
-  .RDENA(bky_rdena),
-  .SET_DONE(set_done),
-  .SHFT_ENA(SHCK_ENA),
-  .CLK(CLK1MHZ),
-  .MT(bky_mt),
-  .RST(RST),
-  .START(load_bky) 
-);
+generate
+if(TMR==1) 
+begin : BkyLd_FSM_TMR
+	bky_load_FSM_TMR         //States change on negative edge of clock
+	bky_load_FSM_i(
+	  .RDENA(bky_rdena),
+	  .SET_DONE(set_done),
+	  .SHFT_ENA(SHCK_ENA),
+	  .CLK(CLK1MHZ),
+	  .MT(bky_mt),
+	  .RST(RST),
+	  .START(load_bky) 
+	);
+end
+else 
+begin : BkyLd_FSM
+	bky_load_FSM         //States change on negative edge of clock
+	bky_load_FSM_i(
+	  .RDENA(bky_rdena),
+	  .SET_DONE(set_done),
+	  .SHFT_ENA(SHCK_ENA),
+	  .CLK(CLK1MHZ),
+	  .MT(bky_mt),
+	  .RST(RST),
+	  .START(load_bky) 
+	);
+end
+endgenerate
 
 always @(posedge CLK40 or posedge RST) begin
 	if(RST)

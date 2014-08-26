@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:14:43 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:15:48 (www.fizzim.com)
 
-module Sample_Proc_FSM_TMR (
+module Sample_Proc_FSM_TMR_Err_Det (
   output CE,
   output CLR_CRC,
   output LAST_WRD,
@@ -11,6 +11,7 @@ module Sample_Proc_FSM_TMR (
   output wire [6:0] SEQ,
   output VALID,
   output wire [3:0] SMP_STATE,
+  output wire [15:0] TMR_ERR_COUNT,
   input CLK,
   input FAMT,
   input L1A_BUF_MT,
@@ -42,11 +43,32 @@ module Sample_Proc_FSM_TMR (
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
+  (* syn_keep = "true" *) wire err_det_state_1;
+  (* syn_keep = "true" *) wire err_det_state_2;
+  (* syn_keep = "true" *) wire err_det_state_3;
+
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_1;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_2;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_3;
+
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_1;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_2;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_3;
+
   assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
   assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
   assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
+  assign err_det_state_1    = |(~((~state_1    & ~state_2    & ~state_3   ) | (state_1    & state_2    & state_3   ))); // error detection logic
+  assign err_det_state_2    = |(~((~state_1    & ~state_2    & ~state_3   ) | (state_1    & state_2    & state_3   ))); // error detection logic
+  assign err_det_state_3    = |(~((~state_1    & ~state_2    & ~state_3   ) | (state_1    & state_2    & state_3   ))); // error detection logic
+
+  assign voted_ed_cnt_1   = (ed_cnt_1   & ed_cnt_2  ) | (ed_cnt_2   & ed_cnt_3  ) | (ed_cnt_1   & ed_cnt_3  ); // Majority logic
+  assign voted_ed_cnt_2   = (ed_cnt_1   & ed_cnt_2  ) | (ed_cnt_2   & ed_cnt_3  ) | (ed_cnt_1   & ed_cnt_3  ); // Majority logic
+  assign voted_ed_cnt_3   = (ed_cnt_1   & ed_cnt_2  ) | (ed_cnt_2   & ed_cnt_3  ) | (ed_cnt_1   & ed_cnt_3  ); // Majority logic
+
   assign SMP_STATE = voted_state_1;
+  assign TMR_ERR_COUNT = voted_ed_cnt_1;
 
   (* syn_keep = "true" *) reg [3:0] nextstate_1;
   (* syn_keep = "true" *) reg [3:0] nextstate_2;
@@ -88,6 +110,39 @@ module Sample_Proc_FSM_TMR (
   (* syn_keep = "true" *)      wire [6:0] voted_smp_1;
   (* syn_keep = "true" *)      wire [6:0] voted_smp_2;
   (* syn_keep = "true" *)      wire [6:0] voted_smp_3;
+  (* syn_keep = "true" *)  wire err_det_CE_1;
+  (* syn_keep = "true" *)  wire err_det_CE_2;
+  (* syn_keep = "true" *)  wire err_det_CE_3;
+  (* syn_keep = "true" *)  wire err_det_CLR_CRC_1;
+  (* syn_keep = "true" *)  wire err_det_CLR_CRC_2;
+  (* syn_keep = "true" *)  wire err_det_CLR_CRC_3;
+  (* syn_keep = "true" *)  wire err_det_LAST_WRD_1;
+  (* syn_keep = "true" *)  wire err_det_LAST_WRD_2;
+  (* syn_keep = "true" *)  wire err_det_LAST_WRD_3;
+  (* syn_keep = "true" *)  wire err_det_LD_L1A_H_1;
+  (* syn_keep = "true" *)  wire err_det_LD_L1A_H_2;
+  (* syn_keep = "true" *)  wire err_det_LD_L1A_H_3;
+  (* syn_keep = "true" *)  wire err_det_LD_L1A_L_1;
+  (* syn_keep = "true" *)  wire err_det_LD_L1A_L_2;
+  (* syn_keep = "true" *)  wire err_det_LD_L1A_L_3;
+  (* syn_keep = "true" *)  wire err_det_RD_1;
+  (* syn_keep = "true" *)  wire err_det_RD_2;
+  (* syn_keep = "true" *)  wire err_det_RD_3;
+  (* syn_keep = "true" *)  wire err_det_SEQ_1;
+  (* syn_keep = "true" *)  wire err_det_SEQ_2;
+  (* syn_keep = "true" *)  wire err_det_SEQ_3;
+  (* syn_keep = "true" *)  wire err_det_VALID_1;
+  (* syn_keep = "true" *)  wire err_det_VALID_2;
+  (* syn_keep = "true" *)  wire err_det_VALID_3;
+  (* syn_keep = "true" *)  wire err_det_seqn_1;
+  (* syn_keep = "true" *)  wire err_det_seqn_2;
+  (* syn_keep = "true" *)  wire err_det_seqn_3;
+  (* syn_keep = "true" *)  wire err_det_smp_1;
+  (* syn_keep = "true" *)  wire err_det_smp_2;
+  (* syn_keep = "true" *)  wire err_det_smp_3;
+  (* syn_keep = "true" *)  wire err_det_1;
+  (* syn_keep = "true" *)  wire err_det_2;
+  (* syn_keep = "true" *)  wire err_det_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign CE       = (CE_1       & CE_2      ) | (CE_2       & CE_3      ) | (CE_1       & CE_3      ); // Majority logic
@@ -106,6 +161,42 @@ module Sample_Proc_FSM_TMR (
   assign voted_smp_3      = (smp_1      & smp_2     ) | (smp_2      & smp_3     ) | (smp_1      & smp_3     ); // Majority logic
 
   // Assignment of error detection logic to replicated signals
+  assign err_det_CE_1       =  (~((~CE_1       & ~CE_2       & ~CE_3      ) | (CE_1       & CE_2       & CE_3      ))); // error detection logic
+  assign err_det_CE_2       =  (~((~CE_1       & ~CE_2       & ~CE_3      ) | (CE_1       & CE_2       & CE_3      ))); // error detection logic
+  assign err_det_CE_3       =  (~((~CE_1       & ~CE_2       & ~CE_3      ) | (CE_1       & CE_2       & CE_3      ))); // error detection logic
+  assign err_det_CLR_CRC_1  =  (~((~CLR_CRC_1  & ~CLR_CRC_2  & ~CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_2  & CLR_CRC_3 ))); // error detection logic
+  assign err_det_CLR_CRC_2  =  (~((~CLR_CRC_1  & ~CLR_CRC_2  & ~CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_2  & CLR_CRC_3 ))); // error detection logic
+  assign err_det_CLR_CRC_3  =  (~((~CLR_CRC_1  & ~CLR_CRC_2  & ~CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_2  & CLR_CRC_3 ))); // error detection logic
+  assign err_det_LAST_WRD_1 =  (~((~LAST_WRD_1 & ~LAST_WRD_2 & ~LAST_WRD_3) | (LAST_WRD_1 & LAST_WRD_2 & LAST_WRD_3))); // error detection logic
+  assign err_det_LAST_WRD_2 =  (~((~LAST_WRD_1 & ~LAST_WRD_2 & ~LAST_WRD_3) | (LAST_WRD_1 & LAST_WRD_2 & LAST_WRD_3))); // error detection logic
+  assign err_det_LAST_WRD_3 =  (~((~LAST_WRD_1 & ~LAST_WRD_2 & ~LAST_WRD_3) | (LAST_WRD_1 & LAST_WRD_2 & LAST_WRD_3))); // error detection logic
+  assign err_det_LD_L1A_H_1 =  (~((~LD_L1A_H_1 & ~LD_L1A_H_2 & ~LD_L1A_H_3) | (LD_L1A_H_1 & LD_L1A_H_2 & LD_L1A_H_3))); // error detection logic
+  assign err_det_LD_L1A_H_2 =  (~((~LD_L1A_H_1 & ~LD_L1A_H_2 & ~LD_L1A_H_3) | (LD_L1A_H_1 & LD_L1A_H_2 & LD_L1A_H_3))); // error detection logic
+  assign err_det_LD_L1A_H_3 =  (~((~LD_L1A_H_1 & ~LD_L1A_H_2 & ~LD_L1A_H_3) | (LD_L1A_H_1 & LD_L1A_H_2 & LD_L1A_H_3))); // error detection logic
+  assign err_det_LD_L1A_L_1 =  (~((~LD_L1A_L_1 & ~LD_L1A_L_2 & ~LD_L1A_L_3) | (LD_L1A_L_1 & LD_L1A_L_2 & LD_L1A_L_3))); // error detection logic
+  assign err_det_LD_L1A_L_2 =  (~((~LD_L1A_L_1 & ~LD_L1A_L_2 & ~LD_L1A_L_3) | (LD_L1A_L_1 & LD_L1A_L_2 & LD_L1A_L_3))); // error detection logic
+  assign err_det_LD_L1A_L_3 =  (~((~LD_L1A_L_1 & ~LD_L1A_L_2 & ~LD_L1A_L_3) | (LD_L1A_L_1 & LD_L1A_L_2 & LD_L1A_L_3))); // error detection logic
+  assign err_det_RD_1       =  (~((~RD_1       & ~RD_2       & ~RD_3      ) | (RD_1       & RD_2       & RD_3      ))); // error detection logic
+  assign err_det_RD_2       =  (~((~RD_1       & ~RD_2       & ~RD_3      ) | (RD_1       & RD_2       & RD_3      ))); // error detection logic
+  assign err_det_RD_3       =  (~((~RD_1       & ~RD_2       & ~RD_3      ) | (RD_1       & RD_2       & RD_3      ))); // error detection logic
+  assign err_det_SEQ_1      = |(~((~SEQ_1      & ~SEQ_2      & ~SEQ_3     ) | (SEQ_1      & SEQ_2      & SEQ_3     ))); // error detection logic
+  assign err_det_SEQ_2      = |(~((~SEQ_1      & ~SEQ_2      & ~SEQ_3     ) | (SEQ_1      & SEQ_2      & SEQ_3     ))); // error detection logic
+  assign err_det_SEQ_3      = |(~((~SEQ_1      & ~SEQ_2      & ~SEQ_3     ) | (SEQ_1      & SEQ_2      & SEQ_3     ))); // error detection logic
+  assign err_det_VALID_1    =  (~((~VALID_1    & ~VALID_2    & ~VALID_3   ) | (VALID_1    & VALID_2    & VALID_3   ))); // error detection logic
+  assign err_det_VALID_2    =  (~((~VALID_1    & ~VALID_2    & ~VALID_3   ) | (VALID_1    & VALID_2    & VALID_3   ))); // error detection logic
+  assign err_det_VALID_3    =  (~((~VALID_1    & ~VALID_2    & ~VALID_3   ) | (VALID_1    & VALID_2    & VALID_3   ))); // error detection logic
+  assign err_det_seqn_1     = |(~((~seqn_1     & ~seqn_2     & ~seqn_3    ) | (seqn_1     & seqn_2     & seqn_3    ))); // error detection logic
+  assign err_det_seqn_2     = |(~((~seqn_1     & ~seqn_2     & ~seqn_3    ) | (seqn_1     & seqn_2     & seqn_3    ))); // error detection logic
+  assign err_det_seqn_3     = |(~((~seqn_1     & ~seqn_2     & ~seqn_3    ) | (seqn_1     & seqn_2     & seqn_3    ))); // error detection logic
+  assign err_det_smp_1      = |(~((~smp_1      & ~smp_2      & ~smp_3     ) | (smp_1      & smp_2      & smp_3     ))); // error detection logic
+  assign err_det_smp_2      = |(~((~smp_1      & ~smp_2      & ~smp_3     ) | (smp_1      & smp_2      & smp_3     ))); // error detection logic
+  assign err_det_smp_3      = |(~((~smp_1      & ~smp_2      & ~smp_3     ) | (smp_1      & smp_2      & smp_3     ))); // error detection logic
+
+
+  // Assign 'OR' of all error detection signals
+  assign err_det_1 = err_det_state_1   | err_det_CE_1   | err_det_CLR_CRC_1   | err_det_LAST_WRD_1   | err_det_LD_L1A_H_1   | err_det_LD_L1A_L_1   | err_det_RD_1   | err_det_SEQ_1   | err_det_VALID_1   | err_det_seqn_1   | err_det_smp_1  ;
+  assign err_det_2 = err_det_state_2   | err_det_CE_2   | err_det_CLR_CRC_2   | err_det_LAST_WRD_2   | err_det_LD_L1A_H_2   | err_det_LD_L1A_L_2   | err_det_RD_2   | err_det_SEQ_2   | err_det_VALID_2   | err_det_seqn_2   | err_det_smp_2  ;
+  assign err_det_3 = err_det_state_3   | err_det_CE_3   | err_det_CLR_CRC_3   | err_det_LAST_WRD_3   | err_det_LD_L1A_H_3   | err_det_LD_L1A_L_3   | err_det_RD_3   | err_det_SEQ_3   | err_det_VALID_3   | err_det_seqn_3   | err_det_smp_3  ;
 
   // comb always block
   always @* begin
@@ -191,11 +282,17 @@ module Sample_Proc_FSM_TMR (
       state_1 <= Idle;
       state_2 <= Idle;
       state_3 <= Idle;
+      ed_cnt_1 <= 0;
+      ed_cnt_2 <= 0;
+      ed_cnt_3 <= 0;
     end
     else begin
       state_1 <= nextstate_1;
       state_2 <= nextstate_2;
       state_3 <= nextstate_3;
+      ed_cnt_1 <= err_det_1 ? voted_ed_cnt_1 + 1 : voted_ed_cnt_1;
+      ed_cnt_2 <= err_det_2 ? voted_ed_cnt_2 + 1 : voted_ed_cnt_2;
+      ed_cnt_3 <= err_det_3 ? voted_ed_cnt_3 + 1 : voted_ed_cnt_3;
     end
   end
 

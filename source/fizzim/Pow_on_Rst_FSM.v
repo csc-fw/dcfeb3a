@@ -1,12 +1,15 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:18 at 10:31:28 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:49:53 (www.fizzim.com)
 
-module Pow_on_Rst_FSM (
+module Pow_on_Rst_FSM 
+  #(
+    parameter POR_tmo = 120,
+    parameter Strt_dly = 20'h7FFFF
+  )(
   output reg ADC_INIT_RST,
   output reg AL_START,
   output reg MMCM_RST,
   output reg POR,
-  output reg POR_CNT,
   output reg RUN,
   output wire [3:0] POR_STATE,
   input ADC_RDY,
@@ -15,10 +18,8 @@ module Pow_on_Rst_FSM (
   input CLK,
   input EOS,
   input MMCM_LOCK,
-  input POR_DONE,
   input QPLL_LOCK,
-  input RESTART_ALL,
-  input STRT_DLY_DONE 
+  input RESTART_ALL 
 );
 
   // state bits
@@ -39,29 +40,31 @@ module Pow_on_Rst_FSM (
 
   reg [3:0] nextstate;
 
+  reg [6:0] por_cnt;
+  reg [19:0] strtup_cnt;
 
   // comb always block
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
     case (state)
-      Idle      :                          nextstate = W4ODMB;
-      ADC_INIT  : if      (ADC_RDY)        nextstate = Run_State;
-                  else                     nextstate = ADC_INIT;
-      Auto_Load : if      (AL_DONE)        nextstate = ADC_INIT;
-                  else                     nextstate = Auto_Load;
-      PROM_Cnfg : if      (BPI_SEQ_IDLE)   nextstate = Auto_Load;
-                  else                     nextstate = PROM_Cnfg;
-      Pow_on_Rst: if      (!MMCM_LOCK)     nextstate = W4Qpll;
-                  else if (POR_DONE)       nextstate = PROM_Cnfg;
-                  else                     nextstate = Pow_on_Rst;
-      Run_State : if      (RESTART_ALL)    nextstate = Pow_on_Rst;
-                  else                     nextstate = Run_State;
-      W4ODMB    : if      (STRT_DLY_DONE)  nextstate = W4Qpll;
-                  else                     nextstate = W4ODMB;
-      W4Qpll    : if      (QPLL_LOCK)      nextstate = W4SysClk;
-                  else                     nextstate = W4Qpll;
-      W4SysClk  : if      (MMCM_LOCK)      nextstate = Pow_on_Rst;
-                  else                     nextstate = W4SysClk;
+      Idle      :                                   nextstate = W4ODMB;
+      ADC_INIT  : if      (ADC_RDY)                 nextstate = Run_State;
+                  else                              nextstate = ADC_INIT;
+      Auto_Load : if      (AL_DONE)                 nextstate = ADC_INIT;
+                  else                              nextstate = Auto_Load;
+      PROM_Cnfg : if      (BPI_SEQ_IDLE)            nextstate = Auto_Load;
+                  else                              nextstate = PROM_Cnfg;
+      Pow_on_Rst: if      (!MMCM_LOCK)              nextstate = W4Qpll;
+                  else if (por_cnt == POR_tmo)      nextstate = PROM_Cnfg;
+                  else                              nextstate = Pow_on_Rst;
+      Run_State : if      (RESTART_ALL)             nextstate = Pow_on_Rst;
+                  else                              nextstate = Run_State;
+      W4ODMB    : if      (strtup_cnt == Strt_dly)  nextstate = W4Qpll;
+                  else                              nextstate = W4ODMB;
+      W4Qpll    : if      (QPLL_LOCK)               nextstate = W4SysClk;
+                  else                              nextstate = W4Qpll;
+      W4SysClk  : if      (MMCM_LOCK)               nextstate = Pow_on_Rst;
+                  else                              nextstate = W4SysClk;
     endcase
   end
 
@@ -82,16 +85,18 @@ module Pow_on_Rst_FSM (
       AL_START <= 0;
       MMCM_RST <= 1;
       POR <= 1;
-      POR_CNT <= 0;
       RUN <= 0;
+      por_cnt <= 7'h00;
+      strtup_cnt <= 20'h00000;
     end
     else begin
       ADC_INIT_RST <= 0; // default
       AL_START <= 0; // default
       MMCM_RST <= 0; // default
       POR <= 0; // default
-      POR_CNT <= 0; // default
       RUN <= 0; // default
+      por_cnt <= 7'h00; // default
+      strtup_cnt <= 20'h00000; // default
       case (nextstate)
         Idle      : begin
                            ADC_INIT_RST <= 1;
@@ -106,13 +111,14 @@ module Pow_on_Rst_FSM (
         Pow_on_Rst: begin
                            ADC_INIT_RST <= 1;
                            POR <= 1;
-                           POR_CNT <= 1;
+                           por_cnt <= por_cnt + 1;
         end
         Run_State :        RUN <= 1;
         W4ODMB    : begin
                            ADC_INIT_RST <= 1;
                            MMCM_RST <= 1;
                            POR <= 1;
+                           strtup_cnt <= strtup_cnt + 1;
         end
         W4Qpll    : begin
                            ADC_INIT_RST <= 1;

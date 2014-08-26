@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:37:25 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:16:35 (www.fizzim.com)
 
-module BPI_ctrl_FSM (
+module BPI_ctrl_FSM_TMR (
   output CYCLE2,
   output DECR,
   output EXECUTE,
@@ -47,9 +47,9 @@ module BPI_ctrl_FSM (
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
-  assign voted_state_1 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_2 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_3 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
   assign OUT_STATE = voted_state_1;
 
@@ -77,13 +77,14 @@ module BPI_ctrl_FSM (
   (* syn_preserve = "true" *)  reg SEQ_DONE_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign CYCLE2     = (CYCLE2_1   & CYCLE2_2  ) | (CYCLE2_2   & CYCLE2_3  ) | (CYCLE2_1   & CYCLE2_3  ); // Majority logic
-  assign DECR       = (DECR_1     & DECR_2    ) | (DECR_2     & DECR_3    ) | (DECR_1     & DECR_3    ); // Majority logic
-  assign EXECUTE    = (EXECUTE_1  & EXECUTE_2 ) | (EXECUTE_2  & EXECUTE_3 ) | (EXECUTE_1  & EXECUTE_3 ); // Majority logic
-  assign LOAD_N     = (LOAD_N_1   & LOAD_N_2  ) | (LOAD_N_2   & LOAD_N_3  ) | (LOAD_N_1   & LOAD_N_3  ); // Majority logic
-  assign NEXT       = (NEXT_1     & NEXT_2    ) | (NEXT_2     & NEXT_3    ) | (NEXT_1     & NEXT_3    ); // Majority logic
-  assign SEQ_DONE   = (SEQ_DONE_1 & SEQ_DONE_2) | (SEQ_DONE_2 & SEQ_DONE_3) | (SEQ_DONE_1 & SEQ_DONE_3); // Majority logic
+  assign CYCLE2   = (CYCLE2_1   & CYCLE2_2  ) | (CYCLE2_2   & CYCLE2_3  ) | (CYCLE2_1   & CYCLE2_3  ); // Majority logic
+  assign DECR     = (DECR_1     & DECR_2    ) | (DECR_2     & DECR_3    ) | (DECR_1     & DECR_3    ); // Majority logic
+  assign EXECUTE  = (EXECUTE_1  & EXECUTE_2 ) | (EXECUTE_2  & EXECUTE_3 ) | (EXECUTE_1  & EXECUTE_3 ); // Majority logic
+  assign LOAD_N   = (LOAD_N_1   & LOAD_N_2  ) | (LOAD_N_2   & LOAD_N_3  ) | (LOAD_N_1   & LOAD_N_3  ); // Majority logic
+  assign NEXT     = (NEXT_1     & NEXT_2    ) | (NEXT_2     & NEXT_3    ) | (NEXT_1     & NEXT_3    ); // Majority logic
+  assign SEQ_DONE = (SEQ_DONE_1 & SEQ_DONE_2) | (SEQ_DONE_2 & SEQ_DONE_3) | (SEQ_DONE_1 & SEQ_DONE_3); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

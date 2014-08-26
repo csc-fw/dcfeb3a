@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:24 at 19:04:10 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:05:59 (www.fizzim.com)
 
 module ChnLnk_Frame_FSM (
   output reg CLR_CRC,

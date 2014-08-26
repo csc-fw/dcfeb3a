@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:47:17 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:23:31 (www.fizzim.com)
 
-module Startup_Display_FSM (
+module Startup_Display_FSM_TMR (
   output CLEAR,
   output DISP,
   output LOAD_PAT,
@@ -31,9 +31,9 @@ module Startup_Display_FSM (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
-  assign voted_state_1 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_2 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_3 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -56,12 +56,13 @@ module Startup_Display_FSM (
   (* syn_preserve = "true" *)  reg RST_TMR_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign CLEAR      = (CLEAR_1    & CLEAR_2   ) | (CLEAR_2    & CLEAR_3   ) | (CLEAR_1    & CLEAR_3   ); // Majority logic
-  assign DISP       = (DISP_1     & DISP_2    ) | (DISP_2     & DISP_3    ) | (DISP_1     & DISP_3    ); // Majority logic
-  assign LOAD_PAT   = (LOAD_PAT_1 & LOAD_PAT_2) | (LOAD_PAT_2 & LOAD_PAT_3) | (LOAD_PAT_1 & LOAD_PAT_3); // Majority logic
-  assign NXT_ADR    = (NXT_ADR_1  & NXT_ADR_2 ) | (NXT_ADR_2  & NXT_ADR_3 ) | (NXT_ADR_1  & NXT_ADR_3 ); // Majority logic
-  assign RST_TMR    = (RST_TMR_1  & RST_TMR_2 ) | (RST_TMR_2  & RST_TMR_3 ) | (RST_TMR_1  & RST_TMR_3 ); // Majority logic
+  assign CLEAR    = (CLEAR_1    & CLEAR_2   ) | (CLEAR_2    & CLEAR_3   ) | (CLEAR_1    & CLEAR_3   ); // Majority logic
+  assign DISP     = (DISP_1     & DISP_2    ) | (DISP_2     & DISP_3    ) | (DISP_1     & DISP_3    ); // Majority logic
+  assign LOAD_PAT = (LOAD_PAT_1 & LOAD_PAT_2) | (LOAD_PAT_2 & LOAD_PAT_3) | (LOAD_PAT_1 & LOAD_PAT_3); // Majority logic
+  assign NXT_ADR  = (NXT_ADR_1  & NXT_ADR_2 ) | (NXT_ADR_2  & NXT_ADR_3 ) | (NXT_ADR_1  & NXT_ADR_3 ); // Majority logic
+  assign RST_TMR  = (RST_TMR_1  & RST_TMR_2 ) | (RST_TMR_2  & RST_TMR_3 ) | (RST_TMR_1  & RST_TMR_3 ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

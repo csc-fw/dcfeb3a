@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:39:02 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:18:52 (www.fizzim.com)
 
-module BPI_sequencer_FSM (
+module BPI_sequencer_FSM_TMR (
   output check_PEC,
   output check_buf,
   output check_stat,
@@ -100,9 +100,9 @@ module BPI_sequencer_FSM (
   (* syn_keep = "true" *) wire [4:0] voted_state_2;
   (* syn_keep = "true" *) wire [4:0] voted_state_3;
 
-  assign voted_state_1   = (state_1         & state_2        ) | (state_2         & state_3        ) | (state_1         & state_3        ); // Majority logic
-  assign voted_state_2   = (state_1         & state_2        ) | (state_2         & state_3        ) | (state_1         & state_3        ); // Majority logic
-  assign voted_state_3   = (state_1         & state_2        ) | (state_2         & state_3        ) | (state_1         & state_3        ); // Majority logic
+  assign voted_state_1         = (state_1         & state_2        ) | (state_2         & state_3        ) | (state_1         & state_3        ); // Majority logic
+  assign voted_state_2         = (state_1         & state_2        ) | (state_2         & state_3        ) | (state_1         & state_3        ); // Majority logic
+  assign voted_state_3         = (state_1         & state_2        ) | (state_2         & state_3        ) | (state_1         & state_3        ); // Majority logic
 
   assign OUT_STATE = voted_state_1;
 
@@ -142,17 +142,18 @@ module BPI_sequencer_FSM (
   (* syn_preserve = "true" *)  reg set_asynch_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign check_PEC       = (check_PEC_1     & check_PEC_2    ) | (check_PEC_2     & check_PEC_3    ) | (check_PEC_1     & check_PEC_3    ); // Majority logic
-  assign check_buf       = (check_buf_1     & check_buf_2    ) | (check_buf_2     & check_buf_3    ) | (check_buf_1     & check_buf_3    ); // Majority logic
-  assign check_stat      = (check_stat_1    & check_stat_2   ) | (check_stat_2    & check_stat_3   ) | (check_stat_1    & check_stat_3   ); // Majority logic
-  assign cnfrm_lk        = (cnfrm_lk_1      & cnfrm_lk_2     ) | (cnfrm_lk_2      & cnfrm_lk_3     ) | (cnfrm_lk_1      & cnfrm_lk_3     ); // Majority logic
-  assign command         = (command_1       & command_2      ) | (command_2       & command_3      ) | (command_1       & command_3      ); // Majority logic
-  assign read_es_state   = (read_es_state_1 & read_es_state_2) | (read_es_state_2 & read_es_state_3) | (read_es_state_1 & read_es_state_3); // Majority logic
-  assign rpt_error       = (rpt_error_1     & rpt_error_2    ) | (rpt_error_2     & rpt_error_3    ) | (rpt_error_1     & rpt_error_3    ); // Majority logic
-  assign seq_cmplt       = (seq_cmplt_1     & seq_cmplt_2    ) | (seq_cmplt_2     & seq_cmplt_3    ) | (seq_cmplt_1     & seq_cmplt_3    ); // Majority logic
-  assign seqr_idle       = (seqr_idle_1     & seqr_idle_2    ) | (seqr_idle_2     & seqr_idle_3    ) | (seqr_idle_1     & seqr_idle_3    ); // Majority logic
-  assign set_asynch      = (set_asynch_1    & set_asynch_2   ) | (set_asynch_2    & set_asynch_3   ) | (set_asynch_1    & set_asynch_3   ); // Majority logic
+  assign check_PEC     = (check_PEC_1     & check_PEC_2    ) | (check_PEC_2     & check_PEC_3    ) | (check_PEC_1     & check_PEC_3    ); // Majority logic
+  assign check_buf     = (check_buf_1     & check_buf_2    ) | (check_buf_2     & check_buf_3    ) | (check_buf_1     & check_buf_3    ); // Majority logic
+  assign check_stat    = (check_stat_1    & check_stat_2   ) | (check_stat_2    & check_stat_3   ) | (check_stat_1    & check_stat_3   ); // Majority logic
+  assign cnfrm_lk      = (cnfrm_lk_1      & cnfrm_lk_2     ) | (cnfrm_lk_2      & cnfrm_lk_3     ) | (cnfrm_lk_1      & cnfrm_lk_3     ); // Majority logic
+  assign command       = (command_1       & command_2      ) | (command_2       & command_3      ) | (command_1       & command_3      ); // Majority logic
+  assign read_es_state = (read_es_state_1 & read_es_state_2) | (read_es_state_2 & read_es_state_3) | (read_es_state_1 & read_es_state_3); // Majority logic
+  assign rpt_error     = (rpt_error_1     & rpt_error_2    ) | (rpt_error_2     & rpt_error_3    ) | (rpt_error_1     & rpt_error_3    ); // Majority logic
+  assign seq_cmplt     = (seq_cmplt_1     & seq_cmplt_2    ) | (seq_cmplt_2     & seq_cmplt_3    ) | (seq_cmplt_1     & seq_cmplt_3    ); // Majority logic
+  assign seqr_idle     = (seqr_idle_1     & seqr_idle_2    ) | (seqr_idle_2     & seqr_idle_3    ) | (seqr_idle_1     & seqr_idle_3    ); // Majority logic
+  assign set_asynch    = (set_asynch_1    & set_asynch_2   ) | (set_asynch_2    & set_asynch_3   ) | (set_asynch_1    & set_asynch_3   ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

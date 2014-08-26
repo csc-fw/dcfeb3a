@@ -19,7 +19,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module adc_data_input_gen_csp #(
-	parameter USE_CHIPSCOPE = 1
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0
 	)(
     inout [35:0] CSP_G1LA0_CNTRL,
     inout [35:0] CSP_G1VIO0_CNTRL,
@@ -371,12 +372,28 @@ generate
 											.D(ad[G][S][ch]),.DDLY(1'b0),.DB(ad_b[G][S][ch]),.DBDLY(1'b1),.BIT_SLIP_ODD(bit_slip_odd[G][S]),.BIT_SLIP_EVN(bit_slip_evn[G][S]),
 											.Q(dout[G][S][ch]),.QODD(qodd[G][S][ch]),.QEVN(qevn[G][S][ch]));
 			end
-// State machines for alignment; separate one for each ADC
+		end
+	end
+endgenerate
 
-//   		DSR_align_csp 	DSR_align_FSM_g1a1(.ALIGNED(dsr_algnd[1][1]),.BIT_SLIP_EVN(bit_slip_evn[1][1]),.BIT_SLIP_ODD(bit_slip_odd[1][1]),.DSR_RST(sd_rst[1][1]),.DSR_state(g1_dsr_state_1),.wcnt(g1wcnt1),.slip_cnt(g1slip_cnt1),.winc(g1winc1),.wrst(g1wrst1),.CLK(frm_clk[1][1]),.RST(dsr_rst));
+// State machines for alignment; separate one for each ADC
+generate
+if(TMR==1) 
+begin : DSR_align_FSMs_TMR
+	for (G=1; G<=6; G=G+1) begin : grp
+		for (S=0; S<2; S=S+1) begin : seg
+			DSR_align_FSM_TMR 	DSR_align_FSM_i(.ALIGNED(dsr_algnd[G][S]),.BIT_SLIP_EVN(bit_slip_evn[G][S]),.BIT_SLIP_ODD(bit_slip_odd[G][S]),.DSR_RST(sd_rst[G][S]),.STRT_PIPE(restartp[G][S]),.CLK(frm_clk[G][S]),.RST(dsr_rst));
+		end
+	end
+end
+else 
+begin : DSR_align_FSMs
+	for (G=1; G<=6; G=G+1) begin : grp
+		for (S=0; S<2; S=S+1) begin : seg
 			DSR_align_FSM 	DSR_align_FSM_i(.ALIGNED(dsr_algnd[G][S]),.BIT_SLIP_EVN(bit_slip_evn[G][S]),.BIT_SLIP_ODD(bit_slip_odd[G][S]),.DSR_RST(sd_rst[G][S]),.STRT_PIPE(restartp[G][S]),.CLK(frm_clk[G][S]),.RST(dsr_rst));
 		end
 	end
+end
 endgenerate
 
 	

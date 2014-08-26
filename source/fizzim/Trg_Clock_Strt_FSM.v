@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:13:10 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:51:12 (www.fizzim.com)
 
 module Trg_Clock_Strt_FSM (
   output reg GTX_RST,

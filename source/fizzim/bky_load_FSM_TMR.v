@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:11 at 13:40:50 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 15:20:16 (www.fizzim.com)
 
-module bky_load_FSM (
+module bky_load_FSM_TMR (
   output RDENA,
   output SET_DONE,
   output SHFT_ENA,
@@ -27,9 +27,9 @@ module bky_load_FSM (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
-  assign voted_state_1 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_2 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_3 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -58,16 +58,17 @@ module bky_load_FSM (
   (* syn_keep = "true" *)      wire [3:0] voted_scnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign RDENA      = (RDENA_1    & RDENA_2   ) | (RDENA_2    & RDENA_3   ) | (RDENA_1    & RDENA_3   ); // Majority logic
-  assign SET_DONE   = (SET_DONE_1 & SET_DONE_2) | (SET_DONE_2 & SET_DONE_3) | (SET_DONE_1 & SET_DONE_3); // Majority logic
-  assign SHFT_ENA   = (SHFT_ENA_1 & SHFT_ENA_2) | (SHFT_ENA_2 & SHFT_ENA_3) | (SHFT_ENA_1 & SHFT_ENA_3); // Majority logic
-  assign voted_loop_1 = (loop_1     & loop_2    ) | (loop_2     & loop_3    ) | (loop_1     & loop_3    ); // Majority logic
-  assign voted_loop_2 = (loop_1     & loop_2    ) | (loop_2     & loop_3    ) | (loop_1     & loop_3    ); // Majority logic
-  assign voted_loop_3 = (loop_1     & loop_2    ) | (loop_2     & loop_3    ) | (loop_1     & loop_3    ); // Majority logic
-  assign voted_scnt_1 = (scnt_1     & scnt_2    ) | (scnt_2     & scnt_3    ) | (scnt_1     & scnt_3    ); // Majority logic
-  assign voted_scnt_2 = (scnt_1     & scnt_2    ) | (scnt_2     & scnt_3    ) | (scnt_1     & scnt_3    ); // Majority logic
-  assign voted_scnt_3 = (scnt_1     & scnt_2    ) | (scnt_2     & scnt_3    ) | (scnt_1     & scnt_3    ); // Majority logic
+  assign RDENA    = (RDENA_1    & RDENA_2   ) | (RDENA_2    & RDENA_3   ) | (RDENA_1    & RDENA_3   ); // Majority logic
+  assign SET_DONE = (SET_DONE_1 & SET_DONE_2) | (SET_DONE_2 & SET_DONE_3) | (SET_DONE_1 & SET_DONE_3); // Majority logic
+  assign SHFT_ENA = (SHFT_ENA_1 & SHFT_ENA_2) | (SHFT_ENA_2 & SHFT_ENA_3) | (SHFT_ENA_1 & SHFT_ENA_3); // Majority logic
+  assign voted_loop_1     = (loop_1     & loop_2    ) | (loop_2     & loop_3    ) | (loop_1     & loop_3    ); // Majority logic
+  assign voted_loop_2     = (loop_1     & loop_2    ) | (loop_2     & loop_3    ) | (loop_1     & loop_3    ); // Majority logic
+  assign voted_loop_3     = (loop_1     & loop_2    ) | (loop_2     & loop_3    ) | (loop_1     & loop_3    ); // Majority logic
+  assign voted_scnt_1     = (scnt_1     & scnt_2    ) | (scnt_2     & scnt_3    ) | (scnt_1     & scnt_3    ); // Majority logic
+  assign voted_scnt_2     = (scnt_1     & scnt_2    ) | (scnt_2     & scnt_3    ) | (scnt_1     & scnt_3    ); // Majority logic
+  assign voted_scnt_3     = (scnt_1     & scnt_2    ) | (scnt_2     & scnt_3    ) | (scnt_1     & scnt_3    ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

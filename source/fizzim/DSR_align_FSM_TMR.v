@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:11 at 10:35:14 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 12:04:11 (www.fizzim.com)
 
-module DSR_align_FSM (
+module DSR_align_FSM_TMR (
   output ALIGNED,
   output BIT_SLIP_EVN,
   output BIT_SLIP_ODD,
@@ -32,9 +32,9 @@ module DSR_align_FSM (
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
-  assign voted_state_1  = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
-  assign voted_state_2  = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
-  assign voted_state_3  = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
+  assign voted_state_1        = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
+  assign voted_state_2        = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
+  assign voted_state_3        = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
 
   (* syn_keep = "true" *) reg [3:0] nextstate_1;
   (* syn_keep = "true" *) reg [3:0] nextstate_2;
@@ -69,18 +69,19 @@ module DSR_align_FSM (
   (* syn_keep = "true" *)      wire [2:0] voted_wcnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign ALIGNED        = (ALIGNED_1      & ALIGNED_2     ) | (ALIGNED_2      & ALIGNED_3     ) | (ALIGNED_1      & ALIGNED_3     ); // Majority logic
-  assign BIT_SLIP_EVN   = (BIT_SLIP_EVN_1 & BIT_SLIP_EVN_2) | (BIT_SLIP_EVN_2 & BIT_SLIP_EVN_3) | (BIT_SLIP_EVN_1 & BIT_SLIP_EVN_3); // Majority logic
-  assign BIT_SLIP_ODD   = (BIT_SLIP_ODD_1 & BIT_SLIP_ODD_2) | (BIT_SLIP_ODD_2 & BIT_SLIP_ODD_3) | (BIT_SLIP_ODD_1 & BIT_SLIP_ODD_3); // Majority logic
-  assign DSR_RST        = (DSR_RST_1      & DSR_RST_2     ) | (DSR_RST_2      & DSR_RST_3     ) | (DSR_RST_1      & DSR_RST_3     ); // Majority logic
-  assign STRT_PIPE      = (STRT_PIPE_1    & STRT_PIPE_2   ) | (STRT_PIPE_2    & STRT_PIPE_3   ) | (STRT_PIPE_1    & STRT_PIPE_3   ); // Majority logic
-  assign voted_slip_cnt_1 = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
-  assign voted_slip_cnt_2 = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
-  assign voted_slip_cnt_3 = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
-  assign voted_wcnt_1   = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
-  assign voted_wcnt_2   = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
-  assign voted_wcnt_3   = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
+  assign ALIGNED      = (ALIGNED_1      & ALIGNED_2     ) | (ALIGNED_2      & ALIGNED_3     ) | (ALIGNED_1      & ALIGNED_3     ); // Majority logic
+  assign BIT_SLIP_EVN = (BIT_SLIP_EVN_1 & BIT_SLIP_EVN_2) | (BIT_SLIP_EVN_2 & BIT_SLIP_EVN_3) | (BIT_SLIP_EVN_1 & BIT_SLIP_EVN_3); // Majority logic
+  assign BIT_SLIP_ODD = (BIT_SLIP_ODD_1 & BIT_SLIP_ODD_2) | (BIT_SLIP_ODD_2 & BIT_SLIP_ODD_3) | (BIT_SLIP_ODD_1 & BIT_SLIP_ODD_3); // Majority logic
+  assign DSR_RST      = (DSR_RST_1      & DSR_RST_2     ) | (DSR_RST_2      & DSR_RST_3     ) | (DSR_RST_1      & DSR_RST_3     ); // Majority logic
+  assign STRT_PIPE    = (STRT_PIPE_1    & STRT_PIPE_2   ) | (STRT_PIPE_2    & STRT_PIPE_3   ) | (STRT_PIPE_1    & STRT_PIPE_3   ); // Majority logic
+  assign voted_slip_cnt_1     = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
+  assign voted_slip_cnt_2     = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
+  assign voted_slip_cnt_3     = (slip_cnt_1     & slip_cnt_2    ) | (slip_cnt_2     & slip_cnt_3    ) | (slip_cnt_1     & slip_cnt_3    ); // Majority logic
+  assign voted_wcnt_1         = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
+  assign voted_wcnt_2         = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
+  assign voted_wcnt_3         = (wcnt_1         & wcnt_2        ) | (wcnt_2         & wcnt_3        ) | (wcnt_1         & wcnt_3        ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

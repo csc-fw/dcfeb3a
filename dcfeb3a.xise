@@ -250,21 +250,9 @@
     <file xil_pn:name="ipcore_dir/adc_frame_clk.xco" xil_pn:type="FILE_COREGEN">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="ipcore_dir/clkadj_coarse.xco" xil_pn:type="FILE_COREGEN">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/clkadj_fine.xco" xil_pn:type="FILE_COREGEN">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
     <file xil_pn:name="ipcore_dir/clkadj_med.xco" xil_pn:type="FILE_COREGEN">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="62"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="62"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/cmp_mmcm.xco" xil_pn:type="FILE_COREGEN">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="ipcore_dir/trg_mmcm.xco" xil_pn:type="FILE_COREGEN">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -486,54 +474,6 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="51"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="51"/>
     </file>
-    <file xil_pn:name="source/fizzim/Trg_Clock_Strt_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="15"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="15"/>
-    </file>
-    <file xil_pn:name="source/fizzim/Startup_display_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="17"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="17"/>
-    </file>
-    <file xil_pn:name="source/fizzim/Pow_on_Rst_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="20"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="20"/>
-    </file>
-    <file xil_pn:name="source/fizzim/Pipe_Start_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="21"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="21"/>
-    </file>
-    <file xil_pn:name="source/fizzim/fifo_load_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="23"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="23"/>
-    </file>
-    <file xil_pn:name="source/fizzim/dyn_phase_shift_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="24"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="24"/>
-    </file>
-    <file xil_pn:name="source/fizzim/DSR_align_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="25"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="25"/>
-    </file>
-    <file xil_pn:name="source/fizzim/DAQ_FIFO_Rst_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="75"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="75"/>
-    </file>
-    <file xil_pn:name="source/fizzim/comp_thresh_load_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="3"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="3"/>
-    </file>
-    <file xil_pn:name="source/fizzim/BPI_sequencer_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="28"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="28"/>
-    </file>
-    <file xil_pn:name="source/fizzim/BPI_ctrl_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="30"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="30"/>
-    </file>
-    <file xil_pn:name="source/fizzim/BPI_cmd_parser_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="31"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="31"/>
-    </file>
     <file xil_pn:name="source/BPI/FSM_test_sim.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="448"/>
@@ -546,23 +486,11 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="449"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="449"/>
     </file>
-    <file xil_pn:name="source/fizzim/auto_load_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="32"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="32"/>
-    </file>
-    <file xil_pn:name="source/fizzim/BPI_intrf_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="29"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="29"/>
-    </file>
     <file xil_pn:name="al_buckeye_load_sim_tf.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="454"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="454"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="454"/>
-    </file>
-    <file xil_pn:name="source/fizzim/bky_load_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="4"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="4"/>
     </file>
     <file xil_pn:name="al_cdac_sim_tf.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -582,19 +510,11 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="466"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="466"/>
     </file>
-    <file xil_pn:name="source/fizzim/transfer_samples_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="16"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="16"/>
-    </file>
     <file xil_pn:name="source/DAQ/ringbuf_sim_tf.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="476"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="476"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="476"/>
-    </file>
-    <file xil_pn:name="source/fizzim/Ring_Trans_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="19"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="19"/>
     </file>
     <file xil_pn:name="source/DAQ/Frame_Seq_FSM_sim_tf.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -602,19 +522,11 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="468"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="468"/>
     </file>
-    <file xil_pn:name="source/fizzim/Frame_Seq_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
     <file xil_pn:name="source/DAQ/Sample_Proc_FSM_sim_tf.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="472"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="472"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="472"/>
-    </file>
-    <file xil_pn:name="source/fizzim/Sample_Proc_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="18"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="18"/>
     </file>
     <file xil_pn:name="source/DAQ/Frame_Proc_FSM_sim_tf.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -622,23 +534,11 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="479"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="479"/>
     </file>
-    <file xil_pn:name="source/fizzim/Frame_Proc_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="22"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="22"/>
-    </file>
     <file xil_pn:name="source/DAQ/DAQ_Rate_Sel_FSM_sim_tf.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="486"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="486"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="486"/>
-    </file>
-    <file xil_pn:name="source/fizzim/DAQ_Rate_Sel_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="26"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="26"/>
-    </file>
-    <file xil_pn:name="source/fizzim/ADC_Init_FSM_TMR.V" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="33"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="33"/>
     </file>
     <file xil_pn:name="source/ADC/adc_config_sim_tf.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -646,31 +546,222 @@
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="497"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="497"/>
     </file>
-    <file xil_pn:name="source/fizzim/ADC_Config_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="34"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="34"/>
-    </file>
     <file xil_pn:name="ipcore_dir/CSP_chan_link_cntrl.xco" xil_pn:type="FILE_COREGEN">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="103"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="103"/>
     </file>
+    <file xil_pn:name="source/fizzim/auto_load_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="525"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="525"/>
+    </file>
+    <file xil_pn:name="source/fizzim/auto_load_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="526"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="526"/>
+    </file>
+    <file xil_pn:name="source/fizzim/BPI_cmd_parser_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="527"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="527"/>
+    </file>
+    <file xil_pn:name="source/fizzim/BPI_cmd_parser_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="528"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="528"/>
+    </file>
+    <file xil_pn:name="source/fizzim/BPI_ctrl_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="529"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="529"/>
+    </file>
+    <file xil_pn:name="source/fizzim/BPI_ctrl_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="530"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="530"/>
+    </file>
+    <file xil_pn:name="source/fizzim/BPI_intrf_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="531"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="531"/>
+    </file>
+    <file xil_pn:name="source/fizzim/BPI_intrf_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="532"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="532"/>
+    </file>
+    <file xil_pn:name="source/fizzim/BPI_sequencer_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="533"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="533"/>
+    </file>
+    <file xil_pn:name="source/fizzim/BPI_sequencer_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="534"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="534"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Startup_display_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="535"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="535"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Startup_display_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="536"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="536"/>
+    </file>
+    <file xil_pn:name="source/fizzim/dyn_phase_shift_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="537"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="537"/>
+    </file>
+    <file xil_pn:name="source/fizzim/dyn_phase_shift_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="538"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="538"/>
+    </file>
+    <file xil_pn:name="source/fizzim/dyn_phase_shift_FSM_TMR_Err_Det.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="539"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="539"/>
+    </file>
+    <file xil_pn:name="source/fizzim/DSR_align_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="523"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="523"/>
+    </file>
+    <file xil_pn:name="source/fizzim/DSR_align_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="524"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="524"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Pipe_Start_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="525"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="525"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Pipe_Start_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="526"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="526"/>
+    </file>
+    <file xil_pn:name="source/fizzim/DAQ_FIFO_Rst_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="527"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="527"/>
+    </file>
+    <file xil_pn:name="source/fizzim/DAQ_FIFO_Rst_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="528"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="528"/>
+    </file>
+    <file xil_pn:name="source/fizzim/fifo_load_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="529"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="529"/>
+    </file>
+    <file xil_pn:name="source/fizzim/fifo_load_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="530"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="530"/>
+    </file>
+    <file xil_pn:name="source/fizzim/fifo_load_FSM_TMR_Err_Det.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="531"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="531"/>
+    </file>
+    <file xil_pn:name="source/fizzim/transfer_samples_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="532"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="532"/>
+    </file>
+    <file xil_pn:name="source/fizzim/transfer_samples_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="533"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="533"/>
+    </file>
+    <file xil_pn:name="source/fizzim/transfer_samples_FSM_TMR_Err_Det.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="534"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="534"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Ring_Trans_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="535"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="535"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Ring_Trans_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="536"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="536"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Ring_Trans_FSM_TMR_Err_Det.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="537"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="537"/>
+    </file>
+    <file xil_pn:name="source/fizzim/ChnLnk_Frame_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="538"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="538"/>
+    </file>
     <file xil_pn:name="source/fizzim/ChnLnk_Frame_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="27"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="27"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="539"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="539"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Sample_Proc_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="540"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="540"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Sample_Proc_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="541"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="541"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Sample_Proc_FSM_TMR_Err_Det.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="542"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="542"/>
+    </file>
+    <file xil_pn:name="source/fizzim/DAQ_Rate_Sel_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="543"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="543"/>
+    </file>
+    <file xil_pn:name="source/fizzim/DAQ_Rate_Sel_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="544"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="544"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Frame_Proc_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="545"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="545"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Frame_Proc_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="546"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="546"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Frame_Proc_FSM_TMR_Err_Det.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="547"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="547"/>
+    </file>
+    <file xil_pn:name="source/fizzim/ADC_Init_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="548"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="548"/>
+    </file>
+    <file xil_pn:name="source/fizzim/ADC_Init_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="549"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="549"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Pow_on_Rst_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="550"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="550"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Pow_on_Rst_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="551"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="551"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Trg_Clock_Strt_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="552"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="552"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Trg_Clock_Strt_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="553"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="553"/>
+    </file>
+    <file xil_pn:name="source/fizzim/bky_load_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="554"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="554"/>
+    </file>
+    <file xil_pn:name="source/fizzim/bky_load_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="555"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="555"/>
+    </file>
+    <file xil_pn:name="source/fizzim/comp_thresh_load_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="556"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="556"/>
+    </file>
+    <file xil_pn:name="source/fizzim/comp_thresh_load_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="557"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="557"/>
+    </file>
+    <file xil_pn:name="source/fizzim/ADC_Config_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="558"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="558"/>
+    </file>
+    <file xil_pn:name="source/fizzim/ADC_Config_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="559"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="559"/>
     </file>
     <file xil_pn:name="ipcore_dir/adc_frame_clk.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
-    <file xil_pn:name="ipcore_dir/clkadj_coarse.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/clkadj_fine.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
     <file xil_pn:name="ipcore_dir/clkadj_med.xise" xil_pn:type="FILE_COREGENISE">
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
-    </file>
-    <file xil_pn:name="ipcore_dir/cmp_mmcm.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
     <file xil_pn:name="ipcore_dir/trg_mmcm.xise" xil_pn:type="FILE_COREGENISE">

@@ -19,7 +19,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module xfer2ringbuf #(
-	parameter USE_CHIPSCOPE = 1
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
 	)(
 	 inout [35:0] LA_CNTRL,
     input CLK,
@@ -34,7 +36,8 @@ module xfer2ringbuf #(
     output reg [15:0] RD_ENA,
 	 output L1A_RD_EN,
 	 output reg WREN,
-	 output reg [11:0] DMUX
+	 output reg [11:0] DMUX,
+	 output [15:0] XF2RB_ERRCNT
     );
 
 // signals for FIFO1 (16 channel FIFO)
@@ -165,6 +168,39 @@ endgenerate
 	end
 	
 
+generate
+if(TMR==1 && TMR_Err_Det==1) 
+begin : XF2RB_FSM_TMR_Err_Det
+transfer_samples_FSM_TMR_Err_Det 
+transfer_samples_FSM_i(
+  .CHAN(channel),
+  .L1A_RD_EN(L1A_RD_EN),
+  .RDENA(re),
+  .XSTATE(xstate),
+  .TMR_ERR_COUNT(XF2RB_ERRCNT),
+  .CLK(CLK),
+  .JTAG_MODE(JTAG_MODE),
+  .RDY(RDY),
+  .RST(RST)
+);
+end
+else if(TMR==1) 
+begin : XF2RB_FSM_TMR
+transfer_samples_FSM_TMR 
+transfer_samples_FSM_i(
+  .CHAN(channel),
+  .L1A_RD_EN(L1A_RD_EN),
+  .RDENA(re),
+  .XSTATE(xstate),
+  .CLK(CLK),
+  .JTAG_MODE(JTAG_MODE),
+  .RDY(RDY),
+  .RST(RST)
+);
+assign XF2RB_ERRCNT = 0;
+end
+else 
+begin : XF2RB_FSM
 transfer_samples_FSM 
 transfer_samples_FSM_i(
   .CHAN(channel),
@@ -176,6 +212,9 @@ transfer_samples_FSM_i(
   .RDY(RDY),
   .RST(RST)
 );
+assign XF2RB_ERRCNT = 0;
+end
+endgenerate
   
 
 endmodule

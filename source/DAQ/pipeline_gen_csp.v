@@ -19,7 +19,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module pipeline_gen_csp #(
-	parameter USE_CHIPSCOPE = 1
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0
 	)(
     inout [35:0] CSP_LA0_CNTRL,
     inout [35:0] CSP_VIO0_CNTRL,
@@ -303,33 +304,6 @@ generate
 				re_sync[G][S] <= re_s2[G][S];
 			end
 
-
-//			Pipe_Start_FSM 
-//			Pipe_Start_FSM (
-//			  .INC_H(inc_h[G][S]),                 // Increment Hold counter
-//			  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
-//			  .RE(rena[G][S]),                     // Read enable
-//			  .WE(wena[G][S]),                     // Write enable
-//			  .CLK(wrclk[G][S]),                   // Clock
-//			  .HOLD(hold[G][S]),                   // 2 bit Hold counter
-//			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
-//			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
-//			  .RST(RST),                           // Reset
-//			  .WCNT(wcnt[G][S])                  // Write count from pipeline
-//			);
-			Pipe_Start_FSM 
-			Pipe_Start_FSM (
-			  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
-			  .RE(rena[G][S]),                     // Read enable
-			  .WE(wena[G][S]),                     // Write enable
-			  .CLK(wrclk[G][S]),                   // Clock
-			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
-			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
-			  .RST(RST)                          // Reset
-			);
-
-
-			
 			assign trst[G][S] = RST | pipe_reset[G][S];
 			
 			always @(posedge CLK160 or posedge trst[G][S]) begin
@@ -346,6 +320,43 @@ generate
 			end
 		end
 	end
+endgenerate
+
+generate
+if(TMR==1) 
+begin : Pipeline_FSMs_TMR
+	for (G=1; G<=6; G=G+1) begin : grp
+		for (S=0; S<2; S=S+1) begin : seg
+			Pipe_Start_FSM_TMR 
+			Pipe_Start_FSM (
+			  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
+			  .RE(rena[G][S]),                     // Read enable
+			  .WE(wena[G][S]),                     // Write enable
+			  .CLK(wrclk[G][S]),                   // Clock
+			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
+			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
+			  .RST(RST)                          // Reset
+			);
+		end
+	end
+end
+else 
+begin : Pipeline_FSMs
+	for (G=1; G<=6; G=G+1) begin : grp
+		for (S=0; S<2; S=S+1) begin : seg
+			Pipe_Start_FSM 
+			Pipe_Start_FSM (
+			  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
+			  .RE(rena[G][S]),                     // Read enable
+			  .WE(wena[G][S]),                     // Write enable
+			  .CLK(wrclk[G][S]),                   // Clock
+			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
+			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
+			  .RST(RST)                          // Reset
+			);
+		end
+	end
+end
 endgenerate
 
 endmodule

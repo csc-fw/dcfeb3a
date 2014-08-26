@@ -19,7 +19,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module BPI_ctrl #(
-	parameter USE_CHIPSCOPE = 1
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
 )
 (
 	// Chip Scope Pro control signals
@@ -1076,7 +1078,11 @@ end
    );
 
 
-BPI_cmd_parser_FSM BPI_cmd_parser_FSM_i(
+generate
+if(TMR==1) 
+begin : BPI_FSM_TMR
+BPI_cmd_parser_FSM_TMR
+BPI_cmd_parser_FSM_i(
 	.ACK(fsm_ack),
 	.DECODE(decode),
 	.ENABLE_CMD(enable_cmd),
@@ -1105,7 +1111,8 @@ BPI_cmd_parser_FSM BPI_cmd_parser_FSM_i(
 	.XTRA_WORD(xtra_word)
 );
 
-BPI_sequencer_FSM BPI_sequencer_FSM_i(
+BPI_sequencer_FSM_TMR
+BPI_sequencer_FSM_i(
    .check_PEC(check_PEC),
    .check_buf(check_buf),
    .check_stat(check_stat),
@@ -1132,7 +1139,8 @@ BPI_sequencer_FSM BPI_sequencer_FSM_i(
    .std_seq(std_seq)
 );
 
-BPI_ctrl_FSM BPI_ctrl_FSM_i(
+BPI_ctrl_FSM_TMR
+BPI_ctrl_FSM_i(
 	.CYCLE2(cycle2),
 	.DECR(decr),
 	.EXECUTE(BPI_EXECUTE),
@@ -1155,5 +1163,92 @@ BPI_ctrl_FSM BPI_ctrl_FSM_i(
 	.TWO_CYCLE(two_cycle),
 	.WRITE_N(write_n)
 );
+end
+else 
+begin : BPI_FSM
+BPI_cmd_parser_FSM
+BPI_cmd_parser_FSM_i(
+	.ACK(fsm_ack),
+	.DECODE(decode),
+	.ENABLE_CMD(enable_cmd),
+	.IDLE(parser_idle),
+	.LD_CNTS(ld_cnts),
+	.LD_FULL(ld_full),
+	.LD_STATUS(ld_status),
+	.LD_USR(ld_usr),
+	.READ_FF(read_ff),
+	.OUT_STATE(parse_state),
+	//
+	.BUF_PROG(buf_prog),
+	.CLK(CLK),
+	.CNT_CMD(cnt_cmd),
+	.ENABLE(!csp_ctrl && bpi_enable),
+	.DATA(has_data),
+	.LOCAL(local),
+	.LOOP_DONE(loop_done),
+	.MT(bpi_cmd_mt),
+	.PASS(pass),
+	.READ_N(read_n),
+	.RPT_ERROR(rpt_error),
+	.RST(local_rst),
+	.SEQR_IDLE(seqr_idle),
+	.SEQ_CMPLT(seq_cmplt),
+	.XTRA_WORD(xtra_word)
+);
+
+BPI_sequencer_FSM
+BPI_sequencer_FSM_i(
+   .check_PEC(check_PEC),
+   .check_buf(check_buf),
+   .check_stat(check_stat),
+   .cnfrm_lk(cnfrm_lk),
+   .command(command),
+   .read_es_state(read_es_state),
+   .rpt_error(rpt_error),
+   .seq_cmplt(seq_cmplt),
+   .seqr_idle(seqr_idle),
+   .set_asynch(set_asynch),
+   .OUT_STATE(seq_state),
+   .CLK(CLK),
+   .RST(local_rst),
+   .ack(ack),
+   .buf_prog(buf_prog),
+   .error(error),
+   .lk_ok(lk_ok),
+   .lk_unlk(lk_unlk),
+   .noop_seq(noop_seq),
+   .pec_busy(pec_busy),
+	.seq_cmnd(seq_cmnd),
+   .seq_done(seq_done),
+   .simple_cmd(simple_cmd),
+   .std_seq(std_seq)
+);
+
+BPI_ctrl_FSM
+BPI_ctrl_FSM_i(
+	.CYCLE2(cycle2),
+	.DECR(decr),
+	.EXECUTE(BPI_EXECUTE),
+	.LOAD_N(load_n),
+	.NEXT(next),
+	.SEQ_DONE(seq_done),
+	.OUT_STATE(ctrl_state),
+	//
+	.BUSY(intf_busy),
+	.CLK(CLK),
+	.LD_DAT(BPI_LOAD_DATA),
+	.MT(bpi_cmd_mt),
+	.NOOP(noop),
+	.OTHER(other),
+	.RDY(intf_rdy),
+	.READ_1(read_1),
+	.READ_N(read_n),
+	.RST(local_rst),
+	.TERM_CNT(term_cnt),
+	.TWO_CYCLE(two_cycle),
+	.WRITE_N(write_n)
+);
+end
+endgenerate
 
 endmodule

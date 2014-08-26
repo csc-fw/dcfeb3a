@@ -1,7 +1,9 @@
 `timescale 1ns / 1ps
 module ringbuf #(
-	parameter USE_CHIPSCOPE = 1
-	)(
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
+)(
 	inout [35:0] LA_CNTRL,
    input CLK,
 	input RST_RESYNC,
@@ -20,7 +22,8 @@ module ringbuf #(
 	output L1A_EVT_PUSH,
 	output [17:0] RDATA,
 	output reg DATA_PUSH,
-	output WARN
+	output WARN,
+	output [15:0] RGTRNS_ERRCNT
    );
 
 
@@ -282,8 +285,29 @@ always @(posedge CLK) begin
 end
 
 
-Ring_Trans_FSM
-Ring_Trans_FSM (
+generate
+if(TMR==1 && TMR_Err_Det==1) 
+begin : RGTRNS_FSM_TMR_Err_Det
+Ring_Trans_FSM_TMR_Err_Det
+Ring_Trans_FSM_i (
+   .LD_ADDR(ld_addr),
+   .NXT_L1A(nxt_l1a),
+   .RD(nxt_wrd),
+   .EVT_STATE(evt_state[2:0]),
+	.TMR_ERR_COUNT(RGTRNS_ERRCNT),
+   .CLK(CLK),
+   .EVT_BUF_AFL(EVT_BUF_AFL),
+   .EVT_BUF_AMT(eb_amt_s2),
+   .L1A_BUF_MT(l1a_buf_mt),
+   .RING_AMT(ring_amt),
+   .RST(RST_RESYNC),
+   .SAMP_MAX(SAMP_MAX)
+);
+end
+else if(TMR==1) 
+begin : RGTRNS_FSM_TMR
+Ring_Trans_FSM_TMR
+Ring_Trans_FSM_i (
    .LD_ADDR(ld_addr),
    .NXT_L1A(nxt_l1a),
    .RD(nxt_wrd),
@@ -296,5 +320,26 @@ Ring_Trans_FSM (
    .RST(RST_RESYNC),
    .SAMP_MAX(SAMP_MAX)
 );
+assign RGTRNS_ERRCNT = 0;
+end
+else 
+begin : RGTRNS_FSM
+Ring_Trans_FSM
+Ring_Trans_FSM_i (
+   .LD_ADDR(ld_addr),
+   .NXT_L1A(nxt_l1a),
+   .RD(nxt_wrd),
+   .EVT_STATE(evt_state[2:0]),
+   .CLK(CLK),
+   .EVT_BUF_AFL(EVT_BUF_AFL),
+   .EVT_BUF_AMT(eb_amt_s2),
+   .L1A_BUF_MT(l1a_buf_mt),
+   .RING_AMT(ring_amt),
+   .RST(RST_RESYNC),
+   .SAMP_MAX(SAMP_MAX)
+);
+assign RGTRNS_ERRCNT = 0;
+end
+endgenerate
 	
 endmodule

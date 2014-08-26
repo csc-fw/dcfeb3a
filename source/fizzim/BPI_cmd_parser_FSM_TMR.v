@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:36:56 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:16:00 (www.fizzim.com)
 
-module BPI_cmd_parser_FSM (
+module BPI_cmd_parser_FSM_TMR (
   output ACK,
   output DECODE,
   output ENABLE_CMD,
@@ -53,9 +53,9 @@ module BPI_cmd_parser_FSM (
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
-  assign voted_state_1 = (state_1      & state_2     ) | (state_2      & state_3     ) | (state_1      & state_3     ); // Majority logic
-  assign voted_state_2 = (state_1      & state_2     ) | (state_2      & state_3     ) | (state_1      & state_3     ); // Majority logic
-  assign voted_state_3 = (state_1      & state_2     ) | (state_2      & state_3     ) | (state_1      & state_3     ); // Majority logic
+  assign voted_state_1      = (state_1      & state_2     ) | (state_2      & state_3     ) | (state_1      & state_3     ); // Majority logic
+  assign voted_state_2      = (state_1      & state_2     ) | (state_2      & state_3     ) | (state_1      & state_3     ); // Majority logic
+  assign voted_state_3      = (state_1      & state_2     ) | (state_2      & state_3     ) | (state_1      & state_3     ); // Majority logic
 
   assign OUT_STATE = voted_state_1;
 
@@ -92,16 +92,17 @@ module BPI_cmd_parser_FSM (
   (* syn_preserve = "true" *)  reg READ_FF_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign ACK          = (ACK_1        & ACK_2       ) | (ACK_2        & ACK_3       ) | (ACK_1        & ACK_3       ); // Majority logic
-  assign DECODE       = (DECODE_1     & DECODE_2    ) | (DECODE_2     & DECODE_3    ) | (DECODE_1     & DECODE_3    ); // Majority logic
-  assign ENABLE_CMD   = (ENABLE_CMD_1 & ENABLE_CMD_2) | (ENABLE_CMD_2 & ENABLE_CMD_3) | (ENABLE_CMD_1 & ENABLE_CMD_3); // Majority logic
-  assign IDLE         = (IDLE_1       & IDLE_2      ) | (IDLE_2       & IDLE_3      ) | (IDLE_1       & IDLE_3      ); // Majority logic
-  assign LD_CNTS      = (LD_CNTS_1    & LD_CNTS_2   ) | (LD_CNTS_2    & LD_CNTS_3   ) | (LD_CNTS_1    & LD_CNTS_3   ); // Majority logic
-  assign LD_FULL      = (LD_FULL_1    & LD_FULL_2   ) | (LD_FULL_2    & LD_FULL_3   ) | (LD_FULL_1    & LD_FULL_3   ); // Majority logic
-  assign LD_STATUS    = (LD_STATUS_1  & LD_STATUS_2 ) | (LD_STATUS_2  & LD_STATUS_3 ) | (LD_STATUS_1  & LD_STATUS_3 ); // Majority logic
-  assign LD_USR       = (LD_USR_1     & LD_USR_2    ) | (LD_USR_2     & LD_USR_3    ) | (LD_USR_1     & LD_USR_3    ); // Majority logic
-  assign READ_FF      = (READ_FF_1    & READ_FF_2   ) | (READ_FF_2    & READ_FF_3   ) | (READ_FF_1    & READ_FF_3   ); // Majority logic
+  assign ACK        = (ACK_1        & ACK_2       ) | (ACK_2        & ACK_3       ) | (ACK_1        & ACK_3       ); // Majority logic
+  assign DECODE     = (DECODE_1     & DECODE_2    ) | (DECODE_2     & DECODE_3    ) | (DECODE_1     & DECODE_3    ); // Majority logic
+  assign ENABLE_CMD = (ENABLE_CMD_1 & ENABLE_CMD_2) | (ENABLE_CMD_2 & ENABLE_CMD_3) | (ENABLE_CMD_1 & ENABLE_CMD_3); // Majority logic
+  assign IDLE       = (IDLE_1       & IDLE_2      ) | (IDLE_2       & IDLE_3      ) | (IDLE_1       & IDLE_3      ); // Majority logic
+  assign LD_CNTS    = (LD_CNTS_1    & LD_CNTS_2   ) | (LD_CNTS_2    & LD_CNTS_3   ) | (LD_CNTS_1    & LD_CNTS_3   ); // Majority logic
+  assign LD_FULL    = (LD_FULL_1    & LD_FULL_2   ) | (LD_FULL_2    & LD_FULL_3   ) | (LD_FULL_1    & LD_FULL_3   ); // Majority logic
+  assign LD_STATUS  = (LD_STATUS_1  & LD_STATUS_2 ) | (LD_STATUS_2  & LD_STATUS_3 ) | (LD_STATUS_1  & LD_STATUS_3 ); // Majority logic
+  assign LD_USR     = (LD_USR_1     & LD_USR_2    ) | (LD_USR_2     & LD_USR_3    ) | (LD_USR_1     & LD_USR_3    ); // Majority logic
+  assign READ_FF    = (READ_FF_1    & READ_FF_2   ) | (READ_FF_2    & READ_FF_3   ) | (READ_FF_1    & READ_FF_3   ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:47:57 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:51:44 (www.fizzim.com)
 
-module Trg_Clock_Strt_FSM (
+module Trg_Clock_Strt_FSM_TMR (
   output GTX_RST,
   output TRG_RST,
   input CLK,
@@ -26,9 +26,9 @@ module Trg_Clock_Strt_FSM (
   (* syn_keep = "true" *) wire [1:0] voted_state_2;
   (* syn_keep = "true" *) wire [1:0] voted_state_3;
 
-  assign voted_state_1 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
-  assign voted_state_2 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
-  assign voted_state_3 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
+  assign voted_state_1   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
+  assign voted_state_2   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
+  assign voted_state_3   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
 
   (* syn_keep = "true" *) reg [1:0] nextstate_1;
   (* syn_keep = "true" *) reg [1:0] nextstate_2;
@@ -42,9 +42,10 @@ module Trg_Clock_Strt_FSM (
   (* syn_preserve = "true" *)  reg TRG_RST_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign GTX_RST   = (GTX_RST_1 & GTX_RST_2) | (GTX_RST_2 & GTX_RST_3) | (GTX_RST_1 & GTX_RST_3); // Majority logic
-  assign TRG_RST   = (TRG_RST_1 & TRG_RST_2) | (TRG_RST_2 & TRG_RST_3) | (TRG_RST_1 & TRG_RST_3); // Majority logic
+  assign GTX_RST = (GTX_RST_1 & GTX_RST_2) | (GTX_RST_2 & GTX_RST_3) | (GTX_RST_1 & GTX_RST_3); // Majority logic
+  assign TRG_RST = (TRG_RST_1 & TRG_RST_2) | (TRG_RST_2 & TRG_RST_3) | (TRG_RST_1 & TRG_RST_3); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

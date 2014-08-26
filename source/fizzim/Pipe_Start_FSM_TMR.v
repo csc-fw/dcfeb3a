@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:11 at 15:32:07 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 12:21:30 (www.fizzim.com)
 
-module Pipe_Start_FSM (
+module Pipe_Start_FSM_TMR (
   output PIP_RST,
   output RE,
   output WE,
@@ -28,9 +28,9 @@ module Pipe_Start_FSM (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
-  assign voted_state_1 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
-  assign voted_state_2 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
-  assign voted_state_3 = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
+  assign voted_state_1   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
+  assign voted_state_2   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
+  assign voted_state_3   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -59,16 +59,17 @@ module Pipe_Start_FSM (
   (* syn_keep = "true" *)      wire [8:0] voted_wcnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign PIP_RST   = (PIP_RST_1 & PIP_RST_2) | (PIP_RST_2 & PIP_RST_3) | (PIP_RST_1 & PIP_RST_3); // Majority logic
-  assign RE        = (RE_1      & RE_2     ) | (RE_2      & RE_3     ) | (RE_1      & RE_3     ); // Majority logic
-  assign WE        = (WE_1      & WE_2     ) | (WE_2      & WE_3     ) | (WE_1      & WE_3     ); // Majority logic
-  assign voted_hold_1 = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
-  assign voted_hold_2 = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
-  assign voted_hold_3 = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
-  assign voted_wcnt_1 = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
-  assign voted_wcnt_2 = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
-  assign voted_wcnt_3 = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
+  assign PIP_RST = (PIP_RST_1 & PIP_RST_2) | (PIP_RST_2 & PIP_RST_3) | (PIP_RST_1 & PIP_RST_3); // Majority logic
+  assign RE      = (RE_1      & RE_2     ) | (RE_2      & RE_3     ) | (RE_1      & RE_3     ); // Majority logic
+  assign WE      = (WE_1      & WE_2     ) | (WE_2      & WE_3     ) | (WE_1      & WE_3     ); // Majority logic
+  assign voted_hold_1    = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
+  assign voted_hold_2    = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
+  assign voted_hold_3    = (hold_1    & hold_2   ) | (hold_2    & hold_3   ) | (hold_1    & hold_3   ); // Majority logic
+  assign voted_wcnt_1    = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
+  assign voted_wcnt_2    = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
+  assign voted_wcnt_3    = (wcnt_1    & wcnt_2   ) | (wcnt_2    & wcnt_3   ) | (wcnt_1    & wcnt_3   ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

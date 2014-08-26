@@ -1,11 +1,12 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 13:28:01 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 13:28:28 (www.fizzim.com)
 
-module Ring_Trans_FSM_TMR (
+module Ring_Trans_FSM_TMR_Err_Det (
   output LD_ADDR,
   output NXT_L1A,
   output RD,
   output wire [2:0] EVT_STATE,
+  output wire [15:0] TMR_ERR_COUNT,
   input CLK,
   input EVT_BUF_AFL,
   input EVT_BUF_AMT,
@@ -34,11 +35,32 @@ module Ring_Trans_FSM_TMR (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
+  (* syn_keep = "true" *) wire err_det_state_1;
+  (* syn_keep = "true" *) wire err_det_state_2;
+  (* syn_keep = "true" *) wire err_det_state_3;
+
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_1;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_2;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_3;
+
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_1;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_2;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_3;
+
   assign voted_state_1   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
   assign voted_state_2   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
   assign voted_state_3   = (state_1   & state_2  ) | (state_2   & state_3  ) | (state_1   & state_3  ); // Majority logic
 
+  assign err_det_state_1   = |(~((~state_1   & ~state_2   & ~state_3  ) | (state_1   & state_2   & state_3  ))); // error detection logic
+  assign err_det_state_2   = |(~((~state_1   & ~state_2   & ~state_3  ) | (state_1   & state_2   & state_3  ))); // error detection logic
+  assign err_det_state_3   = |(~((~state_1   & ~state_2   & ~state_3  ) | (state_1   & state_2   & state_3  ))); // error detection logic
+
+  assign voted_ed_cnt_1  = (ed_cnt_1  & ed_cnt_2 ) | (ed_cnt_2  & ed_cnt_3 ) | (ed_cnt_1  & ed_cnt_3 ); // Majority logic
+  assign voted_ed_cnt_2  = (ed_cnt_1  & ed_cnt_2 ) | (ed_cnt_2  & ed_cnt_3 ) | (ed_cnt_1  & ed_cnt_3 ); // Majority logic
+  assign voted_ed_cnt_3  = (ed_cnt_1  & ed_cnt_2 ) | (ed_cnt_2  & ed_cnt_3 ) | (ed_cnt_1  & ed_cnt_3 ); // Majority logic
+
   assign EVT_STATE = voted_state_1;
+  assign TMR_ERR_COUNT = voted_ed_cnt_1;
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -65,6 +87,24 @@ module Ring_Trans_FSM_TMR (
   (* syn_keep = "true" *)      wire [6:0] voted_smp_1;
   (* syn_keep = "true" *)      wire [6:0] voted_smp_2;
   (* syn_keep = "true" *)      wire [6:0] voted_smp_3;
+  (* syn_keep = "true" *)  wire err_det_LD_ADDR_1;
+  (* syn_keep = "true" *)  wire err_det_LD_ADDR_2;
+  (* syn_keep = "true" *)  wire err_det_LD_ADDR_3;
+  (* syn_keep = "true" *)  wire err_det_NXT_L1A_1;
+  (* syn_keep = "true" *)  wire err_det_NXT_L1A_2;
+  (* syn_keep = "true" *)  wire err_det_NXT_L1A_3;
+  (* syn_keep = "true" *)  wire err_det_RD_1;
+  (* syn_keep = "true" *)  wire err_det_RD_2;
+  (* syn_keep = "true" *)  wire err_det_RD_3;
+  (* syn_keep = "true" *)  wire err_det_seq_1;
+  (* syn_keep = "true" *)  wire err_det_seq_2;
+  (* syn_keep = "true" *)  wire err_det_seq_3;
+  (* syn_keep = "true" *)  wire err_det_smp_1;
+  (* syn_keep = "true" *)  wire err_det_smp_2;
+  (* syn_keep = "true" *)  wire err_det_smp_3;
+  (* syn_keep = "true" *)  wire err_det_1;
+  (* syn_keep = "true" *)  wire err_det_2;
+  (* syn_keep = "true" *)  wire err_det_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign LD_ADDR = (LD_ADDR_1 & LD_ADDR_2) | (LD_ADDR_2 & LD_ADDR_3) | (LD_ADDR_1 & LD_ADDR_3); // Majority logic
@@ -78,6 +118,27 @@ module Ring_Trans_FSM_TMR (
   assign voted_smp_3     = (smp_1     & smp_2    ) | (smp_2     & smp_3    ) | (smp_1     & smp_3    ); // Majority logic
 
   // Assignment of error detection logic to replicated signals
+  assign err_det_LD_ADDR_1 =  (~((~LD_ADDR_1 & ~LD_ADDR_2 & ~LD_ADDR_3) | (LD_ADDR_1 & LD_ADDR_2 & LD_ADDR_3))); // error detection logic
+  assign err_det_LD_ADDR_2 =  (~((~LD_ADDR_1 & ~LD_ADDR_2 & ~LD_ADDR_3) | (LD_ADDR_1 & LD_ADDR_2 & LD_ADDR_3))); // error detection logic
+  assign err_det_LD_ADDR_3 =  (~((~LD_ADDR_1 & ~LD_ADDR_2 & ~LD_ADDR_3) | (LD_ADDR_1 & LD_ADDR_2 & LD_ADDR_3))); // error detection logic
+  assign err_det_NXT_L1A_1 =  (~((~NXT_L1A_1 & ~NXT_L1A_2 & ~NXT_L1A_3) | (NXT_L1A_1 & NXT_L1A_2 & NXT_L1A_3))); // error detection logic
+  assign err_det_NXT_L1A_2 =  (~((~NXT_L1A_1 & ~NXT_L1A_2 & ~NXT_L1A_3) | (NXT_L1A_1 & NXT_L1A_2 & NXT_L1A_3))); // error detection logic
+  assign err_det_NXT_L1A_3 =  (~((~NXT_L1A_1 & ~NXT_L1A_2 & ~NXT_L1A_3) | (NXT_L1A_1 & NXT_L1A_2 & NXT_L1A_3))); // error detection logic
+  assign err_det_RD_1      =  (~((~RD_1      & ~RD_2      & ~RD_3     ) | (RD_1      & RD_2      & RD_3     ))); // error detection logic
+  assign err_det_RD_2      =  (~((~RD_1      & ~RD_2      & ~RD_3     ) | (RD_1      & RD_2      & RD_3     ))); // error detection logic
+  assign err_det_RD_3      =  (~((~RD_1      & ~RD_2      & ~RD_3     ) | (RD_1      & RD_2      & RD_3     ))); // error detection logic
+  assign err_det_seq_1     = |(~((~seq_1     & ~seq_2     & ~seq_3    ) | (seq_1     & seq_2     & seq_3    ))); // error detection logic
+  assign err_det_seq_2     = |(~((~seq_1     & ~seq_2     & ~seq_3    ) | (seq_1     & seq_2     & seq_3    ))); // error detection logic
+  assign err_det_seq_3     = |(~((~seq_1     & ~seq_2     & ~seq_3    ) | (seq_1     & seq_2     & seq_3    ))); // error detection logic
+  assign err_det_smp_1     = |(~((~smp_1     & ~smp_2     & ~smp_3    ) | (smp_1     & smp_2     & smp_3    ))); // error detection logic
+  assign err_det_smp_2     = |(~((~smp_1     & ~smp_2     & ~smp_3    ) | (smp_1     & smp_2     & smp_3    ))); // error detection logic
+  assign err_det_smp_3     = |(~((~smp_1     & ~smp_2     & ~smp_3    ) | (smp_1     & smp_2     & smp_3    ))); // error detection logic
+
+
+  // Assign 'OR' of all error detection signals
+  assign err_det_1 = err_det_state_1   | err_det_LD_ADDR_1   | err_det_NXT_L1A_1   | err_det_RD_1   | err_det_seq_1   | err_det_smp_1  ;
+  assign err_det_2 = err_det_state_2   | err_det_LD_ADDR_2   | err_det_NXT_L1A_2   | err_det_RD_2   | err_det_seq_2   | err_det_smp_2  ;
+  assign err_det_3 = err_det_state_3   | err_det_LD_ADDR_3   | err_det_NXT_L1A_3   | err_det_RD_3   | err_det_seq_3   | err_det_smp_3  ;
 
   // comb always block
   always @* begin
@@ -148,11 +209,17 @@ module Ring_Trans_FSM_TMR (
       state_1 <= Idle;
       state_2 <= Idle;
       state_3 <= Idle;
+      ed_cnt_1 <= 0;
+      ed_cnt_2 <= 0;
+      ed_cnt_3 <= 0;
     end
     else begin
       state_1 <= nextstate_1;
       state_2 <= nextstate_2;
       state_3 <= nextstate_3;
+      ed_cnt_1 <= err_det_1 ? voted_ed_cnt_1 + 1 : voted_ed_cnt_1;
+      ed_cnt_2 <= err_det_2 ? voted_ed_cnt_2 + 1 : voted_ed_cnt_2;
+      ed_cnt_3 <= err_det_3 ? voted_ed_cnt_3 + 1 : voted_ed_cnt_3;
     end
   end
 

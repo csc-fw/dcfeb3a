@@ -19,8 +19,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module chanlink_fifo #(
-	parameter USE_CHIPSCOPE = 1
-	)(
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0
+)(
 	inout [35:0] LA_CNTRL,
 	input WCLK,
 	input RCLK,
@@ -321,20 +322,42 @@ function [14:0] CRC15_D13 (input [12:0] d, input [14:0] c);
   end
   endfunction
 
-ChnLnk_Frame_FSM 
-ChnLnk_Frame_FSM_i (
-   .CLR_CRC(clr_crc0),
-   .LAST_WRD(nxt_l1a),
-   .RD(nxt_wrd),
-   .SEQ(seq),
-   .VALID(valid0),
-	.FRM_STATE(frm_state),
-   .CLK(RCLK),
-   .END_EVT(end_evt),
-   .F_MT(mt_r3),
-   .L1A_BUF_MT(l1a_buf_mt),
-   .RST(RST_RESYNC)
-);
+generate
+if(TMR==1) 
+begin : ClnkFrm_FSM_TMR
+	ChnLnk_Frame_FSM_TMR 
+	ChnLnk_Frame_FSM_i (
+		.CLR_CRC(clr_crc0),
+		.LAST_WRD(nxt_l1a),
+		.RD(nxt_wrd),
+		.SEQ(seq),
+		.VALID(valid0),
+		.FRM_STATE(frm_state),
+		.CLK(RCLK),
+		.END_EVT(end_evt),
+		.F_MT(mt_r3),
+		.L1A_BUF_MT(l1a_buf_mt),
+		.RST(RST_RESYNC)
+	);
+end
+else 
+begin : ClnkFrm_FSM
+	ChnLnk_Frame_FSM 
+	ChnLnk_Frame_FSM_i (
+		.CLR_CRC(clr_crc0),
+		.LAST_WRD(nxt_l1a),
+		.RD(nxt_wrd),
+		.SEQ(seq),
+		.VALID(valid0),
+		.FRM_STATE(frm_state),
+		.CLK(RCLK),
+		.END_EVT(end_evt),
+		.F_MT(mt_r3),
+		.L1A_BUF_MT(l1a_buf_mt),
+		.RST(RST_RESYNC)
+	);
+end
+endgenerate
 
 
 endmodule

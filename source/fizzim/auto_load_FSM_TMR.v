@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:18 at 16:07:15 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:05:58 (www.fizzim.com)
 
-module auto_load_FSM 
+module auto_load_FSM_TMR 
   #(
     parameter MAX_ADDR = 6'd33
   )(
@@ -39,9 +39,9 @@ module auto_load_FSM
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
-  assign voted_state_1 = (state_1       & state_2      ) | (state_2       & state_3      ) | (state_1       & state_3      ); // Majority logic
-  assign voted_state_2 = (state_1       & state_2      ) | (state_2       & state_3      ) | (state_1       & state_3      ); // Majority logic
-  assign voted_state_3 = (state_1       & state_2      ) | (state_2       & state_3      ) | (state_1       & state_3      ); // Majority logic
+  assign voted_state_1       = (state_1       & state_2      ) | (state_2       & state_3      ) | (state_1       & state_3      ); // Majority logic
+  assign voted_state_2       = (state_1       & state_2      ) | (state_2       & state_3      ) | (state_1       & state_3      ); // Majority logic
+  assign voted_state_3       = (state_1       & state_2      ) | (state_2       & state_3      ) | (state_1       & state_3      ); // Majority logic
 
   (* syn_keep = "true" *) reg [3:0] nextstate_1;
   (* syn_keep = "true" *) reg [3:0] nextstate_2;
@@ -73,16 +73,17 @@ module auto_load_FSM
   (* syn_keep = "true" *)      wire [6:0] voted_cnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign ABORTED       = (ABORTED_1     & ABORTED_2    ) | (ABORTED_2     & ABORTED_3    ) | (ABORTED_1     & ABORTED_3    ); // Majority logic
-  assign AL_CNT        = (AL_CNT_1      & AL_CNT_2     ) | (AL_CNT_2      & AL_CNT_3     ) | (AL_CNT_1      & AL_CNT_3     ); // Majority logic
-  assign AL_ENA        = (AL_ENA_1      & AL_ENA_2     ) | (AL_ENA_2      & AL_ENA_3     ) | (AL_ENA_1      & AL_ENA_3     ); // Majority logic
-  assign CLR_AL_DONE   = (CLR_AL_DONE_1 & CLR_AL_DONE_2) | (CLR_AL_DONE_2 & CLR_AL_DONE_3) | (CLR_AL_DONE_1 & CLR_AL_DONE_3); // Majority logic
-  assign COMPLETED     = (COMPLETED_1   & COMPLETED_2  ) | (COMPLETED_2   & COMPLETED_3  ) | (COMPLETED_1   & COMPLETED_3  ); // Majority logic
-  assign EXECUTE       = (EXECUTE_1     & EXECUTE_2    ) | (EXECUTE_2     & EXECUTE_3    ) | (EXECUTE_1     & EXECUTE_3    ); // Majority logic
-  assign voted_cnt_1   = (cnt_1         & cnt_2        ) | (cnt_2         & cnt_3        ) | (cnt_1         & cnt_3        ); // Majority logic
-  assign voted_cnt_2   = (cnt_1         & cnt_2        ) | (cnt_2         & cnt_3        ) | (cnt_1         & cnt_3        ); // Majority logic
-  assign voted_cnt_3   = (cnt_1         & cnt_2        ) | (cnt_2         & cnt_3        ) | (cnt_1         & cnt_3        ); // Majority logic
+  assign ABORTED     = (ABORTED_1     & ABORTED_2    ) | (ABORTED_2     & ABORTED_3    ) | (ABORTED_1     & ABORTED_3    ); // Majority logic
+  assign AL_CNT      = (AL_CNT_1      & AL_CNT_2     ) | (AL_CNT_2      & AL_CNT_3     ) | (AL_CNT_1      & AL_CNT_3     ); // Majority logic
+  assign AL_ENA      = (AL_ENA_1      & AL_ENA_2     ) | (AL_ENA_2      & AL_ENA_3     ) | (AL_ENA_1      & AL_ENA_3     ); // Majority logic
+  assign CLR_AL_DONE = (CLR_AL_DONE_1 & CLR_AL_DONE_2) | (CLR_AL_DONE_2 & CLR_AL_DONE_3) | (CLR_AL_DONE_1 & CLR_AL_DONE_3); // Majority logic
+  assign COMPLETED   = (COMPLETED_1   & COMPLETED_2  ) | (COMPLETED_2   & COMPLETED_3  ) | (COMPLETED_1   & COMPLETED_3  ); // Majority logic
+  assign EXECUTE     = (EXECUTE_1     & EXECUTE_2    ) | (EXECUTE_2     & EXECUTE_3    ) | (EXECUTE_1     & EXECUTE_3    ); // Majority logic
+  assign voted_cnt_1         = (cnt_1         & cnt_2        ) | (cnt_2         & cnt_3        ) | (cnt_1         & cnt_3        ); // Majority logic
+  assign voted_cnt_2         = (cnt_1         & cnt_2        ) | (cnt_2         & cnt_3        ) | (cnt_1         & cnt_3        ); // Majority logic
+  assign voted_cnt_3         = (cnt_1         & cnt_2        ) | (cnt_2         & cnt_3        ) | (cnt_1         & cnt_3        ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

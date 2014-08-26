@@ -18,7 +18,11 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module bpi_interface(
+module bpi_interface #(
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
+)
+(
     input CLK,
 	 input CLK1MHZ,
 	 input RST,
@@ -129,6 +133,41 @@ begin
 			end
 end
   
+generate
+if(TMR==1) 
+begin : BPI_intrf_FSM_TMR
+BPI_intrf_FSM_TMR 
+BPI_intrf_FSM1(
+	.BUSY(BUSY),
+	.CAP(capture),
+	.E(fcs),
+	.G(foe),
+	.L(flatch_addr),
+	.LOAD(LOAD_DATA),
+	.W(fwe),
+	.CLK(CLK),
+	.EXECUTE(execute_i),
+	.READ(read),
+	.RST(RST),
+	.WRITE(write)
+);
+
+Startup_Display_FSM_TMR 
+Startup_Display_FSM_i(
+  .CLEAR(clear),
+  .DISP(display),
+  .LOAD_PAT(load_pat),
+  .NXT_ADR(nxt_adr),
+  .RST_TMR(rst_tmr),
+  .CLK(CLK),
+  .DONE(stop),
+  .RST(RST),
+  .RUN(RUN),
+  .TMR(tmr)
+);
+end
+else 
+begin : BPI_intrf_FSM
 BPI_intrf_FSM 
 BPI_intrf_FSM1(
 	.BUSY(BUSY),
@@ -144,6 +183,22 @@ BPI_intrf_FSM1(
 	.RST(RST),
 	.WRITE(write)
 );
+
+Startup_Display_FSM 
+Startup_Display_FSM_i(
+  .CLEAR(clear),
+  .DISP(display),
+  .LOAD_PAT(load_pat),
+  .NXT_ADR(nxt_adr),
+  .RST_TMR(rst_tmr),
+  .CLK(CLK),
+  .DONE(stop),
+  .RST(RST),
+  .RUN(RUN),
+  .TMR(tmr)
+);
+end
+endgenerate
 
 genvar ch;
 generate
@@ -211,17 +266,4 @@ always @(posedge CLK or posedge RST) begin
 			passes <= passes;
 end
 
-Startup_Display_FSM 
-Startup_Display_FSM_i(
-  .CLEAR(clear),
-  .DISP(display),
-  .LOAD_PAT(load_pat),
-  .NXT_ADR(nxt_adr),
-  .RST_TMR(rst_tmr),
-  .CLK(CLK),
-  .DONE(stop),
-  .RST(RST),
-  .RUN(RUN),
-  .TMR(tmr)
-);
 endmodule

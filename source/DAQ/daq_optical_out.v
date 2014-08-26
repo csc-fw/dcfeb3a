@@ -2,7 +2,9 @@
 
 module daq_optical_out #(
 	parameter USE_CHIPSCOPE = 1,
-	parameter SIM_SPEEDUP = 0
+	parameter SIM_SPEEDUP = 0,
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
 )
 (
 	 inout [35:0] DAQ_TX_VIO_CNTRL, //Chip Scope Pro control signals for virtual I/O
@@ -31,7 +33,8 @@ module daq_optical_out #(
 	output CSP_MAN_CTRL,        // Chip Scope Pro manual control for DAQ rate, L1A, and packet headers;
 	output CSP_USE_ANY_L1A,     // Flag to send data on any L1A
 	output CSP_L1A_HEAD,        // Flag to send L1A number at the begining of the packet
-	output DAQ_DATA_CLK         // Clock that should be used for passing data and controls to this module
+	output DAQ_DATA_CLK,        // Clock that should be used for passing data and controls to this module
+	output [15:0] FRMPRC_ERRCNT
   );
   
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -322,6 +325,28 @@ clk_div_reset_i
 );
 
 
+generate
+if(TMR==1) 
+begin : DRSel_FSM_TMR
+DAQ_Rate_Sel_FSM_TMR 
+DAQ_Rate_Sel_FSM_i(
+  .CDV_INIT(cdv_init),
+  .CLK_SEL(ref_clk_sel),
+  .PCSRST(pcs_rst),
+  .RATE_1_25(RATE_1_25),
+  .RATE_3_2(RATE_3_2),
+  .RATE_SEL(txrate_sel),
+  .WRDCLKSEL(word_clk_sel),
+  .DQRT_STATE(dqrt_state),
+  .CDV_DONE(clk_rst_done),
+  .CLK(usr_clk_wordwise),
+  .DAQ_RATE(daq_rate),
+  .RST(arst),
+  .TXRATEDONE(txrate_done)
+);
+end
+else 
+begin : DRSel_FSM
 DAQ_Rate_Sel_FSM 
 DAQ_Rate_Sel_FSM_i(
   .CDV_INIT(cdv_init),
@@ -338,6 +363,8 @@ DAQ_Rate_Sel_FSM_i(
   .RST(arst),
   .TXRATEDONE(txrate_done)
 );
+end
+endgenerate
 
 
 //////////////////////////////////////////////////////////////////////
@@ -456,17 +483,53 @@ begin: Frame_ROM_KWORD
    endcase
 end 
 
-Frame_Proc_FSM
-Frame_Proc_FSM_i (
-  .CLR_CRC(clr_crc),
-  .CRC_DV(crc_dv),
-  .ROM_ADDR(rom_addr),
-  .TX_ACK(TX_ACK),
-  .FRM_STATE(frm_state),
-  .CLK(usr_clk_wordwise),
-  .RST(arst),
-  .VALID(TXD_VLD) 
-);
+generate
+if(TMR==1 && TMR_Err_Det==1) 
+begin : Frm_Proc_FSM_TMR_Err_Det
+	Frame_Proc_FSM_TMR_Err_Det
+	Frame_Proc_FSM_i (
+	  .CLR_CRC(clr_crc),
+	  .CRC_DV(crc_dv),
+	  .ROM_ADDR(rom_addr),
+	  .TX_ACK(TX_ACK),
+	  .FRM_STATE(frm_state),
+	  .TMR_ERR_COUNT(FRMPRC_ERRCNT),
+	  .CLK(usr_clk_wordwise),
+	  .RST(arst),
+	  .VALID(TXD_VLD) 
+	);
+end
+else if(TMR==1) 
+begin : Frm_Proc_FSM_TMR
+	Frame_Proc_FSM_TMR
+	Frame_Proc_FSM_i (
+	  .CLR_CRC(clr_crc),
+	  .CRC_DV(crc_dv),
+	  .ROM_ADDR(rom_addr),
+	  .TX_ACK(TX_ACK),
+	  .FRM_STATE(frm_state),
+	  .CLK(usr_clk_wordwise),
+	  .RST(arst),
+	  .VALID(TXD_VLD) 
+	);
+assign FRMPRC_ERRCNT = 0;
+end
+else 
+begin : Frm_Proc_FSM
+	Frame_Proc_FSM
+	Frame_Proc_FSM_i (
+	  .CLR_CRC(clr_crc),
+	  .CRC_DV(crc_dv),
+	  .ROM_ADDR(rom_addr),
+	  .TX_ACK(TX_ACK),
+	  .FRM_STATE(frm_state),
+	  .CLK(usr_clk_wordwise),
+	  .RST(arst),
+	  .VALID(TXD_VLD) 
+	);
+assign FRMPRC_ERRCNT = 0;
+end
+endgenerate
 
 // Pipeline signals for timing
 

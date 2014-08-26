@@ -1,7 +1,9 @@
 `timescale 1ns / 1ps
 module eth_fifo #(
-	parameter USE_CHIPSCOPE = 1
-	)(
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
+)(
 	inout [35:0] LA_CNTRL,
 	input WCLK,
 	input RCLK,
@@ -20,7 +22,8 @@ module eth_fifo #(
 	output EVT_BUF_AMT,
 	output EVT_BUF_AFL,
 	output reg [15:0] TXD,
-	output reg TXD_VLD
+	output reg TXD_VLD,
+	output [15:0] SMPPRC_ERRCNT
    );
 
 
@@ -291,25 +294,77 @@ function [14:0] CRC15_D13 (input [12:0] d, input [14:0] c);
   endfunction
 
 
-Sample_Proc_FSM 
-Sample_Proc_FSM1 (
-	.CE(ce),
-   .CLR_CRC(clr_crc0),
-   .LAST_WRD(nxt_l1a),
-   .LD_L1A_H(ld_l1a_h),
-   .LD_L1A_L(ld_l1a_l),
-   .RD(nxt_wrd),
-   .SEQ(seq),
-   .VALID(valid0),
-	.SMP_STATE(frm_state),
-   .CLK(RCLK),
-   .FAMT(mt_r3),
-   .L1A_BUF_MT(l1a_buf_mt),
-   .L1A_HEAD(L1A_HEAD),
-   .RST(RST_RESYNC),
-   .SAMP_MAX(SAMP_MAX),
-	.TXACK(TXACK)
-);
+generate
+if(TMR==1 && TMR_Err_Det==1) 
+begin : Smp_Proc_FSM_TMR_Err_Det
+	Sample_Proc_FSM_TMR_Err_Det 
+	Sample_Proc_FSM1 (
+		.CE(ce),
+		.CLR_CRC(clr_crc0),
+		.LAST_WRD(nxt_l1a),
+		.LD_L1A_H(ld_l1a_h),
+		.LD_L1A_L(ld_l1a_l),
+		.RD(nxt_wrd),
+		.SEQ(seq),
+		.VALID(valid0),
+		.SMP_STATE(frm_state),
+		.TMR_ERR_COUNT(SMPPRC_ERRCNT),
+		.CLK(RCLK),
+		.FAMT(mt_r3),
+		.L1A_BUF_MT(l1a_buf_mt),
+		.L1A_HEAD(L1A_HEAD),
+		.RST(RST_RESYNC),
+		.SAMP_MAX(SAMP_MAX),
+		.TXACK(TXACK)
+	);
+end
+else if(TMR==1) 
+begin : Smp_Proc_FSM_TMR
+	Sample_Proc_FSM_TMR 
+	Sample_Proc_FSM1 (
+		.CE(ce),
+		.CLR_CRC(clr_crc0),
+		.LAST_WRD(nxt_l1a),
+		.LD_L1A_H(ld_l1a_h),
+		.LD_L1A_L(ld_l1a_l),
+		.RD(nxt_wrd),
+		.SEQ(seq),
+		.VALID(valid0),
+		.SMP_STATE(frm_state),
+		.CLK(RCLK),
+		.FAMT(mt_r3),
+		.L1A_BUF_MT(l1a_buf_mt),
+		.L1A_HEAD(L1A_HEAD),
+		.RST(RST_RESYNC),
+		.SAMP_MAX(SAMP_MAX),
+		.TXACK(TXACK)
+	);
+assign SMPPRC_ERRCNT = 0;
+end
+else 
+begin : Smp_Proc_FSM
+	Sample_Proc_FSM 
+	Sample_Proc_FSM1 (
+		.CE(ce),
+		.CLR_CRC(clr_crc0),
+		.LAST_WRD(nxt_l1a),
+		.LD_L1A_H(ld_l1a_h),
+		.LD_L1A_L(ld_l1a_l),
+		.RD(nxt_wrd),
+		.SEQ(seq),
+		.VALID(valid0),
+		.SMP_STATE(frm_state),
+		.CLK(RCLK),
+		.FAMT(mt_r3),
+		.L1A_BUF_MT(l1a_buf_mt),
+		.L1A_HEAD(L1A_HEAD),
+		.RST(RST_RESYNC),
+		.SAMP_MAX(SAMP_MAX),
+		.TXACK(TXACK)
+	);
+assign SMPPRC_ERRCNT = 0;
+end
+endgenerate
 	
 endmodule
 

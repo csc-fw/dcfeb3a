@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:06:17 at 15:12:45 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:23:57 (www.fizzim.com)
 
 module Startup_Display_FSM (
   output reg CLEAR,

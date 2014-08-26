@@ -86,7 +86,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module jtag_access (
+module jtag_access #(
+	parameter TMR = 0
+)(
 	 
     input CLK1MHZ,           // 1 MHz Clock
     input CLK20,             // 20 MHz Clock
@@ -501,7 +503,10 @@ always @(posedge CLK40 or posedge RST) begin
 			AL_DONE <= AL_DONE;
 end
 
-	al_cdac al_cdac_i(
+	al_cdac #(
+		.TMR(TMR)
+	)
+	al_cdac_i (
 		.CLK40(CLK40),
 		.CLK1MHZ(CLK1MHZ),
 		.RST(RST),
@@ -633,7 +638,10 @@ end
 		.TDO(tdofb)        // Test data out of the complete loop
 		);
 		
-	al_buckeye_load al_buckeye_load_i(
+	al_buckeye_load #(
+		.TMR(TMR)
+	)
+	al_buckeye_load_i(
 		.CLK40(CLK40),
 		.CLK1MHZ(CLK1MHZ),
 		.RST(RST),

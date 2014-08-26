@@ -1,12 +1,13 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:33:40 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:34:13 (www.fizzim.com)
 
-module Frame_Proc_FSM_TMR (
+module Frame_Proc_FSM_TMR_Err_Det (
   output CLR_CRC,
   output CRC_DV,
   output wire [2:0] ROM_ADDR,
   output TX_ACK,
   output wire [3:0] FRM_STATE,
+  output wire [15:0] TMR_ERR_COUNT,
   input CLK,
   input RST,
   input VALID 
@@ -33,11 +34,32 @@ module Frame_Proc_FSM_TMR (
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
+  (* syn_keep = "true" *) wire err_det_state_1;
+  (* syn_keep = "true" *) wire err_det_state_2;
+  (* syn_keep = "true" *) wire err_det_state_3;
+
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_1;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_2;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_3;
+
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_1;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_2;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_3;
+
   assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
   assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
   assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
+  assign err_det_state_1    = |(~((~state_1    & ~state_2    & ~state_3   ) | (state_1    & state_2    & state_3   ))); // error detection logic
+  assign err_det_state_2    = |(~((~state_1    & ~state_2    & ~state_3   ) | (state_1    & state_2    & state_3   ))); // error detection logic
+  assign err_det_state_3    = |(~((~state_1    & ~state_2    & ~state_3   ) | (state_1    & state_2    & state_3   ))); // error detection logic
+
+  assign voted_ed_cnt_1   = (ed_cnt_1   & ed_cnt_2  ) | (ed_cnt_2   & ed_cnt_3  ) | (ed_cnt_1   & ed_cnt_3  ); // Majority logic
+  assign voted_ed_cnt_2   = (ed_cnt_1   & ed_cnt_2  ) | (ed_cnt_2   & ed_cnt_3  ) | (ed_cnt_1   & ed_cnt_3  ); // Majority logic
+  assign voted_ed_cnt_3   = (ed_cnt_1   & ed_cnt_2  ) | (ed_cnt_2   & ed_cnt_3  ) | (ed_cnt_1   & ed_cnt_3  ); // Majority logic
+
   assign FRM_STATE = voted_state_1;
+  assign TMR_ERR_COUNT = voted_ed_cnt_1;
 
   (* syn_keep = "true" *) reg [3:0] nextstate_1;
   (* syn_keep = "true" *) reg [3:0] nextstate_2;
@@ -61,6 +83,24 @@ module Frame_Proc_FSM_TMR (
   (* syn_keep = "true" *)      wire [2:0] voted_addr_1;
   (* syn_keep = "true" *)      wire [2:0] voted_addr_2;
   (* syn_keep = "true" *)      wire [2:0] voted_addr_3;
+  (* syn_keep = "true" *)  wire err_det_CLR_CRC_1;
+  (* syn_keep = "true" *)  wire err_det_CLR_CRC_2;
+  (* syn_keep = "true" *)  wire err_det_CLR_CRC_3;
+  (* syn_keep = "true" *)  wire err_det_CRC_DV_1;
+  (* syn_keep = "true" *)  wire err_det_CRC_DV_2;
+  (* syn_keep = "true" *)  wire err_det_CRC_DV_3;
+  (* syn_keep = "true" *)  wire err_det_ROM_ADDR_1;
+  (* syn_keep = "true" *)  wire err_det_ROM_ADDR_2;
+  (* syn_keep = "true" *)  wire err_det_ROM_ADDR_3;
+  (* syn_keep = "true" *)  wire err_det_TX_ACK_1;
+  (* syn_keep = "true" *)  wire err_det_TX_ACK_2;
+  (* syn_keep = "true" *)  wire err_det_TX_ACK_3;
+  (* syn_keep = "true" *)  wire err_det_addr_1;
+  (* syn_keep = "true" *)  wire err_det_addr_2;
+  (* syn_keep = "true" *)  wire err_det_addr_3;
+  (* syn_keep = "true" *)  wire err_det_1;
+  (* syn_keep = "true" *)  wire err_det_2;
+  (* syn_keep = "true" *)  wire err_det_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign CLR_CRC  = (CLR_CRC_1  & CLR_CRC_2 ) | (CLR_CRC_2  & CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_3 ); // Majority logic
@@ -72,6 +112,27 @@ module Frame_Proc_FSM_TMR (
   assign voted_addr_3     = (addr_1     & addr_2    ) | (addr_2     & addr_3    ) | (addr_1     & addr_3    ); // Majority logic
 
   // Assignment of error detection logic to replicated signals
+  assign err_det_CLR_CRC_1  =  (~((~CLR_CRC_1  & ~CLR_CRC_2  & ~CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_2  & CLR_CRC_3 ))); // error detection logic
+  assign err_det_CLR_CRC_2  =  (~((~CLR_CRC_1  & ~CLR_CRC_2  & ~CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_2  & CLR_CRC_3 ))); // error detection logic
+  assign err_det_CLR_CRC_3  =  (~((~CLR_CRC_1  & ~CLR_CRC_2  & ~CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_2  & CLR_CRC_3 ))); // error detection logic
+  assign err_det_CRC_DV_1   =  (~((~CRC_DV_1   & ~CRC_DV_2   & ~CRC_DV_3  ) | (CRC_DV_1   & CRC_DV_2   & CRC_DV_3  ))); // error detection logic
+  assign err_det_CRC_DV_2   =  (~((~CRC_DV_1   & ~CRC_DV_2   & ~CRC_DV_3  ) | (CRC_DV_1   & CRC_DV_2   & CRC_DV_3  ))); // error detection logic
+  assign err_det_CRC_DV_3   =  (~((~CRC_DV_1   & ~CRC_DV_2   & ~CRC_DV_3  ) | (CRC_DV_1   & CRC_DV_2   & CRC_DV_3  ))); // error detection logic
+  assign err_det_ROM_ADDR_1 = |(~((~ROM_ADDR_1 & ~ROM_ADDR_2 & ~ROM_ADDR_3) | (ROM_ADDR_1 & ROM_ADDR_2 & ROM_ADDR_3))); // error detection logic
+  assign err_det_ROM_ADDR_2 = |(~((~ROM_ADDR_1 & ~ROM_ADDR_2 & ~ROM_ADDR_3) | (ROM_ADDR_1 & ROM_ADDR_2 & ROM_ADDR_3))); // error detection logic
+  assign err_det_ROM_ADDR_3 = |(~((~ROM_ADDR_1 & ~ROM_ADDR_2 & ~ROM_ADDR_3) | (ROM_ADDR_1 & ROM_ADDR_2 & ROM_ADDR_3))); // error detection logic
+  assign err_det_TX_ACK_1   =  (~((~TX_ACK_1   & ~TX_ACK_2   & ~TX_ACK_3  ) | (TX_ACK_1   & TX_ACK_2   & TX_ACK_3  ))); // error detection logic
+  assign err_det_TX_ACK_2   =  (~((~TX_ACK_1   & ~TX_ACK_2   & ~TX_ACK_3  ) | (TX_ACK_1   & TX_ACK_2   & TX_ACK_3  ))); // error detection logic
+  assign err_det_TX_ACK_3   =  (~((~TX_ACK_1   & ~TX_ACK_2   & ~TX_ACK_3  ) | (TX_ACK_1   & TX_ACK_2   & TX_ACK_3  ))); // error detection logic
+  assign err_det_addr_1     = |(~((~addr_1     & ~addr_2     & ~addr_3    ) | (addr_1     & addr_2     & addr_3    ))); // error detection logic
+  assign err_det_addr_2     = |(~((~addr_1     & ~addr_2     & ~addr_3    ) | (addr_1     & addr_2     & addr_3    ))); // error detection logic
+  assign err_det_addr_3     = |(~((~addr_1     & ~addr_2     & ~addr_3    ) | (addr_1     & addr_2     & addr_3    ))); // error detection logic
+
+
+  // Assign 'OR' of all error detection signals
+  assign err_det_1 = err_det_state_1   | err_det_CLR_CRC_1   | err_det_CRC_DV_1   | err_det_ROM_ADDR_1   | err_det_TX_ACK_1   | err_det_addr_1  ;
+  assign err_det_2 = err_det_state_2   | err_det_CLR_CRC_2   | err_det_CRC_DV_2   | err_det_ROM_ADDR_2   | err_det_TX_ACK_2   | err_det_addr_2  ;
+  assign err_det_3 = err_det_state_3   | err_det_CLR_CRC_3   | err_det_CRC_DV_3   | err_det_ROM_ADDR_3   | err_det_TX_ACK_3   | err_det_addr_3  ;
 
   // comb always block
   always @* begin
@@ -136,11 +197,17 @@ module Frame_Proc_FSM_TMR (
       state_1 <= Idle;
       state_2 <= Idle;
       state_3 <= Idle;
+      ed_cnt_1 <= 0;
+      ed_cnt_2 <= 0;
+      ed_cnt_3 <= 0;
     end
     else begin
       state_1 <= nextstate_1;
       state_2 <= nextstate_2;
       state_3 <= nextstate_3;
+      ed_cnt_1 <= err_det_1 ? voted_ed_cnt_1 + 1 : voted_ed_cnt_1;
+      ed_cnt_2 <= err_det_2 ? voted_ed_cnt_2 + 1 : voted_ed_cnt_2;
+      ed_cnt_3 <= err_det_3 ? voted_ed_cnt_3 + 1 : voted_ed_cnt_3;
     end
   end
 

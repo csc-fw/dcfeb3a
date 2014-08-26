@@ -18,7 +18,11 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module auto_load_const(
+module auto_load_const #(
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
+)
+(
     input CLK,
     input RST,
     input BUSY,
@@ -60,8 +64,11 @@ always @(posedge CLK or posedge RST) begin
 end
 
 
-	auto_load_FSM #(.MAX_ADDR(6'd33))
-	auto_load_FSM_i(
+generate
+if(TMR==1) 
+begin : BPI_intrf_FSM_TMR
+auto_load_FSM_TMR #(.MAX_ADDR(6'd33))
+auto_load_FSM_i(
   .AL_CNT(AL_CNT),
   .ABORTED(al_aborted),
   .AL_ENA(AUTO_LOAD_ENA),
@@ -74,5 +81,24 @@ end
   .RST(RST),
   .START(AL_START)
 );
+end
+else 
+begin : BPI_intrf_FSM
+auto_load_FSM #(.MAX_ADDR(6'd33))
+auto_load_FSM_i(
+  .AL_CNT(AL_CNT),
+  .ABORTED(al_aborted),
+  .AL_ENA(AUTO_LOAD_ENA),
+  .CLR_AL_DONE(CLR_AL_DONE),
+  .COMPLETED(al_completed),
+  .EXECUTE(AL_EXECUTE),
+  .AL_DONE(AL_DONE),
+  .BUSY(BUSY),
+  .CLK(CLK),
+  .RST(RST),
+  .START(AL_START)
+);
+end
+endgenerate
 
 endmodule

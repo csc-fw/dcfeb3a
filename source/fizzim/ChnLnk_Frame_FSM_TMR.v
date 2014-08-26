@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:05 at 10:28:09 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:06:20 (www.fizzim.com)
 
-module ChnLnk_Frame_FSM (
+module ChnLnk_Frame_FSM_TMR (
   output CLR_CRC,
   output LAST_WRD,
   output RD,
@@ -33,9 +33,9 @@ module ChnLnk_Frame_FSM (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
-  assign voted_state_1 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_2 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_3 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
   assign FRM_STATE = voted_state_1;
 
@@ -66,15 +66,16 @@ module ChnLnk_Frame_FSM (
   (* syn_keep = "true" *)      wire [6:0] voted_seqn_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign CLR_CRC    = (CLR_CRC_1  & CLR_CRC_2 ) | (CLR_CRC_2  & CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_3 ); // Majority logic
-  assign LAST_WRD   = (LAST_WRD_1 & LAST_WRD_2) | (LAST_WRD_2 & LAST_WRD_3) | (LAST_WRD_1 & LAST_WRD_3); // Majority logic
-  assign RD         = (RD_1       & RD_2      ) | (RD_2       & RD_3      ) | (RD_1       & RD_3      ); // Majority logic
-  assign SEQ        = (SEQ_1      & SEQ_2     ) | (SEQ_2      & SEQ_3     ) | (SEQ_1      & SEQ_3     ); // Majority logic
-  assign VALID      = (VALID_1    & VALID_2   ) | (VALID_2    & VALID_3   ) | (VALID_1    & VALID_3   ); // Majority logic
-  assign voted_seqn_1 = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
-  assign voted_seqn_2 = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
-  assign voted_seqn_3 = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
+  assign CLR_CRC  = (CLR_CRC_1  & CLR_CRC_2 ) | (CLR_CRC_2  & CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_3 ); // Majority logic
+  assign LAST_WRD = (LAST_WRD_1 & LAST_WRD_2) | (LAST_WRD_2 & LAST_WRD_3) | (LAST_WRD_1 & LAST_WRD_3); // Majority logic
+  assign RD       = (RD_1       & RD_2      ) | (RD_2       & RD_3      ) | (RD_1       & RD_3      ); // Majority logic
+  assign SEQ      = (SEQ_1      & SEQ_2     ) | (SEQ_2      & SEQ_3     ) | (SEQ_1      & SEQ_3     ); // Majority logic
+  assign VALID    = (VALID_1    & VALID_2   ) | (VALID_2    & VALID_3   ) | (VALID_1    & VALID_3   ); // Majority logic
+  assign voted_seqn_1     = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
+  assign voted_seqn_2     = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
+  assign voted_seqn_3     = (seqn_1     & seqn_2    ) | (seqn_2     & seqn_3    ) | (seqn_1     & seqn_3    ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

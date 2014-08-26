@@ -19,7 +19,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module Clock_sources #(
-	parameter Simulation = 0
+	parameter Simulation = 0,
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
 )(
     input CMS_CLK_N,
     input CMS_CLK_P,
@@ -68,6 +70,7 @@ module Clock_sources #(
     output DAQ_MMCM_LOCK,
     output STRTUP_CLK,
     output EOS,
+	 output [15:0] CMP_PHS_ERRCNT,
 	output reg resync_d1,
 	output lead_edg_resync,
 	output reg lead_edg_resync_d1,
@@ -420,6 +423,39 @@ end
 			
 	end
 
+generate
+if(TMR==1 && TMR_Err_Det==1) 
+begin : Comp_Phase_FSM_TMR_Err_Det
+   dyn_phase_shift_FSM_TMR_Err_Det
+	Comp_Phase_FSM(
+     .BUSY(cmp_phs_busy),
+     .PSEN(cmp_phs_psen),
+     .DYN_PHS_STATE(cmp_phs_state),
+	  .TMR_ERR_COUNT(CMP_PHS_ERRCNT),
+     .CLK(CLK40),
+     .LOCKED(TRG_MMCM_LOCK),
+     .PH_CHANGE(CMP_PHS_CHANGE),
+     .PS_DONE(cmp_phs_psdone),
+     .RST(cmp_phs_rst)
+);
+end
+else if(TMR==1) 
+begin : Comp_Phase_FSM_TMR
+   dyn_phase_shift_FSM_TMR
+	Comp_Phase_FSM(
+     .BUSY(cmp_phs_busy),
+     .PSEN(cmp_phs_psen),
+     .DYN_PHS_STATE(cmp_phs_state),
+     .CLK(CLK40),
+     .LOCKED(TRG_MMCM_LOCK),
+     .PH_CHANGE(CMP_PHS_CHANGE),
+     .PS_DONE(cmp_phs_psdone),
+     .RST(cmp_phs_rst)
+);
+assign CMP_PHS_ERRCNT = 0;
+end
+else 
+begin : Comp_Phase_FSM
    dyn_phase_shift_FSM
 	Comp_Phase_FSM(
      .BUSY(cmp_phs_busy),
@@ -431,5 +467,8 @@ end
      .PS_DONE(cmp_phs_psdone),
      .RST(cmp_phs_rst)
 );
+assign CMP_PHS_ERRCNT = 0;
+end
+endgenerate
 
 endmodule

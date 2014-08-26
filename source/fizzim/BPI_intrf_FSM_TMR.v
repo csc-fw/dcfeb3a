@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:08 at 14:37:52 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:16:57 (www.fizzim.com)
 
-module BPI_intrf_FSM (
+module BPI_intrf_FSM_TMR (
   output BUSY,
   output CAP,
   output E,
@@ -68,14 +68,15 @@ module BPI_intrf_FSM (
   (* syn_preserve = "true" *)  reg W_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign BUSY   = (BUSY_1 & BUSY_2) | (BUSY_2 & BUSY_3) | (BUSY_1 & BUSY_3); // Majority logic
-  assign CAP    = (CAP_1  & CAP_2 ) | (CAP_2  & CAP_3 ) | (CAP_1  & CAP_3 ); // Majority logic
-  assign E      = (E_1    & E_2   ) | (E_2    & E_3   ) | (E_1    & E_3   ); // Majority logic
-  assign G      = (G_1    & G_2   ) | (G_2    & G_3   ) | (G_1    & G_3   ); // Majority logic
-  assign L      = (L_1    & L_2   ) | (L_2    & L_3   ) | (L_1    & L_3   ); // Majority logic
-  assign LOAD   = (LOAD_1 & LOAD_2) | (LOAD_2 & LOAD_3) | (LOAD_1 & LOAD_3); // Majority logic
-  assign W      = (W_1    & W_2   ) | (W_2    & W_3   ) | (W_1    & W_3   ); // Majority logic
+  assign BUSY = (BUSY_1 & BUSY_2) | (BUSY_2 & BUSY_3) | (BUSY_1 & BUSY_3); // Majority logic
+  assign CAP  = (CAP_1  & CAP_2 ) | (CAP_2  & CAP_3 ) | (CAP_1  & CAP_3 ); // Majority logic
+  assign E    = (E_1    & E_2   ) | (E_2    & E_3   ) | (E_1    & E_3   ); // Majority logic
+  assign G    = (G_1    & G_2   ) | (G_2    & G_3   ) | (G_1    & G_3   ); // Majority logic
+  assign L    = (L_1    & L_2   ) | (L_2    & L_3   ) | (L_1    & L_3   ); // Majority logic
+  assign LOAD = (LOAD_1 & LOAD_2) | (LOAD_2 & LOAD_3) | (LOAD_1 & LOAD_3); // Majority logic
+  assign W    = (W_1    & W_2   ) | (W_2    & W_3   ) | (W_1    & W_3   ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

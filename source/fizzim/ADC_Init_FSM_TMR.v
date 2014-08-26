@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:18 at 11:48:56 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:52:12 (www.fizzim.com)
 
-module ADC_Init_FSM 
+module ADC_Init_FSM_TMR 
   #(
     parameter TIME_OUT = 12'd1000
   )(
@@ -32,9 +32,9 @@ module ADC_Init_FSM
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
-  assign voted_state_1 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_2 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_3 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -60,14 +60,15 @@ module ADC_Init_FSM
   (* syn_keep = "true" *)      wire [4:0] voted_cnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign ADC_INIT   = (ADC_INIT_1 & ADC_INIT_2) | (ADC_INIT_2 & ADC_INIT_3) | (ADC_INIT_1 & ADC_INIT_3); // Majority logic
-  assign ADC_RST    = (ADC_RST_1  & ADC_RST_2 ) | (ADC_RST_2  & ADC_RST_3 ) | (ADC_RST_1  & ADC_RST_3 ); // Majority logic
-  assign INC_TMR    = (INC_TMR_1  & INC_TMR_2 ) | (INC_TMR_2  & INC_TMR_3 ) | (INC_TMR_1  & INC_TMR_3 ); // Majority logic
-  assign RUN        = (RUN_1      & RUN_2     ) | (RUN_2      & RUN_3     ) | (RUN_1      & RUN_3     ); // Majority logic
-  assign voted_cnt_1 = (cnt_1      & cnt_2     ) | (cnt_2      & cnt_3     ) | (cnt_1      & cnt_3     ); // Majority logic
-  assign voted_cnt_2 = (cnt_1      & cnt_2     ) | (cnt_2      & cnt_3     ) | (cnt_1      & cnt_3     ); // Majority logic
-  assign voted_cnt_3 = (cnt_1      & cnt_2     ) | (cnt_2      & cnt_3     ) | (cnt_1      & cnt_3     ); // Majority logic
+  assign ADC_INIT = (ADC_INIT_1 & ADC_INIT_2) | (ADC_INIT_2 & ADC_INIT_3) | (ADC_INIT_1 & ADC_INIT_3); // Majority logic
+  assign ADC_RST  = (ADC_RST_1  & ADC_RST_2 ) | (ADC_RST_2  & ADC_RST_3 ) | (ADC_RST_1  & ADC_RST_3 ); // Majority logic
+  assign INC_TMR  = (INC_TMR_1  & INC_TMR_2 ) | (INC_TMR_2  & INC_TMR_3 ) | (INC_TMR_1  & INC_TMR_3 ); // Majority logic
+  assign RUN      = (RUN_1      & RUN_2     ) | (RUN_2      & RUN_3     ) | (RUN_1      & RUN_3     ); // Majority logic
+  assign voted_cnt_1      = (cnt_1      & cnt_2     ) | (cnt_2      & cnt_3     ) | (cnt_1      & cnt_3     ); // Majority logic
+  assign voted_cnt_2      = (cnt_1      & cnt_2     ) | (cnt_2      & cnt_3     ) | (cnt_1      & cnt_3     ); // Majority logic
+  assign voted_cnt_3      = (cnt_1      & cnt_2     ) | (cnt_2      & cnt_3     ) | (cnt_1      & cnt_3     ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

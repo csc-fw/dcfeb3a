@@ -1,10 +1,11 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:28:51 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:29:04 (www.fizzim.com)
 
-module dyn_phase_shift_FSM_TMR (
+module dyn_phase_shift_FSM_TMR_Err_Det (
   output BUSY,
   output PSEN,
   output wire [2:0] DYN_PHS_STATE,
+  output wire [15:0] TMR_ERR_COUNT,
   input CLK,
   input LOCKED,
   input PH_CHANGE,
@@ -28,11 +29,32 @@ module dyn_phase_shift_FSM_TMR (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
+  (* syn_keep = "true" *) wire err_det_state_1;
+  (* syn_keep = "true" *) wire err_det_state_2;
+  (* syn_keep = "true" *) wire err_det_state_3;
+
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_1;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_2;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_3;
+
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_1;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_2;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_3;
+
   assign voted_state_1 = (state_1 & state_2) | (state_2 & state_3) | (state_1 & state_3); // Majority logic
   assign voted_state_2 = (state_1 & state_2) | (state_2 & state_3) | (state_1 & state_3); // Majority logic
   assign voted_state_3 = (state_1 & state_2) | (state_2 & state_3) | (state_1 & state_3); // Majority logic
 
+  assign err_det_state_1 = |(~((~state_1 & ~state_2 & ~state_3) | (state_1 & state_2 & state_3))); // error detection logic
+  assign err_det_state_2 = |(~((~state_1 & ~state_2 & ~state_3) | (state_1 & state_2 & state_3))); // error detection logic
+  assign err_det_state_3 = |(~((~state_1 & ~state_2 & ~state_3) | (state_1 & state_2 & state_3))); // error detection logic
+
+  assign voted_ed_cnt_1 = (ed_cnt_1 & ed_cnt_2) | (ed_cnt_2 & ed_cnt_3) | (ed_cnt_1 & ed_cnt_3); // Majority logic
+  assign voted_ed_cnt_2 = (ed_cnt_1 & ed_cnt_2) | (ed_cnt_2 & ed_cnt_3) | (ed_cnt_1 & ed_cnt_3); // Majority logic
+  assign voted_ed_cnt_3 = (ed_cnt_1 & ed_cnt_2) | (ed_cnt_2 & ed_cnt_3) | (ed_cnt_1 & ed_cnt_3); // Majority logic
+
   assign DYN_PHS_STATE = voted_state_1;
+  assign TMR_ERR_COUNT = voted_ed_cnt_1;
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -44,12 +66,33 @@ module dyn_phase_shift_FSM_TMR (
   (* syn_preserve = "true" *)  reg PSEN_1;
   (* syn_preserve = "true" *)  reg PSEN_2;
   (* syn_preserve = "true" *)  reg PSEN_3;
+  (* syn_keep = "true" *)  wire err_det_BUSY_1;
+  (* syn_keep = "true" *)  wire err_det_BUSY_2;
+  (* syn_keep = "true" *)  wire err_det_BUSY_3;
+  (* syn_keep = "true" *)  wire err_det_PSEN_1;
+  (* syn_keep = "true" *)  wire err_det_PSEN_2;
+  (* syn_keep = "true" *)  wire err_det_PSEN_3;
+  (* syn_keep = "true" *)  wire err_det_1;
+  (* syn_keep = "true" *)  wire err_det_2;
+  (* syn_keep = "true" *)  wire err_det_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign BUSY = (BUSY_1 & BUSY_2) | (BUSY_2 & BUSY_3) | (BUSY_1 & BUSY_3); // Majority logic
   assign PSEN = (PSEN_1 & PSEN_2) | (PSEN_2 & PSEN_3) | (PSEN_1 & PSEN_3); // Majority logic
 
   // Assignment of error detection logic to replicated signals
+  assign err_det_BUSY_1 =  (~((~BUSY_1 & ~BUSY_2 & ~BUSY_3) | (BUSY_1 & BUSY_2 & BUSY_3))); // error detection logic
+  assign err_det_BUSY_2 =  (~((~BUSY_1 & ~BUSY_2 & ~BUSY_3) | (BUSY_1 & BUSY_2 & BUSY_3))); // error detection logic
+  assign err_det_BUSY_3 =  (~((~BUSY_1 & ~BUSY_2 & ~BUSY_3) | (BUSY_1 & BUSY_2 & BUSY_3))); // error detection logic
+  assign err_det_PSEN_1 =  (~((~PSEN_1 & ~PSEN_2 & ~PSEN_3) | (PSEN_1 & PSEN_2 & PSEN_3))); // error detection logic
+  assign err_det_PSEN_2 =  (~((~PSEN_1 & ~PSEN_2 & ~PSEN_3) | (PSEN_1 & PSEN_2 & PSEN_3))); // error detection logic
+  assign err_det_PSEN_3 =  (~((~PSEN_1 & ~PSEN_2 & ~PSEN_3) | (PSEN_1 & PSEN_2 & PSEN_3))); // error detection logic
+
+
+  // Assign 'OR' of all error detection signals
+  assign err_det_1 = err_det_state_1   | err_det_BUSY_1   | err_det_PSEN_1  ;
+  assign err_det_2 = err_det_state_2   | err_det_BUSY_2   | err_det_PSEN_2  ;
+  assign err_det_3 = err_det_state_3   | err_det_BUSY_3   | err_det_PSEN_3  ;
 
   // comb always block
   always @* begin
@@ -99,11 +142,17 @@ module dyn_phase_shift_FSM_TMR (
       state_1 <= Idle;
       state_2 <= Idle;
       state_3 <= Idle;
+      ed_cnt_1 <= 0;
+      ed_cnt_2 <= 0;
+      ed_cnt_3 <= 0;
     end
     else begin
       state_1 <= nextstate_1;
       state_2 <= nextstate_2;
       state_3 <= nextstate_3;
+      ed_cnt_1 <= err_det_1 ? voted_ed_cnt_1 + 1 : voted_ed_cnt_1;
+      ed_cnt_2 <= err_det_2 ? voted_ed_cnt_2 + 1 : voted_ed_cnt_2;
+      ed_cnt_3 <= err_det_3 ? voted_ed_cnt_3 + 1 : voted_ed_cnt_3;
     end
   end
 

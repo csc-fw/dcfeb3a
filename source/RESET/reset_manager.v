@@ -4,7 +4,8 @@
 module reset_manager #(
 	parameter Strt_dly = 20'h7FFFF,
 	parameter POR_tmo = 7'd120,
-	parameter ADC_Init_tmo = 12'd1000 // 10ms
+	parameter ADC_Init_tmo = 12'd1000, // 10ms
+	parameter TMR = 0
 )(
     input STUP_CLK,
     input CLK,
@@ -101,29 +102,6 @@ always @(posedge STUP_CLK) begin
 	qpll_lock_r2     <= qpll_lock_r1;
 end
 
-Pow_on_Rst_FSM #(
-		.Strt_dly(Strt_dly),
-		.POR_tmo(POR_tmo)
-)
-POW_on_Reset_FSM_i (
-	 // Outputs
-	.ADC_INIT_RST(adc_init_rst_i),
-	.AL_START(al_start_i),
-	.MMCM_RST(MMCM_RST),
-	.POR(por_i),
-	.RUN(run_i),
-	.POR_STATE(POR_STATE),
-	// Inputs
-   .ADC_RDY(adc_rdy_r2),
-	.AL_DONE(al_done_r2),
-	.BPI_SEQ_IDLE(bpi_seq_idle_r2),
-	.CLK(STUP_CLK),
-	.EOS(EOS),
-	.MMCM_LOCK(daq_mmcm_lock_r2),
-	.QPLL_LOCK(qpll_lock_r2),
-	.RESTART_ALL(restart_all)
-);
-
 // Synchronize outputs to 40MHz clock 
 
 always @(posedge CLK or negedge EOS) begin
@@ -150,33 +128,112 @@ always @(posedge CLK or negedge EOS) begin
 	end
 end
 
-												 
-Trg_Clock_Strt_FSM
-Trg_Clock_Strt_FSM_i (
-	 // Outputs
-	.GTX_RST(TRG_GTXTXRESET),
-	.TRG_RST(TRG_RST),
-	// Inputs
-	.CLK(COMP_CLK),
-	.CLK_PHS_CHNG(CMP_PHS_CHANGE),
-	.MMCM_LOCK(TRG_MMCM_LOCK),
-	.RST(SYS_RST),
-	.SYNC_DONE(TRG_SYNC_DONE)
-);
+generate
+if(TMR==1) 
+begin : RSTman_FSMs_TMR
+	Pow_on_Rst_FSM_TMR #(
+			.Strt_dly(Strt_dly),
+			.POR_tmo(POR_tmo)
+	)
+	POW_on_Reset_FSM_i (
+		 // Outputs
+		.ADC_INIT_RST(adc_init_rst_i),
+		.AL_START(al_start_i),
+		.MMCM_RST(MMCM_RST),
+		.POR(por_i),
+		.RUN(run_i),
+		.POR_STATE(POR_STATE),
+		// Inputs
+		.ADC_RDY(adc_rdy_r2),
+		.AL_DONE(al_done_r2),
+		.BPI_SEQ_IDLE(bpi_seq_idle_r2),
+		.CLK(STUP_CLK),
+		.EOS(EOS),
+		.MMCM_LOCK(daq_mmcm_lock_r2),
+		.QPLL_LOCK(qpll_lock_r2),
+		.RESTART_ALL(restart_all)
+	);
+													 
+	Trg_Clock_Strt_FSM_TMR
+	Trg_Clock_Strt_FSM_i (
+		 // Outputs
+		.GTX_RST(TRG_GTXTXRESET),
+		.TRG_RST(TRG_RST),
+		// Inputs
+		.CLK(COMP_CLK),
+		.CLK_PHS_CHNG(CMP_PHS_CHANGE),
+		.MMCM_LOCK(TRG_MMCM_LOCK),
+		.RST(SYS_RST),
+		.SYNC_DONE(TRG_SYNC_DONE)
+	);
 
-ADC_Init_FSM  #(.TIME_OUT(ADC_Init_tmo)) // 10ms  
-ADC_Init_FSM_i (
-	 // Outputs
-	.ADC_INIT(ADC_INIT),
-	.ADC_RST(ADC_RST),
-	.INC_TMR(inc_tmr),
-	.RUN(ADC_RDY),
-	// Inputs
-	.CLK(CLK),
-	.INIT_DONE(ADC_INIT_DONE),
-	.RST(adc_init_rst_r2),
-	.SLOW_CNT(dsr_tmr)
-);
+	ADC_Init_FSM_TMR  #(.TIME_OUT(ADC_Init_tmo)) // 10ms  
+	ADC_Init_FSM_i (
+		 // Outputs
+		.ADC_INIT(ADC_INIT),
+		.ADC_RST(ADC_RST),
+		.INC_TMR(inc_tmr),
+		.RUN(ADC_RDY),
+		// Inputs
+		.CLK(CLK),
+		.INIT_DONE(ADC_INIT_DONE),
+		.RST(adc_init_rst_r2),
+		.SLOW_CNT(dsr_tmr)
+	);
+end
+else 
+begin : RSTman_FSMs
+	Pow_on_Rst_FSM #(
+			.Strt_dly(Strt_dly),
+			.POR_tmo(POR_tmo)
+	)
+	POW_on_Reset_FSM_i (
+		 // Outputs
+		.ADC_INIT_RST(adc_init_rst_i),
+		.AL_START(al_start_i),
+		.MMCM_RST(MMCM_RST),
+		.POR(por_i),
+		.RUN(run_i),
+		.POR_STATE(POR_STATE),
+		// Inputs
+		.ADC_RDY(adc_rdy_r2),
+		.AL_DONE(al_done_r2),
+		.BPI_SEQ_IDLE(bpi_seq_idle_r2),
+		.CLK(STUP_CLK),
+		.EOS(EOS),
+		.MMCM_LOCK(daq_mmcm_lock_r2),
+		.QPLL_LOCK(qpll_lock_r2),
+		.RESTART_ALL(restart_all)
+	);
+													 
+	Trg_Clock_Strt_FSM
+	Trg_Clock_Strt_FSM_i (
+		 // Outputs
+		.GTX_RST(TRG_GTXTXRESET),
+		.TRG_RST(TRG_RST),
+		// Inputs
+		.CLK(COMP_CLK),
+		.CLK_PHS_CHNG(CMP_PHS_CHANGE),
+		.MMCM_LOCK(TRG_MMCM_LOCK),
+		.RST(SYS_RST),
+		.SYNC_DONE(TRG_SYNC_DONE)
+	);
+
+	ADC_Init_FSM  #(.TIME_OUT(ADC_Init_tmo)) // 10ms  
+	ADC_Init_FSM_i (
+		 // Outputs
+		.ADC_INIT(ADC_INIT),
+		.ADC_RST(ADC_RST),
+		.INC_TMR(inc_tmr),
+		.RUN(ADC_RDY),
+		// Inputs
+		.CLK(CLK),
+		.INIT_DONE(ADC_INIT_DONE),
+		.RST(adc_init_rst_r2),
+		.SLOW_CNT(dsr_tmr)
+	);
+end
+endgenerate
 
 
 always @(posedge CLK100KHZ or posedge SYS_RST) begin

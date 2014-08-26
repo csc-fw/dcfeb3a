@@ -18,7 +18,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module al_cdac(
+module al_cdac #(
+	parameter TMR = 0
+)(
     input CLK40,
     input CLK1MHZ,
     input RST,
@@ -59,14 +61,30 @@ always @(negedge CLK1MHZ or posedge RST) begin
 			cth_shft <= cth_shft;
 end
 
-comp_thresh_load_FSM         //States change on negative edge of clock
-comp_thresh_load_FSM_i(
-  .SET_DONE(set_done),
-  .SHFT_ENA(SHCK_ENA),
-  .CLK(CLK1MHZ),
-  .RST(RST),
-  .START(load_cthresh) 
-);
+generate
+if(TMR==1) 
+begin : CmpTh_FSM_TMR
+	comp_thresh_load_FSM_TMR         //States change on negative edge of clock
+	comp_thresh_load_FSM_i(
+	  .SET_DONE(set_done),
+	  .SHFT_ENA(SHCK_ENA),
+	  .CLK(CLK1MHZ),
+	  .RST(RST),
+	  .START(load_cthresh) 
+	);
+end
+else 
+begin : CmpTh_FSM
+	comp_thresh_load_FSM         //States change on negative edge of clock
+	comp_thresh_load_FSM_i(
+	  .SET_DONE(set_done),
+	  .SHFT_ENA(SHCK_ENA),
+	  .CLK(CLK1MHZ),
+	  .RST(RST),
+	  .START(load_cthresh) 
+	);
+end
+endgenerate
   
 always @(posedge CLK40 or posedge RST) begin
 	if(RST)

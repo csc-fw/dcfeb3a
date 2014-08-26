@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:17 at 17:37:35 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:52:38 (www.fizzim.com)
 
-module Pow_on_Rst_FSM 
+module Pow_on_Rst_FSM_TMR 
   #(
     parameter POR_tmo = 120,
     parameter Strt_dly = 20'h7FFFF
@@ -42,9 +42,9 @@ module Pow_on_Rst_FSM
   (* syn_keep = "true" *) wire [3:0] voted_state_2;
   (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
-  assign voted_state_1  = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
-  assign voted_state_2  = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
-  assign voted_state_3  = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
+  assign voted_state_1        = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
+  assign voted_state_2        = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
+  assign voted_state_3        = (state_1        & state_2       ) | (state_2        & state_3       ) | (state_1        & state_3       ); // Majority logic
 
   assign POR_STATE = voted_state_1;
 
@@ -81,18 +81,19 @@ module Pow_on_Rst_FSM
   (* syn_keep = "true" *)      wire [19:0] voted_strtup_cnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign ADC_INIT_RST   = (ADC_INIT_RST_1 & ADC_INIT_RST_2) | (ADC_INIT_RST_2 & ADC_INIT_RST_3) | (ADC_INIT_RST_1 & ADC_INIT_RST_3); // Majority logic
-  assign AL_START       = (AL_START_1     & AL_START_2    ) | (AL_START_2     & AL_START_3    ) | (AL_START_1     & AL_START_3    ); // Majority logic
-  assign MMCM_RST       = (MMCM_RST_1     & MMCM_RST_2    ) | (MMCM_RST_2     & MMCM_RST_3    ) | (MMCM_RST_1     & MMCM_RST_3    ); // Majority logic
-  assign POR            = (POR_1          & POR_2         ) | (POR_2          & POR_3         ) | (POR_1          & POR_3         ); // Majority logic
-  assign RUN            = (RUN_1          & RUN_2         ) | (RUN_2          & RUN_3         ) | (RUN_1          & RUN_3         ); // Majority logic
-  assign voted_por_cnt_1 = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
-  assign voted_por_cnt_2 = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
-  assign voted_por_cnt_3 = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
-  assign voted_strtup_cnt_1 = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
-  assign voted_strtup_cnt_2 = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
-  assign voted_strtup_cnt_3 = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
+  assign ADC_INIT_RST = (ADC_INIT_RST_1 & ADC_INIT_RST_2) | (ADC_INIT_RST_2 & ADC_INIT_RST_3) | (ADC_INIT_RST_1 & ADC_INIT_RST_3); // Majority logic
+  assign AL_START     = (AL_START_1     & AL_START_2    ) | (AL_START_2     & AL_START_3    ) | (AL_START_1     & AL_START_3    ); // Majority logic
+  assign MMCM_RST     = (MMCM_RST_1     & MMCM_RST_2    ) | (MMCM_RST_2     & MMCM_RST_3    ) | (MMCM_RST_1     & MMCM_RST_3    ); // Majority logic
+  assign POR          = (POR_1          & POR_2         ) | (POR_2          & POR_3         ) | (POR_1          & POR_3         ); // Majority logic
+  assign RUN          = (RUN_1          & RUN_2         ) | (RUN_2          & RUN_3         ) | (RUN_1          & RUN_3         ); // Majority logic
+  assign voted_por_cnt_1      = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
+  assign voted_por_cnt_2      = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
+  assign voted_por_cnt_3      = (por_cnt_1      & por_cnt_2     ) | (por_cnt_2      & por_cnt_3     ) | (por_cnt_1      & por_cnt_3     ); // Majority logic
+  assign voted_strtup_cnt_1   = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
+  assign voted_strtup_cnt_2   = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
+  assign voted_strtup_cnt_3   = (strtup_cnt_1   & strtup_cnt_2  ) | (strtup_cnt_2   & strtup_cnt_3  ) | (strtup_cnt_1   & strtup_cnt_3  ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

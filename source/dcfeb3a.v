@@ -22,11 +22,13 @@ module dcfeb3a #(
 	parameter Simulation = 0,
 	parameter Strt_dly = 20'h7FFFF,
 	parameter POR_tmo = 7'd120,
-	parameter ADC_Init_tmo = 12'd1000 // 10ms
+	parameter ADC_Init_tmo = 12'd1000, // 10ms
 //	parameter Simulation = 1,
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
-//	parameter ADC_Init_tmo = 12'd1 
+//	parameter ADC_Init_tmo = 12'd1, 
+	parameter TMR = 1,
+	parameter TMR_Err_Det = 1
 	)(
 
 	//Clocks
@@ -468,9 +470,17 @@ endgenerate
 	wire cmp_phs_change;
 	wire cmp_phs_rst;
 	wire [2:0] cmp_phs_state;
+	wire [15:0] cmp_phs_errcnt;
+	wire [15:0] fifo_load_errcnt;
+	wire [15:0] xf2rb_errcnt;
+	wire [15:0] rgtrns_errcnt;
+	wire [15:0] smpprc_errcnt;
+	wire [15:0] frmprc_errcnt;
 	
 	Clock_sources #(
-		.Simulation(Simulation)
+		.Simulation(Simulation),
+		.TMR(TMR),
+		.TMR_Err_Det(TMR_Err_Det)
 	)
 	Clk_src1(
 	   // External inputs
@@ -512,6 +522,7 @@ endgenerate
 		.DAQ_MMCM_LOCK(daq_mmcm_lock),
 		.STRTUP_CLK(strtup_clk),           // internal config clock for power on state machines in reset manager
 		.EOS(eos),                          // End Of Startup
+		.CMP_PHS_ERRCNT(cmp_phs_errcnt),
 		.resync_d1(resync_d1),
 		.lead_edg_resync(lead_edg_resync),
 		.lead_edg_resync_d1(lead_edg_resync_d1),
@@ -621,7 +632,9 @@ end
  	assign bpi_rst = sys_rst || bpi_jrst;
 
 	BPI_ctrl #(
-	.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE)
+		.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE),
+		.TMR(TMR),
+		.TMR_Err_Det(TMR_Err_Det)
 	) 
 	BPI_ctrl_i(
 	 .BPI_VIO_CNTRL(bpi_vio_c6),
@@ -675,7 +688,10 @@ wire clr_al_done;
 assign csp_al_start = 1'b0;
 assign al_start = por_al_start | csp_al_start;
 
-   auto_load_const 
+   auto_load_const #(
+		.TMR(TMR),
+		.TMR_Err_Det(TMR_Err_Det)
+	) 
 	auto_load_const1 (
 		.CLK(clk40),
 		.RST(sys_rst),
@@ -715,7 +731,10 @@ end
 	wire clk100khz;
 
 	 
-   bpi_interface 
+   bpi_interface #(
+		.TMR(TMR),
+		.TMR_Err_Det(TMR_Err_Det)
+	)
 	bpi_intf1 (
 		.CLK(clk40),
 		.CLK1MHZ(clk1mhz), 
@@ -828,7 +847,8 @@ end
 
 	
 	adc_data_input_gen_csp #(
-	.USE_CHIPSCOPE(USE_DESER_CHIPSCOPE)
+		.USE_CHIPSCOPE(USE_DESER_CHIPSCOPE),
+		.TMR(TMR)
 	)
 	adc_data_in1(
 		.CSP_G1LA0_CNTRL(g1la0_c0),
@@ -992,7 +1012,8 @@ end
 //    );
 
 pipeline_gen_csp #(
-	.USE_CHIPSCOPE(USE_PIPE_CHIPSCOPE)
+		.USE_CHIPSCOPE(USE_PIPE_CHIPSCOPE),
+		.TMR(TMR)
 	)
 	pipeline1(
 		.CSP_LA0_CNTRL(pipe_la0_c0),
@@ -1068,16 +1089,33 @@ assign rng_xfr_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out ||
 assign rst_resync = sys_rst || resync;
 
 
-DAQ_FIFO_Rst_FSM // reset all DAQ FIFOs on Resync
-DAQ_FIFO_Rst_FSM_i (
-	.DONE(daq_fifo_rst_done),
-	.FIFO_RST(daq_fifo_rst),
-	.CLK(clk40),
-	.RST(rst_resync) 
-);
+generate
+if(TMR==1) 
+begin : DAQFIFORst_FSM_TMR
+	DAQ_FIFO_Rst_FSM_TMR // reset all DAQ FIFOs on Resync
+	DAQ_FIFO_Rst_FSM_i (
+		.DONE(daq_fifo_rst_done),
+		.FIFO_RST(daq_fifo_rst),
+		.CLK(clk40),
+		.RST(rst_resync) 
+	);
+end
+else 
+begin : DAQFIFORst_FSM
+	DAQ_FIFO_Rst_FSM // reset all DAQ FIFOs on Resync
+	DAQ_FIFO_Rst_FSM_i (
+		.DONE(daq_fifo_rst_done),
+		.FIFO_RST(daq_fifo_rst),
+		.CLK(clk40),
+		.RST(rst_resync) 
+	);
+end
+endgenerate
 
 fifo16ch_wide #(
-	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE)
+		.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE),
+		.TMR(TMR),
+		.TMR_Err_Det(TMR_Err_Det)
 	)
 fifo1 (
 	// ChipScope Pro signlas
@@ -1109,6 +1147,7 @@ fifo1 (
 	.DOUT_16CH(doutfifo),           // 192 bit wide output at 160 MHz for 6 X (n samples)
 	.L1A_CNT(l1a_cnt),
 	.L1A_MTCH_CNT(l1a_mtch_cnt),
+	.FIFO_LOAD_ERRCNT(fifo_load_errcnt),
 	.fmt(f16_mt)
 	);
 
@@ -1138,8 +1177,10 @@ wire txack;
  
 
 xfer2ringbuf  #(
-	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE)
-	)
+	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE),
+	.TMR(TMR),
+	.TMR_Err_Det(TMR_Err_Det)
+)
 xfer2ringbuf_i(   // Transfer data from FIFO1 to readout ring buffer at 160 MHz
 	// ChipScope Pro signlas
 	.LA_CNTRL(rng_xfr_la0_c3),
@@ -1156,7 +1197,8 @@ xfer2ringbuf_i(   // Transfer data from FIFO1 to readout ring buffer at 160 MHz
 	.RD_ENA(fifo1_rd_ena),
 	.L1A_RD_EN(l1a_rd_en),
 	.WREN(rdf_wren),
-	.DMUX(rdf_wdata)  // 12 bit data out
+	.DMUX(rdf_wdata),  // 12 bit data out
+	.XF2RB_ERRCNT(xf2rb_errcnt)
 	);
 	 
  /////////////////////////////////////////////////////////////////////////////
@@ -1175,8 +1217,10 @@ wire eth_evt_buf_afl;
 
 
 ringbuf #(
-	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE)
-	) 
+	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE),
+	.TMR(TMR),
+	.TMR_Err_Det(TMR_Err_Det)
+) 
 ringbuf_i(
 	// ChipScope Pro signlas
 	.LA_CNTRL(rng_buf_la0_c1),
@@ -1198,7 +1242,8 @@ ringbuf_i(
 	.L1A_EVT_PUSH(l1a_evt_push),
 	.RDATA(ff_data),             // 18 bits {movlp,ovrlp,ocnt,ring_out}
 	.DATA_PUSH(ff_push),
-	.WARN(ring_warn)
+	.WARN(ring_warn),
+	.RGTRNS_ERRCNT(rgtrns_errcnt)
    );
 
  /////////////////////////////////////////////////////////////////////////////
@@ -1216,8 +1261,9 @@ wire mlt_ovlp;
 wire ovlp_mux;
 
 chanlink_fifo  #(
-	.USE_CHIPSCOPE(USE_CHAN_LINK_CHIPSCOPE)
-	)
+	.USE_CHIPSCOPE(USE_CHAN_LINK_CHIPSCOPE),
+	.TMR(TMR)
+)
 chanlink_fifo_i(
 	// ChipScope Pro signlas
 	.LA_CNTRL(chn_lnk_la0_c0),
@@ -1250,8 +1296,10 @@ chanlink_fifo_i(
 
 
 eth_fifo  #(
-	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE)
-	)
+	.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE),
+	.TMR(TMR),
+	.TMR_Err_Det(TMR_Err_Det)
+)
 eth_fifo_i(
 	// ChipScope Pro signlas
 	.LA_CNTRL(rng_eth_la0_c2),
@@ -1273,7 +1321,8 @@ eth_fifo_i(
 	.EVT_BUF_AMT(eth_evt_buf_amt),
 	.EVT_BUF_AFL(eth_evt_buf_afl),
 	.TXD(txd),                         // 16-bit data for frame processor
-	.TXD_VLD(txd_vld)                  // data valid signal
+	.TXD_VLD(txd_vld),                 // data valid signal
+	.SMPPRC_ERRCNT(smpprc_errcnt)
    );
 	
 wire [2:0] jdaq_prbs_tst;
@@ -1287,7 +1336,9 @@ wire jdaq_inj_err;
 
 daq_optical_out #(
 	.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE),
-	.SIM_SPEEDUP(Simulation)
+	.SIM_SPEEDUP(Simulation),
+	.TMR(TMR),
+	.TMR_Err_Det(TMR_Err_Det)
 )
 daq_optical_out_i (
 	.DAQ_TX_VIO_CNTRL(DAQ_tx_vio_c3),
@@ -1313,7 +1364,8 @@ daq_optical_out_i (
 	.CSP_MAN_CTRL(csp_man_ctrl),        // Chip Scope Pro manual control for DAQ rate, L1A, and packet headers;
 	.CSP_USE_ANY_L1A(csp_use_any_l1a),     // Flag to send data on any L1A
 	.CSP_L1A_HEAD(csp_l1a_head),        // Flag to send L1A number at the begining of the packet
-	.DAQ_DATA_CLK(daq_data_clk)
+	.DAQ_DATA_CLK(daq_data_clk),
+	.FRMPRC_ERRCNT(frmprc_errcnt)
   );
 
 //	daq_transceiver_io #(
@@ -1806,7 +1858,8 @@ endgenerate
 	reset_manager  #(
 		.Strt_dly(Strt_dly),
 		.POR_tmo(POR_tmo),
-		.ADC_Init_tmo(ADC_Init_tmo)
+		.ADC_Init_tmo(ADC_Init_tmo),
+		.TMR(TMR)
 	)
 	rsm1(
 		.STUP_CLK(strtup_clk),
@@ -1865,7 +1918,9 @@ endgenerate
 	wire [15:0] sem_status;
 
 	
-	jtag_access 
+	jtag_access  #(
+		.TMR(TMR)
+	) 
 	jtag_acc1(
 		
 		.CLK1MHZ(clk1mhz),  // 1 MHz Clock
@@ -1965,7 +2020,9 @@ endgenerate
 	 wire [1:0] csp_msel;
 	 wire csp_rd_ctrl;
 	 
-   adc_config
+   adc_config  #(
+		.TMR(TMR)
+	) 
 	adc_config1 (
 		.CLK(clk20),         // 20 MHz Clock
 		.RST(adc_init_rst),       // Reset

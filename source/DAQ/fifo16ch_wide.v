@@ -19,8 +19,10 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module fifo16ch_wide #(
-	parameter USE_CHIPSCOPE = 1
-	)(
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
+)(
 	inout [35:0] LA_CNTRL,
 	input CLK40,
 	input RDCLK,
@@ -48,6 +50,7 @@ module fifo16ch_wide #(
 	output [191:0] DOUT_16CH,
 	output [23:0] L1A_CNT,
 	output [11:0] L1A_MTCH_CNT,
+   output [15:0] FIFO_LOAD_ERRCNT,
 	output [15:0] fmt
 	);
 	 
@@ -267,6 +270,35 @@ endgenerate
 	end
 
 
+generate
+if(TMR==1 && TMR_Err_Det==1) 
+begin : Load_FIFO_FSM_TMR_Err_Det
+	FIFO_Load_FSM_TMR_Err_Det 
+	FIFO_Load_FSM1(
+     .SEL(sel),
+     .WRENA(wren),
+	  .TMR_ERR_COUNT(FIFO_LOAD_ERRCNT),
+     .CLK(WRCLK),
+     .RST(RST_RESYNC),
+	  .SAMP_MAX(SAMP_MAX),
+     .START(evt_start) 
+	);
+end
+else if(TMR==1) 
+begin : Load_FIFO_FSM_TMR
+	FIFO_Load_FSM_TMR 
+	FIFO_Load_FSM1(
+     .SEL(sel),
+     .WRENA(wren),
+     .CLK(WRCLK),
+     .RST(RST_RESYNC),
+	  .SAMP_MAX(SAMP_MAX),
+     .START(evt_start) 
+	);
+assign FIFO_LOAD_ERRCNT = 0;
+end
+else 
+begin : Load_FIFO_FSM
 	FIFO_Load_FSM 
 	FIFO_Load_FSM1(
      .SEL(sel),
@@ -275,7 +307,10 @@ endgenerate
      .RST(RST_RESYNC),
 	  .SAMP_MAX(SAMP_MAX),
      .START(evt_start) 
-);
+	);
+assign FIFO_LOAD_ERRCNT = 0;
+end
+endgenerate
   
 
 genvar Ch;

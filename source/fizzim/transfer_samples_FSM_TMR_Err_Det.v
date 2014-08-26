@@ -1,11 +1,12 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 13:15:06 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 13:15:41 (www.fizzim.com)
 
-module transfer_samples_FSM_TMR (
+module transfer_samples_FSM_TMR_Err_Det (
   output wire [3:0] CHAN,
   output L1A_RD_EN,
   output RDENA,
   output wire [2:0] XSTATE,
+  output wire [15:0] TMR_ERR_COUNT,
   input CLK,
   input JTAG_MODE,
   input RDY,
@@ -29,11 +30,32 @@ module transfer_samples_FSM_TMR (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
+  (* syn_keep = "true" *) wire err_det_state_1;
+  (* syn_keep = "true" *) wire err_det_state_2;
+  (* syn_keep = "true" *) wire err_det_state_3;
+
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_1;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_2;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_3;
+
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_1;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_2;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_3;
+
   assign voted_state_1     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
   assign voted_state_2     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
   assign voted_state_3     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
 
+  assign err_det_state_1     = |(~((~state_1     & ~state_2     & ~state_3    ) | (state_1     & state_2     & state_3    ))); // error detection logic
+  assign err_det_state_2     = |(~((~state_1     & ~state_2     & ~state_3    ) | (state_1     & state_2     & state_3    ))); // error detection logic
+  assign err_det_state_3     = |(~((~state_1     & ~state_2     & ~state_3    ) | (state_1     & state_2     & state_3    ))); // error detection logic
+
+  assign voted_ed_cnt_1    = (ed_cnt_1    & ed_cnt_2   ) | (ed_cnt_2    & ed_cnt_3   ) | (ed_cnt_1    & ed_cnt_3   ); // Majority logic
+  assign voted_ed_cnt_2    = (ed_cnt_1    & ed_cnt_2   ) | (ed_cnt_2    & ed_cnt_3   ) | (ed_cnt_1    & ed_cnt_3   ); // Majority logic
+  assign voted_ed_cnt_3    = (ed_cnt_1    & ed_cnt_2   ) | (ed_cnt_2    & ed_cnt_3   ) | (ed_cnt_1    & ed_cnt_3   ); // Majority logic
+
   assign XSTATE = voted_state_1;
+  assign TMR_ERR_COUNT = voted_ed_cnt_1;
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -60,6 +82,24 @@ module transfer_samples_FSM_TMR (
   (* syn_keep = "true" *)      wire [2:0] voted_cnt_1;
   (* syn_keep = "true" *)      wire [2:0] voted_cnt_2;
   (* syn_keep = "true" *)      wire [2:0] voted_cnt_3;
+  (* syn_keep = "true" *)  wire err_det_CHAN_1;
+  (* syn_keep = "true" *)  wire err_det_CHAN_2;
+  (* syn_keep = "true" *)  wire err_det_CHAN_3;
+  (* syn_keep = "true" *)  wire err_det_L1A_RD_EN_1;
+  (* syn_keep = "true" *)  wire err_det_L1A_RD_EN_2;
+  (* syn_keep = "true" *)  wire err_det_L1A_RD_EN_3;
+  (* syn_keep = "true" *)  wire err_det_RDENA_1;
+  (* syn_keep = "true" *)  wire err_det_RDENA_2;
+  (* syn_keep = "true" *)  wire err_det_RDENA_3;
+  (* syn_keep = "true" *)  wire err_det_chip_1;
+  (* syn_keep = "true" *)  wire err_det_chip_2;
+  (* syn_keep = "true" *)  wire err_det_chip_3;
+  (* syn_keep = "true" *)  wire err_det_cnt_1;
+  (* syn_keep = "true" *)  wire err_det_cnt_2;
+  (* syn_keep = "true" *)  wire err_det_cnt_3;
+  (* syn_keep = "true" *)  wire err_det_1;
+  (* syn_keep = "true" *)  wire err_det_2;
+  (* syn_keep = "true" *)  wire err_det_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign CHAN      = (CHAN_1      & CHAN_2     ) | (CHAN_2      & CHAN_3     ) | (CHAN_1      & CHAN_3     ); // Majority logic
@@ -73,6 +113,27 @@ module transfer_samples_FSM_TMR (
   assign voted_cnt_3       = (cnt_1       & cnt_2      ) | (cnt_2       & cnt_3      ) | (cnt_1       & cnt_3      ); // Majority logic
 
   // Assignment of error detection logic to replicated signals
+  assign err_det_CHAN_1      = |(~((~CHAN_1      & ~CHAN_2      & ~CHAN_3     ) | (CHAN_1      & CHAN_2      & CHAN_3     ))); // error detection logic
+  assign err_det_CHAN_2      = |(~((~CHAN_1      & ~CHAN_2      & ~CHAN_3     ) | (CHAN_1      & CHAN_2      & CHAN_3     ))); // error detection logic
+  assign err_det_CHAN_3      = |(~((~CHAN_1      & ~CHAN_2      & ~CHAN_3     ) | (CHAN_1      & CHAN_2      & CHAN_3     ))); // error detection logic
+  assign err_det_L1A_RD_EN_1 =  (~((~L1A_RD_EN_1 & ~L1A_RD_EN_2 & ~L1A_RD_EN_3) | (L1A_RD_EN_1 & L1A_RD_EN_2 & L1A_RD_EN_3))); // error detection logic
+  assign err_det_L1A_RD_EN_2 =  (~((~L1A_RD_EN_1 & ~L1A_RD_EN_2 & ~L1A_RD_EN_3) | (L1A_RD_EN_1 & L1A_RD_EN_2 & L1A_RD_EN_3))); // error detection logic
+  assign err_det_L1A_RD_EN_3 =  (~((~L1A_RD_EN_1 & ~L1A_RD_EN_2 & ~L1A_RD_EN_3) | (L1A_RD_EN_1 & L1A_RD_EN_2 & L1A_RD_EN_3))); // error detection logic
+  assign err_det_RDENA_1     =  (~((~RDENA_1     & ~RDENA_2     & ~RDENA_3    ) | (RDENA_1     & RDENA_2     & RDENA_3    ))); // error detection logic
+  assign err_det_RDENA_2     =  (~((~RDENA_1     & ~RDENA_2     & ~RDENA_3    ) | (RDENA_1     & RDENA_2     & RDENA_3    ))); // error detection logic
+  assign err_det_RDENA_3     =  (~((~RDENA_1     & ~RDENA_2     & ~RDENA_3    ) | (RDENA_1     & RDENA_2     & RDENA_3    ))); // error detection logic
+  assign err_det_chip_1      = |(~((~chip_1      & ~chip_2      & ~chip_3     ) | (chip_1      & chip_2      & chip_3     ))); // error detection logic
+  assign err_det_chip_2      = |(~((~chip_1      & ~chip_2      & ~chip_3     ) | (chip_1      & chip_2      & chip_3     ))); // error detection logic
+  assign err_det_chip_3      = |(~((~chip_1      & ~chip_2      & ~chip_3     ) | (chip_1      & chip_2      & chip_3     ))); // error detection logic
+  assign err_det_cnt_1       = |(~((~cnt_1       & ~cnt_2       & ~cnt_3      ) | (cnt_1       & cnt_2       & cnt_3      ))); // error detection logic
+  assign err_det_cnt_2       = |(~((~cnt_1       & ~cnt_2       & ~cnt_3      ) | (cnt_1       & cnt_2       & cnt_3      ))); // error detection logic
+  assign err_det_cnt_3       = |(~((~cnt_1       & ~cnt_2       & ~cnt_3      ) | (cnt_1       & cnt_2       & cnt_3      ))); // error detection logic
+
+
+  // Assign 'OR' of all error detection signals
+  assign err_det_1 = err_det_state_1   | err_det_CHAN_1   | err_det_L1A_RD_EN_1   | err_det_RDENA_1   | err_det_chip_1   | err_det_cnt_1  ;
+  assign err_det_2 = err_det_state_2   | err_det_CHAN_2   | err_det_L1A_RD_EN_2   | err_det_RDENA_2   | err_det_chip_2   | err_det_cnt_2  ;
+  assign err_det_3 = err_det_state_3   | err_det_CHAN_3   | err_det_L1A_RD_EN_3   | err_det_RDENA_3   | err_det_chip_3   | err_det_cnt_3  ;
 
   // comb always block
   always @* begin
@@ -131,11 +192,17 @@ module transfer_samples_FSM_TMR (
       state_1 <= Idle;
       state_2 <= Idle;
       state_3 <= Idle;
+      ed_cnt_1 <= 0;
+      ed_cnt_2 <= 0;
+      ed_cnt_3 <= 0;
     end
     else begin
       state_1 <= nextstate_1;
       state_2 <= nextstate_2;
       state_3 <= nextstate_3;
+      ed_cnt_1 <= err_det_1 ? voted_ed_cnt_1 + 1 : voted_ed_cnt_1;
+      ed_cnt_2 <= err_det_2 ? voted_ed_cnt_2 + 1 : voted_ed_cnt_2;
+      ed_cnt_3 <= err_det_3 ? voted_ed_cnt_3 + 1 : voted_ed_cnt_3;
     end
   end
 

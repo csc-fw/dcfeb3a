@@ -18,7 +18,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module adc_config(
+module adc_config #(
+	parameter TMR = 0
+)(
     input CLK,         // Clock
     input RST,         // Reset
     input INIT,        // Command to initialize the ADC's (on power up or on command)
@@ -180,16 +182,35 @@ module adc_config(
 //
 
   
-   ADC_Config_FSM #(.Last_Addr(5'h10)) // Use address 0-16
-   ADC_Config_FSM_i	(
-  .ADR(addr),            // output  -- memory address
-  .DONE(DONE),           // output -- Conifguration Done signal
-  .LOAD(load),           // output -- Load shift register
-  .SCKEN(scken),         // output -- Enable the serial clock generation and ADC chip select signals (CS)
-  .SHEN(shen),           // output -- Shift Enable
-  .CLK(CLK),             // input  -- clock
-  .INIT(INIT),           // input  -- Signal to initiate the configuration
-  .RST(RST)              // input  -- Reset 
+generate
+if(TMR==1) 
+begin : CmpTh_FSM_TMR
+	ADC_Config_FSM_TMR #(.Last_Addr(5'h10)) // Use address 0-16
+	ADC_Config_FSM_i	(
+	  .ADR(addr),            // output  -- memory address
+	  .DONE(DONE),           // output -- Conifguration Done signal
+	  .LOAD(load),           // output -- Load shift register
+	  .SCKEN(scken),         // output -- Enable the serial clock generation and ADC chip select signals (CS)
+	  .SHEN(shen),           // output -- Shift Enable
+	  .CLK(CLK),             // input  -- clock
+	  .INIT(INIT),           // input  -- Signal to initiate the configuration
+	  .RST(RST)              // input  -- Reset 
 	);
+end
+else 
+begin : CmpTh_FSM
+	ADC_Config_FSM #(.Last_Addr(5'h10)) // Use address 0-16
+	ADC_Config_FSM_i	(
+	  .ADR(addr),            // output  -- memory address
+	  .DONE(DONE),           // output -- Conifguration Done signal
+	  .LOAD(load),           // output -- Load shift register
+	  .SCKEN(scken),         // output -- Enable the serial clock generation and ADC chip select signals (CS)
+	  .SHEN(shen),           // output -- Shift Enable
+	  .CLK(CLK),             // input  -- clock
+	  .INIT(INIT),           // input  -- Signal to initiate the configuration
+	  .RST(RST)              // input  -- Reset 
+	);
+end
+endgenerate
 endmodule
 

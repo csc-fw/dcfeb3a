@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 10:32:21 AM on 8/5/14
+## File last modified by Fizzim: 5:03:32 PM on 8/25/14
 <version>
    14.02.18
 </version>
@@ -1963,7 +1963,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -2438,7 +2438,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -2913,7 +2913,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -4090,7 +4090,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -4808,7 +4808,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -5526,7 +5526,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -6001,7 +6001,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -6476,7 +6476,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>
@@ -8571,7 +8571,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         0
             <status>
             GLOBAL_VAR
             </status>

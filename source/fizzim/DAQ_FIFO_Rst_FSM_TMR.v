@@ -1,7 +1,7 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:07:11 at 15:39:13 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 12:35:07 (www.fizzim.com)
 
-module DAQ_FIFO_Rst_FSM (
+module DAQ_FIFO_Rst_FSM_TMR (
   output DONE,
   output FIFO_RST,
   input CLK,
@@ -24,9 +24,9 @@ module DAQ_FIFO_Rst_FSM (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
-  assign voted_state_1 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_2 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_3 = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -46,12 +46,13 @@ module DAQ_FIFO_Rst_FSM (
   (* syn_keep = "true" *)      wire [3:0] voted_hold_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign DONE       = (DONE_1     & DONE_2    ) | (DONE_2     & DONE_3    ) | (DONE_1     & DONE_3    ); // Majority logic
-  assign FIFO_RST   = (FIFO_RST_1 & FIFO_RST_2) | (FIFO_RST_2 & FIFO_RST_3) | (FIFO_RST_1 & FIFO_RST_3); // Majority logic
-  assign voted_hold_1 = (hold_1     & hold_2    ) | (hold_2     & hold_3    ) | (hold_1     & hold_3    ); // Majority logic
-  assign voted_hold_2 = (hold_1     & hold_2    ) | (hold_2     & hold_3    ) | (hold_1     & hold_3    ); // Majority logic
-  assign voted_hold_3 = (hold_1     & hold_2    ) | (hold_2     & hold_3    ) | (hold_1     & hold_3    ); // Majority logic
+  assign DONE     = (DONE_1     & DONE_2    ) | (DONE_2     & DONE_3    ) | (DONE_1     & DONE_3    ); // Majority logic
+  assign FIFO_RST = (FIFO_RST_1 & FIFO_RST_2) | (FIFO_RST_2 & FIFO_RST_3) | (FIFO_RST_1 & FIFO_RST_3); // Majority logic
+  assign voted_hold_1     = (hold_1     & hold_2    ) | (hold_2     & hold_3    ) | (hold_1     & hold_3    ); // Majority logic
+  assign voted_hold_2     = (hold_1     & hold_2    ) | (hold_2     & hold_3    ) | (hold_1     & hold_3    ); // Majority logic
+  assign voted_hold_3     = (hold_1     & hold_2    ) | (hold_2     & hold_3    ) | (hold_1     & hold_3    ); // Majority logic
 
+  // Assignment of error detection logic to replicated signals
 
   // comb always block
   always @* begin

@@ -1,9 +1,10 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 12:51:46 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 12:52:09 (www.fizzim.com)
 
-module FIFO_Load_FSM_TMR (
+module FIFO_Load_FSM_TMR_Err_Det (
   output wire [2:0] SEL,
   output WRENA,
+  output wire [15:0] TMR_ERR_COUNT,
   input CLK,
   input RST,
   input wire [6:0] SAMP_MAX,
@@ -25,9 +26,29 @@ module FIFO_Load_FSM_TMR (
   (* syn_keep = "true" *) wire [1:0] voted_state_2;
   (* syn_keep = "true" *) wire [1:0] voted_state_3;
 
+  (* syn_keep = "true" *) wire err_det_state_1;
+  (* syn_keep = "true" *) wire err_det_state_2;
+  (* syn_keep = "true" *) wire err_det_state_3;
+
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_1;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_2;
+  (* syn_preserve = "true" *) reg [15:0] ed_cnt_3;
+
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_1;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_2;
+  (* syn_keep = "true" *) wire [15:0] voted_ed_cnt_3;
+
   assign voted_state_1  = (state_1  & state_2 ) | (state_2  & state_3 ) | (state_1  & state_3 ); // Majority logic
   assign voted_state_2  = (state_1  & state_2 ) | (state_2  & state_3 ) | (state_1  & state_3 ); // Majority logic
   assign voted_state_3  = (state_1  & state_2 ) | (state_2  & state_3 ) | (state_1  & state_3 ); // Majority logic
+
+  assign err_det_state_1  = |(~((~state_1  & ~state_2  & ~state_3 ) | (state_1  & state_2  & state_3 ))); // error detection logic
+  assign err_det_state_2  = |(~((~state_1  & ~state_2  & ~state_3 ) | (state_1  & state_2  & state_3 ))); // error detection logic
+  assign err_det_state_3  = |(~((~state_1  & ~state_2  & ~state_3 ) | (state_1  & state_2  & state_3 ))); // error detection logic
+
+  assign voted_ed_cnt_1 = (ed_cnt_1 & ed_cnt_2) | (ed_cnt_2 & ed_cnt_3) | (ed_cnt_1 & ed_cnt_3); // Majority logic
+  assign voted_ed_cnt_2 = (ed_cnt_1 & ed_cnt_2) | (ed_cnt_2 & ed_cnt_3) | (ed_cnt_1 & ed_cnt_3); // Majority logic
+  assign voted_ed_cnt_3 = (ed_cnt_1 & ed_cnt_2) | (ed_cnt_2 & ed_cnt_3) | (ed_cnt_1 & ed_cnt_3); // Majority logic
 
   (* syn_keep = "true" *) reg [1:0] nextstate_1;
   (* syn_keep = "true" *) reg [1:0] nextstate_2;
@@ -45,6 +66,18 @@ module FIFO_Load_FSM_TMR (
   (* syn_keep = "true" *)      wire [6:0] voted_sample_1;
   (* syn_keep = "true" *)      wire [6:0] voted_sample_2;
   (* syn_keep = "true" *)      wire [6:0] voted_sample_3;
+  (* syn_keep = "true" *)  wire err_det_SEL_1;
+  (* syn_keep = "true" *)  wire err_det_SEL_2;
+  (* syn_keep = "true" *)  wire err_det_SEL_3;
+  (* syn_keep = "true" *)  wire err_det_WRENA_1;
+  (* syn_keep = "true" *)  wire err_det_WRENA_2;
+  (* syn_keep = "true" *)  wire err_det_WRENA_3;
+  (* syn_keep = "true" *)  wire err_det_sample_1;
+  (* syn_keep = "true" *)  wire err_det_sample_2;
+  (* syn_keep = "true" *)  wire err_det_sample_3;
+  (* syn_keep = "true" *)  wire err_det_1;
+  (* syn_keep = "true" *)  wire err_det_2;
+  (* syn_keep = "true" *)  wire err_det_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign SEL    = (SEL_1    & SEL_2   ) | (SEL_2    & SEL_3   ) | (SEL_1    & SEL_3   ); // Majority logic
@@ -54,6 +87,21 @@ module FIFO_Load_FSM_TMR (
   assign voted_sample_3 = (sample_1 & sample_2) | (sample_2 & sample_3) | (sample_1 & sample_3); // Majority logic
 
   // Assignment of error detection logic to replicated signals
+  assign err_det_SEL_1    = |(~((~SEL_1    & ~SEL_2    & ~SEL_3   ) | (SEL_1    & SEL_2    & SEL_3   ))); // error detection logic
+  assign err_det_SEL_2    = |(~((~SEL_1    & ~SEL_2    & ~SEL_3   ) | (SEL_1    & SEL_2    & SEL_3   ))); // error detection logic
+  assign err_det_SEL_3    = |(~((~SEL_1    & ~SEL_2    & ~SEL_3   ) | (SEL_1    & SEL_2    & SEL_3   ))); // error detection logic
+  assign err_det_WRENA_1  =  (~((~WRENA_1  & ~WRENA_2  & ~WRENA_3 ) | (WRENA_1  & WRENA_2  & WRENA_3 ))); // error detection logic
+  assign err_det_WRENA_2  =  (~((~WRENA_1  & ~WRENA_2  & ~WRENA_3 ) | (WRENA_1  & WRENA_2  & WRENA_3 ))); // error detection logic
+  assign err_det_WRENA_3  =  (~((~WRENA_1  & ~WRENA_2  & ~WRENA_3 ) | (WRENA_1  & WRENA_2  & WRENA_3 ))); // error detection logic
+  assign err_det_sample_1 = |(~((~sample_1 & ~sample_2 & ~sample_3) | (sample_1 & sample_2 & sample_3))); // error detection logic
+  assign err_det_sample_2 = |(~((~sample_1 & ~sample_2 & ~sample_3) | (sample_1 & sample_2 & sample_3))); // error detection logic
+  assign err_det_sample_3 = |(~((~sample_1 & ~sample_2 & ~sample_3) | (sample_1 & sample_2 & sample_3))); // error detection logic
+
+
+  // Assign 'OR' of all error detection signals
+  assign err_det_1 = err_det_state_1   | err_det_SEL_1   | err_det_WRENA_1   | err_det_sample_1  ;
+  assign err_det_2 = err_det_state_2   | err_det_SEL_2   | err_det_WRENA_2   | err_det_sample_2  ;
+  assign err_det_3 = err_det_state_3   | err_det_SEL_3   | err_det_WRENA_3   | err_det_sample_3  ;
 
   // comb always block
   always @* begin
@@ -100,11 +148,17 @@ module FIFO_Load_FSM_TMR (
       state_1 <= Idle;
       state_2 <= Idle;
       state_3 <= Idle;
+      ed_cnt_1 <= 0;
+      ed_cnt_2 <= 0;
+      ed_cnt_3 <= 0;
     end
     else begin
       state_1 <= nextstate_1;
       state_2 <= nextstate_2;
       state_3 <= nextstate_3;
+      ed_cnt_1 <= err_det_1 ? voted_ed_cnt_1 + 1 : voted_ed_cnt_1;
+      ed_cnt_2 <= err_det_2 ? voted_ed_cnt_2 + 1 : voted_ed_cnt_2;
+      ed_cnt_3 <= err_det_3 ? voted_ed_cnt_3 + 1 : voted_ed_cnt_3;
     end
   end
 
