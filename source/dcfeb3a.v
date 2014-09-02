@@ -10,7 +10,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 (* syn_encoding = "safe original" *)
 module dcfeb3a #(
-	parameter USE_CHAN_LINK_CHIPSCOPE = 1,
+	parameter USE_CHAN_LINK_CHIPSCOPE = 0,
 	parameter USE_DESER_CHIPSCOPE = 0,
 	parameter USE_CMP_CHIPSCOPE = 0,
 	parameter USE_DAQ_CHIPSCOPE = 0,
@@ -27,8 +27,8 @@ module dcfeb3a #(
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
 //	parameter ADC_Init_tmo = 12'd1, 
-	parameter TMR = 1,
-	parameter TMR_Err_Det = 1
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
 	)(
 
 	//Clocks
