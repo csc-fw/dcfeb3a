@@ -1,17 +1,17 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:23:31 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:09:02 at 14:34:45 (www.fizzim.com)
 
 module Startup_Display_FSM_TMR (
   output CLEAR,
   output DISP,
   output LOAD_PAT,
   output NXT_ADR,
-  output RST_TMR,
+  output RST_TIMER,
   input CLK,
   input DONE,
   input RST,
   input RUN,
-  input wire [15:0] TMR 
+  input wire [15:0] TIMER 
 );
 
   // state bits
@@ -31,9 +31,9 @@ module Startup_Display_FSM_TMR (
   (* syn_keep = "true" *) wire [2:0] voted_state_2;
   (* syn_keep = "true" *) wire [2:0] voted_state_3;
 
-  assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
-  assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
+  assign voted_state_1     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
+  assign voted_state_2     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
+  assign voted_state_3     = (state_1     & state_2    ) | (state_2     & state_3    ) | (state_1     & state_3    ); // Majority logic
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
@@ -51,16 +51,16 @@ module Startup_Display_FSM_TMR (
   (* syn_preserve = "true" *)  reg NXT_ADR_1;
   (* syn_preserve = "true" *)  reg NXT_ADR_2;
   (* syn_preserve = "true" *)  reg NXT_ADR_3;
-  (* syn_preserve = "true" *)  reg RST_TMR_1;
-  (* syn_preserve = "true" *)  reg RST_TMR_2;
-  (* syn_preserve = "true" *)  reg RST_TMR_3;
+  (* syn_preserve = "true" *)  reg RST_TIMER_1;
+  (* syn_preserve = "true" *)  reg RST_TIMER_2;
+  (* syn_preserve = "true" *)  reg RST_TIMER_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
-  assign CLEAR    = (CLEAR_1    & CLEAR_2   ) | (CLEAR_2    & CLEAR_3   ) | (CLEAR_1    & CLEAR_3   ); // Majority logic
-  assign DISP     = (DISP_1     & DISP_2    ) | (DISP_2     & DISP_3    ) | (DISP_1     & DISP_3    ); // Majority logic
-  assign LOAD_PAT = (LOAD_PAT_1 & LOAD_PAT_2) | (LOAD_PAT_2 & LOAD_PAT_3) | (LOAD_PAT_1 & LOAD_PAT_3); // Majority logic
-  assign NXT_ADR  = (NXT_ADR_1  & NXT_ADR_2 ) | (NXT_ADR_2  & NXT_ADR_3 ) | (NXT_ADR_1  & NXT_ADR_3 ); // Majority logic
-  assign RST_TMR  = (RST_TMR_1  & RST_TMR_2 ) | (RST_TMR_2  & RST_TMR_3 ) | (RST_TMR_1  & RST_TMR_3 ); // Majority logic
+  assign CLEAR     = (CLEAR_1     & CLEAR_2    ) | (CLEAR_2     & CLEAR_3    ) | (CLEAR_1     & CLEAR_3    ); // Majority logic
+  assign DISP      = (DISP_1      & DISP_2     ) | (DISP_2      & DISP_3     ) | (DISP_1      & DISP_3     ); // Majority logic
+  assign LOAD_PAT  = (LOAD_PAT_1  & LOAD_PAT_2 ) | (LOAD_PAT_2  & LOAD_PAT_3 ) | (LOAD_PAT_1  & LOAD_PAT_3 ); // Majority logic
+  assign NXT_ADR   = (NXT_ADR_1   & NXT_ADR_2  ) | (NXT_ADR_2   & NXT_ADR_3  ) | (NXT_ADR_1   & NXT_ADR_3  ); // Majority logic
+  assign RST_TIMER = (RST_TIMER_1 & RST_TIMER_2) | (RST_TIMER_2 & RST_TIMER_3) | (RST_TIMER_1 & RST_TIMER_3); // Majority logic
 
   // Assignment of error detection logic to replicated signals
 
@@ -70,37 +70,37 @@ module Startup_Display_FSM_TMR (
     nextstate_2 = 3'bxxx; // default to x because default_state_is_x is set
     nextstate_3 = 3'bxxx; // default to x because default_state_is_x is set
     case (voted_state_1)
-      Reset: if (RUN)             nextstate_1 = Wait;
-             else                 nextstate_1 = Reset;
-      End  :                      nextstate_1 = End;
-      Load : if (DONE)            nextstate_1 = End;
-             else                 nextstate_1 = Wait;
-      Next :                      nextstate_1 = Skip;
-      Skip :                      nextstate_1 = Load;
-      Wait : if (TMR == 16'hBB8)  nextstate_1 = Next;
-             else                 nextstate_1 = Wait;
+      Reset: if (RUN)               nextstate_1 = Wait;
+             else                   nextstate_1 = Reset;
+      End  :                        nextstate_1 = End;
+      Load : if (DONE)              nextstate_1 = End;
+             else                   nextstate_1 = Wait;
+      Next :                        nextstate_1 = Skip;
+      Skip :                        nextstate_1 = Load;
+      Wait : if (TIMER == 16'hBB8)  nextstate_1 = Next;
+             else                   nextstate_1 = Wait;
     endcase
     case (voted_state_2)
-      Reset: if (RUN)             nextstate_2 = Wait;
-             else                 nextstate_2 = Reset;
-      End  :                      nextstate_2 = End;
-      Load : if (DONE)            nextstate_2 = End;
-             else                 nextstate_2 = Wait;
-      Next :                      nextstate_2 = Skip;
-      Skip :                      nextstate_2 = Load;
-      Wait : if (TMR == 16'hBB8)  nextstate_2 = Next;
-             else                 nextstate_2 = Wait;
+      Reset: if (RUN)               nextstate_2 = Wait;
+             else                   nextstate_2 = Reset;
+      End  :                        nextstate_2 = End;
+      Load : if (DONE)              nextstate_2 = End;
+             else                   nextstate_2 = Wait;
+      Next :                        nextstate_2 = Skip;
+      Skip :                        nextstate_2 = Load;
+      Wait : if (TIMER == 16'hBB8)  nextstate_2 = Next;
+             else                   nextstate_2 = Wait;
     endcase
     case (voted_state_3)
-      Reset: if (RUN)             nextstate_3 = Wait;
-             else                 nextstate_3 = Reset;
-      End  :                      nextstate_3 = End;
-      Load : if (DONE)            nextstate_3 = End;
-             else                 nextstate_3 = Wait;
-      Next :                      nextstate_3 = Skip;
-      Skip :                      nextstate_3 = Load;
-      Wait : if (TMR == 16'hBB8)  nextstate_3 = Next;
-             else                 nextstate_3 = Wait;
+      Reset: if (RUN)               nextstate_3 = Wait;
+             else                   nextstate_3 = Reset;
+      End  :                        nextstate_3 = End;
+      Load : if (DONE)              nextstate_3 = End;
+             else                   nextstate_3 = Wait;
+      Next :                        nextstate_3 = Skip;
+      Skip :                        nextstate_3 = Load;
+      Wait : if (TIMER == 16'hBB8)  nextstate_3 = Next;
+             else                   nextstate_3 = Wait;
     endcase
   end
 
@@ -135,9 +135,9 @@ module Startup_Display_FSM_TMR (
       NXT_ADR_1 <= 0;
       NXT_ADR_2 <= 0;
       NXT_ADR_3 <= 0;
-      RST_TMR_1 <= 1;
-      RST_TMR_2 <= 1;
-      RST_TMR_3 <= 1;
+      RST_TIMER_1 <= 1;
+      RST_TIMER_2 <= 1;
+      RST_TIMER_3 <= 1;
     end
     else begin
       CLEAR_1 <= 0; // default
@@ -152,9 +152,9 @@ module Startup_Display_FSM_TMR (
       NXT_ADR_1 <= 0; // default
       NXT_ADR_2 <= 0; // default
       NXT_ADR_3 <= 0; // default
-      RST_TMR_1 <= 1; // default
-      RST_TMR_2 <= 1; // default
-      RST_TMR_3 <= 1; // default
+      RST_TIMER_1 <= 1; // default
+      RST_TIMER_2 <= 1; // default
+      RST_TIMER_3 <= 1; // default
       case (nextstate_1)
         Reset: begin
                       CLEAR_1 <= 1;
@@ -166,7 +166,7 @@ module Startup_Display_FSM_TMR (
         end
         Load :        LOAD_PAT_1 <= 1;
         Next :        NXT_ADR_1 <= 1;
-        Wait :        RST_TMR_1 <= 0;
+        Wait :        RST_TIMER_1 <= 0;
       endcase
       case (nextstate_2)
         Reset: begin
@@ -179,7 +179,7 @@ module Startup_Display_FSM_TMR (
         end
         Load :        LOAD_PAT_2 <= 1;
         Next :        NXT_ADR_2 <= 1;
-        Wait :        RST_TMR_2 <= 0;
+        Wait :        RST_TIMER_2 <= 0;
       endcase
       case (nextstate_3)
         Reset: begin
@@ -192,7 +192,7 @@ module Startup_Display_FSM_TMR (
         end
         Load :        LOAD_PAT_3 <= 1;
         Next :        NXT_ADR_3 <= 1;
-        Wait :        RST_TMR_3 <= 0;
+        Wait :        RST_TIMER_3 <= 0;
       endcase
     end
   end

@@ -168,7 +168,13 @@ module jtag_access #(
 	 input [11:0] L1AMCNT,       //L1A_MATCH counter value
 	 input [11:0] INJPLSCNT,     //INJPLS counter value
 	 input [11:0] EXTPLSCNT,     //EXTPLS counter value
-	 input [11:0] BC0CNT         //BC0 counter value
+	 input [11:0] BC0CNT,        //BC0 counter value
+	 input [15:0] CMP_PHS_ERRCNT,   //TMR error counters
+	 input [15:0] FIFO_LOAD_ERRCNT,
+	 input [15:0] XF2RB_ERRCNT,
+	 input [15:0] RGTRNS_ERRCNT,
+	 input [15:0] SMPPRC_ERRCNT,
+	 input [15:0] FRMPRC_ERRCNT
 	 );
 
     wire [1:0] XL1DLYSET;  // Extra L1A delay setting [1:0]
@@ -447,7 +453,7 @@ module jtag_access #(
 //
 // JTAG Extra L1A Delay Register
 //		for compatibility with old DMBs only
-   user_wr_reg #(.width(2), .def_value(2'b01))
+   user_wr_reg #(.width(2), .def_value(2'b01), .TMR(TMR))
    load_xl1dly(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -468,7 +474,7 @@ module jtag_access #(
 //
 // JTAG Pre block end register  (Not needed in DCFEB -- should remove but it is part of daisy chain for F7)
 //		for compatibility with old DMBs only
-  user_wr_reg #(.width(4), .def_value(4'h9))
+  user_wr_reg #(.width(4), .def_value(4'h9), .TMR(TMR))
    load_preblk(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -529,7 +535,7 @@ always @(posedge CLK40 or posedge RST) begin
 			cmode_hold <= cmode_hold;
 end
 
-   user_wr_reg #(.width(5), .def_value(5'b01010))
+   user_wr_reg #(.width(5), .def_value(5'b01010), .TMR(TMR))
    comparator(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -599,7 +605,7 @@ end
 // JTAG Buckeye mask register for which amplifiers are in the shift loop.
 //
 	
-   user_wr_reg #(.width(6), .def_value(6'b111111))
+   user_wr_reg #(.width(6), .def_value(6'b111111), .TMR(TMR))
    buckeye_mask(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -673,7 +679,7 @@ end
 //
 // ADC Mask register
 //
-   user_wr_reg #(.width(12), .def_value(12'hFFF))
+   user_wr_reg #(.width(12), .def_value(12'hFFF), .TMR(TMR))
    adc_mask1(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -694,7 +700,7 @@ end
 //
 // ADC Memory word register (data to write to ADC configuration memory)
 //
-   user_wr_reg #(.width(26), .def_value(26'h0000000))
+   user_wr_reg #(.width(26), .def_value(26'h0000000), .TMR(TMR))
    adc_mem1(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -715,7 +721,7 @@ end
 //
 // Pipeline Depth register
 //
-   user_wr_reg #(.width(9), .def_value(9'd100))
+   user_wr_reg #(.width(9), .def_value(9'd100), .TMR(TMR))
    pipe_depth1(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -741,7 +747,7 @@ end
 //  FF_EEM_mode    = 2'b01, 
 //  Skew_Clr_mode  = 2'b10;
 
-   user_wr_reg #(.width(2), .def_value(2'b10)) // default is Skewclear mode
+   user_wr_reg #(.width(2), .def_value(2'b10), .TMR(TMR)) // default is Skewclear mode
    ttc_src1(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -797,7 +803,7 @@ end
 //
 // Number of samples to read register
 //
-   user_wr_reg #(.width(7), .def_value(7'd8))
+   user_wr_reg #(.width(7), .def_value(7'd8), .TMR(TMR))
    nsamples1(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -819,7 +825,7 @@ end
 // BPI interface FIFO word (16 bit word to be writting into the FIFO)
 // The write enable for the FIFO is generated automatically
 //
-   user_wr_reg #(.width(16), .def_value(16'h0000))
+   user_wr_reg #(.width(16), .def_value(16'h0000), .TMR(TMR))
    BPI_wrt_FIFO_Jreg(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -907,7 +913,7 @@ end
 // Comparator Clock phase register
 //
 
-   user_wr_reg #(.width(5), .def_value(5'd0)) // default is no phase shift
+   user_wr_reg #(.width(5), .def_value(5'd0), .TMR(TMR)) // default is no phase shift
    cmp_clock_phase(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -928,7 +934,7 @@ end
 //
 // Sampling Clock phase register
 //
-   user_wr_reg #(.width(3), .def_value(3'd0)) // default is no phase shift
+   user_wr_reg #(.width(3), .def_value(3'd0), .TMR(TMR)) // default is no phase shift
    samp_clock_phase(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -959,7 +965,7 @@ end
 // 5: half strips
 //
 
-   user_wr_reg #(.width(3), .def_value(3'b000)) // default is comparator data
+   user_wr_reg #(.width(3), .def_value(3'b000), .TMR(TMR)) // default is comparator data
    tmb_tx_mode(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -981,7 +987,7 @@ end
 // TMB half strip settings for injecting patterns into serial data stream
 // 
 
-   user_wr_reg #(.width(30), .def_value(30'h00000000)) // default is no half strips
+   user_wr_reg #(.width(30), .def_value(30'h00000000), .TMR(TMR)) // default is no half strips
    tmb_half_strip(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -1004,7 +1010,7 @@ end
 // TMB layer mask for indicating active layers for injecting patterns into serial data stream
 // 
 
-   user_wr_reg #(.width(6), .def_value(6'b111111)) // default is all layers active
+   user_wr_reg #(.width(6), .def_value(6'b111111), .TMR(TMR)) // default is all layers active
    tmb_layer_mask(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -1130,7 +1136,7 @@ end
 //      110: Square wave with 2 UI
 //      111: Square wave with 16 UI (or 20 UI)
 
-   user_wr_reg #(.width(3), .def_value(3'b000)) // default is normal mode, no PRBS testing
+   user_wr_reg #(.width(3), .def_value(3'b000), .TMR(TMR)) // default is normal mode, no PRBS testing
    PRBS_tst_mode(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -1191,7 +1197,7 @@ end
 //                  WWWWWWW = word address 7-bits
 //                    BBBBB = bit address b-bits
 //
-   user_wr_reg #(.width(8), .def_value(8'h00))
+   user_wr_reg #(.width(8), .def_value(8'h00), .TMR(TMR))
    SEM_cmd_data_reg(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -1279,9 +1285,15 @@ end
 //  15     PRBS Test Mode            3 bits
 //  16     SEM Command               8 bits
 //  17     Registrer Sel Word        8 bits
+//  18     Comp phase TMR err cnt   16 bits
+//  19     fifo load TMR err cnt    16 bits
+//  20     xfer2ringbuf TMR err cnt 16 bits
+//  21     ring trans TMR err cnt   16 bits
+//  22     sample proc TMR err cnt  16 bits
+//  23     frame proc TMR err cnt   16 bits
 //
-
-   user_wr_reg #(.width(8), .def_value(8'h00))
+ 
+   user_wr_reg #(.width(8), .def_value(8'h00), .TMR(TMR))
    Reg_Sel_Wrd_reg(
 	   .TCK(tck2),         // TCK for update register
       .DRCK(tck2),        // Data Reg Clock
@@ -1341,6 +1353,12 @@ begin
 		8'd15 : sel_reg = {13'h0000,JDAQ_PRBS_TST};
 		8'd16 : sel_reg = {8'h00,JTAG_CMD_DATA};
 		8'd17 : sel_reg = {8'h00,reg_sel_wrd};
+		8'd18 : sel_reg = CMP_PHS_ERRCNT;
+		8'd19 : sel_reg = FIFO_LOAD_ERRCNT;
+		8'd20 : sel_reg = XF2RB_ERRCNT;
+		8'd21 : sel_reg = RGTRNS_ERRCNT;
+		8'd22 : sel_reg = SMPPRC_ERRCNT;
+		8'd23 : sel_reg = FRMPRC_ERRCNT;
 		default :  sel_reg = {8'h00,reg_sel_wrd};
 	endcase
 end		

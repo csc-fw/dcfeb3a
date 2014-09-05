@@ -1,17 +1,17 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:23:57 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:09:02 at 14:34:13 (www.fizzim.com)
 
 module Startup_Display_FSM (
   output reg CLEAR,
   output reg DISP,
   output reg LOAD_PAT,
   output reg NXT_ADR,
-  output reg RST_TMR,
+  output reg RST_TIMER,
   input CLK,
   input DONE,
   input RST,
   input RUN,
-  input wire [15:0] TMR 
+  input wire [15:0] TIMER 
 );
 
   // state bits
@@ -32,15 +32,15 @@ module Startup_Display_FSM (
   always @* begin
     nextstate = 3'bxxx; // default to x because default_state_is_x is set
     case (state)
-      Reset: if (RUN)             nextstate = Wait;
-             else                 nextstate = Reset;
-      End  :                      nextstate = End;
-      Load : if (DONE)            nextstate = End;
-             else                 nextstate = Wait;
-      Next :                      nextstate = Skip;
-      Skip :                      nextstate = Load;
-      Wait : if (TMR == 16'hBB8)  nextstate = Next;
-             else                 nextstate = Wait;
+      Reset: if (RUN)               nextstate = Wait;
+             else                   nextstate = Reset;
+      End  :                        nextstate = End;
+      Load : if (DONE)              nextstate = End;
+             else                   nextstate = Wait;
+      Next :                        nextstate = Skip;
+      Skip :                        nextstate = Load;
+      Wait : if (TIMER == 16'hBB8)  nextstate = Next;
+             else                   nextstate = Wait;
     endcase
   end
 
@@ -61,14 +61,14 @@ module Startup_Display_FSM (
       DISP <= 1;
       LOAD_PAT <= 0;
       NXT_ADR <= 0;
-      RST_TMR <= 1;
+      RST_TIMER <= 1;
     end
     else begin
       CLEAR <= 0; // default
       DISP <= 1; // default
       LOAD_PAT <= 0; // default
       NXT_ADR <= 0; // default
-      RST_TMR <= 1; // default
+      RST_TIMER <= 1; // default
       case (nextstate)
         Reset: begin
                       CLEAR <= 1;
@@ -80,7 +80,7 @@ module Startup_Display_FSM (
         end
         Load :        LOAD_PAT <= 1;
         Next :        NXT_ADR <= 1;
-        Wait :        RST_TMR <= 0;
+        Wait :        RST_TIMER <= 0;
       endcase
     end
   end

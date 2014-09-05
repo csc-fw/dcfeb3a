@@ -590,14 +590,6 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="534"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="49"/>
     </file>
-    <file xil_pn:name="source/fizzim/Startup_display_FSM.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="535"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="23"/>
-    </file>
-    <file xil_pn:name="source/fizzim/Startup_display_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="536"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="22"/>
-    </file>
     <file xil_pn:name="source/fizzim/dyn_phase_shift_FSM.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="537"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="42"/>
@@ -757,6 +749,14 @@
     <file xil_pn:name="source/fizzim/ADC_Config_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="559"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="61"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Startup_display_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="521"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="23"/>
+    </file>
+    <file xil_pn:name="source/fizzim/Startup_display_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="522"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="22"/>
     </file>
     <file xil_pn:name="ipcore_dir/adc_frame_clk.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
@@ -1203,7 +1203,7 @@
     <property xil_pn:name="Use Custom Waveform Configuration File Par" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Use Custom Waveform Configuration File Translate" xil_pn:value="true" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Use DSP Block" xil_pn:value="Auto" xil_pn:valueState="default"/>
-    <property xil_pn:name="Use FSM Explorer Data" xil_pn:value="false" xil_pn:valueState="default"/>
+    <property xil_pn:name="Use FSM Explorer Data" xil_pn:value="true" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Use LOC Constraints" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="Use RLOC Constraints" xil_pn:value="Yes" xil_pn:valueState="default"/>
     <property xil_pn:name="Use Smart Guide" xil_pn:value="false" xil_pn:valueState="default"/>

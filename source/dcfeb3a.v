@@ -27,8 +27,8 @@ module dcfeb3a #(
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
 //	parameter ADC_Init_tmo = 12'd1, 
-	parameter TMR = 0,
-	parameter TMR_Err_Det = 0
+	parameter TMR = 1,
+	parameter TMR_Err_Det = 1
 	)(
 
 	//Clocks
@@ -727,7 +727,7 @@ end
  //  BPI interface to XCF128 flash PROM                                     //
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
-	wire [2:0] tmr;
+	wire [2:0] timer;
 	wire clk100khz;
 
 	 
@@ -762,7 +762,7 @@ end
       .RS0(BPI_AD21_RS0),.RS1(BPI_AD22_RS1),
       .FCS_B(FCS_B),.FOE_B(FOE_B),.FWE_B(FWE_B),.FLATCH_B(FLATCH_B),
 		// diagnostic outputs for startup display
-		.TMROUT(tmr), // to test point
+		.TIMEROUT(timer), // to test point
 		.CLK100KHZ(clk100khz) // to test point
 	);
  
@@ -2000,7 +2000,13 @@ endgenerate
 		.L1AMCNT(l1a_mtch_cnt),       //L1A_MATCH counter value
 		.INJPLSCNT(injplscnt),        //INJPLS counter value
 		.EXTPLSCNT(extplscnt),        //EXTPLS counter value
-		.BC0CNT(bc0cnt)               //BC0 counter value
+		.BC0CNT(bc0cnt),              //BC0 counter value
+		.CMP_PHS_ERRCNT(cmp_phs_errcnt),
+		.FIFO_LOAD_ERRCNT(fifo_load_errcnt),
+		.XF2RB_ERRCNT(xf2rb_errcnt),
+		.RGTRNS_ERRCNT(rgtrns_errcnt),
+		.SMPPRC_ERRCNT(smpprc_errcnt),
+		.FRMPRC_ERRCNT(frmprc_errcnt)
    );
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
@@ -2122,7 +2128,7 @@ endgenerate
 		.CLK100KHZ(clk100khz),
 		.CLK20(clk20),
 		.ADC_CLK(adc_clk),
-		.TMR(tmr),
+		.TIMER(timer),
 		.TRG_TX_PLL_LOCK(trg_tx_pll_lock),
 		.TRG_GTXTXRESET(trg_gtxtxreset),
 		.TRG_TXRESETDONE(trg_txresetdone),

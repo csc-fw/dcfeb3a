@@ -53,7 +53,7 @@ module bpi_interface #(
     output FWE_B,
     output FLATCH_B,
     // diagnostic outputs for startup display
-	 output [2:0] TMROUT,
+	 output [2:0] TIMEROUT,
 	 output CLK100KHZ
     );
 
@@ -80,14 +80,17 @@ wire [3:0] dc [15:0];
 reg [7:0] cycle_pat [15:0];
 reg [7:0] cycle [15:0];
 reg [4:0] raddr;
-reg [15:0] tmr;
+reg [15:0] timer;
 reg [3:0] passes;
+wire rst_timer;
 wire display;
 wire load_pat;
+wire nxt_adr;
 wire stop;
+wire clear;
 
 assign CLK100KHZ = clk100k;
-assign TMROUT = tmr[2:0];
+assign TIMEROUT = timer[2:0];
 
 initial begin
 	$readmemh ("LED_ram_contents", ram0, 0, 31);
@@ -158,12 +161,12 @@ Startup_Display_FSM_i(
   .DISP(display),
   .LOAD_PAT(load_pat),
   .NXT_ADR(nxt_adr),
-  .RST_TMR(rst_tmr),
+  .RST_TIMER(rst_timer),
   .CLK(CLK),
   .DONE(stop),
   .RST(RST),
   .RUN(RUN),
-  .TMR(tmr)
+  .TIMER(timer)
 );
 end
 else 
@@ -190,12 +193,12 @@ Startup_Display_FSM_i(
   .DISP(display),
   .LOAD_PAT(load_pat),
   .NXT_ADR(nxt_adr),
-  .RST_TMR(rst_tmr),
+  .RST_TIMER(rst_timer),
   .CLK(CLK),
   .DONE(stop),
   .RST(RST),
   .RUN(RUN),
-  .TMR(tmr)
+  .TIMER(timer)
 );
 end
 endgenerate
@@ -239,11 +242,11 @@ endgenerate
    );
 
 
-always @(posedge clk100k or posedge rst_tmr) begin
-	if(rst_tmr)
-		tmr <= 16'h0000;
+always @(posedge clk100k or posedge rst_timer) begin
+	if(rst_timer)
+		timer <= 16'h0000;
 	else
-		tmr <= tmr + 1;
+		timer <= timer + 1;
 end
 always @(posedge CLK or posedge RST) begin
 	if(RST)

@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 10:37:09 AM on 8/5/14
+## File last modified by Fizzim: 2:33:13 PM on 9/2/14
 <version>
    14.02.18
 </version>
@@ -398,7 +398,7 @@
          -1
          </page>
       </RST>
-      <TMR[15:0]>
+      <TIMER[15:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -453,7 +453,7 @@
          <page>
          -1
          </page>
-      </TMR[15:0]>
+      </TIMER[15:0]>
       <DONE>
             <status>
             GLOBAL_FIXED
@@ -792,7 +792,7 @@
          -1
          </page>
       </CLEAR>
-      <RST_TMR>
+      <RST_TIMER>
             <status>
             GLOBAL_FIXED
             </status>
@@ -847,7 +847,7 @@
          <page>
          -1
          </page>
-      </RST_TMR>
+      </RST_TIMER>
    </outputs>
    <state>
       <name>
@@ -1130,7 +1130,7 @@
          -1
          </page>
       </CLEAR>
-      <RST_TMR>
+      <RST_TIMER>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1185,7 +1185,7 @@
          <page>
          -1
          </page>
-      </RST_TMR>
+      </RST_TIMER>
    </state>
    <trans>
       <name>
@@ -1698,7 +1698,7 @@ fzm_globalTable
          1
          </page>
       </CLEAR>
-      <RST_TMR>
+      <RST_TIMER>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1739,7 +1739,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -1753,7 +1753,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </RST_TMR>
+      </RST_TIMER>
    </attributes>
    <x0>
    550
@@ -2061,7 +2061,7 @@ fzm_globalTable
          1
          </page>
       </CLEAR>
-      <RST_TMR>
+      <RST_TIMER>
             <status>
             GLOBAL_FIXED
             </status>
@@ -2102,7 +2102,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -2116,7 +2116,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </RST_TMR>
+      </RST_TIMER>
    </attributes>
    <x0>
    550
@@ -2640,7 +2640,7 @@ fzm_globalTable
          1
          </page>
       </CLEAR>
-      <RST_TMR>
+      <RST_TIMER>
             <status>
             GLOBAL_FIXED
             </status>
@@ -2681,7 +2681,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -2695,7 +2695,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </RST_TMR>
+      </RST_TIMER>
    </attributes>
    <x0>
    550
@@ -3246,7 +3246,7 @@ fzm_globalTable
          1
          </page>
       </CLEAR>
-      <RST_TMR>
+      <RST_TIMER>
             <status>
             GLOBAL_FIXED
             </status>
@@ -3287,7 +3287,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -3301,7 +3301,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </RST_TMR>
+      </RST_TIMER>
    </attributes>
    <x0>
    550
@@ -3633,7 +3633,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         TMR == 16'hBB8
+         TIMER == 16'hBB8
             <status>
             LOCAL
             </status>
@@ -4311,7 +4311,7 @@ fzm_globalTable
          1
          </page>
       </CLEAR>
-      <RST_TMR>
+      <RST_TIMER>
             <status>
             GLOBAL_FIXED
             </status>
@@ -4352,7 +4352,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -4366,7 +4366,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </RST_TMR>
+      </RST_TIMER>
    </attributes>
    <x0>
    550
@@ -4674,7 +4674,7 @@ fzm_globalTable
          1
          </page>
       </CLEAR>
-      <RST_TMR>
+      <RST_TIMER>
             <status>
             GLOBAL_FIXED
             </status>
@@ -4715,7 +4715,7 @@ fzm_globalTable
             </status>
          </useratts>
          <resetval>
-         
+         1
             <status>
             GLOBAL_VAR
             </status>
@@ -4729,7 +4729,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </RST_TMR>
+      </RST_TIMER>
    </attributes>
    <x0>
    550

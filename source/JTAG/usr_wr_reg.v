@@ -25,7 +25,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 module user_wr_reg #(
   parameter width = 8,
-  parameter def_value = 8'h00
+  parameter def_value = 8'h00,
+  parameter TMR = 0
   )(
   input TCK,         // TCK for update register
   input DRCK,        // Data Reg Clock
@@ -39,11 +40,11 @@ module user_wr_reg #(
   input DSY_CHAIN,   // Daisy chain mode
   input LOAD,        // Load parallel input
   input [width-1:0]  PI,         // Parallel input
-  output reg [width-1:0]  PO,         // Parallel output
+  output [width-1:0]  PO,         // Parallel output
   output TDO,        // Serial Test Data Out
   output DSY_OUT);   // Daisy chained serial data out
   
-  
+
   reg[width-1:0] d;
   wire din,ce;
   wire sel_update;
@@ -64,16 +65,65 @@ module user_wr_reg #(
 		  d <= d;                  // Hold
   end
   
+generate
+if(TMR==1) 
+begin : usr_wr_reg_TMR
+  (* syn_preserve = "true" *) reg [width-1:0] par_out_1;
+  (* syn_preserve = "true" *) reg [width-1:0] par_out_2;
+  (* syn_preserve = "true" *) reg [width-1:0] par_out_3;
+  
+  (* syn_keep = "true" *) wire [width-1:0] voted_par_out_1;
+  (* syn_keep = "true" *) wire [width-1:0] voted_par_out_2;
+  (* syn_keep = "true" *) wire [width-1:0] voted_par_out_3;
+  
+  assign voted_par_out_1 = (par_out_1 & par_out_2) | (par_out_2 & par_out_3) | (par_out_1 & par_out_3); // Majority logic
+  assign voted_par_out_2 = (par_out_1 & par_out_2) | (par_out_2 & par_out_3) | (par_out_1 & par_out_3); // Majority logic
+  assign voted_par_out_3 = (par_out_1 & par_out_2) | (par_out_2 & par_out_3) | (par_out_1 & par_out_3); // Majority logic
+  
+  always @(posedge TCK or posedge RST) begin  // Parallel output register
+    if(RST) begin
+	   par_out_1 <= def_value;
+	   par_out_2 <= def_value;
+	   par_out_3 <= def_value;
+	 end
+	 else
+	   if(sel_update) begin
+        par_out_1 <= d;
+        par_out_2 <= d;
+        par_out_3 <= d;
+		end
+	   else if(LOAD) begin
+        par_out_1 <= PI;
+        par_out_2 <= PI;
+        par_out_3 <= PI;
+		end
+		else begin
+		  par_out_1 <= voted_par_out_1;
+		  par_out_2 <= voted_par_out_2;
+		  par_out_3 <= voted_par_out_3;
+		end
+  end
+
+  assign PO = voted_par_out_1;
+end
+else 
+begin : usr_wr_reg_notmr
+  reg [width-1:0] par_out;
+  
   always @(posedge TCK or posedge RST) begin  // Parallel output register
     if(RST)
-	   PO <= def_value;
+	   par_out <= def_value;
 	 else
 	   if(sel_update)
-        PO <= d;
+        par_out <= d;
 	   else if(LOAD)
-        PO <= PI;
+        par_out <= PI;
 		else
-		  PO <= PO;
+		  par_out <= par_out;
   end
+
+  assign PO = par_out;
+end
+endgenerate
 
 endmodule

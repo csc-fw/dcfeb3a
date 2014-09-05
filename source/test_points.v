@@ -12,7 +12,7 @@ module test_points(
     input CLK100KHZ,
     input CLK20,
     input ADC_CLK,
-    input [2:0] TMR,
+    input [2:0] TIMER,
     input TRG_TX_PLL_LOCK,
     input TRG_GTXTXRESET,
     input TRG_TXRESETDONE,
