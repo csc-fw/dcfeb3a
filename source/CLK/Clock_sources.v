@@ -56,7 +56,7 @@ module Clock_sources #(
     output COMP_CLK,
     output COMP_CLK80,
     output COMP_CLK160,
-	 output reg CMP_PHS_CHANGE,
+	 output CMP_PHS_CHANGE,
     output TRG_MMCM_LOCK,
     output CLK160,
     output CLK120,
@@ -71,17 +71,17 @@ module Clock_sources #(
     output STRTUP_CLK,
     output EOS,
 	 output [15:0] CMP_PHS_ERRCNT,
-	output reg resync_d1,
-	output lead_edg_resync,
-	output reg lead_edg_resync_d1,
-	output reg cap_phase,
-	output reg [7:0] rst_mmcm_pipe,
-	output reg [10:0] cmp_phase,
-	output cmp_phs_psen,
-	output cmp_phs_psdone,
-	output cmp_phs_busy,
-	output cmp_phs_rst,
-	output [2:0] cmp_phs_state
+	output RESYNC_D1,
+	output LEAD_EDG_RESYNC,
+	output LEAD_EDG_RESYNC_D1,
+	output CAP_PHASE,
+	output [7:0] RST_MMCM_PIPE,
+	output [10:0] CMP_PHASE,
+	output CMP_PHS_PSEN,
+	output CMP_PHS_PSDONE,
+	output CMP_PHS_BUSY,
+	output CMP_PHS_RST,
+	output [2:0] CMP_PHS_STATE
 
     );
 
@@ -98,54 +98,22 @@ module Clock_sources #(
   
 wire samp_ma, samp_mb;
 wire samp_m0,samp_m45,samp_m90,samp_m135;
-//wire sampfbin_med;
 wire sampfbout_med;
 wire samp_med_lock;
 wire samp_in_sel;
 wire pre_clk40;
 wire pre_clk20, pre_clk20_b;
-//reg cap_phase;
 wire clk20_nophase;
 wire clk20_nophase_b;
-reg rst_d1, rst_d2;
 wire trl_edg_rst;
-//reg resync_d1;
-//wire lead_edg_resync;
-//reg lead_edg_resync_d1;
-reg clk20_phase;
-reg c20_phase_sel;
-//reg [7:0] rst_mmcm_pipe;
-reg dsr_ho;
-reg [7:0] dsr_ho_tmr;
 wire clr_dsr_ho;
 wire rst_samp_mmcm;
 wire rst_mmcm_pipe_in;
 
   
-
-// signals for comparator clock managment
-	reg [10:0] cur_cmp_phase;
-//	reg [10:0] cmp_phase;
-	reg [10:0] cmp_rom [31:0];	
-	reg cmp_phs_chg_m1;
-	reg cmp_phs_inc;
-//	wire cmp_phs_busy;
-//	wire cmp_phs_psen;
-//	wire cmp_phs_psdone;
-//	wire cmp_phs_rst;
-
-
-	assign cmp_phs_rst = RST || CMP_PHS_JTAG_RST;
+	assign CMP_PHS_RST = RST || CMP_PHS_JTAG_RST;
   
   assign tp_b35_0 = 1'b0;
-  assign trl_edg_rst = (~RST & rst_d2); //two clocks wide
-  assign lead_edg_resync = RESYNC & ~resync_d1 ; //one clocks wide
-  assign rst_mmcm_pipe_in = lead_edg_resync | trl_edg_rst | cap_phase | SAMP_CLK_PHS_CHNG;
-//  assign ADC_CLK = CLK20;
-  assign rst_samp_mmcm = |rst_mmcm_pipe;
-  assign DSR_RESYNC = dsr_ho;
-  assign clr_dsr_ho = (dsr_ho_tmr == 8'd100); //100uS
-  assign samp_in_sel = SAMP_CLK_PHASE[2] ^ c20_phase_sel;
   
 	IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_CMS_CLK (.O(cms_clk),.I(CMS_CLK_P),.IB(CMS_CLK_N));
 	IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_CMS80 (.O(CMS80),.I(CMS80_P),.IB(CMS80_N));
@@ -157,62 +125,286 @@ wire rst_mmcm_pipe_in;
 	OBUFDS #(.IOSTANDARD("DEFAULT")) OBUFDS_TP_B35_0 (.O(TP_B35_0P),.OB(TP_B35_0N),.I(tp_b35_0));
 
 
+generate
+if(TMR==1) 
+begin : Samp_Clk_TMR
 
+	wire rst_d2;
+	wire resync_d1;
+	wire cap_phase;
+	wire rst_mmcm_pipe;
+	wire c20_phase_sel;
+	wire dsr_ho;
+	wire dsr_ho_tmr;
 
-always @(posedge CLK40)
-begin
-	rst_d1 <= RST;
-	rst_d2 <= rst_d1;
-	resync_d1 <= RESYNC;
-	lead_edg_resync_d1 <= lead_edg_resync;
-	cap_phase <= lead_edg_resync | lead_edg_resync_d1  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
-	rst_mmcm_pipe <= {rst_mmcm_pipe[6:0],rst_mmcm_pipe_in};
+	(* syn_preserve = "true" *) reg rst_d1_1;
+	(* syn_preserve = "true" *) reg rst_d1_2;
+	(* syn_preserve = "true" *) reg rst_d1_3;
+	(* syn_preserve = "true" *) reg rst_d2_1;
+	(* syn_preserve = "true" *) reg rst_d2_2;
+	(* syn_preserve = "true" *) reg rst_d2_3;
+	(* syn_preserve = "true" *) reg resync_d1_1;
+	(* syn_preserve = "true" *) reg resync_d1_2;
+	(* syn_preserve = "true" *) reg resync_d1_3;
+	(* syn_preserve = "true" *) reg lead_edg_resync_d1_1;
+	(* syn_preserve = "true" *) reg lead_edg_resync_d1_2;
+	(* syn_preserve = "true" *) reg lead_edg_resync_d1_3;
+	(* syn_preserve = "true" *) reg cap_phase_1;
+	(* syn_preserve = "true" *) reg cap_phase_2;
+	(* syn_preserve = "true" *) reg cap_phase_3;
+	(* syn_preserve = "true" *) reg [7:0] rst_mmcm_pipe_1;
+	(* syn_preserve = "true" *) reg [7:0] rst_mmcm_pipe_2;
+	(* syn_preserve = "true" *) reg [7:0] rst_mmcm_pipe_3;
+	(* syn_preserve = "true" *) reg clk20_phase_1;
+	(* syn_preserve = "true" *) reg clk20_phase_2;
+	(* syn_preserve = "true" *) reg clk20_phase_3;
+	(* syn_preserve = "true" *) reg c20_phase_sel_1;
+	(* syn_preserve = "true" *) reg c20_phase_sel_2;
+	(* syn_preserve = "true" *) reg c20_phase_sel_3;
+	(* syn_preserve = "true" *) reg dsr_ho_1;
+	(* syn_preserve = "true" *) reg dsr_ho_2;
+	(* syn_preserve = "true" *) reg dsr_ho_3;
+	(* syn_preserve = "true" *) reg [7:0] dsr_ho_tmr_1;
+	(* syn_preserve = "true" *) reg [7:0] dsr_ho_tmr_2;
+	(* syn_preserve = "true" *) reg [7:0] dsr_ho_tmr_3;
+
+	(* syn_keep = "true" *) wire vt_rst_d1_1;
+	(* syn_keep = "true" *) wire vt_rst_d1_2;
+	(* syn_keep = "true" *) wire vt_rst_d1_3;
+	(* syn_keep = "true" *) wire vt_rst_d2_1;
+	(* syn_keep = "true" *) wire vt_rst_d2_2;
+	(* syn_keep = "true" *) wire vt_rst_d2_3;
+	(* syn_keep = "true" *) wire vt_resync_d1_1;
+	(* syn_keep = "true" *) wire vt_resync_d1_2;
+	(* syn_keep = "true" *) wire vt_resync_d1_3;
+	(* syn_keep = "true" *) wire vt_lead_edg_resync_d1_1;
+	(* syn_keep = "true" *) wire vt_lead_edg_resync_d1_2;
+	(* syn_keep = "true" *) wire vt_lead_edg_resync_d1_3;
+	(* syn_keep = "true" *) wire vt_cap_phase_1;
+	(* syn_keep = "true" *) wire vt_cap_phase_2;
+	(* syn_keep = "true" *) wire vt_cap_phase_3;
+	(* syn_keep = "true" *) wire [7:0] vt_rst_mmcm_pipe_1;
+	(* syn_keep = "true" *) wire [7:0] vt_rst_mmcm_pipe_2;
+	(* syn_keep = "true" *) wire [7:0] vt_rst_mmcm_pipe_3;
+	(* syn_keep = "true" *) wire vt_clk20_phase_1;
+	(* syn_keep = "true" *) wire vt_clk20_phase_2;
+	(* syn_keep = "true" *) wire vt_clk20_phase_3;
+	(* syn_keep = "true" *) wire vt_c20_phase_sel_1;
+	(* syn_keep = "true" *) wire vt_c20_phase_sel_2;
+	(* syn_keep = "true" *) wire vt_c20_phase_sel_3;
+	(* syn_keep = "true" *) wire vt_dsr_ho_1;
+	(* syn_keep = "true" *) wire vt_dsr_ho_2;
+	(* syn_keep = "true" *) wire vt_dsr_ho_3;
+	(* syn_keep = "true" *) wire [7:0] vt_dsr_ho_tmr_1;
+	(* syn_keep = "true" *) wire [7:0] vt_dsr_ho_tmr_2;
+	(* syn_keep = "true" *) wire [7:0] vt_dsr_ho_tmr_3;
+
+	assign vt_rst_d1_1        = (rst_d1_1        & rst_d1_2       ) | (rst_d1_2        & rst_d1_3       ) | (rst_d1_1        & rst_d1_3       ); // Majority logic
+	assign vt_rst_d1_2        = (rst_d1_1        & rst_d1_2       ) | (rst_d1_2        & rst_d1_3       ) | (rst_d1_1        & rst_d1_3       ); // Majority logic
+	assign vt_rst_d1_3        = (rst_d1_1        & rst_d1_2       ) | (rst_d1_2        & rst_d1_3       ) | (rst_d1_1        & rst_d1_3       ); // Majority logic
+	assign vt_rst_d2_1        = (rst_d2_1        & rst_d2_2       ) | (rst_d2_2        & rst_d2_3       ) | (rst_d2_1        & rst_d2_3       ); // Majority logic
+	assign vt_rst_d2_2        = (rst_d2_1        & rst_d2_2       ) | (rst_d2_2        & rst_d2_3       ) | (rst_d2_1        & rst_d2_3       ); // Majority logic
+	assign vt_rst_d2_3        = (rst_d2_1        & rst_d2_2       ) | (rst_d2_2        & rst_d2_3       ) | (rst_d2_1        & rst_d2_3       ); // Majority logic
+	assign vt_resync_d1_1     = (resync_d1_1     & resync_d1_2    ) | (resync_d1_2     & resync_d1_3    ) | (resync_d1_1     & resync_d1_3    ); // Majority logic
+	assign vt_resync_d1_2     = (resync_d1_1     & resync_d1_2    ) | (resync_d1_2     & resync_d1_3    ) | (resync_d1_1     & resync_d1_3    ); // Majority logic
+	assign vt_resync_d1_3     = (resync_d1_1     & resync_d1_2    ) | (resync_d1_2     & resync_d1_3    ) | (resync_d1_1     & resync_d1_3    ); // Majority logic
+	assign vt_lead_edg_resync_d1_1 = (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_2) | (vt_lead_edg_resync_d1_2 & vt_lead_edg_resync_d1_3) | (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_3); // Majority logic
+	assign vt_lead_edg_resync_d1_2 = (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_2) | (vt_lead_edg_resync_d1_2 & vt_lead_edg_resync_d1_3) | (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_3); // Majority logic
+	assign vt_lead_edg_resync_d1_3 = (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_2) | (vt_lead_edg_resync_d1_2 & vt_lead_edg_resync_d1_3) | (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_3); // Majority logic
+	assign vt_cap_phase_1     = (cap_phase_1     & cap_phase_2    ) | (cap_phase_2     & cap_phase_3    ) | (cap_phase_1     & cap_phase_3    ); // Majority logic
+	assign vt_cap_phase_2     = (cap_phase_1     & cap_phase_2    ) | (cap_phase_2     & cap_phase_3    ) | (cap_phase_1     & cap_phase_3    ); // Majority logic
+	assign vt_cap_phase_3     = (cap_phase_1     & cap_phase_2    ) | (cap_phase_2     & cap_phase_3    ) | (cap_phase_1     & cap_phase_3    ); // Majority logic
+	assign vt_rst_mmcm_pipe_1 = (rst_mmcm_pipe_1 & rst_mmcm_pipe_2) | (rst_mmcm_pipe_2 & rst_mmcm_pipe_3) | (rst_mmcm_pipe_1 & rst_mmcm_pipe_3); // Majority logic
+	assign vt_rst_mmcm_pipe_2 = (rst_mmcm_pipe_1 & rst_mmcm_pipe_2) | (rst_mmcm_pipe_2 & rst_mmcm_pipe_3) | (rst_mmcm_pipe_1 & rst_mmcm_pipe_3); // Majority logic
+	assign vt_rst_mmcm_pipe_3 = (rst_mmcm_pipe_1 & rst_mmcm_pipe_2) | (rst_mmcm_pipe_2 & rst_mmcm_pipe_3) | (rst_mmcm_pipe_1 & rst_mmcm_pipe_3); // Majority logic
+	assign vt_clk20_phase_1   = (clk20_phase_1   & clk20_phase_2  ) | (clk20_phase_2   & clk20_phase_3  ) | (clk20_phase_1   & clk20_phase_3  ); // Majority logic
+	assign vt_clk20_phase_2   = (clk20_phase_1   & clk20_phase_2  ) | (clk20_phase_2   & clk20_phase_3  ) | (clk20_phase_1   & clk20_phase_3  ); // Majority logic
+	assign vt_clk20_phase_3   = (clk20_phase_1   & clk20_phase_2  ) | (clk20_phase_2   & clk20_phase_3  ) | (clk20_phase_1   & clk20_phase_3  ); // Majority logic
+	assign vt_c20_phase_sel_1 = (c20_phase_sel_1 & c20_phase_sel_2) | (c20_phase_sel_2 & c20_phase_sel_3) | (c20_phase_sel_1 & c20_phase_sel_3); // Majority logic
+	assign vt_c20_phase_sel_2 = (c20_phase_sel_1 & c20_phase_sel_2) | (c20_phase_sel_2 & c20_phase_sel_3) | (c20_phase_sel_1 & c20_phase_sel_3); // Majority logic
+	assign vt_c20_phase_sel_3 = (c20_phase_sel_1 & c20_phase_sel_2) | (c20_phase_sel_2 & c20_phase_sel_3) | (c20_phase_sel_1 & c20_phase_sel_3); // Majority logic
+	assign vt_dsr_ho_1        = (dsr_ho_1        & dsr_ho_2       ) | (dsr_ho_2        & dsr_ho_3       ) | (dsr_ho_1        & dsr_ho_3       ); // Majority logic
+	assign vt_dsr_ho_2        = (dsr_ho_1        & dsr_ho_2       ) | (dsr_ho_2        & dsr_ho_3       ) | (dsr_ho_1        & dsr_ho_3       ); // Majority logic
+	assign vt_dsr_ho_3        = (dsr_ho_1        & dsr_ho_2       ) | (dsr_ho_2        & dsr_ho_3       ) | (dsr_ho_1        & dsr_ho_3       ); // Majority logic
+	assign vt_dsr_ho_tmr_1    = (dsr_ho_tmr_1    & dsr_ho_tmr_2   ) | (dsr_ho_tmr_2    & dsr_ho_tmr_3   ) | (dsr_ho_tmr_1    & dsr_ho_tmr_3   ); // Majority logic
+	assign vt_dsr_ho_tmr_2    = (dsr_ho_tmr_1    & dsr_ho_tmr_2   ) | (dsr_ho_tmr_2    & dsr_ho_tmr_3   ) | (dsr_ho_tmr_1    & dsr_ho_tmr_3   ); // Majority logic
+	assign vt_dsr_ho_tmr_3    = (dsr_ho_tmr_1    & dsr_ho_tmr_2   ) | (dsr_ho_tmr_2    & dsr_ho_tmr_3   ) | (dsr_ho_tmr_1    & dsr_ho_tmr_3   ); // Majority logic
+
+	always @(posedge CLK40)
+	begin
+		rst_d1_1 <= RST;
+		rst_d1_2 <= RST;
+		rst_d1_3 <= RST;
+		rst_d2_1 <= vt_rst_d1_1;
+		rst_d2_2 <= vt_rst_d1_2;
+		rst_d2_3 <= vt_rst_d1_3;
+		resync_d1_1 <= RESYNC;
+		resync_d1_2 <= RESYNC;
+		resync_d1_3 <= RESYNC;
+		lead_edg_resync_d1_1 <= LEAD_EDG_RESYNC;
+		lead_edg_resync_d1_2 <= LEAD_EDG_RESYNC;
+		lead_edg_resync_d1_3 <= LEAD_EDG_RESYNC;
+		cap_phase_1 <= LEAD_EDG_RESYNC | vt_lead_edg_resync_d1_1  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
+		cap_phase_2 <= LEAD_EDG_RESYNC | vt_lead_edg_resync_d1_2  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
+		cap_phase_3 <= LEAD_EDG_RESYNC | vt_lead_edg_resync_d1_3  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
+		rst_mmcm_pipe_1 <= {vt_rst_mmcm_pipe_1[6:0],rst_mmcm_pipe_in};
+		rst_mmcm_pipe_2 <= {vt_rst_mmcm_pipe_2[6:0],rst_mmcm_pipe_in};
+		rst_mmcm_pipe_3 <= {vt_rst_mmcm_pipe_3[6:0],rst_mmcm_pipe_in};
+	end
+
+	always @(posedge CLK40 or posedge RST)
+	begin
+		if(RST) begin
+			clk20_phase_1 <= 1'b0;
+			clk20_phase_2 <= 1'b0;
+			clk20_phase_3 <= 1'b0;
+		end
+		else begin
+			clk20_phase_1 <= LEAD_EDG_RESYNC ? 1'b0 : ~vt_clk20_phase_1;
+			clk20_phase_2 <= LEAD_EDG_RESYNC ? 1'b0 : ~vt_clk20_phase_2;
+			clk20_phase_3 <= LEAD_EDG_RESYNC ? 1'b0 : ~vt_clk20_phase_3;
+		end
+	end
+
+	always @(posedge clk20_nophase or posedge RST)
+	begin
+		if(RST) begin
+			c20_phase_sel_1 <= 1'b0;
+			c20_phase_sel_2 <= 1'b0;
+			c20_phase_sel_3 <= 1'b0;
+		end
+		else begin
+			c20_phase_sel_1 <= vt_cap_phase_1 ? vt_clk20_phase_1 : vt_c20_phase_sel_1;
+			c20_phase_sel_2 <= vt_cap_phase_2 ? vt_clk20_phase_2 : vt_c20_phase_sel_2;
+			c20_phase_sel_3 <= vt_cap_phase_3 ? vt_clk20_phase_3 : vt_c20_phase_sel_3;
+		end
+	end
+			
+	always @(posedge CLK40 or posedge RST)
+	begin
+		if(RST) begin
+			dsr_ho_1 <= 1'b0;
+			dsr_ho_2 <= 1'b0;
+			dsr_ho_3 <= 1'b0;
+		end
+		else begin
+			dsr_ho_1 <= vt_cap_phase_1 ? 1'b1 :(clr_dsr_ho ? 1'b0 : vt_dsr_ho_1);
+			dsr_ho_2 <= vt_cap_phase_2 ? 1'b1 :(clr_dsr_ho ? 1'b0 : vt_dsr_ho_2);
+			dsr_ho_3 <= vt_cap_phase_3 ? 1'b1 :(clr_dsr_ho ? 1'b0 : vt_dsr_ho_3);
+		end
+	end
+	always @(posedge CLK1MHZ or posedge RST)
+	begin
+		if(RST) begin
+			dsr_ho_tmr_1 <= 8'h00;
+			dsr_ho_tmr_2 <= 8'h00;
+			dsr_ho_tmr_3 <= 8'h00;
+		end
+		else begin
+			dsr_ho_tmr_1 <= vt_dsr_ho_1 ? vt_dsr_ho_tmr_1 + 1 : 8'h00;
+			dsr_ho_tmr_2 <= vt_dsr_ho_2 ? vt_dsr_ho_tmr_2 + 1 : 8'h00;
+			dsr_ho_tmr_3 <= vt_dsr_ho_3 ? vt_dsr_ho_tmr_3 + 1 : 8'h00;
+		end
+	end
+	
+	assign RESYNC_D1          = vt_resync_d1_1;
+	assign LEAD_EDG_RESYNC_D1 = vt_lead_edg_resync_d1_1;
+	assign CAP_PHASE          = vt_cap_phase_1;
+	assign RST_MMCM_PIPE      = vt_rst_mmcm_pipe_1;
+
+	assign rst_d2         = vt_rst_d2_1;
+	assign resync_d1      = vt_resync_d1_1;
+	assign cap_phase      = vt_cap_phase_1;
+	assign rst_mmcm_pipe  = vt_rst_mmcm_pipe_1;
+	assign c20_phase_sel  = vt_c20_phase_sel_1;
+	assign dsr_ho         = vt_dsr_ho_1;
+	assign dsr_ho_tmr     = vt_dsr_ho_tmr_1;
+
 end
+else 
+begin : Samp_Clk_No_TMR
 
-always @(posedge CLK40 or posedge RST)
-begin
-	if(RST)
-		clk20_phase <= 1'b0;
-	else
-		if(lead_edg_resync)
+	reg rst_d1;
+	reg rst_d2;
+	reg resync_d1;
+	reg lead_edg_resync_d1;
+	reg cap_phase;
+	reg [7:0] rst_mmcm_pipe;
+	reg clk20_phase;
+	reg c20_phase_sel;
+	reg dsr_ho;
+	reg [7:0] dsr_ho_tmr;
+
+	always @(posedge CLK40)
+	begin
+		rst_d1 <= RST;
+		rst_d2 <= rst_d1;
+		resync_d1 <= RESYNC;
+		lead_edg_resync_d1 <= LEAD_EDG_RESYNC;
+		cap_phase <= LEAD_EDG_RESYNC | lead_edg_resync_d1  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
+		rst_mmcm_pipe <= {rst_mmcm_pipe[6:0],rst_mmcm_pipe_in};
+	end
+
+	always @(posedge CLK40 or posedge RST)
+	begin
+		if(RST)
 			clk20_phase <= 1'b0;
 		else
-			clk20_phase <= ~clk20_phase;	
-end
+			if(LEAD_EDG_RESYNC)
+				clk20_phase <= 1'b0;
+			else
+				clk20_phase <= ~clk20_phase;	
+	end
 
-always @(posedge clk20_nophase or posedge RST)
-begin
-	if(RST)
-		c20_phase_sel <= 1'b0;
-	else
-		if(cap_phase)
-			c20_phase_sel <= clk20_phase;
+	always @(posedge clk20_nophase or posedge RST)
+	begin
+		if(RST)
+			c20_phase_sel <= 1'b0;
 		else
-			c20_phase_sel <= c20_phase_sel;
-end
-		
-always @(posedge CLK40 or posedge RST)
-begin
-	if(RST)
-		dsr_ho <= 1'b0;
-	else
-		if(cap_phase)
-			dsr_ho <= 1'b1;
-		else if(clr_dsr_ho)
+			if(cap_phase)
+				c20_phase_sel <= clk20_phase;
+			else
+				c20_phase_sel <= c20_phase_sel;
+	end
+			
+	always @(posedge CLK40 or posedge RST)
+	begin
+		if(RST)
 			dsr_ho <= 1'b0;
 		else
-			dsr_ho <= dsr_ho;	
-end
-always @(posedge CLK1MHZ or posedge RST)
-begin
-	if(RST)
-		dsr_ho_tmr <= 8'h00;
-	else
-		if(dsr_ho)
-			dsr_ho_tmr <= dsr_ho_tmr+1;
+			if(cap_phase)
+				dsr_ho <= 1'b1;
+			else if(clr_dsr_ho)
+				dsr_ho <= 1'b0;
+			else
+				dsr_ho <= dsr_ho;	
+	end
+	always @(posedge CLK1MHZ or posedge RST)
+	begin
+		if(RST)
+			dsr_ho_tmr <= 8'h00;
 		else
-			dsr_ho_tmr <= 8'h00;	
+			if(dsr_ho)
+				dsr_ho_tmr <= dsr_ho_tmr+1;
+			else
+				dsr_ho_tmr <= 8'h00;	
+	end
+	assign RESYNC_D1          = resync_d1;
+	assign LEAD_EDG_RESYNC_D1 = lead_edg_resync_d1;
+	assign CAP_PHASE          = cap_phase;
+	assign RST_MMCM_PIPE      = rst_mmcm_pipe;
+
 end
+endgenerate
+
+  assign trl_edg_rst = (~RST & rst_d2); //two clocks wide
+  assign LEAD_EDG_RESYNC = RESYNC & ~resync_d1 ; //one clocks wide
+  assign rst_mmcm_pipe_in = LEAD_EDG_RESYNC | trl_edg_rst | cap_phase | SAMP_CLK_PHS_CHNG;
+  assign rst_samp_mmcm = |rst_mmcm_pipe;
+  assign DSR_RESYNC = dsr_ho;
+  assign clr_dsr_ho = (dsr_ho_tmr == 8'd100); //100uS
+  assign samp_in_sel = SAMP_CLK_PHASE[2] ^ c20_phase_sel;
+
 
 // daq_mmcm_custom
 //----------------------------------------------------------------------------
@@ -289,7 +481,6 @@ daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
 	.RESET(rst_samp_mmcm),
    .LOCKED(samp_med_lock));
 	
-//   BUFG samp_fb_med_i (.O(sampfbin_med),  .I(sampfbout_med));
 	
    BUFGMUX 
    BUFGMUX_samp_ma (
@@ -375,11 +566,11 @@ endgenerate
     .CLK_OUT1(COMP_CLK),.CLK_OUT2(COMP_CLK80),.CLK_OUT3(COMP_CLK160),
     // Dynamic phase shift ports
     .PSCLK(CLK40),// IN
-    .PSEN(cmp_phs_psen), // IN
+    .PSEN(CMP_PHS_PSEN), // IN
     .PSINCDEC(cmp_phs_inc),     // IN
-    .PSDONE(cmp_phs_psdone),       // OUT
+    .PSDONE(CMP_PHS_PSDONE),       // OUT
     // Status and control signals
-    .RESET(cmp_phs_rst),// IN
+    .RESET(CMP_PHS_RST),// IN
     .LOCKED(TRG_MMCM_LOCK));      // OUT
 	
 	
@@ -397,23 +588,173 @@ endgenerate
 //			$display ("adr=%d  data=%d",iadr,cmp_rom[iadr]);
 //		end
 //	end
-initial begin
-	$readmemh ("comp_phase", cmp_rom, 0, 31);
+
+generate
+if(TMR==1) 
+begin : Comp_Phase_FSM_TMR
+// signals for comparator clock managment
+  (* syn_preserve = "true" *) reg [10:0] cmp_rom_1 [31:0];	
+  (* syn_preserve = "true" *) reg [10:0] cmp_rom_2 [31:0];	
+  (* syn_preserve = "true" *) reg [10:0] cmp_rom_3 [31:0];	
+  (* syn_preserve = "true" *) reg [10:0] cur_cmp_phase_1;
+  (* syn_preserve = "true" *) reg [10:0] cur_cmp_phase_2;
+  (* syn_preserve = "true" *) reg [10:0] cur_cmp_phase_3;
+  (* syn_preserve = "true" *) reg [10:0] cmp_phase_1;
+  (* syn_preserve = "true" *) reg [10:0] cmp_phase_2;
+  (* syn_preserve = "true" *) reg [10:0] cmp_phase_3;
+  (* syn_preserve = "true" *) reg cmp_phs_chg_m1_1;
+  (* syn_preserve = "true" *) reg cmp_phs_chg_m1_2;
+  (* syn_preserve = "true" *) reg cmp_phs_chg_m1_3;
+  (* syn_preserve = "true" *) reg cmp_phs_change_1;
+  (* syn_preserve = "true" *) reg cmp_phs_change_2;
+  (* syn_preserve = "true" *) reg cmp_phs_change_3;
+  (* syn_preserve = "true" *) reg cmp_phs_inc_1;
+  (* syn_preserve = "true" *) reg cmp_phs_inc_2;
+  (* syn_preserve = "true" *) reg cmp_phs_inc_3;
+
+  (* syn_keep = "true" *) wire [10:0] vt_cmp_rom_1;
+  (* syn_keep = "true" *) wire [10:0] vt_cmp_rom_2;
+  (* syn_keep = "true" *) wire [10:0] vt_cmp_rom_3;
+  (* syn_keep = "true" *) wire [10:0] vt_cur_cmp_phase_1;
+  (* syn_keep = "true" *) wire [10:0] vt_cur_cmp_phase_2;
+  (* syn_keep = "true" *) wire [10:0] vt_cur_cmp_phase_3;
+  (* syn_keep = "true" *) wire [10:0] vt_cmp_phase_1;
+  (* syn_keep = "true" *) wire [10:0] vt_cmp_phase_2;
+  (* syn_keep = "true" *) wire [10:0] vt_cmp_phase_3;
+  (* syn_keep = "true" *) wire vt_cmp_phs_chg_m1_1;
+  (* syn_keep = "true" *) wire vt_cmp_phs_chg_m1_2;
+  (* syn_keep = "true" *) wire vt_cmp_phs_chg_m1_3;
+  (* syn_keep = "true" *) wire vt_cmp_phs_change_1;
+  (* syn_keep = "true" *) wire vt_cmp_phs_change_2;
+  (* syn_keep = "true" *) wire vt_cmp_phs_change_3;
+  (* syn_keep = "true" *) wire vt_cmp_phs_inc_1;
+  (* syn_keep = "true" *) wire vt_cmp_phs_inc_2;
+  (* syn_keep = "true" *) wire vt_cmp_phs_inc_3;
+	
+  assign vt_cmp_rom_1        = (cmp_rom_1[CMP_CLK_PHASE] & cmp_rom_2[CMP_CLK_PHASE]) | (cmp_rom_2[CMP_CLK_PHASE] & cmp_rom_3[CMP_CLK_PHASE]) | (cmp_rom_1[CMP_CLK_PHASE] & cmp_rom_3[CMP_CLK_PHASE]); // Majority logic
+  assign vt_cmp_rom_2        = (cmp_rom_1[CMP_CLK_PHASE] & cmp_rom_2[CMP_CLK_PHASE]) | (cmp_rom_2[CMP_CLK_PHASE] & cmp_rom_3[CMP_CLK_PHASE]) | (cmp_rom_1[CMP_CLK_PHASE] & cmp_rom_3[CMP_CLK_PHASE]); // Majority logic
+  assign vt_cmp_rom_3        = (cmp_rom_1[CMP_CLK_PHASE] & cmp_rom_2[CMP_CLK_PHASE]) | (cmp_rom_2[CMP_CLK_PHASE] & cmp_rom_3[CMP_CLK_PHASE]) | (cmp_rom_1[CMP_CLK_PHASE] & cmp_rom_3[CMP_CLK_PHASE]); // Majority logic
+  assign vt_cur_cmp_phase_1  = (cur_cmp_phase_1  & cur_cmp_phase_2 ) | (cur_cmp_phase_2  & cur_cmp_phase_3 ) | (cur_cmp_phase_1  & cur_cmp_phase_3 ); // Majority logic
+  assign vt_cur_cmp_phase_2  = (cur_cmp_phase_1  & cur_cmp_phase_2 ) | (cur_cmp_phase_2  & cur_cmp_phase_3 ) | (cur_cmp_phase_1  & cur_cmp_phase_3 ); // Majority logic
+  assign vt_cur_cmp_phase_3  = (cur_cmp_phase_1  & cur_cmp_phase_2 ) | (cur_cmp_phase_2  & cur_cmp_phase_3 ) | (cur_cmp_phase_1  & cur_cmp_phase_3 ); // Majority logic
+  assign vt_cmp_phase_1      = (cmp_phase_1      & cmp_phase_2     ) | (cmp_phase_2      & cmp_phase_3     ) | (cmp_phase_1      & cmp_phase_3     ); // Majority logic
+  assign vt_cmp_phase_2      = (cmp_phase_1      & cmp_phase_2     ) | (cmp_phase_2      & cmp_phase_3     ) | (cmp_phase_1      & cmp_phase_3     ); // Majority logic
+  assign vt_cmp_phase_3      = (cmp_phase_1      & cmp_phase_2     ) | (cmp_phase_2      & cmp_phase_3     ) | (cmp_phase_1      & cmp_phase_3     ); // Majority logic
+  assign vt_cmp_phs_chg_m1_1 = (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_2) | (cmp_phs_chg_m1_2 & cmp_phs_chg_m1_3) | (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_3); // Majority logic
+  assign vt_cmp_phs_chg_m1_2 = (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_2) | (cmp_phs_chg_m1_2 & cmp_phs_chg_m1_3) | (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_3); // Majority logic
+  assign vt_cmp_phs_chg_m1_3 = (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_2) | (cmp_phs_chg_m1_2 & cmp_phs_chg_m1_3) | (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_3); // Majority logic
+  assign vt_cmp_phs_change_1 = (cmp_phs_change_1 & cmp_phs_change_2) | (cmp_phs_change_2 & cmp_phs_change_3) | (cmp_phs_change_1 & cmp_phs_change_3); // Majority logic
+  assign vt_cmp_phs_change_2 = (cmp_phs_change_1 & cmp_phs_change_2) | (cmp_phs_change_2 & cmp_phs_change_3) | (cmp_phs_change_1 & cmp_phs_change_3); // Majority logic
+  assign vt_cmp_phs_change_3 = (cmp_phs_change_1 & cmp_phs_change_2) | (cmp_phs_change_2 & cmp_phs_change_3) | (cmp_phs_change_1 & cmp_phs_change_3); // Majority logic
+  assign vt_cmp_phs_inc_1    = (cmp_phs_inc_1    & cmp_phs_inc_2)    | (cmp_phs_inc_2    & cmp_phs_inc_3   ) | (cmp_phs_inc_1    & cmp_phs_inc_3   ); // Majority logic
+  assign vt_cmp_phs_inc_2    = (cmp_phs_inc_1    & cmp_phs_inc_2)    | (cmp_phs_inc_2    & cmp_phs_inc_3   ) | (cmp_phs_inc_1    & cmp_phs_inc_3   ); // Majority logic
+  assign vt_cmp_phs_inc_3    = (cmp_phs_inc_1    & cmp_phs_inc_2)    | (cmp_phs_inc_2    & cmp_phs_inc_3   ) | (cmp_phs_inc_1    & cmp_phs_inc_3   ); // Majority logic
+
+
+	initial begin
+		$readmemh ("comp_phase", cmp_rom_1, 0, 31);
+		$readmemh ("comp_phase", cmp_rom_2, 0, 31);
+		$readmemh ("comp_phase", cmp_rom_3, 0, 31);
+	end
+	
+	always @(posedge CLK40) begin
+		cmp_phs_inc_1   <= (vt_cmp_phase_1 >  vt_cur_cmp_phase_1);
+		cmp_phs_inc_2   <= (vt_cmp_phase_2 >  vt_cur_cmp_phase_2);
+		cmp_phs_inc_3   <= (vt_cmp_phase_3 >  vt_cur_cmp_phase_3);
+		
+		cmp_phs_chg_m1_1 <= !(vt_cmp_phase_1 == vt_cur_cmp_phase_1);
+		cmp_phs_chg_m1_2 <= !(vt_cmp_phase_2 == vt_cur_cmp_phase_2);
+		cmp_phs_chg_m1_3 <= !(vt_cmp_phase_3 == vt_cur_cmp_phase_3);
+		
+		cmp_phs_change_1 <= vt_cmp_phs_chg_m1_1;                // delay signaling phase change to allow change to settle
+		cmp_phs_change_2 <= vt_cmp_phs_chg_m1_2;                // delay signaling phase change to allow change to settle
+		cmp_phs_change_3 <= vt_cmp_phs_chg_m1_3;                // delay signaling phase change to allow change to settle
+		
+		cmp_phase_1 <= vt_cmp_rom_1;
+		cmp_phase_2 <= vt_cmp_rom_2;
+		cmp_phase_3 <= vt_cmp_rom_3;
+	end
+
+// Track current phase value presumed inside MMCM
+	always @(posedge CLK40 or posedge CMP_PHS_RST) begin
+		if (CMP_PHS_RST) begin
+			cur_cmp_phase_1 <= 11'h000;		// must match MMCM initial preset phase (normally 0)
+			cur_cmp_phase_2 <= 11'h000;		// must match MMCM initial preset phase (normally 0)
+			cur_cmp_phase_3 <= 11'h000;		// must match MMCM initial preset phase (normally 0)
+		end
+		else
+			if (CMP_PHS_PSEN) begin
+				cur_cmp_phase_1 <= vt_cmp_phs_inc_1 ? vt_cur_cmp_phase_1 + 1 : vt_cur_cmp_phase_1 - 1;
+				cur_cmp_phase_2 <= vt_cmp_phs_inc_2 ? vt_cur_cmp_phase_2 + 1 : vt_cur_cmp_phase_2 - 1;
+				cur_cmp_phase_3 <= vt_cmp_phs_inc_3 ? vt_cur_cmp_phase_3 + 1 : vt_cur_cmp_phase_3 - 1;
+			end
+			else begin
+				cur_cmp_phase_1 <= vt_cur_cmp_phase_1;
+				cur_cmp_phase_2 <= vt_cur_cmp_phase_2;
+				cur_cmp_phase_3 <= vt_cur_cmp_phase_3;
+			end
+	end
+	
+	if(TMR_Err_Det==1) 
+	begin : with_Err_Det
+		dyn_phase_shift_FSM_TMR_Err_Det
+		Comp_Phase_FSM(
+		  .BUSY(CMP_PHS_BUSY),
+		  .PSEN(CMP_PHS_PSEN),
+		  .DYN_PHS_STATE(CMP_PHS_STATE),
+		  .TMR_ERR_COUNT(CMP_PHS_ERRCNT),
+		  .CLK(CLK40),
+		  .LOCKED(TRG_MMCM_LOCK),
+		  .PH_CHANGE(vt_cmp_phs_change_1),
+		  .PS_DONE(CMP_PHS_PSDONE),
+		  .RST(CMP_PHS_RST)
+		);
+	end
+	else 
+	begin : no_Err_Det
+		dyn_phase_shift_FSM_TMR
+		Comp_Phase_FSM(
+		  .BUSY(CMP_PHS_BUSY),
+		  .PSEN(CMP_PHS_PSEN),
+		  .DYN_PHS_STATE(CMP_PHS_STATE),
+		  .CLK(CLK40),
+		  .LOCKED(TRG_MMCM_LOCK),
+		  .PH_CHANGE(vt_cmp_phs_change_1),
+		  .PS_DONE(CMP_PHS_PSDONE),
+		  .RST(CMP_PHS_RST)
+		);
+		assign CMP_PHS_ERRCNT = 0;
+	end
+	assign CMP_PHASE = vt_cmp_phase_1;
+	assign CMP_PHS_CHANGE = vt_cmp_phs_change_1;
 end
+else 
+begin : Comp_Phase_FSM
+// signals for comparator clock managment
+	reg [10:0] cur_cmp_phase;
+	reg [10:0] cmp_rom [31:0];	
+	reg [10:0] cmp_phase;
+	reg cmp_phs_chg_m1;
+	reg cmp_phs_change;
+	reg cmp_phs_inc;
+	
+	initial begin
+		$readmemh ("comp_phase", cmp_rom, 0, 31);
+	end
 	
 	always @(posedge CLK40) begin
 		cmp_phs_inc   <= (cmp_phase >  cur_cmp_phase);
 		cmp_phs_chg_m1 <= !(cmp_phase == cur_cmp_phase);
-		CMP_PHS_CHANGE <= cmp_phs_chg_m1;                // delay signaling phase change to allow change to settle
+		cmp_phs_change <= cmp_phs_chg_m1;                // delay signaling phase change to allow change to settle
 		cmp_phase <= cmp_rom[CMP_CLK_PHASE];
 	end
 
 // Track current phase value presumed inside MMCM
-	always @(posedge CLK40 or posedge cmp_phs_rst) begin
-		if (cmp_phs_rst)
+	always @(posedge CLK40 or posedge CMP_PHS_RST) begin
+		if (CMP_PHS_RST)
 			cur_cmp_phase <= 11'h000;		// must match MMCM initial preset phase (normally 0)
 		else
-			if (cmp_phs_psen)
+			if (CMP_PHS_PSEN)
 				if (cmp_phs_inc)
 					cur_cmp_phase <= cur_cmp_phase+1;
 				else
@@ -422,52 +763,21 @@ end
 				cur_cmp_phase <= cur_cmp_phase;
 			
 	end
-
-generate
-if(TMR==1 && TMR_Err_Det==1) 
-begin : Comp_Phase_FSM_TMR_Err_Det
-   dyn_phase_shift_FSM_TMR_Err_Det
-	Comp_Phase_FSM(
-     .BUSY(cmp_phs_busy),
-     .PSEN(cmp_phs_psen),
-     .DYN_PHS_STATE(cmp_phs_state),
-	  .TMR_ERR_COUNT(CMP_PHS_ERRCNT),
-     .CLK(CLK40),
-     .LOCKED(TRG_MMCM_LOCK),
-     .PH_CHANGE(CMP_PHS_CHANGE),
-     .PS_DONE(cmp_phs_psdone),
-     .RST(cmp_phs_rst)
-);
-end
-else if(TMR==1) 
-begin : Comp_Phase_FSM_TMR
-   dyn_phase_shift_FSM_TMR
-	Comp_Phase_FSM(
-     .BUSY(cmp_phs_busy),
-     .PSEN(cmp_phs_psen),
-     .DYN_PHS_STATE(cmp_phs_state),
-     .CLK(CLK40),
-     .LOCKED(TRG_MMCM_LOCK),
-     .PH_CHANGE(CMP_PHS_CHANGE),
-     .PS_DONE(cmp_phs_psdone),
-     .RST(cmp_phs_rst)
-);
-assign CMP_PHS_ERRCNT = 0;
-end
-else 
-begin : Comp_Phase_FSM
+	
    dyn_phase_shift_FSM
 	Comp_Phase_FSM(
-     .BUSY(cmp_phs_busy),
-     .PSEN(cmp_phs_psen),
-     .DYN_PHS_STATE(cmp_phs_state),
+     .BUSY(CMP_PHS_BUSY),
+     .PSEN(CMP_PHS_PSEN),
+     .DYN_PHS_STATE(CMP_PHS_STATE),
      .CLK(CLK40),
      .LOCKED(TRG_MMCM_LOCK),
-     .PH_CHANGE(CMP_PHS_CHANGE),
-     .PS_DONE(cmp_phs_psdone),
-     .RST(cmp_phs_rst)
-);
-assign CMP_PHS_ERRCNT = 0;
+     .PH_CHANGE(cmp_phs_change),
+     .PS_DONE(CMP_PHS_PSDONE),
+     .RST(CMP_PHS_RST)
+	);
+	assign CMP_PHS_ERRCNT = 0;
+	assign CMP_PHASE = cmp_phase;
+	assign CMP_PHS_CHANGE = cmp_phs_change;
 end
 endgenerate
 

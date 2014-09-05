@@ -523,17 +523,17 @@ endgenerate
 		.STRTUP_CLK(strtup_clk),           // internal config clock for power on state machines in reset manager
 		.EOS(eos),                          // End Of Startup
 		.CMP_PHS_ERRCNT(cmp_phs_errcnt),
-		.resync_d1(resync_d1),
-		.lead_edg_resync(lead_edg_resync),
-		.lead_edg_resync_d1(lead_edg_resync_d1),
-		.cap_phase(cap_phase),
-		.rst_mmcm_pipe(rst_mmcm_pipe),
-		.cmp_phase(cmp_phase),    // translated comp Phase 11 bits (0-1344)
-		.cmp_phs_psen(cmp_phs_psen),
-		.cmp_phs_psdone(cmp_phs_psdone),
-		.cmp_phs_busy(cmp_phs_busy),
-		.cmp_phs_rst(cmp_phs_rst),
-		.cmp_phs_state(cmp_phs_state)
+		.RESYNC_D1(resync_d1),
+		.LEAD_EDG_RESYNC(lead_edg_resync),
+		.LEAD_EDG_RESYNC_D1(lead_edg_resync_d1),
+		.CAP_PHASE(cap_phase),
+		.RST_MMCM_PIPE(rst_mmcm_pipe),
+		.CMP_PHASE(cmp_phase),    // translated comp Phase 11 bits (0-1344)
+		.CMP_PHS_PSEN(cmp_phs_psen),
+		.CMP_PHS_PSDONE(cmp_phs_psdone),
+		.CMP_PHS_BUSY(cmp_phs_busy),
+		.CMP_PHS_RST(cmp_phs_rst),
+		.CMP_PHS_STATE(cmp_phs_state)
 	);
   
 
