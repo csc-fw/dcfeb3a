@@ -30,51 +30,158 @@ module al_cdac #(
     output SHCK_ENA,
     output SDATA,
     output DAC_ENB,
-    output reg DONE
+    output CDAC_DONE
     );
 	 
 	 
-	reg load_cthresh;
-	reg load_cthresh_r1;
 	wire le_load_cthresh;
 	wire set_done;
-	reg [15:0] cth_shft;
-	reg [11:0] cthresh_hold;
-	
-	
-	assign DAC_ENB = load_cthresh;
-	assign SDATA = cth_shft[15];
-	assign le_load_cthresh   = load_cthresh & ~load_cthresh_r1;
-
-always @(negedge CLK1MHZ) begin
-	load_cthresh_r1 <= load_cthresh;
-end
-always @(negedge CLK1MHZ or posedge RST) begin
-	if(RST)
-		cth_shft <= 16'h0000;
-	else
-		if(le_load_cthresh)
-			cth_shft <= {3'b0,cthresh_hold,1'b0};
-		else if(SHCK_ENA)
-			cth_shft <= {cth_shft[14:0],1'b0};
-		else
-			cth_shft <= cth_shft;
-end
 
 generate
 if(TMR==1) 
 begin : CmpTh_FSM_TMR
+
+	(* syn_preserve = "true" *) reg load_cthresh_1;
+	(* syn_preserve = "true" *) reg load_cthresh_2;
+	(* syn_preserve = "true" *) reg load_cthresh_3;
+	(* syn_preserve = "true" *) reg load_cthresh_r1_1;
+	(* syn_preserve = "true" *) reg load_cthresh_r1_2;
+	(* syn_preserve = "true" *) reg load_cthresh_r1_3;
+	(* syn_preserve = "true" *) reg done_1;
+	(* syn_preserve = "true" *) reg done_2;
+	(* syn_preserve = "true" *) reg done_3;
+	(* syn_preserve = "true" *) reg [15:0] cth_shft_1;
+	(* syn_preserve = "true" *) reg [15:0] cth_shft_2;
+	(* syn_preserve = "true" *) reg [15:0] cth_shft_3;
+	(* syn_preserve = "true" *) reg [11:0] cthresh_hold_1;
+	(* syn_preserve = "true" *) reg [11:0] cthresh_hold_2;
+	(* syn_preserve = "true" *) reg [11:0] cthresh_hold_3;
+	
+	(* syn_keep = "true" *) wire vt_load_cthresh_1;
+	(* syn_keep = "true" *) wire vt_load_cthresh_2;
+	(* syn_keep = "true" *) wire vt_load_cthresh_3;
+	(* syn_keep = "true" *) wire vt_load_cthresh_r1_1;
+	(* syn_keep = "true" *) wire vt_load_cthresh_r1_2;
+	(* syn_keep = "true" *) wire vt_load_cthresh_r1_3;
+	(* syn_keep = "true" *) wire vt_done_1;
+	(* syn_keep = "true" *) wire vt_done_2;
+	(* syn_keep = "true" *) wire vt_done_3;
+	(* syn_keep = "true" *) wire vt_cth_shft_1;
+	(* syn_keep = "true" *) wire vt_cth_shft_2;
+	(* syn_keep = "true" *) wire vt_cth_shft_3;
+	(* syn_keep = "true" *) wire vt_cthresh_hold_1;
+	(* syn_keep = "true" *) wire vt_cthresh_hold_2;
+	(* syn_keep = "true" *) wire vt_cthresh_hold_3;
+  
+	assign vt_load_cthresh_1    = (load_cthresh_1    & load_cthresh_2   ) | (load_cthresh_2    & load_cthresh_3   ) | (load_cthresh_1    & load_cthresh_3   ); // Majority logic
+	assign vt_load_cthresh_2    = (load_cthresh_1    & load_cthresh_2   ) | (load_cthresh_2    & load_cthresh_3   ) | (load_cthresh_1    & load_cthresh_3   ); // Majority logic
+	assign vt_load_cthresh_3    = (load_cthresh_1    & load_cthresh_2   ) | (load_cthresh_2    & load_cthresh_3   ) | (load_cthresh_1    & load_cthresh_3   ); // Majority logic
+	assign vt_load_cthresh_r1_1 = (load_cthresh_r1_1 & load_cthresh_r1_2) | (load_cthresh_r1_2 & load_cthresh_r1_3) | (load_cthresh_r1_1 & load_cthresh_r1_3); // Majority logic
+	assign vt_load_cthresh_r1_2 = (load_cthresh_r1_1 & load_cthresh_r1_2) | (load_cthresh_r1_2 & load_cthresh_r1_3) | (load_cthresh_r1_1 & load_cthresh_r1_3); // Majority logic
+	assign vt_load_cthresh_r1_3 = (load_cthresh_r1_1 & load_cthresh_r1_2) | (load_cthresh_r1_2 & load_cthresh_r1_3) | (load_cthresh_r1_1 & load_cthresh_r1_3); // Majority logic
+	assign vt_done_1            = (done_1            & done_2           ) | (done_2            & done_3           ) | (done_1            & done_3           ); // Majority logic
+	assign vt_done_2            = (done_1            & done_2           ) | (done_2            & done_3           ) | (done_1            & done_3           ); // Majority logic
+	assign vt_done_3            = (done_1            & done_2           ) | (done_2            & done_3           ) | (done_1            & done_3           ); // Majority logic
+	assign vt_cth_shft_1        = (cth_shft_1        & cth_shft_2       ) | (cth_shft_2        & cth_shft_3       ) | (cth_shft_1        & cth_shft_3       ); // Majority logic
+	assign vt_cth_shft_2        = (cth_shft_1        & cth_shft_2       ) | (cth_shft_2        & cth_shft_3       ) | (cth_shft_1        & cth_shft_3       ); // Majority logic
+	assign vt_cth_shft_3        = (cth_shft_1        & cth_shft_2       ) | (cth_shft_2        & cth_shft_3       ) | (cth_shft_1        & cth_shft_3       ); // Majority logic
+	assign vt_cthresh_hold_1    = (cthresh_hold_1    & cthresh_hold_2   ) | (cthresh_hold_2    & cthresh_hold_3   ) | (cthresh_hold_1    & cthresh_hold_3   ); // Majority logic
+	assign vt_cthresh_hold_2    = (cthresh_hold_1    & cthresh_hold_2   ) | (cthresh_hold_2    & cthresh_hold_3   ) | (cthresh_hold_1    & cthresh_hold_3   ); // Majority logic
+	assign vt_cthresh_hold_3    = (cthresh_hold_1    & cthresh_hold_2   ) | (cthresh_hold_2    & cthresh_hold_3   ) | (cthresh_hold_1    & cthresh_hold_3   ); // Majority logic
+
+	always @(negedge CLK1MHZ) begin
+		load_cthresh_r1_1 <= vt_load_cthresh_1;
+		load_cthresh_r1_2 <= vt_load_cthresh_2;
+		load_cthresh_r1_3 <= vt_load_cthresh_3;
+	end
+	always @(negedge CLK1MHZ or posedge RST) begin
+		if(RST) begin
+			cth_shft_1 <= 16'h0000;
+			cth_shft_2 <= 16'h0000;
+			cth_shft_3 <= 16'h0000;
+		end
+		else begin
+			cth_shft_1 <= le_load_cthresh ? {3'b0,vt_cthresh_hold_1,1'b0} : (SHCK_ENA ? {vt_cth_shft_1[14:0],1'b0} : vt_cth_shft_1);
+			cth_shft_2 <= le_load_cthresh ? {3'b0,vt_cthresh_hold_2,1'b0} : (SHCK_ENA ? {vt_cth_shft_2[14:0],1'b0} : vt_cth_shft_2);
+			cth_shft_3 <= le_load_cthresh ? {3'b0,vt_cthresh_hold_3,1'b0} : (SHCK_ENA ? {vt_cth_shft_3[14:0],1'b0} : vt_cth_shft_3);
+		end
+	end
+
+	always @(posedge CLK40 or posedge RST) begin
+		if(RST) begin
+			load_cthresh_1 <= 1'b0;
+			load_cthresh_2 <= 1'b0;
+			load_cthresh_3 <= 1'b0;
+			cthresh_hold_1 <= 12'h000;
+			cthresh_hold_2 <= 12'h000;
+			cthresh_hold_3 <= 12'h000;
+			done_1 <= 1'b0;
+			done_2 <= 1'b0;
+			done_3 <= 1'b0;
+		end
+		else begin
+			load_cthresh_1 <= vt_done_1 ? 1'b0 : (CAPTURE ? 1'b1 : vt_load_cthresh_1);
+			load_cthresh_2 <= vt_done_2 ? 1'b0 : (CAPTURE ? 1'b1 : vt_load_cthresh_2);
+			load_cthresh_3 <= vt_done_3 ? 1'b0 : (CAPTURE ? 1'b1 : vt_load_cthresh_3);
+			cthresh_hold_1 <= CAPTURE ? BPI_AL_REG[11:0] : vt_cthresh_hold_1;
+			cthresh_hold_2 <= CAPTURE ? BPI_AL_REG[11:0] : vt_cthresh_hold_2;
+			cthresh_hold_3 <= CAPTURE ? BPI_AL_REG[11:0] : vt_cthresh_hold_3;
+			done_1 <= CLR_AL_DONE ? 1'b0 : (set_done ? 1'b1 : vt_done_1);
+			done_2 <= CLR_AL_DONE ? 1'b0 : (set_done ? 1'b1 : vt_done_2);
+			done_3 <= CLR_AL_DONE ? 1'b0 : (set_done ? 1'b1 : vt_done_3);
+		end
+	end
+
 	comp_thresh_load_FSM_TMR         //States change on negative edge of clock
 	comp_thresh_load_FSM_i(
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
 	  .CLK(CLK1MHZ),
 	  .RST(RST),
-	  .START(load_cthresh) 
+	  .START(vt_load_cthresh_1) 
 	);
+	
+	assign CDAC_DONE = vt_done_1;
+	assign DAC_ENB = vt_load_cthresh_1;
+	assign SDATA = vt_cth_shft_1[15];
+	assign le_load_cthresh   = vt_load_cthresh_1 & ~vt_load_cthresh_r1_1;
+
 end
 else 
 begin : CmpTh_FSM
+	
+	reg load_cthresh;
+	reg load_cthresh_r1;
+	reg done;
+	reg [15:0] cth_shft;
+	reg [11:0] cthresh_hold;
+  
+
+	always @(negedge CLK1MHZ) begin
+		load_cthresh_r1 <= load_cthresh;
+	end
+	always @(negedge CLK1MHZ or posedge RST) begin
+		if(RST) begin
+			cth_shft <= 16'h0000;
+		end
+		else begin
+			cth_shft <= le_load_cthresh ? {3'b0,cthresh_hold,1'b0} : (SHCK_ENA ? {cth_shft[14:0],1'b0} : cth_shft);
+		end
+	end
+
+	always @(posedge CLK40 or posedge RST) begin
+		if(RST) begin
+			load_cthresh <= 1'b0;
+			cthresh_hold <= 12'h000;
+			done <= 1'b0;
+		end
+		else begin
+			load_cthresh <= done ? 1'b0 : (CAPTURE ? 1'b1 : load_cthresh);
+			cthresh_hold <= CAPTURE ? BPI_AL_REG[11:0] : cthresh_hold;
+			done <= CLR_AL_DONE ? 1'b0 : (set_done ? 1'b1 : done);
+		end
+	end
+
 	comp_thresh_load_FSM         //States change on negative edge of clock
 	comp_thresh_load_FSM_i(
 	  .SET_DONE(set_done),
@@ -83,40 +190,13 @@ begin : CmpTh_FSM
 	  .RST(RST),
 	  .START(load_cthresh) 
 	);
+	
+	assign CDAC_DONE = done;
+	assign DAC_ENB = load_cthresh;
+	assign SDATA = cth_shft[15];
+	assign le_load_cthresh   = load_cthresh & ~load_cthresh_r1;
+
 end
 endgenerate
-  
-always @(posedge CLK40 or posedge RST) begin
-	if(RST)
-		load_cthresh <= 1'b0;
-	else
-		if(DONE)
-			load_cthresh <= 1'b0;
-		else if(CAPTURE)
-			load_cthresh <= 1'b1;
-		else
-			load_cthresh <= load_cthresh;
-end
-always @(posedge CLK40 or posedge RST) begin
-	if(RST)
-		DONE <= 1'b0;
-	else
-		if(CLR_AL_DONE)
-			DONE <= 1'b0;
-		else if(set_done)
-			DONE <= 1'b1;
-		else
-			DONE <= DONE;
-end
-always @(posedge CLK40 or posedge RST) begin
-	if(RST)
-		cthresh_hold <= 12'h000;
-	else
-		if(CAPTURE)
-			cthresh_hold <= BPI_AL_REG[11:0];
-		else
-			cthresh_hold <= cthresh_hold;
-end
-
 
 endmodule

@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 10:36:13 AM on 8/5/14
+## File last modified by Fizzim: 2:15:59 PM on 9/8/14
 <version>
    14.02.18
 </version>
@@ -902,6 +902,62 @@
          -1
          </page>
       </RESTART_ALL>
+      <SLOW_FRST_DONE>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         -1
+         </page>
+      </SLOW_FRST_DONE>
    </inputs>
    <outputs>
       <POR>
@@ -7455,7 +7511,7 @@ fzm_globalTable
             ABS
             </status>
          <value>
-         BPI_SEQ_IDLE
+         BPI_SEQ_IDLE && SLOW_FRST_DONE
             <status>
             LOCAL
             </status>
@@ -7585,7 +7641,7 @@ fzm_globalTable
    475.0
    </startCtrlPtX>
    <startCtrlPtY>
-   687.0
+   686.0
    </startCtrlPtY>
    <endCtrlPtY>
    475.0
@@ -8780,10 +8836,10 @@ fzm_globalTable
    618.0
    </startPtY>
    <endPtX>
-   545.0
+   548.0
    </endPtX>
    <endPtY>
-   649.0
+   643.0
    </endPtY>
    <startCtrlPtX>
    581.0
@@ -8792,16 +8848,16 @@ fzm_globalTable
    566.0
    </startCtrlPtY>
    <endCtrlPtY>
-   580.0
+   610.0
    </endCtrlPtY>
    <endCtrlPtY>
-   655.0
+   643.0
    </endCtrlPtY>
    <startStateIndex>
    33
    </startStateIndex>
    <endStateIndex>
-   2
+   1
    </endStateIndex>
    <page>
    1
@@ -8996,28 +9052,28 @@ fzm_globalTable
    713.0
    </startPtY>
    <endPtX>
-   548.0
+   550.0
    </endPtX>
    <endPtY>
-   730.0
+   737.0
    </endPtY>
    <startCtrlPtX>
-   574.0
+   560.0
    </startCtrlPtX>
    <startCtrlPtY>
-   655.0
+   661.0
    </startCtrlPtY>
    <endCtrlPtY>
-   548.0
+   608.0
    </endCtrlPtY>
    <endCtrlPtY>
-   731.0
+   724.0
    </endCtrlPtY>
    <startStateIndex>
    32
    </startStateIndex>
    <endStateIndex>
-   35
+   0
    </endStateIndex>
    <page>
    1
@@ -9212,10 +9268,10 @@ fzm_globalTable
    813.0
    </startPtY>
    <endPtX>
-   550.0
+   548.0
    </endPtX>
    <endPtY>
-   837.0
+   830.0
    </endPtY>
    <startCtrlPtX>
    567.0
@@ -9224,16 +9280,16 @@ fzm_globalTable
    762.0
    </startCtrlPtY>
    <endCtrlPtY>
-   565.0
+   606.0
    </endCtrlPtY>
    <endCtrlPtY>
-   841.0
+   817.0
    </endCtrlPtY>
    <startStateIndex>
    32
    </startStateIndex>
    <endStateIndex>
-   0
+   35
    </endStateIndex>
    <page>
    1

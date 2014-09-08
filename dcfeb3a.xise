@@ -618,14 +618,6 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="526"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="32"/>
     </file>
-    <file xil_pn:name="source/fizzim/DAQ_FIFO_Rst_FSM.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="527"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="104"/>
-    </file>
-    <file xil_pn:name="source/fizzim/DAQ_FIFO_Rst_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="528"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="103"/>
-    </file>
     <file xil_pn:name="source/fizzim/fifo_load_FSM.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="529"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="39"/>
@@ -758,6 +750,18 @@
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="522"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="22"/>
     </file>
+    <file xil_pn:name="ipcore_dir/al_Buckeye_load_FIFO.xco" xil_pn:type="FILE_COREGEN">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="521"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="521"/>
+    </file>
+    <file xil_pn:name="source/fizzim/FIFO_Rst_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="528"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="528"/>
+    </file>
+    <file xil_pn:name="source/fizzim/FIFO_Rst_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="529"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="529"/>
+    </file>
     <file xil_pn:name="ipcore_dir/adc_frame_clk.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
     </file>
@@ -880,6 +884,9 @@
     </file>
     <file xil_pn:name="ipcore_dir/CSP_chan_link_cntrl.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+    </file>
+    <file xil_pn:name="ipcore_dir/al_Buckeye_load_FIFO.xise" xil_pn:type="FILE_COREGENISE">
+      <association xil_pn:name="Implementation" xil_pn:seqID="522"/>
     </file>
   </files>
 

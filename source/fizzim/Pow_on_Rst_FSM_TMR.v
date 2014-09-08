@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:52:38 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:09:08 at 14:20:33 (www.fizzim.com)
 
 module Pow_on_Rst_FSM_TMR 
   #(
@@ -19,7 +19,8 @@ module Pow_on_Rst_FSM_TMR
   input EOS,
   input MMCM_LOCK,
   input QPLL_LOCK,
-  input RESTART_ALL 
+  input RESTART_ALL,
+  input SLOW_FRST_DONE 
 );
 
   // state bits
@@ -106,7 +107,7 @@ module Pow_on_Rst_FSM_TMR
                   else                                      nextstate_1 = ADC_INIT;
       Auto_Load : if      (AL_DONE)                         nextstate_1 = ADC_INIT;
                   else                                      nextstate_1 = Auto_Load;
-      PROM_Cnfg : if      (BPI_SEQ_IDLE)                    nextstate_1 = Auto_Load;
+      PROM_Cnfg : if      (BPI_SEQ_IDLE && SLOW_FRST_DONE)  nextstate_1 = Auto_Load;
                   else                                      nextstate_1 = PROM_Cnfg;
       Pow_on_Rst: if      (!MMCM_LOCK)                      nextstate_1 = W4Qpll;
                   else if (voted_por_cnt_1 == POR_tmo)      nextstate_1 = PROM_Cnfg;
@@ -126,7 +127,7 @@ module Pow_on_Rst_FSM_TMR
                   else                                      nextstate_2 = ADC_INIT;
       Auto_Load : if      (AL_DONE)                         nextstate_2 = ADC_INIT;
                   else                                      nextstate_2 = Auto_Load;
-      PROM_Cnfg : if      (BPI_SEQ_IDLE)                    nextstate_2 = Auto_Load;
+      PROM_Cnfg : if      (BPI_SEQ_IDLE && SLOW_FRST_DONE)  nextstate_2 = Auto_Load;
                   else                                      nextstate_2 = PROM_Cnfg;
       Pow_on_Rst: if      (!MMCM_LOCK)                      nextstate_2 = W4Qpll;
                   else if (voted_por_cnt_2 == POR_tmo)      nextstate_2 = PROM_Cnfg;
@@ -146,7 +147,7 @@ module Pow_on_Rst_FSM_TMR
                   else                                      nextstate_3 = ADC_INIT;
       Auto_Load : if      (AL_DONE)                         nextstate_3 = ADC_INIT;
                   else                                      nextstate_3 = Auto_Load;
-      PROM_Cnfg : if      (BPI_SEQ_IDLE)                    nextstate_3 = Auto_Load;
+      PROM_Cnfg : if      (BPI_SEQ_IDLE && SLOW_FRST_DONE)  nextstate_3 = Auto_Load;
                   else                                      nextstate_3 = PROM_Cnfg;
       Pow_on_Rst: if      (!MMCM_LOCK)                      nextstate_3 = W4Qpll;
                   else if (voted_por_cnt_3 == POR_tmo)      nextstate_3 = PROM_Cnfg;

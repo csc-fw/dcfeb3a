@@ -1068,7 +1068,7 @@ wire [6:0] ovrlp_smp_out;
 wire [15:0] f16_mt;
 wire rst_resync;
 wire daq_fifo_rst;
-wire daq_fifo_rst_done;
+wire slow_fifo_rst;
 wire rng_ff1_trg_in;
 wire rng_buf_trg_in;
 wire rng_chn_trg_in;
@@ -1085,32 +1085,6 @@ assign rng_buf_trg_in = rng_ff1_trg_out || rng_chn_trg_out || rng_eth_trg_out ||
 assign rng_chn_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_eth_trg_out || rng_xfr_trg_out;
 assign rng_eth_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_xfr_trg_out;
 assign rng_xfr_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out;
-
-assign rst_resync = sys_rst || resync;
-
-
-generate
-if(TMR==1) 
-begin : DAQFIFORst_FSM_TMR
-	DAQ_FIFO_Rst_FSM_TMR // reset all DAQ FIFOs on Resync
-	DAQ_FIFO_Rst_FSM_i (
-		.DONE(daq_fifo_rst_done),
-		.FIFO_RST(daq_fifo_rst),
-		.CLK(clk40),
-		.RST(rst_resync) 
-	);
-end
-else 
-begin : DAQFIFORst_FSM
-	DAQ_FIFO_Rst_FSM // reset all DAQ FIFOs on Resync
-	DAQ_FIFO_Rst_FSM_i (
-		.DONE(daq_fifo_rst_done),
-		.FIFO_RST(daq_fifo_rst),
-		.CLK(clk40),
-		.RST(rst_resync) 
-	);
-end
-endgenerate
 
 fifo16ch_wide #(
 		.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE),
@@ -1865,7 +1839,9 @@ endgenerate
 		.STUP_CLK(strtup_clk),
 		.CLK(clk40),
 		.COMP_CLK(comp_clk),
+		.CLK1MHZ(clk1mhz),  // 1 MHz Clock
 		.CLK100KHZ(clk100khz),
+		.RESYNC(resync),
 		.EOS(eos),
 		.JTAG_SYS_RST(jtag_sys_rst),
 		.CSP_SYS_RST(csp_sys_rst),
@@ -1890,6 +1866,9 @@ endgenerate
 		.TRG_RST(comp_rst),
 		.DSR_RST(dsr_rst),
 		.SYS_RST(sys_rst),
+		.RST_RESYNC(rst_resync),
+		.DAQ_FIFO_RST(daq_fifo_rst),
+		.SLOW_FIFO_RST(slow_fifo_rst),
 		.RUN(run),
 		.QPLL_LOCK(qpll_lock),
 		.QPLL_ERROR(qpll_error),
@@ -1939,6 +1918,7 @@ endgenerate
 		.BPI_STATUS(bpi_status),     // STATUS word for BPI interface
 		.BPI_TIMER(bpi_timer),     // stop watch timer for BPI commands
       .BPI_AL_REG(bpi_al_reg), // Data from BPI PROM for auto-loading
+		.SLOW_FIFO_RST(slow_fifo_rst), // Reset for Buckeye auto-load FIFO
 	   .AUTO_LOAD(auto_load),         // Auto load pulse for clock enabling registers;
 	   .AUTO_LOAD_ENA(auto_load_ena),     // High during Auto load process
 	   .AL_CNT(al_cnt),      // Auto load counter

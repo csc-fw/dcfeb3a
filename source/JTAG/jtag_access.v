@@ -106,6 +106,7 @@ module jtag_access #(
     input [15:0] BPI_STATUS, // STATUS word for BPI interface
     input [31:0] BPI_TIMER,  // Timer for BPI commands
     input [15:0] BPI_AL_REG, // Data from BPI PROM for auto-loading
+	 input SLOW_FIFO_RST,     // Reset for Buckeye auto-load FIFO
 	 input AUTO_LOAD,         // Auto load pulse for clock enabling registers;
 	 input AUTO_LOAD_ENA,     // High during Auto load process
 	 input [5:0] AL_CNT,      // Auto load counter
@@ -522,7 +523,7 @@ end
 		.SHCK_ENA(al_cth_shck_ena),
 		.SDATA(al_cth_sdata),
 		.DAC_ENB(al_dac_enb),
-		.DONE(al_cthresh_done)
+		.CDAC_DONE(al_cthresh_done)
 	);
 
 always @(posedge CLK40 or posedge RST) begin
@@ -651,13 +652,14 @@ end
 		.CLK40(CLK40),
 		.CLK1MHZ(CLK1MHZ),
 		.RST(RST),
+		.SLOW_FIFO_RST(SLOW_FIFO_RST),
 		.CLR_AL_DONE(CLR_AL_DONE),
 		.CAPTURE(al_bky_shift),
 		.BPI_AL_REG(BPI_AL_REG),
 		.AL_BKY_ENA(al_bky_ena),
 		.SHCK_ENA(al_bky_shck_ena),
 		.SDATA(al_bky_sdata),
-		.DONE(al_bshift_done)
+		.AL_DONE(al_bshift_done)
 	);
 	
 //

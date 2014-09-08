@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 14:49:53 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:09:08 at 14:19:36 (www.fizzim.com)
 
 module Pow_on_Rst_FSM 
   #(
@@ -19,7 +19,8 @@ module Pow_on_Rst_FSM
   input EOS,
   input MMCM_LOCK,
   input QPLL_LOCK,
-  input RESTART_ALL 
+  input RESTART_ALL,
+  input SLOW_FRST_DONE 
 );
 
   // state bits
@@ -47,24 +48,24 @@ module Pow_on_Rst_FSM
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
     case (state)
-      Idle      :                                   nextstate = W4ODMB;
-      ADC_INIT  : if      (ADC_RDY)                 nextstate = Run_State;
-                  else                              nextstate = ADC_INIT;
-      Auto_Load : if      (AL_DONE)                 nextstate = ADC_INIT;
-                  else                              nextstate = Auto_Load;
-      PROM_Cnfg : if      (BPI_SEQ_IDLE)            nextstate = Auto_Load;
-                  else                              nextstate = PROM_Cnfg;
-      Pow_on_Rst: if      (!MMCM_LOCK)              nextstate = W4Qpll;
-                  else if (por_cnt == POR_tmo)      nextstate = PROM_Cnfg;
-                  else                              nextstate = Pow_on_Rst;
-      Run_State : if      (RESTART_ALL)             nextstate = Pow_on_Rst;
-                  else                              nextstate = Run_State;
-      W4ODMB    : if      (strtup_cnt == Strt_dly)  nextstate = W4Qpll;
-                  else                              nextstate = W4ODMB;
-      W4Qpll    : if      (QPLL_LOCK)               nextstate = W4SysClk;
-                  else                              nextstate = W4Qpll;
-      W4SysClk  : if      (MMCM_LOCK)               nextstate = Pow_on_Rst;
-                  else                              nextstate = W4SysClk;
+      Idle      :                                           nextstate = W4ODMB;
+      ADC_INIT  : if      (ADC_RDY)                         nextstate = Run_State;
+                  else                                      nextstate = ADC_INIT;
+      Auto_Load : if      (AL_DONE)                         nextstate = ADC_INIT;
+                  else                                      nextstate = Auto_Load;
+      PROM_Cnfg : if      (BPI_SEQ_IDLE && SLOW_FRST_DONE)  nextstate = Auto_Load;
+                  else                                      nextstate = PROM_Cnfg;
+      Pow_on_Rst: if      (!MMCM_LOCK)                      nextstate = W4Qpll;
+                  else if (por_cnt == POR_tmo)              nextstate = PROM_Cnfg;
+                  else                                      nextstate = Pow_on_Rst;
+      Run_State : if      (RESTART_ALL)                     nextstate = Pow_on_Rst;
+                  else                                      nextstate = Run_State;
+      W4ODMB    : if      (strtup_cnt == Strt_dly)          nextstate = W4Qpll;
+                  else                                      nextstate = W4ODMB;
+      W4Qpll    : if      (QPLL_LOCK)                       nextstate = W4SysClk;
+                  else                                      nextstate = W4Qpll;
+      W4SysClk  : if      (MMCM_LOCK)                       nextstate = Pow_on_Rst;
+                  else                                      nextstate = W4SysClk;
     endcase
   end
 

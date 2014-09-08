@@ -10,7 +10,9 @@ module reset_manager #(
     input STUP_CLK,
     input CLK,
     input COMP_CLK,
+    input CLK1MHZ,           // 1 MHz Clock
     input CLK100KHZ,
+	 input RESYNC,
     input EOS,
     input JTAG_SYS_RST,
 	 input CSP_SYS_RST,
@@ -34,6 +36,9 @@ module reset_manager #(
     output TRG_RST,
 	 output DSR_RST,
     output reg SYS_RST,
+	 output RST_RESYNC,
+	 output DAQ_FIFO_RST,
+	 output SLOW_FIFO_RST,
 	 output reg RUN,
 	 output QPLL_LOCK,
 	 output QPLL_ERROR,
@@ -62,6 +67,8 @@ reg run_r1;
 wire restart_all;
 wire strt_dly_done;
 reg [19:0] startup_cnt;
+wire daq_fifo_rst_done;
+wire slow_fifo_rst_done;
 
 
  IBUF IBUF_QP_ERROR (.O(QPLL_ERROR),.I(QP_ERROR));
@@ -72,6 +79,8 @@ assign restart_all = (JTAG_SYS_RST || CSP_SYS_RST);
 assign DSR_RST    = ~ADC_RDY || SYS_RST;
 assign qpll_lock_disable = 1'b1;
 assign ADC_INIT_RST = adc_init_rst_r2;
+assign RST_RESYNC = SYS_RST || RESYNC;
+
 
 SRL16E #(
 	.INIT(16'HFFFF)
@@ -128,6 +137,8 @@ always @(posedge CLK or negedge EOS) begin
 	end
 end
 
+
+
 generate
 if(TMR==1) 
 begin : RSTman_FSMs_TMR
@@ -151,9 +162,26 @@ begin : RSTman_FSMs_TMR
 		.EOS(EOS),
 		.MMCM_LOCK(daq_mmcm_lock_r2),
 		.QPLL_LOCK(qpll_lock_r2),
-		.RESTART_ALL(restart_all)
+		.RESTART_ALL(restart_all),
+		.SLOW_FRST_DONE(slow_fifo_rst_done)
 	);
 													 
+	FIFO_Rst_FSM_TMR
+	DAQ_FIFO_Rst_FSM_i ( // reset all DAQ FIFOs on Resync
+		.DONE(daq_fifo_rst_done),
+		.FIFO_RST(DAQ_FIFO_RST),
+		.CLK(CLK),
+		.RST(RST_RESYNC) 
+	);
+	
+	FIFO_Rst_FSM_TMR
+	SLOW_FIFO_Rst_FSM_i ( // reset AUTO_LOAD FIFO
+		.DONE(slow_fifo_rst_done),
+		.FIFO_RST(SLOW_FIFO_RST),
+		.CLK(CLK1MHZ),
+		.RST(SYS_RST) 
+	);
+
 	Trg_Clock_Strt_FSM_TMR
 	Trg_Clock_Strt_FSM_i (
 		 // Outputs
@@ -203,9 +231,26 @@ begin : RSTman_FSMs
 		.EOS(EOS),
 		.MMCM_LOCK(daq_mmcm_lock_r2),
 		.QPLL_LOCK(qpll_lock_r2),
-		.RESTART_ALL(restart_all)
+		.RESTART_ALL(restart_all),
+		.SLOW_FRST_DONE(slow_fifo_rst_done)
 	);
 													 
+	FIFO_Rst_FSM
+	DAQ_FIFO_Rst_FSM_i ( // reset all DAQ FIFOs on Resync
+		.DONE(daq_fifo_rst_done),
+		.FIFO_RST(DAQ_FIFO_RST),
+		.CLK(CLK),
+		.RST(RST_RESYNC) 
+	);
+	
+	FIFO_Rst_FSM
+	SLOW_FIFO_Rst_FSM_i ( // reset AUTO_LOAD FIFO
+		.DONE(slow_fifo_rst_done),
+		.FIFO_RST(SLOW_FIFO_RST),
+		.CLK(CLK1MHZ),
+		.RST(SYS_RST) 
+	);
+
 	Trg_Clock_Strt_FSM
 	Trg_Clock_Strt_FSM_i (
 		 // Outputs

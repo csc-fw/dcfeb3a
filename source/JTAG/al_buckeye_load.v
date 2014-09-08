@@ -24,63 +24,94 @@ module al_buckeye_load #(
     input CLK40,
     input CLK1MHZ,
     input RST,
+    input SLOW_FIFO_RST,
     input CLR_AL_DONE,
     input CAPTURE,
     input [15:0] BPI_AL_REG,
     output AL_BKY_ENA,
     output SHCK_ENA,
     output SDATA,
-    output reg DONE
+    output AL_DONE
     );
 	 
-	 
-	reg load_bky;
 	wire set_done;
-	reg [15:0] bky_shft;
 
 // FIFO signals
-	wire bky_amt;
-	wire bky_afl;
 	wire bky_mt;
 	wire bky_full;
-	wire bky_rderr;
-	wire bky_wrterr;
+	wire bky_sbiterr;
+	wire bky_dbiterr;
 	wire bky_rdena;
-	wire [9:0] bky_rdcnt;
-	wire [9:0] bky_wrtcnt;
 	wire [15:0] bky_data;
 	
-	assign AL_BKY_ENA = load_bky;
-	assign SDATA = bky_shft[0];
-  
-always @(posedge CLK40 or posedge RST) begin
-	if(RST)
-		load_bky <= 1'b0;
-	else
-		if(DONE)
-			load_bky <= 1'b0;
-		else if(CAPTURE)
-			load_bky <= 1'b1;
-		else
-			load_bky <= load_bky;
-end
-
-always @(negedge CLK1MHZ or posedge RST) begin
-	if(RST)
-		bky_shft <= 16'h0000;
-	else
-		if(bky_rdena)
-			bky_shft <= bky_data;
-		else if(SHCK_ENA)
-			bky_shft <= {1'b0,bky_shft[15:1]};
-		else
-			bky_shft <= bky_shft;
-end
-
-
+	 
 generate
 if(TMR==1) 
 begin : BkyLd_FSM_TMR
+
+	(* syn_preserve = "true" *) reg load_bky_1;
+	(* syn_preserve = "true" *) reg load_bky_2;
+	(* syn_preserve = "true" *) reg load_bky_3;
+	(* syn_preserve = "true" *) reg done_1;
+	(* syn_preserve = "true" *) reg done_2;
+	(* syn_preserve = "true" *) reg done_3;
+	(* syn_preserve = "true" *) reg [15:0] bky_shft_1;
+	(* syn_preserve = "true" *) reg [15:0] bky_shft_2;
+	(* syn_preserve = "true" *) reg [15:0] bky_shft_3;
+
+	(* syn_keep = "true" *) wire vt_load_bky_1;
+	(* syn_keep = "true" *) wire vt_load_bky_2;
+	(* syn_keep = "true" *) wire vt_load_bky_3;
+	(* syn_keep = "true" *) wire vt_done_1;
+	(* syn_keep = "true" *) wire vt_done_2;
+	(* syn_keep = "true" *) wire vt_done_3;
+	(* syn_keep = "true" *) wire vt_bky_shft_1;
+	(* syn_keep = "true" *) wire vt_bky_shft_2;
+	(* syn_keep = "true" *) wire vt_bky_shft_3;
+	
+	assign vt_load_bky_1 = (load_bky_1 & load_bky_2) | (load_bky_2 & load_bky_3) | (load_bky_1 & load_bky_3); // Majority logic
+	assign vt_load_bky_2 = (load_bky_1 & load_bky_2) | (load_bky_2 & load_bky_3) | (load_bky_1 & load_bky_3); // Majority logic
+	assign vt_load_bky_3 = (load_bky_1 & load_bky_2) | (load_bky_2 & load_bky_3) | (load_bky_1 & load_bky_3); // Majority logic
+	assign vt_done_1     = (done_1     & done_2    ) | (done_2     & done_3    ) | (done_1     & done_3    ); // Majority logic
+	assign vt_done_2     = (done_1     & done_2    ) | (done_2     & done_3    ) | (done_1     & done_3    ); // Majority logic
+	assign vt_done_3     = (done_1     & done_2    ) | (done_2     & done_3    ) | (done_1     & done_3    ); // Majority logic
+	assign vt_bky_shft_1 = (bky_shft_1 & bky_shft_2) | (bky_shft_2 & bky_shft_3) | (bky_shft_1 & bky_shft_3); // Majority logic
+	assign vt_bky_shft_2 = (bky_shft_1 & bky_shft_2) | (bky_shft_2 & bky_shft_3) | (bky_shft_1 & bky_shft_3); // Majority logic
+	assign vt_bky_shft_3 = (bky_shft_1 & bky_shft_2) | (bky_shft_2 & bky_shft_3) | (bky_shft_1 & bky_shft_3); // Majority logic
+
+	always @(posedge CLK40 or posedge RST) begin
+		if(RST) begin
+			load_bky_1 <= 1'b0;
+			load_bky_2 <= 1'b0;
+			load_bky_3 <= 1'b0;
+			done_1 <= 1'b0;
+			done_2 <= 1'b0;
+			done_3 <= 1'b0;
+		end
+		else begin
+			load_bky_1 <= vt_done_1 ? 1'b0 : (CAPTURE ? 1'b1 : vt_load_bky_1);
+			load_bky_2 <= vt_done_2 ? 1'b0 : (CAPTURE ? 1'b1 : vt_load_bky_2);
+			load_bky_3 <= vt_done_3 ? 1'b0 : (CAPTURE ? 1'b1 : vt_load_bky_3);
+			done_1 <= CLR_AL_DONE ? 1'b0 : (set_done ? 1'b1 : vt_done_1);
+			done_2 <= CLR_AL_DONE ? 1'b0 : (set_done ? 1'b1 : vt_done_2);
+			done_3 <= CLR_AL_DONE ? 1'b0 : (set_done ? 1'b1 : vt_done_3);
+		end
+	end
+
+	always @(negedge CLK1MHZ or posedge RST) begin
+		if(RST) begin
+			bky_shft_1 <= 16'h0000;
+			bky_shft_2 <= 16'h0000;
+			bky_shft_3 <= 16'h0000;
+		end
+		else begin
+			bky_shft_1 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,vt_bky_shft_1[15:1]} : vt_bky_shft_1);
+			bky_shft_2 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,vt_bky_shft_2[15:1]} : vt_bky_shft_2);
+			bky_shft_3 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,vt_bky_shft_3[15:1]} : vt_bky_shft_3);
+		end
+	end
+
+
 	bky_load_FSM_TMR         //States change on negative edge of clock
 	bky_load_FSM_i(
 	  .RDENA(bky_rdena),
@@ -89,11 +120,41 @@ begin : BkyLd_FSM_TMR
 	  .CLK(CLK1MHZ),
 	  .MT(bky_mt),
 	  .RST(RST),
-	  .START(load_bky) 
+	  .START(vt_load_bky_1) 
 	);
+	
+	assign SDATA = vt_bky_shft_1[0];
+	assign AL_BKY_ENA = vt_load_bky_1;
+	assign AL_DONE = vt_done_1;
+
 end
 else 
 begin : BkyLd_FSM
+
+	reg load_bky;
+	reg done;
+	reg [15:0] bky_shft;
+
+	always @(negedge CLK1MHZ or posedge RST) begin
+		if(RST) begin
+			bky_shft <= 16'h0000;
+		end
+		else begin
+			bky_shft <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,bky_shft[15:1]} : bky_shft);
+		end
+	end
+
+	always @(posedge CLK40 or posedge RST) begin
+		if(RST) begin
+			load_bky <= 1'b0;
+			done <= 1'b0;
+		end
+		else begin
+			load_bky <= done ? 1'b0 : (CAPTURE ? 1'b1 : load_bky);
+			done <= CLR_AL_DONE ? 1'b0 : (set_done ? 1'b1 : done);
+		end
+	end
+
 	bky_load_FSM         //States change on negative edge of clock
 	bky_load_FSM_i(
 	  .RDENA(bky_rdena),
@@ -104,58 +165,28 @@ begin : BkyLd_FSM
 	  .RST(RST),
 	  .START(load_bky) 
 	);
+	
+	assign SDATA = bky_shft[0];
+	assign AL_BKY_ENA = load_bky;
+	assign AL_DONE = done;
+
 end
 endgenerate
-
-always @(posedge CLK40 or posedge RST) begin
-	if(RST)
-		DONE <= 1'b0;
-	else
-		if(CLR_AL_DONE)
-			DONE <= 1'b0;
-		else if(set_done)
-			DONE <= 1'b1;
-		else
-			DONE <= DONE;
-end
 	
-   /////////////////////////////////////////////////////////////////
-   // DATA_WIDTH | FIFO_SIZE | FIFO Depth | RDCOUNT/WRCOUNT Width //
-   // ===========|===========|============|=======================//
-   //   37-72    |  "36Kb"   |     512    |         9-bit         //
-   //   19-36    |  "36Kb"   |    1024    |        10-bit         //
-   //   19-36    |  "18Kb"   |     512    |         9-bit         //
-   //   10-18    |  "36Kb"   |    2048    |        11-bit         //
-   //   10-18    |  "18Kb"   |    1024    |        10-bit         //
-   //    5-9     |  "36Kb"   |    4096    |        12-bit         //
-   //    5-9     |  "18Kb"   |    2048    |        11-bit         //
-   //    1-4     |  "36Kb"   |    8192    |        13-bit         //
-   //    1-4     |  "18Kb"   |    4096    |        12-bit         //
-   /////////////////////////////////////////////////////////////////
-
-   FIFO_DUALCLOCK_MACRO  #(
-      .ALMOST_EMPTY_OFFSET(10'h040), // Sets the almost empty threshold
-      .ALMOST_FULL_OFFSET(10'h080),  // Sets almost full threshold
-      .DATA_WIDTH(16),   // Valid values are 1-72 (37-72 only valid when FIFO_SIZE="36Kb")
-      .DEVICE("VIRTEX6"),  // Target device: "VIRTEX5", "VIRTEX6" 
-      .FIFO_SIZE ("18Kb"), // Target BRAM: "18Kb" or "36Kb" 
-      .FIRST_WORD_FALL_THROUGH ("TRUE") // Sets the FIFO FWFT to "TRUE" or "FALSE" 
-   ) al_Buckeye_load_FIFO_i (
-      .ALMOSTEMPTY(bky_amt), // 1-bit output almost empty
-      .ALMOSTFULL(bky_afl),   // 1-bit output almost full
-      .DO(bky_data),                   // Output data, width defined by DATA_WIDTH parameter
-      .EMPTY(bky_mt),             // 1-bit output empty
-      .FULL(bky_full),               // 1-bit output full
-      .RDCOUNT(bky_rdcnt),         // Output read count, width determined by FIFO depth
-      .RDERR(bky_rderr),             // 1-bit output read error
-      .WRCOUNT(bky_wrtcnt),         // Output write count, width determined by FIFO depth
-      .WRERR(bky_wrterr),             // 1-bit output write error
-      .DI(BPI_AL_REG),                   // Input data, width defined by DATA_WIDTH parameter
-      .RDCLK(~CLK1MHZ),             // 1-bit input read clock
-      .RDEN(bky_rdena),               // 1-bit input read enable
-      .RST(RST),                 // 1-bit input reset
-      .WRCLK(CLK40),             // 1-bit input write clock
-      .WREN(CAPTURE)                // 1-bit input write enable
-   );
+// ECC protected FIFO, 16 bit wide 512 words deep
+al_Buckeye_load_FIFO 
+al_Buckeye_load_FIFO_i (
+  .rst(SLOW_FIFO_RST),   // input rst
+  .wr_clk(CLK40),        // input wr_clk
+  .rd_clk(~CLK1MHZ),     // input rd_clk
+  .din(BPI_AL_REG),      // input [15 : 0] din
+  .wr_en(CAPTURE),       // input wr_en
+  .rd_en(bky_rdena),     // input rd_en
+  .dout(bky_data),       // output [15 : 0] dout
+  .full(bky_full),       // output full
+  .empty(bky_mt),        // output empty
+  .sbiterr(bky_sbiterr), // output sbiterr
+  .dbiterr(bky_dbiterr)  // output dbiterr
+);
 	
 endmodule
