@@ -100,7 +100,6 @@ wire samp_ma, samp_mb;
 wire samp_m0,samp_m45,samp_m90,samp_m135;
 wire sampfbout_med;
 wire samp_med_lock;
-wire samp_in_sel;
 wire pre_clk40;
 wire pre_clk20, pre_clk20_b;
 wire clk20_nophase;
@@ -109,7 +108,7 @@ wire trl_edg_rst;
 wire clr_dsr_ho;
 wire rst_samp_mmcm;
 wire rst_mmcm_pipe_in;
-
+wire samp_in_sel;
   
 	assign CMP_PHS_RST = RST || CMP_PHS_JTAG_RST;
   
@@ -134,7 +133,6 @@ begin : Samp_Clk_TMR
 	wire cap_phase;
 	wire rst_mmcm_pipe;
 	wire c20_phase_sel;
-	wire dsr_ho;
 	wire dsr_ho_tmr;
 
 	(* syn_preserve = "true" *) reg rst_d1_1;
@@ -199,6 +197,25 @@ begin : Samp_Clk_TMR
 	(* syn_keep = "true" *) wire [7:0] vt_dsr_ho_tmr_2;
 	(* syn_keep = "true" *) wire [7:0] vt_dsr_ho_tmr_3;
 
+	(* syn_keep = "true" *) wire trl_edg_rst_1;
+	(* syn_keep = "true" *) wire trl_edg_rst_2;
+	(* syn_keep = "true" *) wire trl_edg_rst_3;
+	(* syn_keep = "true" *) wire lead_edg_resync_1;
+	(* syn_keep = "true" *) wire lead_edg_resync_2;
+	(* syn_keep = "true" *) wire lead_edg_resync_3;
+	(* syn_keep = "true" *) wire rst_mmcm_pipe_in_1;
+	(* syn_keep = "true" *) wire rst_mmcm_pipe_in_2;
+	(* syn_keep = "true" *) wire rst_mmcm_pipe_in_3;
+	(* syn_keep = "true" *) wire rst_samp_mmcm_1;
+	(* syn_keep = "true" *) wire rst_samp_mmcm_2;
+	(* syn_keep = "true" *) wire rst_samp_mmcm_3;
+	(* syn_keep = "true" *) wire clr_dsr_ho_1;
+	(* syn_keep = "true" *) wire clr_dsr_ho_2;
+	(* syn_keep = "true" *) wire clr_dsr_ho_3;
+	(* syn_keep = "true" *) wire samp_in_sel_1;
+	(* syn_keep = "true" *) wire samp_in_sel_2;
+	(* syn_keep = "true" *) wire samp_in_sel_3;
+
 	assign vt_rst_d1_1        = (rst_d1_1        & rst_d1_2       ) | (rst_d1_2        & rst_d1_3       ) | (rst_d1_1        & rst_d1_3       ); // Majority logic
 	assign vt_rst_d1_2        = (rst_d1_1        & rst_d1_2       ) | (rst_d1_2        & rst_d1_3       ) | (rst_d1_1        & rst_d1_3       ); // Majority logic
 	assign vt_rst_d1_3        = (rst_d1_1        & rst_d1_2       ) | (rst_d1_2        & rst_d1_3       ) | (rst_d1_1        & rst_d1_3       ); // Majority logic
@@ -241,15 +258,15 @@ begin : Samp_Clk_TMR
 		resync_d1_1 <= RESYNC;
 		resync_d1_2 <= RESYNC;
 		resync_d1_3 <= RESYNC;
-		lead_edg_resync_d1_1 <= LEAD_EDG_RESYNC;
-		lead_edg_resync_d1_2 <= LEAD_EDG_RESYNC;
-		lead_edg_resync_d1_3 <= LEAD_EDG_RESYNC;
-		cap_phase_1 <= LEAD_EDG_RESYNC | vt_lead_edg_resync_d1_1  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
-		cap_phase_2 <= LEAD_EDG_RESYNC | vt_lead_edg_resync_d1_2  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
-		cap_phase_3 <= LEAD_EDG_RESYNC | vt_lead_edg_resync_d1_3  | trl_edg_rst | SAMP_CLK_PHS_CHNG;
-		rst_mmcm_pipe_1 <= {vt_rst_mmcm_pipe_1[6:0],rst_mmcm_pipe_in};
-		rst_mmcm_pipe_2 <= {vt_rst_mmcm_pipe_2[6:0],rst_mmcm_pipe_in};
-		rst_mmcm_pipe_3 <= {vt_rst_mmcm_pipe_3[6:0],rst_mmcm_pipe_in};
+		lead_edg_resync_d1_1 <= lead_edg_resync_1;
+		lead_edg_resync_d1_2 <= lead_edg_resync_2;
+		lead_edg_resync_d1_3 <= lead_edg_resync_3;
+		cap_phase_1 <= lead_edg_resync_1 | vt_lead_edg_resync_d1_1  | trl_edg_rst_1 | SAMP_CLK_PHS_CHNG;
+		cap_phase_2 <= lead_edg_resync_2 | vt_lead_edg_resync_d1_2  | trl_edg_rst_2 | SAMP_CLK_PHS_CHNG;
+		cap_phase_3 <= lead_edg_resync_3 | vt_lead_edg_resync_d1_3  | trl_edg_rst_3 | SAMP_CLK_PHS_CHNG;
+		rst_mmcm_pipe_1 <= {vt_rst_mmcm_pipe_1[6:0],rst_mmcm_pipe_in_1};
+		rst_mmcm_pipe_2 <= {vt_rst_mmcm_pipe_2[6:0],rst_mmcm_pipe_in_2};
+		rst_mmcm_pipe_3 <= {vt_rst_mmcm_pipe_3[6:0],rst_mmcm_pipe_in_3};
 	end
 
 	always @(posedge CLK40 or posedge RST)
@@ -260,9 +277,9 @@ begin : Samp_Clk_TMR
 			clk20_phase_3 <= 1'b0;
 		end
 		else begin
-			clk20_phase_1 <= LEAD_EDG_RESYNC ? 1'b0 : ~vt_clk20_phase_1;
-			clk20_phase_2 <= LEAD_EDG_RESYNC ? 1'b0 : ~vt_clk20_phase_2;
-			clk20_phase_3 <= LEAD_EDG_RESYNC ? 1'b0 : ~vt_clk20_phase_3;
+			clk20_phase_1 <= lead_edg_resync_1 ? 1'b0 : ~vt_clk20_phase_1;
+			clk20_phase_2 <= lead_edg_resync_2 ? 1'b0 : ~vt_clk20_phase_2;
+			clk20_phase_3 <= lead_edg_resync_3 ? 1'b0 : ~vt_clk20_phase_3;
 		end
 	end
 
@@ -288,9 +305,9 @@ begin : Samp_Clk_TMR
 			dsr_ho_3 <= 1'b0;
 		end
 		else begin
-			dsr_ho_1 <= vt_cap_phase_1 ? 1'b1 :(clr_dsr_ho ? 1'b0 : vt_dsr_ho_1);
-			dsr_ho_2 <= vt_cap_phase_2 ? 1'b1 :(clr_dsr_ho ? 1'b0 : vt_dsr_ho_2);
-			dsr_ho_3 <= vt_cap_phase_3 ? 1'b1 :(clr_dsr_ho ? 1'b0 : vt_dsr_ho_3);
+			dsr_ho_1 <= vt_cap_phase_1 ? 1'b1 :(clr_dsr_ho_1 ? 1'b0 : vt_dsr_ho_1);
+			dsr_ho_2 <= vt_cap_phase_2 ? 1'b1 :(clr_dsr_ho_2 ? 1'b0 : vt_dsr_ho_2);
+			dsr_ho_3 <= vt_cap_phase_3 ? 1'b1 :(clr_dsr_ho_3 ? 1'b0 : vt_dsr_ho_3);
 		end
 	end
 	always @(posedge CLK1MHZ or posedge RST)
@@ -307,18 +324,44 @@ begin : Samp_Clk_TMR
 		end
 	end
 	
+	assign trl_edg_rst_1 = (~RST & vt_rst_d2_1); //two clocks wide
+	assign trl_edg_rst_2 = (~RST & vt_rst_d2_2); //two clocks wide
+	assign trl_edg_rst_3 = (~RST & vt_rst_d2_3); //two clocks wide
+	assign lead_edg_resync_1 = RESYNC & ~vt_resync_d1_1 ; //one clocks wide
+	assign lead_edg_resync_2 = RESYNC & ~vt_resync_d1_2 ; //one clocks wide
+	assign lead_edg_resync_3 = RESYNC & ~vt_resync_d1_3 ; //one clocks wide
+	assign rst_mmcm_pipe_in_1 = lead_edg_resync_1 | trl_edg_rst_1 | vt_cap_phase_1 | SAMP_CLK_PHS_CHNG;
+	assign rst_mmcm_pipe_in_2 = lead_edg_resync_2 | trl_edg_rst_2 | vt_cap_phase_2 | SAMP_CLK_PHS_CHNG;
+	assign rst_mmcm_pipe_in_3 = lead_edg_resync_3 | trl_edg_rst_3 | vt_cap_phase_3 | SAMP_CLK_PHS_CHNG;
+	assign rst_samp_mmcm_1 = |vt_rst_mmcm_pipe_1;
+	assign rst_samp_mmcm_2 = |vt_rst_mmcm_pipe_2;
+	assign rst_samp_mmcm_3 = |vt_rst_mmcm_pipe_3;
+	assign clr_dsr_ho_1 = (vt_dsr_ho_tmr_1 == 8'd100); //100uS
+	assign clr_dsr_ho_2 = (vt_dsr_ho_tmr_2 == 8'd100); //100uS
+	assign clr_dsr_ho_3 = (vt_dsr_ho_tmr_3 == 8'd100); //100uS
+	assign samp_in_sel_1 = SAMP_CLK_PHASE[2] ^ vt_c20_phase_sel_1;
+	assign samp_in_sel_2 = SAMP_CLK_PHASE[2] ^ vt_c20_phase_sel_2;
+	assign samp_in_sel_3 = SAMP_CLK_PHASE[2] ^ vt_c20_phase_sel_3;
+	
 	assign RESYNC_D1          = vt_resync_d1_1;
 	assign LEAD_EDG_RESYNC_D1 = vt_lead_edg_resync_d1_1;
 	assign CAP_PHASE          = vt_cap_phase_1;
 	assign RST_MMCM_PIPE      = vt_rst_mmcm_pipe_1;
+	assign DSR_RESYNC         = vt_dsr_ho_1;
 
 	assign rst_d2         = vt_rst_d2_1;
 	assign resync_d1      = vt_resync_d1_1;
 	assign cap_phase      = vt_cap_phase_1;
 	assign rst_mmcm_pipe  = vt_rst_mmcm_pipe_1;
 	assign c20_phase_sel  = vt_c20_phase_sel_1;
-	assign dsr_ho         = vt_dsr_ho_1;
 	assign dsr_ho_tmr     = vt_dsr_ho_tmr_1;
+	
+	assign trl_edg_rst      = (trl_edg_rst_1      & trl_edg_rst_2     ) | (trl_edg_rst_2      & trl_edg_rst_3     ) | (trl_edg_rst_1      & trl_edg_rst_3     ); // Majority logic
+	assign LEAD_EDG_RESYNC  = (lead_edg_resync_1  & lead_edg_resync_2 ) | (lead_edg_resync_2  & lead_edg_resync_3 ) | (lead_edg_resync_1  & lead_edg_resync_3 ); // Majority logic
+	assign rst_mmcm_pipe_in = (rst_mmcm_pipe_in_1 & rst_mmcm_pipe_in_2) | (rst_mmcm_pipe_in_2 & rst_mmcm_pipe_in_3) | (rst_mmcm_pipe_in_1 & rst_mmcm_pipe_in_3); // Majority logic
+	assign rst_samp_mmcm    = (rst_samp_mmcm_1    & rst_samp_mmcm_2   ) | (rst_samp_mmcm_2    & rst_samp_mmcm_3   ) | (rst_samp_mmcm_1    & rst_samp_mmcm_3   ); // Majority logic
+	assign clr_dsr_ho       = (clr_dsr_ho_1       & clr_dsr_ho_2      ) | (clr_dsr_ho_2       & clr_dsr_ho_3      ) | (clr_dsr_ho_1       & clr_dsr_ho_3      ); // Majority logic
+	assign samp_in_sel      = (samp_in_sel_1      & samp_in_sel_2     ) | (samp_in_sel_2      & samp_in_sel_3     ) | (samp_in_sel_1      & samp_in_sel_3     ); // Majority logic
 
 end
 else 
@@ -393,18 +436,16 @@ begin : Samp_Clk_No_TMR
 	assign LEAD_EDG_RESYNC_D1 = lead_edg_resync_d1;
 	assign CAP_PHASE          = cap_phase;
 	assign RST_MMCM_PIPE      = rst_mmcm_pipe;
+	assign DSR_RESYNC = dsr_ho;
+	assign trl_edg_rst = (~RST & rst_d2); //two clocks wide
+	assign LEAD_EDG_RESYNC = RESYNC & ~resync_d1 ; //one clocks wide
+	assign rst_mmcm_pipe_in = LEAD_EDG_RESYNC | trl_edg_rst | cap_phase | SAMP_CLK_PHS_CHNG;
+	assign rst_samp_mmcm = |rst_mmcm_pipe;
+	assign clr_dsr_ho = (dsr_ho_tmr == 8'd100); //100uS
+	assign samp_in_sel = SAMP_CLK_PHASE[2] ^ c20_phase_sel;
 
 end
 endgenerate
-
-  assign trl_edg_rst = (~RST & rst_d2); //two clocks wide
-  assign LEAD_EDG_RESYNC = RESYNC & ~resync_d1 ; //one clocks wide
-  assign rst_mmcm_pipe_in = LEAD_EDG_RESYNC | trl_edg_rst | cap_phase | SAMP_CLK_PHS_CHNG;
-  assign rst_samp_mmcm = |rst_mmcm_pipe;
-  assign DSR_RESYNC = dsr_ho;
-  assign clr_dsr_ho = (dsr_ho_tmr == 8'd100); //100uS
-  assign samp_in_sel = SAMP_CLK_PHASE[2] ^ c20_phase_sel;
-
 
 // daq_mmcm_custom
 //----------------------------------------------------------------------------

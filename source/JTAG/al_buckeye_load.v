@@ -65,9 +65,10 @@ begin : BkyLd_FSM_TMR
 	(* syn_keep = "true" *) wire vt_done_1;
 	(* syn_keep = "true" *) wire vt_done_2;
 	(* syn_keep = "true" *) wire vt_done_3;
-	(* syn_keep = "true" *) wire vt_bky_shft_1;
-	(* syn_keep = "true" *) wire vt_bky_shft_2;
-	(* syn_keep = "true" *) wire vt_bky_shft_3;
+	
+	(* syn_keep = "true" *) wire sdata_1;
+	(* syn_keep = "true" *) wire sdata_2;
+	(* syn_keep = "true" *) wire sdata_3;
 	
 	assign vt_load_bky_1 = (load_bky_1 & load_bky_2) | (load_bky_2 & load_bky_3) | (load_bky_1 & load_bky_3); // Majority logic
 	assign vt_load_bky_2 = (load_bky_1 & load_bky_2) | (load_bky_2 & load_bky_3) | (load_bky_1 & load_bky_3); // Majority logic
@@ -75,9 +76,6 @@ begin : BkyLd_FSM_TMR
 	assign vt_done_1     = (done_1     & done_2    ) | (done_2     & done_3    ) | (done_1     & done_3    ); // Majority logic
 	assign vt_done_2     = (done_1     & done_2    ) | (done_2     & done_3    ) | (done_1     & done_3    ); // Majority logic
 	assign vt_done_3     = (done_1     & done_2    ) | (done_2     & done_3    ) | (done_1     & done_3    ); // Majority logic
-	assign vt_bky_shft_1 = (bky_shft_1 & bky_shft_2) | (bky_shft_2 & bky_shft_3) | (bky_shft_1 & bky_shft_3); // Majority logic
-	assign vt_bky_shft_2 = (bky_shft_1 & bky_shft_2) | (bky_shft_2 & bky_shft_3) | (bky_shft_1 & bky_shft_3); // Majority logic
-	assign vt_bky_shft_3 = (bky_shft_1 & bky_shft_2) | (bky_shft_2 & bky_shft_3) | (bky_shft_1 & bky_shft_3); // Majority logic
 
 	always @(posedge CLK40 or posedge RST) begin
 		if(RST) begin
@@ -105,9 +103,9 @@ begin : BkyLd_FSM_TMR
 			bky_shft_3 <= 16'h0000;
 		end
 		else begin
-			bky_shft_1 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,vt_bky_shft_1[15:1]} : vt_bky_shft_1);
-			bky_shft_2 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,vt_bky_shft_2[15:1]} : vt_bky_shft_2);
-			bky_shft_3 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,vt_bky_shft_3[15:1]} : vt_bky_shft_3);
+			bky_shft_1 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,bky_shft_1[15:1]} : bky_shft_1);
+			bky_shft_2 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,bky_shft_2[15:1]} : bky_shft_2);
+			bky_shft_3 <= bky_rdena ? bky_data : (SHCK_ENA ? {1'b0,bky_shft_3[15:1]} : bky_shft_3);
 		end
 	end
 
@@ -123,7 +121,10 @@ begin : BkyLd_FSM_TMR
 	  .START(vt_load_bky_1) 
 	);
 	
-	assign SDATA = vt_bky_shft_1[0];
+	assign sdata_1 = bky_shft_1[0];
+	assign sdata_2 = bky_shft_2[0];
+	assign sdata_3 = bky_shft_3[0];
+	assign SDATA   = (sdata_1 & sdata_2) | (sdata_2 & sdata_3) | (sdata_1 & sdata_3); // Majority logic
 	assign AL_BKY_ENA = vt_load_bky_1;
 	assign AL_DONE = vt_done_1;
 

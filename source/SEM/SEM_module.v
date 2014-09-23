@@ -14,7 +14,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module SEM_module #(
-	parameter USE_CHIPSCOPE = 1
+	parameter USE_CHIPSCOPE = 1,
+	parameter TMR = 0
 )(
     inout [35:0] CSP_LA0_CNTRL,
     inout [35:0] CSP_VIO0_CNTRL,
@@ -78,58 +79,33 @@ module SEM_module #(
 //
 // User signals
 //
-	wire [7:0] ff_data_out;
 	wire csp_read;
 	wire [7:0] csp_cmd_data;
 	wire [7:0] cmd_data;
-	wire cmd_ready;
 	wire csp_send_cmd;
 	wire send_cmd;
 	wire csp_tk_ctrl;
-	wire csp_fre;
-	reg  csp_jtag_b;
 	wire rxempty_n;
 	wire fifo_unused;
-	wire [1:0] sem_state;
-	reg [7:0] sngl_bit_err_cnt;
-	reg [7:0] multi_bit_err_cnt;
-	reg [23:0] cap_far;
-	reg dbl_err_det;
-	wire le_eccerr;
-	wire inc_dbl_cnt;
-	wire inc_sngl_cnt;
-	reg fecc_eccerr_r1;
-	reg dbl_err_det_r1;
-	reg [8*9-1:0] monout;
-	wire ded;
-	wire sed;
-	wire pa;
-	wire la;
-	wire load_pa;
-	wire load_la;
-	reg ded_r1;
-	reg sed_r1;
-	reg pa_r1;
-	reg la_r1;
-	reg [23:0] far_pa;
-	reg [23:0] far_la;
-	reg load_pa_d1;
-	reg load_la_d1;
-	reg [23:0] conv;
+
+	wire [7:0] sngl_bit_err_cnt_i;
+	wire [7:0] multi_bit_err_cnt_i;
+	wire [8*9-1:0] monout_i;
+	wire [23:0] far_pa_i;
+	wire [23:0] far_la_i;
+	wire [23:0] conv_i;
 	
+	wire inc_dbl_cnt_i;
+	wire inc_sngl_cnt_i;
+	wire ded_i;
+	wire sed_i;
+	wire pa_i;
+	wire la_i;
+	wire load_pa_i;
+	wire load_la_i;
 
-// FIFO signals
-   wire famt;
-   wire faf;
-   wire fmt;
-   wire [10:0] rdcount;
-   wire [10:0] wrcount;
-   wire rderr;
-   wire wrerr;
 
-
-assign FRE = csp_fre;
-
+	
 //
 // Logic analyzer 
 //
@@ -155,7 +131,7 @@ begin : chipscope_sem
 		assign sem_la0_data[55:49]      = fecc_synword;
 //		assign sem_la0_data[87:56]      = icap_o;
 //		assign sem_la0_data[119:88]     = icap_i;
-		assign sem_la0_data[79:56]      = conv;
+		assign sem_la0_data[79:56]      = conv_i;
 		assign sem_la0_data[119:80]     = monout[8*5-1:0];
 		assign sem_la0_data[120]        = status_heartbeat;
 		assign sem_la0_data[121]        = status_initialization;
@@ -181,20 +157,20 @@ begin : chipscope_sem
 		assign sem_la0_data[148]        = csp_read;
 		assign sem_la0_data[149]        = 1'b0;
 		assign sem_la0_data[150]        = 1'b0;
-		assign sem_la0_data[151]        = pa;
-		assign sem_la0_data[152]        = la;
-		assign sem_la0_data[153]        = inc_dbl_cnt;
-		assign sem_la0_data[154]        = inc_sngl_cnt;
-		assign sem_la0_data[155]        = load_pa;
-		assign sem_la0_data[156]        = load_la;
+		assign sem_la0_data[151]        = pa_i;
+		assign sem_la0_data[152]        = la_i;
+		assign sem_la0_data[153]        = inc_dbl_cnt_i;
+		assign sem_la0_data[154]        = inc_sngl_cnt_i;
+		assign sem_la0_data[155]        = load_pa_i;
+		assign sem_la0_data[156]        = load_la_i;
 		assign sem_la0_data[157]        = 1'b0;
 		assign sem_la0_data[158]        = 1'b0;
 		assign sem_la0_data[159]        = 1'b0;
 		assign sem_la0_data[160]        = csp_send_cmd;
 		assign sem_la0_data[161]        = RST;
-		assign sem_la0_data[162]        = sed;
-		assign sem_la0_data[163]        = ded;
-		assign sem_la0_data[195:164]    = monout[8*9-1:8*5];
+		assign sem_la0_data[162]        = sed_i;
+		assign sem_la0_data[163]        = ded_i;
+		assign sem_la0_data[195:164]    = monout_i[8*9-1:8*5];
 		
 	
 
@@ -239,10 +215,10 @@ begin : chipscope_sem
 		assign sem_vio0_sync_in[5]  = fecc_crcerr;
 		assign sem_vio0_sync_in[6]  = fecc_eccerr;
 		assign sem_vio0_sync_in[7]  = fecc_eccerrsingle;
-		assign sem_vio0_sync_in[15:8] = sngl_bit_err_cnt;
-		assign sem_vio0_sync_in[23:16] = multi_bit_err_cnt;
-		assign sem_vio0_sync_in[47:24] = far_pa;
-		assign sem_vio0_sync_in[71:48] = far_la;
+		assign sem_vio0_sync_in[15:8] = sngl_bit_err_cnt_i;
+		assign sem_vio0_sync_in[23:16] = multi_bit_err_cnt_i;
+		assign sem_vio0_sync_in[47:24] = far_pa_i;
+		assign sem_vio0_sync_in[71:48] = far_la_i;
 
 	// VIO Sync Out Data [47:0]
 		assign inject_address = sem_vio0_sync_out[35:0];
@@ -264,7 +240,6 @@ begin : no_chipscope_sem
 	assign csp_read       = 1'b0;
 	assign csp_cmd_data   = 8'h00;
 	assign csp_tk_ctrl    = 1'b0;
-	assign csp_fre        = 1'b0;
 
 end
 endgenerate
@@ -353,6 +328,381 @@ sem_core sem_core1 (
       .SYNWORD(fecc_synword)                // 7-bit output Word output in the frame where an ECC error has been detected
    );
 
+	
+generate
+if(TMR==1) 
+begin : SEM_logic_TMR
+
+	(* syn_preserve = "true" *) reg csp_jtag_b_1;
+	(* syn_preserve = "true" *) reg csp_jtag_b_2;
+	(* syn_preserve = "true" *) reg csp_jtag_b_3;
+	(* syn_preserve = "true" *) reg [7:0] sngl_bit_err_cnt_1;
+	(* syn_preserve = "true" *) reg [7:0] sngl_bit_err_cnt_2;
+	(* syn_preserve = "true" *) reg [7:0] sngl_bit_err_cnt_3;
+	(* syn_preserve = "true" *) reg [7:0] multi_bit_err_cnt_1;
+	(* syn_preserve = "true" *) reg [7:0] multi_bit_err_cnt_2;
+	(* syn_preserve = "true" *) reg [7:0] multi_bit_err_cnt_3;
+	(* syn_preserve = "true" *) reg dbl_err_det_1;
+	(* syn_preserve = "true" *) reg dbl_err_det_2;
+	(* syn_preserve = "true" *) reg dbl_err_det_3;
+	(* syn_preserve = "true" *) reg [8*9-1:0] monout_1;
+	(* syn_preserve = "true" *) reg [8*9-1:0] monout_2;
+	(* syn_preserve = "true" *) reg [8*9-1:0] monout_3;
+	(* syn_preserve = "true" *) reg ded_r1_1;
+	(* syn_preserve = "true" *) reg ded_r1_2;
+	(* syn_preserve = "true" *) reg ded_r1_3;
+	(* syn_preserve = "true" *) reg sed_r1_1;
+	(* syn_preserve = "true" *) reg sed_r1_2;
+	(* syn_preserve = "true" *) reg sed_r1_3;
+	(* syn_preserve = "true" *) reg pa_r1_1;
+	(* syn_preserve = "true" *) reg pa_r1_2;
+	(* syn_preserve = "true" *) reg pa_r1_3;
+	(* syn_preserve = "true" *) reg la_r1_1;
+	(* syn_preserve = "true" *) reg la_r1_2;
+	(* syn_preserve = "true" *) reg la_r1_3;
+	(* syn_preserve = "true" *) reg [23:0] far_pa_1;
+	(* syn_preserve = "true" *) reg [23:0] far_pa_2;
+	(* syn_preserve = "true" *) reg [23:0] far_pa_3;
+	(* syn_preserve = "true" *) reg [23:0] far_la_1;
+	(* syn_preserve = "true" *) reg [23:0] far_la_2;
+	(* syn_preserve = "true" *) reg [23:0] far_la_3;
+	(* syn_preserve = "true" *) reg load_pa_d1_1;
+	(* syn_preserve = "true" *) reg load_pa_d1_2;
+	(* syn_preserve = "true" *) reg load_pa_d1_3;
+	(* syn_preserve = "true" *) reg load_la_d1_1;
+	(* syn_preserve = "true" *) reg load_la_d1_2;
+	(* syn_preserve = "true" *) reg load_la_d1_3;
+	(* syn_preserve = "true" *) reg [23:0] conv_1;
+	(* syn_preserve = "true" *) reg [23:0] conv_2;
+	(* syn_preserve = "true" *) reg [23:0] conv_3;
+
+	(* syn_keep = "true" *)     wire vt_csp_jtag_b_1;
+	(* syn_keep = "true" *)     wire vt_csp_jtag_b_2;
+	(* syn_keep = "true" *)     wire vt_csp_jtag_b_3;
+	(* syn_keep = "true" *)     wire [7:0] vt_sngl_bit_err_cnt_1;
+	(* syn_keep = "true" *)     wire [7:0] vt_sngl_bit_err_cnt_2;
+	(* syn_keep = "true" *)     wire [7:0] vt_sngl_bit_err_cnt_3;
+	(* syn_keep = "true" *)     wire [7:0] vt_multi_bit_err_cnt_1;
+	(* syn_keep = "true" *)     wire [7:0] vt_multi_bit_err_cnt_2;
+	(* syn_keep = "true" *)     wire [7:0] vt_multi_bit_err_cnt_3;
+	(* syn_keep = "true" *)     wire vt_dbl_err_det_1;
+	(* syn_keep = "true" *)     wire vt_dbl_err_det_2;
+	(* syn_keep = "true" *)     wire vt_dbl_err_det_3;
+	(* syn_keep = "true" *)     wire [8*9-1:0] vt_monout_1;
+	(* syn_keep = "true" *)     wire [8*9-1:0] vt_monout_2;
+	(* syn_keep = "true" *)     wire [8*9-1:0] vt_monout_3;
+	(* syn_keep = "true" *)     wire vt_ded_r1_1;
+	(* syn_keep = "true" *)     wire vt_ded_r1_2;
+	(* syn_keep = "true" *)     wire vt_ded_r1_3;
+	(* syn_keep = "true" *)     wire vt_sed_r1_1;
+	(* syn_keep = "true" *)     wire vt_sed_r1_2;
+	(* syn_keep = "true" *)     wire vt_sed_r1_3;
+	(* syn_keep = "true" *)     wire vt_pa_r1_1;
+	(* syn_keep = "true" *)     wire vt_pa_r1_2;
+	(* syn_keep = "true" *)     wire vt_pa_r1_3;
+	(* syn_keep = "true" *)     wire vt_la_r1_1;
+	(* syn_keep = "true" *)     wire vt_la_r1_2;
+	(* syn_keep = "true" *)     wire vt_la_r1_3;
+	(* syn_keep = "true" *)     wire [23:0] vt_far_pa_1;
+	(* syn_keep = "true" *)     wire [23:0] vt_far_pa_2;
+	(* syn_keep = "true" *)     wire [23:0] vt_far_pa_3;
+	(* syn_keep = "true" *)     wire [23:0] vt_far_la_1;
+	(* syn_keep = "true" *)     wire [23:0] vt_far_la_2;
+	(* syn_keep = "true" *)     wire [23:0] vt_far_la_3;
+	(* syn_keep = "true" *)     wire vt_load_pa_d1_1;
+	(* syn_keep = "true" *)     wire vt_load_pa_d1_2;
+	(* syn_keep = "true" *)     wire vt_load_pa_d1_3;
+	(* syn_keep = "true" *)     wire vt_load_la_d1_1;
+	(* syn_keep = "true" *)     wire vt_load_la_d1_2;
+	(* syn_keep = "true" *)     wire vt_load_la_d1_3;
+	(* syn_keep = "true" *)     wire [23:0] vt_conv_1;
+	(* syn_keep = "true" *)     wire [23:0] vt_conv_2;
+	(* syn_keep = "true" *)     wire [23:0] vt_conv_3;
+
+	assign vt_csp_jtag_b_1        = (csp_jtag_b_1        & csp_jtag_b_2       ) | (csp_jtag_b_2        & csp_jtag_b_3       ) | (csp_jtag_b_1        & csp_jtag_b_3       ); // Majority logic
+	assign vt_csp_jtag_b_2        = (csp_jtag_b_1        & csp_jtag_b_2       ) | (csp_jtag_b_2        & csp_jtag_b_3       ) | (csp_jtag_b_1        & csp_jtag_b_3       ); // Majority logic
+	assign vt_csp_jtag_b_3        = (csp_jtag_b_1        & csp_jtag_b_2       ) | (csp_jtag_b_2        & csp_jtag_b_3       ) | (csp_jtag_b_1        & csp_jtag_b_3       ); // Majority logic
+	assign vt_sngl_bit_err_cnt_1  = (sngl_bit_err_cnt_1  & sngl_bit_err_cnt_2 ) | (sngl_bit_err_cnt_2  & sngl_bit_err_cnt_3 ) | (sngl_bit_err_cnt_1  & sngl_bit_err_cnt_3 ); // Majority logic
+	assign vt_sngl_bit_err_cnt_2  = (sngl_bit_err_cnt_1  & sngl_bit_err_cnt_2 ) | (sngl_bit_err_cnt_2  & sngl_bit_err_cnt_3 ) | (sngl_bit_err_cnt_1  & sngl_bit_err_cnt_3 ); // Majority logic
+	assign vt_sngl_bit_err_cnt_3  = (sngl_bit_err_cnt_1  & sngl_bit_err_cnt_2 ) | (sngl_bit_err_cnt_2  & sngl_bit_err_cnt_3 ) | (sngl_bit_err_cnt_1  & sngl_bit_err_cnt_3 ); // Majority logic
+	assign vt_multi_bit_err_cnt_1 = (multi_bit_err_cnt_1 & multi_bit_err_cnt_2) | (multi_bit_err_cnt_2 & multi_bit_err_cnt_3) | (multi_bit_err_cnt_1 & multi_bit_err_cnt_3); // Majority logic
+	assign vt_multi_bit_err_cnt_2 = (multi_bit_err_cnt_1 & multi_bit_err_cnt_2) | (multi_bit_err_cnt_2 & multi_bit_err_cnt_3) | (multi_bit_err_cnt_1 & multi_bit_err_cnt_3); // Majority logic
+	assign vt_multi_bit_err_cnt_3 = (multi_bit_err_cnt_1 & multi_bit_err_cnt_2) | (multi_bit_err_cnt_2 & multi_bit_err_cnt_3) | (multi_bit_err_cnt_1 & multi_bit_err_cnt_3); // Majority logic
+	assign vt_dbl_err_det_1       = (dbl_err_det_1       & dbl_err_det_2      ) | (dbl_err_det_2       & dbl_err_det_3      ) | (dbl_err_det_1       & dbl_err_det_3      ); // Majority logic
+	assign vt_dbl_err_det_2       = (dbl_err_det_1       & dbl_err_det_2      ) | (dbl_err_det_2       & dbl_err_det_3      ) | (dbl_err_det_1       & dbl_err_det_3      ); // Majority logic
+	assign vt_dbl_err_det_3       = (dbl_err_det_1       & dbl_err_det_2      ) | (dbl_err_det_2       & dbl_err_det_3      ) | (dbl_err_det_1       & dbl_err_det_3      ); // Majority logic
+	assign vt_monout_1            = (monout_1            & monout_2           ) | (monout_2            & monout_3           ) | (monout_1            & monout_3           ); // Majority logic
+	assign vt_monout_2            = (monout_1            & monout_2           ) | (monout_2            & monout_3           ) | (monout_1            & monout_3           ); // Majority logic
+	assign vt_monout_3            = (monout_1            & monout_2           ) | (monout_2            & monout_3           ) | (monout_1            & monout_3           ); // Majority logic
+	assign vt_ded_r1_1            = (ded_r1_1            & ded_r1_2           ) | (ded_r1_2            & ded_r1_3           ) | (ded_r1_1            & ded_r1_3           ); // Majority logic
+	assign vt_ded_r1_2            = (ded_r1_1            & ded_r1_2           ) | (ded_r1_2            & ded_r1_3           ) | (ded_r1_1            & ded_r1_3           ); // Majority logic
+	assign vt_ded_r1_3            = (ded_r1_1            & ded_r1_2           ) | (ded_r1_2            & ded_r1_3           ) | (ded_r1_1            & ded_r1_3           ); // Majority logic
+	assign vt_sed_r1_1            = (sed_r1_1            & sed_r1_2           ) | (sed_r1_2            & sed_r1_3           ) | (sed_r1_1            & sed_r1_3           ); // Majority logic
+	assign vt_sed_r1_2            = (sed_r1_1            & sed_r1_2           ) | (sed_r1_2            & sed_r1_3           ) | (sed_r1_1            & sed_r1_3           ); // Majority logic
+	assign vt_sed_r1_3            = (sed_r1_1            & sed_r1_2           ) | (sed_r1_2            & sed_r1_3           ) | (sed_r1_1            & sed_r1_3           ); // Majority logic
+	assign vt_pa_r1_1             = (pa_r1_1             & pa_r1_2            ) | (pa_r1_2             & pa_r1_3            ) | (pa_r1_1             & pa_r1_3            ); // Majority logic
+	assign vt_pa_r1_2             = (pa_r1_1             & pa_r1_2            ) | (pa_r1_2             & pa_r1_3            ) | (pa_r1_1             & pa_r1_3            ); // Majority logic
+	assign vt_pa_r1_3             = (pa_r1_1             & pa_r1_2            ) | (pa_r1_2             & pa_r1_3            ) | (pa_r1_1             & pa_r1_3            ); // Majority logic
+	assign vt_la_r1_1             = (la_r1_1             & la_r1_2            ) | (la_r1_2             & la_r1_3            ) | (la_r1_1             & la_r1_3            ); // Majority logic
+	assign vt_la_r1_2             = (la_r1_1             & la_r1_2            ) | (la_r1_2             & la_r1_3            ) | (la_r1_1             & la_r1_3            ); // Majority logic
+	assign vt_la_r1_3             = (la_r1_1             & la_r1_2            ) | (la_r1_2             & la_r1_3            ) | (la_r1_1             & la_r1_3            ); // Majority logic
+	assign vt_far_pa_1            = (far_pa_1            & far_pa_2           ) | (far_pa_2            & far_pa_3           ) | (far_pa_1            & far_pa_3           ); // Majority logic
+	assign vt_far_pa_2            = (far_pa_1            & far_pa_2           ) | (far_pa_2            & far_pa_3           ) | (far_pa_1            & far_pa_3           ); // Majority logic
+	assign vt_far_pa_3            = (far_pa_1            & far_pa_2           ) | (far_pa_2            & far_pa_3           ) | (far_pa_1            & far_pa_3           ); // Majority logic
+	assign vt_far_la_1            = (far_la_1            & far_la_2           ) | (far_la_2            & far_la_3           ) | (far_la_1            & far_la_3           ); // Majority logic
+	assign vt_far_la_2            = (far_la_1            & far_la_2           ) | (far_la_2            & far_la_3           ) | (far_la_1            & far_la_3           ); // Majority logic
+	assign vt_far_la_3            = (far_la_1            & far_la_2           ) | (far_la_2            & far_la_3           ) | (far_la_1            & far_la_3           ); // Majority logic
+	assign vt_load_pa_d1_1        = (load_pa_d1_1        & load_pa_d1_2       ) | (load_pa_d1_2        & load_pa_d1_3       ) | (load_pa_d1_1        & load_pa_d1_3       ); // Majority logic
+	assign vt_load_pa_d1_2        = (load_pa_d1_1        & load_pa_d1_2       ) | (load_pa_d1_2        & load_pa_d1_3       ) | (load_pa_d1_1        & load_pa_d1_3       ); // Majority logic
+	assign vt_load_pa_d1_3        = (load_pa_d1_1        & load_pa_d1_2       ) | (load_pa_d1_2        & load_pa_d1_3       ) | (load_pa_d1_1        & load_pa_d1_3       ); // Majority logic
+	assign vt_load_la_d1_1        = (load_la_d1_1        & load_la_d1_2       ) | (load_la_d1_2        & load_la_d1_3       ) | (load_la_d1_1        & load_la_d1_3       ); // Majority logic
+	assign vt_load_la_d1_2        = (load_la_d1_1        & load_la_d1_2       ) | (load_la_d1_2        & load_la_d1_3       ) | (load_la_d1_1        & load_la_d1_3       ); // Majority logic
+	assign vt_load_la_d1_3        = (load_la_d1_1        & load_la_d1_2       ) | (load_la_d1_2        & load_la_d1_3       ) | (load_la_d1_1        & load_la_d1_3       ); // Majority logic
+	assign vt_conv_1              = (conv_1              & conv_2             ) | (conv_2              & conv_3             ) | (conv_1              & conv_3             ); // Majority logic
+	assign vt_conv_2              = (conv_1              & conv_2             ) | (conv_2              & conv_3             ) | (conv_1              & conv_3             ); // Majority logic
+	assign vt_conv_3              = (conv_1              & conv_2             ) | (conv_2              & conv_3             ) | (conv_1              & conv_3             ); // Majority logic
+	
+	(* syn_keep = "true" *)     wire inc_dbl_cnt_1;
+	(* syn_keep = "true" *)     wire inc_dbl_cnt_2;
+	(* syn_keep = "true" *)     wire inc_dbl_cnt_3;
+	(* syn_keep = "true" *)     wire inc_sngl_cnt_1;
+	(* syn_keep = "true" *)     wire inc_sngl_cnt_2;
+	(* syn_keep = "true" *)     wire inc_sngl_cnt_3;
+	(* syn_keep = "true" *)     wire ded_1;
+	(* syn_keep = "true" *)     wire ded_2;
+	(* syn_keep = "true" *)     wire ded_3;
+	(* syn_keep = "true" *)     wire sed_1;
+	(* syn_keep = "true" *)     wire sed_2;
+	(* syn_keep = "true" *)     wire sed_3;
+	(* syn_keep = "true" *)     wire pa_1;
+	(* syn_keep = "true" *)     wire pa_2;
+	(* syn_keep = "true" *)     wire pa_3;
+	(* syn_keep = "true" *)     wire la_1;
+	(* syn_keep = "true" *)     wire la_2;
+	(* syn_keep = "true" *)     wire la_3;
+	(* syn_keep = "true" *)     wire load_pa_1;
+	(* syn_keep = "true" *)     wire load_pa_2;
+	(* syn_keep = "true" *)     wire load_pa_3;
+	(* syn_keep = "true" *)     wire load_la_1;
+	(* syn_keep = "true" *)     wire load_la_2;
+	(* syn_keep = "true" *)     wire load_la_3;
+
+// Logical matches for ASCII output
+	assign ded_1 = (vt_monout_1[8*3-1:0] == "DED");
+	assign ded_2 = (vt_monout_2[8*3-1:0] == "DED");
+	assign ded_3 = (vt_monout_3[8*3-1:0] == "DED");
+	assign sed_1 = (vt_monout_1[8*3-1:0] == "SED");
+	assign sed_2 = (vt_monout_2[8*3-1:0] == "SED");
+	assign sed_3 = (vt_monout_3[8*3-1:0] == "SED");
+	assign pa_1  = (vt_monout_1[8*9-1:8*6] == "PA ");
+	assign pa_2  = (vt_monout_2[8*9-1:8*6] == "PA ");
+	assign pa_3  = (vt_monout_3[8*9-1:8*6] == "PA ");
+	assign la_1  = (vt_monout_1[8*9-1:8*6] == "LA ");
+	assign la_2  = (vt_monout_2[8*9-1:8*6] == "LA ");
+	assign la_3  = (vt_monout_3[8*9-1:8*6] == "LA ");
+	
+// Generate single clock pulse for logical matches for ASCII output
+	assign inc_dbl_cnt_1  = ded_1 & ~vt_ded_r1_1;
+	assign inc_dbl_cnt_2  = ded_2 & ~vt_ded_r1_2;
+	assign inc_dbl_cnt_3  = ded_3 & ~vt_ded_r1_3;
+	assign inc_sngl_cnt_1 = sed_1 & ~vt_sed_r1_1;
+	assign inc_sngl_cnt_2 = sed_2 & ~vt_sed_r1_2;
+	assign inc_sngl_cnt_3 = sed_3 & ~vt_sed_r1_3;
+	assign load_pa_1      = pa_1  & ~vt_pa_r1_1;
+	assign load_pa_2      = pa_2  & ~vt_pa_r1_2;
+	assign load_pa_3      = pa_3  & ~vt_pa_r1_3;
+	assign load_la_1      = la_1  & ~vt_la_r1_1;
+	assign load_la_2      = la_2  & ~vt_la_r1_2;
+	assign load_la_3      = la_3  & ~vt_la_r1_3;
+
+///////////////////////////////////////////////////////////////////////
+//                                                                   //
+// Buffer for commands to SEM Controller                             //
+//                                                                   //
+///////////////////////////////////////////////////////////////////////
+  sem_core_sem_mon_fifo_TMR example_mon_fifo_rx (
+    .icap_clk(CLK40),
+    .data_in(cmd_data),
+    .data_out_i(monitor_rxdata),
+    .write(send_cmd),
+    .read(monitor_rxread),
+    .full(fifo_unused),
+    .data_present(rxempty_n)
+    );
+
+assign monitor_rxempty = !rxempty_n;
+
+///////////////////////////////////////////////////////////////////////
+//                                                                   //
+// Single bit error counter                                          //
+// Multi bit error counter                                           //
+//                                                                   //
+///////////////////////////////////////////////////////////////////////
+	always @(posedge CLK40  or posedge JTAG_RST_SEM_CNTRS) begin
+		if(JTAG_RST_SEM_CNTRS) begin
+			sngl_bit_err_cnt_1  <= 8'h00;
+			sngl_bit_err_cnt_2  <= 8'h00;
+			sngl_bit_err_cnt_3  <= 8'h00;
+			multi_bit_err_cnt_1 <= 8'h00;
+			multi_bit_err_cnt_3 <= 8'h00;
+			multi_bit_err_cnt_4 <= 8'h00;
+		end
+		else begin
+			sngl_bit_err_cnt_1  <= inc_sngl_cnt_1 ? vt_sngl_bit_err_cnt_1  + 1 : vt_sngl_bit_err_cnt_1;
+			sngl_bit_err_cnt_2  <= inc_sngl_cnt_2 ? vt_sngl_bit_err_cnt_2  + 1 : vt_sngl_bit_err_cnt_2;
+			sngl_bit_err_cnt_3  <= inc_sngl_cnt_3 ? vt_sngl_bit_err_cnt_3  + 1 : vt_sngl_bit_err_cnt_3;
+			multi_bit_err_cnt_1 <= inc_dbl_cnt_1  ? vt_multi_bit_err_cnt_1 + 1 : vt_multi_bit_err_cnt_1;
+			multi_bit_err_cnt_2 <= inc_dbl_cnt_2  ? vt_multi_bit_err_cnt_2 + 1 : vt_multi_bit_err_cnt_2;
+			multi_bit_err_cnt_3 <= inc_dbl_cnt_3  ? vt_multi_bit_err_cnt_3 + 1 : vt_multi_bit_err_cnt_3;
+		end
+	end
+
+///////////////////////////////////////////////////////////////////////
+//                                                                   //
+// Convert ASCII to numeric                                          //
+//                                                                   //
+///////////////////////////////////////////////////////////////////////
+	always @(posedge CLK40) begin
+	   load_pa_d1_1  <= load_pa_1;
+	   load_la_d1_1  <= load_la_1;
+		conv_1[3:0]   <= vt_monout_1[6]  ? vt_monout_1[3:0]+9   : vt_monout[_13:0];
+		conv_1[7:4]   <= vt_monout_1[14] ? vt_monout_1[11:8]+9  : vt_monout_1[11:8];
+		conv_1[11:8]  <= vt_monout_1[22] ? vt_monout_1[19:16]+9 : vt_monout_1[19:16];
+		conv_1[15:12] <= vt_monout_1[30] ? vt_monout_1[27:24]+9 : vt_monout_1[27:24];
+		conv_1[19:16] <= vt_monout_1[38] ? vt_monout_1[35:32]+9 : vt_monout_1[35:32];
+		conv_1[23:20] <= vt_monout_1[46] ? vt_monout_1[43:40]+9 : vt_monout_1[43:40];
+		ded_r1_1      <= ded_1;
+		sed_r1_1      <= sed_1;
+		pa_r1_1       <= pa_1;
+		la_r1_1       <= la_1;
+
+	   load_pa_d1_2  <= load_pa_2;
+	   load_la_d1_2  <= load_la_2;
+		conv_2[3:0]   <= vt_monout_2[6]  ? vt_monout_2[3:0]+9   : vt_monout[_23:0];
+		conv_2[7:4]   <= vt_monout_2[14] ? vt_monout_2[11:8]+9  : vt_monout_2[11:8];
+		conv_2[11:8]  <= vt_monout_2[22] ? vt_monout_2[19:16]+9 : vt_monout_2[19:16];
+		conv_2[15:12] <= vt_monout_2[30] ? vt_monout_2[27:24]+9 : vt_monout_2[27:24];
+		conv_2[19:16] <= vt_monout_2[38] ? vt_monout_2[35:32]+9 : vt_monout_2[35:32];
+		conv_2[23:20] <= vt_monout_2[46] ? vt_monout_2[43:40]+9 : vt_monout_2[43:40];
+		ded_r1_2      <= ded_2;
+		sed_r1_2      <= sed_2;
+		pa_r1_2       <= pa_2;
+		la_r1_2       <= la_2;
+
+	   load_pa_d1_3  <= load_pa_3;
+	   load_la_d1_3  <= load_la_3;
+		conv_3[3:0]   <= vt_monout_3[6]  ? vt_monout_3[3:0]+9   : vt_monout[_33:0];
+		conv_3[7:4]   <= vt_monout_3[14] ? vt_monout_3[11:8]+9  : vt_monout_3[11:8];
+		conv_3[11:8]  <= vt_monout_3[22] ? vt_monout_3[19:16]+9 : vt_monout_3[19:16];
+		conv_3[15:12] <= vt_monout_3[30] ? vt_monout_3[27:24]+9 : vt_monout_3[27:24];
+		conv_3[19:16] <= vt_monout_3[38] ? vt_monout_3[35:32]+9 : vt_monout_3[35:32];
+		conv_3[23:20] <= vt_monout_3[46] ? vt_monout_3[43:40]+9 : vt_monout_3[43:40];
+		ded_r1_3      <= ded_3;
+		sed_r1_3      <= sed_3;
+		pa_r1_3       <= pa_3;
+		la_r1_3       <= la_3;
+	end
+	
+
+///////////////////////////////////////////////////////////////////////
+//                                                                   //
+// Register for frame address (FAR) in physical address (PA) format  //
+// Register for frame address (FAR) in linear address (LA) format    //
+// Captured from converted Monitor output                            //
+// Control selection -- Chip Scope Pro or JTAG (default is JTAG)     //
+// Save a 9 byte history of SEM monitor output                       //
+//                                                                   //
+///////////////////////////////////////////////////////////////////////
+	always @(posedge CLK40 or posedge RST) begin
+		if(RST) begin
+			far_pa_1      <= 24'h000000;
+			far_pa_2      <= 24'h000000;
+			far_pa_3      <= 24'h000000;
+			far_la_1      <= 24'h000000;
+			far_la_2      <= 24'h000000;
+			far_la_3      <= 24'h000000;
+			dbl_err_det_1 <= 1'b0;
+			dbl_err_det_2 <= 1'b0;
+			dbl_err_det_3 <= 1'b0;
+			csp_jtag_b_1  <= 1'b0;
+			csp_jtag_b_2  <= 1'b0;
+			csp_jtag_b_3  <= 1'b0;
+			monout_1      <= "         ";
+			monout_2      <= "         ";
+			monout_3      <= "         ";
+		end
+		else begin
+			far_pa_1      <= vt_load_pa_d1_1   ? vt_conv_1 : (JTAG_DED_RST ? 24'h000000 : vt_far_pa_1);
+			far_pa_2      <= vt_load_pa_d1_2   ? vt_conv_2 : (JTAG_DED_RST ? 24'h000000 : vt_far_pa_2);
+			far_pa_3      <= vt_load_pa_d1_3   ? vt_conv_3 : (JTAG_DED_RST ? 24'h000000 : vt_far_pa_3);
+			far_la_1      <= vt_load_la_d1_1   ? vt_conv_1 : (JTAG_DED_RST ? 24'h000000 : vt_far_la_1);
+			far_la_2      <= vt_load_la_d1_2   ? vt_conv_2 : (JTAG_DED_RST ? 24'h000000 : vt_far_la_2);
+			far_la_3      <= vt_load_la_d1_3   ? vt_conv_3 : (JTAG_DED_RST ? 24'h000000 : vt_far_la_3);
+			dbl_err_det_1 <= JTAG_DED_RST   ? 1'b0 : (inc_dbl_cnt_1  ? 1'b1 : vt_dbl_err_det_1);
+			dbl_err_det_2 <= JTAG_DED_RST   ? 1'b0 : (inc_dbl_cnt_2  ? 1'b1 : vt_dbl_err_det_2);
+			dbl_err_det_3 <= JTAG_DED_RST   ? 1'b0 : (inc_dbl_cnt_3  ? 1'b1 : vt_dbl_err_det_3);
+			csp_jtag_b_1  <= csp_tk_ctrl    ? 1'b1 : (JTAG_TK_CTRL ? 1'b0 : vt_csp_jtag_b_1);
+			csp_jtag_b_2  <= csp_tk_ctrl    ? 1'b1 : (JTAG_TK_CTRL ? 1'b0 : vt_csp_jtag_b_2);
+			csp_jtag_b_3  <= csp_tk_ctrl    ? 1'b1 : (JTAG_TK_CTRL ? 1'b0 : vt_csp_jtag_b_3);
+			monout_1      <= monitor_txwrite  ? {vt_monout_1[63:0],monitor_txdata} : vt_monout_1;
+			monout_2      <= monitor_txwrite  ? {vt_monout_2[63:0],monitor_txdata} : vt_monout_2;
+			monout_3      <= monitor_txwrite  ? {vt_monout_3[63:0],monitor_txdata} : vt_monout_3;
+		end
+	end
+
+///////////////////////////////////////////////////////////////////////
+//                                                                   //
+// Command source multiplexer                                        //
+//                                                                   //
+///////////////////////////////////////////////////////////////////////
+assign cmd_data = vt_csp_jtag_b_1 ? csp_cmd_data : JTAG_CMD_DATA;
+assign send_cmd = vt_csp_jtag_b_1 ? csp_send_cmd : JTAG_SEND_CMD;
+	
+// output for JTAG registers status	
+	assign SEM_STATUS[0] = status_initialization;
+	assign SEM_STATUS[1] = status_observation;
+	assign SEM_STATUS[2] = status_correction;
+	assign SEM_STATUS[3] = status_classification;
+	assign SEM_STATUS[4] = status_injection;
+	assign SEM_STATUS[5] = status_essential;
+	assign SEM_STATUS[6] = status_uncorrectable;
+	assign SEM_STATUS[7] = 1'b0;
+	assign SEM_STATUS[8] = fecc_crcerr;
+	assign SEM_STATUS[9] = vt_dbl_err_det_1;
+	assign SEM_STATUS[15:10] = 6'h00;
+
+	assign SEM_FAR_PA = vt_far_pa_1;
+	assign SEM_FAR_LA = vt_far_la_1;
+	assign SEM_ERRCNT[7:0]  = vt_sngl_bit_err_cnt_1;
+	assign SEM_ERRCNT[15:8] = vt_multi_bit_err_cnt_1;
+	
+end
+else 
+begin : SEM_logic
+
+	reg  csp_jtag_b;
+	reg [7:0] sngl_bit_err_cnt;
+	reg [7:0] multi_bit_err_cnt;
+	reg dbl_err_det;
+	reg [8*9-1:0] monout;
+	reg ded_r1;
+	reg sed_r1;
+	reg pa_r1;
+	reg la_r1;
+	reg [23:0] far_pa;
+	reg [23:0] far_la;
+	reg load_pa_d1;
+	reg load_la_d1;
+	reg [23:0] conv;
+
+	wire inc_dbl_cnt;
+	wire inc_sngl_cnt;
+	wire ded;
+	wire sed;
+	wire pa;
+	wire la;
+	wire load_pa;
+	wire load_la;
 
 	
 // Logical matches for ASCII output
@@ -398,13 +748,13 @@ end
 //                                                                   //
 ///////////////////////////////////////////////////////////////////////
   sem_core_sem_mon_fifo example_mon_fifo_rx (
+    .icap_clk(CLK40),
     .data_in(cmd_data),
     .data_out(monitor_rxdata),
     .write(send_cmd),
     .read(monitor_rxread),
     .full(fifo_unused),
-    .data_present(rxempty_n),
-    .icap_clk(CLK40)
+    .data_present(rxempty_n)
     );
 
 assign monitor_rxempty = !rxempty_n;
@@ -516,18 +866,6 @@ end
 			else
 				far_la <= far_la;
 	end
-	
-	
-	
-//	always @(posedge CLK40) begin
-//		fecc_eccerr_r1 <= fecc_eccerr;
-//		dbl_err_det_r1 <= dbl_err_det;
-//	end
-
-
-//assign le_eccerr = fecc_eccerr & ~fecc_eccerr_r1;
-//assign inc_dbl_cnt = dbl_err_det & ~dbl_err_det_r1;
-//assign inc_sngl_cnt = le_eccerr & fecc_eccerrsingle & status_correction;
 
 	always @(posedge CLK40 or posedge RST) begin
 		if(RST)
@@ -535,7 +873,6 @@ end
 		else
 			if(JTAG_DED_RST)
 				dbl_err_det <= 1'b0;
-//			else if(le_eccerr && ~fecc_eccerrsingle)
 			else if(inc_dbl_cnt)
 				dbl_err_det <= 1'b1;
 			else
@@ -560,5 +897,8 @@ end
 	assign SEM_ERRCNT[7:0]  = sngl_bit_err_cnt;
 	assign SEM_ERRCNT[15:8] = multi_bit_err_cnt;
 	
+end
+endgenerate
+
 
 endmodule

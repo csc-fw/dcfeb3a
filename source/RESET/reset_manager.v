@@ -13,6 +13,7 @@ module reset_manager #(
     input CLK1MHZ,           // 1 MHz Clock
     input CLK100KHZ,
 	 input RESYNC,
+	 input RST_RESYNC,
     input EOS,
     input JTAG_SYS_RST,
 	 input CSP_SYS_RST,
@@ -28,45 +29,28 @@ module reset_manager #(
 	 output ADC_INIT_RST,
 	 output ADC_INIT,
 	 output ADC_RDY,
-	 output reg AL_START,
+	 output AL_START,
     output TRG_GTXTXRESET,
     output MMCM_RST,
     output SYS_MON_RST,
     output ADC_RST,
     output TRG_RST,
 	 output DSR_RST,
-    output reg SYS_RST,
-	 output RST_RESYNC,
+    output SYS_RST,
 	 output DAQ_FIFO_RST,
 	 output SLOW_FIFO_RST,
-	 output reg RUN,
+	 output RUN,
 	 output QPLL_LOCK,
 	 output QPLL_ERROR,
 	 output [3:0] POR_STATE
     );
 
 wire inc_tmr;
-wire qpll_lock_disable;
-reg [11:0] dsr_tmr;
-
-reg adc_rdy_r1, adc_rdy_r2;
-reg al_done_r1, al_done_r2;
-reg bpi_seq_idle_r1, bpi_seq_idle_r2;
-reg daq_mmcm_lock_r1, daq_mmcm_lock_r2;
-reg qpll_lock_r1, qpll_lock_r2;
-
 wire adc_init_rst_i;
-reg adc_init_rst_r1;
-reg adc_init_rst_r2;
 wire al_start_i;  
-reg al_start_r1;  
 wire por_i;  
-reg por_r1;  
 wire run_i;  
-reg run_r1;
 wire restart_all;
-wire strt_dly_done;
-reg [19:0] startup_cnt;
 wire daq_fifo_rst_done;
 wire slow_fifo_rst_done;
 
@@ -76,67 +60,459 @@ wire slow_fifo_rst_done;
  
 
 assign restart_all = (JTAG_SYS_RST || CSP_SYS_RST);
-assign DSR_RST    = ~ADC_RDY || SYS_RST;
-assign qpll_lock_disable = 1'b1;
-assign ADC_INIT_RST = adc_init_rst_r2;
-assign RST_RESYNC = SYS_RST || RESYNC;
+assign DSR_RST     = ~ADC_RDY || SYS_RST;
 
+generate
+if(TMR==1) 
+begin : RSTman_logic_TMR
 
-SRL16E #(
-	.INIT(16'HFFFF)
-) SysMonRst_i (
-	.Q(SYS_MON_RST),
-	.A0(1'b1),
-	.A1(1'b1),
-	.A2(1'b1),
-	.A3(1'b1),
-	.CE(1'b1),
-	.CLK(STUP_CLK),
-	.D(1'b0)
-);
-	
-// Synchronize inputs to startup clock for POR state machine
+	(* syn_preserve = "true" *) reg [11:0] dsr_tmr_1;
+	(* syn_preserve = "true" *) reg [11:0] dsr_tmr_2;
+	(* syn_preserve = "true" *) reg [11:0] dsr_tmr_3;
+	(* syn_preserve = "true" *) reg adc_rdy_r1_1;
+	(* syn_preserve = "true" *) reg adc_rdy_r1_2;
+	(* syn_preserve = "true" *) reg adc_rdy_r1_3;
+	(* syn_preserve = "true" *) reg adc_rdy_r2_1;
+	(* syn_preserve = "true" *) reg adc_rdy_r2_2;
+	(* syn_preserve = "true" *) reg adc_rdy_r2_3;
+	(* syn_preserve = "true" *) reg al_done_r1_1;
+	(* syn_preserve = "true" *) reg al_done_r1_2;
+	(* syn_preserve = "true" *) reg al_done_r1_3;
+	(* syn_preserve = "true" *) reg al_done_r2_1;
+	(* syn_preserve = "true" *) reg al_done_r2_2;
+	(* syn_preserve = "true" *) reg al_done_r2_3;
+	(* syn_preserve = "true" *) reg bpi_seq_idle_r1_1;
+	(* syn_preserve = "true" *) reg bpi_seq_idle_r1_2;
+	(* syn_preserve = "true" *) reg bpi_seq_idle_r1_3;
+	(* syn_preserve = "true" *) reg bpi_seq_idle_r2_1;
+	(* syn_preserve = "true" *) reg bpi_seq_idle_r2_2;
+	(* syn_preserve = "true" *) reg bpi_seq_idle_r2_3;
+	(* syn_preserve = "true" *) reg daq_mmcm_lock_r1_1;
+	(* syn_preserve = "true" *) reg daq_mmcm_lock_r1_2;
+	(* syn_preserve = "true" *) reg daq_mmcm_lock_r1_3;
+	(* syn_preserve = "true" *) reg daq_mmcm_lock_r2_1;
+	(* syn_preserve = "true" *) reg daq_mmcm_lock_r2_2;
+	(* syn_preserve = "true" *) reg daq_mmcm_lock_r2_3;
+	(* syn_preserve = "true" *) reg qpll_lock_r1_1;
+	(* syn_preserve = "true" *) reg qpll_lock_r1_2;
+	(* syn_preserve = "true" *) reg qpll_lock_r1_3;
+	(* syn_preserve = "true" *) reg qpll_lock_r2_1;
+	(* syn_preserve = "true" *) reg qpll_lock_r2_2;
+	(* syn_preserve = "true" *) reg qpll_lock_r2_3;
+	(* syn_preserve = "true" *) reg adc_init_rst_r1_1;
+	(* syn_preserve = "true" *) reg adc_init_rst_r1_2;
+	(* syn_preserve = "true" *) reg adc_init_rst_r1_3;
+	(* syn_preserve = "true" *) reg adc_init_rst_r2_1;
+	(* syn_preserve = "true" *) reg adc_init_rst_r2_2;
+	(* syn_preserve = "true" *) reg adc_init_rst_r2_3;
+	(* syn_preserve = "true" *) reg al_start_r1_1;  
+	(* syn_preserve = "true" *) reg al_start_r1_2;  
+	(* syn_preserve = "true" *) reg al_start_r1_3;  
+	(* syn_preserve = "true" *) reg al_start_r2_1;  
+	(* syn_preserve = "true" *) reg al_start_r2_2;  
+	(* syn_preserve = "true" *) reg al_start_r2_3;  
+	(* syn_preserve = "true" *) reg por_r1_1;  
+	(* syn_preserve = "true" *) reg por_r1_2;  
+	(* syn_preserve = "true" *) reg por_r1_3;  
+	(* syn_preserve = "true" *) reg por_r2_1;  
+	(* syn_preserve = "true" *) reg por_r2_2;  
+	(* syn_preserve = "true" *) reg por_r2_3;  
+	(* syn_preserve = "true" *) reg run_r1_1;
+	(* syn_preserve = "true" *) reg run_r1_2;
+	(* syn_preserve = "true" *) reg run_r1_3;
+	(* syn_preserve = "true" *) reg run_r2_1;
+	(* syn_preserve = "true" *) reg run_r2_2;
+	(* syn_preserve = "true" *) reg run_r2_3;
 
-always @(posedge STUP_CLK) begin
-	adc_rdy_r1       <= ADC_RDY;
-	al_done_r1       <= AL_DONE;
-	bpi_seq_idle_r1  <= BPI_SEQ_IDLE;
-	daq_mmcm_lock_r1 <= DAQ_MMCM_LOCK;
-	qpll_lock_r1     <= QPLL_LOCK;
-	
-	adc_rdy_r2       <= adc_rdy_r1;
-	al_done_r2       <= al_done_r1;
-	bpi_seq_idle_r2  <= bpi_seq_idle_r1;
-	daq_mmcm_lock_r2 <= daq_mmcm_lock_r1;
-	qpll_lock_r2     <= qpll_lock_r1;
-end
+	(* syn_keep = "true" *) wire [11:0] vt_dsr_tmr_1;
+	(* syn_keep = "true" *) wire [11:0] vt_dsr_tmr_2;
+	(* syn_keep = "true" *) wire [11:0] vt_dsr_tmr_3;
+	(* syn_keep = "true" *) wire vt_adc_rdy_r1_1;
+	(* syn_keep = "true" *) wire vt_adc_rdy_r1_2;
+	(* syn_keep = "true" *) wire vt_adc_rdy_r1_3;
+	(* syn_keep = "true" *) wire vt_adc_rdy_r2_1;
+	(* syn_keep = "true" *) wire vt_adc_rdy_r2_2;
+	(* syn_keep = "true" *) wire vt_adc_rdy_r2_3;
+	(* syn_keep = "true" *) wire vt_al_done_r1_1;
+	(* syn_keep = "true" *) wire vt_al_done_r1_2;
+	(* syn_keep = "true" *) wire vt_al_done_r1_3;
+	(* syn_keep = "true" *) wire vt_al_done_r2_1;
+	(* syn_keep = "true" *) wire vt_al_done_r2_2;
+	(* syn_keep = "true" *) wire vt_al_done_r2_3;
+	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r1_1;
+	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r1_2;
+	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r1_3;
+	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r2_1;
+	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r2_2;
+	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r2_3;
+	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r1_1;
+	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r1_2;
+	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r1_3;
+	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r2_1;
+	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r2_2;
+	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r2_3;
+	(* syn_keep = "true" *) wire vt_qpll_lock_r1_1;
+	(* syn_keep = "true" *) wire vt_qpll_lock_r1_2;
+	(* syn_keep = "true" *) wire vt_qpll_lock_r1_3;
+	(* syn_keep = "true" *) wire vt_qpll_lock_r2_1;
+	(* syn_keep = "true" *) wire vt_qpll_lock_r2_2;
+	(* syn_keep = "true" *) wire vt_qpll_lock_r2_3;
+	(* syn_keep = "true" *) wire vt_adc_init_rst_r1_1;
+	(* syn_keep = "true" *) wire vt_adc_init_rst_r1_2;
+	(* syn_keep = "true" *) wire vt_adc_init_rst_r1_3;
+	(* syn_keep = "true" *) wire vt_adc_init_rst_r2_1;
+	(* syn_keep = "true" *) wire vt_adc_init_rst_r2_2;
+	(* syn_keep = "true" *) wire vt_adc_init_rst_r2_3;
+	(* syn_keep = "true" *) wire vt_al_start_r1_1;  
+	(* syn_keep = "true" *) wire vt_al_start_r1_2;  
+	(* syn_keep = "true" *) wire vt_al_start_r1_3;  
+	(* syn_keep = "true" *) wire vt_al_start_r2_1;  
+	(* syn_keep = "true" *) wire vt_al_start_r2_2;  
+	(* syn_keep = "true" *) wire vt_al_start_r2_3;  
+	(* syn_keep = "true" *) wire vt_por_r1_1;  
+	(* syn_keep = "true" *) wire vt_por_r1_2;  
+	(* syn_keep = "true" *) wire vt_por_r1_3;  
+	(* syn_keep = "true" *) wire vt_por_r2_1;  
+	(* syn_keep = "true" *) wire vt_por_r2_2;  
+	(* syn_keep = "true" *) wire vt_por_r2_3;  
+	(* syn_keep = "true" *) wire vt_run_r1_1;
+	(* syn_keep = "true" *) wire vt_run_r1_2;
+	(* syn_keep = "true" *) wire vt_run_r1_3;
+	(* syn_keep = "true" *) wire vt_run_r2_1;
+	(* syn_keep = "true" *) wire vt_run_r2_2;
+	(* syn_keep = "true" *) wire vt_run_r2_3;
 
-// Synchronize outputs to 40MHz clock 
+	(* syn_keep = "true" *) wire sys_mon_rst_1;
+	(* syn_keep = "true" *) wire sys_mon_rst_2;
+	(* syn_keep = "true" *) wire sys_mon_rst_3;
 
-always @(posedge CLK or negedge EOS) begin
-	if(!EOS) begin
-		adc_init_rst_r1  <= 1'b1;
-		al_start_r1      <= 1'b0;
-		por_r1           <= 1'b1;
-		run_r1           <= 1'b0;
-		adc_init_rst_r2  <= 1'b1;
-		AL_START         <= 1'b0;
-		SYS_RST          <= 1'b1;
-		RUN              <= 1'b0;
-	end
-	else begin
-		adc_init_rst_r1  <= adc_init_rst_i;
-		al_start_r1      <= al_start_i;
-		por_r1           <= por_i;
-		run_r1           <= run_i;
+	assign vt_dsr_tmr_1          = (dsr_tmr_1          & dsr_tmr_2         ) | (dsr_tmr_2          & dsr_tmr_3         ) | (dsr_tmr_1          & dsr_tmr_3         ); // Majority logic
+	assign vt_dsr_tmr_2          = (dsr_tmr_1          & dsr_tmr_2         ) | (dsr_tmr_2          & dsr_tmr_3         ) | (dsr_tmr_1          & dsr_tmr_3         ); // Majority logic
+	assign vt_dsr_tmr_3          = (dsr_tmr_1          & dsr_tmr_2         ) | (dsr_tmr_2          & dsr_tmr_3         ) | (dsr_tmr_1          & dsr_tmr_3         ); // Majority logic
+	assign vt_adc_rdy_r1_1       = (adc_rdy_r1_1       & adc_rdy_r1_2      ) | (adc_rdy_r1_2       & adc_rdy_r1_3      ) | (adc_rdy_r1_1       & adc_rdy_r1_3      ); // Majority logic
+	assign vt_adc_rdy_r1_2       = (adc_rdy_r1_1       & adc_rdy_r1_2      ) | (adc_rdy_r1_2       & adc_rdy_r1_3      ) | (adc_rdy_r1_1       & adc_rdy_r1_3      ); // Majority logic
+	assign vt_adc_rdy_r1_3       = (adc_rdy_r1_1       & adc_rdy_r1_2      ) | (adc_rdy_r1_2       & adc_rdy_r1_3      ) | (adc_rdy_r1_1       & adc_rdy_r1_3      ); // Majority logic
+	assign vt_adc_rdy_r2_1       = (adc_rdy_r2_1       & adc_rdy_r2_2      ) | (adc_rdy_r2_2       & adc_rdy_r2_3      ) | (adc_rdy_r2_1       & adc_rdy_r2_3      ); // Majority logic
+	assign vt_adc_rdy_r2_2       = (adc_rdy_r2_1       & adc_rdy_r2_2      ) | (adc_rdy_r2_2       & adc_rdy_r2_3      ) | (adc_rdy_r2_1       & adc_rdy_r2_3      ); // Majority logic
+	assign vt_adc_rdy_r2_3       = (adc_rdy_r2_1       & adc_rdy_r2_2      ) | (adc_rdy_r2_2       & adc_rdy_r2_3      ) | (adc_rdy_r2_1       & adc_rdy_r2_3      ); // Majority logic
+	assign vt_al_done_r1_1       = (al_done_r1_1       & al_done_r1_2      ) | (al_done_r1_2       & al_done_r1_3      ) | (al_done_r1_1       & al_done_r1_3      ); // Majority logic
+	assign vt_al_done_r1_2       = (al_done_r1_1       & al_done_r1_2      ) | (al_done_r1_2       & al_done_r1_3      ) | (al_done_r1_1       & al_done_r1_3      ); // Majority logic
+	assign vt_al_done_r1_3       = (al_done_r1_1       & al_done_r1_2      ) | (al_done_r1_2       & al_done_r1_3      ) | (al_done_r1_1       & al_done_r1_3      ); // Majority logic
+	assign vt_al_done_r2_1       = (al_done_r2_1       & al_done_r2_2      ) | (al_done_r2_2       & al_done_r2_3      ) | (al_done_r2_1       & al_done_r2_3      ); // Majority logic
+	assign vt_al_done_r2_2       = (al_done_r2_1       & al_done_r2_2      ) | (al_done_r2_2       & al_done_r2_3      ) | (al_done_r2_1       & al_done_r2_3      ); // Majority logic
+	assign vt_al_done_r2_3       = (al_done_r2_1       & al_done_r2_2      ) | (al_done_r2_2       & al_done_r2_3      ) | (al_done_r2_1       & al_done_r2_3      ); // Majority logic
+	assign vt_bpi_seq_idle_r1_1  = (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_2 ) | (bpi_seq_idle_r1_2  & bpi_seq_idle_r1_3 ) | (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_3 ); // Majority logic
+	assign vt_bpi_seq_idle_r1_2  = (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_2 ) | (bpi_seq_idle_r1_2  & bpi_seq_idle_r1_3 ) | (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_3 ); // Majority logic
+	assign vt_bpi_seq_idle_r1_3  = (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_2 ) | (bpi_seq_idle_r1_2  & bpi_seq_idle_r1_3 ) | (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_3 ); // Majority logic
+	assign vt_bpi_seq_idle_r2_1  = (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_2 ) | (bpi_seq_idle_r2_2  & bpi_seq_idle_r2_3 ) | (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_3 ); // Majority logic
+	assign vt_bpi_seq_idle_r2_2  = (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_2 ) | (bpi_seq_idle_r2_2  & bpi_seq_idle_r2_3 ) | (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_3 ); // Majority logic
+	assign vt_bpi_seq_idle_r2_3  = (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_2 ) | (bpi_seq_idle_r2_2  & bpi_seq_idle_r2_3 ) | (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_3 ); // Majority logic
+	assign vt_daq_mmcm_lock_r1_1 = (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_2) | (daq_mmcm_lock_r1_2 & daq_mmcm_lock_r1_3) | (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_3); // Majority logic
+	assign vt_daq_mmcm_lock_r1_2 = (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_2) | (daq_mmcm_lock_r1_2 & daq_mmcm_lock_r1_3) | (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_3); // Majority logic
+	assign vt_daq_mmcm_lock_r1_3 = (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_2) | (daq_mmcm_lock_r1_2 & daq_mmcm_lock_r1_3) | (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_3); // Majority logic
+	assign vt_daq_mmcm_lock_r2_1 = (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_2) | (daq_mmcm_lock_r2_2 & daq_mmcm_lock_r2_3) | (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_3); // Majority logic
+	assign vt_daq_mmcm_lock_r2_2 = (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_2) | (daq_mmcm_lock_r2_2 & daq_mmcm_lock_r2_3) | (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_3); // Majority logic
+	assign vt_daq_mmcm_lock_r2_3 = (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_2) | (daq_mmcm_lock_r2_2 & daq_mmcm_lock_r2_3) | (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_3); // Majority logic
+	assign vt_qpll_lock_r1_1     = (qpll_lock_r1_1     & qpll_lock_r1_2    ) | (qpll_lock_r1_2     & qpll_lock_r1_3    ) | (qpll_lock_r1_1     & qpll_lock_r1_3    ); // Majority logic
+	assign vt_qpll_lock_r1_2     = (qpll_lock_r1_1     & qpll_lock_r1_2    ) | (qpll_lock_r1_2     & qpll_lock_r1_3    ) | (qpll_lock_r1_1     & qpll_lock_r1_3    ); // Majority logic
+	assign vt_qpll_lock_r1_3     = (qpll_lock_r1_1     & qpll_lock_r1_2    ) | (qpll_lock_r1_2     & qpll_lock_r1_3    ) | (qpll_lock_r1_1     & qpll_lock_r1_3    ); // Majority logic
+	assign vt_qpll_lock_r2_1     = (qpll_lock_r2_1     & qpll_lock_r2_2    ) | (qpll_lock_r2_2     & qpll_lock_r2_3    ) | (qpll_lock_r2_1     & qpll_lock_r2_3    ); // Majority logic
+	assign vt_qpll_lock_r2_2     = (qpll_lock_r2_1     & qpll_lock_r2_2    ) | (qpll_lock_r2_2     & qpll_lock_r2_3    ) | (qpll_lock_r2_1     & qpll_lock_r2_3    ); // Majority logic
+	assign vt_qpll_lock_r2_3     = (qpll_lock_r2_1     & qpll_lock_r2_2    ) | (qpll_lock_r2_2     & qpll_lock_r2_3    ) | (qpll_lock_r2_1     & qpll_lock_r2_3    ); // Majority logic
+	assign vt_adc_init_rst_r1_1  = (adc_init_rst_r1_1  & adc_init_rst_r1_2 ) | (adc_init_rst_r1_2  & adc_init_rst_r1_3 ) | (adc_init_rst_r1_1  & adc_init_rst_r1_3 ); // Majority logic
+	assign vt_adc_init_rst_r1_2  = (adc_init_rst_r1_1  & adc_init_rst_r1_2 ) | (adc_init_rst_r1_2  & adc_init_rst_r1_3 ) | (adc_init_rst_r1_1  & adc_init_rst_r1_3 ); // Majority logic
+	assign vt_adc_init_rst_r1_3  = (adc_init_rst_r1_1  & adc_init_rst_r1_2 ) | (adc_init_rst_r1_2  & adc_init_rst_r1_3 ) | (adc_init_rst_r1_1  & adc_init_rst_r1_3 ); // Majority logic
+	assign vt_adc_init_rst_r2_1  = (adc_init_rst_r2_1  & adc_init_rst_r2_2 ) | (adc_init_rst_r2_2  & adc_init_rst_r2_3 ) | (adc_init_rst_r2_1  & adc_init_rst_r2_3 ); // Majority logic
+	assign vt_adc_init_rst_r2_2  = (adc_init_rst_r2_1  & adc_init_rst_r2_2 ) | (adc_init_rst_r2_2  & adc_init_rst_r2_3 ) | (adc_init_rst_r2_1  & adc_init_rst_r2_3 ); // Majority logic
+	assign vt_adc_init_rst_r2_3  = (adc_init_rst_r2_1  & adc_init_rst_r2_2 ) | (adc_init_rst_r2_2  & adc_init_rst_r2_3 ) | (adc_init_rst_r2_1  & adc_init_rst_r2_3 ); // Majority logic
+	assign vt_al_start_r1_1      = (al_start_r1_1      & al_start_r1_2     ) | (al_start_r1_2      & al_start_r1_3     ) | (al_start_r1_1      & al_start_r1_3     ); // Majority logic
+	assign vt_al_start_r1_2      = (al_start_r1_1      & al_start_r1_2     ) | (al_start_r1_2      & al_start_r1_3     ) | (al_start_r1_1      & al_start_r1_3     ); // Majority logic
+	assign vt_al_start_r1_3      = (al_start_r1_1      & al_start_r1_2     ) | (al_start_r1_2      & al_start_r1_3     ) | (al_start_r1_1      & al_start_r1_3     ); // Majority logic
+	assign vt_al_start_r2_1      = (al_start_r2_1      & al_start_r2_2     ) | (al_start_r2_2      & al_start_r2_3     ) | (al_start_r2_1      & al_start_r2_3     ); // Majority logic
+	assign vt_al_start_r2_2      = (al_start_r2_1      & al_start_r2_2     ) | (al_start_r2_2      & al_start_r2_3     ) | (al_start_r2_1      & al_start_r2_3     ); // Majority logic
+	assign vt_al_start_r2_3      = (al_start_r2_1      & al_start_r2_2     ) | (al_start_r2_2      & al_start_r2_3     ) | (al_start_r2_1      & al_start_r2_3     ); // Majority logic
+	assign vt_por_r1_1           = (por_r1_1           & por_r1_2          ) | (por_r1_2           & por_r1_3          ) | (por_r1_1           & por_r1_3          ); // Majority logic
+	assign vt_por_r1_2           = (por_r1_1           & por_r1_2          ) | (por_r1_2           & por_r1_3          ) | (por_r1_1           & por_r1_3          ); // Majority logic
+	assign vt_por_r1_3           = (por_r1_1           & por_r1_2          ) | (por_r1_2           & por_r1_3          ) | (por_r1_1           & por_r1_3          ); // Majority logic
+	assign vt_por_r2_1           = (por_r2_1           & por_r2_2          ) | (por_r2_2           & por_r2_3          ) | (por_r2_1           & por_r2_3          ); // Majority logic
+	assign vt_por_r2_2           = (por_r2_1           & por_r2_2          ) | (por_r2_2           & por_r2_3          ) | (por_r2_1           & por_r2_3          ); // Majority logic
+	assign vt_por_r2_3           = (por_r2_1           & por_r2_2          ) | (por_r2_2           & por_r2_3          ) | (por_r2_1           & por_r2_3          ); // Majority logic
+	assign vt_run_r1_1           = (run_r1_1           & run_r1_2          ) | (run_r1_2           & run_r1_3          ) | (run_r1_1           & run_r1_3          ); // Majority logic
+	assign vt_run_r1_2           = (run_r1_1           & run_r1_2          ) | (run_r1_2           & run_r1_3          ) | (run_r1_1           & run_r1_3          ); // Majority logic
+	assign vt_run_r1_3           = (run_r1_1           & run_r1_2          ) | (run_r1_2           & run_r1_3          ) | (run_r1_1           & run_r1_3          ); // Majority logic
+	assign vt_run_r2_1           = (run_r2_1           & run_r2_2          ) | (run_r2_2           & run_r2_3          ) | (run_r2_1           & run_r2_3          ); // Majority logic
+	assign vt_run_r2_2           = (run_r2_1           & run_r2_2          ) | (run_r2_2           & run_r2_3          ) | (run_r2_1           & run_r2_3          ); // Majority logic
+	assign vt_run_r2_3           = (run_r2_1           & run_r2_2          ) | (run_r2_2           & run_r2_3          ) | (run_r2_1           & run_r2_3          ); // Majority logic
+
+	assign ADC_INIT_RST = vt_adc_init_rst_r2_1;
+	assign AL_START     = vt_al_start_r2_1;
+	assign SYS_RST      = vt_por_r2_1;
+	assign RUN          = vt_run_r2_1;
+	assign SYS_MON_RST  = (sys_mon_rst_1 & sys_mon_rst_2) | (sys_mon_rst_2 & sys_mon_rst_3) | (sys_mon_rst_1 & sys_mon_rst_3); // Majority logic
+
+	SRL16E #(
+		.INIT(16'HFFFF)
+	) SysMonRst_1 (
+		.Q(sys_mon_rst_1),
+		.A0(1'b1),
+		.A1(1'b1),
+		.A2(1'b1),
+		.A3(1'b1),
+		.CE(1'b1),
+		.CLK(STUP_CLK),
+		.D(1'b0)
+	);
+
+	SRL16E #(
+		.INIT(16'HFFFF)
+	) SysMonRst_2 (
+		.Q(sys_mon_rst_2),
+		.A0(1'b1),
+		.A1(1'b1),
+		.A2(1'b1),
+		.A3(1'b1),
+		.CE(1'b1),
+		.CLK(STUP_CLK),
+		.D(1'b0)
+	);
+
+	SRL16E #(
+		.INIT(16'HFFFF)
+	) SysMonRst_3 (
+		.Q(sys_mon_rst_3),
+		.A0(1'b1),
+		.A1(1'b1),
+		.A2(1'b1),
+		.A3(1'b1),
+		.CE(1'b1),
+		.CLK(STUP_CLK),
+		.D(1'b0)
+	);
 		
-		adc_init_rst_r2  <= adc_init_rst_r1;
-		AL_START         <= al_start_r1;
-		SYS_RST          <= por_r1;
-		RUN              <= run_r1;
-	end
-end
+	// Synchronize inputs to startup clock for POR state machine
 
+	always @(posedge STUP_CLK) begin
+		adc_rdy_r1_1       <= ADC_RDY;
+		al_done_r1_1       <= AL_DONE;
+		bpi_seq_idle_r1_1  <= BPI_SEQ_IDLE;
+		daq_mmcm_lock_r1_1 <= DAQ_MMCM_LOCK;
+		qpll_lock_r1_1     <= QPLL_LOCK;
+		
+		adc_rdy_r2_1       <= vt_adc_rdy_r1_1;
+		al_done_r2_1       <= vt_al_done_r1_1;
+		bpi_seq_idle_r2_1  <= vt_bpi_seq_idle_r1_1;
+		daq_mmcm_lock_r2_1 <= vt_daq_mmcm_lock_r1_1;
+		qpll_lock_r2_1     <= vt_qpll_lock_r1_1;
+
+		adc_rdy_r1_2       <= ADC_RDY;
+		al_done_r1_2       <= AL_DONE;
+		bpi_seq_idle_r1_2  <= BPI_SEQ_IDLE;
+		daq_mmcm_lock_r1_2 <= DAQ_MMCM_LOCK;
+		qpll_lock_r1_2     <= QPLL_LOCK;
+		
+		adc_rdy_r2_2       <= vt_adc_rdy_r1_2;
+		al_done_r2_2       <= vt_al_done_r1_2;
+		bpi_seq_idle_r2_2  <= vt_bpi_seq_idle_r1_2;
+		daq_mmcm_lock_r2_2 <= vt_daq_mmcm_lock_r1_2;
+		qpll_lock_r2_2     <= vt_qpll_lock_r1_2;
+
+		adc_rdy_r1_3       <= ADC_RDY;
+		al_done_r1_3       <= AL_DONE;
+		bpi_seq_idle_r1_3  <= BPI_SEQ_IDLE;
+		daq_mmcm_lock_r1_3 <= DAQ_MMCM_LOCK;
+		qpll_lock_r1_3     <= QPLL_LOCK;
+		
+		adc_rdy_r2_3       <= vt_adc_rdy_r1_3;
+		al_done_r2_3       <= vt_al_done_r1_3;
+		bpi_seq_idle_r2_3  <= vt_bpi_seq_idle_r1_3;
+		daq_mmcm_lock_r2_3 <= vt_daq_mmcm_lock_r1_3;
+		qpll_lock_r2_3     <= vt_qpll_lock_r1_3;
+	end
+
+	// Synchronize outputs to 40MHz clock 
+
+	always @(posedge CLK or negedge EOS) begin
+		if(!EOS) begin
+			adc_init_rst_r1_1  <= 1'b1;
+			al_start_r1_1      <= 1'b0;
+			por_r1_1           <= 1'b1;
+			run_r1_1           <= 1'b0;
+			adc_init_rst_r2_1  <= 1'b1;
+			al_start_r2_1      <= 1'b0;
+			por_r2_1           <= 1'b1;
+			run_r2_1           <= 1'b0;
+
+			adc_init_rst_r1_2  <= 1'b1;
+			al_start_r1_2      <= 1'b0;
+			por_r1_2           <= 1'b1;
+			run_r1_2           <= 1'b0;
+			adc_init_rst_r2_2  <= 1'b1;
+			al_start_r2_2      <= 1'b0;
+			por_r2_2           <= 1'b1;
+			run_r2_2           <= 1'b0;
+
+			adc_init_rst_r1_3  <= 1'b1;
+			al_start_r1_3      <= 1'b0;
+			por_r1_3           <= 1'b1;
+			run_r1_3           <= 1'b0;
+			adc_init_rst_r2_3  <= 1'b1;
+			al_start_r2_3      <= 1'b0;
+			por_r2_3           <= 1'b1;
+			run_r2_3           <= 1'b0;
+		end
+		else begin
+			adc_init_rst_r1_1  <= adc_init_rst_i;
+			al_start_r1_1      <= al_start_i;
+			por_r1_1           <= por_i;
+			run_r1_1           <= run_i;
+			
+			adc_init_rst_r2_1  <= vt_adc_init_rst_r1_1;
+			al_start_r2_1      <= vt_al_start_r1_1;
+			por_r2_1           <= vt_por_r1_1;
+			run_r2_1           <= vt_run_r1_1;
+
+			adc_init_rst_r1_2  <= adc_init_rst_i;
+			al_start_r1_2      <= al_start_i;
+			por_r1_2           <= por_i;
+			run_r1_2           <= run_i;
+			
+			adc_init_rst_r2_2  <= vt_adc_init_rst_r1_2;
+			al_start_r2_2      <= vt_al_start_r1_2;
+			por_r2_2           <= vt_por_r1_2;
+			run_r2_2           <= vt_run_r1_2;
+
+			adc_init_rst_r1_3  <= adc_init_rst_i;
+			al_start_r1_3      <= al_start_i;
+			por_r1_3           <= por_i;
+			run_r1_3           <= run_i;
+			
+			adc_init_rst_r2_3  <= vt_adc_init_rst_r1_3;
+			al_start_r2_3      <= vt_al_start_r1_3;
+			por_r2_3           <= vt_por_r1_3;
+			run_r2_3           <= vt_run_r1_3;
+		end
+	end
+
+	always @(posedge CLK100KHZ or posedge vt_por_r2_1) begin
+		if(vt_por_r2_1) begin
+			dsr_tmr_1 <= 12'h000;
+		end
+		else begin
+			dsr_tmr_1 <= inc_tmr ? vt_dsr_tmr_1 +1 : vt_dsr_tmr_1;
+		end
+	end
+	always @(posedge CLK100KHZ or posedge vt_por_r2_2) begin
+		if(vt_por_r2_2) begin
+			dsr_tmr_2 <= 12'h000;
+		end
+		else begin
+			dsr_tmr_2 <= inc_tmr ? vt_dsr_tmr_2 +1 : vt_dsr_tmr_2;
+		end
+	end
+	always @(posedge CLK100KHZ or posedge vt_por_r2_3) begin
+		if(vt_por_r2_3) begin
+			dsr_tmr_3 <= 12'h000;
+		end
+		else begin
+			dsr_tmr_3 <= inc_tmr ? vt_dsr_tmr_3 +1 : vt_dsr_tmr_3;
+		end
+	end
+
+end
+else 
+begin : RSTman_logic
+
+	reg [11:0] dsr_tmr;
+	reg adc_rdy_r1;
+	reg adc_rdy_r2;
+	reg al_done_r1;
+	reg al_done_r2;
+	reg bpi_seq_idle_r1;
+	reg bpi_seq_idle_r2;
+	reg daq_mmcm_lock_r1;
+	reg daq_mmcm_lock_r2;
+	reg qpll_lock_r1;
+	reg qpll_lock_r2;
+	reg adc_init_rst_r1;
+	reg adc_init_rst_r2;
+	reg al_start_r1;  
+	reg al_start_r2;  
+	reg por_r1;  
+	reg por_r2;  
+	reg run_r1;
+	reg run_r2;
+
+	assign ADC_INIT_RST = adc_init_rst_r2;
+	assign AL_START     = al_start_r2;
+	assign SYS_RST      = por_r2;
+	assign RUN          = run_r2;
+
+	SRL16E #(
+		.INIT(16'HFFFF)
+	) SysMonRst_i (
+		.Q(SYS_MON_RST),
+		.A0(1'b1),
+		.A1(1'b1),
+		.A2(1'b1),
+		.A3(1'b1),
+		.CE(1'b1),
+		.CLK(STUP_CLK),
+		.D(1'b0)
+	);
+		
+	// Synchronize inputs to startup clock for POR state machine
+
+	always @(posedge STUP_CLK) begin
+		adc_rdy_r1       <= ADC_RDY;
+		al_done_r1       <= AL_DONE;
+		bpi_seq_idle_r1  <= BPI_SEQ_IDLE;
+		daq_mmcm_lock_r1 <= DAQ_MMCM_LOCK;
+		qpll_lock_r1     <= QPLL_LOCK;
+		
+		adc_rdy_r2       <= adc_rdy_r1;
+		al_done_r2       <= al_done_r1;
+		bpi_seq_idle_r2  <= bpi_seq_idle_r1;
+		daq_mmcm_lock_r2 <= daq_mmcm_lock_r1;
+		qpll_lock_r2     <= qpll_lock_r1;
+	end
+
+	// Synchronize outputs to 40MHz clock 
+
+	always @(posedge CLK or negedge EOS) begin
+		if(!EOS) begin
+			adc_init_rst_r1  <= 1'b1;
+			al_start_r1      <= 1'b0;
+			por_r1           <= 1'b1;
+			run_r1           <= 1'b0;
+			adc_init_rst_r2  <= 1'b1;
+			al_start_r2      <= 1'b0;
+			por_r2           <= 1'b1;
+			run_r2           <= 1'b0;
+		end
+		else begin
+			adc_init_rst_r1  <= adc_init_rst_i;
+			al_start_r1      <= al_start_i;
+			por_r1           <= por_i;
+			run_r1           <= run_i;
+			
+			adc_init_rst_r2  <= adc_init_rst_r1;
+			al_start_r2      <= al_start_r1;
+			por_r2           <= por_r1;
+			run_r2           <= run_r1;
+		end
+	end
+
+	always @(posedge CLK100KHZ or posedge por_r2) begin
+		if(por_r2) begin
+			dsr_tmr <= 12'h000;
+		end
+		else begin
+			dsr_tmr <= inc_tmr ? dsr_tmr +1 : dsr_tmr;
+		end
+	end
+
+end
+endgenerate
 
 
 generate
@@ -179,7 +555,7 @@ begin : RSTman_FSMs_TMR
 		.DONE(slow_fifo_rst_done),
 		.FIFO_RST(SLOW_FIFO_RST),
 		.CLK(CLK1MHZ),
-		.RST(SYS_RST) 
+		.RST(por_r2) 
 	);
 
 	Trg_Clock_Strt_FSM_TMR
@@ -191,7 +567,7 @@ begin : RSTman_FSMs_TMR
 		.CLK(COMP_CLK),
 		.CLK_PHS_CHNG(CMP_PHS_CHANGE),
 		.MMCM_LOCK(TRG_MMCM_LOCK),
-		.RST(SYS_RST),
+		.RST(por_r2),
 		.SYNC_DONE(TRG_SYNC_DONE)
 	);
 
@@ -248,7 +624,7 @@ begin : RSTman_FSMs
 		.DONE(slow_fifo_rst_done),
 		.FIFO_RST(SLOW_FIFO_RST),
 		.CLK(CLK1MHZ),
-		.RST(SYS_RST) 
+		.RST(por_r2) 
 	);
 
 	Trg_Clock_Strt_FSM
@@ -260,7 +636,7 @@ begin : RSTman_FSMs
 		.CLK(COMP_CLK),
 		.CLK_PHS_CHNG(CMP_PHS_CHANGE),
 		.MMCM_LOCK(TRG_MMCM_LOCK),
-		.RST(SYS_RST),
+		.RST(por_r2),
 		.SYNC_DONE(TRG_SYNC_DONE)
 	);
 
@@ -279,16 +655,5 @@ begin : RSTman_FSMs
 	);
 end
 endgenerate
-
-
-always @(posedge CLK100KHZ or posedge SYS_RST) begin
-   if(SYS_RST)
-	   dsr_tmr <= 12'h000;
-	else
-	   if(inc_tmr)
-		   dsr_tmr <= dsr_tmr +1;
-		else
-		   dsr_tmr <= dsr_tmr;
-end
 
 endmodule

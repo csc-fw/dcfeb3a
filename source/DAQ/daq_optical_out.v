@@ -69,53 +69,40 @@ localparam
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Signals
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	reg [15:0] cnst;
-	reg [1:0] kcnst;
-	reg [15:0] data1;
-	reg crc_calc1;
 	
 	wire usr_clk_wordwise;
-	wire [2:0] rom_addr;
-	wire [3:0] frm_state;
+	
+// DAQ Rate state machine outputs
+	wire cdv_init;
+	wire [2:0] ref_clk_sel;
+	wire pcs_rst;
+	wire [1:0] txrate_sel;
+	wire word_clk_sel;
 	wire [3:0] dqrt_state;
 
+// Frame Proc state machine outputs
+	wire crc_dv;
 	wire clr_crc;
+	wire [2:0] rom_addr;
+	wire [3:0] frm_state;
+	
+	wire [15:0] crc;
 	wire crc_calc;
 	wire crc_vld;
-	reg  crc_vld1, crc_vld2;
-	wire [31:0] crc_reg;
-	wire [15:0] crc;
-	reg  [15:0] crc1;
-	wire crc_dv;
-	reg txd_vld1;
 
    // Asynchronous reset signals
 	wire arst;
 	wire man_rst;
-	wire reset_i;
-	// ASYNC_REG attribute added to simulate actual behavior under
-	// asynchronous operating conditions.
-	(* ASYNC_REG = "TRUE" *)
-	reg      [3:0]  reset_r;
-   (* ASYNC_REG = "TRUE" *)
-   reg  [ 3:0] pma_reset_r;
-   wire        pma_reset_i;
+	wire reset;
+   wire pma_reset;
 	wire txresetdone;
 	wire clk_rst_done;
-	wire cdv_init;
 	
     // Physical interface signals
 	wire txreset;
-	wire pcs_rst;
 	wire div_clk_rst;
 	wire [1:0]  txbufstatus_float;
-	reg  [1:0]  txcharisk_r;
-	reg  [15:0]  mgt_tx_data_r;
-	wire [2:0] ref_clk_sel;
-	wire [1:0] txrate_sel;
 	wire txrate_done;
-	wire word_clk_sel;
 	wire [12:0] gtxtest;
 	
    // Transceiver clocking signals
@@ -135,6 +122,12 @@ localparam
 	wire force_error;
 	reg  inj_err1;
 	reg  inj_err2;
+
+
+	wire [1:0] txcharisk_i;
+	wire crc_vld1_i;
+	wire crc_vld2_i;
+	wire [15:0] mgt_tx_data_i;
 
 assign CSP_MAN_CTRL = man_control;
 assign CSP_USE_ANY_L1A = man_use_any_l1a;
@@ -159,8 +152,8 @@ wire [3:0] dummy_asigs;
 
 
 //		 ASYNC_IN [15:0]
-	assign daq_tx_async_in[0]     = reset_i;
-	assign daq_tx_async_in[1]     = pma_reset_i;
+	assign daq_tx_async_in[0]     = reset;
+	assign daq_tx_async_in[1]     = pma_reset;
 	assign daq_tx_async_in[2]     = arst;
 	assign daq_tx_async_in[3]     = txresetdone;
 	assign daq_tx_async_in[4]     = txreset;
@@ -198,12 +191,12 @@ wire [3:0] dummy_asigs;
 // LA Data [109:0]
 	assign daq_tx_la_data[15:0]    = TXD;
 	assign daq_tx_la_data[31:16]   = crc;
-	assign daq_tx_la_data[35:32]   = reset_r;
-	assign daq_tx_la_data[39:36]   = pma_reset_r;
+	assign daq_tx_la_data[35:32]   = 4'h0;
+	assign daq_tx_la_data[39:36]   = 4'h0;
 	assign daq_tx_la_data[40]      = man_rst;
 	assign daq_tx_la_data[41]      = arst;
-	assign daq_tx_la_data[42]      = reset_i;
-	assign daq_tx_la_data[43]      = pma_reset_i;
+	assign daq_tx_la_data[42]      = reset;
+	assign daq_tx_la_data[43]      = pma_reset;
 	assign daq_tx_la_data[44]      = man_daq_tx_dis;
 	assign daq_tx_la_data[45]      = daq_tx_dis;
 	assign daq_tx_la_data[46]      = txreset;
@@ -215,7 +208,7 @@ wire [3:0] dummy_asigs;
 	assign daq_tx_la_data[52]      = man_daq_rate;
 	assign daq_tx_la_data[54:53]   = txrate_sel;
 	assign daq_tx_la_data[57:55]   = ref_clk_sel;
-	assign daq_tx_la_data[59:58]   = txcharisk_r;
+	assign daq_tx_la_data[59:58]   =  txcharisk_i;
 	assign daq_tx_la_data[60]      = word_clk_sel;
 	assign daq_tx_la_data[61]      = plllock_i;
 	assign daq_tx_la_data[62]      = 1'b0;
@@ -230,15 +223,15 @@ wire [3:0] dummy_asigs;
 	assign daq_tx_la_data[74]      = crc_dv;
 	assign daq_tx_la_data[75]      = clr_crc;
 	assign daq_tx_la_data[76]      = crc_calc;
-	assign daq_tx_la_data[77]      = crc_vld1;
-	assign daq_tx_la_data[78]      = crc_vld2;
+	assign daq_tx_la_data[77]      =  crc_vld1_i;
+	assign daq_tx_la_data[78]      =  crc_vld2_i;
 	assign daq_tx_la_data[79]      = 1'b0;
 	assign daq_tx_la_data[80]      = 1'b0;
 	assign daq_tx_la_data[83:81]   = rom_addr;
 	assign daq_tx_la_data[87:84]   = frm_state;
 	assign daq_tx_la_data[88]      = cdv_init;
 	assign daq_tx_la_data[89]      = div_clk_rst;
-	assign daq_tx_la_data[105:90]  = mgt_tx_data_r;
+	assign daq_tx_la_data[105:90]  = mgt_tx_data_i;
 	assign daq_tx_la_data[109:106]  = dqrt_state;
 
 // LA Trigger [7:0]
@@ -267,7 +260,6 @@ endgenerate
 	assign daq_tx_dis = man_daq_tx_dis;
 	assign daq_rate = man_control ? man_daq_rate : JDAQ_RATE;
 	assign force_error = inj_err1 & ~inj_err2;
-	assign crc_vld = !TXD_VLD & txd_vld1; // trailing edge of valid data
 	assign crc_calc = crc_dv & TXD_VLD;
   
   OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_DAQ_TDIS (.O(DAQ_TDIS),.I(daq_tx_dis));
@@ -276,93 +268,134 @@ BUFGMUX daq_clk_mux_i (.O(usr_clk_wordwise),.I0(DAQ_TX_125REFCLK_DV2),.I1(DAQ_TX
 //-----------------------------------------------------------------------------
 // Main body of code
 //-----------------------------------------------------------------------------
+	
+assign arst = RST | man_rst;
+
+generate
+if(TMR==1) 
+begin : DAQOP_RST_TMR
+
+	// ASYNC_REG attribute added to simulate actual behavior under
+	// asynchronous operating conditions.
+	(* syn_preserve = "true" *) reg [3:0]  reset_1;
+	(* syn_preserve = "true" *) reg [3:0]  reset_2;
+	(* syn_preserve = "true" *) reg [3:0]  reset_3;
+   (* syn_preserve = "true" *) reg [ 3:0] pma_reset_1;
+   (* syn_preserve = "true" *) reg [ 3:0] pma_reset_2;
+   (* syn_preserve = "true" *) reg [ 3:0] pma_reset_3;
+
+	(* syn_keep = "true" *) wire rstout_1;
+	(* syn_keep = "true" *) wire rstout_2;
+	(* syn_keep = "true" *) wire rstout_3;
+   (* syn_keep = "true" *) wire pma_rstout_1;
+   (* syn_keep = "true" *) wire pma_rstout_2;
+   (* syn_keep = "true" *) wire pma_rstout_3;
 
    //--------------------------------------------------------------------
    // GTX PMA reset circuitry
    //--------------------------------------------------------------------
-
-	
-	assign arst = RST | man_rst;
 	
    always@(posedge usr_clk_wordwise or posedge arst)
-      if (arst == 1'b1)
+	begin
+      if (arst == 1'b1) begin
+         pma_reset_1 <= 4'b1111;
+         pma_reset_2 <= 4'b1111;
+         pma_reset_3 <= 4'b1111;
+			reset_1 <= 4'b1111;
+			reset_2 <= 4'b1111;
+			reset_3 <= 4'b1111;
+		end
+      else begin
+         pma_reset_1 <= {pma_reset_1[2:0], arst}; // do not use voted version here in order to maintain usage of SRL
+         pma_reset_2 <= {pma_reset_2[2:0], arst};
+         pma_reset_3 <= {pma_reset_3[2:0], arst};
+			reset_1 <= plllock_i ? {reset_1[2:0], arst} : reset_1;
+			reset_2 <= plllock_i ? {reset_2[2:0], arst} : reset_2;
+			reset_3 <= plllock_i ? {reset_3[2:0], arst} : reset_3;
+		end
+	end
+
+   assign pma_rstout_1 = pma_reset_1[3];
+   assign pma_rstout_2 = pma_reset_2[3];
+   assign pma_rstout_3 = pma_reset_3[3];
+	assign rstout_1     = reset_1[3];
+	assign rstout_2     = reset_2[3];
+	assign rstout_3     = reset_3[3];
+	
+	assign pma_reset = (pma_rstout_1 & pma_rstout_2) | (pma_rstout_2 & pma_rstout_3) | (pma_rstout_1 & pma_rstout_3); // Majority logic	
+	assign reset     = (rstout_1     & rstout_2    ) | (rstout_2     & rstout_3    ) | (rstout_1     & rstout_3    ); // Majority logic	
+
+end
+else 
+begin : DAQOP_RST
+
+	// ASYNC_REG attribute added to simulate actual behavior under
+	// asynchronous operating conditions.
+	(* ASYNC_REG = "TRUE" *)
+	reg [3:0]  reset_r;
+   (* ASYNC_REG = "TRUE" *)
+   reg [ 3:0] pma_reset_r;
+
+   //--------------------------------------------------------------------
+   // GTX PMA reset circuitry
+   //--------------------------------------------------------------------
+	
+   always@(posedge usr_clk_wordwise or posedge arst)
+	begin
+      if (arst == 1'b1) begin
          pma_reset_r <= 4'b1111;
-      else
+			reset_r     <= 4'b1111;
+		end
+      else begin
          pma_reset_r <= {pma_reset_r[2:0], arst};
+         reset_r     <= plllock_i ? {reset_r[2:0], arst} : reset_r;
+		end
+	end
 
-   assign pma_reset_i = pma_reset_r[3];
-	assign txreset = pma_reset_i | pcs_rst;
-
-    //-------------------------------------------------------------------------
-    // Main reset circuitry
-    //-------------------------------------------------------------------------
-
-    // Synchronize and extend the external reset signal
-    always @(posedge usr_clk_wordwise or posedge arst)
-    begin
-        if (arst == 1)
-            reset_r <= 4'b1111;
-        else
-        begin
-            if (plllock_i == 1)
-                reset_r <= {reset_r[2:0], arst};
-        end
-    end
-
-    // Apply the extended reset pulse to the EMAC
-    assign reset_i = reset_r[3];
-	assign gtxtest = {11'h400,div_clk_rst,1'b0};
-
-clk_div_reset
-clk_div_reset_i
-(
-	.CLK(usr_clk_wordwise),
-	.PLLLKDET(plllock_i),
-	.TX_RATE(txrate_sel[0]),
-	.INIT(cdv_init),
-   .GTXTEST_DONE(clk_rst_done),
-	.GTXTEST_BIT1(div_clk_rst)
-);
-
+   assign pma_reset   = pma_reset_r[3];
+	assign reset       = reset_r[3];
+	
+end
+endgenerate
 
 generate
 if(TMR==1) 
 begin : DRSel_FSM_TMR
-DAQ_Rate_Sel_FSM_TMR 
-DAQ_Rate_Sel_FSM_i(
-  .CDV_INIT(cdv_init),
-  .CLK_SEL(ref_clk_sel),
-  .PCSRST(pcs_rst),
-  .RATE_1_25(RATE_1_25),
-  .RATE_3_2(RATE_3_2),
-  .RATE_SEL(txrate_sel),
-  .WRDCLKSEL(word_clk_sel),
-  .DQRT_STATE(dqrt_state),
-  .CDV_DONE(clk_rst_done),
-  .CLK(usr_clk_wordwise),
-  .DAQ_RATE(daq_rate),
-  .RST(arst),
-  .TXRATEDONE(txrate_done)
-);
+	DAQ_Rate_Sel_FSM_TMR 
+	DAQ_Rate_Sel_FSM_i(
+	  .CDV_INIT(cdv_init),
+	  .CLK_SEL(ref_clk_sel),
+	  .PCSRST(pcs_rst),
+	  .RATE_1_25(RATE_1_25),
+	  .RATE_3_2(RATE_3_2),
+	  .RATE_SEL(txrate_sel),
+	  .WRDCLKSEL(word_clk_sel),
+	  .DQRT_STATE(dqrt_state),
+	  .CDV_DONE(clk_rst_done),
+	  .CLK(usr_clk_wordwise),
+	  .DAQ_RATE(daq_rate),
+	  .RST(arst),
+	  .TXRATEDONE(txrate_done)
+	);
 end
 else 
 begin : DRSel_FSM
-DAQ_Rate_Sel_FSM 
-DAQ_Rate_Sel_FSM_i(
-  .CDV_INIT(cdv_init),
-  .CLK_SEL(ref_clk_sel),
-  .PCSRST(pcs_rst),
-  .RATE_1_25(RATE_1_25),
-  .RATE_3_2(RATE_3_2),
-  .RATE_SEL(txrate_sel),
-  .WRDCLKSEL(word_clk_sel),
-  .DQRT_STATE(dqrt_state),
-  .CDV_DONE(clk_rst_done),
-  .CLK(usr_clk_wordwise),
-  .DAQ_RATE(daq_rate),
-  .RST(arst),
-  .TXRATEDONE(txrate_done)
-);
+	DAQ_Rate_Sel_FSM 
+	DAQ_Rate_Sel_FSM_i(
+	  .CDV_INIT(cdv_init),
+	  .CLK_SEL(ref_clk_sel),
+	  .PCSRST(pcs_rst),
+	  .RATE_1_25(RATE_1_25),
+	  .RATE_3_2(RATE_3_2),
+	  .RATE_SEL(txrate_sel),
+	  .WRDCLKSEL(word_clk_sel),
+	  .DQRT_STATE(dqrt_state),
+	  .CDV_DONE(clk_rst_done),
+	  .CLK(usr_clk_wordwise),
+	  .DAQ_RATE(daq_rate),
+	  .RST(arst),
+	  .TXRATEDONE(txrate_done)
+	);
 end
 endgenerate
 
@@ -379,6 +412,23 @@ endgenerate
 //                                                                  //
 //////////////////////////////////////////////////////////////////////
 
+clk_div_reset #(
+	.TMR(TMR)
+)
+clk_div_reset_i
+(
+	.CLK(usr_clk_wordwise),
+	.PLLLKDET(plllock_i),
+	.TX_RATE(txrate_sel[0]),
+	.INIT(cdv_init),
+   .GTXTEST_DONE(clk_rst_done),
+	.GTXTEST_BIT1(div_clk_rst)
+);
+
+
+assign txreset = pma_reset | pcs_rst;
+assign gtxtest = {11'h400,div_clk_rst,1'b0};
+
     daq_gtx_dual_rate_custom #
     (
         .WRAPPER_SIM_GTXRESET_SPEEDUP   (SIM_SPEEDUP)      // Set this to 1 for simulation
@@ -390,7 +440,7 @@ endgenerate
         //GTX0  (X0Y12)
 
         //----------------- Receive Ports - RX Data Path interface -----------------
-        .GTX0_RXRESET_IN                (pma_reset_i),
+        .GTX0_RXRESET_IN                (pma_reset),
         //----- Receive Ports - RX Driver,OOB signalling,Coupling and Eq.,CDR ------
         .GTX0_RXN_IN                    (DAQ_RX_N),
         .GTX0_RXP_IN                    (DAQ_RX_P),
@@ -401,11 +451,11 @@ endgenerate
         .GTX0_RXPLLREFSELDY_IN          (3'b000),
         .GTX0_SOUTHREFCLKRX_IN          (2'b00),
         //-------------- Transmit Ports - 8b10b Encoder Control Ports --------------
-        .GTX0_TXCHARISK_IN              (txcharisk_r),
+        .GTX0_TXCHARISK_IN              ( txcharisk_i),
         //----------------------- Transmit Ports - GTX Ports -----------------------
         .GTX0_GTXTEST_IN                (gtxtest),
         //---------------- Transmit Ports - TX Data Path interface -----------------
-        .GTX0_TXDATA_IN                 (mgt_tx_data_r),
+        .GTX0_TXDATA_IN                 (mgt_tx_data_i),
         .GTX0_TXOUTCLK_OUT              (txoutclk),
         .GTX0_TXRESET_IN                (txreset),
         .GTX0_TXUSRCLK2_IN              (usr_clk_wordwise),
@@ -416,11 +466,11 @@ endgenerate
         .GTX0_TXBUFSTATUS_OUT           (txbufstatus_float),
         //--------------------- Transmit Ports - TX PLL Ports ----------------------
         .GTX0_GREFCLKTX_IN              (1'b0),
-        .GTX0_GTXTXRESET_IN             (pma_reset_i),
+        .GTX0_GTXTXRESET_IN             (pma_reset),
         .GTX0_MGTREFCLKTX_IN            ({DAQ_TX_160REFCLK,DAQ_TX_125REFCLK}),
         .GTX0_NORTHREFCLKTX_IN          (2'b00),
         .GTX0_PERFCLKTX_IN              (1'b0),
-        .GTX0_PLLTXRESET_IN             (pma_reset_i),
+        .GTX0_PLLTXRESET_IN             (pma_reset),
         .GTX0_SOUTHREFCLKTX_IN          (2'b00),
         .GTX0_TXPLLLKDET_OUT            (plllock_i),
         .GTX0_TXPLLREFSELDY_IN          (ref_clk_sel),
@@ -447,6 +497,270 @@ begin
 	inj_err2 <= inj_err1;
 end
 
+
+generate
+if(TMR==1) 
+begin : DAQ_Pkt_TMR
+
+	(* syn_preserve = "true" *) reg [15:0] cnst_1;
+	(* syn_preserve = "true" *) reg [15:0] cnst_2;
+	(* syn_preserve = "true" *) reg [15:0] cnst_3;
+	(* syn_preserve = "true" *) reg [1:0] kcnst_1;
+	(* syn_preserve = "true" *) reg [1:0] kcnst_2;
+	(* syn_preserve = "true" *) reg [1:0] kcnst_3;
+	(* syn_preserve = "true" *) reg [1:0] txcharisk_1;
+	(* syn_preserve = "true" *) reg [1:0] txcharisk_2;
+	(* syn_preserve = "true" *) reg [1:0] txcharisk_3;
+	(* syn_preserve = "true" *) reg txd_vld1_1;
+	(* syn_preserve = "true" *) reg txd_vld1_2;
+	(* syn_preserve = "true" *) reg txd_vld1_3;
+	(* syn_preserve = "true" *) reg crc_vld1_1;
+	(* syn_preserve = "true" *) reg crc_vld1_2;
+	(* syn_preserve = "true" *) reg crc_vld1_2;
+	(* syn_preserve = "true" *) reg crc_vld2_1;
+	(* syn_preserve = "true" *) reg crc_vld2_2;
+	(* syn_preserve = "true" *) reg crc_vld2_3;
+	(* syn_preserve = "true" *) reg [15:0] data1_1;
+	(* syn_preserve = "true" *) reg [15:0] data1_2;
+	(* syn_preserve = "true" *) reg [15:0] data1_3;
+	(* syn_preserve = "true" *) reg crc_calc1_1;
+	(* syn_preserve = "true" *) reg crc_calc1_2;
+	(* syn_preserve = "true" *) reg crc_calc1_3;
+	(* syn_preserve = "true" *) reg [15:0] crc1_1;
+	(* syn_preserve = "true" *) reg [15:0] crc1_2;
+	(* syn_preserve = "true" *) reg [15:0] crc1_3;
+	(* syn_preserve = "true" *) reg [15:0] mgt_tx_data_1;
+	(* syn_preserve = "true" *) reg [15:0] mgt_tx_data_2;
+	(* syn_preserve = "true" *) reg [15:0] mgt_tx_data_3;
+
+	(* syn_keep = "true" *) wire [15:0] vt_cnst_1;
+	(* syn_keep = "true" *) wire [15:0] vt_cnst_2;
+	(* syn_keep = "true" *) wire [15:0] vt_cnst_3;
+	(* syn_keep = "true" *) wire [1:0] vt_kcnst_1;
+	(* syn_keep = "true" *) wire [1:0] vt_kcnst_2;
+	(* syn_keep = "true" *) wire [1:0] vt_kcnst_3;
+	(* syn_keep = "true" *) wire [1:0] vt_txcharisk_1;
+	(* syn_keep = "true" *) wire [1:0] vt_txcharisk_2;
+	(* syn_keep = "true" *) wire [1:0] vt_txcharisk_3;
+	(* syn_keep = "true" *) wire vt_txd_vld1_1;
+	(* syn_keep = "true" *) wire vt_txd_vld1_2;
+	(* syn_keep = "true" *) wire vt_txd_vld1_3;
+	(* syn_keep = "true" *) wire vt_crc_vld1_1;
+	(* syn_keep = "true" *) wire vt_crc_vld1_2;
+	(* syn_keep = "true" *) wire vt_crc_vld1_2;
+	(* syn_keep = "true" *) wire vt_crc_vld2_1;
+	(* syn_keep = "true" *) wire vt_crc_vld2_2;
+	(* syn_keep = "true" *) wire vt_crc_vld2_3;
+	(* syn_keep = "true" *) wire [15:0] vt_data1_1;
+	(* syn_keep = "true" *) wire [15:0] vt_data1_2;
+	(* syn_keep = "true" *) wire [15:0] vt_data1_3;
+	(* syn_keep = "true" *) wire vt_crc_calc1_1;
+	(* syn_keep = "true" *) wire vt_crc_calc1_2;
+	(* syn_keep = "true" *) wire vt_crc_calc1_3;
+	(* syn_keep = "true" *) wire [15:0] vt_crc1_1;
+	(* syn_keep = "true" *) wire [15:0] vt_crc1_2;
+	(* syn_keep = "true" *) wire [15:0] vt_crc1_3;
+	(* syn_keep = "true" *) wire [15:0] vt_mgt_tx_data_1;
+	(* syn_keep = "true" *) wire [15:0] vt_mgt_tx_data_2;
+	(* syn_keep = "true" *) wire [15:0] vt_mgt_tx_data_3;
+	
+	(* syn_keep = "true" *) wire [15:0] crc_1;
+	(* syn_keep = "true" *) wire [15:0] crc_2;
+	(* syn_keep = "true" *) wire [15:0] crc_3;
+	(* syn_keep = "true" *) wire [15:0] crc_vld_1;
+	(* syn_keep = "true" *) wire [15:0] crc_vld_2;
+	(* syn_keep = "true" *) wire [15:0] crc_vld_3;
+	
+	assign vt_cnst_1        = (cnst_1        & cnst_2       ) | (cnst_2        & cnst_3       ) | (cnst_1        & cnst_3       ); // Majority logic
+	assign vt_cnst_2        = (cnst_1        & cnst_2       ) | (cnst_2        & cnst_3       ) | (cnst_1        & cnst_3       ); // Majority logic
+	assign vt_cnst_3        = (cnst_1        & cnst_2       ) | (cnst_2        & cnst_3       ) | (cnst_1        & cnst_3       ); // Majority logic
+	assign vt_kcnst_1       = (kcnst_1       & kcnst_2      ) | (kcnst_2       & kcnst_3      ) | (kcnst_1       & kcnst_3      ); // Majority logic
+	assign vt_kcnst_2       = (kcnst_1       & kcnst_2      ) | (kcnst_2       & kcnst_3      ) | (kcnst_1       & kcnst_3      ); // Majority logic
+	assign vt_kcnst_3       = (kcnst_1       & kcnst_2      ) | (kcnst_2       & kcnst_3      ) | (kcnst_1       & kcnst_3      ); // Majority logic
+	assign vt_txcharisk_1   = (txcharisk_1   & txcharisk_2  ) | (txcharisk_2   & txcharisk_3  ) | (txcharisk_1   & txcharisk_3  ); // Majority logic
+	assign vt_txcharisk_2   = (txcharisk_1   & txcharisk_2  ) | (txcharisk_2   & txcharisk_3  ) | (txcharisk_1   & txcharisk_3  ); // Majority logic
+	assign vt_txcharisk_3   = (txcharisk_1   & txcharisk_2  ) | (txcharisk_2   & txcharisk_3  ) | (txcharisk_1   & txcharisk_3  ); // Majority logic
+	assign vt_txd_vld1_1    = (txd_vld1_1    & txd_vld1_2   ) | (txd_vld1_2    & txd_vld1_3   ) | (txd_vld1_1    & txd_vld1_3       ); // Majority logic
+	assign vt_txd_vld1_2    = (txd_vld1_1    & txd_vld1_2   ) | (txd_vld1_2    & txd_vld1_3   ) | (txd_vld1_1    & txd_vld1_3       ); // Majority logic
+	assign vt_txd_vld1_3    = (txd_vld1_1    & txd_vld1_2   ) | (txd_vld1_2    & txd_vld1_3   ) | (txd_vld1_1    & txd_vld1_3       ); // Majority logic
+	assign vt_crc_vld1_1    = (crc_vld1_1    & crc_vld1_2   ) | (crc_vld1_2    & crc_vld1_3   ) | (crc_vld1_1    & crc_vld1_3       ); // Majority logic
+	assign vt_crc_vld1_2    = (crc_vld1_1    & crc_vld1_2   ) | (crc_vld1_2    & crc_vld1_3   ) | (crc_vld1_1    & crc_vld1_3       ); // Majority logic
+	assign vt_crc_vld1_3    = (crc_vld1_1    & crc_vld1_2   ) | (crc_vld1_2    & crc_vld1_3   ) | (crc_vld1_1    & crc_vld1_3       ); // Majority logic
+	assign vt_crc_vld2_1    = (crc_vld2_1    & crc_vld2_2   ) | (crc_vld2_2    & crc_vld2_3   ) | (crc_vld2_1    & crc_vld2_3       ); // Majority logic
+	assign vt_crc_vld2_2    = (crc_vld2_1    & crc_vld2_2   ) | (crc_vld2_2    & crc_vld2_3   ) | (crc_vld2_1    & crc_vld2_3       ); // Majority logic
+	assign vt_crc_vld2_3    = (crc_vld2_1    & crc_vld2_2   ) | (crc_vld2_2    & crc_vld2_3   ) | (crc_vld2_1    & crc_vld2_3       ); // Majority logic
+	assign vt_data1_1       = (data1_1       & data1_2      ) | (data1_2       & data1_3      ) | (data1_1       & data1_3      ); // Majority logic
+	assign vt_data1_2       = (data1_1       & data1_2      ) | (data1_2       & data1_3      ) | (data1_1       & data1_3      ); // Majority logic
+	assign vt_data1_3       = (data1_1       & data1_2      ) | (data1_2       & data1_3      ) | (data1_1       & data1_3      ); // Majority logic
+	assign vt_crc_calc1_1   = (crc_calc1_1   & crc_calc1_2  ) | (crc_calc1_2   & crc_calc1_3  ) | (crc_calc1_1   & crc_calc1_3  ); // Majority logic
+	assign vt_crc_calc1_2   = (crc_calc1_1   & crc_calc1_2  ) | (crc_calc1_2   & crc_calc1_3  ) | (crc_calc1_1   & crc_calc1_3  ); // Majority logic
+	assign vt_crc_calc1_3   = (crc_calc1_1   & crc_calc1_2  ) | (crc_calc1_2   & crc_calc1_3  ) | (crc_calc1_1   & crc_calc1_3  ); // Majority logic
+	assign vt_crc1_1        = (crc1_1        & crc1_2       ) | (crc1_2        & crc1_3       ) | (crc1_1        & crc1_3       ); // Majority logic
+	assign vt_crc1_2        = (crc1_1        & crc1_2       ) | (crc1_2        & crc1_3       ) | (crc1_1        & crc1_3       ); // Majority logic
+	assign vt_crc1_3        = (crc1_1        & crc1_2       ) | (crc1_2        & crc1_3       ) | (crc1_1        & crc1_3       ); // Majority logic
+	assign vt_mgt_tx_data_1 = (mgt_tx_data_1 & mgt_tx_data_2) | (mgt_tx_data_2 & mgt_tx_data_3) | (mgt_tx_data_1 & mgt_tx_data_3); // Majority logic
+	assign vt_mgt_tx_data_2 = (mgt_tx_data_1 & mgt_tx_data_2) | (mgt_tx_data_2 & mgt_tx_data_3) | (mgt_tx_data_1 & mgt_tx_data_3); // Majority logic
+	assign vt_mgt_tx_data_3 = (mgt_tx_data_1 & mgt_tx_data_2) | (mgt_tx_data_2 & mgt_tx_data_3) | (mgt_tx_data_1 & mgt_tx_data_3); // Majority logic
+
+	assign crc_vld_1 = !TXD_VLD & vt_txd_vld1_1; // trailing edge of valid data
+	assign crc_vld_2 = !TXD_VLD & vt_txd_vld1_2; // trailing edge of valid data
+	assign crc_vld_3 = !TXD_VLD & vt_txd_vld1_3; // trailing edge of valid data
+
+	assign txcharisk_i   = vt_txcharisk_1;
+	assign crc_vld1_i    = vt_crc_vld1_1;
+	assign crc_vld2_i    = vt_crc_vld2_1;
+	assign mgt_tx_data_i = vt_mgt_tx_data_1;
+	
+//////////////////////////////////////////////////////////////
+//                                                          //
+// ROM for Idles, Preamble, Data Fill, Carrier Extend,      //
+// and inter packet spacing.                                //
+//                                                          //
+//////////////////////////////////////////////////////////////
+
+
+always @(posedge usr_clk_wordwise)
+begin: Frame_ROM
+   case(rom_addr)
+      3'd0: cnst_1 <= IDLE2;
+      3'd1: cnst_1 <= SOP_PRE;
+      3'd2: cnst_1 <= PREAMBLE;
+      3'd3: cnst_1 <= SOF_PRE;
+      3'd4: cnst_1 <= 16'h0000;
+      3'd5: cnst_1 <= End_of_Packet;
+      3'd6: cnst_1 <= Carrier_Extend;
+      default: cnst_1 <= IDLE2;
+   endcase
+   case(rom_addr)
+      3'd0: cnst_2 <= IDLE2;
+      3'd1: cnst_2 <= SOP_PRE;
+      3'd2: cnst_2 <= PREAMBLE;
+      3'd3: cnst_2 <= SOF_PRE;
+      3'd4: cnst_2 <= 16'h0000;
+      3'd5: cnst_2 <= End_of_Packet;
+      3'd6: cnst_2 <= Carrier_Extend;
+      default: cnst_2 <= IDLE2;
+   endcase
+   case(rom_addr)
+      3'd0: cnst_3 <= IDLE2;
+      3'd1: cnst_3 <= SOP_PRE;
+      3'd2: cnst_3 <= PREAMBLE;
+      3'd3: cnst_3 <= SOF_PRE;
+      3'd4: cnst_3 <= 16'h0000;
+      3'd5: cnst_3 <= End_of_Packet;
+      3'd6: cnst_3 <= Carrier_Extend;
+      default: cnst_3 <= IDLE2;
+   endcase
+end
+// Matching ROM for CHAR_IS_K tags. 
+always @(posedge usr_clk_wordwise)
+begin: Frame_ROM_KWORD
+   case(rom_addr)
+      3'd0: kcnst_1 <= 2'b01;
+      3'd1: kcnst_1 <= 2'b01;
+      3'd2: kcnst_1 <= 2'b00;
+      3'd3: kcnst_1 <= 2'b00;
+      3'd4: kcnst_1 <= 2'b00;
+      3'd5: kcnst_1 <= 2'b11;
+      3'd6: kcnst_1 <= 2'b11;
+      default: kcnst_1 <= 2'b01;
+   endcase
+   case(rom_addr)
+      3'd0: kcnst_2 <= 2'b01;
+      3'd1: kcnst_2 <= 2'b01;
+      3'd2: kcnst_2 <= 2'b00;
+      3'd3: kcnst_2 <= 2'b00;
+      3'd4: kcnst_2 <= 2'b00;
+      3'd5: kcnst_2 <= 2'b11;
+      3'd6: kcnst_2 <= 2'b11;
+      default: kcnst_2 <= 2'b01;
+   endcase
+   case(rom_addr)
+      3'd0: kcnst_3 <= 2'b01;
+      3'd1: kcnst_3 <= 2'b01;
+      3'd2: kcnst_3 <= 2'b00;
+      3'd3: kcnst_3 <= 2'b00;
+      3'd4: kcnst_3 <= 2'b00;
+      3'd5: kcnst_3 <= 2'b11;
+      3'd6: kcnst_3 <= 2'b11;
+      default: kcnst_3 <= 2'b01;
+   endcase
+end 
+
+// Pipeline signals for timing
+
+	always @(posedge usr_clk_wordwise)
+	begin
+		txcharisk_1 <= vt_kcnst_1;
+		txcharisk_2 <= vt_kcnst_2;
+		txcharisk_3 <= vt_kcnst_3;
+		txd_vld1_1 <= TXD_VLD;
+		txd_vld1_2 <= TXD_VLD;
+		txd_vld1_3 <= TXD_VLD;
+		crc_vld1_1 <= crc_vld_1;
+		crc_vld1_2 <= crc_vld_2;
+		crc_vld1_3 <= crc_vld_3;
+		crc_vld2_1 <= vt_crc_vld1_1;
+		crc_vld2_2 <= vt_crc_vld1_2;
+		crc_vld2_3 <= vt_crc_vld1_3;
+		data1_1 <= TXD;
+		data1_2 <= TXD;
+		data1_3 <= TXD;
+		crc_calc1_1 <= crc_calc;
+		crc_calc1_2 <= crc_calc;
+		crc_calc1_3 <= crc_calc;
+		crc1_1 <= crc_1;
+		crc1_2 <= crc_2;
+		crc1_3 <= crc_3;
+	end
+	always @(posedge usr_clk_wordwise or posedge reset)
+	begin
+		if (reset) begin
+			mgt_tx_data_1 <= vt_cnst_1;
+			mgt_tx_data_2 <= vt_cnst_2;
+			mgt_tx_data_3 <= vt_cnst_3;
+		end
+		else begin
+			mgt_tx_data_1 <= (vt_crc_vld1_1 || vt_crc_vld2_1) ? vt_crc1_1 : (vt_crc_calc1_1 ? vt_data1_1 : vt_cnst_1);
+			mgt_tx_data_2 <= (vt_crc_vld1_2 || vt_crc_vld2_2) ? vt_crc1_2 : (vt_crc_calc1_2 ? vt_data1_2 : vt_cnst_2);
+			mgt_tx_data_3 <= (vt_crc_vld1_3 || vt_crc_vld2_3) ? vt_crc1_3 : (vt_crc_calc1_3 ? vt_data1_3 : vt_cnst_3);
+		end
+	end
+
+	crc_gen_tmr crc_gen_tmr_i(
+		.CRC1(crc_1),
+		.CRC2(crc_2),
+		.CRC3(crc_3),
+		.D(TXD),
+		.CALC(crc_calc),
+		.INIT(clr_crc),
+		.D_VALID(crc_dv),
+		.CLK(usr_clk_wordwise),
+		.RESET(reset)
+	);
+	
+end
+else 
+begin : DAQ_Pkt
+
+	reg [15:0] cnst;
+	reg [1:0] kcnst;
+	reg [1:0] txcharisk_r;
+	reg txd_vld1;
+	reg crc_vld1;
+	reg crc_vld2;
+	reg [15:0] data1;
+	reg crc_calc1;
+	reg [15:0] crc1;
+	reg [15:0] mgt_tx_data_r;
+
+	assign crc_vld = !TXD_VLD & txd_vld1; // trailing edge of valid data
+
+	assign txcharisk_i   = txcharisk_r;
+	assign crc_vld1_i    = crc_vld1;
+	assign crc_vld2_i    = crc_vld2;
+	assign mgt_tx_data_i = mgt_tx_data_r;
+	
 //////////////////////////////////////////////////////////////
 //                                                          //
 // ROM for Idles, Preamble, Data Fill, Carrier Extend,      //
@@ -482,6 +796,40 @@ begin: Frame_ROM_KWORD
       default: kcnst <= 2'b01;
    endcase
 end 
+
+// Pipeline signals for timing
+
+	always @(posedge usr_clk_wordwise)
+	begin
+		txcharisk_r <= kcnst;
+		txd_vld1 <= TXD_VLD;
+		crc_vld1 <= crc_vld;
+		crc_vld2 <= crc_vld1;
+		data1 <= TXD;
+		crc_calc1 <= crc_calc;
+		crc1 <= crc;
+	end
+	always @(posedge usr_clk_wordwise or posedge reset)
+	begin
+		if (reset) begin
+			mgt_tx_data_r <= cnst;
+		end
+		else begin
+			mgt_tx_data_r <= (crc_vld1 || crc_vld2) ? crc1 : (crc_calc1 ? data1 : cnst);
+		end
+	end
+
+	crc_gen crc_gen_i(
+		.crc(crc),
+		.d(TXD),
+		.calc(crc_calc),
+		.init(clr_crc),
+		.d_valid(crc_dv),
+		.clk(usr_clk_wordwise),
+		.reset(reset)
+	);
+end
+endgenerate
 
 generate
 if(TMR==1 && TMR_Err_Det==1) 
@@ -530,41 +878,5 @@ begin : Frm_Proc_FSM
 assign FRMPRC_ERRCNT = 0;
 end
 endgenerate
-
-// Pipeline signals for timing
-
-	always @(posedge usr_clk_wordwise)
-	begin
-		txcharisk_r <= kcnst;
-		txd_vld1 <= TXD_VLD;
-		crc_vld1 <= crc_vld;
-		crc_vld2 <= crc_vld1;
-		data1 <= TXD;
-		crc_calc1 <= crc_calc;
-		crc1 <= crc;
-	end
-	always @(posedge usr_clk_wordwise or posedge reset_i)
-	begin
-		if (reset_i)
-			mgt_tx_data_r <= cnst;
-		else
-			if(crc_vld1 || crc_vld2)
-				mgt_tx_data_r <= crc1;
-			else if (crc_calc1)
-				mgt_tx_data_r <= data1;
-			else
-				mgt_tx_data_r <= cnst;
-	end
-
-crc_gen crc_gen_i(
-	.crc_reg(crc_reg), 
-	.crc(crc),
-	.d(TXD),
-	.calc(crc_calc),
-	.init(clr_crc),
-	.d_valid(crc_dv),
-	.clk(usr_clk_wordwise),
-	.reset(reset_i)
-	);
 
 endmodule

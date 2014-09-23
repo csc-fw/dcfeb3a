@@ -22,32 +22,20 @@
 //////////////////////////////////////////////////////////////////////////////
 
 module crc_gen (
-   crc_reg, 
-   crc,
-   d,
-   calc,
-   init,
-   d_valid,
-   clk,
-   reset
-   );
-
-output [31:0] crc_reg;
-output [15:0]  crc;
-
-input  [15:0]  d;
-input         calc;
-input         init;
-input         d_valid;
-input         clk;
-input         reset;
-
-reg    [31:0] crc_reg;
-reg    [15:0]  crc;
+	output reg [15:0] crc,
+	input  [15:0] d,
+	input calc,
+	input init,
+	input d_valid,
+	input clk,
+	input reset
+);
 
 //////////////////////////////////////////////////////////////////////////////
 // Internal Signals
 //////////////////////////////////////////////////////////////////////////////
+
+reg    [31:0] crc_reg;
 wire   [31:0] next_crc;
 
 //////////////////////////////////////////////////////////////////////////////

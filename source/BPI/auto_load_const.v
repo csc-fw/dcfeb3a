@@ -35,7 +35,7 @@ module auto_load_const #(
     output AUTO_LOAD_ENA,
     output CLR_AL_DONE,
     output wire [5:0] AL_CNT,
-    output reg [2:0] AL_STATUS
+    output [2:0] AL_STATUS
     );
 
 localparam Read_Array_Cmd = 16'h00FF;
@@ -49,55 +49,107 @@ assign AL_ADDR = {base_addr[22:6],AL_CNT};
 assign AL_CMD_DATA_OUT = Read_Array_Cmd;
 assign AL_OP = 2'b10;
 
-always @(posedge CLK or posedge RST) begin
-	if(RST)
-		AL_STATUS <= 3'b000;
-	else
-		if(CLR_AL_DONE)
-			AL_STATUS <= {AL_STATUS[2:1],1'b1};
-		else if(al_completed)
-			AL_STATUS <= {AL_STATUS[2],1'b1,AL_STATUS[0]};
-		else if(al_aborted)
-			AL_STATUS <= {1'b1,AL_STATUS[1:0]};
-		else
-			AL_STATUS <= AL_STATUS;
-end
 
 
 generate
 if(TMR==1) 
 begin : BPI_intrf_FSM_TMR
-auto_load_FSM_TMR #(.MAX_ADDR(6'd33))
-auto_load_FSM_i(
-  .AL_CNT(AL_CNT),
-  .ABORTED(al_aborted),
-  .AL_ENA(AUTO_LOAD_ENA),
-  .CLR_AL_DONE(CLR_AL_DONE),
-  .COMPLETED(al_completed),
-  .EXECUTE(AL_EXECUTE),
-  .AL_DONE(AL_DONE),
-  .BUSY(BUSY),
-  .CLK(CLK),
-  .RST(RST),
-  .START(AL_START)
-);
+
+	(* syn_preserve = "true" *) reg [2:0] al_status_r_1;
+	(* syn_preserve = "true" *) reg [2:0] al_status_r_2;
+	(* syn_preserve = "true" *) reg [2:0] al_status_r_3;
+	
+	(* syn_keep = "true" *) wire [2:0] vt_al_status_r_1;
+	(* syn_keep = "true" *) wire [2:0] vt_al_status_r_2;
+	(* syn_keep = "true" *) wire [2:0] vt_al_status_r_3;
+	
+	assign vt_al_status_r_1 = (al_status_r_1 & al_status_r_2) | (al_status_r_2 & al_status_r_3) | (al_status_r_1 & al_status_r_3); // Majority logic
+	assign vt_al_status_r_2 = (al_status_r_1 & al_status_r_2) | (al_status_r_2 & al_status_r_3) | (al_status_r_1 & al_status_r_3); // Majority logic
+	assign vt_al_status_r_3 = (al_status_r_1 & al_status_r_2) | (al_status_r_2 & al_status_r_3) | (al_status_r_1 & al_status_r_3); // Majority logic
+	
+	always @(posedge CLK or posedge RST) begin
+		if(RST) begin
+			al_status_r_1 <= 3'b000;
+			al_status_r_2 <= 3'b000;
+			al_status_r_3 <= 3'b000;
+		end
+		else 
+			if(CLR_AL_DONE) begin
+				al_status_r_1 <= {vt_al_status_r_1[2:1],1'b1};
+				al_status_r_2 <= {vt_al_status_r_2[2:1],1'b1};
+				al_status_r_3 <= {vt_al_status_r_3[2:1],1'b1};
+			end
+			else if(al_completed) begin
+				al_status_r_1 <= {vt_al_status_r_1[2],1'b1,vt_al_status_r_1[0]};
+				al_status_r_2 <= {vt_al_status_r_2[2],1'b1,vt_al_status_r_2[0]};
+				al_status_r_3 <= {vt_al_status_r_3[2],1'b1,vt_al_status_r_3[0]};
+			end
+			else if(al_aborted) begin
+				al_status_r_1 <= {1'b1,vt_al_status_r_1[1:0]};
+				al_status_r_2 <= {1'b1,vt_al_status_r_2[1:0]};
+				al_status_r_3 <= {1'b1,vt_al_status_r_3[1:0]};
+			end
+			else begin
+				al_status_r_1 <= vt_al_status_r_1;
+				al_status_r_2 <= vt_al_status_r_2;
+				al_status_r_3 <= vt_al_status_r_3;
+			end
+	end
+	
+	auto_load_FSM_TMR #(.MAX_ADDR(6'd33))
+	auto_load_FSM_i(
+	  .AL_CNT(AL_CNT),
+	  .ABORTED(al_aborted),
+	  .AL_ENA(AUTO_LOAD_ENA),
+	  .CLR_AL_DONE(CLR_AL_DONE),
+	  .COMPLETED(al_completed),
+	  .EXECUTE(AL_EXECUTE),
+	  .AL_DONE(AL_DONE),
+	  .BUSY(BUSY),
+	  .CLK(CLK),
+	  .RST(RST),
+	  .START(AL_START)
+	);
+	
+	assign AL_STATUS = vt_al_status_r_1;
+	
 end
 else 
 begin : BPI_intrf_FSM
-auto_load_FSM #(.MAX_ADDR(6'd33))
-auto_load_FSM_i(
-  .AL_CNT(AL_CNT),
-  .ABORTED(al_aborted),
-  .AL_ENA(AUTO_LOAD_ENA),
-  .CLR_AL_DONE(CLR_AL_DONE),
-  .COMPLETED(al_completed),
-  .EXECUTE(AL_EXECUTE),
-  .AL_DONE(AL_DONE),
-  .BUSY(BUSY),
-  .CLK(CLK),
-  .RST(RST),
-  .START(AL_START)
-);
+
+	reg [2:0] al_status_r;
+	
+	always @(posedge CLK or posedge RST) begin
+		if(RST)
+			al_status_r <= 3'b000;
+		else
+			if(CLR_AL_DONE)
+				al_status_r <= {al_status_r[2:1],1'b1};
+			else if(al_completed)
+				al_status_r <= {al_status_r[2],1'b1,al_status_r[0]};
+			else if(al_aborted)
+				al_status_r <= {1'b1,al_status_r[1:0]};
+			else
+				al_status_r <= al_status_r;
+	end
+	
+	auto_load_FSM #(.MAX_ADDR(6'd33))
+	auto_load_FSM_i(
+	  .AL_CNT(AL_CNT),
+	  .ABORTED(al_aborted),
+	  .AL_ENA(AUTO_LOAD_ENA),
+	  .CLR_AL_DONE(CLR_AL_DONE),
+	  .COMPLETED(al_completed),
+	  .EXECUTE(AL_EXECUTE),
+	  .AL_DONE(AL_DONE),
+	  .BUSY(BUSY),
+	  .CLK(CLK),
+	  .RST(RST),
+	  .START(AL_START)
+	);
+	
+	assign AL_STATUS = al_status_r;
+	
 end
 endgenerate
 

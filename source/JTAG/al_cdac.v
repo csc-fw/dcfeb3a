@@ -66,12 +66,16 @@ begin : CmpTh_FSM_TMR
 	(* syn_keep = "true" *) wire vt_done_1;
 	(* syn_keep = "true" *) wire vt_done_2;
 	(* syn_keep = "true" *) wire vt_done_3;
-	(* syn_keep = "true" *) wire vt_cth_shft_1;
-	(* syn_keep = "true" *) wire vt_cth_shft_2;
-	(* syn_keep = "true" *) wire vt_cth_shft_3;
-	(* syn_keep = "true" *) wire vt_cthresh_hold_1;
-	(* syn_keep = "true" *) wire vt_cthresh_hold_2;
-	(* syn_keep = "true" *) wire vt_cthresh_hold_3;
+	(* syn_keep = "true" *) wire [11:0] vt_cthresh_hold_1;
+	(* syn_keep = "true" *) wire [11:0] vt_cthresh_hold_2;
+	(* syn_keep = "true" *) wire [11:0] vt_cthresh_hold_3;
+
+	(* syn_keep = "true" *) wire le_load_cthresh_1;
+	(* syn_keep = "true" *) wire le_load_cthresh_2;
+	(* syn_keep = "true" *) wire le_load_cthresh_3;
+	(* syn_keep = "true" *) wire sdata_1;
+	(* syn_keep = "true" *) wire sdata_2;
+	(* syn_keep = "true" *) wire sdata_3;
   
 	assign vt_load_cthresh_1    = (load_cthresh_1    & load_cthresh_2   ) | (load_cthresh_2    & load_cthresh_3   ) | (load_cthresh_1    & load_cthresh_3   ); // Majority logic
 	assign vt_load_cthresh_2    = (load_cthresh_1    & load_cthresh_2   ) | (load_cthresh_2    & load_cthresh_3   ) | (load_cthresh_1    & load_cthresh_3   ); // Majority logic
@@ -82,9 +86,6 @@ begin : CmpTh_FSM_TMR
 	assign vt_done_1            = (done_1            & done_2           ) | (done_2            & done_3           ) | (done_1            & done_3           ); // Majority logic
 	assign vt_done_2            = (done_1            & done_2           ) | (done_2            & done_3           ) | (done_1            & done_3           ); // Majority logic
 	assign vt_done_3            = (done_1            & done_2           ) | (done_2            & done_3           ) | (done_1            & done_3           ); // Majority logic
-	assign vt_cth_shft_1        = (cth_shft_1        & cth_shft_2       ) | (cth_shft_2        & cth_shft_3       ) | (cth_shft_1        & cth_shft_3       ); // Majority logic
-	assign vt_cth_shft_2        = (cth_shft_1        & cth_shft_2       ) | (cth_shft_2        & cth_shft_3       ) | (cth_shft_1        & cth_shft_3       ); // Majority logic
-	assign vt_cth_shft_3        = (cth_shft_1        & cth_shft_2       ) | (cth_shft_2        & cth_shft_3       ) | (cth_shft_1        & cth_shft_3       ); // Majority logic
 	assign vt_cthresh_hold_1    = (cthresh_hold_1    & cthresh_hold_2   ) | (cthresh_hold_2    & cthresh_hold_3   ) | (cthresh_hold_1    & cthresh_hold_3   ); // Majority logic
 	assign vt_cthresh_hold_2    = (cthresh_hold_1    & cthresh_hold_2   ) | (cthresh_hold_2    & cthresh_hold_3   ) | (cthresh_hold_1    & cthresh_hold_3   ); // Majority logic
 	assign vt_cthresh_hold_3    = (cthresh_hold_1    & cthresh_hold_2   ) | (cthresh_hold_2    & cthresh_hold_3   ) | (cthresh_hold_1    & cthresh_hold_3   ); // Majority logic
@@ -101,9 +102,9 @@ begin : CmpTh_FSM_TMR
 			cth_shft_3 <= 16'h0000;
 		end
 		else begin
-			cth_shft_1 <= le_load_cthresh ? {3'b0,vt_cthresh_hold_1,1'b0} : (SHCK_ENA ? {vt_cth_shft_1[14:0],1'b0} : vt_cth_shft_1);
-			cth_shft_2 <= le_load_cthresh ? {3'b0,vt_cthresh_hold_2,1'b0} : (SHCK_ENA ? {vt_cth_shft_2[14:0],1'b0} : vt_cth_shft_2);
-			cth_shft_3 <= le_load_cthresh ? {3'b0,vt_cthresh_hold_3,1'b0} : (SHCK_ENA ? {vt_cth_shft_3[14:0],1'b0} : vt_cth_shft_3);
+			cth_shft_1 <= le_load_cthresh_1 ? {3'b0,vt_cthresh_hold_1,1'b0} : (SHCK_ENA ? {cth_shft_1[14:0],1'b0} : cth_shft_1);
+			cth_shft_2 <= le_load_cthresh_2 ? {3'b0,vt_cthresh_hold_2,1'b0} : (SHCK_ENA ? {cth_shft_2[14:0],1'b0} : cth_shft_2);
+			cth_shft_3 <= le_load_cthresh_3 ? {3'b0,vt_cthresh_hold_3,1'b0} : (SHCK_ENA ? {cth_shft_3[14:0],1'b0} : cth_shft_3);
 		end
 	end
 
@@ -140,11 +141,18 @@ begin : CmpTh_FSM_TMR
 	  .RST(RST),
 	  .START(vt_load_cthresh_1) 
 	);
+
+	assign le_load_cthresh_1   = vt_load_cthresh_1 & ~vt_load_cthresh_r1_1;
+	assign le_load_cthresh_2   = vt_load_cthresh_2 & ~vt_load_cthresh_r1_2;
+	assign le_load_cthresh_3   = vt_load_cthresh_3 & ~vt_load_cthresh_r1_3;
+	assign sdata_1 = cth_shft_1[15];
+	assign sdata_2 = cth_shft_2[15];
+	assign sdata_3 = cth_shft_3[15];
 	
-	assign CDAC_DONE = vt_done_1;
-	assign DAC_ENB = vt_load_cthresh_1;
-	assign SDATA = vt_cth_shft_1[15];
-	assign le_load_cthresh   = vt_load_cthresh_1 & ~vt_load_cthresh_r1_1;
+	assign CDAC_DONE       = vt_done_1;
+	assign DAC_ENB         = vt_load_cthresh_1;
+	assign SDATA           = (sdata_1 & sdata_2) | (sdata_2 & sdata_3) | (sdata_1 & sdata_3); // Majority logic
+	assign le_load_cthresh = (le_load_cthresh_1 & le_load_cthresh_2) | (le_load_cthresh_2 & le_load_cthresh_3) | (le_load_cthresh_1 & le_load_cthresh_3); // Majority logic
 
 end
 else 

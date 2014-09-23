@@ -31,59 +31,51 @@ module adc_config #(
 	 input [23:0] CSP_WR_DATA, // Data to be written to memory from chip scope pro
 	 input [4:0] CSP_WR_ADDR, // Address to write to memory from chip scope pro
 	 input CSP_RD_CTRL,       // Selects CSP_RD_ADDR as source of address
-	 output reg [23:0] CSP_RD_DATA, // Data to be written to memory from chip scope pro
+	 output [23:0] CSP_RD_DATA, // Data to be written to memory from chip scope pro
 	 input [4:0] CSP_RD_ADDR, // Address to write to memory from chip scope pro
 	 input [1:0] CSP_MSEL, // memory select from chip scope pro
 	 input [11:0] MASK, // Mask for which ADC to talk to
     output [11:0] CS,  // Chip selects for all 12 ADC's
-    output reg SCLK,       // Serial clock to ADC's
+    output SCLK,       // Serial clock to ADC's
     output SDATA,      // Serial data to ADC's
     output DONE,        // Done signal when initialization is complete
 	 output [1:0] la_msel,
-	 output [23:0] la_mem_out,
 	 output [4:0] la_rd_addr,
 	 output [4:0] la_wr_addr
     );
 
-
-	reg [23:0] ram0 [31:0];
-	reg [23:0] shreg;
-	reg [23:0] mem_in;
-	reg we;
-	wire [23:0] mem_out;
-	wire [23:0] mem_out0;
-   reg [4:0] jaddr;
-   reg [4:0] waddr;
+	wire [23:0] mem_in;
+	wire we;
+   reg  [4:0] jaddr;
+   wire [4:0] waddr;
 
 
 	wire load;
 	wire scken;
 	wire shen;
 	wire csel;
-	reg  dscken;
 	wire [11:0] cs_mask;
-	reg [4:0] raddr;
+	wire [4:0] raddr;
 	wire [4:0] addr;
 
-	initial begin
-	   $readmemh ("ADC_ram_contents", ram0, 0, 31);
-	end
 
 	assign la_msel = 4'h0;
-	assign la_mem_out = mem_out;
 	assign la_rd_addr = raddr;
 	assign la_wr_addr = waddr;
-	
 
-   assign mem_out0 = ram0[raddr];
-	assign SDATA = shreg[23];
-	assign csel = scken | dscken; // stretch the clock enable by 1 clock
 	assign CS = {12{csel}} & cs_mask;
 	assign cs_mask = MASK;
-	assign mem_out = mem_out0;
 	
-	always @(posedge CLK)  dscken <= scken;
-	
+//
+// source multiplexer for memory reads
+//
+	assign raddr = CSP_RD_CTRL ? CSP_RD_ADDR : addr;
+//
+// Data/addr/we source multiplexer for memory writes
+//
+	assign waddr  = JCTRL ? jaddr       : CSP_WR_ADDR;
+	assign mem_in = JCTRL ? JDATA[23:0] : CSP_WR_DATA;
+	assign we     = JCTRL ? JWE         : CSP_WE[0];
 	
 //
 // Decode address and write enable to write from JTAG data
@@ -111,40 +103,138 @@ module adc_config #(
 		endcase
 	end
 	
-//
-// Data/addr/we source multiplexer for memory writes
-//
-   always @* begin
-	   if(JCTRL)
-		   begin
-				we = JWE;
-				mem_in = JDATA[23:0];
-				waddr = jaddr;
-			end
-		else
-			begin
-				we = CSP_WE[0];
-				mem_in = CSP_WR_DATA;
-				waddr = CSP_WR_ADDR;
-			end
+  
+generate
+if(TMR==1) 
+begin : ADC_Cnfg_logic_TMR
+
+	(* syn_preserve = "true" *) reg [23:0] ram_1 [31:0];
+	(* syn_preserve = "true" *) reg [23:0] ram_2 [31:0];
+	(* syn_preserve = "true" *) reg [23:0] ram_3 [31:0];
+	(* syn_preserve = "true" *) reg [23:0] shreg_1;
+	(* syn_preserve = "true" *) reg [23:0] shreg_2;
+	(* syn_preserve = "true" *) reg [23:0] shreg_3;
+	(* syn_preserve = "true" *) reg sclk_r_1;
+	(* syn_preserve = "true" *) reg sclk_r_2;
+	(* syn_preserve = "true" *) reg sclk_r_3;
+	(* syn_preserve = "true" *) reg dscken_1;
+	(* syn_preserve = "true" *) reg dscken_2;
+	(* syn_preserve = "true" *) reg dscken_3;
+
+	(* syn_keep = "true" *) wire [23:0] mem_out_1;
+	(* syn_keep = "true" *) wire [23:0] mem_out_2;
+	(* syn_keep = "true" *) wire [23:0] mem_out_3;
+
+	(* syn_keep = "true" *) wire [23:0] vt_mem_out_1;
+	(* syn_keep = "true" *) wire [23:0] vt_mem_out_2;
+	(* syn_keep = "true" *) wire [23:0] vt_mem_out_3;
+	(* syn_keep = "true" *) wire [23:0] vt_shreg_1;
+	(* syn_keep = "true" *) wire [23:0] vt_shreg_2;
+	(* syn_keep = "true" *) wire [23:0] vt_shreg_3;
+	(* syn_keep = "true" *) wire vt_sclk_r_1;
+	(* syn_keep = "true" *) wire vt_sclk_r_2;
+	(* syn_keep = "true" *) wire vt_sclk_r_3;
+	(* syn_keep = "true" *) wire vt_dscken_1;
+	(* syn_keep = "true" *) wire vt_dscken_2;
+	(* syn_keep = "true" *) wire vt_dscken_3;
+	
+	assign vt_mem_out_1 = (mem_out_1 & mem_out_2) | (mem_out_2 & mem_out_3) | (mem_out_1 & mem_out_3); // Majority logic
+	assign vt_mem_out_2 = (mem_out_1 & mem_out_2) | (mem_out_2 & mem_out_3) | (mem_out_1 & mem_out_3); // Majority logic
+	assign vt_mem_out_3 = (mem_out_1 & mem_out_2) | (mem_out_2 & mem_out_3) | (mem_out_1 & mem_out_3); // Majority logic
+	assign vt_shreg_1   = (shreg_1   & shreg_2  ) | (shreg_2   & shreg_3  ) | (shreg_1   & shreg_3  ); // Majority logic
+	assign vt_shreg_2   = (shreg_1   & shreg_2  ) | (shreg_2   & shreg_3  ) | (shreg_1   & shreg_3  ); // Majority logic
+	assign vt_shreg_3   = (shreg_1   & shreg_2  ) | (shreg_2   & shreg_3  ) | (shreg_1   & shreg_3  ); // Majority logic
+	assign vt_sclk_r_1  = (sclk_r_1  & sclk_r_2 ) | (sclk_r_2  & sclk_r_3 ) | (sclk_r_1  & sclk_r_3 ); // Majority logic
+	assign vt_sclk_r_2  = (sclk_r_1  & sclk_r_2 ) | (sclk_r_2  & sclk_r_3 ) | (sclk_r_1  & sclk_r_3 ); // Majority logic
+	assign vt_sclk_r_3  = (sclk_r_1  & sclk_r_2 ) | (sclk_r_2  & sclk_r_3 ) | (sclk_r_1  & sclk_r_3 ); // Majority logic
+	assign vt_dscken_1  = (dscken_1  & dscken_2 ) | (dscken_2  & dscken_3 ) | (dscken_1  & dscken_3 ); // Majority logic
+	assign vt_dscken_2  = (dscken_1  & dscken_2 ) | (dscken_2  & dscken_3 ) | (dscken_1  & dscken_3 ); // Majority logic
+	assign vt_dscken_3  = (dscken_1  & dscken_2 ) | (dscken_2  & dscken_3 ) | (dscken_1  & dscken_3 ); // Majority logic
+
+	initial begin
+	   $readmemh ("ADC_ram_contents", ram_1, 0, 31);
+	   $readmemh ("ADC_ram_contents", ram_2, 0, 31);
+	   $readmemh ("ADC_ram_contents", ram_3, 0, 31);
+	end
+	
+   assign mem_out_1 = ram_1[raddr];
+   assign mem_out_2 = ram_2[raddr];
+   assign mem_out_3 = ram_3[raddr];
+	assign CSP_RD_DATA = vt_mem_out_1;
+	assign SCLK = vt_sclk_r_1;
+	assign SDATA = vt_shreg_1[23]; // Majority logic
+	assign csel = scken | vt_dscken_1; // stretch the clock enable by 1 clock
+	
+	always @(posedge CLK) begin
+		dscken_1 <= scken;
+		dscken_2 <= scken;
+		dscken_3 <= scken;
 	end
 	
 //
-// source multiplexer for memory reads
+// Infer distributed RAM for storing ADC configuration memory
 //
-   always @* begin
-	   if(CSP_RD_CTRL)
-		   begin
-				raddr = CSP_RD_ADDR;
-				CSP_RD_DATA = mem_out0;
-			end
-		else
-			begin
-				raddr = addr;
-				CSP_RD_DATA = mem_out;
-			end
+   always @(posedge CLK) begin
+	   if(we) begin
+		   ram_1[waddr] <= mem_in;
+		   ram_2[waddr] <= mem_in;
+		   ram_3[waddr] <= mem_in;
+		end
 	end
 	
+//
+// Shift register for serial data to ADCs 
+//
+	always @(posedge CLK) begin
+		if (load) begin
+			shreg_1 <= vt_mem_out_1;              // load with value from memory
+			shreg_2 <= vt_mem_out_2;              // load with value from memory
+			shreg_3 <= vt_mem_out_3;              // load with value from memory
+		end
+		else begin
+			shreg_1 <= (shen & vt_sclk_r_1) ? {vt_shreg_1[22:0],1'b0} : vt_shreg_1; // shift left
+			shreg_2 <= (shen & vt_sclk_r_2) ? {vt_shreg_2[22:0],1'b0} : vt_shreg_2; // shift left
+			shreg_3 <= (shen & vt_sclk_r_3) ? {vt_shreg_3[22:0],1'b0} : vt_shreg_3; // shift left
+		end
+	end
+	
+//
+// SCLK generator (lives high)
+//
+	always @(posedge CLK) begin
+	   if(!scken) begin
+		   sclk_r_1 <= 1'b1;  // When not enabled the clock lives high
+		   sclk_r_2 <= 1'b1;  // When not enabled the clock lives high
+		   sclk_r_3 <= 1'b1;  // When not enabled the clock lives high
+		end
+	   else begin
+		   sclk_r_1 <= ~vt_sclk_r_1; // The serial clock is half the frequency of CLK
+		   sclk_r_2 <= ~vt_sclk_r_2; // The serial clock is half the frequency of CLK
+		   sclk_r_3 <= ~vt_sclk_r_3; // The serial clock is half the frequency of CLK
+		end
+	end
+	
+end
+else 
+begin : ADC_Cnfg_logic
+
+	reg [23:0] ram0 [31:0];
+	reg [23:0] shreg;
+	reg  sclk_r;
+	reg  dscken;
+	wire [23:0] mem_out;
+	
+	initial begin
+	   $readmemh ("ADC_ram_contents", ram0, 0, 31);
+	end
+	
+   assign mem_out = ram0[raddr];
+	assign CSP_RD_DATA = mem_out;
+	assign SCLK = sclk_r;
+	assign SDATA = shreg[23];
+	assign csel = scken | dscken; // stretch the clock enable by 1 clock
+	
+	always @(posedge CLK)  dscken <= scken;
 	
 //
 // Infer distributed RAM for storing ADC configuration memory
@@ -158,24 +248,29 @@ module adc_config #(
 // Shift register for serial data to ADCs 
 //
 	always @(posedge CLK) begin
-	  if (load)
-	     shreg <= mem_out;              // load with value from memory
-	  else
-	    if(shen & SCLK)
-		    shreg <= {shreg[22:0],1'b0}; // shift left
-		 else
-		    shreg <= shreg;
+		if (load) begin
+			shreg <= mem_out;              // load with value from memory
+		end
+		else begin
+			shreg <= (shen & sclk_r) ? {shreg[22:0],1'b0} : shreg; // shift left, maintain SRL usage
+		end
 	end
 	
 //
 // SCLK generator (lives high)
 //
 	always @(posedge CLK) begin
-	   if(!scken)
-		   SCLK <= 1'b1;  // When not enabled the clock lives high
-	   else
-		   SCLK <= ~SCLK; // The serial clock is half the frequency of CLK
+	   if(!scken) begin
+		   sclk_r <= 1'b1;  // When not enabled the clock lives high
+		end
+	   else begin
+		   sclk_r <= ~sclk_r; // The serial clock is half the frequency of CLK
+		end
 	end
+	
+end
+endgenerate
+
 	
 //
 //  Finite State Machine for controlling the ADC configuration
@@ -184,7 +279,7 @@ module adc_config #(
   
 generate
 if(TMR==1) 
-begin : CmpTh_FSM_TMR
+begin : ADC_Cnfg_FSM_TMR
 	ADC_Config_FSM_TMR #(.Last_Addr(5'h10)) // Use address 0-16
 	ADC_Config_FSM_i	(
 	  .ADR(addr),            // output  -- memory address
@@ -198,7 +293,7 @@ begin : CmpTh_FSM_TMR
 	);
 end
 else 
-begin : CmpTh_FSM
+begin : ADC_Cnfg_FSM
 	ADC_Config_FSM #(.Last_Addr(5'h10)) // Use address 0-16
 	ADC_Config_FSM_i	(
 	  .ADR(addr),            // output  -- memory address
@@ -212,5 +307,6 @@ begin : CmpTh_FSM
 	);
 end
 endgenerate
+
 endmodule
 

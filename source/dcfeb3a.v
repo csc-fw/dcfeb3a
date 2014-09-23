@@ -1401,7 +1401,9 @@ daq_optical_out_i (
 	wire fem_l1a_match;
 	wire cal_mode;
 
-	trigger
+	trigger #(
+	.TMR(TMR)
+)
 	trig_in1(                           // provides synchronus trigger inputs
 		.CLK40(clk40),
 		.RST(sys_rst),
@@ -1425,6 +1427,7 @@ daq_optical_out_i (
 		.L1A_MATCH(l1a_match),
 		.LCT(lct),
 		.RESYNC(resync),
+		.RST_RESYNC(rst_resync),
 		.BC0CNT(bc0cnt),
 		.BC0(bc0)
 	);
@@ -1439,11 +1442,12 @@ daq_optical_out_i (
 	wire [11:0] injplscnt;
 	wire [11:0] extplscnt;
 
-	calib_intf
+	calib_intf #(
+	.TMR(TMR)
+)
 	calib_intf_i(                           // provides multiplexing for calibration i/o
 		.CLK40(clk40),
-		.RST(sys_rst),
-		.RESYNC(resync),
+		.RST_RESYNC(rst_resync),
 	 // external connections
 		.SKW_EXTPLS_P(\SKW_EXTPLS+ ),.SKW_EXTPLS_N(\SKW_EXTPLS- ),
 		.SKW_INJPLS_P(\SKW_INJPLS+ ),.SKW_INJPLS_N(\SKW_INJPLS- ),
@@ -1518,7 +1522,8 @@ daq_optical_out_i (
 	wire [5:0] layer_mask;
 	
 	tmb_fiber_out #(
-		.SIM_SPEEDUP(Simulation)
+		.SIM_SPEEDUP(Simulation),
+		.TMR(TMR)
 	)
 	tmb_fiber_out1 (
 	   .RST(sys_rst),
@@ -1842,6 +1847,7 @@ endgenerate
 		.CLK1MHZ(clk1mhz),  // 1 MHz Clock
 		.CLK100KHZ(clk100khz),
 		.RESYNC(resync),
+		.RST_RESYNC(rst_resync),
 		.EOS(eos),
 		.JTAG_SYS_RST(jtag_sys_rst),
 		.CSP_SYS_RST(csp_sys_rst),
@@ -1866,7 +1872,6 @@ endgenerate
 		.TRG_RST(comp_rst),
 		.DSR_RST(dsr_rst),
 		.SYS_RST(sys_rst),
-		.RST_RESYNC(rst_resync),
 		.DAQ_FIFO_RST(daq_fifo_rst),
 		.SLOW_FIFO_RST(slow_fifo_rst),
 		.RUN(run),
@@ -1994,7 +1999,6 @@ endgenerate
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
 	 wire [1:0] memsel;
-	 wire [23:0] mem_out;
 	 wire [4:0] addr;
 	 wire [4:0] wra;
 
@@ -2029,7 +2033,6 @@ endgenerate
 		.SDATA(adc_sdata),   // Serial data to ADC's
 		.DONE(adc_init_done),  // Done signal when initialization is complete
 		.la_msel(memsel),
-		.la_mem_out(mem_out),
 		.la_rd_addr(addr),
 		.la_wr_addr(wra)
 	);
@@ -2065,7 +2068,7 @@ adc_mem_vio vio0_adc_mem (
 adc_cnfg_mem_la la_adc_cnfg_mem (
     .CONTROL(adc_cnfg_mem_la_c1),
     .CLK(clk20),
-    .DATA({10'h000,adc_mem,memsel,mem_out,addr,wra,jc_adc_cnfg,adc_init_done,adc_rst,adc_init,1'b0,adc_we,csp_we,adc_cs,adc_sclk,adc_sdata}), // IN BUS [95:0]
+    .DATA({10'h000,adc_mem,memsel,csp_rd_data,addr,wra,jc_adc_cnfg,adc_init_done,adc_rst,adc_init,1'b0,adc_we,csp_we,adc_cs,adc_sclk,adc_sdata}), // IN BUS [95:0]
     .TRIG0({1'b0,adc_init_done,adc_rst,adc_init,jc_adc_cnfg,adc_we,csp_we,adc_cs,adc_sclk,adc_sdata}), // IN BUS [23:0]
     .TRIG_OUT(la_trg_out)
 );
@@ -2158,7 +2161,8 @@ generate
 if(Simulation==0)
 begin : SEMCode
 SEM_module #(
-	.USE_CHIPSCOPE(USE_SEM_CHIPSCOPE)
+	.USE_CHIPSCOPE(USE_SEM_CHIPSCOPE),
+	.TMR(TMR)
 	) 
 	SEM_module_i (
     .CSP_LA0_CNTRL(sem_la0_c0),

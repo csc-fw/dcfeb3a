@@ -57,22 +57,19 @@ module bpi_interface #(
 	 output CLK100KHZ
     );
 
-  wire [22:0] bpi_ad_in;
-  reg  [22:0] bpi_ad_out_r;
-  wire [22:0] bpi_dir;
-  wire [15:0] data_dir;
-  reg  [15:0] data_out_r;
-  wire [15:0] data_out_i;
-  wire execute_i;
-  wire rs0_out;
-  wire rs1_out;
-  wire fcs,foe,fwe,flatch_addr;
-  reg read;
-  reg write;
-  wire capture;
-  wire [15:0] leds_out;
-  wire clk100k;
-  wire q15;
+wire [22:0] bpi_ad_out_i;
+wire [22:0] bpi_ad_in;
+wire [22:0] bpi_dir;
+wire [15:0] data_dir;
+wire [15:0] data_out_i;
+wire execute_i;
+wire rs0_out;
+wire rs1_out;
+wire fcs,foe,fwe,flatch_addr;
+wire capture;
+wire [15:0] leds_out;
+wire clk100k;
+wire q15;
  
 reg [63:0] ram0 [31:0];
 wire [63:0] duty_cycle;
@@ -97,7 +94,7 @@ initial begin
 end
   
 
-  IOBUF #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) IOBUF_BPI_AD[22:0] (.O(bpi_ad_in),.IO(BPI_AD),.I(bpi_ad_out_r),.T(bpi_dir));
+  IOBUF #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) IOBUF_BPI_AD[22:0] (.O(bpi_ad_in),.IO(BPI_AD),.I(bpi_ad_out_i),.T(bpi_dir));
   IOBUF #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) IOBUF_CFG_DAT[15:0] (.O(DATA_IN),.IO(CFG_DAT),.I(data_out_i),.T(data_dir));
   OBUFT  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_RS0 (.O(RS0),.I(rs0_out),.T(1'b1)); //always tri-state for after programming finishes
   OBUFT  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_RS1 (.O(RS1),.I(rs1_out),.T(1'b1)); //always tri-state for after programming finishes
@@ -114,92 +111,194 @@ assign leds_out   = display ? {cycle[15][0],cycle[14][0],cycle[13][0],cycle[12][
 assign duty_cycle = ram0[raddr];
 assign {dc[15],dc[14],dc[13],dc[12],dc[11],dc[10],dc[9],dc[8],dc[7],dc[6],dc[5],dc[4],dc[3],dc[2],dc[1],dc[0]} = duty_cycle;
 assign stop       = (passes == 4'h3);
-assign data_out_i = (fcs | BPI_ACTIVE | AUTO_LOAD_ENA) ? data_out_r : leds_out;
 assign execute_i  = AUTO_LOAD_ENA ? AL_EXECUTE : EXECUTE;
-
-always @(posedge CLK)
-begin
-	if(capture)
-	   if(AUTO_LOAD_ENA)
-			begin
-				bpi_ad_out_r   <= AL_ADDR;
-				data_out_r     <= AL_CMD_DATA_OUT;
-				write          <= AL_OP[0];
-				read           <= AL_OP[1];
-			end
-		else
-			begin
-				bpi_ad_out_r   <= ADDR;
-				data_out_r     <= CMD_DATA_OUT;
-				write          <= OP[0];
-				read           <= OP[1];
-			end
-end
   
 generate
 if(TMR==1) 
 begin : BPI_intrf_FSM_TMR
-BPI_intrf_FSM_TMR 
-BPI_intrf_FSM1(
-	.BUSY(BUSY),
-	.CAP(capture),
-	.E(fcs),
-	.G(foe),
-	.L(flatch_addr),
-	.LOAD(LOAD_DATA),
-	.W(fwe),
-	.CLK(CLK),
-	.EXECUTE(execute_i),
-	.READ(read),
-	.RST(RST),
-	.WRITE(write)
-);
 
-Startup_Display_FSM_TMR 
-Startup_Display_FSM_i(
-  .CLEAR(clear),
-  .DISP(display),
-  .LOAD_PAT(load_pat),
-  .NXT_ADR(nxt_adr),
-  .RST_TIMER(rst_timer),
-  .CLK(CLK),
-  .DONE(stop),
-  .RST(RST),
-  .RUN(RUN),
-  .TIMER(timer)
-);
+	(* syn_preserve = "true" *) reg [22:0] bpi_ad_out_r_1;
+	(* syn_preserve = "true" *) reg [22:0] bpi_ad_out_r_2;
+	(* syn_preserve = "true" *) reg [22:0] bpi_ad_out_r_3;
+	(* syn_preserve = "true" *) reg [15:0] data_out_r_1;
+	(* syn_preserve = "true" *) reg [15:0] data_out_r_2;
+	(* syn_preserve = "true" *) reg [15:0] data_out_r_3;
+	(* syn_preserve = "true" *) reg read_1;
+	(* syn_preserve = "true" *) reg read_2;
+	(* syn_preserve = "true" *) reg read_3;
+	(* syn_preserve = "true" *) reg write_1;
+	(* syn_preserve = "true" *) reg write_2;
+	(* syn_preserve = "true" *) reg write_3;
+
+	(* syn_keep = "true" *) wire [22:0] vt_bpi_ad_out_r_1;
+	(* syn_keep = "true" *) wire [22:0] vt_bpi_ad_out_r_2;
+	(* syn_keep = "true" *) wire [22:0] vt_bpi_ad_out_r_3;
+	(* syn_keep = "true" *) wire [15:0] vt_data_out_r_1;
+	(* syn_keep = "true" *) wire [15:0] vt_data_out_r_2;
+	(* syn_keep = "true" *) wire [15:0] vt_data_out_r_3;
+	(* syn_keep = "true" *) wire vt_read_1;
+	(* syn_keep = "true" *) wire vt_read_2;
+	(* syn_keep = "true" *) wire vt_read_3;
+	(* syn_keep = "true" *) wire vt_write_1;
+	(* syn_keep = "true" *) wire vt_write_2;
+	(* syn_keep = "true" *) wire vt_write_3;
+
+	assign vt_bpi_ad_out_r_1 = (bpi_ad_out_r_1 & bpi_ad_out_r_2) | (bpi_ad_out_r_2 & bpi_ad_out_r_3) | (bpi_ad_out_r_1 & bpi_ad_out_r_3); // Majority logic
+	assign vt_bpi_ad_out_r_2 = (bpi_ad_out_r_1 & bpi_ad_out_r_2) | (bpi_ad_out_r_2 & bpi_ad_out_r_3) | (bpi_ad_out_r_1 & bpi_ad_out_r_3); // Majority logic
+	assign vt_bpi_ad_out_r_3 = (bpi_ad_out_r_1 & bpi_ad_out_r_2) | (bpi_ad_out_r_2 & bpi_ad_out_r_3) | (bpi_ad_out_r_1 & bpi_ad_out_r_3); // Majority logic
+	assign vt_data_out_r_1   = (data_out_r_1   & data_out_r_2  ) | (data_out_r_2   & data_out_r_3  ) | (data_out_r_1   & data_out_r_3  ); // Majority logic
+	assign vt_data_out_r_2   = (data_out_r_1   & data_out_r_2  ) | (data_out_r_2   & data_out_r_3  ) | (data_out_r_1   & data_out_r_3  ); // Majority logic
+	assign vt_data_out_r_3   = (data_out_r_1   & data_out_r_2  ) | (data_out_r_2   & data_out_r_3  ) | (data_out_r_1   & data_out_r_3  ); // Majority logic
+	assign vt_read_1         = (read_1         & read_2        ) | (read_2         & read_3        ) | (read_1         & read_3        ); // Majority logic
+	assign vt_read_2         = (read_1         & read_2        ) | (read_2         & read_3        ) | (read_1         & read_3        ); // Majority logic
+	assign vt_read_3         = (read_1         & read_2        ) | (read_2         & read_3        ) | (read_1         & read_3        ); // Majority logic
+	assign vt_write_1        = (write_1        & write_2       ) | (write_2        & write_3       ) | (write_1        & write_3       ); // Majority logic
+	assign vt_write_2        = (write_1        & write_2       ) | (write_2        & write_3       ) | (write_1        & write_3       ); // Majority logic
+	assign vt_write_3        = (write_1        & write_2       ) | (write_2        & write_3       ) | (write_1        & write_3       ); // Majority logic
+
+	always @(posedge CLK)
+	begin
+		if(capture)
+			if(AUTO_LOAD_ENA)
+				begin
+					bpi_ad_out_r_1   <= AL_ADDR;
+					bpi_ad_out_r_2   <= AL_ADDR;
+					bpi_ad_out_r_3   <= AL_ADDR;
+					data_out_r_1     <= AL_CMD_DATA_OUT;
+					data_out_r_2     <= AL_CMD_DATA_OUT;
+					data_out_r_3     <= AL_CMD_DATA_OUT;
+					write_1          <= AL_OP[0];
+					write_2          <= AL_OP[0];
+					write_3          <= AL_OP[0];
+					read_1           <= AL_OP[1];
+					read_2           <= AL_OP[1];
+					read_3           <= AL_OP[1];
+				end
+			else
+				begin
+					bpi_ad_out_r_1   <= ADDR;
+					bpi_ad_out_r_2   <= ADDR;
+					bpi_ad_out_r_3   <= ADDR;
+					data_out_r_1     <= CMD_DATA_OUT;
+					data_out_r_2     <= CMD_DATA_OUT;
+					data_out_r_3     <= CMD_DATA_OUT;
+					write_1          <= OP[0];
+					write_2          <= OP[0];
+					write_3          <= OP[0];
+					read_1           <= OP[1];
+					read_2           <= OP[1];
+					read_3           <= OP[1];
+				end
+		else begin
+			bpi_ad_out_r_1   <= vt_bpi_ad_out_r_1;
+			bpi_ad_out_r_2   <= vt_bpi_ad_out_r_2;
+			bpi_ad_out_r_3   <= vt_bpi_ad_out_r_3;
+			data_out_r_1     <= vt_data_out_r_1;
+			data_out_r_2     <= vt_data_out_r_2;
+			data_out_r_3     <= vt_data_out_r_3;
+			write_1          <= vt_write_1;
+			write_2          <= vt_write_2;
+			write_3          <= vt_write_3;
+			read_1           <= vt_read_1;
+			read_2           <= vt_read_2;
+			read_3           <= vt_read_3;
+		end
+	end
+	
+	BPI_intrf_FSM_TMR 
+	BPI_intrf_FSM1(
+		.BUSY(BUSY),
+		.CAP(capture),
+		.E(fcs),
+		.G(foe),
+		.L(flatch_addr),
+		.LOAD(LOAD_DATA),
+		.W(fwe),
+		.CLK(CLK),
+		.EXECUTE(execute_i),
+		.READ(vt_read_1),
+		.RST(RST),
+		.WRITE(vt_write_1)
+	);
+
+	Startup_Display_FSM_TMR 
+	Startup_Display_FSM_i(
+	  .CLEAR(clear),
+	  .DISP(display),
+	  .LOAD_PAT(load_pat),
+	  .NXT_ADR(nxt_adr),
+	  .RST_TIMER(rst_timer),
+	  .CLK(CLK),
+	  .DONE(stop),
+	  .RST(RST),
+	  .RUN(RUN),
+	  .TIMER(timer)
+	);
+	
+	assign bpi_ad_out_i = vt_bpi_ad_out_r_1;
+	assign data_out_i   = (fcs | BPI_ACTIVE | AUTO_LOAD_ENA) ? vt_data_out_r_1 : leds_out;
+	
 end
 else 
 begin : BPI_intrf_FSM
-BPI_intrf_FSM 
-BPI_intrf_FSM1(
-	.BUSY(BUSY),
-	.CAP(capture),
-	.E(fcs),
-	.G(foe),
-	.L(flatch_addr),
-	.LOAD(LOAD_DATA),
-	.W(fwe),
-	.CLK(CLK),
-	.EXECUTE(execute_i),
-	.READ(read),
-	.RST(RST),
-	.WRITE(write)
-);
 
-Startup_Display_FSM 
-Startup_Display_FSM_i(
-  .CLEAR(clear),
-  .DISP(display),
-  .LOAD_PAT(load_pat),
-  .NXT_ADR(nxt_adr),
-  .RST_TIMER(rst_timer),
-  .CLK(CLK),
-  .DONE(stop),
-  .RST(RST),
-  .RUN(RUN),
-  .TIMER(timer)
-);
+	reg [22:0] bpi_ad_out_r;
+	reg [15:0] data_out_r;
+	reg read;
+	reg write;
+
+	always @(posedge CLK)
+	begin
+		if(capture)
+			if(AUTO_LOAD_ENA)
+				begin
+					bpi_ad_out_r   <= AL_ADDR;
+					data_out_r     <= AL_CMD_DATA_OUT;
+					write          <= AL_OP[0];
+					read           <= AL_OP[1];
+				end
+			else
+				begin
+					bpi_ad_out_r   <= ADDR;
+					data_out_r     <= CMD_DATA_OUT;
+					write          <= OP[0];
+					read           <= OP[1];
+				end
+	end
+	
+	BPI_intrf_FSM 
+	BPI_intrf_FSM1(
+		.BUSY(BUSY),
+		.CAP(capture),
+		.E(fcs),
+		.G(foe),
+		.L(flatch_addr),
+		.LOAD(LOAD_DATA),
+		.W(fwe),
+		.CLK(CLK),
+		.EXECUTE(execute_i),
+		.READ(read),
+		.RST(RST),
+		.WRITE(write)
+	);
+
+	Startup_Display_FSM 
+	Startup_Display_FSM_i(
+	  .CLEAR(clear),
+	  .DISP(display),
+	  .LOAD_PAT(load_pat),
+	  .NXT_ADR(nxt_adr),
+	  .RST_TIMER(rst_timer),
+	  .CLK(CLK),
+	  .DONE(stop),
+	  .RST(RST),
+	  .RUN(RUN),
+	  .TIMER(timer)
+	);
+	
+	assign bpi_ad_out_i = bpi_ad_out_r;
+	assign data_out_i   = (fcs | BPI_ACTIVE | AUTO_LOAD_ENA) ? data_out_r : leds_out;
+	
 end
 endgenerate
 

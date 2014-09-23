@@ -18,10 +18,12 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module calib_intf(
+module calib_intf #(
+	parameter TMR = 0
+)
+(
 	input CLK40,
-	input RST,
-	input RESYNC,
+	input RST_RESYNC,
 	// external connections
 	input SKW_EXTPLS_P,
 	input SKW_EXTPLS_N,
@@ -41,8 +43,8 @@ module calib_intf(
 	output EXTPULSE_N,
 	output reg TRG_PULSE,
 	// counters
-	output reg [11:0] INJPLSCNT,
-	output reg [11:0] EXTPLSCNT
+	output [11:0] INJPLSCNT,
+	output [11:0] EXTPLSCNT
 	);
   // TTC configuration modes
   parameter 
@@ -52,21 +54,12 @@ module calib_intf(
 
 wire skw_rw_extpls;
 wire skw_rw_injpls;
-//wire fmu_rw_extpls;
 wire fmu_rw_injpls;
 wire trg_extpls;
 wire trg_injpls;
+
 reg ext_pulse;
 reg inj_pulse;
-reg ext_pulse_r1;
-reg inj_pulse_r1;
-wire inc_ext;
-wire inc_inj;
-wire rst_resync;
-
-assign rst_resync = RST || RESYNC;
-assign inc_ext = ext_pulse & ~ext_pulse_r1;
-assign inc_inj = inj_pulse & ~inj_pulse_r1;
 
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_EXP (.O(skw_rw_extpls),.I(SKW_EXTPLS_P),.IB(SKW_EXTPLS_N));
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_IJP (.O(skw_rw_injpls),.I(SKW_INJPLS_P),.IB(SKW_INJPLS_N));
@@ -80,8 +73,6 @@ assign inc_inj = inj_pulse & ~inj_pulse_r1;
 		TRG_PULSE = trg_extpls | trg_injpls;
 		case(TTC_SRC)
 			FF_EMU_mode : begin
-//				ext_pulse = fmu_rw_extpls;
-//				inj_pulse = fmu_rw_injpls;
 				if(CAL_MODE) begin
 						inj_pulse = fmu_rw_injpls;
 						ext_pulse = 1'b0;
@@ -92,8 +83,6 @@ assign inc_inj = inj_pulse & ~inj_pulse_r1;
 					end
 			end
 			FF_EEM_mode : begin
-//				ext_pulse = FEM_EXTPLS;
-//				inj_pulse = FEM_INJPLS;
 				if(CAL_MODE) begin
 						inj_pulse = FEM_INJPLS;
 						ext_pulse = 1'b0;
@@ -113,29 +102,122 @@ assign inc_inj = inj_pulse & ~inj_pulse_r1;
 			end
 		endcase
 	end
+
+generate
+if(TMR==1) 
+begin : Cal_logic_TMR
 	
+	(* syn_preserve = "true" *) reg ext_pulse_r1_1;
+	(* syn_preserve = "true" *) reg ext_pulse_r1_2;
+	(* syn_preserve = "true" *) reg ext_pulse_r1_3;
+	(* syn_preserve = "true" *) reg inj_pulse_r1_1;
+	(* syn_preserve = "true" *) reg inj_pulse_r1_2;
+	(* syn_preserve = "true" *) reg inj_pulse_r1_3;
+	(* syn_preserve = "true" *) reg [11:0] injplscnt_r_1;
+	(* syn_preserve = "true" *) reg [11:0] injplscnt_r_2;
+	(* syn_preserve = "true" *) reg [11:0] injplscnt_r_3;
+	(* syn_preserve = "true" *) reg [11:0] extplscnt_r_1;
+	(* syn_preserve = "true" *) reg [11:0] extplscnt_r_2;
+	(* syn_preserve = "true" *) reg [11:0] extplscnt_r_3;
+	
+	(* syn_keep = "true" *) wire vt_ext_pulse_r1_1;
+	(* syn_keep = "true" *) wire vt_ext_pulse_r1_2;
+	(* syn_keep = "true" *) wire vt_ext_pulse_r1_3;
+	(* syn_keep = "true" *) wire vt_inj_pulse_r1_1;
+	(* syn_keep = "true" *) wire vt_inj_pulse_r1_2;
+	(* syn_keep = "true" *) wire vt_inj_pulse_r1_3;
+	(* syn_keep = "true" *) wire [11:0] vt_injplscnt_r_1;
+	(* syn_keep = "true" *) wire [11:0] vt_injplscnt_r_2;
+	(* syn_keep = "true" *) wire [11:0] vt_injplscnt_r_3;
+	(* syn_keep = "true" *) wire [11:0] vt_extplscnt_r_1;
+	(* syn_keep = "true" *) wire [11:0] vt_extplscnt_r_2;
+	(* syn_keep = "true" *) wire [11:0] vt_extplscnt_r_3;
+	
+	(* syn_keep = "true" *) wire inc_ext_1;
+	(* syn_keep = "true" *) wire inc_ext_2;
+	(* syn_keep = "true" *) wire inc_ext_3;
+	(* syn_keep = "true" *) wire inc_inj_1;
+	(* syn_keep = "true" *) wire inc_inj_2;
+	(* syn_keep = "true" *) wire inc_inj_3;
+
+	assign vt_ext_pulse_r1_1    = (ext_pulse_r1_1 & ext_pulse_r1_2) | (ext_pulse_r1_2 & ext_pulse_r1_3) | (ext_pulse_r1_1 & ext_pulse_r1_3); // Majority logic
+	assign vt_inj_pulse_r1_1    = (inj_pulse_r1_1 & inj_pulse_r1_2) | (inj_pulse_r1_2 & inj_pulse_r1_3) | (inj_pulse_r1_1 & inj_pulse_r1_3); // Majority logic
+	assign vt_injplscnt_r_1     = (injplscnt_r_1  & injplscnt_r_2 ) | (injplscnt_r_2  & injplscnt_r_3 ) | (injplscnt_r_1  & injplscnt_r_3 ); // Majority logic
+	assign vt_extplscnt_r_1     = (extplscnt_r_1  & extplscnt_r_2 ) | (extplscnt_r_2  & extplscnt_r_3 ) | (extplscnt_r_1  & extplscnt_r_3 ); // Majority logic
+
+	assign INJPLSCNT = vt_injplscnt_r_1;
+	assign EXTPLSCNT = vt_extplscnt_r_1;
+	
+	assign inc_ext_1 = ext_pulse & ~vt_ext_pulse_r1_1;
+	assign inc_ext_2 = ext_pulse & ~vt_ext_pulse_r1_2;
+	assign inc_ext_3 = ext_pulse & ~vt_ext_pulse_r1_3;
+	assign inc_inj_1 = inj_pulse & ~vt_inj_pulse_r1_1;
+	assign inc_inj_2 = inj_pulse & ~vt_inj_pulse_r1_2;
+	assign inc_inj_3 = inj_pulse & ~vt_inj_pulse_r1_3;
+
+	always @(posedge CLK40) begin
+		ext_pulse_r1_1 <= ext_pulse;
+		ext_pulse_r1_2 <= ext_pulse;
+		ext_pulse_r1_3 <= ext_pulse;
+		inj_pulse_r1_1 <= inj_pulse;
+		inj_pulse_r1_2 <= inj_pulse;
+		inj_pulse_r1_3 <= inj_pulse;
+	end
+	
+	always @(posedge CLK40 or posedge RST_RESYNC) begin
+		if(RST_RESYNC) begin
+			extplscnt_r_1 <= 12'h000;
+			extplscnt_r_2 <= 12'h000;
+			extplscnt_r_3 <= 12'h000;
+			injplscnt_r_1 <= 12'h000;
+			injplscnt_r_2 <= 12'h000;
+			injplscnt_r_3 <= 12'h000;
+		end
+		else begin
+			extplscnt_r_1 <= inc_ext_1 ? vt_extplscnt_r_1 + 1 : vt_extplscnt_r_1;
+			extplscnt_r_2 <= inc_ext_2 ? vt_extplscnt_r_2 + 1 : vt_extplscnt_r_2;
+			extplscnt_r_3 <= inc_ext_3 ? vt_extplscnt_r_3 + 1 : vt_extplscnt_r_3;
+			injplscnt_r_1 <= inc_inj_1 ? vt_injplscnt_r_1 + 1 : vt_injplscnt_r_1;
+			injplscnt_r_2 <= inc_inj_2 ? vt_injplscnt_r_2 + 1 : vt_injplscnt_r_2;
+			injplscnt_r_3 <= inc_inj_3 ? vt_injplscnt_r_3 + 1 : vt_injplscnt_r_3;
+		end
+	end
+
+end
+else 
+begin : Cal_logic
+
+	reg ext_pulse_r1;
+	reg inj_pulse_r1;
+	reg [11:0] injplscnt_r;
+	reg [11:0] extplscnt_r;
+	
+	wire inc_ext;
+	wire inc_inj;
+
+	assign INJPLSCNT = injplscnt_r;
+	assign EXTPLSCNT = extplscnt_r;
+	
+	assign inc_ext = ext_pulse & ~ext_pulse_r1;
+	assign inc_inj = inj_pulse & ~inj_pulse_r1;
+
 	always @(posedge CLK40) begin
 		ext_pulse_r1 <= ext_pulse;
 		inj_pulse_r1 <= inj_pulse;
 	end
 	
-	always @(posedge CLK40 or posedge rst_resync) begin
-		if(rst_resync)
-			EXTPLSCNT <= 12'h000;
-		else
-			if(inc_ext)
-				EXTPLSCNT <= EXTPLSCNT + 1;
-			else
-				EXTPLSCNT <= EXTPLSCNT;
+	always @(posedge CLK40 or posedge RST_RESYNC) begin
+		if(RST_RESYNC) begin
+			extplscnt_r <= 12'h000;
+			injplscnt_r <= 12'h000;
+		end
+		else begin
+			extplscnt_r <= inc_ext ? extplscnt_r + 1 : extplscnt_r;
+			injplscnt_r <= inc_inj ? injplscnt_r + 1 : injplscnt_r;
+		end
 	end
-	
-	always @(posedge CLK40 or posedge rst_resync) begin
-		if(rst_resync)
-			INJPLSCNT <= 12'h000;
-		else
-			if(inc_inj)
-				INJPLSCNT <= INJPLSCNT + 1;
-			else
-				INJPLSCNT <= INJPLSCNT;
-	end
+
+end
+endgenerate
+
 endmodule
