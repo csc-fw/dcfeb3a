@@ -544,8 +544,8 @@ assign monitor_rxempty = !rxempty_n;
 			sngl_bit_err_cnt_2  <= 8'h00;
 			sngl_bit_err_cnt_3  <= 8'h00;
 			multi_bit_err_cnt_1 <= 8'h00;
+			multi_bit_err_cnt_2 <= 8'h00;
 			multi_bit_err_cnt_3 <= 8'h00;
-			multi_bit_err_cnt_4 <= 8'h00;
 		end
 		else begin
 			sngl_bit_err_cnt_1  <= inc_sngl_cnt_1 ? vt_sngl_bit_err_cnt_1  + 1 : vt_sngl_bit_err_cnt_1;

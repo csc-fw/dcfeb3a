@@ -379,7 +379,7 @@ begin : RGTRNS_logic_TMR
 			l1abuf_2         <= 5'h00;
 			l1abuf_3         <= 5'h00;
 		end
-		else
+		else begin
 			wrt_addr_1       <= WREN ? (vt_wrt_addr_1  & {mask_b12_strt_1,12'hFFF}) + 1 : (vt_wrt_addr_1  & {mask_b12_strt_1,12'hFFF});
 			wrt_addr_2       <= WREN ? (vt_wrt_addr_2  & {mask_b12_strt_2,12'hFFF}) + 1 : (vt_wrt_addr_2  & {mask_b12_strt_2,12'hFFF});
 			wrt_addr_3       <= WREN ? (vt_wrt_addr_3  & {mask_b12_strt_3,12'hFFF}) + 1 : (vt_wrt_addr_3  & {mask_b12_strt_3,12'hFFF});
@@ -395,6 +395,7 @@ begin : RGTRNS_logic_TMR
 			l1abuf_1         <= (l1a_push && !nxt_l1a) ? vt_l1abuf_1 + 1 : ((nxt_l1a && !l1a_push) ? vt_l1abuf_1 - 1 : vt_l1abuf_1);
 			l1abuf_2         <= (l1a_push && !nxt_l1a) ? vt_l1abuf_2 + 1 : ((nxt_l1a && !l1a_push) ? vt_l1abuf_2 - 1 : vt_l1abuf_2);
 			l1abuf_3         <= (l1a_push && !nxt_l1a) ? vt_l1abuf_3 + 1 : ((nxt_l1a && !l1a_push) ? vt_l1abuf_3 - 1 : vt_l1abuf_3);
+		end
 	end
 
 	always @(posedge CLK) begin
@@ -450,12 +451,13 @@ begin : RGTRNS_logic
 			rd_addr        <= 12'h000;
 			l1abuf         <= 5'h00;
 		end
-		else
+		else begin
 			wrt_addr       <= WREN ? (wrt_addr  & {mask_b12_strt,12'hFFF}) + 1 : (wrt_addr  & {mask_b12_strt,12'hFFF});
 			wrt_addr2      <= WREN ? (wrt_addr2 & {mask_b12_rdad,12'hFFF}) + 1 : (wrt_addr2 & {mask_b12_rdad,12'hFFF});
 			prev_strt_addr <= nxt_l1a ? strt_addr : prev_strt_addr;
 			rd_addr        <= ld_addr ? strt_addr : (nxt_wrd ? rd_addr + 1 : rd_addr);
 			l1abuf         <= (l1a_push && !nxt_l1a) ? l1abuf + 1 : ((nxt_l1a && !l1a_push) ? l1abuf - 1 : l1abuf);
+		end
 	end
 
 	always @(posedge CLK) begin

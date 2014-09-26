@@ -258,37 +258,40 @@ assign daq8ch[6][1] = G6DAQ8CH_1;
 genvar G,S;
 
 generate
-	if(TMR==1) 
-	begin
-		(* syn_preserve = "true" *) reg re_s1_1[6:1][1:0];
-		(* syn_preserve = "true" *) reg re_s1_2[6:1][1:0];
-		(* syn_preserve = "true" *) reg re_s1_3[6:1][1:0];
-		(* syn_preserve = "true" *) reg re_s2_1[6:1][1:0];
-		(* syn_preserve = "true" *) reg re_s2_2[6:1][1:0];
-		(* syn_preserve = "true" *) reg re_s2_3[6:1][1:0];
-		(* syn_preserve = "true" *) reg re_sync_1[6:1][1:0];
-		(* syn_preserve = "true" *) reg re_sync_2[6:1][1:0];
-		(* syn_preserve = "true" *) reg re_sync_3[6:1][1:0];
-		
-		(* syn_keep = "true" *) wire vt_re_s1_1[6:1][1:0];
-		(* syn_keep = "true" *) wire vt_re_s1_2[6:1][1:0];
-		(* syn_keep = "true" *) wire vt_re_s1_3[6:1][1:0];
-		(* syn_keep = "true" *) wire vt_re_s2_1[6:1][1:0];
-		(* syn_keep = "true" *) wire vt_re_s2_2[6:1][1:0];
-		(* syn_keep = "true" *) wire vt_re_s2_3[6:1][1:0];
-		(* syn_keep = "true" *) wire vt_re_sync_1[6:1][1:0];
-		(* syn_keep = "true" *) wire vt_re_sync_2[6:1][1:0];
-		(* syn_keep = "true" *) wire vt_re_sync_3[6:1][1:0];
-	end
-	else 
-	begin
-		reg re_s1[6:1][1:0];
-		reg re_s2[6:1][1:0];
-		reg re_sync[6:1][1:0];
-	end
+if(TMR==1) 
+begin : Pipeline_logic_TMR
+	(* syn_preserve = "true" *) reg re_s1_1[6:1][1:0];
+	(* syn_preserve = "true" *) reg re_s1_2[6:1][1:0];
+	(* syn_preserve = "true" *) reg re_s1_3[6:1][1:0];
+	(* syn_preserve = "true" *) reg re_s2_1[6:1][1:0];
+	(* syn_preserve = "true" *) reg re_s2_2[6:1][1:0];
+	(* syn_preserve = "true" *) reg re_s2_3[6:1][1:0];
+	(* syn_preserve = "true" *) reg re_sync_1[6:1][1:0];
+	(* syn_preserve = "true" *) reg re_sync_2[6:1][1:0];
+	(* syn_preserve = "true" *) reg re_sync_3[6:1][1:0];
+	
+	(* syn_keep = "true" *) wire vt_re_s1_1[6:1][1:0];
+	(* syn_keep = "true" *) wire vt_re_s1_2[6:1][1:0];
+	(* syn_keep = "true" *) wire vt_re_s1_3[6:1][1:0];
+	(* syn_keep = "true" *) wire vt_re_s2_1[6:1][1:0];
+	(* syn_keep = "true" *) wire vt_re_s2_2[6:1][1:0];
+	(* syn_keep = "true" *) wire vt_re_s2_3[6:1][1:0];
+	(* syn_keep = "true" *) wire vt_re_sync_1[6:1][1:0];
+	(* syn_keep = "true" *) wire vt_re_sync_2[6:1][1:0];
+	(* syn_keep = "true" *) wire vt_re_sync_3[6:1][1:0];
 	
 	for (G=1; G<=6; G=G+1) begin : grp
 		for (S=0; S<2; S=S+1) begin : seg
+	
+			assign vt_re_s1_1[G][S]   = (re_s1_1[G][S]     & re_s1_2[G][S]    ) | (re_s1_2[G][S]     & re_s1_3[G][S]    ) | (re_s1_1[G][S]     & re_s1_3[G][S]    ); // Majority logic
+			assign vt_re_s1_2[G][S]   = (re_s1_1[G][S]     & re_s1_2[G][S]    ) | (re_s1_2[G][S]     & re_s1_3[G][S]    ) | (re_s1_1[G][S]     & re_s1_3[G][S]    ); // Majority logic
+			assign vt_re_s1_3[G][S]   = (re_s1_1[G][S]     & re_s1_2[G][S]    ) | (re_s1_2[G][S]     & re_s1_3[G][S]    ) | (re_s1_1[G][S]     & re_s1_3[G][S]    ); // Majority logic
+			assign vt_re_s2_1[G][S]   = (re_s2_1[G][S]     & re_s2_2[G][S]    ) | (re_s2_2[G][S]     & re_s2_3[G][S]    ) | (re_s2_1[G][S]     & re_s2_3[G][S]    ); // Majority logic
+			assign vt_re_s2_2[G][S]   = (re_s2_1[G][S]     & re_s2_2[G][S]    ) | (re_s2_2[G][S]     & re_s2_3[G][S]    ) | (re_s2_1[G][S]     & re_s2_3[G][S]    ); // Majority logic
+			assign vt_re_s2_3[G][S]   = (re_s2_1[G][S]     & re_s2_2[G][S]    ) | (re_s2_2[G][S]     & re_s2_3[G][S]    ) | (re_s2_1[G][S]     & re_s2_3[G][S]    ); // Majority logic
+			assign vt_re_sync_1[G][S] = (re_sync_1[G][S]   & re_sync_2[G][S]  ) | (re_sync_2[G][S]   & re_sync_3[G][S]  ) | (re_sync_1[G][S]   & re_sync_3[G][S]  ); // Majority logic
+			assign vt_re_sync_2[G][S] = (re_sync_1[G][S]   & re_sync_2[G][S]  ) | (re_sync_2[G][S]   & re_sync_3[G][S]  ) | (re_sync_1[G][S]   & re_sync_3[G][S]  ); // Majority logic
+			assign vt_re_sync_3[G][S] = (re_sync_1[G][S]   & re_sync_2[G][S]  ) | (re_sync_2[G][S]   & re_sync_3[G][S]  ) | (re_sync_1[G][S]   & re_sync_3[G][S]  ); // Majority logic
 		
 			assign fifo_tst_in[G][S] = csp_sel_tpls ? csp_inj_pulse : daq8ch[G][S][0];
 		
@@ -298,7 +301,7 @@ generate
 			  .rd_clk(RDCLK),                      // input rd_clk
 			  .din({daq8ch[G][S][63:1],fifo_tst_in[G][S]}),  // input [63 : 0] din
 			  .wr_en(wena[G][S]),                  // input wr_en
-			  .rd_en(re_sync_i[G][S]),             // input rd_en
+			  .rd_en(vt_re_sync_1[G][S]),          // input rd_en
 			  .injectdbiterr(injectdbiterr),       // input injectdbiterr
 			  .injectsbiterr(injectsbiterr),       // input injectsbiterr
 			  .dout({po[G][S][63:0]}),             // output [63 : 0] dout
@@ -314,7 +317,7 @@ generate
 			  .rd_clk(RDCLK),                      // input rd_clk
 			  .din({32'h00000000,daq8ch[G][S][95:64]}), // input [63 : 0] din
 			  .wr_en(wena[G][S]),                  // input wr_en
-			  .rd_en(re_sync_i[G][S]),             // input rd_en
+			  .rd_en(vt_re_sync_1[G][S]),          // input rd_en
 			  .injectdbiterr(injectdbiterr),       // input injectdbiterr
 			  .injectsbiterr(injectsbiterr),       // input injectsbiterr
 			  .dout({dummy[G][S],po[G][S][95:64]}),// output [63 : 0] dout
@@ -331,7 +334,96 @@ generate
 				if(trst[G][S])
 					tcnt[G][S] <= 10'h000;
 				else
-					case({re_sync_i[G][S],wena[G][S]})
+					case({vt_re_sync_1[G][S],wena[G][S]})
+						2'b00:	tcnt[G][S] <= tcnt[G][S];
+						2'b01:	tcnt[G][S] <= tcnt[G][S] + 1;
+						2'b10:	tcnt[G][S] <= tcnt[G][S] - 1;
+						2'b11:	tcnt[G][S] <= tcnt[G][S];
+						default:	tcnt[G][S] <= tcnt[G][S];
+					endcase
+			end
+			
+			always @(posedge CLK160) begin
+				re_s1_1[G][S] <= rena[G][S];
+				re_s1_2[G][S] <= rena[G][S];
+				re_s1_3[G][S] <= rena[G][S];
+				re_s2_1[G][S] <= vt_re_s1_1[G][S];
+				re_s2_2[G][S] <= vt_re_s1_2[G][S];
+				re_s2_3[G][S] <= vt_re_s1_3[G][S];
+			end
+			always @(posedge RDCLK) begin
+				re_sync_1[G][S] <= vt_re_s2_1[G][S];
+				re_sync_2[G][S] <= vt_re_s2_2[G][S];
+				re_sync_3[G][S] <= vt_re_s2_3[G][S];
+			end
+			
+			Pipe_Start_FSM_TMR 
+			Pipe_Start_FSM (
+			  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
+			  .RE(rena[G][S]),                     // Read enable
+			  .WE(wena[G][S]),                     // Write enable
+			  .CLK(wrclk[G][S]),                   // Clock
+			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
+			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
+			  .RST(RST)                          // Reset
+			);
+			
+			assign re_sync_i[G][S] = vt_re_sync_1[G][S];
+				
+		end
+	end
+end
+else 
+begin : Pipeline_logic
+	reg re_s1[6:1][1:0];
+	reg re_s2[6:1][1:0];
+	reg re_sync[6:1][1:0];
+	
+	for (G=1; G<=6; G=G+1) begin : grp
+		for (S=0; S<2; S=S+1) begin : seg
+		
+			assign fifo_tst_in[G][S] = csp_sel_tpls ? csp_inj_pulse : daq8ch[G][S][0];
+		
+			pipeline_ecc Pipeline_a (              // 36Kb FIFOs with ECC protection
+			  .rst(pipe_reset[G][S] || RST),              // input rst
+			  .wr_clk(wrclk[G][S]),                // input wr_clk
+			  .rd_clk(RDCLK),                      // input rd_clk
+			  .din({daq8ch[G][S][63:1],fifo_tst_in[G][S]}),  // input [63 : 0] din
+			  .wr_en(wena[G][S]),                  // input wr_en
+			  .rd_en(re_sync[G][S]),             // input rd_en
+			  .injectdbiterr(injectdbiterr),       // input injectdbiterr
+			  .injectsbiterr(injectsbiterr),       // input injectsbiterr
+			  .dout({po[G][S][63:0]}),             // output [63 : 0] dout
+			  .full(fl_a[G][S]),                   // output full
+			  .empty(mt_a[G][S]),                  // output empty
+			  .sbiterr(sbiterr_a[G][S]),           // output sbiterr
+			  .dbiterr(dbiterr_a[G][S])            // output dbiterr
+			);
+			
+			pipeline_ecc Pipeline_b (              // 36Kb FIFOs with ECC protection
+			  .rst(pipe_reset[G][S] || RST),              // input rst
+			  .wr_clk(wrclk[G][S]),                // input wr_clk
+			  .rd_clk(RDCLK),                      // input rd_clk
+			  .din({32'h00000000,daq8ch[G][S][95:64]}), // input [63 : 0] din
+			  .wr_en(wena[G][S]),                  // input wr_en
+			  .rd_en(re_sync[G][S]),             // input rd_en
+			  .injectdbiterr(injectdbiterr),       // input injectdbiterr
+			  .injectsbiterr(injectsbiterr),       // input injectsbiterr
+			  .dout({dummy[G][S],po[G][S][95:64]}),// output [63 : 0] dout
+			  .full(fl_b[G][S]),                   // output full
+			  .empty(mt_b[G][S]),                  // output empty
+			  .sbiterr(sbiterr_b[G][S]),           // output sbiterr
+			  .dbiterr(dbiterr_b[G][S])            // output dbiterr
+			);
+			
+
+			assign trst[G][S] = RST | pipe_reset[G][S];
+			
+			always @(posedge CLK160 or posedge trst[G][S]) begin
+				if(trst[G][S])
+					tcnt[G][S] <= 10'h000;
+				else
+					case({re_sync[G][S],wena[G][S]})
 						2'b00:	tcnt[G][S] <= tcnt[G][S];
 						2'b01:	tcnt[G][S] <= tcnt[G][S] + 1;
 						2'b10:	tcnt[G][S] <= tcnt[G][S] - 1;
@@ -340,72 +432,30 @@ generate
 					endcase
 			end
 	
-			if(TMR==1) 
-			begin : Pipeline_FSMs_TMR
-				assign vt_re_s1_1[G][S]   = (re_s1_1[G][S]     & re_s1_2[G][S]    ) | (re_s1_2[G][S]     & re_s1_3[G][S]    ) | (re_s1_1[G][S]     & re_s1_3[G][S]    ); // Majority logic
-				assign vt_re_s1_2[G][S]   = (re_s1_1[G][S]     & re_s1_2[G][S]    ) | (re_s1_2[G][S]     & re_s1_3[G][S]    ) | (re_s1_1[G][S]     & re_s1_3[G][S]    ); // Majority logic
-				assign vt_re_s1_3[G][S]   = (re_s1_1[G][S]     & re_s1_2[G][S]    ) | (re_s1_2[G][S]     & re_s1_3[G][S]    ) | (re_s1_1[G][S]     & re_s1_3[G][S]    ); // Majority logic
-				assign vt_re_s2_1[G][S]   = (re_s2_1[G][S]     & re_s2_2[G][S]    ) | (re_s2_2[G][S]     & re_s2_3[G][S]    ) | (re_s2_1[G][S]     & re_s2_3[G][S]    ); // Majority logic
-				assign vt_re_s2_2[G][S]   = (re_s2_1[G][S]     & re_s2_2[G][S]    ) | (re_s2_2[G][S]     & re_s2_3[G][S]    ) | (re_s2_1[G][S]     & re_s2_3[G][S]    ); // Majority logic
-				assign vt_re_s2_3[G][S]   = (re_s2_1[G][S]     & re_s2_2[G][S]    ) | (re_s2_2[G][S]     & re_s2_3[G][S]    ) | (re_s2_1[G][S]     & re_s2_3[G][S]    ); // Majority logic
-				assign vt_re_sync_1[G][S] = (re_sync_1[G][S]   & re_sync_2[G][S]  ) | (re_sync_2[G][S]   & re_sync_3[G][S]  ) | (re_sync_1[G][S]   & re_sync_3[G][S]  ); // Majority logic
-				assign vt_re_sync_2[G][S] = (re_sync_1[G][S]   & re_sync_2[G][S]  ) | (re_sync_2[G][S]   & re_sync_3[G][S]  ) | (re_sync_1[G][S]   & re_sync_3[G][S]  ); // Majority logic
-				assign vt_re_sync_3[G][S] = (re_sync_1[G][S]   & re_sync_2[G][S]  ) | (re_sync_2[G][S]   & re_sync_3[G][S]  ) | (re_sync_1[G][S]   & re_sync_3[G][S]  ); // Majority logic
-				
-				always @(posedge CLK160) begin
-					re_s1_1[G][S] <= rena[G][S];
-					re_s1_2[G][S] <= rena[G][S];
-					re_s1_3[G][S] <= rena[G][S];
-					re_s2_1[G][S] <= vt_re_s1_1[G][S];
-					re_s2_2[G][S] <= vt_re_s1_2[G][S];
-					re_s2_3[G][S] <= vt_re_s1_3[G][S];
-				end
-				always @(posedge RDCLK) begin
-					re_sync_1[G][S] <= vt_re_s2_1[G][S];
-					re_sync_2[G][S] <= vt_re_s2_2[G][S];
-					re_sync_3[G][S] <= vt_re_s2_3[G][S];
-				end
-				
-				Pipe_Start_FSM_TMR 
-				Pipe_Start_FSM (
-				  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
-				  .RE(rena[G][S]),                     // Read enable
-				  .WE(wena[G][S]),                     // Write enable
-				  .CLK(wrclk[G][S]),                   // Clock
-				  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
-				  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
-				  .RST(RST)                          // Reset
-				);
-				
-				assign re_sync_i[G][S] = vt_re_sync_1[G][S];
-				
+			always @(posedge CLK160) begin
+				re_s1[G][S] <= rena[G][S];
+				re_s2[G][S] <= re_s1[G][S];
 			end
-			else 
-			begin : Pipeline_FSMs
-				always @(posedge CLK160) begin
-					re_s1[G][S] <= rena[G][S];
-					re_s2[G][S] <= re_s1[G][S];
-				end
-				always @(posedge RDCLK) begin
-					re_sync[G][S] <= re_s2[G][S];
-				end
-				
-				Pipe_Start_FSM 
-				Pipe_Start_FSM (
-				  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
-				  .RE(rena[G][S]),                     // Read enable
-				  .WE(wena[G][S]),                     // Write enable
-				  .CLK(wrclk[G][S]),                   // Clock
-				  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
-				  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
-				  .RST(RST)                          // Reset
-				);
-				
-				assign re_sync_i[G][S] = re_sync[G][S];
-				
+			always @(posedge RDCLK) begin
+				re_sync[G][S] <= re_s2[G][S];
 			end
+			
+			Pipe_Start_FSM 
+			Pipe_Start_FSM (
+			  .PIP_RST(pipe_reset[G][S]),          // Reset for pipeline
+			  .RE(rena[G][S]),                     // Read enable
+			  .WE(wena[G][S]),                     // Write enable
+			  .CLK(wrclk[G][S]),                   // Clock
+			  .PDEPTH(PDEPTH),                     // Pipeline depth from JTAG register
+			  .RESTART(JRESTART | restartp[G][S] | csp_restart),  // Restart pipeline signal from JTAG command or from DSR state machine
+			  .RST(RST)                          // Reset
+			);
+			
+			assign re_sync_i[G][S] = re_sync[G][S];
+			
 		end
 	end
+end
 endgenerate
 
 endmodule

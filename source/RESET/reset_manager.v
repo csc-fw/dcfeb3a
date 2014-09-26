@@ -17,6 +17,8 @@ module reset_manager #(
     input EOS,
     input JTAG_SYS_RST,
 	 input CSP_SYS_RST,
+	 input BPI_JRST,
+	 input CSP_BPI_RST,
     input DAQ_MMCM_LOCK,
     input TRG_MMCM_LOCK,
     input CMP_PHS_CHANGE,
@@ -36,8 +38,10 @@ module reset_manager #(
     output ADC_RST,
     output TRG_RST,
 	 output DSR_RST,
+	 output BPI_RST,
     output SYS_RST,
 	 output DAQ_FIFO_RST,
+	 output BPI_FIFO_RST,
 	 output SLOW_FIFO_RST,
 	 output RUN,
 	 output QPLL_LOCK,
@@ -52,6 +56,7 @@ wire por_i;
 wire run_i;  
 wire restart_all;
 wire daq_fifo_rst_done;
+wire bpi_fifo_rst_done;
 wire slow_fifo_rst_done;
 
 
@@ -61,6 +66,7 @@ wire slow_fifo_rst_done;
 
 assign restart_all = (JTAG_SYS_RST || CSP_SYS_RST);
 assign DSR_RST     = ~ADC_RDY || SYS_RST;
+assign BPI_RST     = SYS_RST || BPI_JRST || CSP_BPI_RST;
 
 generate
 if(TMR==1) 
@@ -549,6 +555,14 @@ begin : RSTman_FSMs_TMR
 		.CLK(CLK),
 		.RST(RST_RESYNC) 
 	);
+													 
+	FIFO_Rst_FSM_TMR
+	BPI_FIFO_Rst_FSM_i ( // reset all BPI FIFOs on BPI_RST
+		.DONE(bpi_fifo_rst_done),
+		.FIFO_RST(BPI_FIFO_RST),
+		.CLK(CLK),
+		.RST(BPI_RST) 
+	);
 	
 	FIFO_Rst_FSM_TMR
 	SLOW_FIFO_Rst_FSM_i ( // reset AUTO_LOAD FIFO
@@ -617,6 +631,14 @@ begin : RSTman_FSMs
 		.FIFO_RST(DAQ_FIFO_RST),
 		.CLK(CLK),
 		.RST(RST_RESYNC) 
+	);
+													 
+	FIFO_Rst_FSM
+	BPI_FIFO_Rst_FSM_i ( // reset all BPI FIFOs on BPI_RST
+		.DONE(bpi_fifo_rst_done),
+		.FIFO_RST(BPI_FIFO_RST),
+		.CLK(CLK),
+		.RST(BPI_RST) 
 	);
 	
 	FIFO_Rst_FSM

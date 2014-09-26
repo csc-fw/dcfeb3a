@@ -121,7 +121,9 @@ begin : TRG_logic_TMR
 	assign BC0       = vt_bc0_1;
 
 	always @(posedge CLK40) begin
-		lct_r <= skw_rw_l1a_match;  // for use with old DMB's
+		lct_1 <= skw_rw_l1a_match;  // for use with old DMB's
+		lct_2 <= skw_rw_l1a_match;  // for use with old DMB's
+		lct_3 <= skw_rw_l1a_match;  // for use with old DMB's
 		case(TTC_SRC)
 			FF_EMU_mode : begin
 				l1a_1       <= fmu_rw_l1a;

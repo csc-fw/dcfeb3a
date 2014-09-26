@@ -168,12 +168,12 @@ begin : XF2RB_logic_TMR
 	assign DMUX   = vt_dmux_1;
 
 	always @(posedge CLK) begin
-		re_1 <= re;
-		re_2 <= re;
-		re_3 <= re;
+		re_r_1 <= re;
+		re_r_2 <= re;
+		re_r_3 <= re;
 		wren_1 <= vt_re_r_1;
-		wren_2 <= vt_re_r_1;
-		wren_3 <= vt_re_r_1;
+		wren_2 <= vt_re_r_2;
+		wren_3 <= vt_re_r_3;
 		channel_r_1 <= channel;
 		channel_r_2 <= channel;
 		channel_r_3 <= channel;
@@ -320,7 +320,7 @@ begin : XF2RB_logic
 
 	always @(posedge CLK) begin
 		re_r <= re;
-		WREN <= re_r;
+		wren_r <= re_r;
 		channel_r <= channel;
 	end
 

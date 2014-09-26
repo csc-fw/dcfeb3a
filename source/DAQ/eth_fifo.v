@@ -79,6 +79,9 @@ wire [15:0] frame_i;
 wire clr_crc_i;
 wire mt_r3_i;
 
+wire serial_i;
+wire l1a_out_i;
+
 assign injectdbiterr = 0;
 assign injectsbiterr = 0;
 assign l1ahigh = l1anum[23:12];
@@ -129,8 +132,8 @@ eth_fifo_la eth_fifo_la_i (
 	assign rng_eth_la_data[129]     = mt_r3_i;
 	assign rng_eth_la_data[130]     = ovrlp;
 	assign rng_eth_la_data[131]     = movlp;
-	assign rng_eth_la_data[132]     = serial;
-	assign rng_eth_la_data[133]     = l1a_out;
+	assign rng_eth_la_data[132]     = serial_i;
+	assign rng_eth_la_data[133]     = l1a_out_i;
 	assign rng_eth_la_data[134]     = ce;
 	assign rng_eth_la_data[135]     = ld_l1a_h;
 	assign rng_eth_la_data[136]     = l1a_phs;
@@ -255,9 +258,9 @@ begin : Eth_FIFO_logic_TMR
 	(* syn_keep = "true" *) wire [15:0] vt_txd_1;
 	(* syn_keep = "true" *) wire [15:0] vt_txd_2;
 	(* syn_keep = "true" *) wire [15:0] vt_txd_3;
-	(* syn_keep = "true" *) wire txd_vld_1;
-	(* syn_keep = "true" *) wire txd_vld_2;
-	(* syn_keep = "true" *) wire txd_vld_3;
+	(* syn_keep = "true" *) wire vt_txd_vld_1;
+	(* syn_keep = "true" *) wire vt_txd_vld_2;
+	(* syn_keep = "true" *) wire vt_txd_vld_3;
 	
 	(* syn_keep = "true" *) wire [4:0] vt_l1abuf_1;
 	(* syn_keep = "true" *) wire [4:0] vt_l1abuf_2;
@@ -309,6 +312,13 @@ begin : Eth_FIFO_logic_TMR
 	(* syn_keep = "true" *) wire l1a_out_1;
 	(* syn_keep = "true" *) wire l1a_out_2;
 	(* syn_keep = "true" *) wire l1a_out_3;
+	
+	assign vt_txd_1           = (txd_1           & txd_2          ) | (txd_2           & txd_3          ) | (txd_1           & txd_3          ); // Majority logic
+	assign vt_txd_2           = (txd_1           & txd_2          ) | (txd_2           & txd_3          ) | (txd_1           & txd_3          ); // Majority logic
+	assign vt_txd_3           = (txd_1           & txd_2          ) | (txd_2           & txd_3          ) | (txd_1           & txd_3          ); // Majority logic
+	assign vt_txd_vld_1       = (txd_vld_1       & txd_vld_2      ) | (txd_vld_2       & txd_vld_3      ) | (txd_vld_1       & txd_vld_3      ); // Majority logic
+	assign vt_txd_vld_2       = (txd_vld_1       & txd_vld_2      ) | (txd_vld_2       & txd_vld_3      ) | (txd_vld_1       & txd_vld_3      ); // Majority logic
+	assign vt_txd_vld_3       = (txd_vld_1       & txd_vld_2      ) | (txd_vld_2       & txd_vld_3      ) | (txd_vld_1       & txd_vld_3      ); // Majority logic
 
 	assign vt_l1abuf_1        = (l1abuf_1        & l1abuf_2       ) | (l1abuf_2        & l1abuf_3       ) | (l1abuf_1        & l1abuf_3       ); // Majority logic
 	assign vt_l1abuf_2        = (l1abuf_1        & l1abuf_2       ) | (l1abuf_2        & l1abuf_3       ) | (l1abuf_1        & l1abuf_3       ); // Majority logic
@@ -359,6 +369,9 @@ begin : Eth_FIFO_logic_TMR
 	assign l1a_out_1 = vt_nxt_l1a_sync1_1 & ~vt_nxt_l1a_sync2_1;
 	assign l1a_out_2 = vt_nxt_l1a_sync1_2 & ~vt_nxt_l1a_sync2_2;
 	assign l1a_out_3 = vt_nxt_l1a_sync1_3 & ~vt_nxt_l1a_sync2_3;
+	
+	assign serial_i  = serial_1;
+	assign l1a_out_i = l1a_out_1;
 
 	assign l1abuf_i  = vt_l1abuf_1;
 	assign fullwrd_i = vt_fullwrd_1;
@@ -370,17 +383,17 @@ begin : Eth_FIFO_logic_TMR
 		case(seq)  // seq counts from 0
 			7'd72, 7'd73, 7'd74, 7'd75, 7'd76,7'd77: serial_1 = l1a_phs;
 			7'd90, 7'd91, 7'd92, 7'd93, 7'd94,7'd95: serial_1 = (SAMP_MAX == 7'h0F);
-			default: serial = 0;
+			default: serial_1 = 0;
 		endcase
 		case(seq)  // seq counts from 0
 			7'd72, 7'd73, 7'd74, 7'd75, 7'd76,7'd77: serial_2 = l1a_phs;
 			7'd90, 7'd91, 7'd92, 7'd93, 7'd94,7'd95: serial_2 = (SAMP_MAX == 7'h0F);
-			default: serial = 0;
+			default: serial_2 = 0;
 		endcase
 		case(seq)  // seq counts from 0
 			7'd72, 7'd73, 7'd74, 7'd75, 7'd76,7'd77: serial_3 = l1a_phs;
 			7'd90, 7'd91, 7'd92, 7'd93, 7'd94,7'd95: serial_3 = (SAMP_MAX == 7'h0F);
-			default: serial = 0;
+			default: serial_3 = 0;
 		endcase
 	end
 
@@ -519,6 +532,9 @@ begin : Eth_FIFO_logic
 	assign TXD       = txd_r;
 	assign TXD_VLD   = txd_vld_r;
 	assign l1a_out   = nxt_l1a_sync1 & ~nxt_l1a_sync2;
+	
+	assign serial_i  = serial;
+	assign l1a_out_i = l1a_out;
 
 	assign l1abuf_i  = l1abuf;
 	assign fullwrd_i = fullwrd;

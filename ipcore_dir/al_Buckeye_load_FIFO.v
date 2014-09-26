@@ -33,7 +33,7 @@
 
 `timescale 1 ns/1 ps
 
-module reset_builtin (
+module reset_builtin_al_Buckeye_load_FIFO (
   CLK, WR_CLK, RD_CLK, INT_CLK, RST, WR_RST_I, RD_RST_I, INT_RST_I
 )/* synthesis syn_black_box syn_noprune=1 */;
   input CLK;
@@ -386,7 +386,7 @@ module al_Buckeye_load_FIFO (
   GND   XST_GND (
     .G(N1)
   );
-  reset_builtin   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt  (
+  reset_builtin_al_Buckeye_load_FIFO   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt  (
     .CLK(N1),
     .WR_CLK(wr_clk),
     .RD_CLK(rd_clk),

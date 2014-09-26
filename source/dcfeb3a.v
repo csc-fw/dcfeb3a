@@ -27,8 +27,8 @@ module dcfeb3a #(
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
 //	parameter ADC_Init_tmo = 12'd1, 
-	parameter TMR = 1,
-	parameter TMR_Err_Det = 1
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
 	)(
 
 	//Clocks
@@ -626,10 +626,10 @@ end
 	wire bpi_jre;
 	wire bpi_jrst;
 	wire bpi_rst;
+	wire bpi_fifo_rst;
+	wire csp_bpi_rst;
 	wire BPI_disable;
 	wire BPI_enable;
-
- 	assign bpi_rst = sys_rst || bpi_jrst;
 
 	BPI_ctrl #(
 		.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE),
@@ -642,6 +642,7 @@ end
     .CLK(clk40),
     .CLK1MHZ(clk1mhz),
     .RST(bpi_rst),
+    .BPI_FIFO_RST(bpi_fifo_rst),
 	 // Interface Signals to/from JTAG interface
 	 .BPI_CMD_FIFO_DATA(bpi_cmd_fifo_data),
 	 .BPI_WE(bpi_jwe),
@@ -656,6 +657,7 @@ end
 	 .BPI_BUSY(bpi_busy),
 	 .BPI_DATA_FROM(bpi_data_from),
 	 .BPI_LOAD_DATA(bpi_load_data),
+	 .CSP_BPI_RST(csp_bpi_rst),
 	 .BPI_ACTIVE(bpi_active),
 	 .BPI_OP(bpi_op),
 	 .BPI_ADDR(bpi_addr),
@@ -1851,6 +1853,8 @@ endgenerate
 		.EOS(eos),
 		.JTAG_SYS_RST(jtag_sys_rst),
 		.CSP_SYS_RST(csp_sys_rst),
+		.BPI_JRST(bpi_jrst),
+		.CSP_BPI_RST(csp_bpi_rst),
 		.DAQ_MMCM_LOCK(daq_mmcm_lock),
 		.TRG_MMCM_LOCK(trg_mmcm_lock),
 		.CMP_PHS_CHANGE(cmp_phs_change),     // Comp Clock Phase Change in progress; Reset TMB path transceiver.
@@ -1871,8 +1875,10 @@ endgenerate
 		.ADC_RST(adc_rst),
 		.TRG_RST(comp_rst),
 		.DSR_RST(dsr_rst),
+		.BPI_RST(bpi_rst),
 		.SYS_RST(sys_rst),
 		.DAQ_FIFO_RST(daq_fifo_rst),
+		.BPI_FIFO_RST(bpi_fifo_rst),
 		.SLOW_FIFO_RST(slow_fifo_rst),
 		.RUN(run),
 		.QPLL_LOCK(qpll_lock),

@@ -516,7 +516,7 @@ begin : DAQ_Pkt_TMR
 	(* syn_preserve = "true" *) reg txd_vld1_3;
 	(* syn_preserve = "true" *) reg crc_vld1_1;
 	(* syn_preserve = "true" *) reg crc_vld1_2;
-	(* syn_preserve = "true" *) reg crc_vld1_2;
+	(* syn_preserve = "true" *) reg crc_vld1_3;
 	(* syn_preserve = "true" *) reg crc_vld2_1;
 	(* syn_preserve = "true" *) reg crc_vld2_2;
 	(* syn_preserve = "true" *) reg crc_vld2_3;
@@ -547,7 +547,7 @@ begin : DAQ_Pkt_TMR
 	(* syn_keep = "true" *) wire vt_txd_vld1_3;
 	(* syn_keep = "true" *) wire vt_crc_vld1_1;
 	(* syn_keep = "true" *) wire vt_crc_vld1_2;
-	(* syn_keep = "true" *) wire vt_crc_vld1_2;
+	(* syn_keep = "true" *) wire vt_crc_vld1_3;
 	(* syn_keep = "true" *) wire vt_crc_vld2_1;
 	(* syn_keep = "true" *) wire vt_crc_vld2_2;
 	(* syn_keep = "true" *) wire vt_crc_vld2_3;
