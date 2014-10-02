@@ -104,11 +104,10 @@ wire pre_clk40;
 wire pre_clk20, pre_clk20_b;
 wire clk20_nophase;
 wire clk20_nophase_b;
-wire trl_edg_rst;
-wire clr_dsr_ho;
 wire rst_samp_mmcm;
-wire rst_mmcm_pipe_in;
 wire samp_in_sel;
+wire cmp_phs_inc_i;
+wire c20_phase_sel_i;
   
 	assign CMP_PHS_RST = RST || CMP_PHS_JTAG_RST;
   
@@ -128,12 +127,6 @@ generate
 if(TMR==1) 
 begin : Samp_Clk_TMR
 
-	wire rst_d2;
-	wire resync_d1;
-	wire cap_phase;
-	wire rst_mmcm_pipe;
-	wire c20_phase_sel;
-	wire dsr_ho_tmr;
 
 	(* syn_preserve = "true" *) reg rst_d1_1;
 	(* syn_preserve = "true" *) reg rst_d1_2;
@@ -225,9 +218,9 @@ begin : Samp_Clk_TMR
 	assign vt_resync_d1_1     = (resync_d1_1     & resync_d1_2    ) | (resync_d1_2     & resync_d1_3    ) | (resync_d1_1     & resync_d1_3    ); // Majority logic
 	assign vt_resync_d1_2     = (resync_d1_1     & resync_d1_2    ) | (resync_d1_2     & resync_d1_3    ) | (resync_d1_1     & resync_d1_3    ); // Majority logic
 	assign vt_resync_d1_3     = (resync_d1_1     & resync_d1_2    ) | (resync_d1_2     & resync_d1_3    ) | (resync_d1_1     & resync_d1_3    ); // Majority logic
-	assign vt_lead_edg_resync_d1_1 = (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_2) | (vt_lead_edg_resync_d1_2 & vt_lead_edg_resync_d1_3) | (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_3); // Majority logic
-	assign vt_lead_edg_resync_d1_2 = (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_2) | (vt_lead_edg_resync_d1_2 & vt_lead_edg_resync_d1_3) | (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_3); // Majority logic
-	assign vt_lead_edg_resync_d1_3 = (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_2) | (vt_lead_edg_resync_d1_2 & vt_lead_edg_resync_d1_3) | (vt_lead_edg_resync_d1_1 & vt_lead_edg_resync_d1_3); // Majority logic
+	assign vt_lead_edg_resync_d1_1 = (lead_edg_resync_d1_1 & lead_edg_resync_d1_2) | (lead_edg_resync_d1_2 & lead_edg_resync_d1_3) | (lead_edg_resync_d1_1 & lead_edg_resync_d1_3); // Majority logic
+	assign vt_lead_edg_resync_d1_2 = (lead_edg_resync_d1_1 & lead_edg_resync_d1_2) | (lead_edg_resync_d1_2 & lead_edg_resync_d1_3) | (lead_edg_resync_d1_1 & lead_edg_resync_d1_3); // Majority logic
+	assign vt_lead_edg_resync_d1_3 = (lead_edg_resync_d1_1 & lead_edg_resync_d1_2) | (lead_edg_resync_d1_2 & lead_edg_resync_d1_3) | (lead_edg_resync_d1_1 & lead_edg_resync_d1_3); // Majority logic
 	assign vt_cap_phase_1     = (cap_phase_1     & cap_phase_2    ) | (cap_phase_2     & cap_phase_3    ) | (cap_phase_1     & cap_phase_3    ); // Majority logic
 	assign vt_cap_phase_2     = (cap_phase_1     & cap_phase_2    ) | (cap_phase_2     & cap_phase_3    ) | (cap_phase_1     & cap_phase_3    ); // Majority logic
 	assign vt_cap_phase_3     = (cap_phase_1     & cap_phase_2    ) | (cap_phase_2     & cap_phase_3    ) | (cap_phase_1     & cap_phase_3    ); // Majority logic
@@ -349,18 +342,10 @@ begin : Samp_Clk_TMR
 	assign RST_MMCM_PIPE      = vt_rst_mmcm_pipe_1;
 	assign DSR_RESYNC         = vt_dsr_ho_1;
 
-	assign rst_d2         = vt_rst_d2_1;
-	assign resync_d1      = vt_resync_d1_1;
-	assign cap_phase      = vt_cap_phase_1;
-	assign rst_mmcm_pipe  = vt_rst_mmcm_pipe_1;
-	assign c20_phase_sel  = vt_c20_phase_sel_1;
-	assign dsr_ho_tmr     = vt_dsr_ho_tmr_1;
+	assign c20_phase_sel_i = vt_c20_phase_sel_1;
 	
-	assign trl_edg_rst      = (trl_edg_rst_1      & trl_edg_rst_2     ) | (trl_edg_rst_2      & trl_edg_rst_3     ) | (trl_edg_rst_1      & trl_edg_rst_3     ); // Majority logic
 	assign LEAD_EDG_RESYNC  = (lead_edg_resync_1  & lead_edg_resync_2 ) | (lead_edg_resync_2  & lead_edg_resync_3 ) | (lead_edg_resync_1  & lead_edg_resync_3 ); // Majority logic
-	assign rst_mmcm_pipe_in = (rst_mmcm_pipe_in_1 & rst_mmcm_pipe_in_2) | (rst_mmcm_pipe_in_2 & rst_mmcm_pipe_in_3) | (rst_mmcm_pipe_in_1 & rst_mmcm_pipe_in_3); // Majority logic
 	assign rst_samp_mmcm    = (rst_samp_mmcm_1    & rst_samp_mmcm_2   ) | (rst_samp_mmcm_2    & rst_samp_mmcm_3   ) | (rst_samp_mmcm_1    & rst_samp_mmcm_3   ); // Majority logic
-	assign clr_dsr_ho       = (clr_dsr_ho_1       & clr_dsr_ho_2      ) | (clr_dsr_ho_2       & clr_dsr_ho_3      ) | (clr_dsr_ho_1       & clr_dsr_ho_3      ); // Majority logic
 	assign samp_in_sel      = (samp_in_sel_1      & samp_in_sel_2     ) | (samp_in_sel_2      & samp_in_sel_3     ) | (samp_in_sel_1      & samp_in_sel_3     ); // Majority logic
 
 end
@@ -377,6 +362,10 @@ begin : Samp_Clk_No_TMR
 	reg c20_phase_sel;
 	reg dsr_ho;
 	reg [7:0] dsr_ho_tmr;
+	
+	wire trl_edg_rst;
+	wire rst_mmcm_pipe_in;
+	wire clr_dsr_ho;
 
 	always @(posedge CLK40)
 	begin
@@ -443,6 +432,7 @@ begin : Samp_Clk_No_TMR
 	assign rst_samp_mmcm = |rst_mmcm_pipe;
 	assign clr_dsr_ho = (dsr_ho_tmr == 8'd100); //100uS
 	assign samp_in_sel = SAMP_CLK_PHASE[2] ^ c20_phase_sel;
+	assign c20_phase_sel_i = c20_phase_sel;
 
 end
 endgenerate
@@ -491,7 +481,7 @@ daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
       .O(CLK20),
       .I0(pre_clk20),
       .I1(pre_clk20_b),
-      .S(c20_phase_sel)
+      .S(c20_phase_sel_i)
    );
 
 
@@ -608,7 +598,7 @@ endgenerate
     // Dynamic phase shift ports
     .PSCLK(CLK40),// IN
     .PSEN(CMP_PHS_PSEN), // IN
-    .PSINCDEC(cmp_phs_inc),     // IN
+    .PSINCDEC(cmp_phs_inc_i),     // IN
     .PSDONE(CMP_PHS_PSDONE),       // OUT
     // Status and control signals
     .RESET(CMP_PHS_RST),// IN
@@ -666,8 +656,6 @@ begin : Comp_Phase_FSM_TMR
   (* syn_keep = "true" *) wire vt_cmp_phs_chg_m1_2;
   (* syn_keep = "true" *) wire vt_cmp_phs_chg_m1_3;
   (* syn_keep = "true" *) wire vt_cmp_phs_change_1;
-  (* syn_keep = "true" *) wire vt_cmp_phs_change_2;
-  (* syn_keep = "true" *) wire vt_cmp_phs_change_3;
   (* syn_keep = "true" *) wire vt_cmp_phs_inc_1;
   (* syn_keep = "true" *) wire vt_cmp_phs_inc_2;
   (* syn_keep = "true" *) wire vt_cmp_phs_inc_3;
@@ -685,8 +673,6 @@ begin : Comp_Phase_FSM_TMR
   assign vt_cmp_phs_chg_m1_2 = (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_2) | (cmp_phs_chg_m1_2 & cmp_phs_chg_m1_3) | (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_3); // Majority logic
   assign vt_cmp_phs_chg_m1_3 = (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_2) | (cmp_phs_chg_m1_2 & cmp_phs_chg_m1_3) | (cmp_phs_chg_m1_1 & cmp_phs_chg_m1_3); // Majority logic
   assign vt_cmp_phs_change_1 = (cmp_phs_change_1 & cmp_phs_change_2) | (cmp_phs_change_2 & cmp_phs_change_3) | (cmp_phs_change_1 & cmp_phs_change_3); // Majority logic
-  assign vt_cmp_phs_change_2 = (cmp_phs_change_1 & cmp_phs_change_2) | (cmp_phs_change_2 & cmp_phs_change_3) | (cmp_phs_change_1 & cmp_phs_change_3); // Majority logic
-  assign vt_cmp_phs_change_3 = (cmp_phs_change_1 & cmp_phs_change_2) | (cmp_phs_change_2 & cmp_phs_change_3) | (cmp_phs_change_1 & cmp_phs_change_3); // Majority logic
   assign vt_cmp_phs_inc_1    = (cmp_phs_inc_1    & cmp_phs_inc_2)    | (cmp_phs_inc_2    & cmp_phs_inc_3   ) | (cmp_phs_inc_1    & cmp_phs_inc_3   ); // Majority logic
   assign vt_cmp_phs_inc_2    = (cmp_phs_inc_1    & cmp_phs_inc_2)    | (cmp_phs_inc_2    & cmp_phs_inc_3   ) | (cmp_phs_inc_1    & cmp_phs_inc_3   ); // Majority logic
   assign vt_cmp_phs_inc_3    = (cmp_phs_inc_1    & cmp_phs_inc_2)    | (cmp_phs_inc_2    & cmp_phs_inc_3   ) | (cmp_phs_inc_1    & cmp_phs_inc_3   ); // Majority logic
@@ -768,6 +754,8 @@ begin : Comp_Phase_FSM_TMR
 	end
 	assign CMP_PHASE = vt_cmp_phase_1;
 	assign CMP_PHS_CHANGE = vt_cmp_phs_change_1;
+	assign cmp_phs_inc_i = vt_cmp_phs_inc_1;
+	
 end
 else 
 begin : Comp_Phase_FSM
@@ -819,6 +807,8 @@ begin : Comp_Phase_FSM
 	assign CMP_PHS_ERRCNT = 0;
 	assign CMP_PHASE = cmp_phase;
 	assign CMP_PHS_CHANGE = cmp_phs_change;
+	assign cmp_phs_inc_i = cmp_phs_inc;
+	
 end
 endgenerate
 

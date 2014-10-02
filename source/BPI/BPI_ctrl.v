@@ -598,7 +598,7 @@ begin : BPI_logic_TMR
 	(* syn_preserve = "true" *) reg parser_active_r_3;
 	(* syn_preserve = "true" *) reg pe_in_suspense_3;
 
-	(* syn_keep = "true" *) wire [1:0]  vt_read_mode_1 = 2'b00;
+	(* syn_keep = "true" *) wire [1:0]  vt_read_mode_1;
 	(* syn_keep = "true" *) wire [7:0]  vt_sr_reg_1;
 	(* syn_keep = "true" *) wire [15:0] vt_esig_reg_1;
 	(* syn_keep = "true" *) wire [15:0] vt_cfiq_reg_1;
@@ -625,7 +625,7 @@ begin : BPI_logic_TMR
 	(* syn_keep = "true" *) wire vt_parser_active_r_1;
 	(* syn_keep = "true" *) wire vt_pe_in_suspense_1;
 
-	(* syn_keep = "true" *) wire [1:0]  vt_read_mode_2 = 2'b00;
+	(* syn_keep = "true" *) wire [1:0]  vt_read_mode_2;
 	(* syn_keep = "true" *) wire [7:0]  vt_sr_reg_2;
 	(* syn_keep = "true" *) wire [15:0] vt_esig_reg_2;
 	(* syn_keep = "true" *) wire [15:0] vt_cfiq_reg_2;
@@ -652,7 +652,7 @@ begin : BPI_logic_TMR
 	(* syn_keep = "true" *) wire vt_parser_active_r_2;
 	(* syn_keep = "true" *) wire vt_pe_in_suspense_2;
 
-	(* syn_keep = "true" *) wire [1:0]  vt_read_mode_3 = 2'b00;
+	(* syn_keep = "true" *) wire [1:0]  vt_read_mode_3;
 	(* syn_keep = "true" *) wire [7:0]  vt_sr_reg_3;
 	(* syn_keep = "true" *) wire [15:0] vt_esig_reg_3;
 	(* syn_keep = "true" *) wire [15:0] vt_cfiq_reg_3;
@@ -1227,21 +1227,21 @@ begin : BPI_logic_TMR
 			
 			if(ld_status)
 				bpi_status_r_1 <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | vt_bpi_status_r_1[13], bpi_rbk_wrterr | vt_bpi_status_r_1[12], bpi_cmd_mt, bpi_cmd_full, bpi_rderr | vt_bpi_status_r_1[9], bpi_wrterr | vt_bpi_status_r_1[8], vt_sr_reg_1};
-			else if(clr_error_bits)
+			else if(clr_error_bits_1)
 				bpi_status_r_1 <= {bpi_rbk_mt, bpi_rbk_full, 1'b0, 1'b0,bpi_cmd_mt, bpi_cmd_full, 1'b0, 1'b0,vt_sr_reg_1[7:6],3'b000,vt_sr_reg_1[2],1'b0,vt_sr_reg_1[0]};
 			else
 				bpi_status_r_1 <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | vt_bpi_status_r_1[13], bpi_rbk_wrterr | vt_bpi_status_r_1[12], bpi_cmd_mt, bpi_cmd_full, bpi_rderr | vt_bpi_status_r_1[9], bpi_wrterr | vt_bpi_status_r_1[8], vt_sr_reg_1[7:6], vt_bpi_status_r_1[5:3], vt_sr_reg_1[2], vt_bpi_status_r_1[1], vt_sr_reg_1[0]};
 			//
 			if(ld_status)
 				bpi_status_r_2 <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | vt_bpi_status_r_2[13], bpi_rbk_wrterr | vt_bpi_status_r_2[12], bpi_cmd_mt, bpi_cmd_full, bpi_rderr | vt_bpi_status_r_2[9], bpi_wrterr | vt_bpi_status_r_2[8], vt_sr_reg_2};
-			else if(clr_error_bits)
+			else if(clr_error_bits_2)
 				bpi_status_r_2 <= {bpi_rbk_mt, bpi_rbk_full, 1'b0, 1'b0,bpi_cmd_mt, bpi_cmd_full, 1'b0, 1'b0,vt_sr_reg_2[7:6],3'b000,vt_sr_reg_2[2],1'b0,vt_sr_reg_2[0]};
 			else
 				bpi_status_r_2 <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | vt_bpi_status_r_2[13], bpi_rbk_wrterr | vt_bpi_status_r_2[12], bpi_cmd_mt, bpi_cmd_full, bpi_rderr | vt_bpi_status_r_2[9], bpi_wrterr | vt_bpi_status_r_2[8], vt_sr_reg_2[7:6], vt_bpi_status_r_2[5:3], vt_sr_reg_2[2], vt_bpi_status_r_2[1], vt_sr_reg_2[0]};
 			//
 			if(ld_status)
 				bpi_status_r_3 <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | vt_bpi_status_r_3[13], bpi_rbk_wrterr | vt_bpi_status_r_3[12], bpi_cmd_mt, bpi_cmd_full, bpi_rderr | vt_bpi_status_r_3[9], bpi_wrterr | vt_bpi_status_r_3[8], vt_sr_reg_3};
-			else if(clr_error_bits)
+			else if(clr_error_bits_3)
 				bpi_status_r_3 <= {bpi_rbk_mt, bpi_rbk_full, 1'b0, 1'b0,bpi_cmd_mt, bpi_cmd_full, 1'b0, 1'b0,vt_sr_reg_3[7:6],3'b000,vt_sr_reg_3[2],1'b0,vt_sr_reg_3[0]};
 			else
 				bpi_status_r_3 <= {bpi_rbk_mt, bpi_rbk_full, bpi_rbk_rderr | vt_bpi_status_r_3[13], bpi_rbk_wrterr | vt_bpi_status_r_3[12], bpi_cmd_mt, bpi_cmd_full, bpi_rderr | vt_bpi_status_r_3[9], bpi_wrterr | vt_bpi_status_r_3[8], vt_sr_reg_3[7:6], vt_bpi_status_r_3[5:3], vt_sr_reg_3[2], vt_bpi_status_r_3[1], vt_sr_reg_3[0]};

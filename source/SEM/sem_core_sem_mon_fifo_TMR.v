@@ -156,9 +156,9 @@ module sem_core_sem_mon_fifo_TMR (
   (* syn_keep = "true" *)     wire  [5:0] vt_augend_2;
   (* syn_keep = "true" *)     wire  [5:0] vt_augend_3;
 
-  (* syn_keep = "true" *)     wire  [1:0] data_out_1;
-  (* syn_keep = "true" *)     wire  [1:0] data_out_2;
-  (* syn_keep = "true" *)     wire  [1:0] data_out_3;
+  (* syn_keep = "true" *)     wire  [7:0] data_out_1;
+  (* syn_keep = "true" *)     wire  [7:0] data_out_2;
+  (* syn_keep = "true" *)     wire  [7:0] data_out_3;
   
   assign vt_augend_1 = (augend_1   & augend_2  ) | (augend_2   & augend_3  ) | (augend_1   & augend_3  ); // Majority logic
   assign vt_augend_2 = (augend_1   & augend_2  ) | (augend_2   & augend_3  ) | (augend_1   & augend_3  ); // Majority logic

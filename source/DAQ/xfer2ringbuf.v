@@ -45,6 +45,8 @@ module xfer2ringbuf #(
 	wire [3:0]channel;
 	wire [2:0] xstate;
 	
+	wire re_r_i;
+	wire [3:0]channel_r_i;
 
 	
 generate
@@ -89,8 +91,8 @@ xfer2ring_la xfer2ring_la_i (
 	assign xfer2ring_la_data[114]    = 1'b0;
 	assign xfer2ring_la_data[115]    = TRIG_IN;
 	assign xfer2ring_la_data[116]    = TRIG_OUT;
-	assign xfer2ring_la_data[117]    = re_r;
-	assign xfer2ring_la_data[121:118]= channel_r;
+	assign xfer2ring_la_data[117]    = re_r_i;
+	assign xfer2ring_la_data[121:118]= channel_r_i;
 
 // LA Trigger [11:0]
 	assign xfer2ring_la_trig[2:0]    = xstate;
@@ -166,6 +168,9 @@ begin : XF2RB_logic_TMR
 	assign WREN   = vt_wren_1;
 	assign RD_ENA = vt_rd_ena_1;
 	assign DMUX   = vt_dmux_1;
+
+	assign re_r_i      = vt_re_r_1;
+	assign channel_r_i = vt_channel_r_1;
 
 	always @(posedge CLK) begin
 		re_r_1 <= re;
@@ -317,6 +322,9 @@ begin : XF2RB_logic
 	assign WREN   = wren_r;
 	assign RD_ENA = rd_ena_r;
 	assign DMUX   = dmux_r;
+
+	assign re_r_i      = re_r;
+	assign channel_r_i = channel_r;
 
 	always @(posedge CLK) begin
 		re_r <= re;

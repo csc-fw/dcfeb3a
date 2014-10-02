@@ -59,6 +59,12 @@ wire daq_fifo_rst_done;
 wire bpi_fifo_rst_done;
 wire slow_fifo_rst_done;
 
+wire adc_rdy_r2_i;
+wire al_done_r2_i;
+wire bpi_seq_idle_r2_i;
+wire daq_mmcm_lock_r2_i;
+wire qpll_lock_r2_i;
+wire [11:0] dsr_tmr_i;
 
  IBUF IBUF_QP_ERROR (.O(QPLL_ERROR),.I(QP_ERROR));
  IBUF IBUF_QP_LOCKED (.O(QPLL_LOCK),.I(QP_LOCKED));
@@ -137,20 +143,14 @@ begin : RSTman_logic_TMR
 	(* syn_keep = "true" *) wire vt_adc_rdy_r1_2;
 	(* syn_keep = "true" *) wire vt_adc_rdy_r1_3;
 	(* syn_keep = "true" *) wire vt_adc_rdy_r2_1;
-	(* syn_keep = "true" *) wire vt_adc_rdy_r2_2;
-	(* syn_keep = "true" *) wire vt_adc_rdy_r2_3;
 	(* syn_keep = "true" *) wire vt_al_done_r1_1;
 	(* syn_keep = "true" *) wire vt_al_done_r1_2;
 	(* syn_keep = "true" *) wire vt_al_done_r1_3;
 	(* syn_keep = "true" *) wire vt_al_done_r2_1;
-	(* syn_keep = "true" *) wire vt_al_done_r2_2;
-	(* syn_keep = "true" *) wire vt_al_done_r2_3;
 	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r1_1;
 	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r1_2;
 	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r1_3;
 	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r2_1;
-	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r2_2;
-	(* syn_keep = "true" *) wire vt_bpi_seq_idle_r2_3;
 	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r1_1;
 	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r1_2;
 	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r1_3;
@@ -167,14 +167,10 @@ begin : RSTman_logic_TMR
 	(* syn_keep = "true" *) wire vt_adc_init_rst_r1_2;
 	(* syn_keep = "true" *) wire vt_adc_init_rst_r1_3;
 	(* syn_keep = "true" *) wire vt_adc_init_rst_r2_1;
-	(* syn_keep = "true" *) wire vt_adc_init_rst_r2_2;
-	(* syn_keep = "true" *) wire vt_adc_init_rst_r2_3;
 	(* syn_keep = "true" *) wire vt_al_start_r1_1;  
 	(* syn_keep = "true" *) wire vt_al_start_r1_2;  
 	(* syn_keep = "true" *) wire vt_al_start_r1_3;  
 	(* syn_keep = "true" *) wire vt_al_start_r2_1;  
-	(* syn_keep = "true" *) wire vt_al_start_r2_2;  
-	(* syn_keep = "true" *) wire vt_al_start_r2_3;  
 	(* syn_keep = "true" *) wire vt_por_r1_1;  
 	(* syn_keep = "true" *) wire vt_por_r1_2;  
 	(* syn_keep = "true" *) wire vt_por_r1_3;  
@@ -185,8 +181,6 @@ begin : RSTman_logic_TMR
 	(* syn_keep = "true" *) wire vt_run_r1_2;
 	(* syn_keep = "true" *) wire vt_run_r1_3;
 	(* syn_keep = "true" *) wire vt_run_r2_1;
-	(* syn_keep = "true" *) wire vt_run_r2_2;
-	(* syn_keep = "true" *) wire vt_run_r2_3;
 
 	(* syn_keep = "true" *) wire sys_mon_rst_1;
 	(* syn_keep = "true" *) wire sys_mon_rst_2;
@@ -199,44 +193,30 @@ begin : RSTman_logic_TMR
 	assign vt_adc_rdy_r1_2       = (adc_rdy_r1_1       & adc_rdy_r1_2      ) | (adc_rdy_r1_2       & adc_rdy_r1_3      ) | (adc_rdy_r1_1       & adc_rdy_r1_3      ); // Majority logic
 	assign vt_adc_rdy_r1_3       = (adc_rdy_r1_1       & adc_rdy_r1_2      ) | (adc_rdy_r1_2       & adc_rdy_r1_3      ) | (adc_rdy_r1_1       & adc_rdy_r1_3      ); // Majority logic
 	assign vt_adc_rdy_r2_1       = (adc_rdy_r2_1       & adc_rdy_r2_2      ) | (adc_rdy_r2_2       & adc_rdy_r2_3      ) | (adc_rdy_r2_1       & adc_rdy_r2_3      ); // Majority logic
-	assign vt_adc_rdy_r2_2       = (adc_rdy_r2_1       & adc_rdy_r2_2      ) | (adc_rdy_r2_2       & adc_rdy_r2_3      ) | (adc_rdy_r2_1       & adc_rdy_r2_3      ); // Majority logic
-	assign vt_adc_rdy_r2_3       = (adc_rdy_r2_1       & adc_rdy_r2_2      ) | (adc_rdy_r2_2       & adc_rdy_r2_3      ) | (adc_rdy_r2_1       & adc_rdy_r2_3      ); // Majority logic
 	assign vt_al_done_r1_1       = (al_done_r1_1       & al_done_r1_2      ) | (al_done_r1_2       & al_done_r1_3      ) | (al_done_r1_1       & al_done_r1_3      ); // Majority logic
 	assign vt_al_done_r1_2       = (al_done_r1_1       & al_done_r1_2      ) | (al_done_r1_2       & al_done_r1_3      ) | (al_done_r1_1       & al_done_r1_3      ); // Majority logic
 	assign vt_al_done_r1_3       = (al_done_r1_1       & al_done_r1_2      ) | (al_done_r1_2       & al_done_r1_3      ) | (al_done_r1_1       & al_done_r1_3      ); // Majority logic
 	assign vt_al_done_r2_1       = (al_done_r2_1       & al_done_r2_2      ) | (al_done_r2_2       & al_done_r2_3      ) | (al_done_r2_1       & al_done_r2_3      ); // Majority logic
-	assign vt_al_done_r2_2       = (al_done_r2_1       & al_done_r2_2      ) | (al_done_r2_2       & al_done_r2_3      ) | (al_done_r2_1       & al_done_r2_3      ); // Majority logic
-	assign vt_al_done_r2_3       = (al_done_r2_1       & al_done_r2_2      ) | (al_done_r2_2       & al_done_r2_3      ) | (al_done_r2_1       & al_done_r2_3      ); // Majority logic
 	assign vt_bpi_seq_idle_r1_1  = (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_2 ) | (bpi_seq_idle_r1_2  & bpi_seq_idle_r1_3 ) | (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_3 ); // Majority logic
 	assign vt_bpi_seq_idle_r1_2  = (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_2 ) | (bpi_seq_idle_r1_2  & bpi_seq_idle_r1_3 ) | (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_3 ); // Majority logic
 	assign vt_bpi_seq_idle_r1_3  = (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_2 ) | (bpi_seq_idle_r1_2  & bpi_seq_idle_r1_3 ) | (bpi_seq_idle_r1_1  & bpi_seq_idle_r1_3 ); // Majority logic
 	assign vt_bpi_seq_idle_r2_1  = (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_2 ) | (bpi_seq_idle_r2_2  & bpi_seq_idle_r2_3 ) | (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_3 ); // Majority logic
-	assign vt_bpi_seq_idle_r2_2  = (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_2 ) | (bpi_seq_idle_r2_2  & bpi_seq_idle_r2_3 ) | (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_3 ); // Majority logic
-	assign vt_bpi_seq_idle_r2_3  = (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_2 ) | (bpi_seq_idle_r2_2  & bpi_seq_idle_r2_3 ) | (bpi_seq_idle_r2_1  & bpi_seq_idle_r2_3 ); // Majority logic
 	assign vt_daq_mmcm_lock_r1_1 = (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_2) | (daq_mmcm_lock_r1_2 & daq_mmcm_lock_r1_3) | (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_3); // Majority logic
 	assign vt_daq_mmcm_lock_r1_2 = (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_2) | (daq_mmcm_lock_r1_2 & daq_mmcm_lock_r1_3) | (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_3); // Majority logic
 	assign vt_daq_mmcm_lock_r1_3 = (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_2) | (daq_mmcm_lock_r1_2 & daq_mmcm_lock_r1_3) | (daq_mmcm_lock_r1_1 & daq_mmcm_lock_r1_3); // Majority logic
 	assign vt_daq_mmcm_lock_r2_1 = (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_2) | (daq_mmcm_lock_r2_2 & daq_mmcm_lock_r2_3) | (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_3); // Majority logic
-	assign vt_daq_mmcm_lock_r2_2 = (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_2) | (daq_mmcm_lock_r2_2 & daq_mmcm_lock_r2_3) | (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_3); // Majority logic
-	assign vt_daq_mmcm_lock_r2_3 = (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_2) | (daq_mmcm_lock_r2_2 & daq_mmcm_lock_r2_3) | (daq_mmcm_lock_r2_1 & daq_mmcm_lock_r2_3); // Majority logic
 	assign vt_qpll_lock_r1_1     = (qpll_lock_r1_1     & qpll_lock_r1_2    ) | (qpll_lock_r1_2     & qpll_lock_r1_3    ) | (qpll_lock_r1_1     & qpll_lock_r1_3    ); // Majority logic
 	assign vt_qpll_lock_r1_2     = (qpll_lock_r1_1     & qpll_lock_r1_2    ) | (qpll_lock_r1_2     & qpll_lock_r1_3    ) | (qpll_lock_r1_1     & qpll_lock_r1_3    ); // Majority logic
 	assign vt_qpll_lock_r1_3     = (qpll_lock_r1_1     & qpll_lock_r1_2    ) | (qpll_lock_r1_2     & qpll_lock_r1_3    ) | (qpll_lock_r1_1     & qpll_lock_r1_3    ); // Majority logic
 	assign vt_qpll_lock_r2_1     = (qpll_lock_r2_1     & qpll_lock_r2_2    ) | (qpll_lock_r2_2     & qpll_lock_r2_3    ) | (qpll_lock_r2_1     & qpll_lock_r2_3    ); // Majority logic
-	assign vt_qpll_lock_r2_2     = (qpll_lock_r2_1     & qpll_lock_r2_2    ) | (qpll_lock_r2_2     & qpll_lock_r2_3    ) | (qpll_lock_r2_1     & qpll_lock_r2_3    ); // Majority logic
-	assign vt_qpll_lock_r2_3     = (qpll_lock_r2_1     & qpll_lock_r2_2    ) | (qpll_lock_r2_2     & qpll_lock_r2_3    ) | (qpll_lock_r2_1     & qpll_lock_r2_3    ); // Majority logic
 	assign vt_adc_init_rst_r1_1  = (adc_init_rst_r1_1  & adc_init_rst_r1_2 ) | (adc_init_rst_r1_2  & adc_init_rst_r1_3 ) | (adc_init_rst_r1_1  & adc_init_rst_r1_3 ); // Majority logic
 	assign vt_adc_init_rst_r1_2  = (adc_init_rst_r1_1  & adc_init_rst_r1_2 ) | (adc_init_rst_r1_2  & adc_init_rst_r1_3 ) | (adc_init_rst_r1_1  & adc_init_rst_r1_3 ); // Majority logic
 	assign vt_adc_init_rst_r1_3  = (adc_init_rst_r1_1  & adc_init_rst_r1_2 ) | (adc_init_rst_r1_2  & adc_init_rst_r1_3 ) | (adc_init_rst_r1_1  & adc_init_rst_r1_3 ); // Majority logic
 	assign vt_adc_init_rst_r2_1  = (adc_init_rst_r2_1  & adc_init_rst_r2_2 ) | (adc_init_rst_r2_2  & adc_init_rst_r2_3 ) | (adc_init_rst_r2_1  & adc_init_rst_r2_3 ); // Majority logic
-	assign vt_adc_init_rst_r2_2  = (adc_init_rst_r2_1  & adc_init_rst_r2_2 ) | (adc_init_rst_r2_2  & adc_init_rst_r2_3 ) | (adc_init_rst_r2_1  & adc_init_rst_r2_3 ); // Majority logic
-	assign vt_adc_init_rst_r2_3  = (adc_init_rst_r2_1  & adc_init_rst_r2_2 ) | (adc_init_rst_r2_2  & adc_init_rst_r2_3 ) | (adc_init_rst_r2_1  & adc_init_rst_r2_3 ); // Majority logic
 	assign vt_al_start_r1_1      = (al_start_r1_1      & al_start_r1_2     ) | (al_start_r1_2      & al_start_r1_3     ) | (al_start_r1_1      & al_start_r1_3     ); // Majority logic
 	assign vt_al_start_r1_2      = (al_start_r1_1      & al_start_r1_2     ) | (al_start_r1_2      & al_start_r1_3     ) | (al_start_r1_1      & al_start_r1_3     ); // Majority logic
 	assign vt_al_start_r1_3      = (al_start_r1_1      & al_start_r1_2     ) | (al_start_r1_2      & al_start_r1_3     ) | (al_start_r1_1      & al_start_r1_3     ); // Majority logic
 	assign vt_al_start_r2_1      = (al_start_r2_1      & al_start_r2_2     ) | (al_start_r2_2      & al_start_r2_3     ) | (al_start_r2_1      & al_start_r2_3     ); // Majority logic
-	assign vt_al_start_r2_2      = (al_start_r2_1      & al_start_r2_2     ) | (al_start_r2_2      & al_start_r2_3     ) | (al_start_r2_1      & al_start_r2_3     ); // Majority logic
-	assign vt_al_start_r2_3      = (al_start_r2_1      & al_start_r2_2     ) | (al_start_r2_2      & al_start_r2_3     ) | (al_start_r2_1      & al_start_r2_3     ); // Majority logic
 	assign vt_por_r1_1           = (por_r1_1           & por_r1_2          ) | (por_r1_2           & por_r1_3          ) | (por_r1_1           & por_r1_3          ); // Majority logic
 	assign vt_por_r1_2           = (por_r1_1           & por_r1_2          ) | (por_r1_2           & por_r1_3          ) | (por_r1_1           & por_r1_3          ); // Majority logic
 	assign vt_por_r1_3           = (por_r1_1           & por_r1_2          ) | (por_r1_2           & por_r1_3          ) | (por_r1_1           & por_r1_3          ); // Majority logic
@@ -247,14 +227,19 @@ begin : RSTman_logic_TMR
 	assign vt_run_r1_2           = (run_r1_1           & run_r1_2          ) | (run_r1_2           & run_r1_3          ) | (run_r1_1           & run_r1_3          ); // Majority logic
 	assign vt_run_r1_3           = (run_r1_1           & run_r1_2          ) | (run_r1_2           & run_r1_3          ) | (run_r1_1           & run_r1_3          ); // Majority logic
 	assign vt_run_r2_1           = (run_r2_1           & run_r2_2          ) | (run_r2_2           & run_r2_3          ) | (run_r2_1           & run_r2_3          ); // Majority logic
-	assign vt_run_r2_2           = (run_r2_1           & run_r2_2          ) | (run_r2_2           & run_r2_3          ) | (run_r2_1           & run_r2_3          ); // Majority logic
-	assign vt_run_r2_3           = (run_r2_1           & run_r2_2          ) | (run_r2_2           & run_r2_3          ) | (run_r2_1           & run_r2_3          ); // Majority logic
 
 	assign ADC_INIT_RST = vt_adc_init_rst_r2_1;
 	assign AL_START     = vt_al_start_r2_1;
 	assign SYS_RST      = vt_por_r2_1;
 	assign RUN          = vt_run_r2_1;
 	assign SYS_MON_RST  = (sys_mon_rst_1 & sys_mon_rst_2) | (sys_mon_rst_2 & sys_mon_rst_3) | (sys_mon_rst_1 & sys_mon_rst_3); // Majority logic
+
+ 	assign adc_rdy_r2_i       = vt_adc_rdy_r2_1;
+ 	assign al_done_r2_i       = vt_al_done_r2_1;
+ 	assign bpi_seq_idle_r2_i  = vt_bpi_seq_idle_r2_1;
+ 	assign daq_mmcm_lock_r2_i = vt_daq_mmcm_lock_r2_1;
+ 	assign qpll_lock_r2_i     = vt_qpll_lock_r2_1;
+ 	assign dsr_tmr_i          = vt_dsr_tmr_1;
 
 	SRL16E #(
 		.INIT(16'HFFFF)
@@ -453,6 +438,13 @@ begin : RSTman_logic
 	assign SYS_RST      = por_r2;
 	assign RUN          = run_r2;
 
+ 	assign adc_rdy_r2_i       = adc_rdy_r2;
+ 	assign al_done_r2_i       = al_done_r2;
+ 	assign bpi_seq_idle_r2_i  = bpi_seq_idle_r2;
+ 	assign daq_mmcm_lock_r2_i = daq_mmcm_lock_r2;
+ 	assign qpll_lock_r2_i     = qpll_lock_r2;
+ 	assign dsr_tmr_i          = dsr_tmr;
+
 	SRL16E #(
 		.INIT(16'HFFFF)
 	) SysMonRst_i (
@@ -537,13 +529,13 @@ begin : RSTman_FSMs_TMR
 		.RUN(run_i),
 		.POR_STATE(POR_STATE),
 		// Inputs
-		.ADC_RDY(adc_rdy_r2),
-		.AL_DONE(al_done_r2),
-		.BPI_SEQ_IDLE(bpi_seq_idle_r2),
+		.ADC_RDY( adc_rdy_r2_i),
+		.AL_DONE(al_done_r2_i),
+		.BPI_SEQ_IDLE(bpi_seq_idle_r2_i),
 		.CLK(STUP_CLK),
 		.EOS(EOS),
-		.MMCM_LOCK(daq_mmcm_lock_r2),
-		.QPLL_LOCK(qpll_lock_r2),
+		.MMCM_LOCK(daq_mmcm_lock_r2_i),
+		.QPLL_LOCK(qpll_lock_r2_i),
 		.RESTART_ALL(restart_all),
 		.SLOW_FRST_DONE(slow_fifo_rst_done)
 	);
@@ -569,7 +561,7 @@ begin : RSTman_FSMs_TMR
 		.DONE(slow_fifo_rst_done),
 		.FIFO_RST(SLOW_FIFO_RST),
 		.CLK(CLK1MHZ),
-		.RST(por_r2) 
+		.RST(SYS_RST) 
 	);
 
 	Trg_Clock_Strt_FSM_TMR
@@ -581,7 +573,7 @@ begin : RSTman_FSMs_TMR
 		.CLK(COMP_CLK),
 		.CLK_PHS_CHNG(CMP_PHS_CHANGE),
 		.MMCM_LOCK(TRG_MMCM_LOCK),
-		.RST(por_r2),
+		.RST(SYS_RST),
 		.SYNC_DONE(TRG_SYNC_DONE)
 	);
 
@@ -595,7 +587,7 @@ begin : RSTman_FSMs_TMR
 		// Inputs
 		.CLK(CLK),
 		.INIT_DONE(ADC_INIT_DONE),
-		.RST(adc_init_rst_r2),
+		.RST(ADC_INIT_RST),
 		.SLOW_CNT(dsr_tmr)
 	);
 end
@@ -614,13 +606,13 @@ begin : RSTman_FSMs
 		.RUN(run_i),
 		.POR_STATE(POR_STATE),
 		// Inputs
-		.ADC_RDY(adc_rdy_r2),
-		.AL_DONE(al_done_r2),
-		.BPI_SEQ_IDLE(bpi_seq_idle_r2),
+		.ADC_RDY( adc_rdy_r2_i),
+		.AL_DONE(al_done_r2_i),
+		.BPI_SEQ_IDLE(bpi_seq_idle_r2_i),
 		.CLK(STUP_CLK),
 		.EOS(EOS),
-		.MMCM_LOCK(daq_mmcm_lock_r2),
-		.QPLL_LOCK(qpll_lock_r2),
+		.MMCM_LOCK(daq_mmcm_lock_r2_i),
+		.QPLL_LOCK(qpll_lock_r2_i),
 		.RESTART_ALL(restart_all),
 		.SLOW_FRST_DONE(slow_fifo_rst_done)
 	);
@@ -646,7 +638,7 @@ begin : RSTman_FSMs
 		.DONE(slow_fifo_rst_done),
 		.FIFO_RST(SLOW_FIFO_RST),
 		.CLK(CLK1MHZ),
-		.RST(por_r2) 
+		.RST(SYS_RST) 
 	);
 
 	Trg_Clock_Strt_FSM
@@ -658,7 +650,7 @@ begin : RSTman_FSMs
 		.CLK(COMP_CLK),
 		.CLK_PHS_CHNG(CMP_PHS_CHANGE),
 		.MMCM_LOCK(TRG_MMCM_LOCK),
-		.RST(por_r2),
+		.RST(SYS_RST),
 		.SYNC_DONE(TRG_SYNC_DONE)
 	);
 
@@ -672,8 +664,8 @@ begin : RSTman_FSMs
 		// Inputs
 		.CLK(CLK),
 		.INIT_DONE(ADC_INIT_DONE),
-		.RST(adc_init_rst_r2),
-		.SLOW_CNT(dsr_tmr)
+		.RST(ADC_INIT_RST),
+		.SLOW_CNT(dsr_tmr_i)
 	);
 end
 endgenerate

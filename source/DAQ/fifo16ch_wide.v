@@ -325,45 +325,45 @@ begin : FIFO16ch_logic_TMR
 	assign vt_ovrlp_smp_out_r_1 = (ovrlp_smp_out_r_1 & ovrlp_smp_out_r_2) | (ovrlp_smp_out_r_2 & ovrlp_smp_out_r_3) | (ovrlp_smp_out_r_1 & ovrlp_smp_out_r_3); // Majority logic
 	assign vt_ovrlp_smp_out_r_2 = (ovrlp_smp_out_r_1 & ovrlp_smp_out_r_2) | (ovrlp_smp_out_r_2 & ovrlp_smp_out_r_3) | (ovrlp_smp_out_r_1 & ovrlp_smp_out_r_3); // Majority logic
 	assign vt_ovrlp_smp_out_r_3 = (ovrlp_smp_out_r_1 & ovrlp_smp_out_r_2) | (ovrlp_smp_out_r_2 & ovrlp_smp_out_r_3) | (ovrlp_smp_out_r_1 & ovrlp_smp_out_r_3); // Majority logic
-	assign vt_l1acnt_1     = (l1acnt_1     & l1acnt_2    ) | (l1acnt_2     & l1acnt_3    ) | (l1acnt_1     & l1acnt_3    ); // Majority logic
-	assign vt_l1acnt_2     = (l1acnt_1     & l1acnt_2    ) | (l1acnt_2     & l1acnt_3    ) | (l1acnt_1     & l1acnt_3    ); // Majority logic
-	assign vt_l1acnt_3     = (l1acnt_1     & l1acnt_2    ) | (l1acnt_2     & l1acnt_3    ) | (l1acnt_1     & l1acnt_3    ); // Majority logic
-	assign vt_l1acnt_r1_1  = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
-	assign vt_l1acnt_r1_2  = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
-	assign vt_l1acnt_r1_3  = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
-	assign vt_l1amcnt_1    = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
-	assign vt_l1amcnt_2    = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
-	assign vt_l1amcnt_3    = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
-	assign vt_l1amcnt_r1_1 = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
-	assign vt_l1amcnt_r1_2 = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
-	assign vt_l1amcnt_r1_3 = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
-	assign vt_new_l1a_d1_1 = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
-	assign vt_new_l1a_d1_2 = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
-	assign vt_new_l1a_d1_3 = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
+	assign vt_l1acnt_1       = (l1acnt_1     & l1acnt_2    ) | (l1acnt_2     & l1acnt_3    ) | (l1acnt_1     & l1acnt_3    ); // Majority logic
+	assign vt_l1acnt_2       = (l1acnt_1     & l1acnt_2    ) | (l1acnt_2     & l1acnt_3    ) | (l1acnt_1     & l1acnt_3    ); // Majority logic
+	assign vt_l1acnt_3       = (l1acnt_1     & l1acnt_2    ) | (l1acnt_2     & l1acnt_3    ) | (l1acnt_1     & l1acnt_3    ); // Majority logic
+	assign vt_l1acnt_r1_1    = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
+	assign vt_l1acnt_r1_2    = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
+	assign vt_l1acnt_r1_3    = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
+	assign vt_l1amcnt_1      = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
+	assign vt_l1amcnt_2      = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
+	assign vt_l1amcnt_3      = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
+	assign vt_l1amcnt_r1_1   = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
+	assign vt_l1amcnt_r1_2   = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
+	assign vt_l1amcnt_r1_3   = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
+	assign vt_new_l1a_d1_1   = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
+	assign vt_new_l1a_d1_2   = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
+	assign vt_new_l1a_d1_3   = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
 	assign vt_l1a_match_d1_1 = (l1a_match_d1_1 & l1a_match_d1_2) | (l1a_match_d1_2 & l1a_match_d1_3) | (l1a_match_d1_1 & l1a_match_d1_3); // Majority logic
 	assign vt_l1a_match_d1_2 = (l1a_match_d1_1 & l1a_match_d1_2) | (l1a_match_d1_2 & l1a_match_d1_3) | (l1a_match_d1_1 & l1a_match_d1_3); // Majority logic
 	assign vt_l1a_match_d1_3 = (l1a_match_d1_1 & l1a_match_d1_2) | (l1a_match_d1_2 & l1a_match_d1_3) | (l1a_match_d1_1 & l1a_match_d1_3); // Majority logic
 	assign vt_l1a_match_d2_1 = (l1a_match_d2_1 & l1a_match_d2_2) | (l1a_match_d2_2 & l1a_match_d2_3) | (l1a_match_d2_1 & l1a_match_d2_3); // Majority logic
 	assign vt_l1a_match_d2_2 = (l1a_match_d2_1 & l1a_match_d2_2) | (l1a_match_d2_2 & l1a_match_d2_3) | (l1a_match_d2_1 & l1a_match_d2_3); // Majority logic
 	assign vt_l1a_match_d2_3 = (l1a_match_d2_1 & l1a_match_d2_2) | (l1a_match_d2_2 & l1a_match_d2_3) | (l1a_match_d2_1 & l1a_match_d2_3); // Majority logic
-	assign vt_l1a_phase_1  = (l1a_phase_1_1 & l1a_phase_1_2) | (l1a_phase_1_2 & l1a_phase_1_3) | (l1a_phase_1_1 & l1a_phase_1_3); // Majority logic
-	assign vt_l1a_phase_2  = (l1a_phase_1_1 & l1a_phase_1_2) | (l1a_phase_1_2 & l1a_phase_1_3) | (l1a_phase_1_1 & l1a_phase_1_3); // Majority logic
-	assign vt_l1a_phase_3  = (l1a_phase_1_1 & l1a_phase_1_2) | (l1a_phase_1_2 & l1a_phase_1_3) | (l1a_phase_1_1 & l1a_phase_1_3); // Majority logic
+	assign vt_l1a_phase_1    = (l1a_phase_1    & l1a_phase_2   ) | (l1a_phase_2    & l1a_phase_3   ) | (l1a_phase_1    & l1a_phase_3   ); // Majority logic
+	assign vt_l1a_phase_2    = (l1a_phase_1    & l1a_phase_2   ) | (l1a_phase_2    & l1a_phase_3   ) | (l1a_phase_1    & l1a_phase_3   ); // Majority logic
+	assign vt_l1a_phase_3    = (l1a_phase_1    & l1a_phase_2   ) | (l1a_phase_2    & l1a_phase_3   ) | (l1a_phase_1    & l1a_phase_3   ); // Majority logic
 	assign vt_l1a_phase_r1_1 = (l1a_phase_r1_1 & l1a_phase_r1_2) | (l1a_phase_r1_2 & l1a_phase_r1_3) | (l1a_phase_r1_1 & l1a_phase_r1_3); // Majority logic
 	assign vt_l1a_phase_r1_2 = (l1a_phase_r1_1 & l1a_phase_r1_2) | (l1a_phase_r1_2 & l1a_phase_r1_3) | (l1a_phase_r1_1 & l1a_phase_r1_3); // Majority logic
 	assign vt_l1a_phase_r1_3 = (l1a_phase_r1_1 & l1a_phase_r1_2) | (l1a_phase_r1_2 & l1a_phase_r1_3) | (l1a_phase_r1_1 & l1a_phase_r1_3); // Majority logic
-	assign vt_smpclk_dp5_1 = (smpclk_dp5_1 & smpclk_dp5_2) | (smpclk_dp5_2 & smpclk_dp5_3) | (smpclk_dp5_1 & smpclk_dp5_3); // Majority logic
-	assign vt_smpclk_dp5_2 = (smpclk_dp5_1 & smpclk_dp5_2) | (smpclk_dp5_2 & smpclk_dp5_3) | (smpclk_dp5_1 & smpclk_dp5_3); // Majority logic
-	assign vt_smpclk_dp5_3 = (smpclk_dp5_1 & smpclk_dp5_2) | (smpclk_dp5_2 & smpclk_dp5_3) | (smpclk_dp5_1 & smpclk_dp5_3); // Majority logic
-	assign vt_smpclk_d1_1  = (smpclk_d1_1  & smpclk_d1_2 ) | (smpclk_d1_2  & smpclk_d1_3 ) | (smpclk_d1_1  & smpclk_d1_3 ); // Majority logic
-	assign vt_smpclk_d1_2  = (smpclk_d1_1  & smpclk_d1_2 ) | (smpclk_d1_2  & smpclk_d1_3 ) | (smpclk_d1_1  & smpclk_d1_3 ); // Majority logic
-	assign vt_smpclk_d1_3  = (smpclk_d1_1  & smpclk_d1_2 ) | (smpclk_d1_2  & smpclk_d1_3 ) | (smpclk_d1_1  & smpclk_d1_3 ); // Majority logic
-	assign vt_smpclk_d2_1  = (smpclk_d2_1  & smpclk_d2_2 ) | (smpclk_d2_2  & smpclk_d2_3 ) | (smpclk_d2_1  & smpclk_d2_3 ); // Majority logic
-	assign vt_smpclk_d2_2  = (smpclk_d2_1  & smpclk_d2_2 ) | (smpclk_d2_2  & smpclk_d2_3 ) | (smpclk_d2_1  & smpclk_d2_3 ); // Majority logic
-	assign vt_smpclk_d2_3  = (smpclk_d2_1  & smpclk_d2_2 ) | (smpclk_d2_2  & smpclk_d2_3 ) | (smpclk_d2_1  & smpclk_d2_3 ); // Majority logic
-	assign vt_smpclk_d3_1  = (smpclk_d3_1  & smpclk_d3_2 ) | (smpclk_d3_2  & smpclk_d3_3 ) | (smpclk_d3_1  & smpclk_d3_3 ); // Majority logic
-	assign vt_smpclk_d3_2  = (smpclk_d3_1  & smpclk_d3_2 ) | (smpclk_d3_2  & smpclk_d3_3 ) | (smpclk_d3_1  & smpclk_d3_3 ); // Majority logic
-	assign vt_smpclk_d3_3  = (smpclk_d3_1  & smpclk_d3_2 ) | (smpclk_d3_2  & smpclk_d3_3 ) | (smpclk_d3_1  & smpclk_d3_3 ); // Majority logic
+	assign vt_smpclk_dp5_1   = (smpclk_dp5_1 & smpclk_dp5_2) | (smpclk_dp5_2 & smpclk_dp5_3) | (smpclk_dp5_1 & smpclk_dp5_3); // Majority logic
+	assign vt_smpclk_dp5_2   = (smpclk_dp5_1 & smpclk_dp5_2) | (smpclk_dp5_2 & smpclk_dp5_3) | (smpclk_dp5_1 & smpclk_dp5_3); // Majority logic
+	assign vt_smpclk_dp5_3   = (smpclk_dp5_1 & smpclk_dp5_2) | (smpclk_dp5_2 & smpclk_dp5_3) | (smpclk_dp5_1 & smpclk_dp5_3); // Majority logic
+	assign vt_smpclk_d1_1    = (smpclk_d1_1  & smpclk_d1_2 ) | (smpclk_d1_2  & smpclk_d1_3 ) | (smpclk_d1_1  & smpclk_d1_3 ); // Majority logic
+	assign vt_smpclk_d1_2    = (smpclk_d1_1  & smpclk_d1_2 ) | (smpclk_d1_2  & smpclk_d1_3 ) | (smpclk_d1_1  & smpclk_d1_3 ); // Majority logic
+	assign vt_smpclk_d1_3    = (smpclk_d1_1  & smpclk_d1_2 ) | (smpclk_d1_2  & smpclk_d1_3 ) | (smpclk_d1_1  & smpclk_d1_3 ); // Majority logic
+	assign vt_smpclk_d2_1    = (smpclk_d2_1  & smpclk_d2_2 ) | (smpclk_d2_2  & smpclk_d2_3 ) | (smpclk_d2_1  & smpclk_d2_3 ); // Majority logic
+	assign vt_smpclk_d2_2    = (smpclk_d2_1  & smpclk_d2_2 ) | (smpclk_d2_2  & smpclk_d2_3 ) | (smpclk_d2_1  & smpclk_d2_3 ); // Majority logic
+	assign vt_smpclk_d2_3    = (smpclk_d2_1  & smpclk_d2_2 ) | (smpclk_d2_2  & smpclk_d2_3 ) | (smpclk_d2_1  & smpclk_d2_3 ); // Majority logic
+	assign vt_smpclk_d3_1    = (smpclk_d3_1  & smpclk_d3_2 ) | (smpclk_d3_2  & smpclk_d3_3 ) | (smpclk_d3_1  & smpclk_d3_3 ); // Majority logic
+	assign vt_smpclk_d3_2    = (smpclk_d3_1  & smpclk_d3_2 ) | (smpclk_d3_2  & smpclk_d3_3 ) | (smpclk_d3_1  & smpclk_d3_3 ); // Majority logic
+	assign vt_smpclk_d3_3    = (smpclk_d3_1  & smpclk_d3_2 ) | (smpclk_d3_2  & smpclk_d3_3 ) | (smpclk_d3_1  & smpclk_d3_3 ); // Majority logic
 
 	assign stretch_l1a_1  = L1A_MATCH | vt_l1a_match_d1_1;
 	assign stretch_l1a_2  = L1A_MATCH | vt_l1a_match_d1_2;
@@ -693,7 +693,7 @@ l1a_smp_fifo l1a_smp_fifo_i (
   .rst(FIFO_RST),                      // input rst
   .wr_clk(WRCLK),                      // input wr_clk
   .rd_clk(RDCLK),                      // input rd_clk
-  .din({evt_end,multi_ovlp,ovrlap,l1a_phase_r1,l1a_match_d2,ovrlap_cnt,l1amcnt_r1,l1acnt_r1}), // input [44 : 0] din
+  .din({evt_end,multi_ovlp,ovrlap,l1a_phase_r1_i,l1a_match_d2_i,ovrlap_cnt_i,l1amcnt_r1_i,l1acnt_r1_i}), // input [44 : 0] din
   .wr_en(l1a_wren),                    // input wr_en
   .rd_en(L1A_RD_EN),                   // input rd_en
   .dout({evt_end_smp_out,multi_ovlp_smp_out,ovrlap_smp_out,l1a_phase_smp_out,l1a_match_smp_out,ovrlap_cnt_smp_out,l1amcnt_smp_out,l1acnt_smp_out}),             // output [43 : 0] dout

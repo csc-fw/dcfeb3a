@@ -26,16 +26,46 @@
 <msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/pipeline_ecc.v" Line 513: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/Pow_on_Rst_FSM_TMR.v" Line 26: Parameter declaration becomes local in <arg fmt="%s" index="1">Pow_on_Rst_FSM</arg> with formal parameter declaration list
+<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/al_Buckeye_load_FIFO.v" Line 651: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/auto_load_FSM_TMR.v" Line 22: Parameter declaration becomes local in <arg fmt="%s" index="1">auto_load_FSM</arg> with formal parameter declaration list
+<msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/BPI_FIFO.v" Line 1874: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Init_FSM_TMR.V" Line 19: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Init_FSM</arg> with formal parameter declaration list
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/tx_sync_FSM_TMR.v" Line 17: Parameter declaration becomes local in <arg fmt="%s" index="1">tx_sync_FSM_TMR</arg> with formal parameter declaration list
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Config_FSM_TMR.v" Line 19: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Config_FSM</arg> with formal parameter declaration list
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/tx_sync_FSM.v" Line 17: Parameter declaration becomes local in <arg fmt="%s" index="1">tx_sync_FSM</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/Pow_on_Rst_FSM_TMR.v" Line 27: Parameter declaration becomes local in <arg fmt="%s" index="1">Pow_on_Rst_FSM_TMR</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/Pow_on_Rst_FSM.v" Line 27: Parameter declaration becomes local in <arg fmt="%s" index="1">Pow_on_Rst_FSM</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/auto_load_FSM_TMR.v" Line 22: Parameter declaration becomes local in <arg fmt="%s" index="1">auto_load_FSM_TMR</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/auto_load_FSM.v" Line 22: Parameter declaration becomes local in <arg fmt="%s" index="1">auto_load_FSM</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Init_FSM_TMR.v" Line 19: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Init_FSM_TMR</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Init_FSM.v" Line 19: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Init_FSM</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Config_FSM_TMR.v" Line 19: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Config_FSM_TMR</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/ADC_Config_FSM.v" Line 19: Parameter declaration becomes local in <arg fmt="%s" index="1">ADC_Config_FSM</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/trigger.v" Line 56: Parameter declaration becomes local in <arg fmt="%s" index="1">trigger</arg> with formal parameter declaration list
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/calib_intf.v" Line 50: Parameter declaration becomes local in <arg fmt="%s" index="1">calib_intf</arg> with formal parameter declaration list
 </msg>
 
 <msg type="warning" file="HDLCompiler" num="687" delta="unknown" >"C:/Xilinx/14.7/ISE_DS/ISE//verilog/src/glbl.v" Line 5: Illegal redeclaration of module &lt;<arg fmt="%s" index="1">glbl</arg>&gt;.
@@ -314,19 +344,13 @@
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3485: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3494: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3509: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3518: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
-</msg>
-
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3486: Element index <arg fmt="%d" index="1">10</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
 </msg>
 
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3487: Element index <arg fmt="%d" index="1">9</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3494: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
 </msg>
 
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3495: Element index <arg fmt="%d" index="1">10</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
@@ -335,40 +359,22 @@
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3496: Element index <arg fmt="%d" index="1">9</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
 </msg>
 
+<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3509: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
+</msg>
+
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3510: Element index <arg fmt="%d" index="1">10</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
 </msg>
 
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3511: Element index <arg fmt="%d" index="1">9</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
 </msg>
 
+<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3518: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
+</msg>
+
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3519: Element index <arg fmt="%d" index="1">10</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
 </msg>
 
 <msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO36E1.v" Line 3520: Element index <arg fmt="%d" index="1">9</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO18E1.v" Line 3471: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO18E1.v" Line 3472: Element index <arg fmt="%d" index="1">10</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO18E1.v" Line 3480: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO18E1.v" Line 3481: Element index <arg fmt="%d" index="1">10</arg> into <arg fmt="%s" index="2">wr_addr</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO18E1.v" Line 3495: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO18E1.v" Line 3496: Element index <arg fmt="%d" index="1">10</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO18E1.v" Line 3504: Element index <arg fmt="%d" index="1">11</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
-</msg>
-
-<msg type="warning" file="HDLCompiler" num="1007" delta="unknown" >"N:/P.20131013/rtf/verilog/src/unisims/FIFO18E1.v" Line 3505: Element index <arg fmt="%d" index="1">10</arg> into <arg fmt="%s" index="2">rdcount_out</arg> is out of bounds
 </msg>
 
 </messages>

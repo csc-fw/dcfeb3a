@@ -132,7 +132,7 @@ begin : chipscope_sem
 //		assign sem_la0_data[87:56]      = icap_o;
 //		assign sem_la0_data[119:88]     = icap_i;
 		assign sem_la0_data[79:56]      = conv_i;
-		assign sem_la0_data[119:80]     = monout[8*5-1:0];
+		assign sem_la0_data[119:80]     = monout_i[8*5-1:0];
 		assign sem_la0_data[120]        = status_heartbeat;
 		assign sem_la0_data[121]        = status_initialization;
 		assign sem_la0_data[122]        = status_observation;
@@ -565,7 +565,7 @@ assign monitor_rxempty = !rxempty_n;
 	always @(posedge CLK40) begin
 	   load_pa_d1_1  <= load_pa_1;
 	   load_la_d1_1  <= load_la_1;
-		conv_1[3:0]   <= vt_monout_1[6]  ? vt_monout_1[3:0]+9   : vt_monout[_13:0];
+		conv_1[3:0]   <= vt_monout_1[6]  ? vt_monout_1[3:0]+9   : vt_monout_1[3:0];
 		conv_1[7:4]   <= vt_monout_1[14] ? vt_monout_1[11:8]+9  : vt_monout_1[11:8];
 		conv_1[11:8]  <= vt_monout_1[22] ? vt_monout_1[19:16]+9 : vt_monout_1[19:16];
 		conv_1[15:12] <= vt_monout_1[30] ? vt_monout_1[27:24]+9 : vt_monout_1[27:24];
@@ -578,7 +578,7 @@ assign monitor_rxempty = !rxempty_n;
 
 	   load_pa_d1_2  <= load_pa_2;
 	   load_la_d1_2  <= load_la_2;
-		conv_2[3:0]   <= vt_monout_2[6]  ? vt_monout_2[3:0]+9   : vt_monout[_23:0];
+		conv_2[3:0]   <= vt_monout_2[6]  ? vt_monout_2[3:0]+9   : vt_monout_2[3:0];
 		conv_2[7:4]   <= vt_monout_2[14] ? vt_monout_2[11:8]+9  : vt_monout_2[11:8];
 		conv_2[11:8]  <= vt_monout_2[22] ? vt_monout_2[19:16]+9 : vt_monout_2[19:16];
 		conv_2[15:12] <= vt_monout_2[30] ? vt_monout_2[27:24]+9 : vt_monout_2[27:24];
@@ -591,7 +591,7 @@ assign monitor_rxempty = !rxempty_n;
 
 	   load_pa_d1_3  <= load_pa_3;
 	   load_la_d1_3  <= load_la_3;
-		conv_3[3:0]   <= vt_monout_3[6]  ? vt_monout_3[3:0]+9   : vt_monout[_33:0];
+		conv_3[3:0]   <= vt_monout_3[6]  ? vt_monout_3[3:0]+9   : vt_monout_3[3:0];
 		conv_3[7:4]   <= vt_monout_3[14] ? vt_monout_3[11:8]+9  : vt_monout_3[11:8];
 		conv_3[11:8]  <= vt_monout_3[22] ? vt_monout_3[19:16]+9 : vt_monout_3[19:16];
 		conv_3[15:12] <= vt_monout_3[30] ? vt_monout_3[27:24]+9 : vt_monout_3[27:24];
@@ -675,6 +675,22 @@ assign send_cmd = vt_csp_jtag_b_1 ? csp_send_cmd : JTAG_SEND_CMD;
 	assign SEM_FAR_LA = vt_far_la_1;
 	assign SEM_ERRCNT[7:0]  = vt_sngl_bit_err_cnt_1;
 	assign SEM_ERRCNT[15:8] = vt_multi_bit_err_cnt_1;
+
+	assign sngl_bit_err_cnt_i  = vt_sngl_bit_err_cnt_1;
+	assign multi_bit_err_cnt_i = vt_multi_bit_err_cnt_1;
+	assign monout_i            = vt_monout_1;
+	assign far_pa_i            = vt_far_pa_1;
+	assign far_la_i            = vt_far_la_1;
+	assign conv_i              = vt_conv_1;
+	
+	assign inc_dbl_cnt_i  = (inc_dbl_cnt_1  & inc_dbl_cnt_2 ) | (inc_dbl_cnt_2  & inc_dbl_cnt_3 ) | (inc_dbl_cnt_1  & inc_dbl_cnt_3 ); // Majority logic
+	assign inc_sngl_cnt_i = (inc_sngl_cnt_1 & inc_sngl_cnt_2) | (inc_sngl_cnt_2 & inc_sngl_cnt_3) | (inc_sngl_cnt_1 & inc_sngl_cnt_3); // Majority logic
+	assign ded_i          = (ded_1          & ded_2         ) | (ded_2          & ded_3         ) | (ded_1          & ded_3         ); // Majority logic
+	assign sed_i          = (sed_1          & sed_2         ) | (sed_2          & sed_3         ) | (sed_1          & sed_3         ); // Majority logic
+	assign pa_i           = (pa_1           & pa_2          ) | (pa_2           & pa_3          ) | (pa_1           & pa_3          ); // Majority logic
+	assign la_i           = (la_1           & la_2          ) | (la_2           & la_3          ) | (la_1           & la_3          ); // Majority logic
+	assign load_pa_i      = (load_pa_1      & load_pa_2     ) | (load_pa_2      & load_pa_3     ) | (load_pa_1      & load_pa_3     ); // Majority logic
+	assign load_la_i      = (load_la_1      & load_la_2     ) | (load_la_2      & load_la_3     ) | (load_la_1      & load_la_3     ); // Majority logic
 	
 end
 else 
@@ -896,6 +912,22 @@ end
 	assign SEM_FAR_LA = far_la;
 	assign SEM_ERRCNT[7:0]  = sngl_bit_err_cnt;
 	assign SEM_ERRCNT[15:8] = multi_bit_err_cnt;
+
+	assign sngl_bit_err_cnt_i  = sngl_bit_err_cnt;
+	assign multi_bit_err_cnt_i = multi_bit_err_cnt;
+	assign monout_i            = monout;
+	assign far_pa_i            = far_pa;
+	assign far_la_i            = far_la;
+	assign conv_i              = conv;
+	
+	assign inc_dbl_cnt_i  = inc_dbl_cnt;
+	assign inc_sngl_cnt_i = inc_sngl_cnt;
+	assign ded_i          = ded;
+	assign sed_i          = sed;
+	assign pa_i           = pa;
+	assign la_i           = la;
+	assign load_pa_i      = load_pa;
+	assign load_la_i      = load_la;
 	
 end
 endgenerate

@@ -58,19 +58,6 @@ module tmb_fiber_out #(
 	output [31:0] MON_TRG_TX_DATA
 	);
 	
-generate
-if(SIM_SPEEDUP==1)
-begin:fast_simulation
-    // 64 cycles of setphase for simulation 
-	 localparam SYNC_CNT = 64;
-end
-else
-begin:no_fast_simulation
-    // 8192 cycles of setphase for output divider of 1
-	 localparam SYNC_CNT = 8192;
-end
-endgenerate
-
 wire trg_tx_dis;
 wire trg_sd;
 
@@ -203,17 +190,37 @@ begin : TX_SYNC_FSM_TMR
 		end
 	end
 
-	tx_sync_FSM_TMR #(
-		.SYNC_CNT(SYNC_CNT)
-	)
-	gtx_txsync_i (
-		.SYNC_DONE          (TX_SYNC_DONE),
-		.TXDLYALIGNRESET    (tx_dlyalignreset),
-		.TXENPMAPHASEALIGN  (tx_enpmaphasealign),      
-		.TXPMASETPHASE      (tx_pmasetphase),
-		.CLK                (TRG_CLK80),
-		.RST                (!vt_trg_txresetdone_r2_1)
-	);
+	if(SIM_SPEEDUP==1)
+	begin:fast_simulation
+		 // 64 cycles of setphase for simulation 
+		tx_sync_FSM_TMR #(
+			.SYNC_CNT(64)
+		)
+		gtx_txsync_i (
+			.SYNC_DONE          (TX_SYNC_DONE),
+			.TXDLYALIGNRESET    (tx_dlyalignreset),
+			.TXENPMAPHASEALIGN  (tx_enpmaphasealign),      
+			.TXPMASETPHASE      (tx_pmasetphase),
+			.CLK                (TRG_CLK80),
+			.RST                (!vt_trg_txresetdone_r2_1)
+		);
+	end
+	else
+	begin:no_fast_simulation
+		 // 8192 cycles of setphase for output divider of 1
+		tx_sync_FSM_TMR #(
+			.SYNC_CNT(8192)
+		)
+		gtx_txsync_i (
+			.SYNC_DONE          (TX_SYNC_DONE),
+			.TXDLYALIGNRESET    (tx_dlyalignreset),
+			.TXENPMAPHASEALIGN  (tx_enpmaphasealign),      
+			.TXPMASETPHASE      (tx_pmasetphase),
+			.CLK                (TRG_CLK80),
+			.RST                (!vt_trg_txresetdone_r2_1)
+		);
+	end
+
 
 end
 else 
@@ -233,17 +240,36 @@ begin : TX_SYNC_FSM
 		end
 	end
 
-	tx_sync_FSM #(
-		.SYNC_CNT(SYNC_CNT)
-	)
-	gtx_txsync_i (
-		.SYNC_DONE          (TX_SYNC_DONE),
-		.TXDLYALIGNRESET    (tx_dlyalignreset),
-		.TXENPMAPHASEALIGN  (tx_enpmaphasealign),      
-		.TXPMASETPHASE      (tx_pmasetphase),
-		.CLK                (TRG_CLK80),
-		.RST                (!trg_txresetdone_r2)
-	);
+	if(SIM_SPEEDUP==1)
+	begin:fast_simulation
+		 // 64 cycles of setphase for simulation 
+		tx_sync_FSM #(
+			.SYNC_CNT(64)
+		)
+		gtx_txsync_i (
+			.SYNC_DONE          (TX_SYNC_DONE),
+			.TXDLYALIGNRESET    (tx_dlyalignreset),
+			.TXENPMAPHASEALIGN  (tx_enpmaphasealign),      
+			.TXPMASETPHASE      (tx_pmasetphase),
+			.CLK                (TRG_CLK80),
+			.RST                (!trg_txresetdone_r2)
+		);
+	end
+	else
+	begin:no_fast_simulation
+		 // 8192 cycles of setphase for output divider of 1
+		tx_sync_FSM #(
+			.SYNC_CNT(8192)
+		)
+		gtx_txsync_i (
+			.SYNC_DONE          (TX_SYNC_DONE),
+			.TXDLYALIGNRESET    (tx_dlyalignreset),
+			.TXENPMAPHASEALIGN  (tx_enpmaphasealign),      
+			.TXPMASETPHASE      (tx_pmasetphase),
+			.CLK                (TRG_CLK80),
+			.RST                (!trg_txresetdone_r2)
+		);
+	end
 	
 end
 endgenerate
@@ -279,7 +305,7 @@ endgenerate
 
 generate
 if(TMR==1) 
-begin : Commp_logic_TMR
+begin : Comp_logic_TMR
 
 	(* syn_preserve = "true" *) reg rst_tx_1;
 	(* syn_preserve = "true" *) reg prbs_rst_1;
@@ -1148,7 +1174,7 @@ begin : Commp_logic_TMR
 	
 end
 else 
-begin : Commp_logic
+begin : Comp_logic
 
 	reg rst_tx;
 	reg prbs_rst;

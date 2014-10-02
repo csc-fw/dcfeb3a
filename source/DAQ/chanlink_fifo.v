@@ -311,20 +311,10 @@ begin : ClnkFrm_logic_TMR
 	(* syn_preserve = "true" *) reg mt_r3_3;
 
 	(* syn_keep = "true" *) wire vt_mlt_ovlp_1;
-	(* syn_keep = "true" *) wire vt_mlt_ovlp_2;
-	(* syn_keep = "true" *) wire vt_mlt_ovlp_3;
 	(* syn_keep = "true" *) wire vt_dvalid_1;
-	(* syn_keep = "true" *) wire vt_dvalid_2;
-	(* syn_keep = "true" *) wire vt_dvalid_3;
 	(* syn_keep = "true" *) wire [15:0] vt_dout_1;
-	(* syn_keep = "true" *) wire [15:0] vt_dout_2;
-	(* syn_keep = "true" *) wire [15:0] vt_dout_3;
 	(* syn_keep = "true" *) wire vt_ovlp_mux_1;
-	(* syn_keep = "true" *) wire vt_ovlp_mux_2;
-	(* syn_keep = "true" *) wire vt_ovlp_mux_3;
 	(* syn_keep = "true" *) wire vt_last_wrd_1;
-	(* syn_keep = "true" *) wire vt_last_wrd_2;
-	(* syn_keep = "true" *) wire vt_last_wrd_3;
 	
 	(* syn_keep = "true" *) wire vt_ovlp_bit_1;
 	(* syn_keep = "true" *) wire vt_ovlp_bit_2;
@@ -381,8 +371,6 @@ begin : ClnkFrm_logic_TMR
 	(* syn_keep = "true" *) wire vt_mt_r2_2;
 	(* syn_keep = "true" *) wire vt_mt_r2_3;
 	(* syn_keep = "true" *) wire vt_mt_r3_1;
-	(* syn_keep = "true" *) wire vt_mt_r3_2;
-	(* syn_keep = "true" *) wire vt_mt_r3_3;
 
 	(* syn_keep = "true" *) reg serial_1;
 	(* syn_keep = "true" *) reg serial_2;
@@ -391,6 +379,12 @@ begin : ClnkFrm_logic_TMR
 	(* syn_keep = "true" *) wire l1a_out_1;
 	(* syn_keep = "true" *) wire l1a_out_2;
 	(* syn_keep = "true" *) wire l1a_out_3;
+	
+	assign vt_mlt_ovlp_1      = (mlt_ovlp_1      & mlt_ovlp_2     ) | (mlt_ovlp_2      & mlt_ovlp_3     ) | (mlt_ovlp_1      & mlt_ovlp_3     ); // Majority logic
+	assign vt_dvalid_1        = (dvalid_1        & dvalid_2       ) | (dvalid_2        & dvalid_3       ) | (dvalid_1        & dvalid_3       ); // Majority logic
+	assign vt_dout_1          = (dout_1          & dout_2         ) | (dout_2          & dout_3         ) | (dout_1          & dout_3         ); // Majority logic
+	assign vt_ovlp_mux_1      = (ovlp_mux_1      & ovlp_mux_2     ) | (ovlp_mux_2      & ovlp_mux_3     ) | (ovlp_mux_1      & ovlp_mux_3     ); // Majority logic
+	assign vt_last_wrd_1      = (last_wrd_1      & last_wrd_2     ) | (last_wrd_2      & last_wrd_3     ) | (last_wrd_1      & last_wrd_3     ); // Majority logic
 
 	assign vt_ovlp_bit_1      = (ovlp_bit_1      & ovlp_bit_2     ) | (ovlp_bit_2      & ovlp_bit_3     ) | (ovlp_bit_1      & ovlp_bit_3     ); // Majority logic
 	assign vt_ovlp_bit_2      = (ovlp_bit_1      & ovlp_bit_2     ) | (ovlp_bit_2      & ovlp_bit_3     ) | (ovlp_bit_1      & ovlp_bit_3     ); // Majority logic
@@ -447,8 +441,6 @@ begin : ClnkFrm_logic_TMR
 	assign vt_mt_r2_2         = (mt_r2_1         & mt_r2_2        ) | (mt_r2_2         & mt_r2_3        ) | (mt_r2_1         & mt_r2_3        ); // Majority logic
 	assign vt_mt_r2_3         = (mt_r2_1         & mt_r2_2        ) | (mt_r2_2         & mt_r2_3        ) | (mt_r2_1         & mt_r2_3        ); // Majority logic
 	assign vt_mt_r3_1         = (mt_r3_1         & mt_r3_2        ) | (mt_r3_2         & mt_r3_3        ) | (mt_r3_1         & mt_r3_3        ); // Majority logic
-	assign vt_mt_r3_2         = (mt_r3_1         & mt_r3_2        ) | (mt_r3_2         & mt_r3_3        ) | (mt_r3_1         & mt_r3_3        ); // Majority logic
-	assign vt_mt_r3_3         = (mt_r3_1         & mt_r3_2        ) | (mt_r3_2         & mt_r3_3        ) | (mt_r3_1         & mt_r3_3        ); // Majority logic
 		
 	assign MLT_OVLP  = vt_mlt_ovlp_1;
 	assign DVALID    = vt_dvalid_1;
@@ -569,12 +561,24 @@ begin : ClnkFrm_logic_TMR
 	always @(posedge RCLK or posedge vt_clr_crc_1) begin
 		if(vt_clr_crc_1) begin
 			crc_1 <= 15'h0000;
-			crc_2 <= 15'h0000;
-			crc_3 <= 15'h0000;
 		end
 		else begin
 			crc_1 <= CRC15_D13(vt_adcdata_1, vt_crc_1);
+		end
+	end
+	always @(posedge RCLK or posedge vt_clr_crc_2) begin
+		if(vt_clr_crc_2) begin
+			crc_2 <= 15'h0000;
+		end
+		else begin
 			crc_2 <= CRC15_D13(vt_adcdata_2, vt_crc_2);
+		end
+	end
+	always @(posedge RCLK or posedge vt_clr_crc_3) begin
+		if(vt_clr_crc_3) begin
+			crc_3 <= 15'h0000;
+		end
+		else begin
 			crc_3 <= CRC15_D13(vt_adcdata_3, vt_crc_3);
 		end
 	end

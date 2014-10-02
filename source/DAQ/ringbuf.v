@@ -315,7 +315,7 @@ begin : RGTRNS_logic_TMR
 	(* syn_keep = "true" *) wire ring_cnt_rdad_2;
 	(* syn_keep = "true" *) wire ring_cnt_rdad_3;
 	(* syn_keep = "true" *) wire ring_amt_1;
-	(* syn_keep = "true" *) wire ring_amt_21;
+	(* syn_keep = "true" *) wire ring_amt_2;
 	(* syn_keep = "true" *) wire ring_amt_3;
 	(* syn_keep = "true" *) wire warn_1;
 	(* syn_keep = "true" *) wire warn_2;
@@ -360,6 +360,8 @@ begin : RGTRNS_logic_TMR
 	assign prev_strt_addr_i = vt_prev_strt_addr_1;
 	assign wrt_addr_i       = vt_wrt_addr_1;
 	assign rd_addr_i        = vt_rd_addr_1;
+	assign ring_amt         = (ring_amt_1    & ring_amt_2   ) | (ring_amt_2    & ring_amt_3   ) | (ring_amt_1    & ring_amt_3   ); // Majority logic
+	assign ring_err         = (ring_err_1    & ring_err_2   ) | (ring_err_2    & ring_err_3   ) | (ring_err_1    & ring_err_3   ); // Majority logic
 
 	always @(posedge CLK or posedge RST_RESYNC) begin
 		if(RST_RESYNC) begin

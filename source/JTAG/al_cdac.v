@@ -34,7 +34,6 @@ module al_cdac #(
     );
 	 
 	 
-	wire le_load_cthresh;
 	wire set_done;
 
 generate
@@ -152,7 +151,6 @@ begin : CmpTh_FSM_TMR
 	assign CDAC_DONE       = vt_done_1;
 	assign DAC_ENB         = vt_load_cthresh_1;
 	assign SDATA           = (sdata_1 & sdata_2) | (sdata_2 & sdata_3) | (sdata_1 & sdata_3); // Majority logic
-	assign le_load_cthresh = (le_load_cthresh_1 & le_load_cthresh_2) | (le_load_cthresh_2 & le_load_cthresh_3) | (le_load_cthresh_1 & le_load_cthresh_3); // Majority logic
 
 end
 else 
@@ -163,6 +161,8 @@ begin : CmpTh_FSM
 	reg done;
 	reg [15:0] cth_shft;
 	reg [11:0] cthresh_hold;
+	
+	wire le_load_cthresh;
   
 
 	always @(negedge CLK1MHZ) begin

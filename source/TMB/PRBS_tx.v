@@ -131,9 +131,9 @@ begin : PRBS_logic_TMR
 			rst_f_1 <= vt_rst1_1;
 			rst_f_2 <= vt_rst1_2;
 			rst_f_3 <= vt_rst1_3;
-			lfsr_b_1 <= vt_lfsr_b_1;
-			lfsr_b_2 <= vt_lfsr_b_2;
-			lfsr_b_3 <= vt_lfsr_b_3;
+			lfsr_b_1 <= lfsr_i1;
+			lfsr_b_2 <= lfsr_i2;
+			lfsr_b_3 <= lfsr_i3;
 		end
 	end
 //
@@ -180,7 +180,7 @@ begin : PRBS_logic
 			rst1 <= RST;
 			rst2 <= rst1;
 			strt_ltncy <= ~start_pat;
-			lfsr_a <= lfsr_1;
+			lfsr_a <= lfsr;
 			if(start_pat)
 				prbs_r <= start_pattern;
 			else
@@ -193,7 +193,7 @@ begin : PRBS_logic
 	always @(posedge GEN_CLK) begin
 		if(!OUT_CLK_ENA) begin
 			rst_f <= rst1;
-			lfsr_b <= lfsr_1;
+			lfsr_b <= lfsr;
 		end
 	end
 //
