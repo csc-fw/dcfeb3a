@@ -99,7 +99,6 @@ module Clock_sources #(
 wire samp_ma, samp_mb;
 wire samp_m0,samp_m45,samp_m90,samp_m135;
 wire sampfbout_med;
-wire samp_med_lock;
 wire pre_clk40;
 wire pre_clk20, pre_clk20_b;
 wire clk20_nophase;
@@ -509,8 +508,7 @@ daq_mmcm_custom daq_mmc1(.CLK_IN1(cms_clk),
 	.CLK_IN1(clk20_nophase), .CLK_IN2(clk20_nophase_b), .CLK_IN_SEL(~samp_in_sel), .CLKFB_IN(sampfbout_med),
 	.CLK_OUT1(samp_m0), .CLK_OUT2(samp_m45), .CLK_OUT3(samp_m90), .CLK_OUT4(samp_m135),
 	.CLKFB_OUT(sampfbout_med),
-	.RESET(rst_samp_mmcm),
-   .LOCKED(samp_med_lock));
+	.RESET(rst_samp_mmcm));
 	
 	
    BUFGMUX 

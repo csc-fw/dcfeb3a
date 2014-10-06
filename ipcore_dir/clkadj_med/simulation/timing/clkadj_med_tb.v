@@ -57,7 +57,6 @@
 
 `timescale 1ps/1ps
 
-`define wait_lock @(posedge LOCKED)
 
 module clkadj_med_tb ();
 
@@ -87,7 +86,6 @@ module clkadj_med_tb ();
   wire [4:1]  COUNT;
   // Status and control signals
   reg         RESET      = 0;
-  wire        LOCKED;
   reg         COUNTER_RESET = 0;
 wire [4:1] CLK_OUT;
 //Freq Check using the M & D values setting and actual Frequency generated 
@@ -137,7 +135,7 @@ time prev_rise4;
     #(PER1*6);
     RESET = 0;
     test_phase = "wait lock";
-    `wait_lock;
+    #(PER1*50);
     #(PER1*6);
     COUNTER_RESET = 1;
     #(PER1*19.5)
@@ -172,7 +170,7 @@ time prev_rise4;
     #(PER2*2);
     RESET = 0;
     #(PER2*2);
-    `wait_lock;
+    #(PER1*50);
     #(PER1*6);
     COUNTER_RESET = 1;
     #(PER2*19.5)
@@ -204,16 +202,6 @@ time prev_rise4;
   end
 
 
-   always@(posedge CLK_IN1) begin
-      timeout_counter <= timeout_counter + 1'b1;
-      if (timeout_counter == 14'b10000000000000) begin
-         if (LOCKED != 1'b1) begin
-            $display("ERROR : NO LOCK signal");
-            $display("SYSTEM_CLOCK_COUNTER : %0d\n",$time/PER1);
-            $finish;
-         end
-      end
-   end
 
   // Instantiation of the example design containing the clock
   //    network and sampling counters
@@ -230,8 +218,7 @@ time prev_rise4;
     // High bits of the counters
     .COUNT              (COUNT),
     // Status and control signals
-    .RESET              (RESET),
-    .LOCKED             (LOCKED));
+    .RESET              (RESET));
 
 
 // Freq Check 

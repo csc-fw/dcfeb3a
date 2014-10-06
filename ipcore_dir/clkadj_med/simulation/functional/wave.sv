@@ -116,8 +116,7 @@ group set -comment {}
 group clear 0 end
 
 group insert \
-   {nc::clkadj_med_tb.RESET}    {nc::clkadj_med_tb.LOCKED}
-
+   {nc::clkadj_med_tb.RESET}  \ 
 
 set id [waveform add -signals [list {nc::clkadj_med_tb.COUNT} ]]
 

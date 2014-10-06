@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 12:52:09 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:10:02 at 17:21:11 (www.fizzim.com)
 
 module FIFO_Load_FSM_TMR_Err_Det (
   output wire [2:0] SEL,
@@ -50,9 +50,12 @@ module FIFO_Load_FSM_TMR_Err_Det (
   assign voted_ed_cnt_2 = (ed_cnt_1 & ed_cnt_2) | (ed_cnt_2 & ed_cnt_3) | (ed_cnt_1 & ed_cnt_3); // Majority logic
   assign voted_ed_cnt_3 = (ed_cnt_1 & ed_cnt_2) | (ed_cnt_2 & ed_cnt_3) | (ed_cnt_1 & ed_cnt_3); // Majority logic
 
+  assign TMR_ERR_COUNT = voted_ed_cnt_1;
+
   (* syn_keep = "true" *) reg [1:0] nextstate_1;
   (* syn_keep = "true" *) reg [1:0] nextstate_2;
   (* syn_keep = "true" *) reg [1:0] nextstate_3;
+
 
   (* syn_preserve = "true" *)  reg [2:0] SEL_1;
   (* syn_preserve = "true" *)  reg [2:0] SEL_2;

@@ -70,8 +70,7 @@ module clkadj_med_exdes
   // High bits of counters driven by clocks
   output [4:1]  COUNT,
   // Status and control signals
-  input         RESET,
-  output        LOCKED
+  input         RESET
  );
 
   // Parameters for the counters
@@ -81,8 +80,8 @@ module clkadj_med_exdes
   // Number of counters
   localparam    NUM_C     = 4;
   genvar        count_gen;
-  // When the clock goes out of lock, reset the counters
-  wire          reset_int = !LOCKED || RESET || COUNTER_RESET;
+  // Create reset for the counters
+  wire          reset_int = RESET || COUNTER_RESET;
 
    reg [NUM_C:1] rst_sync;
    reg [NUM_C:1] rst_sync_int;
@@ -126,8 +125,7 @@ module clkadj_med_exdes
     .CLK_OUT4           (clk_int[4]),
     .CLKFB_OUT          (CLKFB_OUT),
     // Status and control signals
-    .RESET              (RESET),
-    .LOCKED             (LOCKED));
+    .RESET              (RESET));
 
 genvar clk_out_pins;
 

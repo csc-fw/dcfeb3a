@@ -1190,6 +1190,7 @@ module dcfeb3a_sim_top_tf;
 //		#(5*PERIOD);
 		JTAG_reset;
 		#(17500*PERIOD);
+		#(600*PERIOD);
 		Send_L1A_L1A_Match;
 		#(5*PERIOD);
 		Send_L1A_L1A_Match;

@@ -217,7 +217,6 @@ module jtag_access #(
 	
 
 	wire [63:0] f; //JTAG functions (one hot);
-	wire f11;
 	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15,dmy16;
 	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15;
 	wire tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31;

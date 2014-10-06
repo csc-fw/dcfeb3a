@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Nov 05 22:20:03 2013
+# Date: Mon Oct 06 16:09:19 2014
 #
 ##############################################################
 #
@@ -251,7 +251,7 @@ CSET use_freeze=false
 CSET use_freq_synth=false
 CSET use_inclk_stopped=false
 CSET use_inclk_switchover=true
-CSET use_locked=true
+CSET use_locked=false
 CSET use_max_i_jitter=false
 CSET use_min_o_jitter=false
 CSET use_min_power=false
@@ -266,4 +266,4 @@ CSET use_status=false
 MISC pkg_timestamp=2012-05-10T12:44:55Z
 # END Extra information
 GENERATE
-# CRC: 574fa858
+# CRC: 4f57469b

@@ -308,12 +308,12 @@ begin : RGTRNS_logic_TMR
 	assign vt_rd_addr_2        = (rd_addr_1        & rd_addr_2       ) | (rd_addr_2        & rd_addr_3       ) | (rd_addr_1        & rd_addr_3       ); // Majority logic
 	assign vt_rd_addr_3        = (rd_addr_1        & rd_addr_2       ) | (rd_addr_2        & rd_addr_3       ) | (rd_addr_1        & rd_addr_3       ); // Majority logic
 
-	(* syn_keep = "true" *) wire ring_cnt_strt_1;
-	(* syn_keep = "true" *) wire ring_cnt_strt_2;
-	(* syn_keep = "true" *) wire ring_cnt_strt_3;
-	(* syn_keep = "true" *) wire ring_cnt_rdad_1;
-	(* syn_keep = "true" *) wire ring_cnt_rdad_2;
-	(* syn_keep = "true" *) wire ring_cnt_rdad_3;
+	(* syn_keep = "true" *) wire [12:0] ring_cnt_strt_1;
+	(* syn_keep = "true" *) wire [12:0] ring_cnt_strt_2;
+	(* syn_keep = "true" *) wire [12:0] ring_cnt_strt_3;
+	(* syn_keep = "true" *) wire [12:0] ring_cnt_rdad_1;
+	(* syn_keep = "true" *) wire [12:0] ring_cnt_rdad_2;
+	(* syn_keep = "true" *) wire [12:0] ring_cnt_rdad_3;
 	(* syn_keep = "true" *) wire ring_amt_1;
 	(* syn_keep = "true" *) wire ring_amt_2;
 	(* syn_keep = "true" *) wire ring_amt_3;
@@ -362,6 +362,11 @@ begin : RGTRNS_logic_TMR
 	assign rd_addr_i        = vt_rd_addr_1;
 	assign ring_amt         = (ring_amt_1    & ring_amt_2   ) | (ring_amt_2    & ring_amt_3   ) | (ring_amt_1    & ring_amt_3   ); // Majority logic
 	assign ring_err         = (ring_err_1    & ring_err_2   ) | (ring_err_2    & ring_err_3   ) | (ring_err_1    & ring_err_3   ); // Majority logic
+
+	assign mask_b12_strt    = (mask_b12_strt_1 & mask_b12_strt_2) | (mask_b12_strt_2 & mask_b12_strt_3) | (mask_b12_strt_1 & mask_b12_strt_3); // Majority logic
+	assign mask_b12_rdad    = (mask_b12_rdad_1 & mask_b12_rdad_2) | (mask_b12_rdad_2 & mask_b12_rdad_3) | (mask_b12_rdad_1 & mask_b12_rdad_3); // Majority logic
+	assign ring_cnt_strt    = (ring_cnt_strt_1 & ring_cnt_strt_2) | (ring_cnt_strt_2 & ring_cnt_strt_3) | (ring_cnt_strt_1 & ring_cnt_strt_3); // Majority logic
+	assign ring_cnt_rdad    = (ring_cnt_rdad_1 & ring_cnt_rdad_2) | (ring_cnt_rdad_2 & ring_cnt_rdad_3) | (ring_cnt_rdad_1 & ring_cnt_rdad_3); // Majority logic
 
 	always @(posedge CLK or posedge RST_RESYNC) begin
 		if(RST_RESYNC) begin

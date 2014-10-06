@@ -86,9 +86,7 @@ localparam
 	wire [2:0] rom_addr;
 	wire [3:0] frm_state;
 	
-	wire [15:0] crc;
 	wire crc_calc;
-	wire crc_vld;
 
    // Asynchronous reset signals
 	wire arst;
@@ -128,6 +126,7 @@ localparam
 	wire crc_vld1_i;
 	wire crc_vld2_i;
 	wire [15:0] mgt_tx_data_i;
+	wire [15:0] crc_i;
 
 assign CSP_MAN_CTRL = man_control;
 assign CSP_USE_ANY_L1A = man_use_any_l1a;
@@ -190,7 +189,7 @@ wire [3:0] dummy_asigs;
 	
 // LA Data [109:0]
 	assign daq_tx_la_data[15:0]    = TXD;
-	assign daq_tx_la_data[31:16]   = crc;
+	assign daq_tx_la_data[31:16]   = crc_i;
 	assign daq_tx_la_data[35:32]   = 4'h0;
 	assign daq_tx_la_data[39:36]   = 4'h0;
 	assign daq_tx_la_data[40]      = man_rst;
@@ -567,9 +566,9 @@ begin : DAQ_Pkt_TMR
 	(* syn_keep = "true" *) wire [15:0] crc_1;
 	(* syn_keep = "true" *) wire [15:0] crc_2;
 	(* syn_keep = "true" *) wire [15:0] crc_3;
-	(* syn_keep = "true" *) wire [15:0] crc_vld_1;
-	(* syn_keep = "true" *) wire [15:0] crc_vld_2;
-	(* syn_keep = "true" *) wire [15:0] crc_vld_3;
+	(* syn_keep = "true" *) wire crc_vld_1;
+	(* syn_keep = "true" *) wire crc_vld_2;
+	(* syn_keep = "true" *) wire crc_vld_3;
 	
 	assign vt_cnst_1        = (cnst_1        & cnst_2       ) | (cnst_2        & cnst_3       ) | (cnst_1        & cnst_3       ); // Majority logic
 	assign vt_cnst_2        = (cnst_1        & cnst_2       ) | (cnst_2        & cnst_3       ) | (cnst_1        & cnst_3       ); // Majority logic
@@ -610,6 +609,8 @@ begin : DAQ_Pkt_TMR
 	assign crc_vld1_i    = vt_crc_vld1_1;
 	assign crc_vld2_i    = vt_crc_vld2_1;
 	assign mgt_tx_data_i = vt_mgt_tx_data_1;
+	
+	assign crc_i         = (crc_1 & crc_2) | (crc_2 & crc_3) | (crc_1 & crc_3); // Majority logic
 	
 //////////////////////////////////////////////////////////////
 //                                                          //
@@ -713,12 +714,12 @@ end
 		crc1_2 <= crc_2;
 		crc1_3 <= crc_3;
 	end
-	always @(posedge usr_clk_wordwise or posedge reset)
+	always @(posedge usr_clk_wordwise)
 	begin
 		if (reset) begin
-			mgt_tx_data_1 <= vt_cnst_1;
-			mgt_tx_data_2 <= vt_cnst_2;
-			mgt_tx_data_3 <= vt_cnst_3;
+			mgt_tx_data_1 <= IDLE2;
+			mgt_tx_data_2 <= IDLE2;
+			mgt_tx_data_3 <= IDLE2;
 		end
 		else begin
 			mgt_tx_data_1 <= (vt_crc_vld1_1 || vt_crc_vld2_1) ? vt_crc1_1 : (vt_crc_calc1_1 ? vt_data1_1 : vt_cnst_1);
@@ -754,12 +755,16 @@ begin : DAQ_Pkt
 	reg [15:0] crc1;
 	reg [15:0] mgt_tx_data_r;
 
+	wire [15:0] crc;
+	wire crc_vld;
+
 	assign crc_vld = !TXD_VLD & txd_vld1; // trailing edge of valid data
 
 	assign txcharisk_i   = txcharisk_r;
 	assign crc_vld1_i    = crc_vld1;
 	assign crc_vld2_i    = crc_vld2;
 	assign mgt_tx_data_i = mgt_tx_data_r;
+	assign crc_i         = crc;
 	
 //////////////////////////////////////////////////////////////
 //                                                          //
@@ -809,10 +814,10 @@ end
 		crc_calc1 <= crc_calc;
 		crc1 <= crc;
 	end
-	always @(posedge usr_clk_wordwise or posedge reset)
+	always @(posedge usr_clk_wordwise)
 	begin
 		if (reset) begin
-			mgt_tx_data_r <= cnst;
+			mgt_tx_data_r <= IDLE2;
 		end
 		else begin
 			mgt_tx_data_r <= (crc_vld1 || crc_vld2) ? crc1 : (crc_calc1 ? data1 : cnst);

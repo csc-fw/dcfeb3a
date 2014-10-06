@@ -246,14 +246,10 @@ begin : FIFO16ch_logic_TMR
 	(* syn_keep = "true" *) wire [23:0] vt_l1acnt_2;
 	(* syn_keep = "true" *) wire [23:0] vt_l1acnt_3;
 	(* syn_keep = "true" *) wire [23:0] vt_l1acnt_r1_1;
-	(* syn_keep = "true" *) wire [23:0] vt_l1acnt_r1_2;
-	(* syn_keep = "true" *) wire [23:0] vt_l1acnt_r1_3;
 	(* syn_keep = "true" *) wire [11:0] vt_l1amcnt_1;
 	(* syn_keep = "true" *) wire [11:0] vt_l1amcnt_2;
 	(* syn_keep = "true" *) wire [11:0] vt_l1amcnt_3;
 	(* syn_keep = "true" *) wire [11:0] vt_l1amcnt_r1_1;
-	(* syn_keep = "true" *) wire [11:0] vt_l1amcnt_r1_2;
-	(* syn_keep = "true" *) wire [11:0] vt_l1amcnt_r1_4;
 	(* syn_keep = "true" *) wire vt_new_l1a_d1_1;
 	(* syn_keep = "true" *) wire vt_new_l1a_d1_2;
 	(* syn_keep = "true" *) wire vt_new_l1a_d1_3;
@@ -261,8 +257,6 @@ begin : FIFO16ch_logic_TMR
 	(* syn_keep = "true" *) wire vt_l1a_match_d1_2;
 	(* syn_keep = "true" *) wire vt_l1a_match_d1_3;
 	(* syn_keep = "true" *) wire vt_l1a_match_d2_1;
-	(* syn_keep = "true" *) wire vt_l1a_match_d2_2;
-	(* syn_keep = "true" *) wire vt_l1a_match_d2_3;
 	(* syn_keep = "true" *) wire vt_l1a_phase_1;
 	(* syn_keep = "true" *) wire vt_l1a_phase_2;
 	(* syn_keep = "true" *) wire vt_l1a_phase_3;
@@ -329,14 +323,10 @@ begin : FIFO16ch_logic_TMR
 	assign vt_l1acnt_2       = (l1acnt_1     & l1acnt_2    ) | (l1acnt_2     & l1acnt_3    ) | (l1acnt_1     & l1acnt_3    ); // Majority logic
 	assign vt_l1acnt_3       = (l1acnt_1     & l1acnt_2    ) | (l1acnt_2     & l1acnt_3    ) | (l1acnt_1     & l1acnt_3    ); // Majority logic
 	assign vt_l1acnt_r1_1    = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
-	assign vt_l1acnt_r1_2    = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
-	assign vt_l1acnt_r1_3    = (l1acnt_r1_1  & l1acnt_r1_2 ) | (l1acnt_r1_2  & l1acnt_r1_3 ) | (l1acnt_r1_1  & l1acnt_r1_3 ); // Majority logic
 	assign vt_l1amcnt_1      = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
 	assign vt_l1amcnt_2      = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
 	assign vt_l1amcnt_3      = (l1amcnt_1    & l1amcnt_2   ) | (l1amcnt_2    & l1amcnt_3   ) | (l1amcnt_1    & l1amcnt_3   ); // Majority logic
 	assign vt_l1amcnt_r1_1   = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
-	assign vt_l1amcnt_r1_2   = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
-	assign vt_l1amcnt_r1_3   = (l1amcnt_r1_1 & l1amcnt_r1_2) | (l1amcnt_r1_2 & l1amcnt_r1_3) | (l1amcnt_r1_1 & l1amcnt_r1_3); // Majority logic
 	assign vt_new_l1a_d1_1   = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
 	assign vt_new_l1a_d1_2   = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
 	assign vt_new_l1a_d1_3   = (new_l1a_d1_1 & new_l1a_d1_2) | (new_l1a_d1_2 & new_l1a_d1_3) | (new_l1a_d1_1 & new_l1a_d1_3); // Majority logic
@@ -344,8 +334,6 @@ begin : FIFO16ch_logic_TMR
 	assign vt_l1a_match_d1_2 = (l1a_match_d1_1 & l1a_match_d1_2) | (l1a_match_d1_2 & l1a_match_d1_3) | (l1a_match_d1_1 & l1a_match_d1_3); // Majority logic
 	assign vt_l1a_match_d1_3 = (l1a_match_d1_1 & l1a_match_d1_2) | (l1a_match_d1_2 & l1a_match_d1_3) | (l1a_match_d1_1 & l1a_match_d1_3); // Majority logic
 	assign vt_l1a_match_d2_1 = (l1a_match_d2_1 & l1a_match_d2_2) | (l1a_match_d2_2 & l1a_match_d2_3) | (l1a_match_d2_1 & l1a_match_d2_3); // Majority logic
-	assign vt_l1a_match_d2_2 = (l1a_match_d2_1 & l1a_match_d2_2) | (l1a_match_d2_2 & l1a_match_d2_3) | (l1a_match_d2_1 & l1a_match_d2_3); // Majority logic
-	assign vt_l1a_match_d2_3 = (l1a_match_d2_1 & l1a_match_d2_2) | (l1a_match_d2_2 & l1a_match_d2_3) | (l1a_match_d2_1 & l1a_match_d2_3); // Majority logic
 	assign vt_l1a_phase_1    = (l1a_phase_1    & l1a_phase_2   ) | (l1a_phase_2    & l1a_phase_3   ) | (l1a_phase_1    & l1a_phase_3   ); // Majority logic
 	assign vt_l1a_phase_2    = (l1a_phase_1    & l1a_phase_2   ) | (l1a_phase_2    & l1a_phase_3   ) | (l1a_phase_1    & l1a_phase_3   ); // Majority logic
 	assign vt_l1a_phase_3    = (l1a_phase_1    & l1a_phase_2   ) | (l1a_phase_2    & l1a_phase_3   ) | (l1a_phase_1    & l1a_phase_3   ); // Majority logic
@@ -468,7 +456,7 @@ begin : FIFO16ch_logic_TMR
 			ovrlap_cnt_2 <= 4'h0;
 			ovrlap_cnt_3 <= 4'h0;
 		end
-		else
+		else begin
 		   if(phase_align1_1)
 				case({oinc_1,odec_1})
 					2'b10: ovrlap_cnt_1 <= vt_ovrlap_cnt_1 + 1;
@@ -493,6 +481,7 @@ begin : FIFO16ch_logic_TMR
 				endcase
 			else
 				ovrlap_cnt_3 <= vt_ovrlap_cnt_3;
+		end
 	end
 		
 	always @(negedge WRCLK) begin

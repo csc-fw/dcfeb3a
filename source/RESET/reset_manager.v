@@ -155,14 +155,10 @@ begin : RSTman_logic_TMR
 	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r1_2;
 	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r1_3;
 	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r2_1;
-	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r2_2;
-	(* syn_keep = "true" *) wire vt_daq_mmcm_lock_r2_3;
 	(* syn_keep = "true" *) wire vt_qpll_lock_r1_1;
 	(* syn_keep = "true" *) wire vt_qpll_lock_r1_2;
 	(* syn_keep = "true" *) wire vt_qpll_lock_r1_3;
 	(* syn_keep = "true" *) wire vt_qpll_lock_r2_1;
-	(* syn_keep = "true" *) wire vt_qpll_lock_r2_2;
-	(* syn_keep = "true" *) wire vt_qpll_lock_r2_3;
 	(* syn_keep = "true" *) wire vt_adc_init_rst_r1_1;
 	(* syn_keep = "true" *) wire vt_adc_init_rst_r1_2;
 	(* syn_keep = "true" *) wire vt_adc_init_rst_r1_3;
@@ -588,7 +584,7 @@ begin : RSTman_FSMs_TMR
 		.CLK(CLK),
 		.INIT_DONE(ADC_INIT_DONE),
 		.RST(ADC_INIT_RST),
-		.SLOW_CNT(dsr_tmr)
+		.SLOW_CNT(dsr_tmr_i)
 	);
 end
 else 

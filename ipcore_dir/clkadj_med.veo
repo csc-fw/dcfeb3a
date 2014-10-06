@@ -84,6 +84,5 @@
     .CLK_OUT4(CLK_OUT4),     // OUT
     .CLKFB_OUT(CLKFB_OUT),    // OUT
     // Status and control signals
-    .RESET(RESET),// IN
-    .LOCKED(LOCKED));      // OUT
+    .RESET(RESET));       // IN
 // INST_TAG_END ------ End INSTANTIATION Template ---------

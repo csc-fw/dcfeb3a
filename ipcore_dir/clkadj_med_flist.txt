@@ -2,6 +2,7 @@
 _xmsgs\pn_parser.xmsgs
 clkadj_med.asy
 clkadj_med.gise
+clkadj_med.sym
 clkadj_med.ucf
 clkadj_med.v
 clkadj_med.veo

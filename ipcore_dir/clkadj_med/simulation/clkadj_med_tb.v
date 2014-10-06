@@ -57,7 +57,7 @@
 
 `timescale 1ps/1ps
 
-`define wait_lock @(posedge LOCKED)
+`define wait_lock @(posedge dut.clknetwork.mmcm_adv_inst.LOCKED)
 
 module clkadj_med_tb ();
 
@@ -87,7 +87,6 @@ module clkadj_med_tb ();
   wire [4:1]  COUNT;
   // Status and control signals
   reg         RESET      = 0;
-  wire        LOCKED;
   reg         COUNTER_RESET = 0;
 wire [4:1] CLK_OUT;
 //Freq Check using the M & D values setting and actual Frequency generated
@@ -215,8 +214,7 @@ time prev_rise4;
     // High bits of the counters
     .COUNT              (COUNT),
     // Status and control signals
-    .RESET              (RESET),
-    .LOCKED             (LOCKED));
+    .RESET              (RESET));
 
 // Freq Check 
 initial
