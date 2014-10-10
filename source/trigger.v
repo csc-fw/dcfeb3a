@@ -92,16 +92,16 @@ begin : TRG_logic_TMR
 	(* syn_preserve = "true" *) reg resync_1;
 	(* syn_preserve = "true" *) reg resync_2;
 	(* syn_preserve = "true" *) reg resync_3;
-	(* syn_preserve = "true" *) reg bc0cnt_1;
-	(* syn_preserve = "true" *) reg bc0cnt_2;
-	(* syn_preserve = "true" *) reg bc0cnt_3;
+	(* syn_preserve = "true" *) reg [11:0] bc0cnt_1;
+	(* syn_preserve = "true" *) reg [11:0] bc0cnt_2;
+	(* syn_preserve = "true" *) reg [11:0] bc0cnt_3;
 	(* syn_preserve = "true" *) reg bc0_1;
 	(* syn_preserve = "true" *) reg bc0_2;
 	(* syn_preserve = "true" *) reg bc0_3;
 	
-	(* syn_keep = "true" *) wire vt_bc0cnt_1;
-	(* syn_keep = "true" *) wire vt_bc0cnt_2;
-	(* syn_keep = "true" *) wire vt_bc0cnt_3;
+	(* syn_keep = "true" *) wire [11:0] vt_bc0cnt_1;
+	(* syn_keep = "true" *) wire [11:0] vt_bc0cnt_2;
+	(* syn_keep = "true" *) wire [11:0] vt_bc0cnt_3;
 	(* syn_keep = "true" *) wire vt_bc0_1;
 	(* syn_keep = "true" *) wire vt_bc0_2;
 	(* syn_keep = "true" *) wire vt_bc0_3;
@@ -216,7 +216,7 @@ begin : TRG_logic
 	reg l1a_match_r;
 	reg lct_r;
 	reg resync_r;
-	reg bc0cnt_r;
+	reg [11:0] bc0cnt_r;
 	reg bc0_r;
 
 	assign L1A       = l1a_r;
