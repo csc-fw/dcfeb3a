@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Nov 05 22:26:40 2013
+# Date: Fri Nov 14 16:15:51 2014
 #
 ##############################################################
 #
@@ -58,11 +58,11 @@ CSET counter_width_6=Disabled
 CSET counter_width_7=Disabled
 CSET counter_width_8=Disabled
 CSET counter_width_9=Disabled
-CSET data_port_width=110
+CSET data_port_width=130
 CSET data_same_as_trigger=false
 CSET disable_save_keep=false
 CSET enable_storage_qualification=true
-CSET enable_trigger_output_port=false
+CSET enable_trigger_output_port=true
 CSET example_design=false
 CSET exclude_from_data_storage_1=true
 CSET exclude_from_data_storage_10=true
@@ -88,15 +88,15 @@ CSET match_type_13=basic_with_edges
 CSET match_type_14=basic_with_edges
 CSET match_type_15=basic_with_edges
 CSET match_type_16=basic_with_edges
-CSET match_type_2=basic_with_edges
-CSET match_type_3=basic_with_edges
+CSET match_type_2=range
+CSET match_type_3=range
 CSET match_type_4=basic_with_edges
 CSET match_type_5=basic_with_edges
 CSET match_type_6=basic_with_edges
 CSET match_type_7=basic_with_edges
 CSET match_type_8=basic_with_edges
 CSET match_type_9=basic_with_edges
-CSET match_units_1=4
+CSET match_units_1=3
 CSET match_units_10=1
 CSET match_units_11=1
 CSET match_units_12=1
@@ -113,7 +113,7 @@ CSET match_units_7=1
 CSET match_units_8=1
 CSET match_units_9=1
 CSET max_sequence_levels=4
-CSET number_of_trigger_ports=1
+CSET number_of_trigger_ports=3
 CSET sample_data_depth=8192
 CSET sample_on=Rising
 CSET trigger_port_width_1=8
@@ -124,8 +124,8 @@ CSET trigger_port_width_13=8
 CSET trigger_port_width_14=8
 CSET trigger_port_width_15=8
 CSET trigger_port_width_16=8
-CSET trigger_port_width_2=8
-CSET trigger_port_width_3=8
+CSET trigger_port_width_2=10
+CSET trigger_port_width_3=10
 CSET trigger_port_width_4=8
 CSET trigger_port_width_5=8
 CSET trigger_port_width_6=8
@@ -138,4 +138,4 @@ CSET use_rpms=true
 MISC pkg_timestamp=2013-10-13T14:13:15Z
 # END Extra information
 GENERATE
-# CRC: 28e36417
+# CRC: a259df22

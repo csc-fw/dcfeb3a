@@ -1,22 +1,22 @@
 #ChipScope Pro Analyzer Project File, Version 3.0
-#Wed Jul 30 15:08:05 EDT 2014
+#Fri Nov 14 13:59:25 EST 2014
 deviceChain.deviceName0=XC6VLX130T
 deviceChain.iRLength0=10
 deviceChain.name0=MyDevice0
 deviceIds=8424a093
-mdiAreaHeight=0.6998313659359191
-mdiAreaHeightLast=0.6998313659359191
-mdiCount=2
+mdiAreaHeight=0.699486301369863
+mdiAreaHeightLast=0.699486301369863
+mdiCount=0
 mdiDevice0=0
 mdiDevice1=0
 mdiType0=1
 mdiType1=0
 mdiUnit0=0
 mdiUnit1=0
-navigatorHeight=0.17959527824620575
-navigatorHeightLast=0.17959527824620575
-navigatorWidth=0.4818435754189944
-navigatorWidthLast=0.4818435754189944
+navigatorHeight=0.17893835616438356
+navigatorHeightLast=0.17893835616438356
+navigatorWidth=0.48175182481751827
+navigatorWidthLast=0.48175182481751827
 signalDisplayPath=0
 unit.-1.-1.username=
 unit.0.-1.coretype=SYSTEM MONITOR

@@ -33,6 +33,7 @@ module daq_optical_out #(
 	output CSP_MAN_CTRL,        // Chip Scope Pro manual control for DAQ rate, L1A, and packet headers;
 	output CSP_USE_ANY_L1A,     // Flag to send data on any L1A
 	output CSP_L1A_HEAD,        // Flag to send L1A number at the begining of the packet
+	output CSP_DAQ_TRG_OUT,     // 
 	output DAQ_DATA_CLK,        // Clock that should be used for passing data and controls to this module
 	output [15:0] FRMPRC_ERRCNT
   );
@@ -127,7 +128,9 @@ localparam
 	wire crc_vld2_i;
 	wire [15:0] mgt_tx_data_i;
 	wire [15:0] crc_i;
-
+	reg [9:0] pkt_len;
+	reg [9:0] pkt_len_reg;
+	
 assign CSP_MAN_CTRL = man_control;
 assign CSP_USE_ANY_L1A = man_use_any_l1a;
 assign CSP_L1A_HEAD = man_l1a_head;
@@ -138,8 +141,10 @@ if(USE_CHIPSCOPE==1)
 begin : chipscope_daq_tx
 wire [15:0] daq_tx_async_in;
 wire [7:0]  daq_tx_async_out;
-wire [109:0] daq_tx_la_data;
+wire [129:0] daq_tx_la_data;
 wire [7:0]  daq_tx_la_trig;
+wire [9:0]  daq_tx_la_trig1;
+wire [9:0]  daq_tx_la_trig2;
 
 wire [3:0] dummy_asigs;
 
@@ -183,8 +188,11 @@ wire [3:0] dummy_asigs;
 	daq_tx_la daq_tx_la_i (
 		 .CONTROL(DAQ_TX_LA_CNTRL),
 		 .CLK(usr_clk_wordwise),
-		 .DATA(daq_tx_la_data), // IN BUS [109:0]
-		 .TRIG0(daq_tx_la_trig) // IN BUS [7:0]
+		 .DATA(daq_tx_la_data), // IN BUS [119:0]
+		 .TRIG0(daq_tx_la_trig), // IN BUS [7:0]
+		 .TRIG1(daq_tx_la_trig1), // IN BUS [9:0]
+		 .TRIG2(daq_tx_la_trig2), // IN BUS [9:0]
+		 .TRIG_OUT(CSP_DAQ_TRG_OUT) // OUT
 	);
 	
 // LA Data [109:0]
@@ -232,6 +240,8 @@ wire [3:0] dummy_asigs;
 	assign daq_tx_la_data[89]      = div_clk_rst;
 	assign daq_tx_la_data[105:90]  = mgt_tx_data_i;
 	assign daq_tx_la_data[109:106]  = dqrt_state;
+	assign daq_tx_la_data[119:110]  = pkt_len_reg;
+	assign daq_tx_la_data[129:120]  = pkt_len;
 
 // LA Trigger [7:0]
 	assign daq_tx_la_trig[0]      = man_rst;
@@ -243,6 +253,12 @@ wire [3:0] dummy_asigs;
 	assign daq_tx_la_trig[6]      = plllock_i;
 	assign daq_tx_la_trig[7]      = daq_rate;
 
+// LA Trigger1 [9:0]
+	assign daq_tx_la_trig1      = pkt_len_reg;
+
+// LA Trigger2 [9:0]
+	assign daq_tx_la_trig2      = pkt_len;
+
 end
 else
 begin : no_chipscope_daq_tx
@@ -252,6 +268,7 @@ begin : no_chipscope_daq_tx
 	assign man_daq_rate = 1;
 	assign man_use_any_l1a = 0;
 	assign man_l1a_head = 1;
+	assign CSP_DAQ_TRG_OUT = 0;
 end
 endgenerate
 
@@ -494,6 +511,31 @@ always @(posedge usr_clk_wordwise)
 begin
 	inj_err1 <= JDAQ_INJ_ERR;
 	inj_err2 <= inj_err1;
+end
+
+always @(posedge usr_clk_wordwise)
+begin
+	if (clr_crc || arst) begin
+		pkt_len <= 10'h000;
+	end
+	else begin
+	   if(crc_calc)
+			pkt_len <= pkt_len+1;
+		else
+			pkt_len <= pkt_len;
+	end
+end
+always @(posedge usr_clk_wordwise)
+begin
+	if (arst) begin
+		pkt_len_reg <= 10'd800;
+	end
+	else begin
+	   if(crc_vld1_i)
+			pkt_len_reg <= pkt_len;
+		else
+			pkt_len_reg <= pkt_len_reg;
+	end
 end
 
 

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2013 Xilinx, Inc.
+// Copyright (c) 2014 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : daq_tx_la.veo
-// /___/   /\     Timestamp  : Tue Nov 05 17:29:39 Eastern Standard Time 2013
+// /___/   /\     Timestamp  : Fri Nov 14 11:19:29 Eastern Standard Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -23,8 +23,11 @@
 daq_tx_la YourInstanceName (
     .CONTROL(CONTROL), // INOUT BUS [35:0]
     .CLK(CLK), // IN
-    .DATA(DATA), // IN BUS [109:0]
-    .TRIG0(TRIG0) // IN BUS [7:0]
+    .DATA(DATA), // IN BUS [129:0]
+    .TRIG0(TRIG0), // IN BUS [7:0]
+    .TRIG1(TRIG1), // IN BUS [9:0]
+    .TRIG2(TRIG2), // IN BUS [9:0]
+    .TRIG_OUT(TRIG_OUT) // OUT
 );
 
 // INST_TAG_END ------ End INSTANTIATION Template ---------

@@ -13,8 +13,8 @@ module dcfeb3a #(
 	parameter USE_CHAN_LINK_CHIPSCOPE = 0,
 	parameter USE_DESER_CHIPSCOPE = 0,
 	parameter USE_CMP_CHIPSCOPE = 0,
-	parameter USE_DAQ_CHIPSCOPE = 0,
-	parameter USE_RINGBUF_CHIPSCOPE = 0,
+	parameter USE_DAQ_CHIPSCOPE = 1,
+	parameter USE_RINGBUF_CHIPSCOPE = 1,
 	parameter USE_FF_EMU_CHIPSCOPE = 0,
 	parameter USE_SPI_CHIPSCOPE = 0,
 	parameter USE_PIPE_CHIPSCOPE = 0,
@@ -27,8 +27,8 @@ module dcfeb3a #(
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
 //	parameter ADC_Init_tmo = 12'd1, 
-	parameter TMR = 1,
-	parameter TMR_Err_Det = 1
+	parameter TMR = 0,
+	parameter TMR_Err_Det = 0
 	)(
 
 	//Clocks
@@ -162,7 +162,6 @@ module dcfeb3a #(
 /////////////////////////////////////////////////////////////////////////////
 	wire [35:0] adc_mem_vio_c0;
 	wire [35:0] adc_cnfg_mem_la_c1;
-	wire [35:0] readout_fifo1_la_c2;
 	wire [35:0] DAQ_tx_vio_c3;
 	wire [35:0] DAQ_tx_la_c4;
 	wire [35:0] rd_fifo2_la_c5;
@@ -196,7 +195,6 @@ CSP_chan_link_cntrl CSP_chan_link_cntrl_i (
 	assign g1la0_c0 = 36'h000000000;
 	assign adc_mem_vio_c0 = 36'h000000000;
 	assign adc_cnfg_mem_la_c1 = 36'h000000000;
-	assign readout_fifo1_la_c2 = 36'h000000000;
 	assign DAQ_tx_vio_c3 = 36'h000000000;
 	assign DAQ_tx_la_c4 = 36'h000000000;
 	assign rd_fifo2_la_c5 = 36'h000000000;
@@ -215,12 +213,12 @@ CSP_chan_link_cntrl CSP_chan_link_cntrl_i (
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
 end
-else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
+else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0 && USE_RINGBUF_CHIPSCOPE == 0) 
 begin : chipscope_with_comp_and_daq
 CSP_comp_daq_cntrl cmp_daq_cntrl1 (
     .CONTROL0(adc_mem_vio_c0), // INOUT BUS [35:0]
     .CONTROL1(adc_cnfg_mem_la_c1), // INOUT BUS [35:0]
-    .CONTROL2(readout_fifo1_la_c2), // INOUT BUS [35:0]
+    .CONTROL2(rng_ff1_la0_c0), // INOUT BUS [35:0]
     .CONTROL3(DAQ_tx_vio_c3), // INOUT BUS [35:0]
     .CONTROL4(DAQ_tx_la_c4), // INOUT BUS [35:0]
     .CONTROL5(rd_fifo2_la_c5), // INOUT BUS [35:0]
@@ -234,13 +232,12 @@ CSP_comp_daq_cntrl cmp_daq_cntrl1 (
 	assign pipe_vio_out1_c2 = 36'h000000000;
 	assign sem_la0_c0 = 36'h000000000;
 	assign sem_vio_in0_c1 = 36'h000000000;
-	assign rng_ff1_la0_c0 = 36'h000000000;
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
 end
-else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0) 
+else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_RINGBUF_CHIPSCOPE == 0) 
 begin : chipscope_with_comp_no_daq
  
 CSP_comp_cntrl comp_cntrl1 (
@@ -250,7 +247,6 @@ CSP_comp_cntrl comp_cntrl1 (
 
 	assign adc_mem_vio_c0 = 36'h000000000;
 	assign adc_cnfg_mem_la_c1 = 36'h000000000;
-	assign readout_fifo1_la_c2 = 36'h000000000;
 	assign DAQ_tx_vio_c3 = 36'h000000000;
 	assign DAQ_tx_la_c4 = 36'h000000000;
 	assign rd_fifo2_la_c5 = 36'h000000000;
@@ -267,12 +263,12 @@ CSP_comp_cntrl comp_cntrl1 (
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
 end
-else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0) 
+else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0 && USE_RINGBUF_CHIPSCOPE == 0) 
 begin : chipscope_with_daq_no_comp
 CSP_daq_cntrl daq_cntrl1 (
     .CONTROL0(adc_mem_vio_c0), // INOUT BUS [35:0]
     .CONTROL1(adc_cnfg_mem_la_c1), // INOUT BUS [35:0]
-    .CONTROL2(readout_fifo1_la_c2), // INOUT BUS [35:0]
+    .CONTROL2(rng_ff1_la0_c0), // INOUT BUS [35:0]
     .CONTROL3(DAQ_tx_vio_c3), // INOUT BUS [35:0]
     .CONTROL4(DAQ_tx_la_c4), // INOUT BUS [35:0]
     .CONTROL5(rd_fifo2_la_c5), // INOUT BUS [35:0]
@@ -287,7 +283,6 @@ CSP_daq_cntrl daq_cntrl1 (
 	assign pipe_vio_out1_c2 = 36'h000000000;
 	assign sem_la0_c0 = 36'h000000000;
 	assign sem_vio_in0_c1 = 36'h000000000;
-	assign rng_ff1_la0_c0 = 36'h000000000;
 	assign rng_buf_la0_c1 = 36'h000000000;
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
@@ -302,7 +297,6 @@ CSP_deser_cntrl deser_cntrl1 (
     .CONTROL3(adc_cnfg_mem_la_c1) // INOUT BUS [35:0]
 );
 
-	assign readout_fifo1_la_c2 = 36'h000000000;
 	assign DAQ_tx_vio_c3 = 36'h000000000;
 	assign DAQ_tx_la_c4 = 36'h000000000;
 	assign rd_fifo2_la_c5 = 36'h000000000;
@@ -332,7 +326,6 @@ CSP_pipe_cntrl pipe_cntrl1 (
 	assign g1la0_c0 = 36'h000000000;
 	assign adc_mem_vio_c0 = 36'h000000000;
 	assign adc_cnfg_mem_la_c1 = 36'h000000000;
-	assign readout_fifo1_la_c2 = 36'h000000000;
 	assign DAQ_tx_vio_c3 = 36'h000000000;
 	assign DAQ_tx_la_c4 = 36'h000000000;
 	assign rd_fifo2_la_c5 = 36'h000000000;
@@ -358,7 +351,6 @@ CSP_sem_cntrl sem_cntrl1 (
 	assign g1la0_c0 = 36'h000000000;
 	assign adc_mem_vio_c0 = 36'h000000000;
 	assign adc_cnfg_mem_la_c1 = 36'h000000000;
-	assign readout_fifo1_la_c2 = 36'h000000000;
 	assign DAQ_tx_vio_c3 = 36'h000000000;
 	assign DAQ_tx_la_c4 = 36'h000000000;
 	assign rd_fifo2_la_c5 = 36'h000000000;
@@ -387,7 +379,6 @@ CSP_rngbuf_cntrl rngbuf_cntrl1 (
 	assign g1la0_c0 = 36'h000000000;
 	assign adc_mem_vio_c0 = 36'h000000000;
 	assign adc_cnfg_mem_la_c1 = 36'h000000000;
-	assign readout_fifo1_la_c2 = 36'h000000000;
 	assign DAQ_tx_vio_c3 = 36'h000000000;
 	assign DAQ_tx_la_c4 = 36'h000000000;
 	assign rd_fifo2_la_c5 = 36'h000000000;
@@ -398,13 +389,40 @@ CSP_rngbuf_cntrl rngbuf_cntrl1 (
 	assign pipe_vio_in0_c1 = 36'h000000000;
 	assign pipe_vio_out1_c2 = 36'h000000000;
 end
+else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 0 && USE_RINGBUF_CHIPSCOPE == 1) 
+begin : chipscope_with_Ring_Buf
+CSP_rngbuf_daq rngbuf_daq1 (
+    .CONTROL0(rng_ff1_la0_c0), // INOUT BUS [35:0]
+    .CONTROL1(rng_buf_la0_c1), // INOUT BUS [35:0]
+    .CONTROL2(rng_eth_la0_c2), // INOUT BUS [35:0]
+    .CONTROL3(rng_xfr_la0_c3),  // INOUT BUS [35:0]
+    .CONTROL4(DAQ_tx_vio_c3), // INOUT BUS [35:0]
+    .CONTROL5(DAQ_tx_la_c4) // INOUT BUS [35:0]
+);
+	
+	assign g1vio0_c0 = 36'h000000000;
+	assign g1la0_c0 = 36'h000000000;
+	assign adc_mem_vio_c0 = 36'h000000000;
+	assign adc_cnfg_mem_la_c1 = 36'h000000000;
+	assign rd_fifo2_la_c5 = 36'h000000000;
+	assign bpi_vio_c6 = 36'h000000000;
+	assign bpi_la_c7 = 36'h000000000;
+	assign cmp_tx_vio_c0 = 36'h000000000;
+	assign cmp_tx_la_c1 = 36'h000000000;
+	assign pipe_la0_c0 = 36'h000000000;
+	assign pipe_vio_in0_c1 = 36'h000000000;
+	assign pipe_vio_out1_c2 = 36'h000000000;
+	assign sem_la0_c0 = 36'h000000000;
+	assign sem_vio_in0_c1 = 36'h000000000;
+	assign rng_chn_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+end
 else
 begin : no_chipscope
 	assign g1vio0_c0 = 36'h000000000;
 	assign g1la0_c0 = 36'h000000000;
 	assign adc_mem_vio_c0 = 36'h000000000;
 	assign adc_cnfg_mem_la_c1 = 36'h000000000;
-	assign readout_fifo1_la_c2 = 36'h000000000;
 	assign DAQ_tx_vio_c3 = 36'h000000000;
 	assign DAQ_tx_la_c4 = 36'h000000000;
 	assign rd_fifo2_la_c5 = 36'h000000000;
@@ -566,7 +584,7 @@ endgenerate
  wire csp_man_ctrl;
  wire use_any_l1a, juse_any_l1a, csp_use_any_l1a;
  wire l1a_head, jl1a_head, csp_l1a_head;
-
+ wire user_temp_alarm;
 
  assign use_any_l1a = csp_man_ctrl ? csp_use_any_l1a : juse_any_l1a;
  assign l1a_head = csp_man_ctrl ? csp_l1a_head : jl1a_head;
@@ -1081,12 +1099,13 @@ wire rng_buf_trg_out;
 wire rng_chn_trg_out;
 wire rng_eth_trg_out;
 wire rng_xfr_trg_out;
+wire csp_daq_trg_out;
 
-assign rng_ff1_trg_in = rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out || rng_xfr_trg_out;
-assign rng_buf_trg_in = rng_ff1_trg_out || rng_chn_trg_out || rng_eth_trg_out || rng_xfr_trg_out;
-assign rng_chn_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_eth_trg_out || rng_xfr_trg_out;
-assign rng_eth_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_xfr_trg_out;
-assign rng_xfr_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out;
+assign rng_ff1_trg_in = rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out || rng_xfr_trg_out || csp_daq_trg_out;
+assign rng_buf_trg_in = rng_ff1_trg_out || rng_chn_trg_out || rng_eth_trg_out || rng_xfr_trg_out || csp_daq_trg_out;
+assign rng_chn_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_eth_trg_out || rng_xfr_trg_out || csp_daq_trg_out;
+assign rng_eth_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_xfr_trg_out || csp_daq_trg_out;
+assign rng_xfr_trg_in = rng_ff1_trg_out || rng_buf_trg_out || rng_chn_trg_out || rng_eth_trg_out || csp_daq_trg_out;
 
 fifo16ch_wide #(
 		.USE_CHIPSCOPE(USE_RINGBUF_CHIPSCOPE),
@@ -1340,6 +1359,7 @@ daq_optical_out_i (
 	.CSP_MAN_CTRL(csp_man_ctrl),        // Chip Scope Pro manual control for DAQ rate, L1A, and packet headers;
 	.CSP_USE_ANY_L1A(csp_use_any_l1a),     // Flag to send data on any L1A
 	.CSP_L1A_HEAD(csp_l1a_head),        // Flag to send L1A number at the begining of the packet
+	.CSP_DAQ_TRG_OUT(csp_daq_trg_out),        // Flag to send L1A number at the begining of the packet
 	.DAQ_DATA_CLK(daq_data_clk),
 	.FRMPRC_ERRCNT(frmprc_errcnt)
   );
@@ -1773,7 +1793,7 @@ SPI_PORT_i  (
   
   
   wire sys_mon_rst;
-  wire vccaux_alarm,vccint_alarm,user_temp_alarm,ot;
+  wire vccaux_alarm,vccint_alarm,ot;
   
 generate
 if(Simulation==0)

@@ -460,13 +460,31 @@ begin : Eth_FIFO_logic_TMR
 	always @(posedge RCLK or posedge vt_clr_crc_1) begin
 		if(vt_clr_crc_1) begin
 			crc_1 <= 15'h0000;
+		end
+		else begin
+			if(ce) begin
+				crc_1 <= CRC15_D13(vt_adcdata_1, vt_crc_1);
+			end
+		end
+	end
+	always @(posedge RCLK or posedge vt_clr_crc_2) begin
+		if(vt_clr_crc_2) begin
 			crc_2 <= 15'h0000;
+		end
+		else begin
+			if(ce) begin
+				crc_2 <= CRC15_D13(vt_adcdata_2, vt_crc_2);
+			end
+		end
+	end
+	always @(posedge RCLK or posedge vt_clr_crc_3) begin
+		if(vt_clr_crc_3) begin
 			crc_3 <= 15'h0000;
 		end
 		else begin
-			crc_1 <= CRC15_D13(vt_adcdata_1, vt_crc_1);
-			crc_2 <= CRC15_D13(vt_adcdata_2, vt_crc_2);
-			crc_3 <= CRC15_D13(vt_adcdata_3, vt_crc_3);
+			if(ce) begin
+				crc_3 <= CRC15_D13(vt_adcdata_3, vt_crc_3);
+			end
 		end
 	end
 

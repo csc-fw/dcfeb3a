@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version I-2014.03-1 
 #--  Project file C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\run_options.txt
-#--  Written on Fri Oct 10 12:44:51 2014
+#--  Written on Fri Nov 14 14:19:00 2014
 
 
 #project files
@@ -55,6 +55,7 @@ add_file -xilinx "./ipcore_dir/pipeline_ecc.ngc"
 add_file -xilinx "./ipcore_dir/CSP_chan_link_cntrl.ngc"
 add_file -xilinx "./ipcore_dir/al_Buckeye_load_FIFO.ngc"
 add_file -xilinx "./ipcore_dir/BPI_FIFO.ngc"
+add_file -xilinx "./ipcore_dir/CSP_rngbuf_daq.ngc"
 add_file -verilog "./source/TMB/lfsr_R24.v"
 add_file -verilog "./source/fizzim/comp_thresh_load_FSM_TMR.v"
 add_file -verilog "./source/fizzim/comp_thresh_load_FSM.v"
@@ -184,6 +185,7 @@ add_file -verilog "./source/ADC/adc_control_out.v"
 add_file -verilog "./source/ADC/adc_config.v"
 add_file -verilog "./ipcore_dir/sysmon.v"
 add_file -verilog "./ipcore_dir/CSP_sem_cntrl.v"
+add_file -verilog "./ipcore_dir/CSP_rngbuf_daq.v"
 add_file -verilog "./ipcore_dir/CSP_rngbuf_cntrl.v"
 add_file -verilog "./ipcore_dir/CSP_pipe_cntrl.v"
 add_file -verilog "./ipcore_dir/CSP_deser_cntrl.v"

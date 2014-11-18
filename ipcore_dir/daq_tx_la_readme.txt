@@ -20,10 +20,20 @@ Creates an implementation netlist:
    * daq_tx_la.xdc
    * daq_tx_la_xmdf.tcl
 
+Creates an HDL instantiation template:
+   Creates an HDL instantiation template for the IP.
+
+   * daq_tx_la.veo
+
 IP Symbol Generator:
    Generate an IP symbol based on the current project options'.
 
    * daq_tx_la.asy
+
+SYM file generator:
+   Generate a SYM file for compatibility with legacy flows
+
+   * daq_tx_la.sym
 
 Generate ISE subproject:
    Create an ISE subproject for use when including this core in ISE designs

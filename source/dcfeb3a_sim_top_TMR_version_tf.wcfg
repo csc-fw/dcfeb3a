@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="2323" />
+   <WVObjectSize size="2332" />
    <wave_markers>
       <marker time="388748000000" label="" />
       <marker time="385633000000" label="" />
@@ -4634,14 +4634,6 @@
       <obj_property name="ElementShortName">dmy</obj_property>
       <obj_property name="ObjectShortName">dmy</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/ce" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">ce</obj_property>
-      <obj_property name="ObjectShortName">ce</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/clr_crc0" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">clr_crc0</obj_property>
-      <obj_property name="ObjectShortName">clr_crc0</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/ld_l1a_h" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">ld_l1a_h</obj_property>
       <obj_property name="ObjectShortName">ld_l1a_h</obj_property>
@@ -4654,10 +4646,6 @@
       <obj_property name="ElementShortName">nxt_l1a</obj_property>
       <obj_property name="ObjectShortName">nxt_l1a</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/nxt_wrd" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">nxt_wrd</obj_property>
-      <obj_property name="ObjectShortName">nxt_wrd</obj_property>
-   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/valid0" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">valid0</obj_property>
       <obj_property name="ObjectShortName">valid0</obj_property>
@@ -4665,6 +4653,11 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/seq" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">seq[6:0]</obj_property>
       <obj_property name="ObjectShortName">seq[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/\Eth_FIFO_logic_TMR.vt_seq1_1 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\Eth_FIFO_logic_TMR.vt_seq1_1 [6:0]</obj_property>
+      <obj_property name="ObjectShortName">\Eth_FIFO_logic_TMR.vt_seq1_1 [6:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/frm_state" type="array" db_ref_id="1">
@@ -4677,6 +4670,42 @@
       <obj_property name="ObjectShortName">l1abuf_i[4:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/ce" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ce</obj_property>
+      <obj_property name="ObjectShortName">ce</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/clr_crc0" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clr_crc0</obj_property>
+      <obj_property name="ObjectShortName">clr_crc0</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/clr_crc_i" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clr_crc_i</obj_property>
+      <obj_property name="ObjectShortName">clr_crc_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/\Eth_FIFO_logic_TMR.vt_crc_1 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\Eth_FIFO_logic_TMR.vt_crc_1 [14:0]</obj_property>
+      <obj_property name="ObjectShortName">\Eth_FIFO_logic_TMR.vt_crc_1 [14:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/\Eth_FIFO_logic_TMR.crc_1 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\Eth_FIFO_logic_TMR.crc_1 [14:0]</obj_property>
+      <obj_property name="ObjectShortName">\Eth_FIFO_logic_TMR.crc_1 [14:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/\Eth_FIFO_logic_TMR.vt_adcdata_1 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\Eth_FIFO_logic_TMR.vt_adcdata_1 [12:0]</obj_property>
+      <obj_property name="ObjectShortName">\Eth_FIFO_logic_TMR.vt_adcdata_1 [12:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/data_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_out[11:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[11:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/nxt_wrd" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">nxt_wrd</obj_property>
+      <obj_property name="ObjectShortName">nxt_wrd</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/fullwrd_i" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">fullwrd_i[15:0]</obj_property>
       <obj_property name="ObjectShortName">fullwrd_i[15:0]</obj_property>
@@ -4687,9 +4716,14 @@
       <obj_property name="ObjectShortName">frame_i[15:0]</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/clr_crc_i" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">clr_crc_i</obj_property>
-      <obj_property name="ObjectShortName">clr_crc_i</obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/TXD" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">TXD[15:0]</obj_property>
+      <obj_property name="ObjectShortName">TXD[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/TXD_VLD" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TXD_VLD</obj_property>
+      <obj_property name="ObjectShortName">TXD_VLD</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/eth_fifo_i/mt_r3_i" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">mt_r3_i</obj_property>
@@ -5782,6 +5816,21 @@
       <obj_property name="ElementShortName">arst</obj_property>
       <obj_property name="ObjectShortName">arst</obj_property>
    </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/pkt_len_reg_i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pkt_len_reg_i[9:0]</obj_property>
+      <obj_property name="ObjectShortName">pkt_len_reg_i[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/\DAQ_Pkt_TMR.pkt_len " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\DAQ_Pkt_TMR.pkt_len [9:0]</obj_property>
+      <obj_property name="ObjectShortName">\DAQ_Pkt_TMR.pkt_len [9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/\DAQ_Pkt_TMR.pkt_len_reg " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\DAQ_Pkt_TMR.pkt_len_reg [9:0]</obj_property>
+      <obj_property name="ObjectShortName">\DAQ_Pkt_TMR.pkt_len_reg [9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/daq_optical_out_i/man_rst" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">man_rst</obj_property>
       <obj_property name="ObjectShortName">man_rst</obj_property>
@@ -6655,17 +6704,17 @@
       <obj_property name="ElementShortName">fmu_rw_resync</obj_property>
       <obj_property name="ObjectShortName">fmu_rw_resync</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.vt_bc0cnt_1 " type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">\TRG_logic_TMR.vt_bc0cnt_1 </obj_property>
-      <obj_property name="ObjectShortName">\TRG_logic_TMR.vt_bc0cnt_1 </obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.vt_bc0cnt_1 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\TRG_logic_TMR.vt_bc0cnt_1 [11:0]</obj_property>
+      <obj_property name="ObjectShortName">\TRG_logic_TMR.vt_bc0cnt_1 [11:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.vt_bc0cnt_2 " type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">\TRG_logic_TMR.vt_bc0cnt_2 </obj_property>
-      <obj_property name="ObjectShortName">\TRG_logic_TMR.vt_bc0cnt_2 </obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.vt_bc0cnt_2 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\TRG_logic_TMR.vt_bc0cnt_2 [11:0]</obj_property>
+      <obj_property name="ObjectShortName">\TRG_logic_TMR.vt_bc0cnt_2 [11:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.vt_bc0cnt_3 " type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">\TRG_logic_TMR.vt_bc0cnt_3 </obj_property>
-      <obj_property name="ObjectShortName">\TRG_logic_TMR.vt_bc0cnt_3 </obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.vt_bc0cnt_3 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\TRG_logic_TMR.vt_bc0cnt_3 [11:0]</obj_property>
+      <obj_property name="ObjectShortName">\TRG_logic_TMR.vt_bc0cnt_3 [11:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.vt_bc0_1 " type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">\TRG_logic_TMR.vt_bc0_1 </obj_property>
@@ -6727,17 +6776,17 @@
       <obj_property name="ElementShortName">\TRG_logic_TMR.resync_3 </obj_property>
       <obj_property name="ObjectShortName">\TRG_logic_TMR.resync_3 </obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.bc0cnt_1 " type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">\TRG_logic_TMR.bc0cnt_1 </obj_property>
-      <obj_property name="ObjectShortName">\TRG_logic_TMR.bc0cnt_1 </obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.bc0cnt_1 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\TRG_logic_TMR.bc0cnt_1 [11:0]</obj_property>
+      <obj_property name="ObjectShortName">\TRG_logic_TMR.bc0cnt_1 [11:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.bc0cnt_2 " type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">\TRG_logic_TMR.bc0cnt_2 </obj_property>
-      <obj_property name="ObjectShortName">\TRG_logic_TMR.bc0cnt_2 </obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.bc0cnt_2 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\TRG_logic_TMR.bc0cnt_2 [11:0]</obj_property>
+      <obj_property name="ObjectShortName">\TRG_logic_TMR.bc0cnt_2 [11:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.bc0cnt_3 " type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">\TRG_logic_TMR.bc0cnt_3 </obj_property>
-      <obj_property name="ObjectShortName">\TRG_logic_TMR.bc0cnt_3 </obj_property>
+   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.bc0cnt_3 " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\TRG_logic_TMR.bc0cnt_3 [11:0]</obj_property>
+      <obj_property name="ObjectShortName">\TRG_logic_TMR.bc0cnt_3 [11:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/trig_in1/\TRG_logic_TMR.bc0_1 " type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">\TRG_logic_TMR.bc0_1 </obj_property>
@@ -8460,10 +8509,6 @@
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/sampfbout_med" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">sampfbout_med</obj_property>
       <obj_property name="ObjectShortName">sampfbout_med</obj_property>
-   </wvobject>
-   <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/samp_med_lock" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">samp_med_lock</obj_property>
-      <obj_property name="ObjectShortName">samp_med_lock</obj_property>
    </wvobject>
    <wvobject fp_name="/dcfeb3a_sim_top_tf/uut/Clk_src1/pre_clk40" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">pre_clk40</obj_property>

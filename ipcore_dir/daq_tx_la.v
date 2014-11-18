@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2013 Xilinx, Inc.
+// Copyright (c) 2014 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : daq_tx_la.v
-// /___/   /\     Timestamp  : Tue Nov 05 17:29:39 Eastern Standard Time 2013
+// /___/   /\     Timestamp  : Fri Nov 14 11:19:29 Eastern Standard Time 2014
 // \   \  /  \
 //  \___\/\___\
 //
@@ -22,12 +22,18 @@ module daq_tx_la(
     CONTROL,
     CLK,
     DATA,
-    TRIG0) /* synthesis syn_black_box syn_noprune=1 */;
+    TRIG0,
+    TRIG1,
+    TRIG2,
+    TRIG_OUT) /* synthesis syn_black_box syn_noprune=1 */;
 
 
 inout [35 : 0] CONTROL;
 input CLK;
-input [109 : 0] DATA;
+input [129 : 0] DATA;
 input [7 : 0] TRIG0;
+input [9 : 0] TRIG1;
+input [9 : 0] TRIG2;
+output TRIG_OUT;
 
 endmodule
