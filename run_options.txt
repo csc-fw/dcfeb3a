@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version I-2014.03-1 
 #--  Project file C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\run_options.txt
-#--  Written on Fri Nov 14 14:19:00 2014
+#--  Written on Tue Nov 18 14:54:56 2014
 
 
 #project files
@@ -131,7 +131,6 @@ add_file -verilog "./source/CLK/daq_mmcm_custom.v"
 add_file -verilog "./source/CLK/clk_div_reset.v"
 add_file -verilog "./source/ADC/deserializer.v"
 add_file -verilog "./ipcore_dir/xfer2ring_la.v"
-add_file -verilog "./ipcore_dir/TRG_TX_BUF_BYPASS/example_design/frame_check.v"
 add_file -verilog "./ipcore_dir/sem_vio.v"
 add_file -verilog "./ipcore_dir/sem_la.v"
 add_file -verilog "./ipcore_dir/sem_core.v"
@@ -198,6 +197,7 @@ add_file -verilog "./ipcore_dir/cmp_tx_la.v"
 add_file -verilog "./ipcore_dir/adc_mem_vio.v"
 add_file -verilog "./ipcore_dir/adc_cnfg_mem_la.v"
 add_file -verilog "./source/dcfeb3a.v"
+add_file -verilog "./ipcore_dir/TRG_TX_BUF_BYPASS/example_design/frame_check.v"
 add_file -constraint "C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/dcfeb3a.sdc"
 
 

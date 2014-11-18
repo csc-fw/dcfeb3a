@@ -12,705 +12,192 @@
 NET "CMS_CLK_P" TNM_NET = "CMS_CLK_P"; 
 TIMESPEC "TS_CMS_CLK_P" = PERIOD "CMS_CLK_P" 25.000 ns HIGH 50.00%; 
 
-# 1011 : define_clock {n:Clk_src1.STRTUP_CLK} -name {Clock_sources_0s_0s_0s|STRTUP_CLK_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_6} -rise {0.000000} -fall {12.500000}
+# 1009 : define_clock {n:Clk_src1.STRTUP_CLK} -name {Clock_sources_0s_1s_1s|STRTUP_CLK_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_4} -rise {0.000000} -fall {12.500000}
 
 NET "Clk_src1/strtup_clk_c" TNM_NET = "Clk_src1_strtup_clk_c"; 
 TIMESPEC "TS_Clk_src1_strtup_clk_c" = PERIOD "Clk_src1_strtup_clk_c" 25.000 ns HIGH 50.00%; 
 
-# 1036 : define_clock {p:G1LCLK0P} -name {dcfeb3a|G1LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_31} -rise {0.000000} -fall {12.500000}
+# 1034 : define_clock {p:G1LCLK0P} -name {dcfeb3a|G1LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_29} -rise {0.000000} -fall {12.500000}
 
 NET "G1LCLK0P" TNM_NET = "G1LCLK0P"; 
 TIMESPEC "TS_G1LCLK0P" = PERIOD "G1LCLK0P" 25.000 ns HIGH 50.00%; 
 
-# 1037 : define_clock {p:G1LCLK1P} -name {dcfeb3a|G1LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_32} -rise {0.000000} -fall {12.500000}
+# 1035 : define_clock {p:G1LCLK1P} -name {dcfeb3a|G1LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_30} -rise {0.000000} -fall {12.500000}
 
 NET "G1LCLK1P" TNM_NET = "G1LCLK1P"; 
 TIMESPEC "TS_G1LCLK1P" = PERIOD "G1LCLK1P" 25.000 ns HIGH 50.00%; 
 
-# 1038 : define_clock {p:G2LCLK0P} -name {dcfeb3a|G2LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_33} -rise {0.000000} -fall {12.500000}
+# 1036 : define_clock {p:G2LCLK0P} -name {dcfeb3a|G2LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_31} -rise {0.000000} -fall {12.500000}
 
 NET "G2LCLK0P" TNM_NET = "G2LCLK0P"; 
 TIMESPEC "TS_G2LCLK0P" = PERIOD "G2LCLK0P" 25.000 ns HIGH 50.00%; 
 
-# 1039 : define_clock {p:G2LCLK1P} -name {dcfeb3a|G2LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_34} -rise {0.000000} -fall {12.500000}
+# 1037 : define_clock {p:G2LCLK1P} -name {dcfeb3a|G2LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_32} -rise {0.000000} -fall {12.500000}
 
 NET "G2LCLK1P" TNM_NET = "G2LCLK1P"; 
 TIMESPEC "TS_G2LCLK1P" = PERIOD "G2LCLK1P" 25.000 ns HIGH 50.00%; 
 
-# 1031 : define_clock {p:G3LCLK0P} -name {dcfeb3a|G3LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_26} -rise {0.000000} -fall {12.500000}
+# 1029 : define_clock {p:G3LCLK0P} -name {dcfeb3a|G3LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_24} -rise {0.000000} -fall {12.500000}
 
 NET "G3LCLK0P" TNM_NET = "G3LCLK0P"; 
 TIMESPEC "TS_G3LCLK0P" = PERIOD "G3LCLK0P" 25.000 ns HIGH 50.00%; 
 
-# 1032 : define_clock {p:G3LCLK1P} -name {dcfeb3a|G3LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_27} -rise {0.000000} -fall {12.500000}
+# 1030 : define_clock {p:G3LCLK1P} -name {dcfeb3a|G3LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_25} -rise {0.000000} -fall {12.500000}
 
 NET "G3LCLK1P" TNM_NET = "G3LCLK1P"; 
 TIMESPEC "TS_G3LCLK1P" = PERIOD "G3LCLK1P" 25.000 ns HIGH 50.00%; 
 
-# 1035 : define_clock {p:G4LCLK0P} -name {dcfeb3a|G4LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_30} -rise {0.000000} -fall {12.500000}
+# 1033 : define_clock {p:G4LCLK0P} -name {dcfeb3a|G4LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_28} -rise {0.000000} -fall {12.500000}
 
 NET "G4LCLK0P" TNM_NET = "G4LCLK0P"; 
 TIMESPEC "TS_G4LCLK0P" = PERIOD "G4LCLK0P" 25.000 ns HIGH 50.00%; 
 
-# 1030 : define_clock {p:G4LCLK1P} -name {dcfeb3a|G4LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_25} -rise {0.000000} -fall {12.500000}
+# 1028 : define_clock {p:G4LCLK1P} -name {dcfeb3a|G4LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_23} -rise {0.000000} -fall {12.500000}
 
 NET "G4LCLK1P" TNM_NET = "G4LCLK1P"; 
 TIMESPEC "TS_G4LCLK1P" = PERIOD "G4LCLK1P" 25.000 ns HIGH 50.00%; 
 
-# 1028 : define_clock {p:G5LCLK0P} -name {dcfeb3a|G5LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_23} -rise {0.000000} -fall {12.500000}
+# 1026 : define_clock {p:G5LCLK0P} -name {dcfeb3a|G5LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_21} -rise {0.000000} -fall {12.500000}
 
 NET "G5LCLK0P" TNM_NET = "G5LCLK0P"; 
 TIMESPEC "TS_G5LCLK0P" = PERIOD "G5LCLK0P" 25.000 ns HIGH 50.00%; 
 
-# 1033 : define_clock {p:G5LCLK1P} -name {dcfeb3a|G5LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_28} -rise {0.000000} -fall {12.500000}
+# 1031 : define_clock {p:G5LCLK1P} -name {dcfeb3a|G5LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_26} -rise {0.000000} -fall {12.500000}
 
 NET "G5LCLK1P" TNM_NET = "G5LCLK1P"; 
 TIMESPEC "TS_G5LCLK1P" = PERIOD "G5LCLK1P" 25.000 ns HIGH 50.00%; 
 
-# 1034 : define_clock {p:G6LCLK0P} -name {dcfeb3a|G6LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_29} -rise {0.000000} -fall {12.500000}
+# 1032 : define_clock {p:G6LCLK0P} -name {dcfeb3a|G6LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_27} -rise {0.000000} -fall {12.500000}
 
 NET "G6LCLK0P" TNM_NET = "G6LCLK0P"; 
 TIMESPEC "TS_G6LCLK0P" = PERIOD "G6LCLK0P" 25.000 ns HIGH 50.00%; 
 
-# 1029 : define_clock {p:G6LCLK1P} -name {dcfeb3a|G6LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_24} -rise {0.000000} -fall {12.500000}
+# 1027 : define_clock {p:G6LCLK1P} -name {dcfeb3a|G6LCLK1P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_22} -rise {0.000000} -fall {12.500000}
 
 NET "G6LCLK1P" TNM_NET = "G6LCLK1P"; 
 TIMESPEC "TS_G6LCLK1P" = PERIOD "G6LCLK1P" 25.000 ns HIGH 50.00%; 
 
-# 1015 : define_clock {p:QPLL_CLK_AC_N} -name {dcfeb3a|QPLL_CLK_AC_N} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_10} -rise {0.000000} -fall {12.500000}
+# 1013 : define_clock {p:QPLL_CLK_AC_N} -name {dcfeb3a|QPLL_CLK_AC_N} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_8} -rise {0.000000} -fall {12.500000}
 
 NET "QPLL_CLK_AC_N" TNM_NET = "QPLL_CLK_AC_N"; 
 TIMESPEC "TS_QPLL_CLK_AC_N" = PERIOD "QPLL_CLK_AC_N" 25.000 ns HIGH 50.00%; 
 
-# 1014 : define_clock {p:QPLL_CLK_AC_P} -name {dcfeb3a|QPLL_CLK_AC_P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_9} -rise {0.000000} -fall {12.500000}
+# 1012 : define_clock {p:QPLL_CLK_AC_P} -name {dcfeb3a|QPLL_CLK_AC_P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_7} -rise {0.000000} -fall {12.500000}
 
 NET "QPLL_CLK_AC_P" TNM_NET = "QPLL_CLK_AC_P"; 
 TIMESPEC "TS_QPLL_CLK_AC_P" = PERIOD "QPLL_CLK_AC_P" 25.000 ns HIGH 50.00%; 
 
-# 1013 : define_clock {p:XO_CLK_AC_N} -name {dcfeb3a|XO_CLK_AC_N} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_8} -rise {0.000000} -fall {12.500000}
+# 1011 : define_clock {p:XO_CLK_AC_N} -name {dcfeb3a|XO_CLK_AC_N} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_6} -rise {0.000000} -fall {12.500000}
 
 NET "XO_CLK_AC_N" TNM_NET = "XO_CLK_AC_N"; 
 TIMESPEC "TS_XO_CLK_AC_N" = PERIOD "XO_CLK_AC_N" 25.000 ns HIGH 50.00%; 
 
-# 1012 : define_clock {p:XO_CLK_AC_P} -name {dcfeb3a|XO_CLK_AC_P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_7} -rise {0.000000} -fall {12.500000}
+# 1010 : define_clock {p:XO_CLK_AC_P} -name {dcfeb3a|XO_CLK_AC_P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_5} -rise {0.000000} -fall {12.500000}
 
 NET "XO_CLK_AC_P" TNM_NET = "XO_CLK_AC_P"; 
 TIMESPEC "TS_XO_CLK_AC_P" = PERIOD "XO_CLK_AC_P" 25.000 ns HIGH 50.00%; 
 
-# 1016 : define_clock {n:adc_data_in1.frm_clk\[1\]\[0\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[1\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_11} -rise {0.000000} ... (etc.) 
+# 1014 : define_clock {n:adc_data_in1.frm_clk\[1\]\[0\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[1\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_9} -rise {0.000000}  ... (etc.) 
 
 NET "adc_data_in1/frm_clks[0]" TNM_NET = "adc_data_in1_frm_clks_0_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_0_" = PERIOD "adc_data_in1_frm_clks_0_" 25.000 ns HIGH 50.00%; 
 
-# 1018 : define_clock {n:adc_data_in1.frm_clk\[6\]\[0\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[6\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_13} -rise {0.000000} ... (etc.) 
+# 1016 : define_clock {n:adc_data_in1.frm_clk\[6\]\[0\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[6\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_11} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[10]" TNM_NET = "adc_data_in1_frm_clks_10_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_10_" = PERIOD "adc_data_in1_frm_clks_10_" 25.000 ns HIGH 50.00%; 
 
-# 1021 : define_clock {n:adc_data_in1.frm_clk\[6\]\[1\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[6\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_16} -rise {0.000000} ... (etc.) 
+# 1019 : define_clock {n:adc_data_in1.frm_clk\[6\]\[1\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[6\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_14} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[11]" TNM_NET = "adc_data_in1_frm_clks_11_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_11_" = PERIOD "adc_data_in1_frm_clks_11_" 25.000 ns HIGH 50.00%; 
 
-# 1019 : define_clock {n:adc_data_in1.frm_clk\[1\]\[1\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[1\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_14} -rise {0.000000} ... (etc.) 
+# 1017 : define_clock {n:adc_data_in1.frm_clk\[1\]\[1\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[1\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_12} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[1]" TNM_NET = "adc_data_in1_frm_clks_1_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_1_" = PERIOD "adc_data_in1_frm_clks_1_" 25.000 ns HIGH 50.00%; 
 
-# 1024 : define_clock {n:adc_data_in1.frm_clk\[2\]\[0\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[2\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_19} -rise {0.000000} ... (etc.) 
+# 1022 : define_clock {n:adc_data_in1.frm_clk\[2\]\[0\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[2\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_17} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[2]" TNM_NET = "adc_data_in1_frm_clks_2_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_2_" = PERIOD "adc_data_in1_frm_clks_2_" 25.000 ns HIGH 50.00%; 
 
-# 1026 : define_clock {n:adc_data_in1.frm_clk\[2\]\[1\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[2\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_21} -rise {0.000000} ... (etc.) 
+# 1024 : define_clock {n:adc_data_in1.frm_clk\[2\]\[1\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[2\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_19} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[3]" TNM_NET = "adc_data_in1_frm_clks_3_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_3_" = PERIOD "adc_data_in1_frm_clks_3_" 25.000 ns HIGH 50.00%; 
 
-# 1023 : define_clock {n:adc_data_in1.frm_clk\[3\]\[0\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[3\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_18} -rise {0.000000} ... (etc.) 
+# 1021 : define_clock {n:adc_data_in1.frm_clk\[3\]\[0\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[3\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_16} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[4]" TNM_NET = "adc_data_in1_frm_clks_4_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_4_" = PERIOD "adc_data_in1_frm_clks_4_" 25.000 ns HIGH 50.00%; 
 
-# 1017 : define_clock {n:adc_data_in1.frm_clk\[3\]\[1\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[3\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_12} -rise {0.000000} ... (etc.) 
+# 1015 : define_clock {n:adc_data_in1.frm_clk\[3\]\[1\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[3\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_10} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[5]" TNM_NET = "adc_data_in1_frm_clks_5_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_5_" = PERIOD "adc_data_in1_frm_clks_5_" 25.000 ns HIGH 50.00%; 
 
-# 1020 : define_clock {n:adc_data_in1.frm_clk\[4\]\[0\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[4\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_15} -rise {0.000000} ... (etc.) 
+# 1018 : define_clock {n:adc_data_in1.frm_clk\[4\]\[0\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[4\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_13} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[6]" TNM_NET = "adc_data_in1_frm_clks_6_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_6_" = PERIOD "adc_data_in1_frm_clks_6_" 25.000 ns HIGH 50.00%; 
 
-# 1027 : define_clock {n:adc_data_in1.frm_clk\[4\]\[1\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[4\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_22} -rise {0.000000} ... (etc.) 
+# 1025 : define_clock {n:adc_data_in1.frm_clk\[4\]\[1\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[4\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_20} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[7]" TNM_NET = "adc_data_in1_frm_clks_7_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_7_" = PERIOD "adc_data_in1_frm_clks_7_" 25.000 ns HIGH 50.00%; 
 
-# 1025 : define_clock {n:adc_data_in1.frm_clk\[5\]\[0\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[5\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_20} -rise {0.000000} ... (etc.) 
+# 1023 : define_clock {n:adc_data_in1.frm_clk\[5\]\[0\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[5\]\[0\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_18} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[8]" TNM_NET = "adc_data_in1_frm_clks_8_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_8_" = PERIOD "adc_data_in1_frm_clks_8_" 25.000 ns HIGH 50.00%; 
 
-# 1022 : define_clock {n:adc_data_in1.frm_clk\[5\]\[1\]} -name {adc_data_input_gen_csp_0s_0s|frm_clk\[5\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_17} -rise {0.000000} ... (etc.) 
+# 1020 : define_clock {n:adc_data_in1.frm_clk\[5\]\[1\]} -name {adc_data_input_gen_csp_0s_1s|frm_clk\[5\]\[1\]_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_15} -rise {0.000000} ... (etc.) 
 
 NET "adc_data_in1/frm_clks[9]" TNM_NET = "adc_data_in1_frm_clks_9_"; 
 TIMESPEC "TS_adc_data_in1_frm_clks_9_" = PERIOD "adc_data_in1_frm_clks_9_" 25.000 ns HIGH 50.00%; 
 
-# 1007 : define_clock {n:chipscope_with_Ring_Buf\.rngbuf_daq1.U0/iUPDATE_OUT} -name {CSP_rngbuf_daq|U0/iUPDATE_OUT_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_2} -rise {0.0000 ... (etc.) 
-
-NET "chipscope_with_Ring_Buf.rngbuf_daq1/U0/iUPDATE_OUT" TNM_NET = "chipscope_with_Ring_Buf_rngbuf_daq1_U0_iUPDATE_OUT"; 
-TIMESPEC "TS_chipscope_with_Ring_Buf_rngbuf_daq1_U0_iUPDATE_OUT" = PERIOD "chipscope_with_Ring_Buf_rngbuf_daq1_U0_iUPDATE_OUT" 25.000 ns HIGH 50.00%; 
-
-# 1006 : define_clock {n:chipscope_with_Ring_Buf\.rngbuf_daq1.U0/U_ICON/I_YES_BSCAN\.U_BS/iDRCK_LOCAL} -name {CSP_rngbuf_daq|U0/U_ICON/I_YES_BSCAN_U_BS/iDRCK_LOCAL_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000 ... (etc.) 
-
-NET "chipscope_with_Ring_Buf.rngbuf_daq1/U_BS/iDRCK_LOCAL" TNM_NET = "chipscope_with_Ring_Buf_rngbuf_daq1_U_BS_iDRCK_LOCAL"; 
-TIMESPEC "TS_chipscope_with_Ring_Buf_rngbuf_daq1_U_BS_iDRCK_LOCAL" = PERIOD "chipscope_with_Ring_Buf_rngbuf_daq1_U_BS_iDRCK_LOCAL" 25.000 ns HIGH 50.00%; 
-
-# 1009 : define_clock {n:jtag_acc1.drck1} -name {jtag_access_0s|drck1_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_4} -rise {0.000000} -fall {12.500000}
+# 1007 : define_clock {n:jtag_acc1.drck1} -name {jtag_access_1s|drck1_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_2} -rise {0.000000} -fall {12.500000}
 
 NET "jtag_acc1/drck1" TNM_NET = "jtag_acc1_drck1"; 
 TIMESPEC "TS_jtag_acc1_drck1" = PERIOD "jtag_acc1_drck1" 25.000 ns HIGH 50.00%; 
 
-# 1010 : define_clock {n:jtag_acc1.tck1} -name {jtag_access_0s|tck1_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_5} -rise {0.000000} -fall {12.500000}
+# 1008 : define_clock {n:jtag_acc1.tck1} -name {jtag_access_1s|tck1_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_3} -rise {0.000000} -fall {12.500000}
 
 NET "jtag_acc1/tck1_c" TNM_NET = "jtag_acc1_tck1_c"; 
 TIMESPEC "TS_jtag_acc1_tck1_c" = PERIOD "jtag_acc1_tck1_c" 25.000 ns HIGH 50.00%; 
 
-# 1008 : define_clock {n:jtag_acc1.tck2_raw} -name {jtag_access_0s|tck2_raw_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_3} -rise {0.000000} -fall {12.500000}
+# 1006 : define_clock {n:jtag_acc1.tck2_raw} -name {jtag_access_1s|tck2_raw_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_1} -rise {0.000000} -fall {12.500000}
 
 NET "jtag_acc1/tck2_raw" TNM_NET = "jtag_acc1_tck2_raw"; 
 TIMESPEC "TS_jtag_acc1_tck2_raw" = PERIOD "jtag_acc1_tck2_raw" 25.000 ns HIGH 50.00%; 
 
-# 1669 : define_clock {n:BPI_ctrl_i.BPI_CMD_FIFO_i.U0/xst_fifo_generator/gconvfifo\.rf/gbiv5\.bi/v6_fifo\.fblk/gextw\[1\]\.gnll_fifo\.inst_extd/gchain\.gp1\[4\]\.gbldl\.inst_prim/empty_user} -name {BPI_FIFO_BPI_CMD_FIFO_i|U0/xst_fifo_generator/gconvfifo_rf/gbiv5_bi ... (etc.) 
-
-NET "BPI_ctrl_i/BPI_CMD_FIFO_i/bpi_la_data_34" TNM_NET = "BPI_ctrl_i_BPI_CMD_FIFO_i_bpi_la_data_34"; 
-TIMESPEC "TS_BPI_ctrl_i_BPI_CMD_FIFO_i_bpi_la_data_34" = PERIOD "BPI_ctrl_i_BPI_CMD_FIFO_i_bpi_la_data_34" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1672 : define_clock {n:BPI_ctrl_i.BPI_FSM\.BPI_sequencer_FSM_i.command[0]} -name {BPI_sequencer_FSM|command_derived_clock[0]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} ... (etc.) 
-
-NET "BPI_ctrl_i/BPI_FSM.BPI_sequencer_FSM_i/bpi_la_data[5]" TNM_NET = "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_5_"; 
-TIMESPEC "TS_BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_5_" = PERIOD "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_5_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1675 : define_clock {n:BPI_ctrl_i.BPI_FSM\.BPI_sequencer_FSM_i.command[1]} -name {BPI_sequencer_FSM|command_derived_clock[1]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} ... (etc.) 
-
-NET "BPI_ctrl_i/BPI_FSM.BPI_sequencer_FSM_i/bpi_la_data[6]" TNM_NET = "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_6_"; 
-TIMESPEC "TS_BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_6_" = PERIOD "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_6_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1678 : define_clock {n:BPI_ctrl_i.BPI_FSM\.BPI_sequencer_FSM_i.command[2]} -name {BPI_sequencer_FSM|command_derived_clock[2]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} ... (etc.) 
-
-NET "BPI_ctrl_i/BPI_FSM.BPI_sequencer_FSM_i/bpi_la_data[7]" TNM_NET = "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_7_"; 
-TIMESPEC "TS_BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_7_" = PERIOD "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_7_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1681 : define_clock {n:BPI_ctrl_i.BPI_FSM\.BPI_sequencer_FSM_i.command[3]} -name {BPI_sequencer_FSM|command_derived_clock[3]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} ... (etc.) 
-
-NET "BPI_ctrl_i/BPI_FSM.BPI_sequencer_FSM_i/bpi_la_data[8]" TNM_NET = "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_8_"; 
-TIMESPEC "TS_BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_8_" = PERIOD "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_8_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1684 : define_clock {n:BPI_ctrl_i.BPI_FSM\.BPI_sequencer_FSM_i.command[4]} -name {BPI_sequencer_FSM|command_derived_clock[4]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} ... (etc.) 
-
-NET "BPI_ctrl_i/BPI_FSM.BPI_sequencer_FSM_i/bpi_la_data[9]" TNM_NET = "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_9_"; 
-TIMESPEC "TS_BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_9_" = PERIOD "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_9_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1687 : define_clock {n:BPI_ctrl_i.BPI_FSM\.BPI_sequencer_FSM_i.rpt_error} -name {BPI_sequencer_FSM|rpt_error_derived_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} - ... (etc.) 
-
-NET "BPI_ctrl_i/BPI_FSM.BPI_sequencer_FSM_i/bpi_la_data_10" TNM_NET = "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_10"; 
-TIMESPEC "TS_BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_10" = PERIOD "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_10" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1690 : define_clock {n:BPI_ctrl_i.BPI_FSM\.BPI_sequencer_FSM_i.seq_cmplt} -name {BPI_sequencer_FSM|seq_cmplt_derived_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} - ... (etc.) 
-
-NET "BPI_ctrl_i/BPI_FSM.BPI_sequencer_FSM_i/bpi_la_data_11" TNM_NET = "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_11"; 
-TIMESPEC "TS_BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_11" = PERIOD "BPI_ctrl_i_BPI_FSM_BPI_sequencer_FSM_i_bpi_la_data_11" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1225 : define_clock {n:BPI_ctrl_i.BPI_logic\.parser_active} -name {BPI_ctrl_Z1_layer0|BPI_logic_parser_active_derived_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000}  ... (etc.) 
-
-NET "BPI_ctrl_i/bpi_active" TNM_NET = "BPI_ctrl_i_bpi_active"; 
-TIMESPEC "TS_BPI_ctrl_i_bpi_active" = PERIOD "BPI_ctrl_i_bpi_active" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1126 : define_clock {n:BPI_ctrl_i.BPI_logic\.bpi_enable} -name {BPI_ctrl_Z1_layer0|BPI_logic_bpi_enable_derived_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall  ... (etc.) 
-
-NET "BPI_ctrl_i/bpi_enable" TNM_NET = "BPI_ctrl_i_bpi_enable"; 
-TIMESPEC "TS_BPI_ctrl_i_bpi_enable" = PERIOD "BPI_ctrl_i_bpi_enable" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1177 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[0]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[0]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[0]" TNM_NET = "BPI_ctrl_i_esig_reg_0_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_0_" = PERIOD "BPI_ctrl_i_esig_reg_0_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1207 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[10]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[10]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -f ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[10]" TNM_NET = "BPI_ctrl_i_esig_reg_10_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_10_" = PERIOD "BPI_ctrl_i_esig_reg_10_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1210 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[11]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[11]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -f ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[11]" TNM_NET = "BPI_ctrl_i_esig_reg_11_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_11_" = PERIOD "BPI_ctrl_i_esig_reg_11_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1213 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[12]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[12]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -f ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[12]" TNM_NET = "BPI_ctrl_i_esig_reg_12_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_12_" = PERIOD "BPI_ctrl_i_esig_reg_12_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1216 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[13]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[13]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -f ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[13]" TNM_NET = "BPI_ctrl_i_esig_reg_13_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_13_" = PERIOD "BPI_ctrl_i_esig_reg_13_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1219 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[14]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[14]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -f ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[14]" TNM_NET = "BPI_ctrl_i_esig_reg_14_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_14_" = PERIOD "BPI_ctrl_i_esig_reg_14_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1222 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[15]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[15]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -f ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[15]" TNM_NET = "BPI_ctrl_i_esig_reg_15_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_15_" = PERIOD "BPI_ctrl_i_esig_reg_15_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1180 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[1]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[1]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[1]" TNM_NET = "BPI_ctrl_i_esig_reg_1_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_1_" = PERIOD "BPI_ctrl_i_esig_reg_1_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1183 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[2]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[2]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[2]" TNM_NET = "BPI_ctrl_i_esig_reg_2_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_2_" = PERIOD "BPI_ctrl_i_esig_reg_2_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1186 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[3]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[3]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[3]" TNM_NET = "BPI_ctrl_i_esig_reg_3_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_3_" = PERIOD "BPI_ctrl_i_esig_reg_3_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1189 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[4]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[4]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[4]" TNM_NET = "BPI_ctrl_i_esig_reg_4_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_4_" = PERIOD "BPI_ctrl_i_esig_reg_4_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1192 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[5]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[5]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[5]" TNM_NET = "BPI_ctrl_i_esig_reg_5_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_5_" = PERIOD "BPI_ctrl_i_esig_reg_5_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1195 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[6]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[6]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[6]" TNM_NET = "BPI_ctrl_i_esig_reg_6_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_6_" = PERIOD "BPI_ctrl_i_esig_reg_6_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1198 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[7]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[7]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[7]" TNM_NET = "BPI_ctrl_i_esig_reg_7_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_7_" = PERIOD "BPI_ctrl_i_esig_reg_7_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1201 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[8]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[8]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[8]" TNM_NET = "BPI_ctrl_i_esig_reg_8_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_8_" = PERIOD "BPI_ctrl_i_esig_reg_8_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1204 : define_clock {n:BPI_ctrl_i.BPI_logic\.esig_reg[9]} -name {BPI_ctrl_Z1_layer0|BPI_logic_esig_reg_derived_clock[9]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fal ... (etc.) 
-
-NET "BPI_ctrl_i/esig_reg[9]" TNM_NET = "BPI_ctrl_i_esig_reg_9_"; 
-TIMESPEC "TS_BPI_ctrl_i_esig_reg_9_" = PERIOD "BPI_ctrl_i_esig_reg_9_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1252 : define_clock {n:BPI_ctrl_i.BPI_logic\.read_mode[0]} -name {BPI_ctrl_Z1_layer0|BPI_logic_read_mode_derived_clock[0]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -f ... (etc.) 
-
-NET "BPI_ctrl_i/read_mode[0]" TNM_NET = "BPI_ctrl_i_read_mode_0_"; 
-TIMESPEC "TS_BPI_ctrl_i_read_mode_0_" = PERIOD "BPI_ctrl_i_read_mode_0_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1255 : define_clock {n:BPI_ctrl_i.BPI_logic\.read_mode[1]} -name {BPI_ctrl_Z1_layer0|BPI_logic_read_mode_derived_clock[1]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -f ... (etc.) 
-
-NET "BPI_ctrl_i/read_mode[1]" TNM_NET = "BPI_ctrl_i_read_mode_1_"; 
-TIMESPEC "TS_BPI_ctrl_i_read_mode_1_" = PERIOD "BPI_ctrl_i_read_mode_1_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1258 : define_clock {n:BPI_ctrl_i.BPI_logic\.sr_reg[0]} -name {BPI_ctrl_Z1_layer0|BPI_logic_sr_reg_derived_clock[0]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {1 ... (etc.) 
-
-NET "BPI_ctrl_i/sr_reg[0]" TNM_NET = "BPI_ctrl_i_sr_reg_0_"; 
-TIMESPEC "TS_BPI_ctrl_i_sr_reg_0_" = PERIOD "BPI_ctrl_i_sr_reg_0_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1261 : define_clock {n:BPI_ctrl_i.BPI_logic\.sr_reg[1]} -name {BPI_ctrl_Z1_layer0|BPI_logic_sr_reg_derived_clock[1]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {1 ... (etc.) 
-
-NET "BPI_ctrl_i/sr_reg[1]" TNM_NET = "BPI_ctrl_i_sr_reg_1_"; 
-TIMESPEC "TS_BPI_ctrl_i_sr_reg_1_" = PERIOD "BPI_ctrl_i_sr_reg_1_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1264 : define_clock {n:BPI_ctrl_i.BPI_logic\.sr_reg[2]} -name {BPI_ctrl_Z1_layer0|BPI_logic_sr_reg_derived_clock[2]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {1 ... (etc.) 
-
-NET "BPI_ctrl_i/sr_reg[2]" TNM_NET = "BPI_ctrl_i_sr_reg_2_"; 
-TIMESPEC "TS_BPI_ctrl_i_sr_reg_2_" = PERIOD "BPI_ctrl_i_sr_reg_2_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1267 : define_clock {n:BPI_ctrl_i.BPI_logic\.sr_reg[3]} -name {BPI_ctrl_Z1_layer0|BPI_logic_sr_reg_derived_clock[3]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {1 ... (etc.) 
-
-NET "BPI_ctrl_i/sr_reg[3]" TNM_NET = "BPI_ctrl_i_sr_reg_3_"; 
-TIMESPEC "TS_BPI_ctrl_i_sr_reg_3_" = PERIOD "BPI_ctrl_i_sr_reg_3_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1270 : define_clock {n:BPI_ctrl_i.BPI_logic\.sr_reg[4]} -name {BPI_ctrl_Z1_layer0|BPI_logic_sr_reg_derived_clock[4]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {1 ... (etc.) 
-
-NET "BPI_ctrl_i/sr_reg[4]" TNM_NET = "BPI_ctrl_i_sr_reg_4_"; 
-TIMESPEC "TS_BPI_ctrl_i_sr_reg_4_" = PERIOD "BPI_ctrl_i_sr_reg_4_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1273 : define_clock {n:BPI_ctrl_i.BPI_logic\.sr_reg[5]} -name {BPI_ctrl_Z1_layer0|BPI_logic_sr_reg_derived_clock[5]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {1 ... (etc.) 
-
-NET "BPI_ctrl_i/sr_reg[5]" TNM_NET = "BPI_ctrl_i_sr_reg_5_"; 
-TIMESPEC "TS_BPI_ctrl_i_sr_reg_5_" = PERIOD "BPI_ctrl_i_sr_reg_5_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1276 : define_clock {n:BPI_ctrl_i.BPI_logic\.sr_reg[6]} -name {BPI_ctrl_Z1_layer0|BPI_logic_sr_reg_derived_clock[6]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {1 ... (etc.) 
-
-NET "BPI_ctrl_i/sr_reg[6]" TNM_NET = "BPI_ctrl_i_sr_reg_6_"; 
-TIMESPEC "TS_BPI_ctrl_i_sr_reg_6_" = PERIOD "BPI_ctrl_i_sr_reg_6_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1279 : define_clock {n:BPI_ctrl_i.BPI_logic\.sr_reg[7]} -name {BPI_ctrl_Z1_layer0|BPI_logic_sr_reg_derived_clock[7]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {1 ... (etc.) 
-
-NET "BPI_ctrl_i/sr_reg[7]" TNM_NET = "BPI_ctrl_i_sr_reg_7_"; 
-TIMESPEC "TS_BPI_ctrl_i_sr_reg_7_" = PERIOD "BPI_ctrl_i_sr_reg_7_" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
-
-# 1693 : define_clock {n:adc_config1.ram0[0]} -name {adc_config_0s|ram0_derived_clock[0]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[0]" TNM_NET = "adc_config1_csp_rd_data_0_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_0_" = PERIOD "adc_config1_csp_rd_data_0_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1696 : define_clock {n:adc_config1.ram0[0]} -name {adc_config_0s|ram0_derived_clock_1[0]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[0]" TNM_NET = "adc_config1_csp_rd_data_0__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_0__0" = PERIOD "adc_config1_csp_rd_data_0__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1753 : define_clock {n:adc_config1.ram0[10]} -name {adc_config_0s|ram0_derived_clock[10]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[10]" TNM_NET = "adc_config1_csp_rd_data_10_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_10_" = PERIOD "adc_config1_csp_rd_data_10_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1756 : define_clock {n:adc_config1.ram0[10]} -name {adc_config_0s|ram0_derived_clock_1[10]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[10]" TNM_NET = "adc_config1_csp_rd_data_10__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_10__0" = PERIOD "adc_config1_csp_rd_data_10__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1759 : define_clock {n:adc_config1.ram0[11]} -name {adc_config_0s|ram0_derived_clock[11]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[11]" TNM_NET = "adc_config1_csp_rd_data_11_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_11_" = PERIOD "adc_config1_csp_rd_data_11_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1762 : define_clock {n:adc_config1.ram0[11]} -name {adc_config_0s|ram0_derived_clock_1[11]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[11]" TNM_NET = "adc_config1_csp_rd_data_11__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_11__0" = PERIOD "adc_config1_csp_rd_data_11__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1765 : define_clock {n:adc_config1.ram0[12]} -name {adc_config_0s|ram0_derived_clock[12]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[12]" TNM_NET = "adc_config1_csp_rd_data_12_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_12_" = PERIOD "adc_config1_csp_rd_data_12_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1768 : define_clock {n:adc_config1.ram0[12]} -name {adc_config_0s|ram0_derived_clock_1[12]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[12]" TNM_NET = "adc_config1_csp_rd_data_12__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_12__0" = PERIOD "adc_config1_csp_rd_data_12__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1771 : define_clock {n:adc_config1.ram0[13]} -name {adc_config_0s|ram0_derived_clock[13]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[13]" TNM_NET = "adc_config1_csp_rd_data_13_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_13_" = PERIOD "adc_config1_csp_rd_data_13_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1774 : define_clock {n:adc_config1.ram0[13]} -name {adc_config_0s|ram0_derived_clock_1[13]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[13]" TNM_NET = "adc_config1_csp_rd_data_13__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_13__0" = PERIOD "adc_config1_csp_rd_data_13__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1777 : define_clock {n:adc_config1.ram0[14]} -name {adc_config_0s|ram0_derived_clock[14]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[14]" TNM_NET = "adc_config1_csp_rd_data_14_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_14_" = PERIOD "adc_config1_csp_rd_data_14_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1780 : define_clock {n:adc_config1.ram0[14]} -name {adc_config_0s|ram0_derived_clock_1[14]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[14]" TNM_NET = "adc_config1_csp_rd_data_14__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_14__0" = PERIOD "adc_config1_csp_rd_data_14__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1783 : define_clock {n:adc_config1.ram0[15]} -name {adc_config_0s|ram0_derived_clock[15]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[15]" TNM_NET = "adc_config1_csp_rd_data_15_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_15_" = PERIOD "adc_config1_csp_rd_data_15_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1786 : define_clock {n:adc_config1.ram0[15]} -name {adc_config_0s|ram0_derived_clock_1[15]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[15]" TNM_NET = "adc_config1_csp_rd_data_15__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_15__0" = PERIOD "adc_config1_csp_rd_data_15__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1789 : define_clock {n:adc_config1.ram0[16]} -name {adc_config_0s|ram0_derived_clock[16]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[16]" TNM_NET = "adc_config1_csp_rd_data_16_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_16_" = PERIOD "adc_config1_csp_rd_data_16_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1792 : define_clock {n:adc_config1.ram0[16]} -name {adc_config_0s|ram0_derived_clock_1[16]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[16]" TNM_NET = "adc_config1_csp_rd_data_16__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_16__0" = PERIOD "adc_config1_csp_rd_data_16__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1795 : define_clock {n:adc_config1.ram0[17]} -name {adc_config_0s|ram0_derived_clock[17]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[17]" TNM_NET = "adc_config1_csp_rd_data_17_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_17_" = PERIOD "adc_config1_csp_rd_data_17_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1798 : define_clock {n:adc_config1.ram0[17]} -name {adc_config_0s|ram0_derived_clock_1[17]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[17]" TNM_NET = "adc_config1_csp_rd_data_17__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_17__0" = PERIOD "adc_config1_csp_rd_data_17__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1801 : define_clock {n:adc_config1.ram0[18]} -name {adc_config_0s|ram0_derived_clock[18]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[18]" TNM_NET = "adc_config1_csp_rd_data_18_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_18_" = PERIOD "adc_config1_csp_rd_data_18_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1804 : define_clock {n:adc_config1.ram0[18]} -name {adc_config_0s|ram0_derived_clock_1[18]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[18]" TNM_NET = "adc_config1_csp_rd_data_18__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_18__0" = PERIOD "adc_config1_csp_rd_data_18__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1807 : define_clock {n:adc_config1.ram0[19]} -name {adc_config_0s|ram0_derived_clock[19]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[19]" TNM_NET = "adc_config1_csp_rd_data_19_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_19_" = PERIOD "adc_config1_csp_rd_data_19_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1810 : define_clock {n:adc_config1.ram0[19]} -name {adc_config_0s|ram0_derived_clock_1[19]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[19]" TNM_NET = "adc_config1_csp_rd_data_19__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_19__0" = PERIOD "adc_config1_csp_rd_data_19__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1699 : define_clock {n:adc_config1.ram0[1]} -name {adc_config_0s|ram0_derived_clock[1]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[1]" TNM_NET = "adc_config1_csp_rd_data_1_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_1_" = PERIOD "adc_config1_csp_rd_data_1_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1702 : define_clock {n:adc_config1.ram0[1]} -name {adc_config_0s|ram0_derived_clock_1[1]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[1]" TNM_NET = "adc_config1_csp_rd_data_1__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_1__0" = PERIOD "adc_config1_csp_rd_data_1__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1813 : define_clock {n:adc_config1.ram0[20]} -name {adc_config_0s|ram0_derived_clock[20]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[20]" TNM_NET = "adc_config1_csp_rd_data_20_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_20_" = PERIOD "adc_config1_csp_rd_data_20_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1816 : define_clock {n:adc_config1.ram0[20]} -name {adc_config_0s|ram0_derived_clock_1[20]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[20]" TNM_NET = "adc_config1_csp_rd_data_20__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_20__0" = PERIOD "adc_config1_csp_rd_data_20__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1819 : define_clock {n:adc_config1.ram0[21]} -name {adc_config_0s|ram0_derived_clock[21]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[21]" TNM_NET = "adc_config1_csp_rd_data_21_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_21_" = PERIOD "adc_config1_csp_rd_data_21_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1822 : define_clock {n:adc_config1.ram0[21]} -name {adc_config_0s|ram0_derived_clock_1[21]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[21]" TNM_NET = "adc_config1_csp_rd_data_21__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_21__0" = PERIOD "adc_config1_csp_rd_data_21__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1705 : define_clock {n:adc_config1.ram0[2]} -name {adc_config_0s|ram0_derived_clock[2]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[2]" TNM_NET = "adc_config1_csp_rd_data_2_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_2_" = PERIOD "adc_config1_csp_rd_data_2_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1708 : define_clock {n:adc_config1.ram0[2]} -name {adc_config_0s|ram0_derived_clock_1[2]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[2]" TNM_NET = "adc_config1_csp_rd_data_2__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_2__0" = PERIOD "adc_config1_csp_rd_data_2__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1711 : define_clock {n:adc_config1.ram0[3]} -name {adc_config_0s|ram0_derived_clock[3]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[3]" TNM_NET = "adc_config1_csp_rd_data_3_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_3_" = PERIOD "adc_config1_csp_rd_data_3_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1714 : define_clock {n:adc_config1.ram0[3]} -name {adc_config_0s|ram0_derived_clock_1[3]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[3]" TNM_NET = "adc_config1_csp_rd_data_3__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_3__0" = PERIOD "adc_config1_csp_rd_data_3__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1717 : define_clock {n:adc_config1.ram0[4]} -name {adc_config_0s|ram0_derived_clock[4]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[4]" TNM_NET = "adc_config1_csp_rd_data_4_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_4_" = PERIOD "adc_config1_csp_rd_data_4_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1720 : define_clock {n:adc_config1.ram0[4]} -name {adc_config_0s|ram0_derived_clock_1[4]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[4]" TNM_NET = "adc_config1_csp_rd_data_4__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_4__0" = PERIOD "adc_config1_csp_rd_data_4__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1723 : define_clock {n:adc_config1.ram0[5]} -name {adc_config_0s|ram0_derived_clock[5]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[5]" TNM_NET = "adc_config1_csp_rd_data_5_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_5_" = PERIOD "adc_config1_csp_rd_data_5_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1726 : define_clock {n:adc_config1.ram0[5]} -name {adc_config_0s|ram0_derived_clock_1[5]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[5]" TNM_NET = "adc_config1_csp_rd_data_5__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_5__0" = PERIOD "adc_config1_csp_rd_data_5__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1729 : define_clock {n:adc_config1.ram0[6]} -name {adc_config_0s|ram0_derived_clock[6]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[6]" TNM_NET = "adc_config1_csp_rd_data_6_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_6_" = PERIOD "adc_config1_csp_rd_data_6_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1732 : define_clock {n:adc_config1.ram0[6]} -name {adc_config_0s|ram0_derived_clock_1[6]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[6]" TNM_NET = "adc_config1_csp_rd_data_6__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_6__0" = PERIOD "adc_config1_csp_rd_data_6__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1735 : define_clock {n:adc_config1.ram0[7]} -name {adc_config_0s|ram0_derived_clock[7]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[7]" TNM_NET = "adc_config1_csp_rd_data_7_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_7_" = PERIOD "adc_config1_csp_rd_data_7_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1738 : define_clock {n:adc_config1.ram0[7]} -name {adc_config_0s|ram0_derived_clock_1[7]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[7]" TNM_NET = "adc_config1_csp_rd_data_7__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_7__0" = PERIOD "adc_config1_csp_rd_data_7__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1741 : define_clock {n:adc_config1.ram0[8]} -name {adc_config_0s|ram0_derived_clock[8]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[8]" TNM_NET = "adc_config1_csp_rd_data_8_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_8_" = PERIOD "adc_config1_csp_rd_data_8_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1744 : define_clock {n:adc_config1.ram0[8]} -name {adc_config_0s|ram0_derived_clock_1[8]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[8]" TNM_NET = "adc_config1_csp_rd_data_8__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_8__0" = PERIOD "adc_config1_csp_rd_data_8__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1747 : define_clock {n:adc_config1.ram0[9]} -name {adc_config_0s|ram0_derived_clock[9]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {25.000000}
-
-NET "adc_config1/csp_rd_data[9]" TNM_NET = "adc_config1_csp_rd_data_9_"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_9_" = PERIOD "adc_config1_csp_rd_data_9_" "TS_CMS_CLK_P" * 2.000000 HIGH 50.00%; 
-
-# 1750 : define_clock {n:adc_config1.ram0[9]} -name {adc_config_0s|ram0_derived_clock_1[9]} -ref_rise {25.000000} -ref_fall {0.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_0} -rise {25.000000} -fall {0.000000}
-
-NET "adc_config1/csp_rd_data[9]" TNM_NET = "adc_config1_csp_rd_data_9__0"; 
-TIMESPEC "TS_adc_config1_csp_rd_data_9__0" = PERIOD "adc_config1_csp_rd_data_9__0" "TS_CMS_CLK_P" * 2.000000 PHASE + 25.000ns HIGH 50.00%; 
-
-# 1847 : define_clock {n:bpi_intf1.CLK100KHZ} -name {bpi_interface_0s_0s|CLK100KHZ_derived_clock} -ref_rise {0.000000} -ref_fall {62.500000} -uncertainty {0.000000} -period {125.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {62.500000}
+# 1062 : define_clock {n:bpi_intf1.CLK100KHZ} -name {bpi_interface_1s_1s|CLK100KHZ_derived_clock} -ref_rise {0.000000} -ref_fall {62.500000} -uncertainty {0.000000} -period {125.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {62.500000}
 
 NET "bpi_intf1/clk100khz_c" TNM_NET = "bpi_intf1_clk100khz_c"; 
 TIMESPEC "TS_bpi_intf1_clk100khz_c" = PERIOD "bpi_intf1_clk100khz_c" "TS_CMS_CLK_P" * 5.000000 HIGH 50.00%; 
-
-# 1084 : define_clock {n:daq_optical_out_i.DRSel_FSM\.DAQ_Rate_Sel_FSM_i.WRDCLKSEL} -name {DAQ_Rate_Sel_FSM|WRDCLKSEL_derived_clock} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_8} -rise {0.00 ... (etc.) 
-
-NET "daq_optical_out_i/DRSel_FSM.DAQ_Rate_Sel_FSM_i/daq_tx_la_data_11" TNM_NET = "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_daq_tx_la_data_11"; 
-TIMESPEC "TS_daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_daq_tx_la_data_11" = PERIOD "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_daq_tx_la_data_11" "TS_XO_CLK_AC_N" * 2.000000 HIGH 50.00%; 
-
-# 1087 : define_clock {n:daq_optical_out_i.DRSel_FSM\.DAQ_Rate_Sel_FSM_i.WRDCLKSEL} -name {DAQ_Rate_Sel_FSM|WRDCLKSEL_derived_clock_1} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_9} -rise {0. ... (etc.) 
-
-NET "daq_optical_out_i/DRSel_FSM.DAQ_Rate_Sel_FSM_i/daq_tx_la_data_11" TNM_NET = "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_daq_tx_la_data_11_0"; 
-TIMESPEC "TS_daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_daq_tx_la_data_11_0" = PERIOD "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_daq_tx_la_data_11_0" "TS_QPLL_CLK_AC_P" * 1.000000 HIGH 50.00%; 
-
-# 1072 : define_clock {n:daq_optical_out_i.DRSel_FSM\.DAQ_Rate_Sel_FSM_i.RATE_1_25} -name {DAQ_Rate_Sel_FSM|RATE_1_25_derived_clock} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_8} -rise {0.00 ... (etc.) 
-
-NET "daq_optical_out_i/DRSel_FSM.DAQ_Rate_Sel_FSM_i/rate_1_25" TNM_NET = "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_1_25"; 
-TIMESPEC "TS_daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_1_25" = PERIOD "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_1_25" "TS_XO_CLK_AC_N" * 2.000000 HIGH 50.00%; 
-
-# 1075 : define_clock {n:daq_optical_out_i.DRSel_FSM\.DAQ_Rate_Sel_FSM_i.RATE_1_25} -name {DAQ_Rate_Sel_FSM|RATE_1_25_derived_clock_1} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_9} -rise {0. ... (etc.) 
-
-NET "daq_optical_out_i/DRSel_FSM.DAQ_Rate_Sel_FSM_i/rate_1_25" TNM_NET = "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_1_25_0"; 
-TIMESPEC "TS_daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_1_25_0" = PERIOD "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_1_25_0" "TS_QPLL_CLK_AC_P" * 1.000000 HIGH 50.00%; 
-
-# 1078 : define_clock {n:daq_optical_out_i.DRSel_FSM\.DAQ_Rate_Sel_FSM_i.RATE_3_2} -name {DAQ_Rate_Sel_FSM|RATE_3_2_derived_clock} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_8} -rise {0.0000 ... (etc.) 
-
-NET "daq_optical_out_i/DRSel_FSM.DAQ_Rate_Sel_FSM_i/rate_3_2" TNM_NET = "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_3_2"; 
-TIMESPEC "TS_daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_3_2" = PERIOD "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_3_2" "TS_XO_CLK_AC_N" * 2.000000 HIGH 50.00%; 
-
-# 1081 : define_clock {n:daq_optical_out_i.DRSel_FSM\.DAQ_Rate_Sel_FSM_i.RATE_3_2} -name {DAQ_Rate_Sel_FSM|RATE_3_2_derived_clock_1} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_9} -rise {0.00 ... (etc.) 
-
-NET "daq_optical_out_i/DRSel_FSM.DAQ_Rate_Sel_FSM_i/rate_3_2" TNM_NET = "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_3_2_0"; 
-TIMESPEC "TS_daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_3_2_0" = PERIOD "daq_optical_out_i_DRSel_FSM_DAQ_Rate_Sel_FSM_i_rate_3_2_0" "TS_QPLL_CLK_AC_P" * 1.000000 HIGH 50.00%; 
-
-# 1057 : define_clock {n:daq_optical_out_i.chipscope_daq_tx\.daq_tx_vio_i.ASYNC_OUT[3]} -name {daq_tx_vio|ASYNC_OUT_derived_clock[3]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_1} -rise {0.0 ... (etc.) 
-
-NET "daq_optical_out_i/chipscope_daq_tx.daq_tx_vio_i/daq_tx_async_out_3" TNM_NET = "daq_optical_out_i_chipscope_daq_tx_daq_tx_vio_i_daq_tx_async_out_3"; 
-TIMESPEC "TS_daq_optical_out_i_chipscope_daq_tx_daq_tx_vio_i_daq_tx_async_out_3" = PERIOD "daq_optical_out_i_chipscope_daq_tx_daq_tx_vio_i_daq_tx_async_out_3" "TS_chipscope_with_Ring_Buf_rngbuf_daq1_U_BS_iDRCK_LOCAL" * 1.000000 HIGH 50.00%; 
-
-# 1850 : define_clock {n:daq_optical_out_i.daq_tx_la_data[46]} -name {daq_optical_out_Z3_layer0|daq_tx_la_datakeep[46]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_9} -rise {0.000000} -fall { ... (etc.) 
-
-NET "daq_optical_out_i/daq_tx_la_data[46]" TNM_NET = "daq_optical_out_i_daq_tx_la_data_46_"; 
-TIMESPEC "TS_daq_optical_out_i_daq_tx_la_data_46_" = PERIOD "daq_optical_out_i_daq_tx_la_data_46_" "TS_QPLL_CLK_AC_P" * 1.000000 HIGH 50.00%; 
-
-# 1853 : define_clock {n:daq_optical_out_i.daq_tx_la_data[46]} -name {daq_optical_out_Z3_layer0|daq_tx_la_datakeep_1[46]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_8} -rise {0.000000} -fall ... (etc.) 
-
-NET "daq_optical_out_i/daq_tx_la_data[46]" TNM_NET = "daq_optical_out_i_daq_tx_la_data_46__0"; 
-TIMESPEC "TS_daq_optical_out_i_daq_tx_la_data_46__0" = PERIOD "daq_optical_out_i_daq_tx_la_data_46__0" "TS_XO_CLK_AC_N" * 2.000000 HIGH 50.00%; 
-
-# 1859 : define_clock {n:daq_optical_out_i.pma_reset_r[3]} -name {daq_optical_out_Z3_layer0|DAQOP_RST_pma_reset_rkeep[3]} -ref_rise {0.000000} -ref_fall {25.000000} -uncertainty {0.000000} -period {50.000000} -clockgroup {Inferred_clkgroup_8} -rise {0.000000} -fall ... (etc.) 
-
-NET "daq_optical_out_i/pma_reset_r[3]" TNM_NET = "daq_optical_out_i_pma_reset_r_3_"; 
-TIMESPEC "TS_daq_optical_out_i_pma_reset_r_3_" = PERIOD "daq_optical_out_i_pma_reset_r_3_" "TS_XO_CLK_AC_N" * 2.000000 HIGH 50.00%; 
-
-# 1069 : define_clock {n:daq_optical_out_i.DAQOP_RST\.reset_r[3]} -name {daq_optical_out_Z3_layer0|DAQOP_RST_reset_r_derived_clock[3]} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_9} -rise {0. ... (etc.) 
-
-NET "daq_optical_out_i/reset_r[3]" TNM_NET = "daq_optical_out_i_reset_r_3_"; 
-TIMESPEC "TS_daq_optical_out_i_reset_r_3_" = PERIOD "daq_optical_out_i_reset_r_3_" "TS_QPLL_CLK_AC_P" * 1.000000 HIGH 50.00%; 
-
-# 1666 : define_clock {n:jtag_acc1.JDAQ_RATE} -name {jtag_access_0s|JDAQ_RATE_derived_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_0} -rise {0.000000} -fall {12.500000}
-
-NET "jtag_acc1/jdaq_rate" TNM_NET = "jtag_acc1_jdaq_rate"; 
-TIMESPEC "TS_jtag_acc1_jdaq_rate" = PERIOD "jtag_acc1_jdaq_rate" "TS_CMS_CLK_P" * 1.000000 HIGH 50.00%; 
 #End clock constraints
 
 
-# 1848 : define_multicycle_path -setup -from {c:bpi_interface_0s_0s|CLK100KHZ_derived_clock} -to {c:bpi_interface_0s_0s|CLK100KHZ_derived_clock} {2}
+# 1063 : define_multicycle_path -setup -from {c:bpi_interface_1s_1s|CLK100KHZ_derived_clock} -to {c:bpi_interface_1s_1s|CLK100KHZ_derived_clock} {2}
 
 
 NET "bpi_intf1/clk100khz_c" TNM_NET =  "bpi_intf1_clk100khz_c_Alias";
 TIMEGRP "bpi_intf1_clk100khz_c_rise" = RISING "bpi_intf1_clk100khz_c_Alias";
-TIMESPEC "TS_1848_0" = FROM "bpi_intf1_clk100khz_c_rise" TO "bpi_intf1_clk100khz_c_rise" 250.000;
+TIMESPEC "TS_1063_0" = FROM "bpi_intf1_clk100khz_c_rise" TO "bpi_intf1_clk100khz_c_rise" 250.000;
 
 TIMEGRP "bpi_intf1_clk100khz_c_fall" = FALLING "bpi_intf1_clk100khz_c_Alias";
-TIMESPEC "TS_1848_1" = FROM "bpi_intf1_clk100khz_c_rise" TO "bpi_intf1_clk100khz_c_fall" 187.500;
+TIMESPEC "TS_1063_1" = FROM "bpi_intf1_clk100khz_c_rise" TO "bpi_intf1_clk100khz_c_fall" 187.500;
 
-TIMESPEC "TS_1848_2" = FROM "bpi_intf1_clk100khz_c_fall" TO "bpi_intf1_clk100khz_c_rise" 187.500;
+TIMESPEC "TS_1063_2" = FROM "bpi_intf1_clk100khz_c_fall" TO "bpi_intf1_clk100khz_c_rise" 187.500;
 
-TIMESPEC "TS_1848_3" = FROM "bpi_intf1_clk100khz_c_fall" TO "bpi_intf1_clk100khz_c_fall" 250.000;
+TIMESPEC "TS_1063_3" = FROM "bpi_intf1_clk100khz_c_fall" TO "bpi_intf1_clk100khz_c_fall" 250.000;
 
-
-# I/O Registers Packing Constraints
-INST "BPI_ctrl_i/BPI_logic.esig_reg[15]" IOB=FALSE;
-INST "BPI_ctrl_i/BPI_logic.esig_reg[14]" IOB=FALSE;
-INST "BPI_ctrl_i/BPI_logic.esig_reg[13]" IOB=FALSE;
-INST "BPI_ctrl_i/BPI_logic.esig_reg[12]" IOB=FALSE;
-INST "BPI_ctrl_i/BPI_logic.esig_reg[11]" IOB=FALSE;
-INST "BPI_ctrl_i/BPI_logic.esig_reg[10]" IOB=FALSE;
-INST "BPI_ctrl_i/BPI_logic.esig_reg[9]" IOB=FALSE;
-INST "BPI_ctrl_i/BPI_logic.esig_reg[8]" IOB=FALSE;
 
 # I/O Registers Packing Constraints
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep15" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep14" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep13" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep12" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep11" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep10" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep9" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep8" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep7" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep6" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep5" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep4" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep3" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep2" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep1" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_rep0" IOB=TRUE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/L_i" IOB=FALSE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/W_i" IOB=FALSE;
-INST "bpi_intf1/BPI_intrf_FSM.BPI_intrf_FSM1/G_i" IOB=FALSE;
-
-# I/O Registers Packing Constraints
-INST "bpi_intf1/BPI_intrf_FSM.bpi_ad_out_r[*]" IOB=FALSE; # bpi_intf1/BPI_intrf_FSM.bpi_ad_out_r[0:22]
-
-# I/O Registers Packing Constraints
-INST "chanlink_fifo_i/ClnkFrm_logic.ovlp_mux_r" IOB=FALSE;
-INST "chanlink_fifo_i/ClnkFrm_logic.last_wrd_r" IOB=FALSE;
-INST "chanlink_fifo_i/ClnkFrm_logic.mlt_ovlp_r_DOUT[*]" IOB=FALSE; # chanlink_fifo_i/ClnkFrm_logic.mlt_ovlp_r_DOUT[0:0]
-INST "chanlink_fifo_i/ClnkFrm_logic.dvalid_r_i[*]" IOB=FALSE; # chanlink_fifo_i/ClnkFrm_logic.dvalid_r_i[0:0]
-INST "chanlink_fifo_i/ClnkFrm_logic.dout_r[*]" IOB=FALSE; # chanlink_fifo_i/ClnkFrm_logic.dout_r[0:14]
-
-# I/O Registers Packing Constraints
-INST "rsm1/RSTman_FSMs.ADC_Init_FSM_i/ADC_RST_i" IOB=FALSE;
-
-# I/O Registers Packing Constraints
-INST "rsm1/RSTman_logic.por_r2_2" IOB=FALSE;
-INST "rsm1/RSTman_logic.qpll_lock_r1" IOB=FALSE;
+INST "rsm1/RSTman_logic_TMR.qpll_lock_r1_3" IOB=FALSE;
+INST "rsm1/RSTman_logic_TMR.qpll_lock_r1_2" IOB=FALSE;
+INST "rsm1/RSTman_logic_TMR.qpll_lock_r1_1" IOB=FALSE;
 
 # I/O Registers Packing Constraints
 INST "jtag_acc1/instr_dcd1/F_i[54]" IOB=FALSE;
@@ -719,17 +206,7 @@ INST "jtag_acc1/instr_dcd1/F_i[54]" IOB=FALSE;
 INST "jtag_acc1/spi_rtn_reg[0]" IOB=FALSE;
 
 # I/O Registers Packing Constraints
-INST "adc_config1/ADC_Cnfg_logic.shreg[23]" IOB=FALSE;
-
-# I/O Registers Packing Constraints
 INST "qpll_lock_r1" IOB=FALSE;
-INST "bpi_al_reg[15]" IOB=TRUE;
-INST "bpi_al_reg[14]" IOB=TRUE;
-INST "bpi_al_reg[13]" IOB=TRUE;
-INST "bpi_al_reg[12]" IOB=TRUE;
-INST "bpi_al_reg[11]" IOB=TRUE;
-INST "bpi_al_reg[10]" IOB=TRUE;
-INST "bpi_al_reg[9]" IOB=TRUE;
-INST "bpi_al_reg[8]" IOB=TRUE;
+INST "bpi_al_reg[*]" IOB=TRUE; # bpi_al_reg[0:15]
 
 # End of generated constraints
