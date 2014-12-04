@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 2:15:59 PM on 9/8/14
+## File last modified by Fizzim: 12:38:31 PM on 12/4/14
 <version>
    14.02.18
 </version>
@@ -1979,10 +1979,10 @@
 </tabs>
 ## START PREFERENCES
 <SCounter>
-14
+15
 </SCounter>
 <TCounter>
-31
+38
 </TCounter>
 <TableVis>
 true
@@ -4387,13 +4387,13 @@ fzm_globalTable
    400
    </x0>
    <y0>
-   900
+   1000
    </y0>
    <x1>
    550
    </x1>
    <y1>
-   975
+   1075
    </y1>
    <reset>
    false
@@ -4526,9 +4526,9 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         1000
+         10
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -5241,10 +5241,10 @@ fzm_globalTable
             </status>
          </resetval>
          <x2Obj>
-         37
+         67
          </x2Obj>
          <y2Obj>
-         4
+         3
          </y2Obj>
          <page>
          1
@@ -5332,10 +5332,10 @@ fzm_globalTable
    588.0
    </startCtrlPtY>
    <endCtrlPtY>
-   475.0
+   473.0
    </endCtrlPtY>
    <endCtrlPtY>
-   585.0
+   583.0
    </endCtrlPtY>
    <startStateIndex>
    9
@@ -6463,25 +6463,25 @@ fzm_globalTable
    532.0
    </startPtX>
    <startPtY>
-   913.0
+   1013.0
    </startPtY>
    <endPtX>
    548.0
    </endPtX>
    <endPtY>
-   943.0
+   1043.0
    </endPtY>
    <startCtrlPtX>
    562.0
    </startCtrlPtX>
    <startCtrlPtY>
-   884.0
+   984.0
    </startCtrlPtY>
    <endCtrlPtY>
    586.0
    </endCtrlPtY>
    <endCtrlPtY>
-   943.0
+   1043.0
    </endCtrlPtY>
    <startStateIndex>
    32
@@ -7428,13 +7428,13 @@ fzm_globalTable
    400
    </x0>
    <y0>
-   700
+   800
    </y0>
    <x1>
    550
    </x1>
    <y1>
-   774
+   874
    </y1>
    <reset>
    false
@@ -7553,10 +7553,10 @@ fzm_globalTable
             </status>
          </resetval>
          <x2Obj>
-         50
+         109
          </x2Obj>
          <y2Obj>
-         1
+         2
          </y2Obj>
          <page>
          1
@@ -7567,9 +7567,9 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         1000
+         10
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -7623,7 +7623,7 @@ fzm_globalTable
    PROM_Cnfg
    </startState>
    <endState>
-   Auto_Load
+   Start_Auto_Load
    </endState>
    <startPtX>
    475.0
@@ -7641,13 +7641,13 @@ fzm_globalTable
    475.0
    </startCtrlPtX>
    <startCtrlPtY>
-   686.0
+   688.0
    </startCtrlPtY>
    <endCtrlPtY>
    475.0
    </endCtrlPtY>
    <endCtrlPtY>
-   682.0
+   681.0
    </endCtrlPtY>
    <startStateIndex>
    9
@@ -7810,9 +7810,9 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         1000
+         10
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -7872,25 +7872,25 @@ fzm_globalTable
    475.0
    </startPtX>
    <startPtY>
-   774.0
+   874.0
    </startPtY>
    <endPtX>
    475.0
    </endPtX>
    <endPtY>
-   800.0
+   900.0
    </endPtY>
    <startCtrlPtX>
    475.0
    </startCtrlPtX>
    <startCtrlPtY>
-   794.0
+   894.0
    </startCtrlPtY>
    <endCtrlPtY>
    475.0
    </endCtrlPtY>
    <endCtrlPtY>
-   778.0
+   878.0
    </endCtrlPtY>
    <startStateIndex>
    9
@@ -8389,13 +8389,13 @@ fzm_globalTable
    400
    </x0>
    <y0>
-   800
+   900
    </y0>
    <x1>
    550
    </x1>
    <y1>
-   874
+   974
    </y1>
    <reset>
    false
@@ -8528,9 +8528,9 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         1000
+         10
             <status>
-            GLOBAL_VAR
+            LOCAL
             </status>
          </value>
          <vis>
@@ -8590,25 +8590,25 @@ fzm_globalTable
    475.0
    </startPtX>
    <startPtY>
-   874.0
+   974.0
    </startPtY>
    <endPtX>
    475.0
    </endPtX>
    <endPtY>
-   900.0
+   1000.0
    </endPtY>
    <startCtrlPtX>
-   477.0
+   475.0
    </startCtrlPtX>
    <startCtrlPtY>
-   891.0
+   992.0
    </startCtrlPtY>
    <endCtrlPtY>
    475.0
    </endCtrlPtY>
    <endCtrlPtY>
-   881.0
+   981.0
    </endCtrlPtY>
    <startStateIndex>
    9
@@ -9046,34 +9046,34 @@ fzm_globalTable
    Auto_Load
    </endState>
    <startPtX>
-   532.0
+   539.0
    </startPtX>
    <startPtY>
-   713.0
+   818.0
    </startPtY>
    <endPtX>
-   550.0
+   548.0
    </endPtX>
    <endPtY>
-   737.0
+   843.0
    </endPtY>
    <startCtrlPtX>
-   560.0
+   580.0
    </startCtrlPtX>
    <startCtrlPtY>
-   661.0
+   776.0
    </startCtrlPtY>
    <endCtrlPtY>
-   608.0
+   596.0
    </endCtrlPtY>
    <endCtrlPtY>
-   724.0
+   836.0
    </endCtrlPtY>
    <startStateIndex>
-   32
+   33
    </startStateIndex>
    <endStateIndex>
-   0
+   1
    </endStateIndex>
    <page>
    1
@@ -9265,25 +9265,25 @@ fzm_globalTable
    532.0
    </startPtX>
    <startPtY>
-   813.0
+   913.0
    </startPtY>
    <endPtX>
    548.0
    </endPtX>
    <endPtY>
-   830.0
+   930.0
    </endPtY>
    <startCtrlPtX>
    567.0
    </startCtrlPtX>
    <startCtrlPtY>
-   762.0
+   862.0
    </startCtrlPtY>
    <endCtrlPtY>
-   606.0
+   603.0
    </endCtrlPtY>
    <endCtrlPtY>
-   817.0
+   917.0
    </endCtrlPtY>
    <startStateIndex>
    32
@@ -9405,10 +9405,10 @@ fzm_globalTable
             </status>
          </resetval>
          <x2Obj>
-         -68
+         -54
          </x2Obj>
          <y2Obj>
-         186
+         247
          </y2Obj>
          <page>
          1
@@ -9419,7 +9419,7 @@ fzm_globalTable
             GLOBAL_FIXED
             </status>
          <value>
-         10
+         1
             <status>
             LOCAL
             </status>
@@ -9481,31 +9481,31 @@ fzm_globalTable
    404.0
    </startPtX>
    <startPtY>
-   924.0
+   1024.0
    </startPtY>
    <endPtX>
-   417.0
+   400.0
    </endPtX>
    <endPtY>
-   560.0
+   537.0
    </endPtY>
    <startCtrlPtX>
-   322.0
+   267.0
    </startCtrlPtX>
    <startCtrlPtY>
-   828.0
+   955.0
    </startCtrlPtY>
    <endCtrlPtY>
-   318.0
+   227.0
    </endCtrlPtY>
    <endCtrlPtY>
-   653.0
+   621.0
    </endCtrlPtY>
    <startStateIndex>
    20
    </startStateIndex>
    <endStateIndex>
-   14
+   18
    </endStateIndex>
    <page>
    1
@@ -10476,4 +10476,1910 @@ fzm_globalTable
    </color>
 </transition>
 ## START LOOPBACK TRANSITION OBJECT
+## START STATE OBJECT
+<state>
+   <attributes>
+      <name>
+            <status>
+            ABS
+            </status>
+         <value>
+         Start_Auto_Load
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         1
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </name>
+      <POR>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         1
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </POR>
+      <MMCM_RST>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         1
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </MMCM_RST>
+      <ADC_INIT_RST>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         1
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </ADC_INIT_RST>
+      <AL_START>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </AL_START>
+      <RUN>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </RUN>
+      <por_cnt[6:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         7'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         7'h00
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </por_cnt[6:0]>
+      <strtup_cnt[19:0]>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         20'h00000
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         output
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         suppress_portlist
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         20'h00000
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </strtup_cnt[19:0]>
+   </attributes>
+   <x0>
+   400
+   </x0>
+   <y0>
+   700
+   </y0>
+   <x1>
+   550
+   </x1>
+   <y1>
+   775
+   </y1>
+   <reset>
+   false
+   </reset>
+   <page>
+   1
+   </page>
+   <color>
+   -16738048
+   </color>
+</state>
+## END STATE OBJECT
+## START STATE TRANSITION OBJECT
+<transition>
+   <attributes>
+      <name>
+            <status>
+            ABS
+            </status>
+         <value>
+         trans31
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </name>
+      <equation>
+            <status>
+            ABS
+            </status>
+         <value>
+         !AL_DONE
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         38
+         </x2Obj>
+         <y2Obj>
+         5
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </equation>
+      <priority>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         10
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </priority>
+   </attributes>
+   <startState>
+   Start_Auto_Load
+   </startState>
+   <endState>
+   Auto_Load
+   </endState>
+   <startPtX>
+   475.0
+   </startPtX>
+   <startPtY>
+   774.0
+   </startPtY>
+   <endPtX>
+   475.0
+   </endPtX>
+   <endPtY>
+   800.0
+   </endPtY>
+   <startCtrlPtX>
+   475.0
+   </startCtrlPtX>
+   <startCtrlPtY>
+   818.0
+   </startCtrlPtY>
+   <endCtrlPtY>
+   475.0
+   </endCtrlPtY>
+   <endCtrlPtY>
+   756.0
+   </endCtrlPtY>
+   <startStateIndex>
+   9
+   </startStateIndex>
+   <endStateIndex>
+   27
+   </endStateIndex>
+   <page>
+   1
+   </page>
+   <color>
+   -16777216
+   </color>
+   <pageSX>
+   0.0
+   </pageSX>
+   <pageSY>
+   0.0
+   </pageSY>
+   <pageSCX>
+   0.0
+   </pageSCX>
+   <pageSCY>
+   0.0
+   </pageSCY>
+   <pageEX>
+   0.0
+   </pageEX>
+   <pageEY>
+   0.0
+   </pageEY>
+   <pageECX>
+   0.0
+   </pageECX>
+   <pageECY>
+   0.0
+   </pageECY>
+   <stub>
+   false
+   </stub>
+</transition>
+## END STATE TRANSITION OBJECT
+## START LOOPBACK TRANSITION OBJECT
+<transition>
+   <attributes>
+      <name>
+            <status>
+            ABS
+            </status>
+         <value>
+         trans32
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </name>
+      <equation>
+            <status>
+            ABS
+            </status>
+         <value>
+         1
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </equation>
+      <priority>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1000
+            <status>
+            GLOBAL_VAR
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </priority>
+   </attributes>
+   <startState>
+   Start_Auto_Load
+   </startState>
+   <endState>
+   Start_Auto_Load
+   </endState>
+   <startPtX>
+   539.0
+   </startPtX>
+   <startPtY>
+   718.0
+   </startPtY>
+   <endPtX>
+   545.0
+   </endPtX>
+   <endPtY>
+   749.0
+   </endPtY>
+   <startCtrlPtX>
+   574.0
+   </startCtrlPtX>
+   <startCtrlPtY>
+   692.0
+   </startCtrlPtY>
+   <endCtrlPtY>
+   601.0
+   </endCtrlPtY>
+   <endCtrlPtY>
+   745.0
+   </endCtrlPtY>
+   <startStateIndex>
+   33
+   </startStateIndex>
+   <endStateIndex>
+   2
+   </endStateIndex>
+   <page>
+   1
+   </page>
+   <color>
+   -16777216
+   </color>
+</transition>
+## START LOOPBACK TRANSITION OBJECT
+## START STATE TRANSITION OBJECT
+<transition>
+   <attributes>
+      <name>
+            <status>
+            ABS
+            </status>
+         <value>
+         trans33
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </name>
+      <equation>
+            <status>
+            ABS
+            </status>
+         <value>
+         RESTART_ALL
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         -17
+         </x2Obj>
+         <y2Obj>
+         23
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </equation>
+      <priority>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </priority>
+   </attributes>
+   <startState>
+   PROM_Cnfg
+   </startState>
+   <endState>
+   Pow_on_Rst
+   </endState>
+   <startPtX>
+   417.0
+   </startPtX>
+   <startPtY>
+   613.0
+   </startPtY>
+   <endPtX>
+   417.0
+   </endPtX>
+   <endPtY>
+   560.0
+   </endPtY>
+   <startCtrlPtX>
+   404.0
+   </startCtrlPtX>
+   <startCtrlPtY>
+   598.0
+   </startCtrlPtY>
+   <endCtrlPtY>
+   402.0
+   </endCtrlPtY>
+   <endCtrlPtY>
+   588.0
+   </endCtrlPtY>
+   <startStateIndex>
+   22
+   </startStateIndex>
+   <endStateIndex>
+   14
+   </endStateIndex>
+   <page>
+   1
+   </page>
+   <color>
+   -16777216
+   </color>
+   <pageSX>
+   0.0
+   </pageSX>
+   <pageSY>
+   0.0
+   </pageSY>
+   <pageSCX>
+   0.0
+   </pageSCX>
+   <pageSCY>
+   0.0
+   </pageSCY>
+   <pageEX>
+   0.0
+   </pageEX>
+   <pageEY>
+   0.0
+   </pageEY>
+   <pageECX>
+   0.0
+   </pageECX>
+   <pageECY>
+   0.0
+   </pageECY>
+   <stub>
+   false
+   </stub>
+</transition>
+## END STATE TRANSITION OBJECT
+## START STATE TRANSITION OBJECT
+<transition>
+   <attributes>
+      <name>
+            <status>
+            ABS
+            </status>
+         <value>
+         trans35
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </name>
+      <equation>
+            <status>
+            ABS
+            </status>
+         <value>
+         RESTART_ALL
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         -3
+         </x2Obj>
+         <y2Obj>
+         55
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </equation>
+      <priority>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </priority>
+   </attributes>
+   <startState>
+   Start_Auto_Load
+   </startState>
+   <endState>
+   Pow_on_Rst
+   </endState>
+   <startPtX>
+   410.0
+   </startPtX>
+   <startPtY>
+   718.0
+   </startPtY>
+   <endPtX>
+   410.0
+   </endPtX>
+   <endPtY>
+   555.0
+   </endPtY>
+   <startCtrlPtX>
+   378.0
+   </startCtrlPtX>
+   <startCtrlPtY>
+   677.0
+   </startCtrlPtY>
+   <endCtrlPtY>
+   381.0
+   </endCtrlPtY>
+   <endCtrlPtY>
+   619.0
+   </endCtrlPtY>
+   <startStateIndex>
+   21
+   </startStateIndex>
+   <endStateIndex>
+   15
+   </endStateIndex>
+   <page>
+   1
+   </page>
+   <color>
+   -16777216
+   </color>
+   <pageSX>
+   0.0
+   </pageSX>
+   <pageSY>
+   0.0
+   </pageSY>
+   <pageSCX>
+   0.0
+   </pageSCX>
+   <pageSCY>
+   0.0
+   </pageSCY>
+   <pageEX>
+   0.0
+   </pageEX>
+   <pageEY>
+   0.0
+   </pageEY>
+   <pageECX>
+   0.0
+   </pageECX>
+   <pageECY>
+   0.0
+   </pageECY>
+   <stub>
+   false
+   </stub>
+</transition>
+## END STATE TRANSITION OBJECT
+## START STATE TRANSITION OBJECT
+<transition>
+   <attributes>
+      <name>
+            <status>
+            ABS
+            </status>
+         <value>
+         trans36
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </name>
+      <equation>
+            <status>
+            ABS
+            </status>
+         <value>
+         RESTART_ALL
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         -11
+         </x2Obj>
+         <y2Obj>
+         111
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </equation>
+      <priority>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </priority>
+   </attributes>
+   <startState>
+   Auto_Load
+   </startState>
+   <endState>
+   Pow_on_Rst
+   </endState>
+   <startPtX>
+   404.0
+   </startPtX>
+   <startPtY>
+   824.0
+   </startPtY>
+   <endPtX>
+   404.0
+   </endPtX>
+   <endPtY>
+   549.0
+   </endPtY>
+   <startCtrlPtX>
+   363.0
+   </startCtrlPtX>
+   <startCtrlPtY>
+   779.0
+   </startCtrlPtY>
+   <endCtrlPtY>
+   319.0
+   </endCtrlPtY>
+   <endCtrlPtY>
+   661.0
+   </endCtrlPtY>
+   <startStateIndex>
+   20
+   </startStateIndex>
+   <endStateIndex>
+   16
+   </endStateIndex>
+   <page>
+   1
+   </page>
+   <color>
+   -16777216
+   </color>
+   <pageSX>
+   0.0
+   </pageSX>
+   <pageSY>
+   0.0
+   </pageSY>
+   <pageSCX>
+   0.0
+   </pageSCX>
+   <pageSCY>
+   0.0
+   </pageSCY>
+   <pageEX>
+   0.0
+   </pageEX>
+   <pageEY>
+   0.0
+   </pageEY>
+   <pageECX>
+   0.0
+   </pageECX>
+   <pageECY>
+   0.0
+   </pageECY>
+   <stub>
+   false
+   </stub>
+</transition>
+## END STATE TRANSITION OBJECT
+## START STATE TRANSITION OBJECT
+<transition>
+   <attributes>
+      <name>
+            <status>
+            ABS
+            </status>
+         <value>
+         trans37
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </name>
+      <equation>
+            <status>
+            ABS
+            </status>
+         <value>
+         RESTART_ALL
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         2
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         def_type
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         -25
+         </x2Obj>
+         <y2Obj>
+         167
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </equation>
+      <priority>
+            <status>
+            GLOBAL_FIXED
+            </status>
+         <value>
+         1
+            <status>
+            LOCAL
+            </status>
+         </value>
+         <vis>
+         0
+            <status>
+            GLOBAL_VAR
+            </status>
+         </vis>
+         <type>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </type>
+         <comment>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </comment>
+         <color>
+         -16777216
+            <status>
+            GLOBAL_VAR
+            </status>
+         </color>
+         <useratts>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </useratts>
+         <resetval>
+         
+            <status>
+            GLOBAL_VAR
+            </status>
+         </resetval>
+         <x2Obj>
+         0
+         </x2Obj>
+         <y2Obj>
+         0
+         </y2Obj>
+         <page>
+         1
+         </page>
+      </priority>
+   </attributes>
+   <startState>
+   ADC_INIT
+   </startState>
+   <endState>
+   Pow_on_Rst
+   </endState>
+   <startPtX>
+   404.0
+   </startPtX>
+   <startPtY>
+   924.0
+   </startPtY>
+   <endPtX>
+   401.0
+   </endPtX>
+   <endPtY>
+   543.0
+   </endPtY>
+   <startCtrlPtX>
+   334.0
+   </startCtrlPtX>
+   <startCtrlPtY>
+   876.0
+   </startCtrlPtY>
+   <endCtrlPtY>
+   254.0
+   </endCtrlPtY>
+   <endCtrlPtY>
+   671.0
+   </endCtrlPtY>
+   <startStateIndex>
+   20
+   </startStateIndex>
+   <endStateIndex>
+   17
+   </endStateIndex>
+   <page>
+   1
+   </page>
+   <color>
+   -16777216
+   </color>
+   <pageSX>
+   0.0
+   </pageSX>
+   <pageSY>
+   0.0
+   </pageSY>
+   <pageSCX>
+   0.0
+   </pageSCX>
+   <pageSCY>
+   0.0
+   </pageSCY>
+   <pageEX>
+   0.0
+   </pageEX>
+   <pageEY>
+   0.0
+   </pageEY>
+   <pageECX>
+   0.0
+   </pageECX>
+   <pageECY>
+   0.0
+   </pageECY>
+   <stub>
+   false
+   </stub>
+</transition>
+## END STATE TRANSITION OBJECT
 ## END OBJECTS

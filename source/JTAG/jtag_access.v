@@ -214,6 +214,7 @@ module jtag_access #(
 	wire clrf;
 	wire p_in;
 	wire tck2_raw;
+	wire mixclk;
 	
 
 	wire [63:0] f; //JTAG functions (one hot);
@@ -382,13 +383,17 @@ module jtag_access #(
       .TDO(tdo2)          // 1-bit input Data input for USER function
    );
 
-  BUFGMUX tclk2_buf
+  BUFG tclk2_buf
    (.O   (tck2),
+	 .I   (tck2_raw)
+	 );
+
+  BUFGMUX mixclk_buf
+   (.O   (mixclk),
 	 .I0   (tck2_raw),
 	 .I1   (CLK40),
 	 .S   (AUTO_LOAD_ENA)
 	 );
-
 
 
 
@@ -463,7 +468,7 @@ module jtag_access #(
       .DSY_IN(tdi2),       // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(f[7]),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(2'b01),         // Parallel input
@@ -484,7 +489,7 @@ module jtag_access #(
       .DSY_IN(lxdlyout),  // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(f[7]),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(4'h9),          // Parallel input
@@ -537,15 +542,15 @@ end
 
    user_wr_reg #(.width(5), .def_value(5'b01010), .TMR(TMR))
    comparator(
-	   .TCK(tck2),         // TCK for update register
-      .DRCK(tck2),        // Data Reg Clock
+	   .TCK(mixclk),         // TCK for update register
+      .DRCK(mixclk),        // Data Reg Clock
       .FSEL(f[9]),        // Function select
       .SEL(jsel2),        // User 2 mode active
       .TDI(tdi2),         // Serial Test Data In
       .DSY_IN(prbout),    // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(f[7]),   // Daisy chain mode
 		.LOAD(al_ctime),   // Load parallel input
 		.PI({BPI_AL_REG[2:0],cmode_hold}),          // Parallel input
@@ -615,7 +620,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(6'b111111),          // Parallel input
@@ -690,7 +695,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(12'hFFF),          // Parallel input
@@ -711,7 +716,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(26'h0000000),          // Parallel input
@@ -724,15 +729,15 @@ end
 //
    user_wr_reg #(.width(9), .def_value(9'd100), .TMR(TMR))
    pipe_depth1(
-	   .TCK(tck2),         // TCK for update register
-      .DRCK(tck2),        // Data Reg Clock
+	   .TCK(mixclk),         // TCK for update register
+      .DRCK(mixclk),        // Data Reg Clock
       .FSEL(f[16]),       // Function select
       .SEL(jsel2),        // User 2 mode active
       .TDI(tdi2),          // Serial Test Data In
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(al_pdepth),   // Load parallel input
 		.PI(BPI_AL_REG[8:0]),          // Parallel input
@@ -758,7 +763,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(2'b10),          // Parallel input
@@ -789,7 +794,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(ADCDATA), // Bus to capture
       .TDO(tdof6));      // Serial Test Data Out
 	
@@ -806,15 +811,15 @@ end
 //
    user_wr_reg #(.width(7), .def_value(7'd8), .TMR(TMR))
    nsamples1(
-	   .TCK(tck2),         // TCK for update register
-      .DRCK(tck2),        // Data Reg Clock
+	   .TCK(mixclk),         // TCK for update register
+      .DRCK(mixclk),        // Data Reg Clock
       .FSEL(f[20]),       // Function select
       .SEL(jsel2),        // User 2 mode active
       .TDI(tdi2),          // Serial Test Data In
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(al_nsamp),   // Load parallel input
 		.PI(BPI_AL_REG[6:0]),          // Parallel input
@@ -836,7 +841,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(16'h0000),          // Parallel input
@@ -865,7 +870,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(BPI_RBK_FIFO_DATA), // Bus to capture
       .TDO(tdof16));      // Serial Test Data Out
 	
@@ -889,7 +894,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(BPI_STATUS), // Bus to capture
       .TDO(tdof17));      // Serial Test Data Out
 		
@@ -906,7 +911,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(BPI_TIMER), // Bus to capture
       .TDO(tdof18));      // Serial Test Data Out
 
@@ -916,15 +921,15 @@ end
 
    user_wr_reg #(.width(5), .def_value(5'd0), .TMR(TMR)) // default is no phase shift
    cmp_clock_phase(
-	   .TCK(tck2),         // TCK for update register
-      .DRCK(tck2),        // Data Reg Clock
+	   .TCK(mixclk),         // TCK for update register
+      .DRCK(mixclk),        // Data Reg Clock
       .FSEL(f[28]),       // Function select
       .SEL(jsel2),        // User 2 mode active
       .TDI(tdi2),          // Serial Test Data In
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(al_cmp_clk_phase),   // Load parallel input
 		.PI(BPI_AL_REG[4:0]),          // Parallel input
@@ -937,15 +942,15 @@ end
 //
    user_wr_reg #(.width(3), .def_value(3'd0), .TMR(TMR)) // default is no phase shift
    samp_clock_phase(
-	   .TCK(tck2),         // TCK for update register
-      .DRCK(tck2),        // Data Reg Clock
+	   .TCK(mixclk),         // TCK for update register
+      .DRCK(mixclk),        // Data Reg Clock
       .FSEL(f[44]),       // Function select
       .SEL(jsel2),        // User 2 mode active
       .TDI(tdi2),          // Serial Test Data In
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(al_samp_clk_phase),   // Load parallel input
 		.PI(BPI_AL_REG[2:0]),          // Parallel input
@@ -976,7 +981,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(3'b000),          // Parallel input
@@ -998,7 +1003,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(30'h00000000),          // Parallel input
@@ -1021,7 +1026,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(6'b111111),          // Parallel input
@@ -1070,7 +1075,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(spi_rtn_reg), // Bus to capture
       .TDO(tdof24));      // Serial Test Data Out
 
@@ -1100,7 +1105,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(SEM_STATUS[9:0]), // Bus to capture //  bit 9 is double error detected, bit 8 is crc error
       .TDO(tdof25));      // Serial Test Data Out
 
@@ -1121,7 +1126,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(SEM_ERRCNT), // Bus to capture //[bits 15:8 are multi-bit error counts, bits 7:0 are single-bit error counts
       .TDO(tdof27));      // Serial Test Data Out
 		
@@ -1147,7 +1152,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(3'b000),          // Parallel input
@@ -1208,7 +1213,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(8'h00),          // Parallel input
@@ -1239,7 +1244,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(SEM_FAR_LA),   // Bus to capture // 
       .TDO(tdof32));      // Serial Test Data Out
 //
@@ -1256,7 +1261,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(SEM_FAR_PA),   // Bus to capture // 
       .TDO(tdof33));      // Serial Test Data Out
 		
@@ -1304,7 +1309,7 @@ end
       .DSY_IN(1'b0),      // Serial Daisy chained data in
       .SHIFT(jshift2),      // Shift state
       .UPDATE(update2),    // Update state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
       .DSY_CHAIN(1'b0),   // Daisy chain mode
 		.LOAD(1'b0),        // Load parallel input
 		.PI(8'h00),          // Parallel input
@@ -1329,7 +1334,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),          // Reset default state
+      .RST(not_eos),          // Reset default state
 		.BUS(sel_reg),   // Bus to capture // 
       .TDO(tdof35));      // Serial Test Data Out
 
@@ -1417,7 +1422,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),       // Reset default state
+      .RST(not_eos),       // Reset default state
 		.BUS(L1ACNT),        // Bus to capture
       .TDO(tdof39));       // Serial Test Data Out
 
@@ -1436,7 +1441,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),       // Reset default state
+      .RST(not_eos),       // Reset default state
 		.BUS(L1AMCNT),        // Bus to capture
       .TDO(tdof3a));       // Serial Test Data Out
 
@@ -1455,7 +1460,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),       // Reset default state
+      .RST(not_eos),       // Reset default state
 		.BUS(INJPLSCNT),     // Bus to capture
       .TDO(tdof3b));       // Serial Test Data Out
 
@@ -1474,7 +1479,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),       // Reset default state
+      .RST(not_eos),       // Reset default state
 		.BUS(EXTPLSCNT),     // Bus to capture
       .TDO(tdof3c));       // Serial Test Data Out
 
@@ -1493,7 +1498,7 @@ end
       .TDI(tdi2),          // Serial Test Data In
       .SHIFT(jshift2),      // Shift state
       .CAPTURE(capture2),  // Capture state
-      .RST(RST),       // Reset default state
+      .RST(not_eos),       // Reset default state
 		.BUS(BC0CNT),        // Bus to capture
       .TDO(tdof3d));       // Serial Test Data Out
 
