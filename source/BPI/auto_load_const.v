@@ -74,10 +74,10 @@ begin : BPI_intrf_FSM_TMR
 			al_status_r_3 <= 3'b000;
 		end
 		else 
-			if(CLR_AL_DONE) begin
-				al_status_r_1 <= {vt_al_status_r_1[2:1],1'b1};
-				al_status_r_2 <= {vt_al_status_r_2[2:1],1'b1};
-				al_status_r_3 <= {vt_al_status_r_3[2:1],1'b1};
+			if(al_aborted) begin
+				al_status_r_1 <= 3'b100;
+				al_status_r_2 <= 3'b100;
+				al_status_r_3 <= 3'b100;
 			end
 			else if(AL_DONE) begin
 				al_status_r_1 <= {1'b1,vt_al_status_r_1[1:0]};
@@ -89,10 +89,10 @@ begin : BPI_intrf_FSM_TMR
 				al_status_r_2 <= {vt_al_status_r_2[2],1'b1,vt_al_status_r_2[0]};
 				al_status_r_3 <= {vt_al_status_r_3[2],1'b1,vt_al_status_r_3[0]};
 			end
-			else if(al_aborted) begin
-				al_status_r_1 <= 3'b100;
-				al_status_r_2 <= 3'b100;
-				al_status_r_3 <= 3'b100;
+			else if(CLR_AL_DONE) begin
+				al_status_r_1 <= {vt_al_status_r_1[2:1],1'b1};
+				al_status_r_2 <= {vt_al_status_r_2[2:1],1'b1};
+				al_status_r_3 <= {vt_al_status_r_3[2:1],1'b1};
 			end
 			else begin
 				al_status_r_1 <= vt_al_status_r_1;
