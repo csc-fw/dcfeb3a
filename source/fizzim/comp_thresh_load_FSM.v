@@ -1,9 +1,10 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 15:16:27 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:12:08 at 15:15:28 (www.fizzim.com)
 
 module comp_thresh_load_FSM (
   output reg SET_DONE,
   output reg SHFT_ENA,
+  output wire [1:0] AL_CT_STATE,
   input CLK,
   input RST,
   input START 
@@ -18,7 +19,10 @@ module comp_thresh_load_FSM (
 
   reg [1:0] state;
 
+  assign AL_CT_STATE = state;
+
   reg [1:0] nextstate;
+
 
   reg [3:0] scnt;
 

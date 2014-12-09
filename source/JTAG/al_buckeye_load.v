@@ -31,7 +31,8 @@ module al_buckeye_load #(
     output AL_BKY_ENA,
     output SHCK_ENA,
     output SDATA,
-    output AL_DONE
+    output AL_DONE,
+	 output [2:0] AL_BK_STATE
     );
 	 
 	wire set_done;
@@ -115,6 +116,7 @@ begin : BkyLd_FSM_TMR
 	  .RDENA(bky_rdena),
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
+	  .AL_BK_STATE(AL_BK_STATE),
 	  .CLK(CLK1MHZ),
 	  .MT(bky_mt),
 	  .RST(RST),
@@ -161,6 +163,7 @@ begin : BkyLd_FSM
 	  .RDENA(bky_rdena),
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
+	  .AL_BK_STATE(AL_BK_STATE),
 	  .CLK(CLK1MHZ),
 	  .MT(bky_mt),
 	  .RST(RST),

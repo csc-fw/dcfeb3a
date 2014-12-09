@@ -1,10 +1,11 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:26 at 15:15:50 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:12:08 at 15:14:12 (www.fizzim.com)
 
 module bky_load_FSM (
   output reg RDENA,
   output reg SET_DONE,
   output reg SHFT_ENA,
+  output wire [2:0] AL_BK_STATE,
   input CLK,
   input MT,
   input RST,
@@ -21,7 +22,10 @@ module bky_load_FSM (
 
   reg [2:0] state;
 
+  assign AL_BK_STATE = state;
+
   reg [2:0] nextstate;
+
 
   reg [4:0] loop;
   reg [3:0] scnt;
