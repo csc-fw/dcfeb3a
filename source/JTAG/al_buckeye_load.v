@@ -32,6 +32,8 @@ module al_buckeye_load #(
     output SHCK_ENA,
     output SDATA,
     output AL_DONE,
+	 output AL_BK_LD_MT,
+	 output reg WRT_ON_RST,
 	 output [2:0] AL_BK_STATE
     );
 	 
@@ -192,5 +194,15 @@ al_Buckeye_load_FIFO_i (
   .sbiterr(bky_sbiterr), // output sbiterr
   .dbiterr(bky_dbiterr)  // output dbiterr
 );
+
+	always @(posedge CLK40 or posedge RST) begin
+		if(RST) 
+			WRT_ON_RST <= 1'b0;
+		else
+			if(SLOW_FIFO_RST && CAPTURE)
+				WRT_ON_RST <= 1'b1;
+			else
+				WRT_ON_RST <= WRT_ON_RST;
+	end
 	
 endmodule

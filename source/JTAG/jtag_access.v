@@ -108,6 +108,7 @@ module jtag_access #(
     input [31:0] BPI_TIMER,  // Timer for BPI commands
     input [15:0] BPI_AL_REG, // Data from BPI PROM for auto-loading
 	 input SLOW_FIFO_RST,     // Reset for Buckeye auto-load FIFO
+	 input SLOW_FIFO_RST_DONE,// FIFO Reset Done for Buckeye auto-load FIFO
 	 input AUTO_LOAD,         // Auto load pulse for clock enabling registers;
 	 input AUTO_LOAD_ENA,     // High during Auto load process
 	 input [5:0] AL_CNT,      // Auto load counter
@@ -268,6 +269,9 @@ module jtag_access #(
 
 	wire not_eos;
 	wire rst_qpll;
+	
+	wire wrt_on_rst;
+	wire al_bk_ld_mt;
 
 // clock synchronizing signals
 
@@ -518,7 +522,7 @@ always @(posedge CLK40 or posedge RST) begin
 			AL_DONE <= AL_DONE;
 end
 
-assign startup_2 = {8'hA5, AL_DONE, al_cthresh_done, al_ct_state, al_bshift_done, al_bk_state};
+assign startup_2 = {4'hA, wrt_on_rst, SLOW_FIFO_RST_DONE, SLOW_FIFO_RST, al_bk_ld_mt, AL_DONE, al_cthresh_done, al_ct_state, al_bshift_done, al_bk_state};
 
 	al_cdac #(
 		.TMR(TMR)
@@ -671,6 +675,8 @@ end
 		.SHCK_ENA(al_bky_shck_ena),
 		.SDATA(al_bky_sdata),
 		.AL_DONE(al_bshift_done),
+		.AL_BK_LD_MT(al_bk_ld_mt),
+		.WRT_ON_RST(wrt_on_rst),
 		.AL_BK_STATE(al_bk_state)
 	);
 	

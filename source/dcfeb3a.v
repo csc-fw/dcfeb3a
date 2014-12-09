@@ -1900,6 +1900,7 @@ endgenerate
 		.DAQ_FIFO_RST(daq_fifo_rst),
 		.BPI_FIFO_RST(bpi_fifo_rst),
 		.SLOW_FIFO_RST(slow_fifo_rst),
+		.SLOW_FIFO_RST_DONE(slow_fifo_rst_done),
 		.RUN(run),
 		.QPLL_LOCK(qpll_lock),
 		.QPLL_ERROR(qpll_error),
@@ -1950,6 +1951,7 @@ endgenerate
 		.BPI_TIMER(bpi_timer),     // stop watch timer for BPI commands
       .BPI_AL_REG(bpi_al_reg), // Data from BPI PROM for auto-loading
 		.SLOW_FIFO_RST(slow_fifo_rst), // Reset for Buckeye auto-load FIFO
+		.SLOW_FIFO_RST_DONE(slow_fifo_rst_done),
 	   .AUTO_LOAD(auto_load),         // Auto load pulse for clock enabling registers;
 	   .AUTO_LOAD_ENA(auto_load_ena),     // High during Auto load process
 	   .AL_CNT(al_cnt),      // Auto load counter
