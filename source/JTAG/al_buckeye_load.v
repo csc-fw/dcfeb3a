@@ -47,6 +47,9 @@ module al_buckeye_load #(
 	wire bky_rdena;
 	wire [15:0] bky_data;
 	
+	
+	assign AL_BK_LD_MT = bky_mt;
+	
 	 
 generate
 if(TMR==1) 

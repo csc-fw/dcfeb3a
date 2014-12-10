@@ -2157,6 +2157,7 @@ endgenerate
 		.cmp_phs_state(cmp_phs_state),
 		.TRG_RST(trg_rst),
 		.LCT(lct),
+		.RUN(run),
 		.EOS(eos),
 		.POR_STATE(por_state),
 		.DSR_ALGND(dsr_aligned),

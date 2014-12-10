@@ -31,6 +31,7 @@ module test_points(
     input TRG_RST,
     input LCT,
 	 input EOS,
+	 input RUN,
 	 input [3:0] POR_STATE,
 	 input DSR_ALGND,
 	 input DSR_RST,
@@ -81,7 +82,7 @@ assign tp_b35_dir = 14'h0300;
 //
 
 assign tp_b24_out = 3'b000;
-assign tp_b25_out = {DSR_ALGND,DSR_RST,ADC_CLK,CLK20,DSR_RESYNC,CLK,STUP_CLK,QPLL_LOCK,CLK100KHZ,1'b0,SYS_RST,EOS,POR_STATE};
+assign tp_b25_out = {DSR_ALGND,DSR_RST,ADC_CLK,CLK20,DSR_RESYNC,CLK,STUP_CLK,QPLL_LOCK,CLK100KHZ,RUN,SYS_RST,EOS,POR_STATE};
 //assign tp_b25_out = {cmp_phase[8:4],CLK,CMP_PHS_CHANGE,CMP_PHS_JTAG_RST,cmp_phs_busy,cmp_phs_psdone,cmp_phs_psen,cmp_phs_rst,SYS_RST,cmp_phs_state};
 assign tp_b26_out = 2'b00;
 assign tp_b35_out = {CMP_CLK_PHASE[4:1],2'b0,CMP_CLK_PHASE[0],COMP_RST,TRG_GTXTXRESET,TRG_MMCM_LOCK,TRG_SYNCDONE,COMP_CLK160,COMP_CLK80,COMP_CLK};
