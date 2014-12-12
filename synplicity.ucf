@@ -12,10 +12,10 @@
 NET "CMS_CLK_P" TNM_NET = "CMS_CLK_P"; 
 TIMESPEC "TS_CMS_CLK_P" = PERIOD "CMS_CLK_P" 25.000 ns HIGH 50.00%; 
 
-# 1009 : define_clock {n:Clk_src1.STRTUP_CLK} -name {Clock_sources_0s_1s_1s|STRTUP_CLK_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_4} -rise {0.000000} -fall {12.500000}
+# 1009 : define_clock {n:Clk_src1.raw_startup_clk} -name {Clock_sources_0s_1s_1s|raw_startup_clk_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_4} -rise {0.000000} -fall {12.5000 ... (etc.) 
 
-NET "Clk_src1/strtup_clk_c" TNM_NET = "Clk_src1_strtup_clk_c"; 
-TIMESPEC "TS_Clk_src1_strtup_clk_c" = PERIOD "Clk_src1_strtup_clk_c" 25.000 ns HIGH 50.00%; 
+NET "Clk_src1/raw_startup_clk" TNM_NET = "Clk_src1_raw_startup_clk"; 
+TIMESPEC "TS_Clk_src1_raw_startup_clk" = PERIOD "Clk_src1_raw_startup_clk" 25.000 ns HIGH 50.00%; 
 
 # 1034 : define_clock {p:G1LCLK0P} -name {dcfeb3a|G1LCLK0P} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_29} -rise {0.000000} -fall {12.500000}
 

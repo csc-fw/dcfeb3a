@@ -91,6 +91,7 @@ module Clock_sources #(
   wire trg_tx_160_refclk_dv2;
   
   wire cms_clk;
+  wire raw_startup_clk;
   
   wire gc0,gc1;
   wire tp_b35_0;
@@ -556,7 +557,7 @@ begin : StartupCode
    )
    strt_up_v6 (
       .CFGCLK(dmy_cclk),       // 1-bit output Configuration main clock output
-      .CFGMCLK(STRTUP_CLK),     // 1-bit output Configuration internal oscillator clock output
+      .CFGMCLK(raw_startup_clk),     // 1-bit output Configuration internal oscillator clock output
       .DINSPI(dmy_din),       // 1-bit output DIN SPI PROM access output
       .EOS(EOS),             // 1-bit output Active high output signal indicating the End Of Configuration.
       .PREQ(preq),           // 1-bit output PROGRAM request to fabric output
@@ -573,6 +574,12 @@ begin : StartupCode
    );
 end
 endgenerate
+
+  BUFG startup_clk_buf (
+	.O   (STRTUP_CLK),
+	.I   (raw_startup_clk)
+	);
+	 
 
 //----------------------------------------------------------------------------
 // "Output    Output      Phase     Duty      Pk-to-Pk        Phase"

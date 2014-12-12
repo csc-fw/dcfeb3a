@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:12:04 at 12:45:31 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:12:12 at 10:56:46 (www.fizzim.com)
 
 module Pow_on_Rst_FSM 
   #(
@@ -32,9 +32,8 @@ module Pow_on_Rst_FSM
   Pow_on_Rst      = 4'b0100, 
   Run_State       = 4'b0101, 
   Start_Auto_Load = 4'b0110, 
-  W4ODMB          = 4'b0111, 
-  W4Qpll          = 4'b1000, 
-  W4SysClk        = 4'b1001; 
+  W4Qpll          = 4'b0111, 
+  W4SysClk        = 4'b1000; 
 
   reg [3:0] state;
 
@@ -50,7 +49,8 @@ module Pow_on_Rst_FSM
   always @* begin
     nextstate = 4'bxxxx; // default to x because default_state_is_x is set
     case (state)
-      Idle           :                                           nextstate = W4ODMB;
+      Idle           : if      (strtup_cnt == Strt_dly)          nextstate = W4Qpll;
+                       else                                      nextstate = Idle;
       ADC_INIT       : if      (RESTART_ALL)                     nextstate = Pow_on_Rst;
                        else if (ADC_RDY)                         nextstate = Run_State;
                        else                                      nextstate = ADC_INIT;
@@ -68,8 +68,6 @@ module Pow_on_Rst_FSM
       Start_Auto_Load: if      (RESTART_ALL)                     nextstate = Pow_on_Rst;
                        else if (!AL_DONE)                        nextstate = Auto_Load;
                        else                                      nextstate = Start_Auto_Load;
-      W4ODMB         : if      (strtup_cnt == Strt_dly)          nextstate = W4Qpll;
-                       else                                      nextstate = W4ODMB;
       W4Qpll         : if      (QPLL_LOCK)                       nextstate = W4SysClk;
                        else                                      nextstate = W4Qpll;
       W4SysClk       : if      (MMCM_LOCK)                       nextstate = Pow_on_Rst;
@@ -111,6 +109,7 @@ module Pow_on_Rst_FSM
                                 ADC_INIT_RST <= 1;
                                 MMCM_RST <= 1;
                                 POR <= 1;
+                                strtup_cnt <= strtup_cnt + 1;
         end
         Auto_Load      : begin
                                 ADC_INIT_RST <= 1;
@@ -126,12 +125,6 @@ module Pow_on_Rst_FSM
         Start_Auto_Load: begin
                                 ADC_INIT_RST <= 1;
                                 AL_START <= 1;
-        end
-        W4ODMB         : begin
-                                ADC_INIT_RST <= 1;
-                                MMCM_RST <= 1;
-                                POR <= 1;
-                                strtup_cnt <= strtup_cnt + 1;
         end
         W4Qpll         : begin
                                 ADC_INIT_RST <= 1;
@@ -158,7 +151,6 @@ module Pow_on_Rst_FSM
       Pow_on_Rst     : statename = "Pow_on_Rst";
       Run_State      : statename = "Run_State";
       Start_Auto_Load: statename = "Start_Auto_Load";
-      W4ODMB         : statename = "W4ODMB";
       W4Qpll         : statename = "W4Qpll";
       W4SysClk       : statename = "W4SysClk";
       default        : statename = "XXXXXXXXXXXXXXX";

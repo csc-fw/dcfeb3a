@@ -1928,6 +1928,10 @@ endgenerate
 	wire [15:0] sem_errcnt;
 	wire [15:0] sem_status;
 
+	wire al_bky_we;
+	wire wrt_on_rst;
+	wire al_bk_ld_mt;
+
 	
 	jtag_access  #(
 		.TMR(TMR)
@@ -1957,6 +1961,9 @@ endgenerate
 	   .AL_CNT(al_cnt),      // Auto load counter
 	   .CLR_AL_DONE(clr_al_done),  // Clear Auto Load Done flag
 	   .AL_DONE(al_done),          // Auto load process complete
+	   .AL_BKY_WE(al_bky_we),          // Auto load process complete
+	   .WRT_ON_RST(wrt_on_rst),          // Auto load process complete
+	   .AL_BK_LD_MT(al_bk_ld_mt),          // Auto load process complete
 		
 		.QP_RST_B(QP_RST_B),         // QPLL reset
 		.JTAG_SYS_RST(jtag_sys_rst), // Issue the equivalent of power on reset without reprogramming.
@@ -2162,6 +2169,19 @@ endgenerate
 		.POR_STATE(por_state),
 		.DSR_ALGND(dsr_aligned),
 		.DSR_RST(dsr_rst),
+		//
+		.SLOW_FIFO_RST(slow_fifo_rst), // Reset for Buckeye auto-load FIFO
+		.SLOW_FIFO_RST_DONE(slow_fifo_rst_done),
+	   .AL_START(al_start),         // Auto load pulse for clock enabling registers;
+	   .AL_EXECUTE(al_execute),         // Auto load pulse for clock enabling registers;
+	   .AUTO_LOAD(auto_load),         // Auto load pulse for clock enabling registers;
+	   .AUTO_LOAD_ENA(auto_load_ena),     // High during Auto load process
+	   .AL_CNT(al_cnt),      // Auto load counter
+	   .CLR_AL_DONE(clr_al_done),  // Clear Auto Load Done flag
+	   .AL_DONE(al_done),          // Auto load process complete
+	   .AL_BKY_WE(al_bky_we),          // Auto load process complete
+	   .WRT_ON_RST(wrt_on_rst),          // Auto load process complete
+	   .AL_BK_LD_MT(al_bk_ld_mt),          // Auto load process complete
 		//
 		.DSR_RESYNC(dsr_resync),
 		.RESYNC(resync),

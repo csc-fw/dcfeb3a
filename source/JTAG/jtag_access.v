@@ -114,6 +114,9 @@ module jtag_access #(
 	 input [5:0] AL_CNT,      // Auto load counter
 	 input CLR_AL_DONE,       // Clear Auto Load Done flag
 	 output reg AL_DONE,      // Auto load process complete
+	 output AL_BKY_WE,
+	 output WRT_ON_RST,
+	 output AL_BK_LD_MT,
     output QP_RST_B,         // QPLL reset signal external connection
 	 output JTAG_SYS_RST,     // JTAG initiated system reset 
     output reg RDFIFO,       // Advance fifo to next word
@@ -300,6 +303,10 @@ module jtag_access #(
    reg f43_s2;
    reg f49_up2_s2;
 
+ 
+   assign AL_BKY_WE   = al_bky_shift;
+	assign WRT_ON_RST  = wrt_on_rst;
+	assign AL_BK_LD_MT = al_bk_ld_mt;
 
 	assign rst_qpll = f[54];
 	OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_QP_RST (.O(QP_RST_B),.I(~rst_qpll));
@@ -353,7 +360,7 @@ module jtag_access #(
 	assign al_nsamp          = AUTO_LOAD & (AL_CNT == 6'h06);
 	assign al_pdepth         = AUTO_LOAD & (AL_CNT == 6'h07);
 	assign al_bky_shift      = AUTO_LOAD & ((AL_CNT >= 6'h10) && (AL_CNT <= 6'h21));
- 
+	
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
  //  JTAG Access Ports for user function in the fabric (up to 4 interfaces) //

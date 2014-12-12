@@ -36,6 +36,19 @@ module test_points(
 	 input DSR_ALGND,
 	 input DSR_RST,
 	 //
+	 input SLOW_FIFO_RST,     // Reset for Buckeye auto-load FIFO
+	 input SLOW_FIFO_RST_DONE,// FIFO Reset Done for Buckeye auto-load FIFO
+    input AL_START,
+    input AL_EXECUTE,
+	 input AUTO_LOAD,         // Auto load pulse for clock enabling registers;
+	 input AUTO_LOAD_ENA,     // High during Auto load process
+	 input [5:0] AL_CNT,      // Auto load counter
+	 input CLR_AL_DONE,       // Clear Auto Load Done flag
+	 input AL_DONE,      // Auto load process complete
+	 input AL_BKY_WE,
+	 input WRT_ON_RST,
+	 input AL_BK_LD_MT,
+	//
 	 input DSR_RESYNC,
 	 input RESYNC,
 	 input SYS_RST,
@@ -85,8 +98,10 @@ assign tp_b24_out = 3'b000;
 assign tp_b25_out = {DSR_ALGND,DSR_RST,ADC_CLK,CLK20,DSR_RESYNC,CLK,STUP_CLK,QPLL_LOCK,CLK100KHZ,RUN,SYS_RST,EOS,POR_STATE};
 //assign tp_b25_out = {cmp_phase[8:4],CLK,CMP_PHS_CHANGE,CMP_PHS_JTAG_RST,cmp_phs_busy,cmp_phs_psdone,cmp_phs_psen,cmp_phs_rst,SYS_RST,cmp_phs_state};
 assign tp_b26_out = 2'b00;
-assign tp_b35_out = {CMP_CLK_PHASE[4:1],2'b0,CMP_CLK_PHASE[0],COMP_RST,TRG_GTXTXRESET,TRG_MMCM_LOCK,TRG_SYNCDONE,COMP_CLK160,COMP_CLK80,COMP_CLK};
+//assign tp_b35_out = {CMP_CLK_PHASE[4:1],2'b0,CMP_CLK_PHASE[0],COMP_RST,TRG_GTXTXRESET,TRG_MMCM_LOCK,TRG_SYNCDONE,COMP_CLK160,COMP_CLK80,COMP_CLK};
 //assign tp_b35_out = {SYS_RST,RESYNC,4'h0,ALG_GD,CLK,1'b0,1'b0,1'b0,L1A_EVT_PUSH,L1A,L1A_MATCH};
+assign tp_b35_out = {SLOW_FIFO_RST,SLOW_FIFO_RST_DONE,AL_START,AL_EXECUTE,2'b0,
+							AUTO_LOAD,AUTO_LOAD_ENA,CLR_AL_DONE,AL_DONE,AL_BKY_WE,WRT_ON_RST,AL_BK_LD_MT,CLK1MHZ};
 
 // Incoming data to fabric
 //
