@@ -31,10 +31,7 @@ module al_buckeye_load #(
     output AL_BKY_ENA,
     output SHCK_ENA,
     output SDATA,
-    output AL_DONE,
-	 output AL_BK_LD_MT,
-	 output reg WRT_ON_RST,
-	 output [2:0] AL_BK_STATE
+    output AL_DONE
     );
 	 
 	wire set_done;
@@ -46,9 +43,6 @@ module al_buckeye_load #(
 	wire bky_dbiterr;
 	wire bky_rdena;
 	wire [15:0] bky_data;
-	
-	
-	assign AL_BK_LD_MT = bky_mt;
 	
 	 
 generate
@@ -121,7 +115,6 @@ begin : BkyLd_FSM_TMR
 	  .RDENA(bky_rdena),
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
-	  .AL_BK_STATE(AL_BK_STATE),
 	  .CLK(CLK1MHZ),
 	  .MT(bky_mt),
 	  .RST(RST),
@@ -168,7 +161,6 @@ begin : BkyLd_FSM
 	  .RDENA(bky_rdena),
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
-	  .AL_BK_STATE(AL_BK_STATE),
 	  .CLK(CLK1MHZ),
 	  .MT(bky_mt),
 	  .RST(RST),
@@ -197,15 +189,5 @@ al_Buckeye_load_FIFO_i (
   .sbiterr(bky_sbiterr), // output sbiterr
   .dbiterr(bky_dbiterr)  // output dbiterr
 );
-
-	always @(posedge CLK40 or posedge RST) begin
-		if(RST) 
-			WRT_ON_RST <= 1'b0;
-		else
-			if(SLOW_FIFO_RST && CAPTURE)
-				WRT_ON_RST <= 1'b1;
-			else
-				WRT_ON_RST <= WRT_ON_RST;
-	end
 	
 endmodule

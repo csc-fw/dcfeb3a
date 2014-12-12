@@ -1,11 +1,10 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:12:08 at 15:14:40 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:12:12 at 12:15:31 (www.fizzim.com)
 
 module bky_load_FSM_TMR (
   output RDENA,
   output SET_DONE,
   output SHFT_ENA,
-  output wire [2:0] AL_BK_STATE,
   input CLK,
   input MT,
   input RST,
@@ -32,7 +31,6 @@ module bky_load_FSM_TMR (
   assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
   assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
-  assign AL_BK_STATE = voted_state_1;
 
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;

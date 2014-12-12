@@ -1,10 +1,9 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:12:08 at 15:17:40 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:12:12 at 12:15:51 (www.fizzim.com)
 
 module comp_thresh_load_FSM_TMR (
   output SET_DONE,
   output SHFT_ENA,
-  output wire [1:0] AL_CT_STATE,
   input CLK,
   input RST,
   input START 
@@ -29,7 +28,6 @@ module comp_thresh_load_FSM_TMR (
   assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
   assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
-  assign AL_CT_STATE = voted_state_1;
 
   (* syn_keep = "true" *) reg [1:0] nextstate_1;
   (* syn_keep = "true" *) reg [1:0] nextstate_2;

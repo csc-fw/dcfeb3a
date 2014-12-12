@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 3:05:24 PM on 12/8/14
+## File last modified by Fizzim: 12:12:01 PM on 12/12/14
 <version>
    14.02.18
 </version>
@@ -284,62 +284,6 @@
          -1
          </page>
       </default_state_is_x>
-      <stateout>
-            <status>
-            GLOBAL_FIXED
-            </status>
-         <value>
-         AL_CT_STATE
-            <status>
-            GLOBAL_VAR
-            </status>
-         </value>
-         <vis>
-         0
-            <status>
-            GLOBAL_VAR
-            </status>
-         </vis>
-         <type>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </type>
-         <comment>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </comment>
-         <color>
-         -16777216
-            <status>
-            GLOBAL_VAR
-            </status>
-         </color>
-         <useratts>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </useratts>
-         <resetval>
-         
-            <status>
-            GLOBAL_VAR
-            </status>
-         </resetval>
-         <x2Obj>
-         0
-         </x2Obj>
-         <y2Obj>
-         0
-         </y2Obj>
-         <page>
-         -1
-         </page>
-      </stateout>
    </machine>
    <inputs>
       <CLK>

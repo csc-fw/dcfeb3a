@@ -30,8 +30,7 @@ module al_cdac #(
     output SHCK_ENA,
     output SDATA,
     output DAC_ENB,
-    output CDAC_DONE,
-	 output [1:0] AL_CT_STATE
+    output CDAC_DONE
     );
 	 
 	 
@@ -137,7 +136,6 @@ begin : CmpTh_FSM_TMR
 	comp_thresh_load_FSM_i(
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
-	  .AL_CT_STATE(AL_CT_STATE),
 	  .CLK(CLK1MHZ),
 	  .RST(RST),
 	  .START(vt_load_cthresh_1) 
@@ -196,7 +194,6 @@ begin : CmpTh_FSM
 	comp_thresh_load_FSM_i(
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
-	  .AL_CT_STATE(AL_CT_STATE),
 	  .CLK(CLK1MHZ),
 	  .RST(RST),
 	  .START(load_cthresh) 

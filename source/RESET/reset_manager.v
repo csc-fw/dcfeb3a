@@ -43,7 +43,6 @@ module reset_manager #(
 	 output DAQ_FIFO_RST,
 	 output BPI_FIFO_RST,
 	 output SLOW_FIFO_RST,
-	 output SLOW_FIFO_RST_DONE,
 	 output RUN,
 	 output QPLL_LOCK,
 	 output QPLL_ERROR,
@@ -69,8 +68,6 @@ wire [11:0] dsr_tmr_i;
 
  IBUF IBUF_QP_ERROR (.O(QPLL_ERROR),.I(QP_ERROR));
  IBUF IBUF_QP_LOCKED (.O(QPLL_LOCK),.I(QP_LOCKED));
- 
-assign SLOW_FIFO_RST_DONE = slow_fifo_rst_done;
 
 assign restart_all = (JTAG_SYS_RST || CSP_SYS_RST);
 assign DSR_RST     = ~ADC_RDY || SYS_RST;

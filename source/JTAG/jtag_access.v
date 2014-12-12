@@ -79,7 +79,6 @@
 //  60     | Read EXTPLS counter (12 bits).
 //  61     | Read BC0 counter (12 bits).
 //  62     | Comparator Clock Phase Reset (CMP_PHS_JTAG_RST),  Instruction only, (Auto reset)
-//  63     | Diagnostic Startup info (16 bits).
 
 //
 // Revision: 
@@ -108,15 +107,11 @@ module jtag_access #(
     input [31:0] BPI_TIMER,  // Timer for BPI commands
     input [15:0] BPI_AL_REG, // Data from BPI PROM for auto-loading
 	 input SLOW_FIFO_RST,     // Reset for Buckeye auto-load FIFO
-	 input SLOW_FIFO_RST_DONE,// FIFO Reset Done for Buckeye auto-load FIFO
 	 input AUTO_LOAD,         // Auto load pulse for clock enabling registers;
 	 input AUTO_LOAD_ENA,     // High during Auto load process
 	 input [5:0] AL_CNT,      // Auto load counter
 	 input CLR_AL_DONE,       // Clear Auto Load Done flag
 	 output reg AL_DONE,      // Auto load process complete
-	 output AL_BKY_WE,
-	 output WRT_ON_RST,
-	 output AL_BK_LD_MT,
     output QP_RST_B,         // QPLL reset signal external connection
 	 output JTAG_SYS_RST,     // JTAG initiated system reset 
     output reg RDFIFO,       // Advance fifo to next word
@@ -226,13 +221,10 @@ module jtag_access #(
 	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15,dmy16;
 	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15;
 	wire tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31;
-	wire tdof32,tdof33,tdof34,tdof35,tdof37,tdof38,tdof39,tdof3a,tdof3b,tdof3c,tdof3d,tdof3f;
+	wire tdof32,tdof33,tdof34,tdof35,tdof37,tdof38,tdof39,tdof3a,tdof3b,tdof3c,tdof3d;
 	wire [31:16] status_h;
-	wire [15:0] startup_2;
    wire [6:1] bky_mask;
 	wire [6:0] nsamp;
-	wire [2:0] al_bk_state;
-	wire [1:0] al_ct_state;
 	reg [11:0] clr_pip;
 	reg f18dly, f19dly;
 	reg f32dly, f33dly;
@@ -273,9 +265,6 @@ module jtag_access #(
 	wire not_eos;
 	wire rst_qpll;
 	
-	wire wrt_on_rst;
-	wire al_bk_ld_mt;
-
 // clock synchronizing signals
 
    reg p_in_s1;
@@ -304,10 +293,6 @@ module jtag_access #(
    reg f49_up2_s2;
 
  
-   assign AL_BKY_WE   = al_bky_shift;
-	assign WRT_ON_RST  = wrt_on_rst;
-	assign AL_BK_LD_MT = al_bk_ld_mt;
-
 	assign rst_qpll = f[54];
 	OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_QP_RST (.O(QP_RST_B),.I(~rst_qpll));
 
@@ -319,7 +304,7 @@ module jtag_access #(
 	assign tdo2 = (tdof2a3 | tdof5 |  tdof6 | dsy7 | tdof8 | tdof9 | tdofa | tdofb | tdofc | tdofe | 
 						tdof10 | tdof11 | tdof14 | tdof15 | tdof16 | tdof17 | tdof18 | tdof1c | tdof1d | tdof1e | tdof1f |
 						tdof24 | tdof25 | tdof27 | tdof2c | tdof2d |
-						tdof31 | tdof32 | tdof33 | tdof34 | tdof35 | tdof37 | tdof38 | tdof39 | tdof3a | tdof3b | tdof3c | tdof3d | tdof3f);
+						tdof31 | tdof32 | tdof33 | tdof34 | tdof35 | tdof37 | tdof38 | tdof39 | tdof3a | tdof3b | tdof3c | tdof3d);
 						
 	assign status_h[31:16] = {5'b10110,XL1DLYSET,LOADPBLK,COMP_TIME,COMP_MODE};
 	
@@ -529,8 +514,6 @@ always @(posedge CLK40 or posedge RST) begin
 			AL_DONE <= AL_DONE;
 end
 
-assign startup_2 = {4'hA, wrt_on_rst, SLOW_FIFO_RST_DONE, SLOW_FIFO_RST, al_bk_ld_mt, AL_DONE, al_cthresh_done, al_ct_state, al_bshift_done, al_bk_state};
-
 	al_cdac #(
 		.TMR(TMR)
 	)
@@ -544,8 +527,7 @@ assign startup_2 = {4'hA, wrt_on_rst, SLOW_FIFO_RST_DONE, SLOW_FIFO_RST, al_bk_l
 		.SHCK_ENA(al_cth_shck_ena),
 		.SDATA(al_cth_sdata),
 		.DAC_ENB(al_dac_enb),
-		.CDAC_DONE(al_cthresh_done),
-		.AL_CT_STATE(al_ct_state)
+		.CDAC_DONE(al_cthresh_done)
 	);
 
 always @(posedge CLK40 or posedge RST) begin
@@ -681,10 +663,7 @@ end
 		.AL_BKY_ENA(al_bky_ena),
 		.SHCK_ENA(al_bky_shck_ena),
 		.SDATA(al_bky_sdata),
-		.AL_DONE(al_bshift_done),
-		.AL_BK_LD_MT(al_bk_ld_mt),
-		.WRT_ON_RST(wrt_on_rst),
-		.AL_BK_STATE(al_bk_state)
+		.AL_DONE(al_bshift_done)
 	);
 	
 //
@@ -1522,26 +1501,6 @@ end
       .RST(not_eos),       // Reset default state
 		.BUS(BC0CNT),        // Bus to capture
       .TDO(tdof3d));       // Serial Test Data Out
-
-//
-// Function 63:
-//
-// Startup Status Word 2
-//       {,por_state[2:0]};
-//
-//
-   user_cap_reg #(.width(16))
-   startup2(
-      .DRCK(tck2),        // Data Reg Clock
-      .FSH(1'b0),         // Shift Function
-      .FCAP(f[63]),        // Capture Function
-      .SEL(jsel2),        // User 2 mode active
-      .TDI(tdi2),          // Serial Test Data In
-      .SHIFT(jshift2),      // Shift state
-      .CAPTURE(capture2),  // Capture state
-      .RST(not_eos),       // Reset default state
-		.BUS(startup_2), // Bus to capture
-      .TDO(tdof3f));       // Serial Test Data Out
 
 
 
