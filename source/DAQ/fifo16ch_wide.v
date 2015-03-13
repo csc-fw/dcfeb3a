@@ -427,9 +427,9 @@ begin : FIFO16ch_logic_TMR
 			l1amcnt_2 <= L1A_MATCH ? vt_l1amcnt_2 + 1 : vt_l1amcnt_2;
 			l1amcnt_3 <= L1A_MATCH ? vt_l1amcnt_3 + 1 : vt_l1amcnt_3;
 		end
-		l1a_phase_1 <= L1A_MATCH ? (L1A_MATCH & ~SMPCLK) : vt_l1a_phase_1;
-		l1a_phase_2 <= L1A_MATCH ? (L1A_MATCH & ~SMPCLK) : vt_l1a_phase_2;
-		l1a_phase_3 <= L1A_MATCH ? (L1A_MATCH & ~SMPCLK) : vt_l1a_phase_3;
+		l1a_phase_1 <= L1A_MATCH ? SMPCLK : vt_l1a_phase_1;
+		l1a_phase_2 <= L1A_MATCH ? SMPCLK : vt_l1a_phase_2;
+		l1a_phase_3 <= L1A_MATCH ? SMPCLK : vt_l1a_phase_3;
 		l1a_match_d1_1 <= L1A_MATCH;
 		l1a_match_d1_2 <= L1A_MATCH;
 		l1a_match_d1_3 <= L1A_MATCH;
@@ -546,7 +546,7 @@ begin : FIFO16ch_logic
 			l1acnt  <= L1A       ? l1acnt + 1  : l1acnt;
 			l1amcnt <= L1A_MATCH ? l1amcnt + 1 : l1amcnt;
 		end
-		l1a_phase <= L1A_MATCH ? (L1A_MATCH & ~SMPCLK) : l1a_phase;
+		l1a_phase <= L1A_MATCH ? SMPCLK : l1a_phase;
 		l1a_match_d1 <= L1A_MATCH;
 		l1a_match_d2 <= l1a_match_d1;
 		l1acnt_r1    <= l1acnt;
