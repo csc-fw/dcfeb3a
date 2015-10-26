@@ -2,6 +2,7 @@
 _xmsgs\pn_parser.xmsgs
 sysmon.asy
 sysmon.gise
+sysmon.sym
 sysmon.v
 sysmon.veo
 sysmon.xco

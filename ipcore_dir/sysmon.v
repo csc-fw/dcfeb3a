@@ -197,11 +197,11 @@ SYSMON #(
         .INIT_50(16'ha93a), // Temp alarm trigger
         .INIT_51(16'h5999), // Vccint upper alarm limit
         .INIT_52(16'he000), // Vccaux upper alarm limit
-        .INIT_53(16'hae43),  // Temp alarm OT upper
+        .INIT_53(16'hb5e3),  // Temp alarm OT upper
         .INIT_54(16'ha6b0), // Temp alarm reset
         .INIT_55(16'h5111), // Vccint lower alarm limit
         .INIT_56(16'hcaaa), // Vccaux lower alarm limit
-        .INIT_57(16'ha93a),  // Temp alarm OT reset
+        .INIT_57(16'hae4e),  // Temp alarm OT reset
         .SIM_DEVICE("VIRTEX6"),
         .SIM_MONITOR_FILE("sysmon_sim.txt")
 )

@@ -107,6 +107,10 @@ utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon.asy
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type asy
 incr fcount
 
+utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon.sym
+utilities_xmdf::xmdfSetData $instance FileSet $fcount type symbol
+incr fcount
+
 utilities_xmdf::xmdfSetData $instance FileSet $fcount relative_path sysmon.v
 utilities_xmdf::xmdfSetData $instance FileSet $fcount type verilog
 incr fcount
