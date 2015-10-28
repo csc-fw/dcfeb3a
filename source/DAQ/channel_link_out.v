@@ -41,6 +41,7 @@ module channel_link_out(
   wire ovlp_mux;
   wire end_word;
   reg dav;
+  reg dav_1;
 
   assign chan_dat_out = FRAME_DATA;
   assign clnk_clk = CLK;
@@ -48,7 +49,8 @@ module channel_link_out(
   assign end_word = LAST_WRD;
   
 	always @(posedge CLK) begin
-		dav <= L1A_MATCH;
+		dav_1 <= L1A_MATCH;
+		dav   <= dav_1;
 	end
 
 

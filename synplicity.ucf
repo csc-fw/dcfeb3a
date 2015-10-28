@@ -195,6 +195,9 @@ TIMESPEC "TS_1063_3" = FROM "bpi_intf1_clk100khz_c_fall" TO "bpi_intf1_clk100khz
 
 
 # I/O Registers Packing Constraints
+INST "ch_link1/dav" IOB=FALSE;
+
+# I/O Registers Packing Constraints
 INST "rsm1/RSTman_logic_TMR.qpll_lock_r1_3" IOB=FALSE;
 INST "rsm1/RSTman_logic_TMR.qpll_lock_r1_2" IOB=FALSE;
 INST "rsm1/RSTman_logic_TMR.qpll_lock_r1_1" IOB=FALSE;
