@@ -186,7 +186,7 @@
       <association xil_pn:name="Implementation" xil_pn:seqID="116"/>
     </file>
     <file xil_pn:name="source/JTAG/instr_dcd.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="2"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="13"/>
     </file>
     <file xil_pn:name="source/JTAG/jtag_access.v" xil_pn:type="FILE_VERILOG">
@@ -210,7 +210,7 @@
       <association xil_pn:name="Implementation" xil_pn:seqID="12"/>
     </file>
     <file xil_pn:name="source/JTAG/usr_wr_reg.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="1"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="Implementation" xil_pn:seqID="11"/>
     </file>
     <file xil_pn:name="source/RESET/reset_manager.v" xil_pn:type="FILE_VERILOG">
@@ -779,16 +779,30 @@
       <association xil_pn:name="Implementation" xil_pn:seqID="130"/>
     </file>
     <file xil_pn:name="source/JTAG/JTAG_func_sim_tf2.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="4"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="495"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="495"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="495"/>
     </file>
     <file xil_pn:name="source/JTAG/JTAG_sim_top2.v" xil_pn:type="FILE_VERILOG">
-      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="3"/>
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
       <association xil_pn:name="PostMapSimulation" xil_pn:seqID="496"/>
       <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="496"/>
       <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="496"/>
+    </file>
+    <file xil_pn:name="source/fizzim/op_link_rst_FSM.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="1"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="496"/>
+    </file>
+    <file xil_pn:name="source/fizzim/op_link_rst_FSM_TMR.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="497"/>
+    </file>
+    <file xil_pn:name="source/op_link_rst_FSM_tf.v" xil_pn:type="FILE_VERILOG">
+      <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="2"/>
+      <association xil_pn:name="PostMapSimulation" xil_pn:seqID="502"/>
+      <association xil_pn:name="PostRouteSimulation" xil_pn:seqID="502"/>
+      <association xil_pn:name="PostTranslateSimulation" xil_pn:seqID="502"/>
     </file>
     <file xil_pn:name="ipcore_dir/adc_frame_clk.xise" xil_pn:type="FILE_COREGENISE">
       <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
@@ -992,7 +1006,7 @@
     <property xil_pn:name="Create ReadBack Data Files" xil_pn:value="true" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Cross Clock Analysis" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Custom Simulation Command File Par" xil_pn:value="dcfeb_top_pr_sim_tf.wcfg" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Custom Waveform Configuration File Behav" xil_pn:value="source/JTAG/JTAG_func_sim_tf2.wcfg" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Custom Waveform Configuration File Behav" xil_pn:value="source/op_link_rst_FSM_tf.wcfg" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Custom Waveform Configuration File Par" xil_pn:value="dcfeb_top_pr_sim_tf.wcfg" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Custom Waveform Configuration File Translate" xil_pn:value="dcfeb3a_sim_top_translate.wcfg" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Cycles for First BPI Page Read" xil_pn:value="1" xil_pn:valueState="default"/>
@@ -1193,8 +1207,8 @@
     <property xil_pn:name="Run for Specified Time Translate" xil_pn:value="true" xil_pn:valueState="default"/>
     <property xil_pn:name="Safe Implementation" xil_pn:value="No" xil_pn:valueState="default"/>
     <property xil_pn:name="Security" xil_pn:value="Enable Readback and Reconfiguration" xil_pn:valueState="default"/>
-    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/JTAG_func_sim_tf2" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Selected Simulation Root Source Node Behavioral" xil_pn:value="work.JTAG_func_sim_tf2" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Selected Module Instance Name" xil_pn:value="/op_link_rst_FSM_tf" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Selected Simulation Root Source Node Behavioral" xil_pn:value="work.op_link_rst_FSM_tf" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Post-Map" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Post-Route" xil_pn:value="work.dcfeb3a_sim_top_tf" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Selected Simulation Root Source Node Post-Translate" xil_pn:value="work.dcfeb3a_sim_top_tf" xil_pn:valueState="non-default"/>
@@ -1211,7 +1225,7 @@
     <property xil_pn:name="Slice Utilization Ratio" xil_pn:value="100" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify 'define Macro Name and Value" xil_pn:value="" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify Search Directories for 'Include" xil_pn:value="source|source/ADC|source/BPI|source/CLK" xil_pn:valueState="non-default"/>
-    <property xil_pn:name="Specify Top Level Instance Names Behavioral" xil_pn:value="work.JTAG_func_sim_tf2" xil_pn:valueState="default"/>
+    <property xil_pn:name="Specify Top Level Instance Names Behavioral" xil_pn:value="work.op_link_rst_FSM_tf" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify Top Level Instance Names Post-Map" xil_pn:value="Default" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify Top Level Instance Names Post-Route" xil_pn:value="work.dcfeb3a_sim_top_tf" xil_pn:valueState="default"/>
     <property xil_pn:name="Specify Top Level Instance Names Post-Translate" xil_pn:value="work.dcfeb3a_sim_top_tf" xil_pn:valueState="default"/>
@@ -1271,7 +1285,7 @@
     <!--                                                                                  -->
     <!-- The following properties are for internal use only. These should not be modified.-->
     <!--                                                                                  -->
-    <property xil_pn:name="PROP_BehavioralSimTop" xil_pn:value="Module|JTAG_func_sim_tf2" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="PROP_BehavioralSimTop" xil_pn:value="Module|op_link_rst_FSM_tf" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_DesignName" xil_pn:value="dcfeb_f1.0" xil_pn:valueState="non-default"/>
     <property xil_pn:name="PROP_DevFamilyPMName" xil_pn:value="virtex6" xil_pn:valueState="default"/>
     <property xil_pn:name="PROP_FPGAConfiguration" xil_pn:value="FPGAConfiguration" xil_pn:valueState="default"/>

@@ -10,6 +10,7 @@ module daq_optical_out #(
 	 inout [35:0] DAQ_TX_VIO_CNTRL, //Chip Scope Pro control signals for virtual I/O
 	 inout [35:0] DAQ_TX_LA_CNTRL,  //Chip Scope Pro control signals for logic analyzer
    input RST,
+   input DAQ_OP_TX_DISABLE,
 	// External signals
 	input DAQ_RX_N,        // GTX receive data in - signal
 	input DAQ_RX_P,        // GTX receive data in + signal
@@ -273,7 +274,7 @@ end
 endgenerate
 
 	assign DAQ_DATA_CLK = usr_clk_wordwise;
-	assign daq_tx_dis = man_daq_tx_dis;
+	assign daq_tx_dis = man_daq_tx_dis || DAQ_OP_TX_DISABLE;
 	assign daq_rate = man_control ? man_daq_rate : JDAQ_RATE;
 	assign force_error = inj_err1 & ~inj_err2;
 	assign crc_calc = crc_dv & TXD_VLD;

@@ -5,5 +5,8 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
+<msg type="warning" file="HDLCompiler" num="693" delta="unknown" >"C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/source/fizzim/op_link_rst_FSM.v" Line 18: Parameter declaration becomes local in <arg fmt="%s" index="1">op_link_rst_FSM</arg> with formal parameter declaration list
+</msg>
+
 </messages>
 

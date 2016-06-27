@@ -5,6 +5,8 @@ module reset_manager #(
 	parameter Strt_dly = 20'h7FFFF,
 	parameter POR_tmo = 7'd120,
 	parameter ADC_Init_tmo = 12'd1000, // 10ms
+	parameter TDIS_pulse_duration = 12'd4000, // 100us
+	parameter TDIS_on_Startup = 0,
 	parameter TMR = 0
 )(
     input STUP_CLK,
@@ -28,6 +30,8 @@ module reset_manager #(
 	 input AL_DONE,
 	 input ADC_INIT_DONE,
 	 input BPI_SEQ_IDLE,
+	 input DAQ_OP_RST,
+	 input TRG_OP_RST,
 	 output ADC_INIT_RST,
 	 output ADC_INIT,
 	 output ADC_RDY,
@@ -46,6 +50,8 @@ module reset_manager #(
 	 output RUN,
 	 output QPLL_LOCK,
 	 output QPLL_ERROR,
+	 output DAQ_OP_TX_DISABLE,
+	 output TRG_OP_TX_DISABLE,
 	 output [3:0] POR_STATE
     );
 
@@ -66,12 +72,25 @@ wire daq_mmcm_lock_r2_i;
 wire qpll_lock_r2_i;
 wire [11:0] dsr_tmr_i;
 
+wire strt_op_rst;
+
  IBUF IBUF_QP_ERROR (.O(QPLL_ERROR),.I(QP_ERROR));
  IBUF IBUF_QP_LOCKED (.O(QPLL_LOCK),.I(QP_LOCKED));
 
 assign restart_all = (JTAG_SYS_RST || CSP_SYS_RST);
 assign DSR_RST     = ~ADC_RDY || SYS_RST;
 assign BPI_RST     = SYS_RST || BPI_JRST || CSP_BPI_RST;
+
+generate
+if(TDIS_on_Startup==1) 
+begin : tx_dis_on_strtup
+	assign strt_op_rst = AL_START;
+end
+else
+begin : no_tx_dis_on_strtup
+	assign strt_op_rst = 0;
+end
+endgenerate
 
 generate
 if(TMR==1) 
@@ -585,6 +604,20 @@ begin : RSTman_FSMs_TMR
 		.RST(ADC_INIT_RST),
 		.SLOW_CNT(dsr_tmr_i)
 	);
+	
+	op_link_rst_FSM_TMR #(.PULSE_DUR(TDIS_pulse_duration)) // 100us
+	op_link_rst_FSM_i (
+		 //Outputs
+		.DAQ_TDIS(DAQ_OP_TX_DISABLE),
+		.TRG_TDIS(TRG_OP_TX_DISABLE),
+		 //inputs
+		.CLK(CLK),
+		.RST(SYS_RST),
+		.STRTUP_OP_RST(strt_op_rst),
+		.DAQ_OP_RST(DAQ_OP_RST),
+		.TRG_OP_RST(TRG_OP_RST)
+	);
+	
 end
 else 
 begin : RSTman_FSMs
@@ -662,6 +695,20 @@ begin : RSTman_FSMs
 		.RST(ADC_INIT_RST),
 		.SLOW_CNT(dsr_tmr_i)
 	);
+	
+	op_link_rst_FSM #(.PULSE_DUR(TDIS_pulse_duration)) // 100us
+	op_link_rst_FSM_i (
+		 //Outputs
+		.DAQ_TDIS(DAQ_OP_TX_DISABLE),
+		.TRG_TDIS(TRG_OP_TX_DISABLE),
+		 //inputs
+		.CLK(CLK),
+		.RST(SYS_RST),
+		.STRTUP_OP_RST(strt_op_rst),
+		.DAQ_OP_RST(DAQ_OP_RST),
+		.TRG_OP_RST(TRG_OP_RST)
+	);
+
 end
 endgenerate
 

@@ -1,4 +1,4 @@
-## File last modified by Fizzim: 5:03:32 PM on 8/25/14
+## File last modified by Fizzim: 11:17:37 AM on 6/24/16
 <version>
    14.02.18
 </version>
@@ -960,7 +960,7 @@
          -1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1015,7 +1015,7 @@
          <page>
          -1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </outputs>
    <state>
       <name>
@@ -1410,7 +1410,7 @@
          -1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -1465,7 +1465,7 @@
          <page>
          -1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </state>
    <trans>
       <name>
@@ -2090,7 +2090,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -2145,7 +2145,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    425
@@ -2565,7 +2565,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -2620,7 +2620,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    700
@@ -3040,7 +3040,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -3095,7 +3095,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    425
@@ -4217,7 +4217,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -4272,7 +4272,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    425
@@ -4935,7 +4935,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -4990,7 +4990,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    175
@@ -5653,7 +5653,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -5708,7 +5708,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    425
@@ -6128,7 +6128,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -6183,7 +6183,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    425
@@ -6603,7 +6603,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -6658,7 +6658,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    175
@@ -8698,7 +8698,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -8753,7 +8753,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    175
@@ -9875,7 +9875,7 @@ fzm_globalTable
          1
          </page>
       </AL_CNT[5:0]>
-      <cnt[6:0]>
+      <cnt[5:0]>
             <status>
             GLOBAL_FIXED
             </status>
@@ -9930,7 +9930,7 @@ fzm_globalTable
          <page>
          1
          </page>
-      </cnt[6:0]>
+      </cnt[5:0]>
    </attributes>
    <x0>
    700

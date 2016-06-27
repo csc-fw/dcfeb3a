@@ -24,6 +24,7 @@ module tmb_fiber_out #(
 )
 (
 	input RST,
+   input TRG_OP_TX_DISABLE,
 	input TRG_SIGDET,
 	input TRG_RX_N,
 	input TRG_RX_P,
@@ -92,7 +93,7 @@ wire prbs_rst_i;
 assign MON_TX_SEL      = tx_sel_i;
 assign MON_TRG_TX_ISK  = trg_tx_isk;
 assign MON_TRG_TX_DATA = trg_tx_data;
-assign trg_tx_dis =1'b0;
+assign trg_tx_dis = TRG_OP_TX_DISABLE;
 assign tx_dly_align_mon_ena = 1'b0;
 assign lay1_half_strip = LAY1_TO_6_HALF_STRIP[4:0];
 assign lay2_half_strip = LAY1_TO_6_HALF_STRIP[9:5];

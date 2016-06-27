@@ -23,6 +23,8 @@ module dcfeb3a #(
 	parameter Strt_dly = 20'h7FFFF,
 	parameter POR_tmo = 7'd120,
 	parameter ADC_Init_tmo = 12'd1000, // 10ms
+	parameter TDIS_pulse_duration = 12'd4000, // 100us
+	parameter TDIS_on_Startup = 1,
 //	parameter Simulation = 1,
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
@@ -1322,6 +1324,10 @@ eth_fifo_i(
 	
 wire [2:0] jdaq_prbs_tst;
 wire jdaq_inj_err;
+wire daq_op_tx_disable;
+wire trg_op_tx_disable;
+wire daq_op_rst;
+wire trg_op_rst;
 
  /////////////////////////////////////////////////////////////////////////////
  //                                                                         //
@@ -1339,6 +1345,7 @@ daq_optical_out_i (
 	.DAQ_TX_VIO_CNTRL(DAQ_tx_vio_c3),
 	.DAQ_TX_LA_CNTRL(DAQ_tx_la_c4),
 	.RST(sys_rst),
+	.DAQ_OP_TX_DISABLE(daq_op_tx_disable),
 	// External signals
 	.DAQ_RX_N(DAQ_RX_N),.DAQ_RX_P(DAQ_RX_P), // high speed serial input not connected on hardware 
 	.DAQ_TDIS(DAQ_TDIS),                     // disable optical transmission
@@ -1549,6 +1556,7 @@ daq_optical_out_i (
 	)
 	tmb_fiber_out1 (
 	   .RST(sys_rst),
+		.TRG_OP_TX_DISABLE(trg_op_tx_disable),
 		// External signals
 		.TRG_SIGDET(ALT_SIGDET),                 // receiver signal detected
 		.TRG_RX_N(TRG_RX_N),.TRG_RX_P(TRG_RX_P), // high speed serial input
@@ -1860,6 +1868,8 @@ endgenerate
 		.Strt_dly(Strt_dly),
 		.POR_tmo(POR_tmo),
 		.ADC_Init_tmo(ADC_Init_tmo),
+		.TDIS_pulse_duration(TDIS_pulse_duration),
+		.TDIS_on_Startup(TDIS_on_Startup),
 		.TMR(TMR)
 	)
 	rsm1(
@@ -1884,6 +1894,8 @@ endgenerate
 		.AL_DONE(al_done),
 		.ADC_INIT_DONE(adc_init_done),
 		.BPI_SEQ_IDLE(bpi_seq_idle),
+		.DAQ_OP_RST(daq_op_rst),
+		.TRG_OP_RST(trg_op_rst),
 		
 		.ADC_INIT_RST(adc_init_rst),
 		.ADC_INIT(por_adc_init),
@@ -1903,6 +1915,8 @@ endgenerate
 		.RUN(run),
 		.QPLL_LOCK(qpll_lock),
 		.QPLL_ERROR(qpll_error),
+		.DAQ_OP_TX_DISABLE(daq_op_tx_disable),
+		.TRG_OP_TX_DISABLE(trg_op_tx_disable),
 		.POR_STATE(por_state)
 	);
 
@@ -1978,6 +1992,8 @@ endgenerate
       .JC_ADC_CNFG(jc_adc_cnfg),  // JTAG Controll of ADC configuration memory
       .RSTRT_PIPE(jrstrt_pipe),    // Restart pipeline on JTAG command
       .PDEPTH(pdepth),            // Pipeline Depth register (9 bits)
+		.DAQ_OP_RST(daq_op_rst),    // Reset DAQ optical link by toggling transmit disable
+		.TRG_OP_RST(trg_op_rst),    // Reset TRG optical link by toggling transmit disable
       .TTC_SRC(ttc_src),          // TTC source register (2 bits)
 		.BPI_CMD_FIFO_DATA(bpi_cmd_fifo_data),// Data word for BPI command FIFO
 		.BPI_WE(bpi_jwe),           // Write enable for BPI Write FIFO

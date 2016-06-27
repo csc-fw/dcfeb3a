@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:05:58 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2016:06:24 at 11:28:03 (www.fizzim.com)
 
 module auto_load_FSM_TMR 
   #(
@@ -43,9 +43,11 @@ module auto_load_FSM_TMR
   assign voted_state_2       = (state_1       & state_2      ) | (state_2       & state_3      ) | (state_1       & state_3      ); // Majority logic
   assign voted_state_3       = (state_1       & state_2      ) | (state_2       & state_3      ) | (state_1       & state_3      ); // Majority logic
 
+
   (* syn_keep = "true" *) reg [3:0] nextstate_1;
   (* syn_keep = "true" *) reg [3:0] nextstate_2;
   (* syn_keep = "true" *) reg [3:0] nextstate_3;
+
 
   (* syn_preserve = "true" *)  reg ABORTED_1;
   (* syn_preserve = "true" *)  reg ABORTED_2;
@@ -65,12 +67,12 @@ module auto_load_FSM_TMR
   (* syn_preserve = "true" *)  reg EXECUTE_1;
   (* syn_preserve = "true" *)  reg EXECUTE_2;
   (* syn_preserve = "true" *)  reg EXECUTE_3;
-  (* syn_preserve = "true" *)  reg [6:0] cnt_1;
-  (* syn_preserve = "true" *)  reg [6:0] cnt_2;
-  (* syn_preserve = "true" *)  reg [6:0] cnt_3;
-  (* syn_keep = "true" *)      wire [6:0] voted_cnt_1;
-  (* syn_keep = "true" *)      wire [6:0] voted_cnt_2;
-  (* syn_keep = "true" *)      wire [6:0] voted_cnt_3;
+  (* syn_preserve = "true" *)  reg [5:0] cnt_1;
+  (* syn_preserve = "true" *)  reg [5:0] cnt_2;
+  (* syn_preserve = "true" *)  reg [5:0] cnt_3;
+  (* syn_keep = "true" *)      wire [5:0] voted_cnt_1;
+  (* syn_keep = "true" *)      wire [5:0] voted_cnt_2;
+  (* syn_keep = "true" *)      wire [5:0] voted_cnt_3;
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign ABORTED     = (ABORTED_1     & ABORTED_2    ) | (ABORTED_2     & ABORTED_3    ) | (ABORTED_1     & ABORTED_3    ); // Majority logic

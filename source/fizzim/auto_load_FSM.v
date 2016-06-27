@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:05:35 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2016:06:24 at 11:18:12 (www.fizzim.com)
 
 module auto_load_FSM 
   #(
@@ -33,9 +33,11 @@ module auto_load_FSM
 
   reg [3:0] state;
 
+
   reg [3:0] nextstate;
 
-  reg [6:0] cnt;
+
+  reg [5:0] cnt;
 
   // comb always block
   always @* begin

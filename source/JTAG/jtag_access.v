@@ -79,6 +79,8 @@
 //  60     | Read EXTPLS counter (12 bits).
 //  61     | Read BC0 counter (12 bits).
 //  62     | Comparator Clock Phase Reset (CMP_PHS_JTAG_RST),  Instruction only, (Auto reset)
+//  63     | Toggle transmit disable on DAQ optical transceiver
+//  64     | Toggle transmit disable on TRG optical transceiver
 
 //
 // Revision: 
@@ -136,6 +138,8 @@ module jtag_access #(
     output JC_ADC_CNFG,      // JTAG Controll of ADC configuration memory
 	 output RSTRT_PIPE,       // Restart pipeline on JTAG command
     output [8:0] PDEPTH,     // Pipeline Depth register (9 bits)
+	 output DAQ_OP_RST,       // Reset DAQ optical link by toggling transmit disable
+	 output TRG_OP_RST,       // Reset TRG optical link by toggling transmit disable
     output [1:0] TTC_SRC,    // TTC source register (2 bits)
     output [15:0] BPI_CMD_FIFO_DATA,   // Data word for BPI command FIFO
     output reg BPI_WE,       // Write enable for BPI Write FIFO
@@ -308,22 +312,24 @@ module jtag_access #(
 						
 	assign status_h[31:16] = {5'b10110,XL1DLYSET,LOADPBLK,COMP_TIME,COMP_MODE};
 	
-	assign JTAG_SYS_RST  = f[1];  // System Reset JTAG command (like power on reset without reprogramming)
-	assign ADC_INIT = f[13];      // ADC init JTAG command
-	assign RSTRT_PIPE = f[15];    // Restart pipeline JTAG command
-	assign BPI_RESET  = f[25];    // Reset BPI interface JTAG command
-	assign BPI_DISABLE = f[26];   // Disable BPI processing
-	assign BPI_ENABLE  = f[27];   // Enable BPI processing
-	assign CMP_PHS_JTAG_RST  = f[62];  // Comparator Clock Phase Reset 
-	assign SAMP_CLK_PHS_CHNG = f[44] & update2;  // Initiate a deserializer reset at end of changing sampling clock phase change.
-	assign JTAG_TK_CTRL  = f[47];     // Take control of the SEM command interface (only needs to be set after ChipScope Pro has been in control).
-	assign JTAG_DED_RST  = f[48];     // Reset the double error detected flag (SEM module).
-	assign JTAG_RST_SEM_CNTRS  = f[38];     // reset ECC error counters
-	assign p_in = f[1] | f[13] | f[15] | f[25] | f[38] | f[47] | f[48] | f[62];  // JTAG_SYS_RST, ADC_Init, Restart pipeline, BPI_Reset, and SEM JTAG commands are to be auto reset;
+	assign JTAG_SYS_RST        = f[1];   // System Reset JTAG command (like power on reset without reprogramming)
+	assign JTAG_RD_MODE        = f[6];   // JTAG readout mode when reading ADC data
+	assign ADC_INIT            = f[13];  // ADC init JTAG command
+	assign RSTRT_PIPE          = f[15];  // Restart pipeline JTAG command
+	assign BPI_RESET           = f[25];  // Reset BPI interface JTAG command
+	assign BPI_DISABLE         = f[26];  // Disable BPI processing
+	assign BPI_ENABLE          = f[27];  // Enable BPI processing
+	assign JTAG_RST_SEM_CNTRS  = f[38];  // reset ECC error counters
+	assign SAMP_CLK_PHS_CHNG   = f[44] & update2;  // Initiate a deserializer reset at end of changing sampling clock phase change.
+	assign JDAQ_INJ_ERR        = f[46];  // JTAG request for error injection in PRBS test
+	assign JTAG_TK_CTRL        = f[47];  // Take control of the SEM command interface (only needs to be set after ChipScope Pro has been in control).
+	assign JTAG_DED_RST        = f[48];  // Reset the double error detected flag (SEM module).
+	assign CMP_PHS_JTAG_RST    = f[62];  // Comparator Clock Phase Reset 
+	assign DAQ_OP_RST          = f[63];  // Reset DAQ optical link by toggling transmit disable
+	assign TRG_OP_RST          = f[64];  // Reset TRG optical link by toggling transmit disable
+	assign p_in = f[1] | f[13] | f[15] | f[25] | f[38] | f[47] | f[48] | f[62] | f[63] | f[64];  // JTAG_SYS_RST, ADC_Init, Restart pipeline, BPI_Reset, and SEM JTAG commands are to be auto reset;
 	assign clrf = clr_pip[10] & p_in_s2; // auto reset functions last 11 25ns clocks then clear
 	
-	assign JTAG_RD_MODE = f[6];    // JTAG readout mode when reading ADC data
-	assign JDAQ_INJ_ERR = f[46];   // JTAG request for error injection in PRBS test
 //
 //
 // JTAG to SPI interface for Comparator DAC, Calibration DAC and MAX 1271 ADC

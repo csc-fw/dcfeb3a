@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/op_link_rst_FSM_tf_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="op_link_rst_FSM_tf" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/op_link_rst_FSM_tf/DAQ_TDIS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_TDIS</obj_property>
+      <obj_property name="ObjectShortName">DAQ_TDIS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/op_link_rst_FSM_tf/TRG_TDIS" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TRG_TDIS</obj_property>
+      <obj_property name="ObjectShortName">TRG_TDIS</obj_property>
+   </wvobject>
+   <wvobject fp_name="/op_link_rst_FSM_tf/CLK" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/op_link_rst_FSM_tf/DAQ_OP_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">DAQ_OP_RST</obj_property>
+      <obj_property name="ObjectShortName">DAQ_OP_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/op_link_rst_FSM_tf/RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/op_link_rst_FSM_tf/STRTUP_OP_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">STRTUP_OP_RST</obj_property>
+      <obj_property name="ObjectShortName">STRTUP_OP_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/op_link_rst_FSM_tf/TRG_OP_RST" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">TRG_OP_RST</obj_property>
+      <obj_property name="ObjectShortName">TRG_OP_RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="group22" type="group">
+      <obj_property name="label">OP_LINK_RST</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/CLK" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">CLK</obj_property>
+         <obj_property name="ObjectShortName">CLK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/DAQ_OP_RST" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">DAQ_OP_RST</obj_property>
+         <obj_property name="ObjectShortName">DAQ_OP_RST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/RST" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">RST</obj_property>
+         <obj_property name="ObjectShortName">RST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/STRTUP_OP_RST" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">STRTUP_OP_RST</obj_property>
+         <obj_property name="ObjectShortName">STRTUP_OP_RST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/TRG_OP_RST" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">TRG_OP_RST</obj_property>
+         <obj_property name="ObjectShortName">TRG_OP_RST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/DAQ_TDIS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">DAQ_TDIS</obj_property>
+         <obj_property name="ObjectShortName">DAQ_TDIS</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/TRG_TDIS" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">TRG_TDIS</obj_property>
+         <obj_property name="ObjectShortName">TRG_TDIS</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/state" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">state[1:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/nextstate" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">nextstate[1:0]</obj_property>
+         <obj_property name="ObjectShortName">nextstate[1:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/cnt" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">cnt[11:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt[11:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/daq_tdis_i" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">daq_tdis_i</obj_property>
+         <obj_property name="ObjectShortName">daq_tdis_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/trg_tdis_i" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">trg_tdis_i</obj_property>
+         <obj_property name="ObjectShortName">trg_tdis_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/op_link_rst_FSM_tf/uut/statename" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">statename[47:0]</obj_property>
+         <obj_property name="ObjectShortName">statename[47:0]</obj_property>
+         <obj_property name="Radix">ASCIIRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
