@@ -162,11 +162,6 @@ TIMESPEC "TS_adc_data_in1_frm_clks_9_" = PERIOD "adc_data_in1_frm_clks_9_" 25.00
 NET "jtag_acc1/drck1" TNM_NET = "jtag_acc1_drck1"; 
 TIMESPEC "TS_jtag_acc1_drck1" = PERIOD "jtag_acc1_drck1" 25.000 ns HIGH 50.00%; 
 
-# 1008 : define_clock {n:jtag_acc1.tck1} -name {jtag_access_1s|tck1_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_3} -rise {0.000000} -fall {12.500000}
-
-NET "jtag_acc1/tck1_c" TNM_NET = "jtag_acc1_tck1_c"; 
-TIMESPEC "TS_jtag_acc1_tck1_c" = PERIOD "jtag_acc1_tck1_c" 25.000 ns HIGH 50.00%; 
-
 # 1006 : define_clock {n:jtag_acc1.tck2_raw} -name {jtag_access_1s|tck2_raw_inferred_clock} -ref_rise {0.000000} -ref_fall {12.500000} -uncertainty {0.000000} -period {25.000000} -clockgroup {Inferred_clkgroup_1} -rise {0.000000} -fall {12.500000}
 
 NET "jtag_acc1/tck2_raw" TNM_NET = "jtag_acc1_tck2_raw"; 
@@ -203,13 +198,6 @@ INST "rsm1/RSTman_logic_TMR.qpll_lock_r1_2" IOB=FALSE;
 INST "rsm1/RSTman_logic_TMR.qpll_lock_r1_1" IOB=FALSE;
 
 # I/O Registers Packing Constraints
-INST "jtag_acc1/instr_dcd1/F_i[54]" IOB=FALSE;
-
-# I/O Registers Packing Constraints
-INST "jtag_acc1/spi_rtn_reg[0]" IOB=FALSE;
-
-# I/O Registers Packing Constraints
-INST "qpll_lock_r1" IOB=FALSE;
 INST "bpi_al_reg[*]" IOB=TRUE; # bpi_al_reg[0:15]
 
 # End of generated constraints
