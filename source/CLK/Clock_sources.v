@@ -91,7 +91,6 @@ module Clock_sources #(
   wire trg_tx_160_refclk_dv2;
   
   wire cms_clk;
-  wire raw_startup_clk;
   
   wire gc0,gc1;
   wire tp_b35_0;
@@ -552,6 +551,9 @@ begin : SimStartupCode
 end
 else
 begin : StartupCode
+
+  wire raw_startup_clk;
+
    STARTUP_VIRTEX6 #(
       .PROG_USR("FALSE")  // Activate program event security feature
    )
@@ -572,13 +574,13 @@ begin : StartupCode
       .USRDONEO(1'b1),   // 1-bit input User DONE pin output control
       .USRDONETS(1'b0)  // 1-bit input User DONE 3-state enable output
    );
-end
-endgenerate
 
   BUFG startup_clk_buf (
 	.O   (STRTUP_CLK),
 	.I   (raw_startup_clk)
 	);
+end
+endgenerate
 	 
 
 //----------------------------------------------------------------------------

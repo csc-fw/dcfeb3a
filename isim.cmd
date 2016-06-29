@@ -1,2 +1,2 @@
 onerror {resume}
-run 50000 ns;
+run 10000 ns;

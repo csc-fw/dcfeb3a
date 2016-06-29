@@ -278,6 +278,7 @@ module dcfeb3a_sim_top_tf;
 	// Instantiate the Unit Under Test (UUT)
 
 	dcfeb3a #(
+	.USE_CHAN_LINK_CHIPSCOPE(0),
 	.USE_DESER_CHIPSCOPE(0),
 	.USE_CMP_CHIPSCOPE(0),
 	.USE_DAQ_CHIPSCOPE(0),
@@ -289,7 +290,11 @@ module dcfeb3a_sim_top_tf;
 	.Simulation(1),
 	.Strt_dly(20'h00004),
 	.POR_tmo(7'd10),
-	.ADC_Init_tmo(12'd9)
+	.ADC_Init_tmo(12'd9),
+	.TDIS_pulse_duration(12'd0040), // 1us for simulation 
+	.TDIS_on_Startup(1),
+	.TMR(0),
+	.TMR_Err_Det(0)
 	)
 	uut (
 		.CMS_CLK_N(CMS_CLK_N), 
@@ -1191,10 +1196,14 @@ module dcfeb3a_sim_top_tf;
 		JTAG_reset;
 		#(17500*PERIOD);
 		#(600*PERIOD);
-		Send_L1A_L1A_Match;
-		#(5*PERIOD);
-		Send_L1A_L1A_Match;
+//		Send_L1A_L1A_Match;
+//		#(5*PERIOD);
+//		Send_L1A_L1A_Match;
 		// Add stimulus here
+		Set_Func(8'd63);           // DAQ_OPLINK_RST
+		#(600*PERIOD);
+		Set_Func(8'd64);           // TRG_OPLINK_RST
+		#(600*PERIOD);
 
 	end
 reg rd_mode;
