@@ -24,7 +24,7 @@ module dcfeb3a #(
 	parameter POR_tmo = 7'd120,
 	parameter ADC_Init_tmo = 12'd1000, // 10ms
 	parameter TDIS_pulse_duration = 12'd4000, // 100us
-	parameter TDIS_on_Startup = 1,
+	parameter TDIS_on_Startup = 0,
 //	parameter Simulation = 1,
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
