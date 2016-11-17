@@ -1,5 +1,5 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:08:25 at 17:18:19 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2016:09:15 at 15:18:26 (www.fizzim.com)
 
 module BPI_intrf_FSM (
   output reg BUSY,
@@ -24,14 +24,17 @@ module BPI_intrf_FSM (
   Load       = 4'b0011, 
   WE1        = 4'b0100, 
   WE2        = 4'b0101, 
-  Wait1      = 4'b0110, 
-  Wait2      = 4'b0111, 
-  Wait3      = 4'b1000, 
-  Wait4      = 4'b1001; 
+  WE3        = 4'b0110, 
+  Wait1      = 4'b0111, 
+  Wait2      = 4'b1000, 
+  Wait3      = 4'b1001, 
+  Wait4      = 4'b1010; 
 
   reg [3:0] state;
 
+
   reg [3:0] nextstate;
+
 
 
   // comb always block
@@ -47,7 +50,8 @@ module BPI_intrf_FSM (
                   else if (!READ && !WRITE)  nextstate = Standby;
       Load      :                            nextstate = Wait4;
       WE1       :                            nextstate = WE2;
-      WE2       :                            nextstate = Standby;
+      WE2       :                            nextstate = WE3;
+      WE3       :                            nextstate = Standby;
       Wait1     :                            nextstate = Wait2;
       Wait2     :                            nextstate = Wait3;
       Wait3     :                            nextstate = Load;
@@ -104,6 +108,10 @@ module BPI_intrf_FSM (
                            E <= 1;
                            W <= 1;
         end
+        WE3       : begin
+                           E <= 1;
+                           W <= 1;
+        end
         Wait1     : begin
                            E <= 1;
                            G <= 1;
@@ -135,6 +143,7 @@ module BPI_intrf_FSM (
       Load      : statename = "Load";
       WE1       : statename = "WE1";
       WE2       : statename = "WE2";
+      WE3       : statename = "WE3";
       Wait1     : statename = "Wait1";
       Wait2     : statename = "Wait2";
       Wait3     : statename = "Wait3";
