@@ -87,7 +87,9 @@ isim/
 *.ll
 *.svf
 *.VcsAnalyst
-
+*.wcfg
+*.exe
+*.wdb
 
 ### Other ###
 *~
