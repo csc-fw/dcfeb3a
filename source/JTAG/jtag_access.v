@@ -513,7 +513,7 @@ always @(posedge CLK40 or posedge RST) begin
 		if(CLR_AL_DONE)
 			AL_DONE <= 0;
 		else if(al_abort)
-			AL_DONE <= (BPI_AL_REG == 16'hFFFF);
+			AL_DONE <= (BPI_AL_REG != 16'h4321);
 		else if(al_cthresh_done && al_bshift_done)
 			AL_DONE <= 1;
 		else

@@ -10,6 +10,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 (* syn_encoding = "safe original" *)
 module dcfeb3a #(
+	parameter USE_AUTO_LOAD_CHIPSCOPE = 0,
 	parameter USE_CHAN_LINK_CHIPSCOPE = 0,
 	parameter USE_DESER_CHIPSCOPE = 0,
 	parameter USE_CMP_CHIPSCOPE = 0,
@@ -184,11 +185,42 @@ module dcfeb3a #(
 	wire [35:0] rng_chn_la0_c3;
 	wire [35:0] rng_xfr_la0_c3;
 	wire [35:0] chn_lnk_la0_c0;
+	wire [35:0] auto_load_vio_c0;
+	wire [35:0] auto_load_la0_c1;
 
 
 
 generate
-if(USE_CHAN_LINK_CHIPSCOPE==1) 
+if(USE_AUTO_LOAD_CHIPSCOPE==1) 
+begin : chipscope_with_auto_load_const
+CSP_auto_load_cntrl CSP_auto_load_cntrl_i (
+    .CONTROL0(auto_load_vio_c0), // INOUT BUS [35:0]
+    .CONTROL1(auto_load_la0_c1) // INOUT BUS [35:0]
+);
+	assign g1vio0_c0 = 36'h000000000;
+	assign g1la0_c0 = 36'h000000000;
+	assign adc_mem_vio_c0 = 36'h000000000;
+	assign adc_cnfg_mem_la_c1 = 36'h000000000;
+	assign DAQ_tx_vio_c3 = 36'h000000000;
+	assign DAQ_tx_la_c4 = 36'h000000000;
+	assign rd_fifo2_la_c5 = 36'h000000000;
+	assign bpi_vio_c6 = 36'h000000000;
+	assign bpi_la_c7 = 36'h000000000;
+	assign cmp_tx_vio_c0 = 36'h000000000;
+	assign cmp_tx_la_c1 = 36'h000000000;
+	assign pipe_la0_c0 = 36'h000000000;
+	assign pipe_vio_in0_c1 = 36'h000000000;
+	assign pipe_vio_out1_c2 = 36'h000000000;
+	assign sem_la0_c0 = 36'h000000000;
+	assign sem_vio_in0_c1 = 36'h000000000;
+	assign rng_ff1_la0_c0 = 36'h000000000;
+	assign rng_buf_la0_c1 = 36'h000000000;
+	assign rng_eth_la0_c2 = 36'h000000000;
+	assign rng_chn_la0_c3 = 36'h000000000;
+	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+end
+else if(USE_CHAN_LINK_CHIPSCOPE==1) 
 begin : chipscope_with_chan_link_fifo
 CSP_chan_link_cntrl CSP_chan_link_cntrl_i (
     .CONTROL0(chn_lnk_la0_c0) // INOUT BUS [35:0]
@@ -214,6 +246,9 @@ CSP_chan_link_cntrl CSP_chan_link_cntrl_i (
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0 && USE_RINGBUF_CHIPSCOPE == 0) 
 begin : chipscope_with_comp_and_daq
@@ -238,6 +273,9 @@ CSP_comp_daq_cntrl cmp_daq_cntrl1 (
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==1 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_RINGBUF_CHIPSCOPE == 0) 
 begin : chipscope_with_comp_no_daq
@@ -264,6 +302,9 @@ CSP_comp_cntrl comp_cntrl1 (
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0 && USE_RINGBUF_CHIPSCOPE == 0) 
 begin : chipscope_with_daq_no_comp
@@ -289,6 +330,9 @@ CSP_daq_cntrl daq_cntrl1 (
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==1) 
 begin : chipscope_with_deser
@@ -316,6 +360,9 @@ CSP_deser_cntrl deser_cntrl1 (
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 1) 
 begin : chipscope_with_pipeline
@@ -342,6 +389,9 @@ CSP_pipe_cntrl pipe_cntrl1 (
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 1) 
 begin : chipscope_with_SEM
@@ -367,6 +417,9 @@ CSP_sem_cntrl sem_cntrl1 (
 	assign rng_eth_la0_c2 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==0 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 0 && USE_RINGBUF_CHIPSCOPE == 1) 
 begin : chipscope_with_Ring_Buf
@@ -390,6 +443,9 @@ CSP_rngbuf_cntrl rngbuf_cntrl1 (
 	assign cmp_tx_la_c1 = 36'h000000000;
 	assign pipe_vio_in0_c1 = 36'h000000000;
 	assign pipe_vio_out1_c2 = 36'h000000000;
+	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else if(USE_CMP_CHIPSCOPE==0 && USE_DAQ_CHIPSCOPE==1 && USE_DESER_CHIPSCOPE==0 && USE_PIPE_CHIPSCOPE == 0 && USE_SEM_CHIPSCOPE == 0 && USE_RINGBUF_CHIPSCOPE == 1) 
 begin : chipscope_with_Ring_Buf
@@ -418,6 +474,8 @@ CSP_rngbuf_daq rngbuf_daq1 (
 	assign sem_vio_in0_c1 = 36'h000000000;
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 else
 begin : no_chipscope
@@ -443,6 +501,8 @@ begin : no_chipscope
 	assign rng_chn_la0_c3 = 36'h000000000;
 	assign rng_xfr_la0_c3 = 36'h000000000;
 	assign chn_lnk_la0_c0 = 36'h000000000;
+	assign auto_load_vio_c0 = 36'h000000000;
+	assign auto_load_la0_c1 = 36'h000000000;
 end
 endgenerate
 
@@ -707,19 +767,28 @@ wire por_al_start;
 wire csp_al_start;
 wire clr_al_done;
 
-assign csp_al_start = 1'b0;
+//assign csp_al_start = 1'b0;
 assign al_start = por_al_start | csp_al_start;
 
    auto_load_const #(
+		.USE_CHIPSCOPE(USE_AUTO_LOAD_CHIPSCOPE),
 		.TMR(TMR),
 		.TMR_Err_Det(TMR_Err_Det)
 	) 
 	auto_load_const1 (
+		// ChipScope Pro signlas
+		.VIO_CNTRL(auto_load_vio_c0),
+		.LA_CNTRL(auto_load_la0_c1),
+		//
 		.CLK(clk40),
 		.RST(sys_rst),
 		.BUSY(bpi_busy),            //Operation in progress signal (not ready)
 		.AL_START(al_start),        //Start Auto Load Operation
 		.AL_DONE(al_done),          //Auto Load Operation completed
+		.BPI_LOAD_DATA(bpi_load_data),
+		.BPI_AL_REG(bpi_al_reg),
+		.AUTO_LOAD(auto_load),
+		.CSP_AL_START(csp_al_start),
 	// signals for BPI interface
 	   .AL_ADDR(al_addr),         //Bank/Array Address 
 	   .AL_CMD_DATA_OUT(al_cmd_data_out), //Data being written to FLASH device
