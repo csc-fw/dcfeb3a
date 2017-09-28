@@ -122,8 +122,10 @@ module Pow_on_Rst_FSM_TMR
       Start_Auto_Load: if      (RESTART_ALL)                     nextstate_1 = Pow_on_Rst;
                        else if (!AL_DONE)                        nextstate_1 = Auto_Load;
                        else                                      nextstate_1 = Start_Auto_Load;
-      W4Qpll         : if      (QPLL_LOCK)                       nextstate_1 = W4SysClk;
-                       else                                      nextstate_1 = W4Qpll;
+//      W4Qpll         : if      (QPLL_LOCK)                       nextstate_1 = W4SysClk;
+//                       else                                      nextstate_1 = W4Qpll;
+// temporarily ignore the QPLL_LOCK for radtesting
+      W4Qpll         :                                           nextstate_1 = W4SysClk;
       W4SysClk       : if      (MMCM_LOCK)                       nextstate_1 = Pow_on_Rst;
                        else                                      nextstate_1 = W4SysClk;
     endcase
@@ -147,8 +149,10 @@ module Pow_on_Rst_FSM_TMR
       Start_Auto_Load: if      (RESTART_ALL)                     nextstate_2 = Pow_on_Rst;
                        else if (!AL_DONE)                        nextstate_2 = Auto_Load;
                        else                                      nextstate_2 = Start_Auto_Load;
-      W4Qpll         : if      (QPLL_LOCK)                       nextstate_2 = W4SysClk;
-                       else                                      nextstate_2 = W4Qpll;
+//      W4Qpll         : if      (QPLL_LOCK)                       nextstate_2 = W4SysClk;
+//                       else                                      nextstate_2 = W4Qpll;
+// temporarily ignore the QPLL_LOCK for radtesting
+      W4Qpll         :                                           nextstate_2 = W4SysClk;
       W4SysClk       : if      (MMCM_LOCK)                       nextstate_2 = Pow_on_Rst;
                        else                                      nextstate_2 = W4SysClk;
     endcase
@@ -172,8 +176,10 @@ module Pow_on_Rst_FSM_TMR
       Start_Auto_Load: if      (RESTART_ALL)                     nextstate_3 = Pow_on_Rst;
                        else if (!AL_DONE)                        nextstate_3 = Auto_Load;
                        else                                      nextstate_3 = Start_Auto_Load;
-      W4Qpll         : if      (QPLL_LOCK)                       nextstate_3 = W4SysClk;
-                       else                                      nextstate_3 = W4Qpll;
+//      W4Qpll         : if      (QPLL_LOCK)                       nextstate_3 = W4SysClk;
+//                       else                                      nextstate_3 = W4Qpll;
+// temporarily ignore the QPLL_LOCK for radtesting
+      W4Qpll         :                                           nextstate_3 = W4SysClk;
       W4SysClk       : if      (MMCM_LOCK)                       nextstate_3 = Pow_on_Rst;
                        else                                      nextstate_3 = W4SysClk;
     endcase

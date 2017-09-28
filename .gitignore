@@ -94,3 +94,5 @@ isim/
 ### Other ###
 *~
 *#
+*.jar
+*.edn
