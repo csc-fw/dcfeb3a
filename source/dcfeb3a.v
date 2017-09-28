@@ -2257,6 +2257,7 @@ endgenerate
 		//
 		.SEL_CON_B(SEL_CON_B),
 		.SEL_SKW_B(SEL_SKW_B),
+		.JDAQ_RATE(jdaq_rate),
 		.TP_B24_(TP_B24_),
 		.TP_B25_(TP_B25_),
 		.TP_B26_(TP_B26_),
