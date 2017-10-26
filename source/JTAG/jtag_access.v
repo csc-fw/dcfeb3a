@@ -1048,11 +1048,9 @@ end
 		 f33dly <= f33_s2;
 		 set_rate_1_25 <= f32_s2 & ~f32dly;  // leading edge of function being set (after update1)
 		 set_rate_3_2  <= f33_s2 & ~f33dly;  // leading edge of function being set (after update1)
-//		 if(set_rate_1_25)
-		 if(set_rate_1_25 || RST) // moved temporarily for radiation beam test to have JDAQ_RATE be 0 after reprogramming
+		 if(set_rate_1_25)
 			JDAQ_RATE <= 1'b0;
-//		 else if(set_rate_3_2 || RST)
-		 else if(set_rate_3_2)
+		 else if(set_rate_3_2 || RST)
 			JDAQ_RATE <= 1'b1;
 		 else
 			JDAQ_RATE <= JDAQ_RATE;

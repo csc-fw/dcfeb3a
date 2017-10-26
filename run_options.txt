@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version I-2014.03-1 
 #--  Project file C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\run_options.txt
-#--  Written on Thu Sep 28 11:48:43 2017
+#--  Written on Thu Oct 26 14:17:08 2017
 
 
 #project files
@@ -107,8 +107,8 @@ add_file -verilog "./source/fizzim/fifo_load_FSM.v"
 add_file -verilog "./source/fizzim/dyn_phase_shift_FSM_TMR_Err_Det.v"
 add_file -verilog "./source/fizzim/dyn_phase_shift_FSM_TMR.v"
 add_file -verilog "./source/fizzim/dyn_phase_shift_FSM.v"
-add_file -verilog "./ipcore_dir/adc_frame_clk.v"
 add_file -verilog "./source/fizzim/DSR_align_FSM_TMR.v"
+add_file -verilog "./ipcore_dir/adc_frame_clk.v"
 add_file -verilog "./source/fizzim/DSR_align_FSM.v"
 add_file -verilog "./source/fizzim/DAQ_Rate_Sel_FSM_TMR.v"
 add_file -verilog "./ipcore_dir/trg_mmcm.v"
