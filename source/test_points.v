@@ -45,9 +45,8 @@ module test_points(
 	 input L1A_EVT_PUSH,
 	 input ALG_GD,
 	 //
-	 input SEL_CON_B,
-	 input SEL_SKW_B,
-	 input JDAQ_RATE,
+//	 input SEL_CON_B, // not used
+//	 input SEL_SKW_B, // not used
     inout [2:0] TP_B24_,
     inout [15:0] TP_B25_,
     inout [1:0] TP_B26_,
@@ -66,10 +65,10 @@ module test_points(
   IOBUF #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) IOBUF_TP_B26_[1:0] (.O(tp_b26_in),.IO(TP_B26_),.I(tp_b26_out),.T(tp_b26_dir));
   IOBUF #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) IOBUF_TP_B35_[14:1] (.O(tp_b35_in),.IO(TP_B35_),.I(tp_b35_out),.T(tp_b35_dir));
 
- IBUF IBUF_SEL_CON_B (.O(jsel_con_b),.I(SEL_CON_B));
- IBUF IBUF_SEL_SKW_B (.O(jsel_skw_b),.I(SEL_SKW_B));
- OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_JSEL_CON_B (.O(JSEL_CON),.I(~jsel_con_b));
- OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_JSEL_SKW_B (.O(JSEL_SKW),.I(~jsel_skw_b));
+// IBUF IBUF_SEL_CON_B (.O(jsel_con_b),.I(SEL_CON_B));
+// IBUF IBUF_SEL_SKW_B (.O(jsel_skw_b),.I(SEL_SKW_B));
+// OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_JSEL_CON_B (.O(JSEL_CON),.I(~jsel_con_b)); //output not assigned
+// OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_JSEL_SKW_B (.O(JSEL_SKW),.I(~jsel_skw_b)); //output not assigned
 
 // Direction control
 // 1 is tri-state (input), 0 is drive (output)

@@ -37,32 +37,10 @@ module dcfeb3a #(
 	//Clocks
 	input CMS_CLK_N,CMS_CLK_P,CMS80_N,CMS80_P,
 	input QPLL_CLK_AC_P,QPLL_CLK_AC_N,XO_CLK_AC_P,XO_CLK_AC_N,
-	input \FEM_CLK320- ,\FEM_CLK320+ ,
 	input GC0N,GC0P,GC1N,GC1P,
 	output TP_B35_0N,TP_B35_0P,
 	
-	//FF-EMU Emulator signals
-	input  CLK320_SIGDET,
-	input \FEM_RX_DAT- ,\FEM_RX_DAT+ ,
-	output FEM_REPROGRAM,
-	output FEM_TCK,FEM_TDI,FEM_TMS,
-	output \FEM_TX_DAT- ,\FEM_TX_DAT+ ,
-	
-	//FF-EMU ASIC signals
-	input CTRL_SIGDET,
-	output CTRL_TDIS,
-	input FMU_TOKEN,
-	input FMU_L1A,FMU_RESYNC,
-	input FMU_SPI_CS0,FMU_SPI_CS1,FMU_SPI_CLK,FMU_SPI_DAT,
-	output FMU_SPI_BUSY,FMU_SPI_RTN_CLK,FMU_SPI_RTN_DAT,
-	output FMU_UL_TCK,FMU_UL_TDI,FMU_UL_TMS,
-	output FMU_FLF_E1,FMU_FLF_P1,FMU_FLF_P2,
-	output FMU_VLF_E2,
-	output \FMU_CLK40_UL- ,\FMU_CLK40_UL+ ,
-	output RST_FFEMU,
-	
 	//Calibration signals
-	input FMU_INJPLS,FMU_EXTPLS,
 	input \SKW_EXTPLS- ,\SKW_EXTPLS+ ,
 	input \SKW_INJPLS- ,\SKW_INJPLS+ ,
 	input INJPLS_LV,
@@ -129,9 +107,13 @@ module dcfeb3a #(
 	
 	//Optical Transceiver signals
 	input  DAQ_RX_P,DAQ_RX_N,
-	output DAQ_TDIS,DAQ_TX_P,DAQ_TX_N,
-	input  ALT_SIGDET,TRG_RX_P,TRG_RX_N,
-	output TRG_TDIS,TRG_TX_P,TRG_TX_N,
+	output DAQ_TDIS,
+	output DAQ_TX_P,DAQ_TX_N,
+//	input  ALT_SIGDET, // receiver signal detected (not used on DCFEB and non existant on xDCFEBs
+	input  TRG_RX_P,TRG_RX_N,
+	output TRG_TDIS,
+	output TRG_TX_P,TRG_TX_N,
+	output CTRL_TDIS,
 //	input  OPCON_RXP,OPCON_RXN, // Optional transceiver connection only on DCFEB Rev. 3b boards
 //	output OPCON_TXP,OPCON_TXN, // Optional transceiver connection only on DCFEB Rev. 3b boards
 	
@@ -151,7 +133,7 @@ module dcfeb3a #(
 	
 	//Diagnostic & misc. signals: Logic analyzer and test piont ports
 //	input SEL_SKW,SEL_CON, // Names used on DCFEB Rev. 2a boards and in firmware version dcfeb_f2.0
-	input SEL_SKW_B,SEL_CON_B, // Names used on DCFEB Rev. 3b boards and in firmware version dcfeb_f3.0
+//	input SEL_SKW_B,SEL_CON_B, // Names used on DCFEB Rev. 3b boards and in firmware version dcfeb_f3.0 // no longer used
 	inout [2:0] TP_B24_,
 	inout [15:0] TP_B25_,
 	inout [1:0] TP_B26_,
@@ -529,7 +511,6 @@ endgenerate
 	wire trg_tx_pll_lock;
 	wire trg_mmcm_lock;
 	wire clk160,clk120,clk40,clk20,clk1mhz;
-	wire fem_clk320;
 	wire mmcm_rst, daq_mmcm_lock;
 	wire strtup_clk, eos;
 	wire adc_clk;
@@ -568,7 +549,6 @@ endgenerate
 		.CMS80_N(CMS80_N), .CMS80_P(CMS80_P),                              // from QPLL
 		.QPLL_CLK_AC_N(QPLL_CLK_AC_N), .QPLL_CLK_AC_P(QPLL_CLK_AC_P),      // alternate clock 160 MHz Ref for TRG GTX (from QPLL)
 		.XO_CLK_AC_N(XO_CLK_AC_N), .XO_CLK_AC_P(XO_CLK_AC_P),              // Crystal Osc. 125 MHz    Ref for DAQ GTX for GbE
-		.FEM_CLK320_N(\FEM_CLK320- ), .FEM_CLK320_P(\FEM_CLK320+ ),                        // FF_EMU Emulator high speed clock
 		.GC0N(GC0N), .GC0P(GC0P), .GC1N(GC1N), .GC1P(GC1P),                // Spare global clock inputs
 		.CMP_PHS_JTAG_RST(cmp_phs_jtag_rst), // on demand reset of comparator MMCM and dynamic phase state machine
 		.CMP_CLK_PHASE(cmp_clk_phase),    // Comparator Clock Phase 5 bits (0-31)
@@ -596,7 +576,6 @@ endgenerate
 		.CLK20(clk20),
 		.CLK1MHZ(clk1mhz),
       .ICAP_CLK(icap_clk),       // Clock Enabled 40MHz clock
-		.FEM_CLK320(fem_clk320),
 		.ADC_CLK(adc_clk),
 		.DSR_RESYNC(dsr_resync),
 		.DAQ_MMCM_LOCK(daq_mmcm_lock),
@@ -1494,10 +1473,6 @@ daq_optical_out_i (
   //
   //Trigger and sync signals
   //
-	wire fem_l1a;
-	wire fem_resync;
-	wire fem_l1a_match;
-	wire cal_mode;
 
 	trigger #(
 	.TMR(TMR)
@@ -1510,13 +1485,7 @@ daq_optical_out_i (
 		.SKW_L1A_MATCH_P(\SKW_L1A_MATCH+ ),.SKW_L1A_MATCH_N(\SKW_L1A_MATCH- ),
 		.SKW_RESYNC_P(\SKW_RESYNC+ ),.SKW_RESYNC_N(\SKW_RESYNC- ),
 		.SKW_BC0_P(\SKW_BC0+ ),.SKW_BC0_N(\SKW_BC0- ),
-		.FMU_L1A(FMU_L1A),
-		.FMU_RESYNC(FMU_RESYNC),
-		.FMU_L1A_MATCH(FMU_EXTPLS),	// Changed definition form external pulse to 'matched L1A'
 	// internal signals
-		.FEM_L1A(fem_l1a),    			 //FF-EMU Emulator L1A
-		.FEM_RESYNC(fem_resync), 		 //FF-EMU Emulator Resync
-		.FEM_L1A_MATCH(fem_l1a_match), //FF-EMU Emulator L1A match
 		.TTC_SRC(ttc_src),      		 // Trigger source mode
 		.USE_ANY_L1A(use_any_l1a),		//JTAG flag for L1A match source (L1A or L1A_MATCH)
 		.CSP_RESYNC(csp_resync),
@@ -1534,8 +1503,7 @@ daq_optical_out_i (
   //
   //Calibration signals
   //
-	wire fem_injpls;
-	wire fem_extpls;
+	wire cal_mode;
 	wire trg_pulse;
 	wire [11:0] injplscnt;
 	wire [11:0] extplscnt;
@@ -1549,11 +1517,9 @@ daq_optical_out_i (
 	 // external connections
 		.SKW_EXTPLS_P(\SKW_EXTPLS+ ),.SKW_EXTPLS_N(\SKW_EXTPLS- ),
 		.SKW_INJPLS_P(\SKW_INJPLS+ ),.SKW_INJPLS_N(\SKW_INJPLS- ),
-		.FMU_INJPLS(FMU_INJPLS),
 		.INJPLS_LV(INJPLS_LV),
 		.EXTPLS_LV(EXTPLS_LV),
 	// internal signals
-		.FEM_INJPLS(fem_injpls),     //FF-EMU Emulator charge injection pulse
 		.TTC_SRC(ttc_src),       // Trigger source mode
 		.CAL_MODE(cal_mode),		 // external or internal calibrations pulses (0: external pulsing, 1: internal pulsing)
 	 // common output signals
@@ -1627,7 +1593,7 @@ daq_optical_out_i (
 	   .RST(sys_rst),
 		.TRG_OP_TX_DISABLE(trg_op_tx_disable),
 		// External signals
-		.TRG_SIGDET(ALT_SIGDET),                 // receiver signal detected
+//		.TRG_SIGDET(ALT_SIGDET),                 // receiver signal detected (not used on DCFEB and non existant on xDCFEBs
 		.TRG_RX_N(TRG_RX_N),.TRG_RX_P(TRG_RX_P), // high speed serial input
 		.TRG_TDIS(TRG_TDIS),                     // disable optical transmission
 		.TRG_TX_N(TRG_TX_N),.TRG_TX_P(TRG_TX_P), // high speed serial output
@@ -1761,76 +1727,12 @@ begin : no_chipscope_trg
 	assign trg_tx_pllrst      = 1'b0;
 end
 endgenerate
-	
-/////////////////////////////////////////////////////////////////////////////
-//                                                                         //
-//  FF_EMU Interface                                                       //
-//                                                                         //
-/////////////////////////////////////////////////////////////////////////////
-wire ctrl_fbr_det;
   
-ff_emu_intrf #(
-		.USE_CHIPSCOPE(USE_FF_EMU_CHIPSCOPE)
-	)		
-FF_EMU_i  (
-	//External input signals
-	.CTRL_SIGDET(CTRL_SIGDET),
-	.FMU_TOKEN(FMU_TOKEN),
-	.FMU_SPI_CS0(FMU_SPI_CS0),
-	.FMU_SPI_CS1(FMU_SPI_CS1),
-	.FMU_SPI_CLK(FMU_SPI_CLK),
-	.FMU_SPI_DAT(FMU_SPI_DAT),
-	//External output signals
-	.CTRL_TDIS(CTRL_TDIS),
-	.FMU_SPI_BUSY(FMU_SPI_BUSY),
-	.FMU_SPI_RTN_CLK(FMU_SPI_RTN_CLK),
-	.FMU_SPI_RTN_DAT(FMU_SPI_RTN_DAT),
-	.FMU_UL_TCK(FMU_UL_TCK),
-	.FMU_UL_TDI(FMU_UL_TDI),
-	.FMU_UL_TMS(FMU_UL_TMS),
-	.FMU_FLF_E1(FMU_FLF_E1),
-	.FMU_FLF_P1(FMU_FLF_P1),
-	.FMU_FLF_P2(FMU_FLF_P2),
-	.FMU_VLF_E2(FMU_VLF_E2),
-	.FMU_CLK40_UL_N(\FMU_CLK40_UL- ),.FMU_CLK40_UL_P(\FMU_CLK40_UL+ ),
-	.RST_FFEMU(RST_FFEMU),
-	// Internal signals
-	.CTRL_FIBER_DET(ctrl_fbr_det)
-);
+assign CTRL_TDIS = 1'b1; // CTRL Transmitter is unused, keep it disabled
   
 /////////////////////////////////////////////////////////////////////////////
 //                                                                         //
-//  FF_Emulator Interface                                                  //
-//                                                                         //
-/////////////////////////////////////////////////////////////////////////////
-  
-ff_emulator_intrf #(
-		.USE_CHIPSCOPE(USE_FF_EMU_CHIPSCOPE)
-	)		
-FF_Emulator_i  (
-	.HS_CLK(fem_clk320),          // High speed clock for data reception
-	.CTRL_FIBER_DET(ctrl_fbr_det),  //Control channel signal detect.
-	//External input signals
-	.CLK320_SIGDET(CLK320_SIGDET),                 // receiver signal detected
-	.FEM_RX_DAT_N(\FEM_RX_DAT- ),.FEM_RX_DAT_P(\FEM_RX_DAT+ ),
-	//External output signals
-	.FEM_RPRG(FEM_REPROGRAM),
-	.FEM_TCK(FEM_TCK),
-	.FEM_TDI(FEM_TDI),
-	.FEM_TMS(FEM_TMS),
-	.FEM_TX_DAT_N(\FEM_TX_DAT- ),.FEM_TX_DAT_P(\FEM_TX_DAT+ ),
-	//Internal signals
-	.FEM_L1A(fem_l1a),
-	.FEM_L1A_MATCH(fem_l1a_match),
-	.FEM_RESYNC(fem_resync),
-	.FEM_INJPLS(fem_injpls),
-	.FEM_EXTPLS(fem_extpls)
-);
-  
-  
-/////////////////////////////////////////////////////////////////////////////
-//                                                                         //
-//  FF_Emulator Interface                                                  //
+//  SPI Interface to DACs                                                  //
 //                                                                         //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -2255,8 +2157,8 @@ endgenerate
 		.L1A_EVT_PUSH(l1a_evt_push),
 		.ALG_GD(alg_gd),
 		//
-		.SEL_CON_B(SEL_CON_B),
-		.SEL_SKW_B(SEL_SKW_B),
+//		.SEL_CON_B(SEL_CON_B), // not used
+//		.SEL_SKW_B(SEL_SKW_B), // not used
 		.TP_B24_(TP_B24_),
 		.TP_B25_(TP_B25_),
 		.TP_B26_(TP_B26_),

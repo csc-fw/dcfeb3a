@@ -17,6 +17,8 @@
 // Revision 0.01 - File Created
 // Additional Comments: 
 //
+// Removed all FF EMU functionality 10/27/2017
+//
 //////////////////////////////////////////////////////////////////////////////////
 module trigger #(
 	parameter TMR = 0
@@ -33,13 +35,7 @@ module trigger #(
 	input SKW_RESYNC_N,
 	input SKW_BC0_P,
 	input SKW_BC0_N,
-	input FMU_L1A,
-	input FMU_RESYNC,
-	input FMU_L1A_MATCH,
 	// internal signals
-	input FEM_L1A,
-	input FEM_RESYNC,
-	input FEM_L1A_MATCH,
 	input [1:0] TTC_SRC,
 	input USE_ANY_L1A,
 	input CSP_RESYNC,
@@ -54,17 +50,14 @@ module trigger #(
 	);
   // TTC configuration modes
   parameter 
-  FF_EMU_mode    = 2'b00, 
-  FF_FEM_mode    = 2'b01, 
+  FF_EMU_mode    = 2'b00, // mode not used
+  FF_FEM_mode    = 2'b01, // mode not used
   Skew_Clr_mode  = 2'b10;
 
 wire skw_rw_l1a;
 wire skw_rw_l1a_match;
 wire skw_rw_resync;
 wire skw_rw_bc0;
-wire fmu_rw_l1a;
-wire fmu_rw_l1a_match;
-wire fmu_rw_resync;
 
 assign RST_RESYNC = RST || RESYNC;
 
@@ -72,9 +65,6 @@ assign RST_RESYNC = RST || RESYNC;
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_L1A_MATCH (.O(skw_rw_l1a_match),.I(SKW_L1A_MATCH_P),.IB(SKW_L1A_MATCH_N));
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_RESYNC (.O(skw_rw_resync),.I(SKW_RESYNC_P),.IB(SKW_RESYNC_N));
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_BC0 (.O(skw_rw_bc0),.I(SKW_BC0_P),.IB(SKW_BC0_N));
-  IBUF IBUF_FMU_L1A (.O(fmu_rw_l1a),.I(FMU_L1A));
-  IBUF IBUF_FMU_RESYNC (.O(fmu_rw_resync),.I(FMU_RESYNC));
-  IBUF IBUF_FMU_EXP (.O(fmu_rw_l1a_match),.I(FMU_L1A_MATCH));
 
 generate
 if(TMR==1) 
@@ -125,34 +115,6 @@ begin : TRG_logic_TMR
 		lct_2 <= skw_rw_l1a_match;  // for use with old DMB's
 		lct_3 <= skw_rw_l1a_match;  // for use with old DMB's
 		case(TTC_SRC)
-			FF_EMU_mode : begin
-				l1a_1       <= fmu_rw_l1a;
-				l1a_2       <= fmu_rw_l1a;
-				l1a_3       <= fmu_rw_l1a;
-				l1a_match_1 <= fmu_rw_l1a_match;
-				l1a_match_2 <= fmu_rw_l1a_match;
-				l1a_match_3 <= fmu_rw_l1a_match;
-				resync_1    <= fmu_rw_resync;
-				resync_2    <= fmu_rw_resync;
-				resync_3    <= fmu_rw_resync;
-				bc0_1	      <= 1'b0;
-				bc0_2	      <= 1'b0;
-				bc0_3	      <= 1'b0;
-			end
-			FF_FEM_mode : begin
-				l1a_1       <= FEM_L1A;
-				l1a_2      <= FEM_L1A;
-				l1a_3       <= FEM_L1A;
-				l1a_match_1 <= FEM_L1A_MATCH;
-				l1a_match_2 <= FEM_L1A_MATCH;
-				l1a_match_3 <= FEM_L1A_MATCH;
-				resync_1    <= FEM_RESYNC;
-				resync_2    <= FEM_RESYNC;
-				resync_3    <= FEM_RESYNC;
-				bc0_1	      <= 1'b0;
-				bc0_2	      <= 1'b0;
-				bc0_3	      <= 1'b0;
-			end
 			Skew_Clr_mode : begin
 				l1a_1       <= skw_rw_l1a;
 				l1a_2       <= skw_rw_l1a;
@@ -229,18 +191,6 @@ begin : TRG_logic
 	always @(posedge CLK40) begin
 		lct_r <= skw_rw_l1a_match;  // for use with old DMB's
 		case(TTC_SRC)
-			FF_EMU_mode : begin
-				l1a_r       <= fmu_rw_l1a;
-				l1a_match_r <= fmu_rw_l1a_match;
-				resync_r    <= fmu_rw_resync;
-				bc0_r	      <= 1'b0;
-			end
-			FF_FEM_mode : begin
-				l1a_r       <= FEM_L1A;
-				l1a_match_r <= FEM_L1A_MATCH;
-				resync_r    <= FEM_RESYNC;
-				bc0_r	      <= 1'b0;
-			end
 			Skew_Clr_mode : begin
 				l1a_r       <= skw_rw_l1a;
 				if(USE_ANY_L1A)

@@ -31,8 +31,6 @@ module Clock_sources #(
     input QPLL_CLK_AC_P,
     input XO_CLK_AC_N,
     input XO_CLK_AC_P,
-    input FEM_CLK320_N,
-    input FEM_CLK320_P,
     input GC0N,
     input GC0P,
     input GC1N,
@@ -64,7 +62,6 @@ module Clock_sources #(
     output CLK20,
     output CLK1MHZ,
     output ICAP_CLK,
-    output FEM_CLK320,
     output ADC_CLK,
     output DSR_RESYNC,
     output DAQ_MMCM_LOCK,
@@ -116,7 +113,6 @@ wire c20_phase_sel_i;
 	IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_CMS80 (.O(CMS80),.I(CMS80_P),.IB(CMS80_N));
 	IBUFDS_GTXE1 q3_clk0_refclk_ibufds_i (.O(DAQ_TX_125_REFCLK),.ODIV2(DAQ_TX_125_REFCLK_DV2),.CEB(1'b0),.I(XO_CLK_AC_P),.IB(XO_CLK_AC_N));
 	IBUFDS_GTXE1 q3_clk1_refclk_ibufds_i (.O(TRG_TX_160_REFCLK),.ODIV2(trg_tx_160_refclk_dv2),.CEB(1'b0),.I(QPLL_CLK_AC_P),.IB(QPLL_CLK_AC_N));
-	IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_FEM_CLK320 (.O(FEM_CLK320),.I(FEM_CLK320_P),.IB(FEM_CLK320_N));
 	IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_GC0 (.O(gc0),.I(GC0P),.IB(GC0N));
 	IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_GC1 (.O(gc1),.I(GC1P),.IB(GC1N));
 	OBUFDS #(.IOSTANDARD("DEFAULT")) OBUFDS_TP_B35_0 (.O(TP_B35_0P),.OB(TP_B35_0N),.I(tp_b35_0));

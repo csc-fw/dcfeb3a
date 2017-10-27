@@ -25,7 +25,7 @@ module tmb_fiber_out #(
 (
 	input RST,
    input TRG_OP_TX_DISABLE,
-	input TRG_SIGDET,
+//	input TRG_SIGDET, // unused
 	input TRG_RX_N,
 	input TRG_RX_P,
 	output TRG_TDIS,
@@ -60,7 +60,7 @@ module tmb_fiber_out #(
 	);
 	
 wire trg_tx_dis;
-wire trg_sd;
+//wire trg_sd; //unused
 
 reg [15:0] frm_sep;
 
@@ -102,7 +102,7 @@ assign lay4_half_strip = LAY1_TO_6_HALF_STRIP[19:15];
 assign lay5_half_strip = LAY1_TO_6_HALF_STRIP[24:20];
 assign lay6_half_strip = LAY1_TO_6_HALF_STRIP[29:25];
 
-IBUF IBUF_TRG_SIGDET (.O(trg_sd),.I(TRG_SIGDET));
+//IBUF IBUF_TRG_SIGDET (.O(trg_sd),.I(TRG_SIGDET)); // Trigger rx Optical signal detect is unused on DCFEBs and non-existant on xDCFEBs 
 OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_TRG_TDIS (.O(TRG_TDIS),.I(trg_tx_dis));
 
 

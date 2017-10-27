@@ -17,6 +17,8 @@
 // Revision 0.01 - File Created
 // Additional Comments: 
 //
+// Removed all FF EMU functionality 10/27/2017
+//
 //////////////////////////////////////////////////////////////////////////////////
 module calib_intf #(
 	parameter TMR = 0
@@ -29,11 +31,9 @@ module calib_intf #(
 	input SKW_EXTPLS_N,
 	input SKW_INJPLS_P,
 	input SKW_INJPLS_N,
-	input FMU_INJPLS,
 	input INJPLS_LV,
 	input EXTPLS_LV,
 	// internal signals
-	input FEM_INJPLS,
 	input [1:0] TTC_SRC,
 	input CAL_MODE,
 	// common signals
@@ -48,13 +48,12 @@ module calib_intf #(
 	);
   // TTC configuration modes
   parameter 
-  FF_EMU_mode    = 2'b00, 
-  FF_EEM_mode    = 2'b01, 
+  FF_EMU_mode    = 2'b00,  // mode not used
+  FF_EEM_mode    = 2'b01,  // mode not used
   Skew_Clr_mode  = 2'b10;
 
 wire skw_rw_extpls;
 wire skw_rw_injpls;
-wire fmu_rw_injpls;
 wire trg_extpls;
 wire trg_injpls;
 
@@ -63,7 +62,6 @@ reg inj_pulse;
 
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_EXP (.O(skw_rw_extpls),.I(SKW_EXTPLS_P),.IB(SKW_EXTPLS_N));
   IBUFDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFDS_SKW_IJP (.O(skw_rw_injpls),.I(SKW_INJPLS_P),.IB(SKW_INJPLS_N));
-  IBUF IBUF_FMU_IJP (.O(fmu_rw_injpls),.I(FMU_INJPLS));
   IBUF IBUF_TRG_EXP (.O(trg_extpls),.I(EXTPLS_LV));
   IBUF IBUF_TRG_IJP (.O(trg_injpls),.I(INJPLS_LV));
   OBUFDS #(.IOSTANDARD("DEFAULT")) OBUFDS_EXP (.O(EXTPULSE_P),.OB(EXTPULSE_N),.I(ext_pulse));
@@ -72,26 +70,6 @@ reg inj_pulse;
 	always @* begin		// These are not clocked, just passed through to preserve timing.
 		TRG_PULSE = trg_extpls | trg_injpls;
 		case(TTC_SRC)
-			FF_EMU_mode : begin
-				if(CAL_MODE) begin
-						inj_pulse = fmu_rw_injpls;
-						ext_pulse = 1'b0;
-					end
-				else begin
-						inj_pulse = 1'b0;
-						ext_pulse = fmu_rw_injpls;
-					end
-			end
-			FF_EEM_mode : begin
-				if(CAL_MODE) begin
-						inj_pulse = FEM_INJPLS;
-						ext_pulse = 1'b0;
-					end
-				else begin
-						inj_pulse = 1'b0;
-						ext_pulse = FEM_INJPLS;
-					end
-			end
 			Skew_Clr_mode : begin
 				ext_pulse = skw_rw_extpls;
 				inj_pulse = skw_rw_injpls;
