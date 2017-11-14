@@ -3,6 +3,7 @@
 module daq_optical_out #(
 	parameter USE_CHIPSCOPE = 1,
 	parameter SIM_SPEEDUP = 0,
+	parameter XDCFEB = 0,
 	parameter TMR = 0,
 	parameter TMR_Err_Det = 0
 )
@@ -279,7 +280,18 @@ endgenerate
 	assign force_error = inj_err1 & ~inj_err2;
 	assign crc_calc = crc_dv & TXD_VLD;
   
+
+generate
+if(XDCFEB==1) 
+begin : xdcfeb_daq_tx
+  assign DAQ_TDIS = daq_tx_dis;
+end
+else
+begin : dcfeb_daq_tx
   OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_DAQ_TDIS (.O(DAQ_TDIS),.I(daq_tx_dis));
+end
+endgenerate
+
 BUFGMUX daq_clk_mux_i (.O(usr_clk_wordwise),.I0(DAQ_TX_125REFCLK_DV2),.I1(DAQ_TX_160REFCLK),.S(word_clk_sel));
   
 //-----------------------------------------------------------------------------

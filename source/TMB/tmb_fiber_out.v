@@ -20,6 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 module tmb_fiber_out #(
 	parameter SIM_SPEEDUP = 0,
+	parameter XDCFEB = 0,
 	parameter TMR = 0
 )
 (
@@ -102,8 +103,18 @@ assign lay4_half_strip = LAY1_TO_6_HALF_STRIP[19:15];
 assign lay5_half_strip = LAY1_TO_6_HALF_STRIP[24:20];
 assign lay6_half_strip = LAY1_TO_6_HALF_STRIP[29:25];
 
-//IBUF IBUF_TRG_SIGDET (.O(trg_sd),.I(TRG_SIGDET)); // Trigger rx Optical signal detect is unused on DCFEBs and non-existant on xDCFEBs 
-OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_TRG_TDIS (.O(TRG_TDIS),.I(trg_tx_dis));
+
+generate
+if(XDCFEB==1) 
+begin : xdcfeb_trg_tx
+  assign TRG_TDIS = trg_tx_dis;
+end
+else
+begin : dcfeb_trg_tx
+	//IBUF IBUF_TRG_SIGDET (.O(trg_sd),.I(TRG_SIGDET)); // Trigger rx Optical signal detect is unused on DCFEBs and non-existant on xDCFEBs 
+	OBUF  #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_TRG_TDIS (.O(TRG_TDIS),.I(trg_tx_dis));
+end
+endgenerate
 
 
 	 (* LOC = "GTXE1_X0Y13" *)

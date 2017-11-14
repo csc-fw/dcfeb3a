@@ -61,6 +61,7 @@ module Clock_sources #(
     output CLK40,
     output CLK20,
     output CLK1MHZ,
+    output CLK100KHZ,
     output ICAP_CLK,
     output ADC_CLK,
     output DSR_RESYNC,
@@ -88,6 +89,8 @@ module Clock_sources #(
   wire trg_tx_160_refclk_dv2;
   
   wire cms_clk;
+  wire clk100k;
+  wire q15;
   
   wire gc0,gc1;
   wire tp_b35_0;
@@ -105,6 +108,9 @@ wire samp_in_sel;
 wire cmp_phs_inc_i;
 wire c20_phase_sel_i;
   
+
+	assign CLK100KHZ = clk100k;
+
 	assign CMP_PHS_RST = RST || CMP_PHS_JTAG_RST;
   
   assign tp_b35_0 = 1'b0;
@@ -907,5 +913,19 @@ begin : Comp_Phase_FSM
 	
 end
 endgenerate
+
+   SRLC16E #(.INIT(16'hFFFF)) // 1MHz clock divided by 10, 100KHz clock 10. uSec period.
+	SRLC16E_clk100k_inst (
+      .Q(clk100k),     // SRL data output
+      .Q15(q15), // SRL cascade output pin
+      .A0(1'b0),     // Select[0] input (output at 5 clocks)
+      .A1(1'b0),     // Select[1] input
+      .A2(1'b1),     // Select[2] input
+      .A3(1'b0),     // Select[3] input
+      .CE(1'b1),   // Clock enable input
+      .CLK(CLK1MHZ), // Clock input
+      .D(~clk100k)      // SRL data input
+   );
+
 
 endmodule

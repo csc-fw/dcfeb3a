@@ -25,6 +25,7 @@ module bpi_interface #(
 (
     input CLK,
 	 input CLK1MHZ,
+	 input CLK100KHZ,
 	 input RST,
     input [22:0] ADDR,         //Bank/Array Address 
     input [15:0] CMD_DATA_OUT, //Command or Data being written to FLASH device
@@ -53,8 +54,7 @@ module bpi_interface #(
     output FWE_B,
     output FLATCH_B,
     // diagnostic outputs for startup display
-	 output [2:0] TIMEROUT,
-	 output CLK100KHZ
+	 output [2:0] TIMEROUT
     );
 
 wire [22:0] bpi_ad_out_i;
@@ -68,7 +68,6 @@ wire rs1_out;
 wire fcs,foe,fwe,flatch_addr;
 wire capture;
 wire [15:0] leds_out;
-wire clk100k;
 wire q15;
  
 reg [63:0] ram0 [31:0];
@@ -86,7 +85,6 @@ wire nxt_adr;
 wire stop;
 wire clear;
 
-assign CLK100KHZ = clk100k;
 assign TIMEROUT = timer[2:0];
 
 initial begin
@@ -329,7 +327,7 @@ endgenerate
 
    SRLC16E #(.INIT(16'hFFFF)) // 1MHz clock divided by 10, 100KHz clock 10. uSec period.
 	SRLC16E_clk100k_inst (
-      .Q(clk100k),     // SRL data output
+      .Q(CLK100KHZ),     // SRL data output
       .Q15(q15), // SRL cascade output pin
       .A0(1'b0),     // Select[0] input (output at 5 clocks)
       .A1(1'b0),     // Select[1] input
@@ -337,11 +335,11 @@ endgenerate
       .A3(1'b0),     // Select[3] input
       .CE(1'b1),   // Clock enable input
       .CLK(CLK1MHZ), // Clock input
-      .D(~clk100k)      // SRL data input
+      .D(~CLK100KHZ)      // SRL data input
    );
 
 
-always @(posedge clk100k or posedge rst_timer) begin
+always @(posedge CLK100KHZ or posedge rst_timer) begin
 	if(rst_timer)
 		timer <= 16'h0000;
 	else

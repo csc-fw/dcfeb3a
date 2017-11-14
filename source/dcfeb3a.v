@@ -26,6 +26,7 @@ module dcfeb3a #(
 	parameter ADC_Init_tmo = 12'd1000, // 10ms
 	parameter TDIS_pulse_duration = 12'd4000, // 100us
 	parameter TDIS_on_Startup = 1,
+	parameter XDCFEB = 0,
 //	parameter Simulation = 1,
 //	parameter Strt_dly = 20'h00000,
 //	parameter POR_tmo = 7'd10,
@@ -507,6 +508,7 @@ endgenerate
 	wire comp_clk160;
 	wire [4:0] cmp_clk_phase;
 	wire [2:0] samp_clk_phase;
+	wire clk100khz;
 
 	wire trg_tx_pll_lock;
 	wire trg_mmcm_lock;
@@ -575,6 +577,7 @@ endgenerate
 		.CLK40(clk40),
 		.CLK20(clk20),
 		.CLK1MHZ(clk1mhz),
+		.CLK100KHZ(clk100khz),
       .ICAP_CLK(icap_clk),       // Clock Enabled 40MHz clock
 		.ADC_CLK(adc_clk),
 		.DSR_RESYNC(dsr_resync),
@@ -798,7 +801,6 @@ end
  //                                                                         //
  /////////////////////////////////////////////////////////////////////////////
 	wire [2:0] timer;
-	wire clk100khz;
 
 	 
    bpi_interface #(
@@ -808,6 +810,7 @@ end
 	bpi_intf1 (
 		.CLK(clk40),
 		.CLK1MHZ(clk1mhz), 
+		.CLK100KHZ(clk100khz),
 		.RST(sys_rst),
 	   .ADDR(bpi_addr),         //Bank/Array Address 
 	   .CMD_DATA_OUT(bpi_data_to), //Data being written to FLASH device
@@ -832,8 +835,7 @@ end
       .RS0(BPI_AD21_RS0),.RS1(BPI_AD22_RS1),
       .FCS_B(FCS_B),.FOE_B(FOE_B),.FWE_B(FWE_B),.FLATCH_B(FLATCH_B),
 		// diagnostic outputs for startup display
-		.TIMEROUT(timer), // to test point
-		.CLK100KHZ(clk100khz) // to test point
+		.TIMEROUT(timer) // to test point
 	);
  
 
@@ -1386,6 +1388,7 @@ wire trg_op_rst;
 daq_optical_out #(
 	.USE_CHIPSCOPE(USE_DAQ_CHIPSCOPE),
 	.SIM_SPEEDUP(Simulation),
+	.XDCFEB(xDCFEB),
 	.TMR(TMR),
 	.TMR_Err_Det(TMR_Err_Det)
 )
@@ -1587,6 +1590,7 @@ daq_optical_out_i (
 	
 	tmb_fiber_out #(
 		.SIM_SPEEDUP(Simulation),
+		.XDCFEB(xDCFEB),
 		.TMR(TMR)
 	)
 	tmb_fiber_out1 (
