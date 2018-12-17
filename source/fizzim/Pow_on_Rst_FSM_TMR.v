@@ -128,6 +128,8 @@ module Pow_on_Rst_FSM_TMR
 //      W4Qpll         :                                           nextstate_1 = W4SysClk;
       W4SysClk       : if      (MMCM_LOCK)                       nextstate_1 = Pow_on_Rst;
                        else                                      nextstate_1 = W4SysClk;
+//      W4SysClk       : if      (MMCM_LOCK || (voted_strtup_cnt_1 == Strt_dly))                       nextstate_1 = Pow_on_Rst;
+//                       else                                      nextstate_1 = W4SysClk;
     endcase
     case (voted_state_2)
       Idle           : if      (voted_strtup_cnt_2 == Strt_dly)  nextstate_2 = W4Qpll;
@@ -155,6 +157,8 @@ module Pow_on_Rst_FSM_TMR
 //      W4Qpll         :                                           nextstate_2 = W4SysClk;
       W4SysClk       : if      (MMCM_LOCK)                       nextstate_2 = Pow_on_Rst;
                        else                                      nextstate_2 = W4SysClk;
+//      W4SysClk       : if      (MMCM_LOCK || (voted_strtup_cnt_2 == Strt_dly))                       nextstate_2 = Pow_on_Rst;
+//                       else                                      nextstate_2 = W4SysClk;
     endcase
     case (voted_state_3)
       Idle           : if      (voted_strtup_cnt_3 == Strt_dly)  nextstate_3 = W4Qpll;
@@ -182,6 +186,8 @@ module Pow_on_Rst_FSM_TMR
 //      W4Qpll         :                                           nextstate_3 = W4SysClk;
       W4SysClk       : if      (MMCM_LOCK)                       nextstate_3 = Pow_on_Rst;
                        else                                      nextstate_3 = W4SysClk;
+//      W4SysClk       : if      (MMCM_LOCK || (voted_strtup_cnt_3 == Strt_dly))                       nextstate_3 = Pow_on_Rst;
+//                       else                                      nextstate_3 = W4SysClk;
     endcase
   end
 
@@ -278,6 +284,7 @@ module Pow_on_Rst_FSM_TMR
         W4SysClk       : begin
                                 ADC_INIT_RST_1 <= 1;
                                 POR_1 <= 1;
+//                                strtup_cnt_1 <= voted_strtup_cnt_1 + 1; //kludge to bypass mmcm_lock issue
         end
       endcase
       case (nextstate_2)
@@ -310,6 +317,7 @@ module Pow_on_Rst_FSM_TMR
         W4SysClk       : begin
                                 ADC_INIT_RST_2 <= 1;
                                 POR_2 <= 1;
+//                                strtup_cnt_2 <= voted_strtup_cnt_2 + 1; //kludge to bypass mmcm_lock issue
         end
       endcase
       case (nextstate_3)
@@ -342,6 +350,7 @@ module Pow_on_Rst_FSM_TMR
         W4SysClk       : begin
                                 ADC_INIT_RST_3 <= 1;
                                 POR_3 <= 1;
+//                                strtup_cnt_3 <= voted_strtup_cnt_3 + 1; //kludge to bypass mmcm_lock issue
         end
       endcase
     end

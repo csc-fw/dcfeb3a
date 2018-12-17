@@ -558,6 +558,7 @@ begin : RSTman_FSMs_TMR
 	DAQ_FIFO_Rst_FSM_i ( // reset all DAQ FIFOs on Resync
 		.DONE(daq_fifo_rst_done),
 		.FIFO_RST(DAQ_FIFO_RST),
+		.AL_RESTART(0),
 		.CLK(CLK),
 		.RST(RST_RESYNC) 
 	);
@@ -566,6 +567,7 @@ begin : RSTman_FSMs_TMR
 	BPI_FIFO_Rst_FSM_i ( // reset all BPI FIFOs on BPI_RST
 		.DONE(bpi_fifo_rst_done),
 		.FIFO_RST(BPI_FIFO_RST),
+		.AL_RESTART(0),
 		.CLK(CLK),
 		.RST(BPI_RST) 
 	);
@@ -574,6 +576,7 @@ begin : RSTman_FSMs_TMR
 	SLOW_FIFO_Rst_FSM_i ( // reset AUTO_LOAD FIFO
 		.DONE(slow_fifo_rst_done),
 		.FIFO_RST(SLOW_FIFO_RST),
+		.AL_RESTART(0),
 		.CLK(~CLK1MHZ),
 		.RST(SYS_RST) 
 	);
@@ -649,6 +652,7 @@ begin : RSTman_FSMs
 	DAQ_FIFO_Rst_FSM_i ( // reset all DAQ FIFOs on Resync
 		.DONE(daq_fifo_rst_done),
 		.FIFO_RST(DAQ_FIFO_RST),
+		.AL_RESTART(0),
 		.CLK(CLK),
 		.RST(RST_RESYNC) 
 	);
@@ -657,6 +661,7 @@ begin : RSTman_FSMs
 	BPI_FIFO_Rst_FSM_i ( // reset all BPI FIFOs on BPI_RST
 		.DONE(bpi_fifo_rst_done),
 		.FIFO_RST(BPI_FIFO_RST),
+		.AL_RESTART(0),
 		.CLK(CLK),
 		.RST(BPI_RST) 
 	);
@@ -665,6 +670,7 @@ begin : RSTman_FSMs
 	SLOW_FIFO_Rst_FSM_i ( // reset AUTO_LOAD FIFO
 		.DONE(slow_fifo_rst_done),
 		.FIFO_RST(SLOW_FIFO_RST),
+		.AL_RESTART(0),
 		.CLK(~CLK1MHZ),
 		.RST(SYS_RST) 
 	);

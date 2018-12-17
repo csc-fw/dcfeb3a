@@ -1,9 +1,10 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:09:08 at 14:40:57 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2018:07:20 at 14:35:15 (www.fizzim.com)
 
 module FIFO_Rst_FSM_TMR (
   output DONE,
   output FIFO_RST,
+  input AL_RESTART,
   input CLK,
   input RST 
 );
@@ -28,9 +29,11 @@ module FIFO_Rst_FSM_TMR (
   assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
   assign voted_state_3    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
 
+
   (* syn_keep = "true" *) reg [2:0] nextstate_1;
   (* syn_keep = "true" *) reg [2:0] nextstate_2;
   (* syn_keep = "true" *) reg [2:0] nextstate_3;
+
 
   (* syn_preserve = "true" *)  reg DONE_1;
   (* syn_preserve = "true" *)  reg DONE_2;
@@ -67,7 +70,8 @@ module FIFO_Rst_FSM_TMR (
                    else                        nextstate_1 = Pause;
       Reset_FIFOs: if (voted_hold_1 == 4'd10)  nextstate_1 = Pause;
                    else                        nextstate_1 = Reset_FIFOs;
-      Run        :                             nextstate_1 = Run;
+      Run        : if (AL_RESTART)             nextstate_1 = Clear;
+                   else                        nextstate_1 = Run;
     endcase
     case (voted_state_2)
       Idle       :                             nextstate_2 = Clear;
@@ -77,7 +81,8 @@ module FIFO_Rst_FSM_TMR (
                    else                        nextstate_2 = Pause;
       Reset_FIFOs: if (voted_hold_2 == 4'd10)  nextstate_2 = Pause;
                    else                        nextstate_2 = Reset_FIFOs;
-      Run        :                             nextstate_2 = Run;
+      Run        : if (AL_RESTART)             nextstate_2 = Clear;
+                   else                        nextstate_2 = Run;
     endcase
     case (voted_state_3)
       Idle       :                             nextstate_3 = Clear;
@@ -87,7 +92,8 @@ module FIFO_Rst_FSM_TMR (
                    else                        nextstate_3 = Pause;
       Reset_FIFOs: if (voted_hold_3 == 4'd10)  nextstate_3 = Pause;
                    else                        nextstate_3 = Reset_FIFOs;
-      Run        :                             nextstate_3 = Run;
+      Run        : if (AL_RESTART)             nextstate_3 = Clear;
+                   else                        nextstate_3 = Run;
     endcase
   end
 

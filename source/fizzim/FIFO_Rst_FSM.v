@@ -1,9 +1,10 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2014:09:08 at 14:41:10 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2018:07:20 at 14:32:56 (www.fizzim.com)
 
 module FIFO_Rst_FSM (
   output reg DONE,
   output reg FIFO_RST,
+  input AL_RESTART,
   input CLK,
   input RST 
 );
@@ -18,7 +19,9 @@ module FIFO_Rst_FSM (
 
   reg [2:0] state;
 
+
   reg [2:0] nextstate;
+
 
   reg [3:0] hold;
 
@@ -33,7 +36,8 @@ module FIFO_Rst_FSM (
                    else                nextstate = Pause;
       Reset_FIFOs: if (hold == 4'd10)  nextstate = Pause;
                    else                nextstate = Reset_FIFOs;
-      Run        :                     nextstate = Run;
+      Run        : if (AL_RESTART)     nextstate = Clear;
+                   else                nextstate = Run;
     endcase
   end
 

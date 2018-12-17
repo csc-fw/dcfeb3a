@@ -81,6 +81,23 @@
 //  62     | Comparator Clock Phase Reset (CMP_PHS_JTAG_RST),  Instruction only, (Auto reset)
 //  63     | Toggle transmit disable on DAQ optical transceiver
 //  64     | Toggle transmit disable on TRG optical transceiver
+//  65     | Enable  ECC for parameters storage in XCF08P PROM Set   the ECC flag. -- Instruction only, persisting  This is the default 
+//  66     | Disable ECC for parameters storage in XCF08P PROM Clear the ECC flag. -- Instruction only, persisting
+//  67     | Enable  CRC for parameters storage in XCF08P PROM Set   the CRC flag. -- Instruction only, persisting
+//  68     | Disable CRC for parameters storage in XCF08P PROM Clear the CRC flag. -- Instruction only, persisting  This is the default 
+//  69     | Enable  ECC Decoding for parameters readback of XCF08P PROM Set   the DECODE flag. -- Instruction only, persisting  This is the default 
+//  70     | Disable ECC Decoding for parameters readback of XCF08P PROM Clear the DECODE flag. -- Instruction only, persisting
+//  71     | Initiate transfer of parameters from XCF08P PROM to readback FIFO -- Instruction only,  (Auto reset)
+//  72     | Read word from XCF08P PROM readback FIFO (16 bits).
+//  73     | Enable  GBT Testing mode -- Instruction only, persisting 
+//  74     | Disable GBT Testing mode -- Instruction only, persisting  This is the default
+//  75     | Enable power to GBT -- Instruction only, persisting  This is the default 
+//  76     | Disable power to GBT -- Instruction only, persisting
+//  77     | Write Byte to I2C write FIFO (8 bits).
+//  78     | Read Byte from I2C readback FIFO (8 bits).
+//  79     | Read I2C status word from I2C interface (8 bits).
+//  80     | Reset I2C interface. -- Instruction only, (Auto reset)
+//  81     | Start I2C processing. -- Instruction only, persisting until new command or processing completed
 
 //
 // Revision: 
@@ -221,7 +238,7 @@ module jtag_access #(
 	wire mixclk;
 	
 
-	wire [67:0] f; //JTAG functions (one hot);
+	wire [95:0] f; //JTAG functions (one hot);
 	wire lxdlyout,prbout,dsy7,dmy2,dmy3,dmy4,dmy5,dmy6,dmy7,dmy8,dmy9,dmy10,dmy11,dmy12,dmy13,dmy14,dmy15,dmy16;
 	wire tdof2a3,tdof5,tdof6,tdof8,tdof9,tdofa,tdofc,tdofe,tdof10,tdof11,tdof14,tdof15;
 	wire tdof16,tdof17,tdof18,tdof1c,tdof1d,tdof1e,tdof1f,tdof24,tdof25,tdof27,tdof2c,tdof2d,tdof31;
