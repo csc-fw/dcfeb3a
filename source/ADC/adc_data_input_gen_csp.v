@@ -96,7 +96,6 @@ module adc_data_input_gen_csp #(
     input G6LCLK1N,
     input G6LCLK1P,
 	 // Clocks and Resets
-	 input CLK20,
 	 input RST,
 	 input SYS_RST,
 	 input DSR_RESYNC,
@@ -214,29 +213,10 @@ module adc_data_input_gen_csp #(
   IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_G5LCLK1 (.O(lclk[5][1]),.I(G5LCLK1P),.IB(G5LCLK1N));
 
   IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_G6ADCLK0 (.O(adclk[6][0]),.I(G6ADCLK0P),.IB(G6ADCLK0N));
-//  IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_G6ADCLK1 (.O(adclk[6][1]),.I(G6ADCLK1P),.IB(G6ADCLK1N));
+  IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_G6ADCLK1 (.O(adclk[6][1]),.I(G6ADCLK1P),.IB(G6ADCLK1N));
   IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_G6LCLK0 (.O(lclk[6][0]),.I(G6LCLK0P),.IB(G6LCLK0N));
   IBUFGDS #(.DIFF_TERM("TRUE"),.IOSTANDARD("DEFAULT")) IBUFGDS_G6LCLK1 (.O(lclk[6][1]),.I(G6LCLK1P),.IB(G6LCLK1N));
 
-// Diagnostic test for board xDCFEB344 
-
-reg [7:0] g61_p, g61_n;
-
-   OBUF #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_G6ADCLK1N (.O(G6ADCLK1P),.I(g61_p[7]));
-   OBUF #(.DRIVE(12),.IOSTANDARD("DEFAULT"),.SLEW("SLOW")) OBUF_G6ADCLK1P (.O(G6ADCLK1N),.I(g61_n[7]));
-	
-	assign adclk[6][1] = CLK20;
-	always @(posedge CLK20 or posedge SYS_RST) begin
-		if(SYS_RST) begin
-			g61_p <= 8'b01010001;
-			g61_n <= 8'b10101110;
-		end
-		else begin
-			g61_p <= {g61_p[6:0],g61_p[7]};
-			g61_n <= {g61_n[6:0],g61_n[7]};
-		end
-	end
-//
 
 generate
 if(USE_CHIPSCOPE==1) 
