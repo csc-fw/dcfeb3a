@@ -123,6 +123,16 @@ begin : Cal_logic_TMR
 	assign vt_injplscnt_r_1     = (injplscnt_r_1  & injplscnt_r_2 ) | (injplscnt_r_2  & injplscnt_r_3 ) | (injplscnt_r_1  & injplscnt_r_3 ); // Majority logic
 	assign vt_extplscnt_r_1     = (extplscnt_r_1  & extplscnt_r_2 ) | (extplscnt_r_2  & extplscnt_r_3 ) | (extplscnt_r_1  & extplscnt_r_3 ); // Majority logic
 
+	assign vt_ext_pulse_r1_2    = (ext_pulse_r1_1 & ext_pulse_r1_2) | (ext_pulse_r1_2 & ext_pulse_r1_3) | (ext_pulse_r1_1 & ext_pulse_r1_3); // Majority logic
+	assign vt_inj_pulse_r1_2    = (inj_pulse_r1_1 & inj_pulse_r1_2) | (inj_pulse_r1_2 & inj_pulse_r1_3) | (inj_pulse_r1_1 & inj_pulse_r1_3); // Majority logic
+	assign vt_injplscnt_r_2     = (injplscnt_r_1  & injplscnt_r_2 ) | (injplscnt_r_2  & injplscnt_r_3 ) | (injplscnt_r_1  & injplscnt_r_3 ); // Majority logic
+	assign vt_extplscnt_r_2     = (extplscnt_r_1  & extplscnt_r_2 ) | (extplscnt_r_2  & extplscnt_r_3 ) | (extplscnt_r_1  & extplscnt_r_3 ); // Majority logic
+
+	assign vt_ext_pulse_r1_3    = (ext_pulse_r1_1 & ext_pulse_r1_2) | (ext_pulse_r1_2 & ext_pulse_r1_3) | (ext_pulse_r1_1 & ext_pulse_r1_3); // Majority logic
+	assign vt_inj_pulse_r1_3    = (inj_pulse_r1_1 & inj_pulse_r1_2) | (inj_pulse_r1_2 & inj_pulse_r1_3) | (inj_pulse_r1_1 & inj_pulse_r1_3); // Majority logic
+	assign vt_injplscnt_r_3     = (injplscnt_r_1  & injplscnt_r_2 ) | (injplscnt_r_2  & injplscnt_r_3 ) | (injplscnt_r_1  & injplscnt_r_3 ); // Majority logic
+	assign vt_extplscnt_r_3     = (extplscnt_r_1  & extplscnt_r_2 ) | (extplscnt_r_2  & extplscnt_r_3 ) | (extplscnt_r_1  & extplscnt_r_3 ); // Majority logic
+
 	assign INJPLSCNT = vt_injplscnt_r_1;
 	assign EXTPLSCNT = vt_extplscnt_r_1;
 	
