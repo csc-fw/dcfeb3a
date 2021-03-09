@@ -325,19 +325,6 @@ generate
 	end
 endgenerate
 
-   SRLC16E #(.INIT(16'hFFFF)) // 1MHz clock divided by 10, 100KHz clock 10. uSec period.
-	SRLC16E_clk100k_inst (
-      .Q(CLK100KHZ),     // SRL data output
-      .Q15(q15), // SRL cascade output pin
-      .A0(1'b0),     // Select[0] input (output at 5 clocks)
-      .A1(1'b0),     // Select[1] input
-      .A2(1'b1),     // Select[2] input
-      .A3(1'b0),     // Select[3] input
-      .CE(1'b1),   // Clock enable input
-      .CLK(CLK1MHZ), // Clock input
-      .D(~CLK100KHZ)      // SRL data input
-   );
-
 
 always @(posedge CLK100KHZ or posedge rst_timer) begin
 	if(rst_timer)
