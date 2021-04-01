@@ -49,7 +49,7 @@ module al_cdac_sim_tf;
 		.SHCK_ENA(SHCK_ENA), 
 		.SDATA(SDATA), 
 		.DAC_ENB(DAC_ENB), 
-		.DONE(DONE)
+		.CDAC_DONE(DONE)
 	);
 
 
@@ -73,11 +73,15 @@ module al_cdac_sim_tf;
 		RST = 1;
 		CLR_AL_DONE = 0;
 		CAPTURE = 0;
-		BPI_AL_REG = 16'h8001;
+		BPI_AL_REG = 16'hFDB;
 
 		// Wait 100 ns for global reset to finish
 		#120;
 		#1 // offset transitions
+		#(5*CMS_PERIOD);
+		RST = 0;
+		#(1*CMS_PERIOD);
+		RST = 1;
 		#(5*CMS_PERIOD);
 		RST = 0;
 		#(5*CMS_PERIOD);

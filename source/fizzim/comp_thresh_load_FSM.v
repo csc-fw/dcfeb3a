@@ -4,6 +4,8 @@
 module comp_thresh_load_FSM (
   output reg SET_DONE,
   output reg SHFT_ENA,
+//  output reg [1:0] state,
+//  output reg [3:0] scnt,
   input CLK,
   input RST,
   input START 
@@ -61,7 +63,10 @@ module comp_thresh_load_FSM (
       scnt <= scnt; // default
       case (nextstate)
         Pload   :        scnt <= 4'hF;
-        Set_Done:        SET_DONE <= 1;
+        Set_Done: begin
+								 SET_DONE <= 1;
+								 scnt <= 4'h0;
+		  end
         Shift   : begin
                          SHFT_ENA <= 1;
                          scnt <= scnt + 1;

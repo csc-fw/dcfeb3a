@@ -4,6 +4,8 @@
 module comp_thresh_load_FSM_TMR (
   output SET_DONE,
   output SHFT_ENA,
+//  output [1:0] state,
+//  output [3:0] scnt,
   input CLK,
   input RST,
   input START 
@@ -15,6 +17,8 @@ module comp_thresh_load_FSM_TMR (
   Pload    = 2'b01, 
   Set_Done = 2'b10, 
   Shift    = 2'b11; 
+//  assign state = voted_state_1;
+//  assign scnt = voted_scnt_1;
 
   (* syn_preserve = "true" *) reg [1:0] state_1;
   (* syn_preserve = "true" *) reg [1:0] state_2;
@@ -131,7 +135,10 @@ module comp_thresh_load_FSM_TMR (
       scnt_3 <= voted_scnt_3; // default
       case (nextstate_1)
         Pload   :        scnt_1 <= 4'hF;
-        Set_Done:        SET_DONE_1 <= 1;
+        Set_Done:  begin
+								 SET_DONE_1 <= 1;
+								 scnt_1 <= 4'h0;
+		  end
         Shift   : begin
                          SHFT_ENA_1 <= 1;
                          scnt_1 <= voted_scnt_1 + 1;
@@ -139,7 +146,10 @@ module comp_thresh_load_FSM_TMR (
       endcase
       case (nextstate_2)
         Pload   :        scnt_2 <= 4'hF;
-        Set_Done:        SET_DONE_2 <= 1;
+        Set_Done:  begin
+								 SET_DONE_2 <= 1;
+								 scnt_2 <= 4'h0;
+		  end
         Shift   : begin
                          SHFT_ENA_2 <= 1;
                          scnt_2 <= voted_scnt_2 + 1;
@@ -147,7 +157,10 @@ module comp_thresh_load_FSM_TMR (
       endcase
       case (nextstate_3)
         Pload   :        scnt_3 <= 4'hF;
-        Set_Done:        SET_DONE_3 <= 1;
+        Set_Done:  begin
+								 SET_DONE_3 <= 1;
+								 scnt_3 <= 4'h0;
+		  end
         Shift   : begin
                          SHFT_ENA_3 <= 1;
                          scnt_3 <= voted_scnt_3 + 1;

@@ -31,10 +31,18 @@ module al_cdac #(
     output SDATA,
     output DAC_ENB,
     output CDAC_DONE
+//	 output [18:0] al_cdac_dbg  // composite signals for logic analyzer
     );
 	 
 	 
 	wire set_done;
+	// temp la output
+//	wire cthld_load;
+//	wire [1:0] cthld_state;
+//	wire [3:0] cthld_scnt;
+//	wire [11:0] hold_data;
+//	assign al_cdac_dbg = {cthld_load,cthld_state,cthld_scnt,hold_data};
+	//
 
 generate
 if(TMR==1) 
@@ -136,6 +144,8 @@ begin : CmpTh_FSM_TMR
 	comp_thresh_load_FSM_i(
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
+//	  .state(cthld_state),
+//	  .scnt(cthld_scnt),
 	  .CLK(CLK1MHZ),
 	  .RST(RST),
 	  .START(vt_load_cthresh_1) 
@@ -194,6 +204,8 @@ begin : CmpTh_FSM
 	comp_thresh_load_FSM_i(
 	  .SET_DONE(set_done),
 	  .SHFT_ENA(SHCK_ENA),
+//	  .state(cthld_state),
+//	  .scnt(cthld_scnt),
 	  .CLK(CLK1MHZ),
 	  .RST(RST),
 	  .START(load_cthresh) 
@@ -203,6 +215,8 @@ begin : CmpTh_FSM
 	assign DAC_ENB = load_cthresh;
 	assign SDATA = cth_shft[15];
 	assign le_load_cthresh   = load_cthresh & ~load_cthresh_r1;
+//	assign hold_data = cthresh_hold;
+//	assign cthld_load = le_load_cthresh;
 
 end
 endgenerate

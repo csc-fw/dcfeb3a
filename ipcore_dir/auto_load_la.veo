@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2017 Xilinx, Inc.
+// Copyright (c) 2021 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : auto_load_la.veo
-// /___/   /\     Timestamp  : Thu Jan 12 15:30:37 Eastern Standard Time 2017
+// /___/   /\     Timestamp  : Tue Mar 30 10:02:36 Eastern Daylight Time 2021
 // \   \  /  \
 //  \___\/\___\
 //
@@ -23,7 +23,7 @@
 auto_load_la YourInstanceName (
     .CONTROL(CONTROL), // INOUT BUS [35:0]
     .CLK(CLK), // IN
-    .DATA(DATA), // IN BUS [64:0]
+    .DATA(DATA), // IN BUS [85:0]
     .TRIG0(TRIG0) // IN BUS [7:0]
 );
 

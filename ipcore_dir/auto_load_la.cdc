@@ -1,5 +1,5 @@
 #ChipScope Core Generator Project File Version 3.0
-#Thu Jan 12 15:30:37 Eastern Standard Time 2017
+#Tue Mar 30 10:02:37 Eastern Daylight Time 2021
 SignalExport.clockChannel=CLK
 SignalExport.dataChannel<0000>=DATA[0]
 SignalExport.dataChannel<0001>=DATA[1]
@@ -66,8 +66,29 @@ SignalExport.dataChannel<0061>=DATA[61]
 SignalExport.dataChannel<0062>=DATA[62]
 SignalExport.dataChannel<0063>=DATA[63]
 SignalExport.dataChannel<0064>=DATA[64]
+SignalExport.dataChannel<0065>=DATA[65]
+SignalExport.dataChannel<0066>=DATA[66]
+SignalExport.dataChannel<0067>=DATA[67]
+SignalExport.dataChannel<0068>=DATA[68]
+SignalExport.dataChannel<0069>=DATA[69]
+SignalExport.dataChannel<0070>=DATA[70]
+SignalExport.dataChannel<0071>=DATA[71]
+SignalExport.dataChannel<0072>=DATA[72]
+SignalExport.dataChannel<0073>=DATA[73]
+SignalExport.dataChannel<0074>=DATA[74]
+SignalExport.dataChannel<0075>=DATA[75]
+SignalExport.dataChannel<0076>=DATA[76]
+SignalExport.dataChannel<0077>=DATA[77]
+SignalExport.dataChannel<0078>=DATA[78]
+SignalExport.dataChannel<0079>=DATA[79]
+SignalExport.dataChannel<0080>=DATA[80]
+SignalExport.dataChannel<0081>=DATA[81]
+SignalExport.dataChannel<0082>=DATA[82]
+SignalExport.dataChannel<0083>=DATA[83]
+SignalExport.dataChannel<0084>=DATA[84]
+SignalExport.dataChannel<0085>=DATA[85]
 SignalExport.dataEqualsTrigger=false
-SignalExport.dataPortWidth=65
+SignalExport.dataPortWidth=86
 SignalExport.triggerChannel<0000><0000>=TRIG0[0]
 SignalExport.triggerChannel<0000><0001>=TRIG0[1]
 SignalExport.triggerChannel<0000><0002>=TRIG0[2]

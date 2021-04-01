@@ -26,6 +26,7 @@ module auto_load_const #(
 (
 	inout [35:0] VIO_CNTRL,
 	inout [35:0] LA_CNTRL,
+	input [20:0] debug_sigs,
     input CLK,
     input RST,
     input BUSY,
@@ -47,6 +48,17 @@ module auto_load_const #(
 
 localparam Read_Array_Cmd = 16'h00FF;
 
+	// temp la output
+	wire al_cth_sdata;
+	wire al_cth_shck;
+	wire cthld_load;
+	wire [1:0] cthld_state;
+	wire [3:0] cthld_scnt;
+	wire [11:0] hold_data;
+	assign {al_cth_sdata, al_cth_shck, cthld_load, cthld_state, cthld_scnt, hold_data} = debug_sigs;
+   //
+
+
 wire [22:0] base_addr;
 wire [2:0] al_blk;
 wire [1:0] al_pblk;
@@ -64,7 +76,7 @@ begin : chipscope_auto_load
 //wire [59:0]  al_vio_async_out;
 wire [31:0] al_vio_sync_in;
 wire [3:0]  al_vio_sync_out;
-wire [64:0] al_la_data;
+wire [85:0] al_la_data;
 wire [7:0] al_la_trig;
 
 //wire [3:0] dummy_asigs;
@@ -123,7 +135,13 @@ auto_load_la auto_load_la_i (
 	assign al_la_data[62]      = al_completed;
 	assign al_la_data[63]      = BPI_LOAD_DATA;
 	assign al_la_data[64]      = AUTO_LOAD;
-	
+//
+	assign al_la_data[76:65]    = hold_data;
+	assign al_la_data[80:77]   = cthld_scnt;
+	assign al_la_data[82:81]   = cthld_state;
+	assign al_la_data[83]      = cthld_load;
+	assign al_la_data[84]      = al_cth_shck;
+	assign al_la_data[85]      = al_cth_sdata;
 
 // LA Trigger [7:0]
 	assign al_la_trig[0]       = AL_START;

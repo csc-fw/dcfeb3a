@@ -1,5 +1,5 @@
 The following files were generated for 'CSP_auto_load_cntrl' in directory
-C:\Users\bylsma\Projects\DCFEB\firmware\ISE_14.7\dcfeb3a\ipcore_dir\
+C:\ISE_core_gen\ipcore_dir\
 
 XCO file generator:
    Generate an XCO file for compatibility with legacy flows.

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="CSP_auto_load_cntrl">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2017-1-12T20:23:34</timestamp>
+    <timestamp>2021-3-31T15:7:58</timestamp>
     <pin polarity="Output" x="576" y="112" name="control0[35:0]" />
     <pin polarity="Output" x="576" y="144" name="control1[35:0]" />
     <graph>

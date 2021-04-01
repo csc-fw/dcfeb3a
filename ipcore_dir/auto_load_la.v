@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2017 Xilinx, Inc.
+// Copyright (c) 2021 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : auto_load_la.v
-// /___/   /\     Timestamp  : Thu Jan 12 15:30:37 Eastern Standard Time 2017
+// /___/   /\     Timestamp  : Tue Mar 30 10:02:36 Eastern Daylight Time 2021
 // \   \  /  \
 //  \___\/\___\
 //
@@ -27,7 +27,7 @@ module auto_load_la(
 
 inout [35 : 0] CONTROL;
 input CLK;
-input [64 : 0] DATA;
+input [85 : 0] DATA;
 input [7 : 0] TRIG0;
 
 endmodule
