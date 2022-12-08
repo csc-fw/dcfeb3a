@@ -176,7 +176,9 @@ else
 begin : Cal_logic
 
 	reg ext_pulse_r1;
+	reg ext_pulse_r2;
 	reg inj_pulse_r1;
+	reg inj_pulse_r2;
 	reg [11:0] injplscnt_r;
 	reg [11:0] extplscnt_r;
 	
@@ -186,12 +188,14 @@ begin : Cal_logic
 	assign INJPLSCNT = injplscnt_r;
 	assign EXTPLSCNT = extplscnt_r;
 	
-	assign inc_ext = ext_pulse & ~ext_pulse_r1;
-	assign inc_inj = inj_pulse & ~inj_pulse_r1;
+	assign inc_ext = ext_pulse_r1 & ~ext_pulse_r2;
+	assign inc_inj = inj_pulse_r1 & ~inj_pulse_r2;
 
 	always @(posedge CLK40) begin
 		ext_pulse_r1 <= ext_pulse;
+		ext_pulse_r2 <= ext_pulse_r1;
 		inj_pulse_r1 <= inj_pulse;
+		inj_pulse_r2 <= inj_pulse_r1;
 	end
 	
 	always @(posedge CLK40 or posedge RST_RESYNC) begin
