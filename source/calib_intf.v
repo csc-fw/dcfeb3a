@@ -88,9 +88,15 @@ begin : Cal_logic_TMR
 	(* syn_preserve = "true" *) reg ext_pulse_r1_1;
 	(* syn_preserve = "true" *) reg ext_pulse_r1_2;
 	(* syn_preserve = "true" *) reg ext_pulse_r1_3;
+	(* syn_preserve = "true" *) reg ext_pulse_r2_1;
+	(* syn_preserve = "true" *) reg ext_pulse_r2_2;
+	(* syn_preserve = "true" *) reg ext_pulse_r2_3;
 	(* syn_preserve = "true" *) reg inj_pulse_r1_1;
 	(* syn_preserve = "true" *) reg inj_pulse_r1_2;
 	(* syn_preserve = "true" *) reg inj_pulse_r1_3;
+	(* syn_preserve = "true" *) reg inj_pulse_r2_1;
+	(* syn_preserve = "true" *) reg inj_pulse_r2_2;
+	(* syn_preserve = "true" *) reg inj_pulse_r2_3;
 	(* syn_preserve = "true" *) reg [11:0] injplscnt_r_1;
 	(* syn_preserve = "true" *) reg [11:0] injplscnt_r_2;
 	(* syn_preserve = "true" *) reg [11:0] injplscnt_r_3;
@@ -101,9 +107,15 @@ begin : Cal_logic_TMR
 	(* syn_keep = "true" *) wire vt_ext_pulse_r1_1;
 	(* syn_keep = "true" *) wire vt_ext_pulse_r1_2;
 	(* syn_keep = "true" *) wire vt_ext_pulse_r1_3;
+	(* syn_keep = "true" *) wire vt_ext_pulse_r2_1;
+	(* syn_keep = "true" *) wire vt_ext_pulse_r2_2;
+	(* syn_keep = "true" *) wire vt_ext_pulse_r2_3;
 	(* syn_keep = "true" *) wire vt_inj_pulse_r1_1;
 	(* syn_keep = "true" *) wire vt_inj_pulse_r1_2;
 	(* syn_keep = "true" *) wire vt_inj_pulse_r1_3;
+	(* syn_keep = "true" *) wire vt_inj_pulse_r2_1;
+	(* syn_keep = "true" *) wire vt_inj_pulse_r2_2;
+	(* syn_keep = "true" *) wire vt_inj_pulse_r2_3;
 	(* syn_keep = "true" *) wire [11:0] vt_injplscnt_r_1;
 	(* syn_keep = "true" *) wire [11:0] vt_injplscnt_r_2;
 	(* syn_keep = "true" *) wire [11:0] vt_injplscnt_r_3;
@@ -119,37 +131,49 @@ begin : Cal_logic_TMR
 	(* syn_keep = "true" *) wire inc_inj_3;
 
 	assign vt_ext_pulse_r1_1    = (ext_pulse_r1_1 & ext_pulse_r1_2) | (ext_pulse_r1_2 & ext_pulse_r1_3) | (ext_pulse_r1_1 & ext_pulse_r1_3); // Majority logic
+	assign vt_ext_pulse_r2_1    = (ext_pulse_r2_1 & ext_pulse_r2_2) | (ext_pulse_r2_2 & ext_pulse_r2_3) | (ext_pulse_r2_1 & ext_pulse_r2_3); // Majority logic
 	assign vt_inj_pulse_r1_1    = (inj_pulse_r1_1 & inj_pulse_r1_2) | (inj_pulse_r1_2 & inj_pulse_r1_3) | (inj_pulse_r1_1 & inj_pulse_r1_3); // Majority logic
+	assign vt_inj_pulse_r2_1    = (inj_pulse_r2_1 & inj_pulse_r2_2) | (inj_pulse_r2_2 & inj_pulse_r2_3) | (inj_pulse_r2_1 & inj_pulse_r2_3); // Majority logic
 	assign vt_injplscnt_r_1     = (injplscnt_r_1  & injplscnt_r_2 ) | (injplscnt_r_2  & injplscnt_r_3 ) | (injplscnt_r_1  & injplscnt_r_3 ); // Majority logic
 	assign vt_extplscnt_r_1     = (extplscnt_r_1  & extplscnt_r_2 ) | (extplscnt_r_2  & extplscnt_r_3 ) | (extplscnt_r_1  & extplscnt_r_3 ); // Majority logic
 
 	assign vt_ext_pulse_r1_2    = (ext_pulse_r1_1 & ext_pulse_r1_2) | (ext_pulse_r1_2 & ext_pulse_r1_3) | (ext_pulse_r1_1 & ext_pulse_r1_3); // Majority logic
+	assign vt_ext_pulse_r2_2    = (ext_pulse_r2_1 & ext_pulse_r2_2) | (ext_pulse_r2_2 & ext_pulse_r2_3) | (ext_pulse_r2_1 & ext_pulse_r2_3); // Majority logic
 	assign vt_inj_pulse_r1_2    = (inj_pulse_r1_1 & inj_pulse_r1_2) | (inj_pulse_r1_2 & inj_pulse_r1_3) | (inj_pulse_r1_1 & inj_pulse_r1_3); // Majority logic
+	assign vt_inj_pulse_r2_2    = (inj_pulse_r2_1 & inj_pulse_r2_2) | (inj_pulse_r2_2 & inj_pulse_r2_3) | (inj_pulse_r2_1 & inj_pulse_r2_3); // Majority logic
 	assign vt_injplscnt_r_2     = (injplscnt_r_1  & injplscnt_r_2 ) | (injplscnt_r_2  & injplscnt_r_3 ) | (injplscnt_r_1  & injplscnt_r_3 ); // Majority logic
 	assign vt_extplscnt_r_2     = (extplscnt_r_1  & extplscnt_r_2 ) | (extplscnt_r_2  & extplscnt_r_3 ) | (extplscnt_r_1  & extplscnt_r_3 ); // Majority logic
 
 	assign vt_ext_pulse_r1_3    = (ext_pulse_r1_1 & ext_pulse_r1_2) | (ext_pulse_r1_2 & ext_pulse_r1_3) | (ext_pulse_r1_1 & ext_pulse_r1_3); // Majority logic
+	assign vt_ext_pulse_r2_3    = (ext_pulse_r2_1 & ext_pulse_r2_2) | (ext_pulse_r2_2 & ext_pulse_r2_3) | (ext_pulse_r2_1 & ext_pulse_r2_3); // Majority logic
 	assign vt_inj_pulse_r1_3    = (inj_pulse_r1_1 & inj_pulse_r1_2) | (inj_pulse_r1_2 & inj_pulse_r1_3) | (inj_pulse_r1_1 & inj_pulse_r1_3); // Majority logic
+	assign vt_inj_pulse_r2_3    = (inj_pulse_r2_1 & inj_pulse_r2_2) | (inj_pulse_r2_2 & inj_pulse_r2_3) | (inj_pulse_r2_1 & inj_pulse_r2_3); // Majority logic
 	assign vt_injplscnt_r_3     = (injplscnt_r_1  & injplscnt_r_2 ) | (injplscnt_r_2  & injplscnt_r_3 ) | (injplscnt_r_1  & injplscnt_r_3 ); // Majority logic
 	assign vt_extplscnt_r_3     = (extplscnt_r_1  & extplscnt_r_2 ) | (extplscnt_r_2  & extplscnt_r_3 ) | (extplscnt_r_1  & extplscnt_r_3 ); // Majority logic
 
 	assign INJPLSCNT = vt_injplscnt_r_1;
 	assign EXTPLSCNT = vt_extplscnt_r_1;
 	
-	assign inc_ext_1 = ext_pulse & ~vt_ext_pulse_r1_1;
-	assign inc_ext_2 = ext_pulse & ~vt_ext_pulse_r1_2;
-	assign inc_ext_3 = ext_pulse & ~vt_ext_pulse_r1_3;
-	assign inc_inj_1 = inj_pulse & ~vt_inj_pulse_r1_1;
-	assign inc_inj_2 = inj_pulse & ~vt_inj_pulse_r1_2;
-	assign inc_inj_3 = inj_pulse & ~vt_inj_pulse_r1_3;
+	assign inc_ext_1 = vt_ext_pulse_r1_1 & ~vt_ext_pulse_r2_1;
+	assign inc_ext_2 = vt_ext_pulse_r1_2 & ~vt_ext_pulse_r2_2;
+	assign inc_ext_3 = vt_ext_pulse_r1_3 & ~vt_ext_pulse_r2_3;
+	assign inc_inj_1 = vt_inj_pulse_r1_1 & ~vt_inj_pulse_r2_1;
+	assign inc_inj_2 = vt_inj_pulse_r1_2 & ~vt_inj_pulse_r2_2;
+	assign inc_inj_3 = vt_inj_pulse_r1_3 & ~vt_inj_pulse_r2_3;
 
 	always @(posedge CLK40) begin
 		ext_pulse_r1_1 <= ext_pulse;
 		ext_pulse_r1_2 <= ext_pulse;
 		ext_pulse_r1_3 <= ext_pulse;
+		ext_pulse_r2_1 <= vt_ext_pulse_r1_1;
+		ext_pulse_r2_2 <= vt_ext_pulse_r1_2;
+		ext_pulse_r2_3 <= vt_ext_pulse_r1_3;
 		inj_pulse_r1_1 <= inj_pulse;
 		inj_pulse_r1_2 <= inj_pulse;
 		inj_pulse_r1_3 <= inj_pulse;
+		inj_pulse_r2_1 <= vt_inj_pulse_r1_1;
+		inj_pulse_r2_2 <= vt_inj_pulse_r1_2;
+		inj_pulse_r2_3 <= vt_inj_pulse_r1_3;
 	end
 	
 	always @(posedge CLK40 or posedge RST_RESYNC) begin
