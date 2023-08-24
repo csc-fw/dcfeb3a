@@ -1,13 +1,14 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2021:03:08 at 16:51:24 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2023:08:23 at 13:25:08 (www.fizzim.com)
 
 module ChnLnk_Frame_SampMax_FSM (
   output reg CLR_CRC,
+  output reg HDR,
   output reg LAST_WRD,
   output reg RD,
   output reg [6:0] SEQ,
   output reg VALID,
-  output wire [2:0] FRM_STATE,
+  output wire [3:0] FRM_STATE,
   input CLK,
   input F_MT,
   input L1A_BUF_MT,
@@ -17,20 +18,21 @@ module ChnLnk_Frame_SampMax_FSM (
 
   // state bits
   parameter 
-  Idle        = 3'b000, 
-  Inc_Samp    = 3'b001, 
-  Last_Word   = 3'b010, 
-  Read        = 3'b011, 
-  Strt_Sample = 3'b100, 
-  Tail        = 3'b101, 
-  Tail_End    = 3'b110, 
-  W4Data      = 3'b111; 
+  Idle        = 4'b0000, 
+  Inc_Samp    = 4'b0001, 
+  Last_Word   = 4'b0010, 
+  Read        = 4'b0011, 
+  Snd_Hdr     = 4'b0100, 
+  Strt_Sample = 4'b0101, 
+  Tail        = 4'b0110, 
+  Tail_End    = 4'b0111, 
+  W4Data      = 4'b1000; 
 
-  reg [2:0] state;
+  reg [3:0] state;
 
   assign FRM_STATE = state;
 
-  reg [2:0] nextstate;
+  reg [3:0] nextstate;
 
 
   reg [6:0] seqn;
@@ -38,15 +40,17 @@ module ChnLnk_Frame_SampMax_FSM (
 
   // comb always block
   always @* begin
-    nextstate = 3'bxxx; // default to x because default_state_is_x is set
+    nextstate = 4'bxxxx; // default to x because default_state_is_x is set
     SEQ = seqn; // default
     case (state)
-      Idle       : if (!L1A_BUF_MT)      nextstate = W4Data;
+      Idle       : if (!L1A_BUF_MT)      nextstate = Snd_Hdr;
                    else                  nextstate = Idle;
       Inc_Samp   :                       nextstate = W4Data;
       Last_Word  :                       nextstate = Idle;
       Read       : if (seqn == 7'd95)    nextstate = Tail;
                    else                  nextstate = Read;
+      Snd_Hdr    : if (seqn == 7'd3)     nextstate = W4Data;
+                   else                  nextstate = Snd_Hdr;
       Strt_Sample:                       nextstate = Read;
       Tail       : if (seqn == 7'd98)    nextstate = Tail_End;
                    else                  nextstate = Tail;
@@ -71,25 +75,35 @@ module ChnLnk_Frame_SampMax_FSM (
   always @(posedge CLK or posedge RST) begin
     if (RST) begin
       CLR_CRC <= 0;
+      HDR <= 0;
       LAST_WRD <= 0;
       RD <= 0;
       VALID <= 0;
-      seqn <= 7'h00;
+      seqn <= 7'h7f;
       smp <= 7'h00;
     end
     else begin
       CLR_CRC <= 0; // default
+      HDR <= 0; // default
       LAST_WRD <= 0; // default
       RD <= 0; // default
       VALID <= 0; // default
       seqn <= 7'h00; // default
       smp <= smp; // default
       case (nextstate)
-        Idle       :        smp <= 7'h00;
+        Idle       : begin
+                            seqn <= 7'h7f;
+                            smp <= 7'h00;
+        end
         Inc_Samp   :        smp <= smp + 1;
         Last_Word  :        LAST_WRD <= 1;
         Read       : begin
                             RD <= 1;
+                            VALID <= 1;
+                            seqn <= seqn + 1;
+        end
+        Snd_Hdr    : begin
+                            HDR <= 1;
                             VALID <= 1;
                             seqn <= seqn + 1;
         end
@@ -119,6 +133,7 @@ module ChnLnk_Frame_SampMax_FSM (
       Inc_Samp   : statename = "Inc_Samp";
       Last_Word  : statename = "Last_Word";
       Read       : statename = "Read";
+      Snd_Hdr    : statename = "Snd_Hdr";
       Strt_Sample: statename = "Strt_Sample";
       Tail       : statename = "Tail";
       Tail_End   : statename = "Tail_End";

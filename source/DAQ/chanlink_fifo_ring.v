@@ -92,6 +92,7 @@ wire clr_crc0;
 wire valid0;
 wire [6:0] seq;
 wire [2:0] frm_state;
+wire hdr;
 
 
 
@@ -116,7 +117,7 @@ begin : chipscope_rng_chn
 //
 // Logic analyzer for readout FIFO
 wire [146:0] chn_lnk_la_data;
-wire [3:0] chn_lnk_la_trig;
+wire [19:0] chn_lnk_la_trig;
 
 chnlnk_fifo_la chnlnk_fifo_la_i (
     .CONTROL(LA_CNTRL),
@@ -183,6 +184,7 @@ chnlnk_fifo_la chnlnk_fifo_la_i (
 	assign chn_lnk_la_trig[1]       = evt_buf_mt;
 	assign chn_lnk_la_trig[2]       = l1a_buf_mt;
 	assign chn_lnk_la_trig[3]       = TRIG_IN;
+	assign chn_lnk_la_trig[19:4]    = frame_i;
 	
 end
 else
@@ -622,6 +624,7 @@ begin : ClnkFrm_logic
 	reg dvalid_r;
 	reg [15:0] dout_r;
 	reg ovlp_mux_r;
+	reg ovlp_mux_r1;
 	reg last_wrd_r;
 	
 	reg ovlp_bit;
@@ -630,20 +633,30 @@ begin : ClnkFrm_logic
 	reg mlt_ovlp2;
 	reg [4:0] l1abuf;
 	reg nxt_l1a_r1;
+	reg nxt_l1a_r2;
 	reg nxt_l1a_sync1;
 	reg nxt_l1a_sync2;
 	reg [12:0] adcdata;
 	reg [14:0] crc;
 	reg [15:0] fullwrd;
+	reg [15:0] fullwrd1;
 	reg [15:0] frame;
 	reg [6:0] seq1;
+	reg [6:0] seq2;
 	reg clr_crc;
 	reg valid1;
 	reg valid2;
+	reg valid3;
 	reg mt_r1;
 	reg mt_r2;
 	reg mt_r3;
-
+	reg hdr_1_r;
+	reg hdr_2_r;
+////////////////////////////////////////////////	
+//Tentative 
+	reg [15:0] hdr_wrd;
+	reg [15:0] trl_wrd;
+////////////////////////////////////////////////	
 	reg serial;
 
 	wire l1a_out;
@@ -652,7 +665,7 @@ begin : ClnkFrm_logic
 	assign MLT_OVLP  = mlt_ovlp_r;
 	assign DVALID    = dvalid_r;
 	assign DOUT      = dout_r;
-	assign OVLP_MUX  = ovlp_mux_r;
+	assign OVLP_MUX  = ovlp_mux_r1;
 	assign LAST_WRD  = last_wrd_r;
 	assign l1a_out   = nxt_l1a_sync1 & ~nxt_l1a_sync2;
 	
@@ -693,19 +706,26 @@ begin : ClnkFrm_logic
 		mt_r3 <= mt_r2;
 		adcdata <= {1'b0,data_out};
 		fullwrd <= {1'b0,~ovrlp,serial,1'b0,data_out};
+		fullwrd1<= fullwrd;
 		ovlp_bit <= ovrlp;
 		clr_crc <= clr_crc0;
 		seq1    <= seq;
+		seq2	  <= seq1;
+		hdr_1_r <= hdr;
+		hdr_2_r <= hdr_1_r;
 		mlt_ovlp1  <= movlp;
 		mlt_ovlp2  <= mlt_ovlp1;
 		mlt_ovlp_r  <= mlt_ovlp2;
 		valid1    <= valid0;
 		valid2    <= valid1;
-		dvalid_r    <= valid2;
+		valid3    <= valid2;
+		dvalid_r  <= valid3;
 		dout_r      <= frame;
 		ovlp_mux_r  <= ~ovlp_frm;
+		ovlp_mux_r1 <= ovlp_mux_r;
 		nxt_l1a_r1 <= nxt_l1a;
-		last_wrd_r   <= nxt_l1a_r1;
+		nxt_l1a_r2   <= nxt_l1a_r1;
+		last_wrd_r   <= nxt_l1a_r2;
 	end
 	always @(posedge RCLK or posedge clr_crc) begin
 		if(clr_crc)
@@ -713,15 +733,47 @@ begin : ClnkFrm_logic
 		else
 			crc <= CRC15_D13(adcdata, crc);
 	end
-
+/*
 	always @(posedge RCLK) begin
-		case(seq1)
-			7'd96: frame <= {1'b0,crc};
-			7'd97: frame <= 16'h700C;
-			7'd98: frame <= {4'h7,l1anum[5:0],l1abuf,WARN};
-			7'd99: frame <= 16'h7FFF;
+		case({hdr_1_r,seq1})
+			{1'b1,7'd0}: frame <= 16'hc4b4;
+			{1'b1,7'd1}: frame <= {4'h0, l1anum[11:0]};
+			{1'b1,7'd2}: frame <= {4'h0, l1anum[23:12]};
+			{1'b1,7'd3}: frame <= 16'hc5b5;
+			{1'b0,7'd96}: frame <= {1'b0,crc};
+			{1'b0,7'd97}: frame <= 16'h700C;
+			{1'b0,7'd98}: frame <= {4'h7,l1anum[5:0],l1abuf,WARN};
+			{1'b0,7'd99}: frame <= 16'h7FFF;
 			default: frame <= fullwrd;
 		endcase
+*/
+////////////////////////////////////////////////////////////////
+//Tentative Modification By Derek
+
+	always @(posedge RCLK) begin
+		case({hdr_1_r,seq1})
+			{1'b1,7'd0}: hdr_wrd <= 16'hc4b4;
+			{1'b1,7'd1}: hdr_wrd <= {4'h0, l1anum[11:0]};
+			{1'b1,7'd2}: hdr_wrd <= {4'h0, l1anum[23:12]};
+			{1'b1,7'd3}: hdr_wrd <= 16'hc5b5;
+			default	  : hdr_wrd <= 16'h0000;
+		endcase
+		case({hdr_1_r,seq1})			
+			{1'b0,7'd96}: trl_wrd <= {1'b0,crc};
+			{1'b0,7'd97}: trl_wrd <= 16'h700C;
+			{1'b0,7'd98}: trl_wrd <= {4'h7,l1anum[5:0],l1abuf,WARN};
+			{1'b0,7'd99}: trl_wrd <= 16'h7FFF;
+			default     : trl_wrd <= 16'h0000;
+		endcase
+		if (hdr_2_r == 1)
+			frame <= hdr_wrd;
+		else
+			case(seq2)
+				7'd96,7'd97,7'd98,7'd99 : frame <= trl_wrd;
+				default: frame <= fullwrd1;
+			endcase	
+
+////////////////////////////////////////////////////////////////
 		case(seq1)
 			7'd96,7'd97,7'd98,7'd99: ovlp_frm <= ovlp_frm;
 			default: ovlp_frm <= ovlp_bit;
@@ -754,6 +806,7 @@ begin : ClnkFrm_FSM
 	ChnLnk_Frame_SampMax_FSM 
 	ChnLnk_Frame_SampMax_FSM_i (
 		.CLR_CRC(clr_crc0),
+		.HDR(hdr),
 		.LAST_WRD(nxt_l1a),
 		.RD(nxt_wrd),
 		.SEQ(seq),

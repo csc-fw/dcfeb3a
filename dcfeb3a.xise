@@ -1314,7 +1314,7 @@
   </properties>
 
   <bindings>
-    <binding xil_pn:location="/dcfeb3a" xil_pn:name="source/dcfeb3a.ucf"/>
+    <binding xil_pn:location="dcfeb3a" xil_pn:name="source/dcfeb3a.ucf"/>
   </bindings>
 
   <libraries/>
