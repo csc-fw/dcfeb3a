@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2014 Xilinx, Inc.
+// Copyright (c) 2023 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : chnlnk_fifo_la.v
-// /___/   /\     Timestamp  : Wed Jul 30 13:49:51 Eastern Daylight Time 2014
+// /___/   /\     Timestamp  : Mon Aug 21 15:55:49 EDT 2023
 // \   \  /  \
 //  \___\/\___\
 //
@@ -29,7 +29,7 @@ module chnlnk_fifo_la(
 inout [35 : 0] CONTROL;
 input CLK;
 input [146 : 0] DATA;
-input [3 : 0] TRIG0;
+input [19 : 0] TRIG0;
 output TRIG_OUT;
 
 endmodule

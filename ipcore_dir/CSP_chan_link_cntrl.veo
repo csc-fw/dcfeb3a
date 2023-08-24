@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2014 Xilinx, Inc.
+// Copyright (c) 2023 Xilinx, Inc.
 // All Rights Reserved
 ///////////////////////////////////////////////////////////////////////////////
 //   ____  ____
@@ -8,7 +8,7 @@
 // \   \   \/     Version    : 14.7
 //  \   \         Application: Xilinx CORE Generator
 //  /   /         Filename   : CSP_chan_link_cntrl.veo
-// /___/   /\     Timestamp  : Wed Jul 30 12:39:09 Eastern Daylight Time 2014
+// /___/   /\     Timestamp  : Thu Jul 27 12:40:48 EDT 2023
 // \   \  /  \
 //  \___\/\___\
 //

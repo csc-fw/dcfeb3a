@@ -7,17 +7,17 @@
 // \   \   \/     Version: P.20131013
 //  \   \         Application: netgen
 //  /   /         Filename: ch_fifo_ecc.v
-// /___/   /\     Timestamp: Tue Jun 24 13:50:19 2014
+// /___/   /\     Timestamp: Thu Apr 20 15:41:10 2023
 // \   \  /  \ 
 //  \___\/\___\
 //             
-// Command	: -w -sim -ofmt verilog C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/ch_fifo_ecc.ngc C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/ch_fifo_ecc.v 
+// Command	: -w -sim -ofmt verilog /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/ch_fifo_ecc.ngc /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/ch_fifo_ecc.v 
 // Device	: 6vlx130tff1156-1
-// Input file	: C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/ch_fifo_ecc.ngc
-// Output file	: C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/ch_fifo_ecc.v
+// Input file	: /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/ch_fifo_ecc.ngc
+// Output file	: /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/ch_fifo_ecc.v
 // # of Modules	: 2
 // Design Name	: ch_fifo_ecc
-// Xilinx        : C:\Xilinx\14.7\ISE_DS\ISE\
+// Xilinx        : /opt/Xilinx/14.7/ISE_DS/ISE/
 //             
 // Purpose:    
 //     This verilog netlist is a verification model and uses simulation 

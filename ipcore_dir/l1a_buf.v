@@ -7,17 +7,17 @@
 // \   \   \/     Version: P.20131013
 //  \   \         Application: netgen
 //  /   /         Filename: l1a_buf.v
-// /___/   /\     Timestamp: Tue Jun 24 13:59:05 2014
+// /___/   /\     Timestamp: Thu Apr 20 15:46:12 2023
 // \   \  /  \ 
 //  \___\/\___\
 //             
-// Command	: -w -sim -ofmt verilog C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/l1a_buf.ngc C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/l1a_buf.v 
+// Command	: -w -sim -ofmt verilog /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/l1a_buf.ngc /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/l1a_buf.v 
 // Device	: 6vlx130tff1156-1
-// Input file	: C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/l1a_buf.ngc
-// Output file	: C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/l1a_buf.v
+// Input file	: /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/l1a_buf.ngc
+// Output file	: /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/l1a_buf.v
 // # of Modules	: 2
 // Design Name	: l1a_buf
-// Xilinx        : C:\Xilinx\14.7\ISE_DS\ISE\
+// Xilinx        : /opt/Xilinx/14.7/ISE_DS/ISE/
 //             
 // Purpose:    
 //     This verilog netlist is a verification model and uses simulation 

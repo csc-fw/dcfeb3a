@@ -1,9 +1,9 @@
 # Output products list for <chnlnk_fifo_la>
-_xmsgs\pn_parser.xmsgs
+_xmsgs/pn_parser.xmsgs
 chnlnk_fifo_la.asy
 chnlnk_fifo_la.cdc
-chnlnk_fifo_la.constraints\chnlnk_fifo_la.ucf
-chnlnk_fifo_la.constraints\chnlnk_fifo_la.xdc
+chnlnk_fifo_la.constraints/chnlnk_fifo_la.ucf
+chnlnk_fifo_la.constraints/chnlnk_fifo_la.xdc
 chnlnk_fifo_la.gise
 chnlnk_fifo_la.ncf
 chnlnk_fifo_la.ngc

@@ -7,17 +7,17 @@
 // \   \   \/     Version: P.20131013
 //  \   \         Application: netgen
 //  /   /         Filename: BPI_FIFO.v
-// /___/   /\     Timestamp: Wed Sep 24 11:14:19 2014
+// /___/   /\     Timestamp: Fri Apr 21 15:26:00 2023
 // \   \  /  \ 
 //  \___\/\___\
 //             
-// Command	: -w -sim -ofmt verilog C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/BPI_FIFO.ngc C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/BPI_FIFO.v 
+// Command	: -w -sim -ofmt verilog /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/BPI_FIFO.ngc /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/BPI_FIFO.v 
 // Device	: 6vlx130tff1156-1
-// Input file	: C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/BPI_FIFO.ngc
-// Output file	: C:/Users/bylsma/Projects/DCFEB/firmware/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/BPI_FIFO.v
+// Input file	: /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/BPI_FIFO.ngc
+// Output file	: /home/firmware/Projects/DCFEB/ISE_14.7/dcfeb3a/ipcore_dir/tmp/_cg/BPI_FIFO.v
 // # of Modules	: 2
 // Design Name	: BPI_FIFO
-// Xilinx        : C:\Xilinx\14.7\ISE_DS\ISE\
+// Xilinx        : /opt/Xilinx/14.7/ISE_DS/ISE/
 //             
 // Purpose:    
 //     This verilog netlist is a verification model and uses simulation 
@@ -33,7 +33,7 @@
 
 `timescale 1 ns/1 ps
 
-module reset_builtin_BPI_FIFO (
+module reset_builtin (
   CLK, WR_CLK, RD_CLK, INT_CLK, RST, WR_RST_I, RD_RST_I, INT_RST_I
 )/* synthesis syn_black_box syn_noprune=1 */;
   input CLK;
@@ -652,7 +652,7 @@ module BPI_FIFO (
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<2>_UNCONNECTED ;
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<1>_UNCONNECTED ;
   wire \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/gf36e1_inst.sngfifo36e1_WRCOUNT<0>_UNCONNECTED ;
-  wire my_wr_rst_i;
+  wire [0 : 0] \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i ;
   assign
     full = NlwRenamedSig_OI_full,
     overflow = \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/OVERFLOW_22 ,
@@ -662,14 +662,14 @@ module BPI_FIFO (
   GND   XST_GND (
     .G(N1)
   );
-  reset_builtin_BPI_FIFO   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt  (
+  reset_builtin   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt  (
     .CLK(clk),
     .WR_CLK(N1),
     .RD_CLK(N1),
     .INT_CLK(N1),
     .RST(rst),
     .WR_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_WR_RST_I<1>_UNCONNECTED , 
-my_wr_rst_i}),
+\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]}),
     .RD_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_RD_RST_I<1>_UNCONNECTED , 
 \NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_RD_RST_I<0>_UNCONNECTED }),
     .INT_RST_I({\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/rstbt_INT_RST_I<1>_UNCONNECTED , 
@@ -680,7 +680,7 @@ my_wr_rst_i}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[4].gbldl.inst_prim/empty_q  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[4].gbldl.inst_prim/empty_fifo ),
-    .PRE(my_wr_rst_i),
+    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .Q(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[4].gbldl.inst_prim/empty_q_62 )
   );
   FIFO36E1 #(
@@ -714,7 +714,7 @@ my_wr_rst_i}),
 (\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[4].gbldl.inst_prim/gf36e1_inst.sngfifo36e1_RDERR_UNCONNECTED )
 ,
     .REGCE(N1),
-    .RST(my_wr_rst_i),
+    .RST(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .RSTREG(N1),
     .SBITERR(sbiterr),
     .WRCLK(clk),
@@ -986,7 +986,7 @@ my_wr_rst_i}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[2].gbldc.inst_prim/empty_q  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[2].gbldc.inst_prim/empty_fifo ),
-    .PRE(my_wr_rst_i),
+    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .Q(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[2].gbldc.inst_prim/empty_q_65 )
   );
   FIFO36E1 #(
@@ -1020,7 +1020,7 @@ my_wr_rst_i}),
 (\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[2].gbldc.inst_prim/gf36e1_inst.sngfifo36e1_RDERR_UNCONNECTED )
 ,
     .REGCE(N1),
-    .RST(my_wr_rst_i),
+    .RST(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .RSTREG(N1),
     .SBITERR(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/sbiterr_row<2> ),
     .WRCLK(clk),
@@ -1249,7 +1249,7 @@ my_wr_rst_i}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[3].gbldc.inst_prim/empty_q  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[3].gbldc.inst_prim/empty_fifo ),
-    .PRE(my_wr_rst_i),
+    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .Q(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[3].gbldc.inst_prim/empty_q_68 )
   );
   FIFO36E1 #(
@@ -1283,7 +1283,7 @@ my_wr_rst_i}),
 (\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[3].gbldc.inst_prim/gf36e1_inst.sngfifo36e1_RDERR_UNCONNECTED )
 ,
     .REGCE(N1),
-    .RST(my_wr_rst_i),
+    .RST(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .RSTREG(N1),
     .SBITERR(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/sbiterr_row<3> ),
     .WRCLK(clk),
@@ -1512,7 +1512,7 @@ my_wr_rst_i}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/empty_q  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/empty_fifo ),
-    .PRE(my_wr_rst_i),
+    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .Q(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/empty_q_71 )
   );
   FIFO36E1 #(
@@ -1546,7 +1546,7 @@ my_wr_rst_i}),
 (\NLW_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/gf36e1_inst.sngfifo36e1_RDERR_UNCONNECTED )
 ,
     .REGCE(N1),
-    .RST(my_wr_rst_i),
+    .RST(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .RSTREG(N1),
     .SBITERR(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/sbiterr_row<1> ),
     .WRCLK(clk),
@@ -1794,7 +1794,7 @@ din[4], din[3], din[2], din[1], din[0]}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[4].gbldl.inst_prim/empty_user  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[4].gbldl.inst_prim/empty_user_rstpot_306 ),
-    .PRE(my_wr_rst_i),
+    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .Q
 (\NlwRenamedSig_OI_U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[4].gbldl.inst_prim/empty_user )
   );
@@ -1803,7 +1803,7 @@ din[4], din[3], din[2], din[1], din[0]}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[2].gbldc.inst_prim/empty_user  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[2].gbldc.inst_prim/empty_user_rstpot_307 ),
-    .PRE(my_wr_rst_i),
+    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .Q(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[2].gbldc.inst_prim/empty_user_221 )
   );
   FDP #(
@@ -1811,7 +1811,7 @@ din[4], din[3], din[2], din[1], din[0]}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[3].gbldc.inst_prim/empty_user  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[3].gbldc.inst_prim/empty_user_rstpot_308 ),
-    .PRE(my_wr_rst_i),
+    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .Q(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[3].gbldc.inst_prim/empty_user_297 )
   );
   FDP #(
@@ -1819,7 +1819,7 @@ din[4], din[3], din[2], din[1], din[0]}),
   \U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/empty_user  (
     .C(clk),
     .D(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/empty_user_rstpot_309 ),
-    .PRE(my_wr_rst_i),
+    .PRE(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/wr_rst_i [0]),
     .Q(\U0/xst_fifo_generator/gconvfifo.rf/gbiv5.bi/v6_fifo.fblk/gextw[1].gnll_fifo.inst_extd/gchain.gp1[1].gbldc.inst_prim/empty_user_145 )
   );
   LUT4 #(

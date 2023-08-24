@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="BPI_FIFO">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2014-9-24T15:2:59</timestamp>
+    <timestamp>2023-4-21T19:26:1</timestamp>
     <pin polarity="Input" x="0" y="80" name="clk" />
     <pin polarity="Input" x="0" y="112" name="rst" />
     <pin polarity="Input" x="0" y="240" name="din[15:0]" />

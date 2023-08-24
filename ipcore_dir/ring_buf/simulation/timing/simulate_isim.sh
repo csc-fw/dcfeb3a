@@ -44,35 +44,23 @@
 # 
 # THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
 # PART OF THIS FILE AT ALL TIMES.
-set work work
 #--------------------------------------------------------------------------------
-mkdir work
 
 
-ncvlog -work work ../../implement/results/routed.v
+
+vlogcomp -work work ../../implement/results/routed.v
 
 echo "Compiling Test Bench Files"
 
-ncvhdl -v93 -work work    ../bmg_tb_pkg.vhd
-ncvhdl -v93 -work work    ../random.vhd
-ncvhdl -v93 -work work    ../data_gen.vhd
-ncvhdl -v93 -work work    ../addr_gen.vhd
-ncvhdl -v93 -work work    ../checker.vhd
-ncvhdl -v93 -work work    ../bmg_stim_gen.vhd
-ncvhdl -v93 -work work    ../ring_buf_synth.vhd 
-ncvhdl -v93 -work work    ../ring_buf_tb.vhd
+vhpcomp -work work    ../bmg_tb_pkg.vhd
+vhpcomp -work work    ../random.vhd
+vhpcomp -work work    ../data_gen.vhd
+vhpcomp -work work    ../addr_gen.vhd
+vhpcomp -work work    ../checker.vhd
+vhpcomp -work work    ../bmg_stim_gen.vhd
+vhpcomp -work work    ../ring_buf_synth.vhd 
+vhpcomp -work work    ../ring_buf_tb.vhd
 
-echo "Compiling SDF file"
-ncsdfc ../../implement/results/routed.sdf -output ./routed.sdf.X
+    fuse -L simprims_ver work.ring_buf_tb work.glbl -o ring_buf_tb.exe
 
-echo "Generating SDF command file"
-echo 'COMPILED_SDF_FILE = "routed.sdf.X",' > sdf.cmd
-echo 'SCOPE = :ring_buf_synth_inst:BMG_PORT,' >> sdf.cmd
-echo 'MTM_CONTROL = "MAXIMUM";' >> sdf.cmd
-
-
-echo "Elaborating Design"
-ncelab -access +rwc glbl -sdf_cmd_file sdf.cmd $work.ring_buf_tb
-
-echo "Simulating Design"
-ncsim -gui -input @"simvision -input wave_ncsim.sv" $work.ring_buf_tb
+./ring_buf_tb.exe -sdftyp /ring_buf_tb/ring_buf_synth_inst/bmg_port=../../implement/results/routed.sdf -gui -tclbatch simcmds.tcl
