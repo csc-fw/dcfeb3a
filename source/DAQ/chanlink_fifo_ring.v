@@ -306,7 +306,19 @@ begin : ClnkFrm_logic_TMR
 	(* syn_preserve = "true" *) reg mt_r3_1;
 	(* syn_preserve = "true" *) reg mt_r3_2;
 	(* syn_preserve = "true" *) reg mt_r3_3;
-
+	
+	//Added After L1A Checking
+	(* syn_preserve = "true" *) reg hdr_1_1;
+	(* syn_preserve = "true" *) reg hdr_1_2;
+	(* syn_preserve = "true" *) reg hdr_1_3;
+	(* syn_preserve = "true" *) reg serial_1;
+	(* syn_preserve = "true" *) reg serial_2;
+	(* syn_preserve = "true" *) reg serial_3;
+	(* syn_keep = "true" *) wire l1a_out_1;
+	(* syn_keep = "true" *) wire l1a_out_2;
+	(* syn_keep = "true" *) wire l1a_out_3;
+	//
+	
 	(* syn_keep = "true" *) wire vt_mlt_ovlp_1;
 	(* syn_keep = "true" *) wire vt_dvalid_1;
 	(* syn_keep = "true" *) wire [15:0] vt_dout_1;
@@ -368,14 +380,9 @@ begin : ClnkFrm_logic_TMR
 	(* syn_keep = "true" *) wire vt_mt_r2_2;
 	(* syn_keep = "true" *) wire vt_mt_r2_3;
 	(* syn_keep = "true" *) wire vt_mt_r3_1;
-
-	(* syn_keep = "true" *) reg serial_1;
-	(* syn_keep = "true" *) reg serial_2;
-	(* syn_keep = "true" *) reg serial_3;
-
-	(* syn_keep = "true" *) wire l1a_out_1;
-	(* syn_keep = "true" *) wire l1a_out_2;
-	(* syn_keep = "true" *) wire l1a_out_3;
+	(* syn_keep = "true" *) wire vt_hdr_1_1;
+	(* syn_keep = "true" *) wire vt_hdr_1_2;
+	(* syn_keep = "true" *) wire vt_hdr_1_3;
 	
 	assign vt_mlt_ovlp_1      = (mlt_ovlp_1      & mlt_ovlp_2     ) | (mlt_ovlp_2      & mlt_ovlp_3     ) | (mlt_ovlp_1      & mlt_ovlp_3     ); // Majority logic
 	assign vt_dvalid_1        = (dvalid_1        & dvalid_2       ) | (dvalid_2        & dvalid_3       ) | (dvalid_1        & dvalid_3       ); // Majority logic
@@ -438,6 +445,9 @@ begin : ClnkFrm_logic_TMR
 	assign vt_mt_r2_2         = (mt_r2_1         & mt_r2_2        ) | (mt_r2_2         & mt_r2_3        ) | (mt_r2_1         & mt_r2_3        ); // Majority logic
 	assign vt_mt_r2_3         = (mt_r2_1         & mt_r2_2        ) | (mt_r2_2         & mt_r2_3        ) | (mt_r2_1         & mt_r2_3        ); // Majority logic
 	assign vt_mt_r3_1         = (mt_r3_1         & mt_r3_2        ) | (mt_r3_2         & mt_r3_3        ) | (mt_r3_1         & mt_r3_3        ); // Majority logic
+	assign vt_hdr_1_1         = (hdr_1_1         & hdr_1_2        ) | (hdr_1_2         & hdr_1_3        ) | (hdr_1_1         & hdr_1_3        ); // Majority logic
+	assign vt_hdr_1_2         = (hdr_1_1         & hdr_1_2        ) | (hdr_1_2         & hdr_1_3        ) | (hdr_1_1         & hdr_1_3        ); // Majority logic
+	assign vt_hdr_1_3         = (hdr_1_1         & hdr_1_2        ) | (hdr_1_2         & hdr_1_3        ) | (hdr_1_1         & hdr_1_3        ); // Majority logic
 		
 	assign MLT_OVLP  = vt_mlt_ovlp_1;
 	assign DVALID    = vt_dvalid_1;
@@ -523,6 +533,9 @@ begin : ClnkFrm_logic_TMR
 		seq1_1       <= seq;
 		seq1_2       <= seq;
 		seq1_3       <= seq;
+		hdr_1_1       <= hdr;
+		hdr_1_2       <= hdr;
+		hdr_1_3       <= hdr;
 		mlt_ovlp1_1  <= movlp;
 		mlt_ovlp1_2  <= movlp;
 		mlt_ovlp1_3  <= movlp;
@@ -581,27 +594,41 @@ begin : ClnkFrm_logic_TMR
 	end
 
 	always @(posedge RCLK) begin
-		case(vt_seq1_1)
-			7'd96: frame_1 <= {1'b0,vt_crc_1};
-			7'd97: frame_1 <= 16'h700C;
-			7'd98: frame_1 <= {4'h7,l1anum[5:0],vt_l1abuf_1,WARN};
-			7'd99: frame_1 <= 16'h7FFF;
+		case({vt_hdr_1_1,vt_seq1_1})
+			{1'b1,7'd0}: frame_1 <= 16'hc4b4;
+			{1'b1,7'd1}: frame_1 <= {4'h0, l1anum[11:0]};
+			{1'b1,7'd2}: frame_1 <= {4'h0, l1anum[23:12]};
+			{1'b1,7'd3}: frame_1 <= 16'hc5b5;
+			{1'b0,7'd96}: frame_1 <= {1'b0,vt_crc_1};
+			{1'b0,7'd97}: frame_1 <= 16'h700C;
+			{1'b0,7'd98}: frame_1 <= {4'h7,l1anum[5:0],vt_l1abuf_1,WARN};
+			{1'b0,7'd99}: frame_1 <= 16'h7FFF;
 			default: frame_1 <= vt_fullwrd_1;
 		endcase
-		case(vt_seq1_2)
-			7'd96: frame_2 <= {1'b0,vt_crc_2};
-			7'd97: frame_2 <= 16'h700C;
-			7'd98: frame_2 <= {4'h7,l1anum[5:0],vt_l1abuf_2,WARN};
-			7'd99: frame_2 <= 16'h7FFF;
+		case({vt_hdr_1_2,vt_seq1_2})
+			{1'b1,7'd0}: frame_2 <= 16'hc4b4;
+			{1'b1,7'd1}: frame_2 <= {4'h0, l1anum[11:0]};
+			{1'b1,7'd2}: frame_2 <= {4'h0, l1anum[23:12]};
+			{1'b1,7'd3}: frame_2 <= 16'hc5b5;
+			{1'b0,7'd96}: frame_2 <= {1'b0,vt_crc_2};
+			{1'b0,7'd97}: frame_2 <= 16'h700C;
+			{1'b0,7'd98}: frame_2 <= {4'h7,l1anum[5:0],vt_l1abuf_2,WARN};
+			{1'b0,7'd99}: frame_2 <= 16'h7FFF;
 			default: frame_2 <= vt_fullwrd_2;
 		endcase
-		case(vt_seq1_3)
-			7'd96: frame_3 <= {1'b0,vt_crc_3};
-			7'd97: frame_3 <= 16'h700C;
-			7'd98: frame_3 <= {4'h7,l1anum[5:0],vt_l1abuf_3,WARN};
-			7'd99: frame_3 <= 16'h7FFF;
+		case({vt_hdr_1_3,vt_seq1_3})
+			{1'b1,7'd0}: frame_3 <= 16'hc4b4;
+			{1'b1,7'd1}: frame_3 <= {4'h0, l1anum[11:0]};
+			{1'b1,7'd2}: frame_3 <= {4'h0, l1anum[23:12]};
+			{1'b1,7'd3}: frame_3 <= 16'hc5b5;
+			{1'b0,7'd96}: frame_3 <= {1'b0,vt_crc_3};
+			{1'b0,7'd97}: frame_3 <= 16'h700C;
+			{1'b0,7'd98}: frame_3 <= {4'h7,l1anum[5:0],vt_l1abuf_3,WARN};
+			{1'b0,7'd99}: frame_3 <= 16'h7FFF;
 			default: frame_3 <= vt_fullwrd_3;
 		endcase
+		
+		
 		case(vt_seq1_1)
 			7'd96,7'd97,7'd98,7'd99: ovlp_frm_1 <= vt_ovlp_frm_1;
 			default: ovlp_frm_1 <= vt_ovlp_bit_1;
@@ -645,11 +672,11 @@ begin : ClnkFrm_logic
 	reg mt_r1;
 	reg mt_r2;
 	reg mt_r3;
+	//Added After L1A Checking
 	reg hdr_1_r;
 	reg serial;
-
 	wire l1a_out;
-
+	//
 		
 	assign MLT_OVLP  = mlt_ovlp_r;
 	assign DVALID    = dvalid_r;
@@ -743,6 +770,7 @@ begin : ClnkFrm_FSM_TMR
 	ChnLnk_Frame_SampMax_FSM_TMR 
 	ChnLnk_Frame_SampMax_FSM_i (
 		.CLR_CRC(clr_crc0),
+		.HDR(hdr),
 		.LAST_WRD(nxt_l1a),
 		.RD(nxt_wrd),
 		.SEQ(seq),

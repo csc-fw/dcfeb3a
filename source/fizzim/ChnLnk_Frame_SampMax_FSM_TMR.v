@@ -1,13 +1,14 @@
 
-// Created by fizzim_tmr.pl version $Revision: 4.44 on 2021:03:08 at 16:55:59 (www.fizzim.com)
+// Created by fizzim_tmr.pl version $Revision: 4.44 on 2023:09:11 at 13:49:13 (www.fizzim.com)
 
 module ChnLnk_Frame_SampMax_FSM_TMR (
   output CLR_CRC,
+  output HDR,
   output LAST_WRD,
   output RD,
   output wire [6:0] SEQ,
   output VALID,
-  output wire [2:0] FRM_STATE,
+  output wire [3:0] FRM_STATE,
   input CLK,
   input F_MT,
   input L1A_BUF_MT,
@@ -17,22 +18,23 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
 
   // state bits
   parameter 
-  Idle        = 3'b000, 
-  Inc_Samp    = 3'b001, 
-  Last_Word   = 3'b010, 
-  Read        = 3'b011, 
-  Strt_Sample = 3'b100, 
-  Tail        = 3'b101, 
-  Tail_End    = 3'b110, 
-  W4Data      = 3'b111; 
+  Idle        = 4'b0000, 
+  Inc_Samp    = 4'b0001, 
+  Last_Word   = 4'b0010, 
+  Read        = 4'b0011, 
+  Snd_Hdr     = 4'b0100, 
+  Strt_Sample = 4'b0101, 
+  Tail        = 4'b0110, 
+  Tail_End    = 4'b0111, 
+  W4Data      = 4'b1000; 
 
-  (* syn_preserve = "true" *) reg [2:0] state_1;
-  (* syn_preserve = "true" *) reg [2:0] state_2;
-  (* syn_preserve = "true" *) reg [2:0] state_3;
+  (* syn_preserve = "true" *) reg [3:0] state_1;
+  (* syn_preserve = "true" *) reg [3:0] state_2;
+  (* syn_preserve = "true" *) reg [3:0] state_3;
 
-  (* syn_keep = "true" *) wire [2:0] voted_state_1;
-  (* syn_keep = "true" *) wire [2:0] voted_state_2;
-  (* syn_keep = "true" *) wire [2:0] voted_state_3;
+  (* syn_keep = "true" *) wire [3:0] voted_state_1;
+  (* syn_keep = "true" *) wire [3:0] voted_state_2;
+  (* syn_keep = "true" *) wire [3:0] voted_state_3;
 
   assign voted_state_1    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
   assign voted_state_2    = (state_1    & state_2   ) | (state_2    & state_3   ) | (state_1    & state_3   ); // Majority logic
@@ -40,14 +42,17 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
 
   assign FRM_STATE = voted_state_1;
 
-  (* syn_keep = "true" *) reg [2:0] nextstate_1;
-  (* syn_keep = "true" *) reg [2:0] nextstate_2;
-  (* syn_keep = "true" *) reg [2:0] nextstate_3;
+  (* syn_keep = "true" *) reg [3:0] nextstate_1;
+  (* syn_keep = "true" *) reg [3:0] nextstate_2;
+  (* syn_keep = "true" *) reg [3:0] nextstate_3;
 
 
   (* syn_preserve = "true" *)  reg CLR_CRC_1;
   (* syn_preserve = "true" *)  reg CLR_CRC_2;
   (* syn_preserve = "true" *)  reg CLR_CRC_3;
+  (* syn_preserve = "true" *)  reg HDR_1;
+  (* syn_preserve = "true" *)  reg HDR_2;
+  (* syn_preserve = "true" *)  reg HDR_3;
   (* syn_preserve = "true" *)  reg LAST_WRD_1;
   (* syn_preserve = "true" *)  reg LAST_WRD_2;
   (* syn_preserve = "true" *)  reg LAST_WRD_3;
@@ -75,6 +80,7 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
 
   // Assignment of outputs and flags to voted majority logic of replicated registers
   assign CLR_CRC  = (CLR_CRC_1  & CLR_CRC_2 ) | (CLR_CRC_2  & CLR_CRC_3 ) | (CLR_CRC_1  & CLR_CRC_3 ); // Majority logic
+  assign HDR      = (HDR_1      & HDR_2     ) | (HDR_2      & HDR_3     ) | (HDR_1      & HDR_3     ); // Majority logic
   assign LAST_WRD = (LAST_WRD_1 & LAST_WRD_2) | (LAST_WRD_2 & LAST_WRD_3) | (LAST_WRD_1 & LAST_WRD_3); // Majority logic
   assign RD       = (RD_1       & RD_2      ) | (RD_2       & RD_3      ) | (RD_1       & RD_3      ); // Majority logic
   assign SEQ      = (SEQ_1      & SEQ_2     ) | (SEQ_2      & SEQ_3     ) | (SEQ_1      & SEQ_3     ); // Majority logic
@@ -90,19 +96,21 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
 
   // comb always block
   always @* begin
-    nextstate_1 = 3'bxxx; // default to x because default_state_is_x is set
-    nextstate_2 = 3'bxxx; // default to x because default_state_is_x is set
-    nextstate_3 = 3'bxxx; // default to x because default_state_is_x is set
+    nextstate_1 = 4'bxxxx; // default to x because default_state_is_x is set
+    nextstate_2 = 4'bxxxx; // default to x because default_state_is_x is set
+    nextstate_3 = 4'bxxxx; // default to x because default_state_is_x is set
     SEQ_1 = voted_seqn_1; // default
     SEQ_2 = voted_seqn_2; // default
     SEQ_3 = voted_seqn_3; // default
     case (voted_state_1)
-      Idle       : if (!L1A_BUF_MT)              nextstate_1 = W4Data;
+      Idle       : if (!L1A_BUF_MT)              nextstate_1 = Snd_Hdr;
                    else                          nextstate_1 = Idle;
       Inc_Samp   :                               nextstate_1 = W4Data;
       Last_Word  :                               nextstate_1 = Idle;
       Read       : if (voted_seqn_1 == 7'd95)    nextstate_1 = Tail;
                    else                          nextstate_1 = Read;
+      Snd_Hdr    : if (voted_seqn_1 == 7'd3)     nextstate_1 = W4Data;
+                   else                          nextstate_1 = Snd_Hdr;
       Strt_Sample:                               nextstate_1 = Read;
       Tail       : if (voted_seqn_1 == 7'd98)    nextstate_1 = Tail_End;
                    else                          nextstate_1 = Tail;
@@ -112,12 +120,14 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
                    else                          nextstate_1 = W4Data;
     endcase
     case (voted_state_2)
-      Idle       : if (!L1A_BUF_MT)              nextstate_2 = W4Data;
+      Idle       : if (!L1A_BUF_MT)              nextstate_2 = Snd_Hdr;
                    else                          nextstate_2 = Idle;
       Inc_Samp   :                               nextstate_2 = W4Data;
       Last_Word  :                               nextstate_2 = Idle;
       Read       : if (voted_seqn_2 == 7'd95)    nextstate_2 = Tail;
                    else                          nextstate_2 = Read;
+      Snd_Hdr    : if (voted_seqn_2 == 7'd3)     nextstate_2 = W4Data;
+                   else                          nextstate_2 = Snd_Hdr;
       Strt_Sample:                               nextstate_2 = Read;
       Tail       : if (voted_seqn_2 == 7'd98)    nextstate_2 = Tail_End;
                    else                          nextstate_2 = Tail;
@@ -127,12 +137,14 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
                    else                          nextstate_2 = W4Data;
     endcase
     case (voted_state_3)
-      Idle       : if (!L1A_BUF_MT)              nextstate_3 = W4Data;
+      Idle       : if (!L1A_BUF_MT)              nextstate_3 = Snd_Hdr;
                    else                          nextstate_3 = Idle;
       Inc_Samp   :                               nextstate_3 = W4Data;
       Last_Word  :                               nextstate_3 = Idle;
       Read       : if (voted_seqn_3 == 7'd95)    nextstate_3 = Tail;
                    else                          nextstate_3 = Read;
+      Snd_Hdr    : if (voted_seqn_3 == 7'd3)     nextstate_3 = W4Data;
+                   else                          nextstate_3 = Snd_Hdr;
       Strt_Sample:                               nextstate_3 = Read;
       Tail       : if (voted_seqn_3 == 7'd98)    nextstate_3 = Tail_End;
                    else                          nextstate_3 = Tail;
@@ -165,6 +177,9 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
       CLR_CRC_1 <= 0;
       CLR_CRC_2 <= 0;
       CLR_CRC_3 <= 0;
+      HDR_1 <= 0;
+      HDR_2 <= 0;
+      HDR_3 <= 0;
       LAST_WRD_1 <= 0;
       LAST_WRD_2 <= 0;
       LAST_WRD_3 <= 0;
@@ -174,9 +189,9 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
       VALID_1 <= 0;
       VALID_2 <= 0;
       VALID_3 <= 0;
-      seqn_1 <= 7'h00;
-      seqn_2 <= 7'h00;
-      seqn_3 <= 7'h00;
+      seqn_1 <= 7'h7f;
+      seqn_2 <= 7'h7f;
+      seqn_3 <= 7'h7f;
       smp_1 <= 7'h00;
       smp_2 <= 7'h00;
       smp_3 <= 7'h00;
@@ -185,6 +200,9 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
       CLR_CRC_1 <= 0; // default
       CLR_CRC_2 <= 0; // default
       CLR_CRC_3 <= 0; // default
+      HDR_1 <= 0; // default
+      HDR_2 <= 0; // default
+      HDR_3 <= 0; // default
       LAST_WRD_1 <= 0; // default
       LAST_WRD_2 <= 0; // default
       LAST_WRD_3 <= 0; // default
@@ -201,11 +219,19 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
       smp_2 <= voted_smp_2; // default
       smp_3 <= voted_smp_3; // default
       case (nextstate_1)
-        Idle       :        smp_1 <= 7'h00;
+        Idle       : begin
+                            seqn_1 <= 7'h7f;
+                            smp_1 <= 7'h00;
+        end
         Inc_Samp   :        smp_1 <= voted_smp_1 + 1;
         Last_Word  :        LAST_WRD_1 <= 1;
         Read       : begin
                             RD_1 <= 1;
+                            VALID_1 <= 1;
+                            seqn_1 <= voted_seqn_1 + 1;
+        end
+        Snd_Hdr    : begin
+                            HDR_1 <= 1;
                             VALID_1 <= 1;
                             seqn_1 <= voted_seqn_1 + 1;
         end
@@ -224,11 +250,19 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
         W4Data     :        CLR_CRC_1 <= 1;
       endcase
       case (nextstate_2)
-        Idle       :        smp_2 <= 7'h00;
+        Idle       : begin
+                            seqn_2 <= 7'h7f;
+                            smp_2 <= 7'h00;
+        end
         Inc_Samp   :        smp_2 <= voted_smp_2 + 1;
         Last_Word  :        LAST_WRD_2 <= 1;
         Read       : begin
                             RD_2 <= 1;
+                            VALID_2 <= 1;
+                            seqn_2 <= voted_seqn_2 + 1;
+        end
+        Snd_Hdr    : begin
+                            HDR_2 <= 1;
                             VALID_2 <= 1;
                             seqn_2 <= voted_seqn_2 + 1;
         end
@@ -247,11 +281,19 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
         W4Data     :        CLR_CRC_2 <= 1;
       endcase
       case (nextstate_3)
-        Idle       :        smp_3 <= 7'h00;
+        Idle       : begin
+                            seqn_3 <= 7'h7f;
+                            smp_3 <= 7'h00;
+        end
         Inc_Samp   :        smp_3 <= voted_smp_3 + 1;
         Last_Word  :        LAST_WRD_3 <= 1;
         Read       : begin
                             RD_3 <= 1;
+                            VALID_3 <= 1;
+                            seqn_3 <= voted_seqn_3 + 1;
+        end
+        Snd_Hdr    : begin
+                            HDR_3 <= 1;
                             VALID_3 <= 1;
                             seqn_3 <= voted_seqn_3 + 1;
         end
@@ -281,6 +323,7 @@ module ChnLnk_Frame_SampMax_FSM_TMR (
       Inc_Samp   : statename = "Inc_Samp";
       Last_Word  : statename = "Last_Word";
       Read       : statename = "Read";
+      Snd_Hdr    : statename = "Snd_Hdr";
       Strt_Sample: statename = "Strt_Sample";
       Tail       : statename = "Tail";
       Tail_End   : statename = "Tail_End";
